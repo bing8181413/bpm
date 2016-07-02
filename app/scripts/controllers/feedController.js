@@ -8,7 +8,7 @@ define(['./controllers'
         var feedscope = $scope;
         $scope.tab = 1;
         $scope.list_param = {};
-        $scope.list_param.count = 10;
+        $scope.list_param.count = 20;
         $scope.list_param.page = 1;
         $scope.list_param.status = 1;
         var list_url = simpleCons.domain + '/manage/plat/feed_list';

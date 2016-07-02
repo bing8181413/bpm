@@ -2,8 +2,6 @@ define([
     '../directives/directives',
     '../cons/simpleCons'
 ], function (mod, simpleCons) {
-    //  1 : community  排除小区 包括小区 全部小区
-
     mod
         // <show_image url=""></show_image>
         .directive('showImage', function ($state, $rootScope, $templateCache, $modal) {

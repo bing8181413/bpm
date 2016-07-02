@@ -11,7 +11,10 @@ define([
         communityupdateController.$injector = ['$scope', '$http', '$rootScope', '$modal', 'FileUploader', '$stateParams', '$state', 'widget'];
         communityaddController.$injector = ['$scope', '$http', '$rootScope', '$modal', 'FileUploader', '$stateParams', '$state', 'widget'];
         function communityController($scope, $http, $rootScope, $modal, FileUploader, $stateParams, $state, widget) {
-            $scope.list_param = {page: 1, count: 20};
+            $scope.list_param = {page: 1, count: 20, poi_type: null};
+            // if ($stateParams.mycommunity == 1) {
+            //     $scope.list_param.account_id = $rootScope.hjm.account_id;
+            // }
             //$scope.list_param.keyword = $rootScope.search;
             var list_url = simpleCons.domain + '/manage/community/list';
             $scope.getapi = function (page) {
@@ -20,8 +23,8 @@ define([
                 $http.post(list_url, $scope.list_param)
                     .success(function (json) {
                         if (json.code == 0) {
-                            $scope.community_list = json.data.community_list;
-                            $scope.totalItems = json.data.community_count;
+                            $scope.community_list = json.data.list;
+                            $scope.totalItems = json.data.count;
                             $scope.itemsPerPage = $scope.list_param.count;
                             $scope.currentPage = page ? page : $scope.list_param.page;
                             $scope.maxSize = '5';
@@ -40,10 +43,7 @@ define([
         };
         function communityupdateController($scope, $http, $rootScope, $modal, FileUploader, $stateParams, $state, widget) {
             //$rootScope.loading = 1;
-            //$scope.loading_text = '加载中...';
-            // $scope.callback = function (foo) {
-            //     console.log(foo||'ahahaha');
-            // }
+            console.log($stateParams);
             $scope.isshowmap = false;
             $scope.callback = 0;
             $scope.add = function () {
@@ -60,7 +60,8 @@ define([
                 .success(function (json) {
                     if (json.code == 0) {
                         //$scope.communityupdate = json.data;
-                        $scope.community_param = json.data.community_info;
+                        console.log($scope.community_param);
+                        $scope.community_param = json.data;
                         //console.log($scope.activity);
                         $scope.init();
                     } else {
@@ -69,9 +70,11 @@ define([
                 });
             $scope.init = function () {
                 $scope.community = {};
-                //$scope.communityupdate_param = {
-                //
-                //}
+                // 删除不提交的数据
+                delete $scope.community_param.first_letter;
+                delete $scope.community_param.letter_spell;
+                delete $scope.community_param.created_at;
+                delete $scope.community_param.updated_at;
                 $scope.ok = function () {
                     var param_tmp = 0;
                     var url = simpleCons.domain + '/manage/community/update';
@@ -117,71 +120,7 @@ define([
                             }
                         });
                 }
-                //$scope.initcomplate = function () {
-                //    //var BMap = BaiduMap.load();
-                //    //console.log(BMap);
-                //    var map = new BMap.Map("baidumap");
-                //    var point = new BMap.Point($scope.community_param.longitude, $scope.community_param.latitude);
-                //    map.centerAndZoom(point, 8);
-                //    //map.centerAndZoom(new BMap.Point(116.404, 39.915), 13);
-                //    //map.centerAndZoom("北京", 12);
-                //    //添加带有定位的导航控件
-                //    //var navigationControl = new BMap.NavigationControl({
-                //    //    // 靠左上角位置
-                //    //    anchor: BMAP_ANCHOR_TOP_LEFT,
-                //    //    // LARGE类型
-                //    //    type: BMAP_NAVIGATION_CONTROL_LARGE,
-                //    //    // 启用显示定位
-                //    //    enableGeolocation: true
-                //    //});
-                //    //map.addControl(navigationControl);
-                //    setTimeout(function () {
-                //        map.setZoom(16);
-                //    }, 3000);  //3秒后放大到16级
-                //    map.enableScrollWheelZoom(true);//可以滚动放大缩小
-                //    var size = new BMap.Size(10, 20);
-                //    map.addControl(new BMap.CityListControl({
-                //        anchor: BMAP_ANCHOR_TOP_RIGHT,
-                //        offset: size,
-                //        onChangeBefore: function () {
-                //        },
-                //        onChangeAfter: function () {
-                //        }
-                //    }));
-                //    var marker = new BMap.Marker(point);  // 创建标注
-                //    map.addOverlay(marker);
-                //    marker.setAnimation(BMAP_ANIMATION_BOUNCE);
-                //    map.addEventListener("click", function (e) {
-                //        map.removeOverlay(marker);
-                //        marker = new BMap.Marker(e.point);
-                //        map.addOverlay(marker);
-                //        marker.setAnimation(BMAP_ANIMATION_BOUNCE);
-                //        $scope.$apply(function () {
-                //            $scope.community_param.longitude = e.point.lng;
-                //            $scope.community_param.latitude = e.point.lat;
-                //        });
-                //    });
-                //}
-                //$scope.initcomplate();
             }
-            //  获取地理位置信息 传入地址
-            //$scope.getlocation = function () {
-            //    //$scope.initcomplate()
-            //    //return false;
-            //    widget.get_baidu_location($scope.community_param.address, $scope.community_param.city_name, function (json) {
-            //        if (json.status == 0) {
-            //            if (json.result.length == 0) {
-            //                $scope.community_param.longitude = '';
-            //                $scope.community_param.latitude = ''
-            //                widget.msgToast('在' + $scope.community_param.city_name + '未查询到' + $scope.community_param.address);
-            //            } else {
-            //                $scope.community_param.longitude = json.result[0].location.lng;
-            //                $scope.community_param.latitude = json.result[0].location.lat;
-            //                $scope.community_param.address = json.result[0].name;
-            //            }
-            //        }
-            //    });
-            //}
         }
 
         function communityaddController($scope, $http, $rootScope, $modal, FileUploader, $stateParams, $state, widget) {

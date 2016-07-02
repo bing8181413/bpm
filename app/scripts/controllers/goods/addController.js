@@ -65,11 +65,11 @@ define([
             category: 3,
             product_id: 0,
             post_user_id: 0,
-            extra_data:{//  新增的额外的值 给php
-                utm_channel:'',
-                commodity_remark:'',
-                sku:1,
-                commodity_type:1,
+            extra_data: {//  新增的额外的值 给php
+                utm_channel: '',
+                commodity_remark: '',
+                sku: 1,
+                commodity_type: 1,
                 unit: ' ',// 单位、
             }
         };
@@ -80,25 +80,33 @@ define([
                 new: []
             }
         }
+        // // 8张封面图片
+        // $scope.get_pics_info = function () {
+        //     $scope.tmp_pics_info = [];
+        //     angular.forEach($scope.tuanadd.activity_pics, function (val, key) {
+        //         if (val.url) {
+        //             $scope.tmp_pics_info.push({pic_url: val.url, pic_width: val.width, pic_height: val.height});
+        //         }
+        //     });
+        //     $scope.tuanadd_param.activity_pics = JSON.stringify($scope.tmp_pics_info);
+        // }
         // 8张封面图片
-        $scope.get_pics_info = function () {
-            $scope.tmp_pics_info = [];
-            angular.forEach($scope.tuanadd.activity_pics, function (val, key) {
+        $scope.get_pics = function (pic_obj) {
+            $scope.tmp_pics_list = [];
+            $scope.tmp_list = $scope.$eval('tuanadd.' + pic_obj);
+            angular.forEach($scope.tmp_list, function (val, key) {
                 if (val.url) {
-                    $scope.tmp_pics_info.push({pic_url: val.url, pic_width: val.width, pic_height: val.height});
+                    $scope.tmp_pics_list.push({pic_url: val.url, pic_width: val.width, pic_height: val.height});
+                } else {
+                    widget.msgToast('图片没有上传成功,请重新上传或者换一张图片');
+                    return false;
                 }
             });
-            $scope.tuanadd_param.activity_pics = JSON.stringify($scope.tmp_pics_info);
-        }
-        // 8张封面图片
-        $scope.get_small_pics_info = function () {
-            $scope.tmp_small_pics_info = [];
-            angular.forEach($scope.tuanadd.activity_small_pics, function (val, key) {
-                if (val.url) {
-                    $scope.tmp_small_pics_info.push({pic_url: val.url, pic_width: val.width, pic_height: val.height});
-                }
-            });
-            $scope.tuanadd_param.activity_small_pics = JSON.stringify($scope.tmp_small_pics_info);
+            if (pic_obj == 'activity_pics') {
+                $scope.tuanadd_param.activity_pics = JSON.stringify($scope.tmp_pics_list);
+            } else if (pic_obj == 'activity_small_pics') {
+                $scope.tuanadd_param.activity_small_pics = JSON.stringify($scope.tmp_pics_list);
+            }
         }
         // selelct community
         $scope.get_community = function () {
@@ -167,8 +175,9 @@ define([
                 $scope.tuanadd_param.status = 1;
             }
             var err = 0
-            $scope.get_pics_info();
-            $scope.get_small_pics_info();
+            // $scope.get_pics_info();
+            $scope.get_pics('activity_pics');
+            $scope.get_pics('activity_small_pics');
             $scope.get_community();
             $scope.get_contents();
             $scope.get_option_info();
@@ -230,7 +239,7 @@ define([
                 $scope.tuanadd_param.is_pinned = 0;
             }
             //console.log($scope.tuanadd);
-            console.log($scope.tuanadd_param);
+            // console.log($scope.tuanadd_param);
             //return false;
             if (err > 0) {
                 return false;

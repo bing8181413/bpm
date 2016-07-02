@@ -158,7 +158,7 @@
                         <select class="form-control"
                                 ng-change="getapi();"
                                 ng-model="selected.account_id"
-                                ng-options="account.account_id as account.username for account in account_list">
+                                ng-options="account.account_id as account.username for account in account_list | filter:{role:'op'}">
                             <option value="" disabled="true">请选择联系人账户</option>
                         </select>
                     </li>
@@ -219,12 +219,13 @@
                     <td><span class="msg_title" bo-text="item.activity_id"></span></td>
                     <td><span class="msg_title" bo-text="item.city_name"></span></td>
                     <td><span class="msg_title" bo-text="item.admin_remark"></span></td>
-                    <td><span class="msg_title span150"  bo-text="item.activity_title"></span></td>
+                    <td><span class="msg_title span150" bo-text="item.activity_title"></span></td>
                     <td><span class="msg_title" bo-text="item.group_days+'天'"></span></td>
                     <td><span class="msg_title" bo-text="item.group_min_num"></span></td>
                     <td>
                         <span class="msg_title" bo-text="'不限制'" ng-if="item.restricted_inventory==0"></span>
-                        <span class="msg_title" bo-text="item.option.origin_inventory" ng-if="item.restricted_inventory==1"></span>
+                        <span class="msg_title" bo-text="item.option.origin_inventory"
+                              ng-if="item.restricted_inventory==1"></span>
                     </td>
                     <td>
                         <span class="msg_title" ng-if="item.accomplish_stat"
@@ -245,8 +246,8 @@
                     <td>
                         <span class="msg_title" bo-text="item.paied_stat.count"></span>
                         <!--<a class="btn btn-info" ng-if="item.paied_stat"-->
-                           <!--ng-click="user_list(item.activity_id,item.activity_title,$index);">-->
-                            <!--<span class="msg_title" bo-text="item.paied_stat.count"></span>-->
+                        <!--ng-click="user_list(item.activity_id,item.activity_title,$index);">-->
+                        <!--<span class="msg_title" bo-text="item.paied_stat.count"></span>-->
                         <!--</a>-->
                     </td>
                     <td>

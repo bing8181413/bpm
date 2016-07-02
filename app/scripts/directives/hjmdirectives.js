@@ -247,10 +247,10 @@ define([
                 '<input type="text" class="form-control" ng-model="obj.name" ng-change="setval()" ng-disabled="obj.option_id">' +
                 '</td>' +
                 '<td>' +
-                '<input type="number" class="form-control" ng-model="obj.price" ng-change="setval()" >' +
+                '<input type="number" class="form-control" ng-model="obj.price" step="0.01" ng-change="setval()" >' +
                 '</td>' +
                 '<td>' +
-                '<input type="number" class="form-control" ng-model="obj.origin_price" ng-change="setval()"  ng-disabled="category == 1">' +
+                '<input type="number" class="form-control" ng-model="obj.origin_price" step="0.01" ng-change="setval()"  ng-disabled="category == 1">' +
                 '</td>' +
                 '<td ng-show="noinventory==0">' +
                 '<input type="number" class="form-control"ng-model="obj.origin_inventory"ng-disabled="inventory==0" ng-change="setval()">' +

@@ -1,11 +1,11 @@
 define(['./services', '../cons/simpleCons'], function (mod, simpleCons) {
     mod
-
         .run(['$rootScope', '$state', '$stateParams', '$http', '$modal', '$location', 'widget',
             function ($rootScope, $state, $stateParams, $http, $modal, $location, widget) {
+                // $compileProvider.debugInfoEnabled(true);
                 // 监听路由事件
                 $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-                    //console.log(event, toState, toParams, fromState, fromParams);
+                    // console.log(event, toState, toParams, fromState, fromParams);
                     // 路由改变 初始化 search
                     //初始化每次的 公共查询方法
                     $rootScope.searchkeyword = angular.noop();
@@ -31,13 +31,17 @@ define(['./services', '../cons/simpleCons'], function (mod, simpleCons) {
                 $rootScope.getaccount_times = 0;
                 // 获取account_list
                 $rootScope.get_account_list = function () {
+
+
+
+                    return false;
                     if ($rootScope.getaccount_times > 1) {
                         widget.msgToast('未获取到账户信息，请尝试 Ctrl+F5 刷新页面获取最新数据。');
                         return false;
                     }
                     $rootScope.getaccount_times++;
                     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
-                        $http.post(account_list_url, {count: 1000, role: 'op'})
+                        $http.post(account_list_url, {count: 1000, role: 'op,majia'})
                             .success(function (json) {
                                 if (json.code == 0) {
                                     json.data.unshift({
@@ -45,8 +49,7 @@ define(['./services', '../cons/simpleCons'], function (mod, simpleCons) {
                                         city_name: "",
                                         email: "",
                                         mobile: "",
-                                        //module_list: "",
-                                        role: "",
+                                        role: "op",
                                         username: "全部联系人"
                                     })
                                     // account_list 用于可用的负责人列表 不可删除
@@ -65,18 +68,6 @@ define(['./services', '../cons/simpleCons'], function (mod, simpleCons) {
                     }
                 }
                 $rootScope.get_account_list();
-                // 登出
-                $rootScope.logout = function () {
-                    $http.defaults.headers.common.Authorization = '';
-                    delete $rootScope.hjm;
-                    delete $rootScope.selected;
-                    delete $rootScope.login_account;
-                    //$rootScope.account_id = '';
-                    //$rootScope.current_city_name = '';
-                    localStorage.clear();
-                    $rootScope.$state.go('login');
-                }
-
             }
         ])
         .factory('widget', function ($q,
@@ -148,7 +139,7 @@ define(['./services', '../cons/simpleCons'], function (mod, simpleCons) {
                         timeout: 15000
                     };
 
-                    $rootScope.loading = true;
+                    // $rootScope.loading = true;
                     $http(ajaxConfig).success(function (res) {
                         if (res.code == 0) {
                             if (typeof options.success === 'function') {
@@ -161,14 +152,14 @@ define(['./services', '../cons/simpleCons'], function (mod, simpleCons) {
                                 self.msgToast(res.msg);
                             }
                         }
-                        $rootScope.loading = false;
+                        // $rootScope.loading = false;
                     }).error(function (err) {
                         if (options.error && typeof options.error === 'function') {
                             options.error(err);
                         } else {
                             self.msgToast('网络错误，请稍候再试');
                         }
-                        $rootScope.loading = false;
+                        // $rootScope.loading = false;
                     });
                 },
 

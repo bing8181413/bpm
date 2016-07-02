@@ -35,6 +35,12 @@ define([
             case "4":
                 $scope.categoryname = "拼团";
                 break;
+            case "5":
+                $scope.categoryname = "发现";
+                break;
+            case "6":
+                $scope.categoryname = "服务号首页";
+                break;
         }
         $rootScope.bannerObj = angular.extend($rootScope.bannerObj, {});
         if ($rootScope.bannerObj.include_ids == '' && $rootScope.bannerObj.exclude_ids == '') {
@@ -222,6 +228,12 @@ define([
             case "4":
                 $scope.categoryname = "拼团";
                 break;
+            case "5":
+                $scope.categoryname = "发现";
+                break;
+            case "6":
+                $scope.categoryname = "服务号首页";
+                break;
         }
         $scope.default_param = {url: 0, activity_id: 0, topic_id: 0};
         // 改变消息跳转页面 的事件
@@ -313,7 +325,7 @@ define([
                     err++;
                 }
             });
-            console.log($scope.bannerAdd_param);
+            // console.log($scope.bannerAdd_param);
             //console.log($scope.bannerAdd_param);
             //return false;
             if (err > 0) {
@@ -357,6 +369,12 @@ define([
                 break;
             case "4":
                 $scope.categoryname = "拼团";
+                break;
+            case "5":
+                $scope.categoryname = "发现";
+                break;
+            case "6":
+                $scope.categoryname = "服务号首页";
                 break;
         }
         $scope.list_param.keyword = $rootScope.search;

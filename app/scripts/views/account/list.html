@@ -1,22 +1,22 @@
 <div class="container-fluid">
     <div class="panel panel-primary">
         <div class="panel-heading">负责人列表</div>
-        <!--<div class="panel-body ">-->
-        <!--<div class="panel">-->
-        <!--<div class="panel-heading">-->
-        <!--<a class="btn btn-info" ng-click="$state.go('account.add');">新增负责人</a>-->
-        <!--</div>-->
-        <!--<br/>-->
-        <!--</div>-->
-        <!--</div>-->
+        <div class="panel-body ">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('account.add');">新增负责人</a>
+                </div>
+                <br/>
+            </div>
+        </div>
         <div class="panel-body">
             <table class="table table-hover table-bordered">
                 <thead>
                 <th style="width: 50px;">ID</th>
                 <th style="width: 100px;">负责人姓名</th>
-                <th style="width: 100px;">回家么账号</th>
+                <th style="width: 100px;">手机号码</th>
                 <th style="width: 75px;">负责城市</th>
-                <th style="width:100px;">微信二维码</th>
+                <th style="width: 100px;">微信二维码</th>
                 <th style="width: 100px;">微信昵称</th>
                 <th style="width: 100px;">角色</th>
                 <th style="width: 100px;">备注</th>
@@ -46,6 +46,8 @@
                     <td>
                         <a class="btn btn-primary"
                            ng-click="redirect2update(item);">编辑</a>
+                        <a class="btn btn-warning"
+                           ng-click="resetpwd(item.account_id);">重置密码</a>
                     </td>
                 </tr>
                 </tbody>

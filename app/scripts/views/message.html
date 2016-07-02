@@ -97,14 +97,10 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <div class="col-sm-3 col-sm-offset-9 ">
-                    <button class="btn btn-success pull-right" ng-click="ok()">回复</button>
-                </div>
-            </div>
         </form>
     </div>
     <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">回复</button>
         <button class="btn btn-warning" ng-click="cancel()">关闭</button>
     </div>
 </script>
@@ -142,7 +138,7 @@
                     ng-init="feedback.index = $index">
                     <td><span bo-text="feedback.feedback_id"></span></td>
                     <td>
-                        <div class="img_avart">
+                        <div class="img_avart" ng-if="feedback.user.avatar">
                             <img class="img-responsive" bo-src="feedback.user.avatar">
                         </div>
                         <div class="user_name">

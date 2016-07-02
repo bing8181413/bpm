@@ -4,14 +4,13 @@ define([
 ], function (mod, simpleCons) {
 
     mod
-    //<menu></menu>
-        .directive('menu', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
+        .directive('sideMenu', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
             return {
-                restrict: 'E',
+                restrict: 'EA',
                 replace: true,
                 //require: '?ngModel',
                 scope: {},
-                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'menu.html'),
+                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'side-left/side-menu.html'),
                 link: function ($scope, $element, $attrs) {
                     $scope.tab_sm = false;
                     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
@@ -44,7 +43,7 @@ define([
                                     val.open = false;
                                 }
                             });
-                            console.log($scope.menus);
+                            // console.log($scope.menus);
                         } else {
                             if (!$rootScope.hjm || Object.hasOwnProperty($rootScope.hjm).length < 1) {
                                 if (toState.name != 'login') {
@@ -71,7 +70,18 @@ define([
                 }
             };
         })
+        .directive('sideWidgets', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
+            return {
+                restrict: 'EA',
+                replace: true,
+                //require: '?ngModel',
+                scope: {},
+                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'side-left/side-widgets.html'),
+                link: function ($scope, $element, $attrs) {
 
+                }
+            };
+        })
 
 })
 ;

@@ -75,6 +75,7 @@
                     <th>编号</th>
                     <th>订单号</th>
                     <th>所在小区</th>
+                    <th>配送备注</th>
                     <th>详细地址</th>
                     <th>报名品类</th>
                     <th>价格</th>
@@ -100,6 +101,11 @@
                         <!--<td><span class="msg_title" bo-text="user.mobile"></span></td> -->
                         <td><span class="msg_title" bo-text="user.community_name"></span></td>
                         <td>
+                            <span class="msg_title" bo-text="'配送时间：'+user.send_day"></span><br>
+                            <span class="msg_title" bo-text="'备注：'+user.remark"></span><br>
+                        </td>
+                        <td>
+                            <span class="msg_title" bo-text="'城市：'+user.city_name"></span><br>
                             <span class="msg_title" bo-text="'联系人：'+user.contact_name"></span><br>
                             <span class="msg_title" bo-text="'联系人电话：'+user.contact_mobile"></span><br>
                             <span class="msg_title" bo-text="'联系地址：'+user.contact_address"></span>

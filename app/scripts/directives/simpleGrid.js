@@ -127,8 +127,8 @@ define(['./aliyunCommonDirectives', 'angular', './aliyunConsolePagination', 'bin
 
       var showPageGotoEle = '';
       if(config.paginationInfo){
-        var showPageGoto = config.paginationInfo.showPageGoto;
-        if(showPageGoto){
+        var showPageGoto = config.paginationInfo.showPageGoto;{
+        if(showPageGoto)
           showPageGotoEle = ' show-page-goto="'+ config.paginationInfo.showPageGoto + '" ';
         }
       }

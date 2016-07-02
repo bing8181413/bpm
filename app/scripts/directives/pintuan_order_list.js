@@ -34,6 +34,7 @@ define([
                                     $scope.list_param.activity_id = sup_scope.option.activity_id;
                                     $scope.list_param.community_id = sup_scope.option.community ? sup_scope.option.community.community_id : 0;
                                     $scope.list_param.activity_title = sup_scope.option.activity_title || '';
+                                    $scope.list_param.new_search = 1;
                                     // var list_url = simpleCons.domain + '/manage/tuan/order_list';
                                     var list_url = simpleCons.domain + '/manage/order/list';
                                     $scope.list_param.page = page ? page : $scope.list_param.page;
@@ -47,7 +48,7 @@ define([
                                                 $scope.maxSize = '5';
                                                 $scope.numPages = '';
                                                 $scope.order_status = '100';
-                                                $scope.csvHeader = ['编号', '订单号', '所在小区', '联系人', '电话', '地址', '报名品类', '价格', '份数', '支付金额', '当前状态', '订单时间'];
+                                                $scope.csvHeader = ['编号', '订单号', '所在小区', '联系人', '电话', '地址', '报名品类', '价格', '份数', '支付金额', '当前状态', '订单时间','备注'];
                                                 $scope.out = function () {
                                                     $scope.csv_data = [];
                                                     $scope.excel_data = [];
@@ -58,6 +59,7 @@ define([
                                                             $scope.csv_data.push({
                                                                 '编号': value.idx,
                                                                 '订单号': value.order_id,
+                                                                '城市': value.city_name,
                                                                 '所在小区': value.community_name,
                                                                 '联系人': value.contact_name,
                                                                 '电话': value.contact_mobile,
@@ -67,11 +69,13 @@ define([
                                                                 '份数': value.order_count,
                                                                 '支付金额': value.order_price,
                                                                 '当前状态': $filter('order_status')(value.order_status),
-                                                                '订单时间': $filter('limitTo')(value.order_time, 19)
+                                                                '订单时间': $filter('limitTo')(value.order_time, 19),
+                                                                '备注':'配送时间:'+value.send_day+'/备注:'+value.remark
                                                             });
                                                             $scope.excel_data.push([
                                                                 value.idx,
                                                                 value.order_id,
+                                                                value.city_name,
                                                                 value.community_name,
                                                                 value.contact_name,
                                                                 value.contact_mobile,
@@ -81,11 +85,12 @@ define([
                                                                 value.order_count,
                                                                 value.order_price,
                                                                 $filter('order_status')(value.order_status),
-                                                                $filter('limitTo')(value.order_time, 19)
+                                                                $filter('limitTo')(value.order_time, 19),
+                                                                value.send_day+'/'+value.remark
                                                             ]);
                                                         }
                                                     });
-                                                    $scope.excel_data.unshift(['排序', '订单号', '所在小区', '联系人', '电话', '地址', '报名品类', '价格', '份数', '支付金额', '当前状态', '订单时间']);
+                                                    $scope.excel_data.unshift(['排序', '订单号', '城市', '所在小区', '联系人', '电话', '地址', '报名品类', '价格', '份数', '支付金额', '当前状态', '订单时间','备注']);
                                                 }
                                                 // 切换状态
                                                 $scope.select_status = function () {

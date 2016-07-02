@@ -5,9 +5,9 @@ define([
     //  1 : community  排除小区 包括小区 全部小区
 
     mod
-        // <select_city city_list="" city_name=""></select_city>
-        // city_list 保存的是  '上海,北京,厦门' 或者'' 这种格式的 需要转化为 array 再处理
-        // city_name 保存的是  '上海' 或者''
+    // <select_city city_list="" city_name=""></select_city>
+    // city_list 保存的是  '上海,北京,厦门' 或者'' 这种格式的 需要转化为 array 再处理
+    // city_name 保存的是  '上海' 或者''
         .directive('selectCity', function ($state, $rootScope, $templateCache, $modal) {
             return {
                 restrict: 'E',
@@ -19,11 +19,17 @@ define([
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'select_city.html'),
                 link: function ($scope, $element, $attrs) {
-                    $scope.all_citys = [
-                        {name: '上海'},
-                        {name: '北京'},
-                        {name: '厦门'}
-                    ];
+                    // $scope.all_citys = [
+                    //     {name: '上海'},
+                    //     {name: '北京'},
+                    //     {name: '厦门'}
+                    // ];
+                    $scope.all_citys = [];
+                    if ($rootScope.hjm.pubData.open_citys) {
+                        angular.forEach($rootScope.hjm.pubData.open_citys, function (val, key) {
+                            $scope.all_citys.push({name: val});
+                        });
+                    }
                     $scope.selected_list = [];
                     $scope.init = function () {
                         if ($scope.city_list && $scope.city_list.split(',').length > 0) {

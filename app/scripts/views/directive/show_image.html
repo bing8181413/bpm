@@ -1,20 +1,8 @@
 <div>
-    <a class="btn btn-info" ng-click="show();" ng-if="url">查看图片</a>
-
-    <div ng-hide="true">
-        <img ng-src="{{url}}" alt="">
+    <div ng-click="show();" ng-if="url">
+        <img class="img-responsive pointer hjm_image_radius" ng-src="{{url}}" alt="">
     </div>
     <script type="text/ng-template" id="show.html">
-        <!--<div class="modal-header">-->
-        <!--<h3 class="modal-title">展示图片</h3>-->
-        <!--</div>-->
-        <div class="modal-body">
-            <!--<form class="form-horizontal">-->
-            <img class="img-responsive center-block img-thumbnail" ng-src="{{url}}">
-            <!--</form>-->
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-warning" ng-click="cancel()">关闭</button>
-        </div>
+        <img class="img-responsive center-block hjm_image_radius" ng-src="{{url}}">
     </script>
 </div>

@@ -35,7 +35,7 @@ define([
                 $scope.param = {
                     account_id: account.account_id,
                     city_name: account.city_name,
-                    city_list:account.city_list,
+                    city_list: account.city_list,
                     mobile: account.mobile,
                     email: account.email,
                     weixin_nickname: account.weixin_nickname,
@@ -68,6 +68,11 @@ define([
             //    $scope.err++;
             //    return false;
             //}
+            if (!$scope.param.mobile) {
+                widget.msgToast('请填写手机号码');
+                $scope.err++;
+                return false;
+            }
             if (!$scope.param.type) {
                 widget.msgToast('请选择一个角色');
                 $scope.err++;
@@ -80,8 +85,7 @@ define([
             }
             //console.log($scope.param);
             //return false;
-            var update_url = simpleCons.domain + '/manage/account/update';
-            $http.post(update_url, $scope.param)
+            $http.post(simpleCons.api.update_account, $scope.param)
                 .success(function (json) {
                     if (json.code == 0) {
                         alert('更新成功！');

@@ -69,7 +69,7 @@ define([
             url: '/qiniu/controller.php?action=uploadimage'
         });
         var sup_scope = $scope;
-    //, good_type: 1
+        //, good_type: 1
         $scope.list_param = {page: 1, count: 20};
         $scope.list_param.keyword = $scope.search;
         var list_url = simpleCons.domain + '/manage/credit/good/list';
@@ -136,9 +136,7 @@ define([
     function creditAddController($scope, $http, $rootScope, $modal, FileUploader, $state, $stateParams) {
         var sup_scope = $scope;
         $scope.tiaozhuan = function () {
-            if (confirm('确定放弃编辑进入列表吗?')) {
-                $state.go('credit');
-            }
+            $state.go('credit');
         }
         $scope.city_names = ['昆明', '上海'];
         var uploader = $scope.uploader = new FileUploader({
@@ -231,13 +229,13 @@ define([
             } else {
                 $scope.creditAdd_param.image = uploader.queue[0].qiniu_url;
             }
-            if (!$scope.ueobj.getContent()) {
-                param_tmp++;
-                $scope.addAlert('请填写发布的内容');
-                return false;
-            } else {
-                $scope.creditAdd_param.detail = $scope.ueobj.getContent();
-            }
+            // if (!$scope.ueobj.getContent()) {
+            //     param_tmp++;
+            //     $scope.addAlert('请填写发布的内容');
+            //     return false;
+            // } else {
+            //     $scope.creditAdd_param.detail = $scope.ueobj.getContent();
+            // }
             //console.log($scope.creditAdd_param);
             if (param_tmp > 0) {
                 return false;
@@ -397,7 +395,7 @@ define([
             };
         }
         $scope.save = function () {
-            console.log($scope.creditUpdate_param);
+            // console.log($scope.creditUpdate_param);
             var param_tmp = 0;
             angular.forEach($scope.creditUpdate_param, function (value, key) {
                 eval('$scope.creditUpdate.' + key + '=0')
@@ -420,13 +418,13 @@ define([
             //} else {
             //    $scope.creditUpdate_param.image = uploader.queue[0].qiniu_url;
             //}
-            if (!$scope.ueobj.getContent()) {
-                param_tmp++;
-                $scope.addAlert('请填写发布的内容');
-                return false;
-            } else {
-                $scope.creditUpdate_param.detail = $scope.ueobj.getContent();
-            }
+            // if (!$scope.ueobj.getContent()) {
+            //     param_tmp++;
+            //     $scope.addAlert('请填写发布的内容');
+            //     return false;
+            // } else {
+            //     $scope.creditUpdate_param.detail = $scope.ueobj.getContent();
+            // }
             console.log($scope.creditUpdate_param);
             if (param_tmp > 0) {
                 return false;
@@ -473,9 +471,7 @@ define([
             }
         };
         $scope.tiaozhuan = function () {
-            if (confirm('确定放弃编辑进入列表吗?')) {
-                $state.go('credit');
-            }
+            $state.go('credit');
         }
         $scope.alerts = [
             //{ msg: '用户名或者密码不正确'  }

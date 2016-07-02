@@ -112,6 +112,14 @@
     <div class="panel panel-primary">
         <div class="panel-heading">订单管理</div>
         <div class="panel-body">
+            <!--<ul class="nav nav-pills">-->
+                <!--<li role="presentation" ng-class="{active:list_param.new_search ===1}">-->
+                    <!--<a class="btn btn-default" ng-click="list_param.new_search=1;getapi(1);">新订单</a>-->
+                <!--</li>-->
+                <!--<li role="presentation" ng-class="{active:list_param.new_search === undefined}">-->
+                    <!--<a class="btn btn-default" ng-click="list_param.new_search=undefined;getapi(1);">老订单</a>-->
+                <!--</li>-->
+            <!--</ul>-->
             <ul class="nav nav-pills">
                 <li role="presentation" ng-class="{active:list_param.order_status[0] ===3}">
                     <a class="btn btn-default" ng-click="list_param.order_status=[3,5];getapi(1);">已支付</a>

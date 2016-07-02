@@ -5,8 +5,8 @@ module.exports = function (grunt) {
     'use strict';
 
     var cfg = {
-        livereload: 35729,
-        serverPort: 3001,
+        livereload: 35730,
+        serverPort: 3002,
         serverHost: '0.0.0.0'
     };
 
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
                             //'vendor/**/*.js', //  三方包 一般不用copy
                             '**/bootstrap.js'
                         ],
-                        dest: '../build/huijiame_admin'
+                        dest: '../build/huijiame_admin2'
                     }
                 ]
             },
@@ -84,7 +84,7 @@ module.exports = function (grunt) {
                             '!vendor/**/*.js', //  三方包 一般不用copy
                             '**/bootstrap.js'
                         ],
-                        dest: '../build/huijiame_admin'
+                        dest: '../build/huijiame_admin2'
                     }
                 ]
             }
@@ -179,7 +179,7 @@ module.exports = function (grunt) {
                     baseUrl: "app/scripts",
                     mainConfigFile: "app/scripts/main.js",
                     name: "bootstrap", // assumes a production build using almond
-                    out: "../build/huijiame_admin/scripts/main.min.js"
+                    out: "../build/huijiame_admin2/scripts/main.min.js"
                 }
             },
             //newdist: {

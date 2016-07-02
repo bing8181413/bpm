@@ -9908,13 +9908,13 @@ table.white tbody {
 }
 
 [ui-view] {
-position: absolute;
-left: 0;
-right: 0;
-bottom: 0;
-top: 0;
--webkit-transform-style: preserve-3d;
--webkit-backface-visibility: hidden
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden
 }
 
 .ui-view-container {
@@ -10018,4 +10018,30 @@ html, body {
 
 * a:hover {
     cursor: pointer
+}
+
+.mod_msg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    text-align: center;
+    color: #fff;
+
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0);
+
+    display: -webkit-box;
+    -webkit-box-align: center;
+    -webkit-box-pack: center;
+}
+
+.mod_msg span {
+    display: inline-block;
+    padding: 10px 20px;
+    line-height: 20px;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.7);
+    -webkit-border-radius: 5px;
 }

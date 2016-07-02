@@ -7,7 +7,7 @@ define([
 
     orderController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$stateParams', '$state'];
     function orderController($scope, $http, $rootScope, $modal, $stateParams) {
-        $scope.list_param = {page: 1, count: 20, order_status:[3,5]};
+        $scope.list_param = {page: 1, count: 20, order_status: [3, 5], new_search: 1};
         $scope.list_param.keyword = $rootScope.search;
         var list_url = simpleCons.domain + '/manage/order/list';
         $scope.getapi = function (page) {
@@ -25,10 +25,10 @@ define([
                     } else {
                         alert(json.msg);
                     }
-                }).error(function (err,status,sss) {
-                    console.log(err,status,sss);
-                    //$scope.getapi();
-                });
+                }).error(function (err, status, sss) {
+                console.log(err, status, sss);
+                //$scope.getapi();
+            });
         }
         $scope.getapi(1);
         $rootScope.searchkeyword = function (event) {

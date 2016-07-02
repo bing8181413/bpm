@@ -7,7 +7,7 @@ define([
         .controller('feedbackSendController', feedbackSendController)
 
     messageController.$injector = ['$scope', '$http', '$modal', '$rootScope', '$stateParams'];
-    feedbackSendController.$injector = ['$scope', '$http', '$modalInstance', 'feedback_send_param', 'jsonpscope'];
+    feedbackSendController.$injector = ['$scope', '$http', '$modalInstance', 'feedback_send_param', 'jsonpscope', '$stateParams'];
     function messageController($scope, $http, $modal, $rootScope, widget, $stateParams) {
         $scope.feedback_type = $stateParams.feedback_type || 0;
         $scope.feedback_type_name = '用户消息';
@@ -51,7 +51,7 @@ define([
             var modalInstance = $modal.open({
                 templateUrl: 'feedback_send.html',
                 controller: 'feedbackSendController',
-                size: 'lg',
+                size: '',
                 resolve: {
                     feedback_send_param: function () {
                         var rtn = {
@@ -68,7 +68,7 @@ define([
             });
         }
     };
-    function feedbackSendController($scope, $http, $modalInstance, feedback_send_param, jsonpscope) {
+    function feedbackSendController($scope, $http, $modalInstance, feedback_send_param, jsonpscope, $stateParams) {
         $scope.isActivityBanner = $stateParams.isActivityBanner || 0;
         $scope.content = '';
         $scope.mobile = feedback_send_param.mobile;

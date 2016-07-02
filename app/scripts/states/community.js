@@ -7,34 +7,36 @@ define(['./states', '../cons/simpleCons', '../controllers/communityController'],
         stateModule.config(
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
-                    $stateProvider.state("community", {
-                        url: "/community",
-                        views: {
-                            "viewA": {
-                                controller: "communityController",
-                                templateProvider: function ($templateCache) {
-                                    return $templateCache.get('app/' + simpleCons.VIEW_PATH + 'community.html');
+                    $stateProvider
+                        .state("community", {
+                            url: "/community/:mycommunity",
+                            views: {
+                                "viewA": {
+                                    controller: "communityController",
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + simpleCons.VIEW_PATH + 'community.html');
+                                    }
+                                },
+                                "viewB": {
+                                    template: ""
                                 }
-                            },
-                            "viewB": {
-                                template: ""
                             }
-                        }
-                    }).state("communityupdate", {
-                        url: "/communityupdate/:communityId",
-                        views: {
-                            "viewA": {
-                                controller: "communityupdateController",
-                                templateProvider: function ($templateCache) {
-                                    return $templateCache.get('app/' + simpleCons.VIEW_PATH + 'communityupdate.html');
+                        })
+                        .state("communityupdate", {
+                            url: "/communityupdate/:communityId/:mycommunity",
+                            views: {
+                                "viewA": {
+                                    controller: "communityupdateController",
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + simpleCons.VIEW_PATH + 'communityupdate.html');
+                                    }
+                                },
+                                "viewB": {
+                                    template: ""
                                 }
-                            },
-                            "viewB": {
-                                template: ""
                             }
-                        }
-                    }).state("communityadd", {
-                        url: "/communityadd",
+                        }).state("communityadd", {
+                        url: "/communityadd/:mycommunity",
                         views: {
                             "viewA": {
                                 controller: "communityaddController",

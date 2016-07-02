@@ -302,7 +302,7 @@
                         <select class="form-control"
                                 ng-change="getapi();"
                                 ng-model="selected.account_id"
-                                ng-options="account.account_id as account.username for account in account_list">
+                                ng-options="account.account_id as account.username for account in account_list | filter:{role:'op'}">
                             <option value="" disabled="true">请选择联系人账户</option>
                         </select>
                     </li>

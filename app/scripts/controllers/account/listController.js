@@ -41,6 +41,23 @@ define([
             }
             $state.go('account.update', {account_id: item.account_id})
         }
+        $scope.resetpwd = function (account_id) {
+            var pwd = window.prompt("请在此输入新密码", "123456");
+            if (pwd) {
+                $http.post(simpleCons.api.update_account, {
+                    account_id: account_id,
+                    userpass: pwd,
+                    password: pwd
+                })
+                    .success(function (json) {
+                        if (json.code == 0) {
+                            widget.msgToast('更新密码成功！');
+                        } else {
+                            widget.msgToast(json.msg);
+                        }
+                    });
+            }
+        }
 
     };
 });

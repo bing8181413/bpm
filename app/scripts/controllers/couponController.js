@@ -28,8 +28,8 @@ define([
                         alert(json.msg);
                     }
                 }).error(function (err, status, sss) {
-                    //$scope.getapi();
-                });
+                //$scope.getapi();
+            });
         }
         $scope.getapi(1);
         $rootScope.searchkeyword = function (event) {

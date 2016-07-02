@@ -54,14 +54,12 @@ define([
     function smsAddController($scope, $http, $rootScope, $modal, $stateParams, $filter) {
 // 提交的参数
         $scope.smsadd_param = {
-            title: '',
-            price: 3,
             scope_type: 3,
             mobile_list: '',
             send_time: new Date(),
             is_timing: 0,
             is_marketing: '0',
-            nofity_content: ''
+            content: ''
 
         };
         $scope.save = function () {

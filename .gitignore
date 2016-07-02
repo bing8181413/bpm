@@ -1,5 +1,8 @@
-.DS_Store
 node_modules/
+temp/
 .idea/
 app/scripts/app-tpl.js
 app/scripts/main.min.js
+app/scripts/.DS_Store
+.DS_Store
+.tmp

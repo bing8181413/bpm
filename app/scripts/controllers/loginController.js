@@ -2,27 +2,34 @@
 define([
     './controllers'
     , '../cons/simpleCons'
-], function (mod, simpleCons) {
+], function (mod, cons) {
     mod.controller('loginController', loginController);
 
-    loginController.$injector = ['$scope', '$http', '$rootScope', '$modal', 'ab-base64', 'widget', '$interval'];
-    function loginController($scope, $http, $rootScope, $modal, base64, widget, $interval) {
-        $rootScope.tab_sm = !$rootScope.tab_sm;
+    loginController.$injector = ['$scope', '$http', '$rootScope', '$modal', 'ab-base64', 'widget', '$interval', '$timeout'];
+    function loginController($scope, $http, $rootScope, $modal, base64, widget, $interval, $timeout) {
         if (localStorage.getItem('login_account')) {
             $rootScope.login_account = JSON.parse(base64.decode(localStorage.getItem('login_account')));
         }
-        $scope.uname = '';//$rootScope.login_account ? $rootScope.login_account.uname : '';
+        $scope.uname = '';
         $scope.pwd = '';
         $scope.disabled_get_verify_code = false;
         $scope.time_count = 30;
         $scope.remain_time = $scope.time_count;
         $rootScope.current_city_name = localStorage.getItem('hjm') ? localStorage.getItem('hjm').current_city_name : '未登录';
         if (localStorage.getItem('hjm')) {
-            $rootScope.$state.go('pintuan.list');
+            $rootScope.$state.go(cons.state.main + '.pintuan');
         }
         $rootScope.search = '';
         // 获取短信验证码
         $scope.get_verify_code = function () {
+            $scope.verify_praram = {
+                username: $scope.uname,
+                userpass: $scope.pwd
+            }
+            if (!$scope.uname || !$scope.pwd) {
+                widget.msgToast('请输入账号和密码');
+                return false;
+            }
             $scope.disabled_get_verify_code = true;
             $scope.remain_time = $scope.time_count;
             $interval(function (count) {
@@ -32,7 +39,7 @@ define([
                     $scope.remain_time = $scope.time_count;
                 }
             }, 1000, $scope.time_count);
-            $http.post(simpleCons.api.user_admin_check, {username: $scope.uname, userpass: $scope.pwd})
+            $http.post(cons.api.user_admin_check, $scope.verify_praram)
                 .success(function (json) {
                     if (json.code == 0) {
                         widget.msgToast('短信发送成功,注意手机查收');
@@ -49,14 +56,13 @@ define([
                 widget.msgToast('请输入账号和密码');
                 return false;
             }
-            // var login_url = simpleCons.domain + '/manage/account/login';
             $scope.param = {username: $scope.uname, userpass: $scope.pwd, usercode: $scope.usercode};
-            $http.post(simpleCons.api.user_admin_login, $scope.param)
+            $scope.loading = 0;
+            $http.post(cons.api.user_admin_login, $scope.param)
                 .success(function (json) {
                     if (json.code == 0) {
-                        $rootScope.tab_sm = false;
                         //console.log('menus from login api :',json.data.menus);
-                        $scope.baseAuth = 'Basic :' + base64.encode(json.username + ':' + json.password)
+                        $scope.baseAuth = 'Basic :' + base64.encode(json.username + ':' + json.password);
                         $rootScope.hjm = {
                             account_id: json.data.account_id,
                             current_city_name: json.data.city_name,
@@ -70,12 +76,12 @@ define([
                             weixin_nickname: json.data.weixin_nickname,
                             weixin_qrcode: json.data.weixin_qrcode,
                             remark: json.data.remark,
+                            pubData: json.pubData,
                             Authorization: $scope.baseAuth
                         };
 
                         $rootScope.selected = {
                             account_id: '',
-                            current_city_name: json.data.city_name,
                             menus: json.data.menus,
                             username: $rootScope.username,
                             Authorization: $scope.baseAuth
@@ -84,11 +90,6 @@ define([
                         $rootScope.nowlogintimestamp = new Date().getTime();
                         $rootScope.lastlogintimestamp = JSON.parse($rootScope.nowlogintimestamp);
 
-                        //  是否获取了 account_list
-                        //console.log(angular.isUndefined($rootScope.account_list));
-                        //if (angular.isUndefined($rootScope.account_list) || $rootScope.account_list.length == 0) {
-                        //    $rootScope.get_account_list();
-                        //}
                         $rootScope.get_account_list();
                         $rootScope.login_account = {
                             uname: $scope.uname,
@@ -97,14 +98,35 @@ define([
                         localStorage.setItem('login_account', base64.encode(JSON.stringify($rootScope.login_account)));
                         localStorage.setItem('hjm', JSON.stringify($rootScope.hjm));
                         localStorage.setItem('lastlogintimestamp', $rootScope.lastlogintimestamp);
-                        if ($rootScope.hjm.type == 'cw') {
-                            $rootScope.$state.go('refund');
-                        } else {
-                            $rootScope.$state.go('pintuan.list');
-                        }
+                        $scope.success_time = 2.5;
+                        var interval = $interval(function () {
+                            $scope.loading += 0.1;
+                            if ($scope.loading >= 0.8) {
+                                $scope.loading = 1;
+                                $interval.cancel(interval);
+                            }
+                        }, ($scope.success_time / 10) * 1000);
+                        var interval_success_time = $interval(function () {
+                            $interval.cancel(interval_success_time);
+                            if ($rootScope.hjm.type == 'cw') {
+                                $rootScope.$state.go(cons.state.main + '.refund');
+                            } else {
+                                $rootScope.$state.go(cons.state.main + '.pintuan');
+                            }
+                        }, $scope.success_time * 1000);
                     } else {
-                        alert(json.msg);
+                        widget.msgToast(json.msg);
                     }
+                })
+                .error(function (err) {
+                    var interval = $interval(function () {
+                        $scope.loading += 0.1;
+                        if ($scope.loading >= 0.5) {
+                            $scope.loading = 0;
+                            widget.msgToast('网络错误,联系管理员');
+                            $interval.cancel(interval);
+                        }
+                    }, (1.5 / 10) * 1000);
                 });
         }
         $scope.login_keypress = function (event) {
