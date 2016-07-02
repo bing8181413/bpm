@@ -1,0 +1,20 @@
+<div class="datepicker_class">
+    <div class="col-sm-4">
+        <p class="input-group">
+            <input type="date" class="form-control" datepicker-popup ng-model="dt" is-open="isopen" min-date="minDate"
+                   date-disabled="disabled(date, mode)" ng-required="true" ng-change="changed();" close-text="关闭"/>
+            <span class="input-group-btn"> 
+                <button type="button" class="btn btn-default" ng-click="open($event)">
+                    <i class="glyphicon glyphicon-calendar"></i></button> 
+                </span>
+        </p>
+    </div>
+    <div class="col-sm-2">
+        <timepicker ng-model="tp" show-meridian="false" show-spinners="false" mousewheel="false" arrowkeys="true"
+                    ng-change="changed();">
+        </timepicker>
+    </div>
+    <div class="col-sm-2">
+        <p class="bg-info text-center" ng-if="showtip">上下方向键调时间</p>
+    </div>
+</div>

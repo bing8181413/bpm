@@ -1,0 +1,155 @@
+<style>
+    #list>thead>tr>th{
+        border-bottom: 0;
+        text-align: center;
+    }
+    .img_a{
+        display: inline-block;
+        width: 50px;
+        max-height: 50px;
+        max-width: 30%;
+        cursor:pointer;
+        margin-right: 3px;
+    }
+    .img_a>img{
+        width: 50px;
+        height: 50px;
+    }
+    .big_pic{
+        width: 500px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .img_a.big_pic>img{
+        width: auto;
+        height: auto;
+    }
+    #pagination{
+        position: fixed;
+        bottom: 20px;
+        right: 50px;
+        background: #999;
+        padding: 0 25px;
+        opacity: 0.8;
+        border-radius: 5px;
+    }
+    #pagination_add{
+        padding: 0 25px;
+        border-radius: 5px;
+    }
+    .address{
+        color: #999;
+        font-size: 12px;
+    }
+    .panel{
+        box-shadow:0 1px 1px rgba(0, 0, 0, 0);
+    }
+    .add{
+        background-color: #31b0d5;
+        color: #fff;
+    }
+    #list.table-hover > tbody > tr:hover{
+        cursor: pointer;
+    }
+    #list.table-hover > tbody > tr.add:hover{
+        background-color: #46b8da;
+        cursor: pointer;
+        color: #fff;
+    }
+</style>
+<script type="text/ng-template" id="add_lib.html">
+    <div class="modal-header">
+        <h3 class="modal-title">新增图书</h3>
+    </div>
+    <div class="modal-body">
+        <div>请勾选下列的图书，点击确定后保存的书会被添加到本小区图书馆</div>
+        <table id="list" class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th style="width: 20%;">编号</th>
+                <th style="width: 80%;">图书名称</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr bindonce ng-repeat="tmp in template_list track by tmp.share_id"  ng-if="tmp" ng-class="{add:template_list[$index].add==true}"
+                ng-click="template_list[$index].add = !template_list[$index].add">
+                <td class="text-center"><a class="btn"></a><span bo-text="tmp.share_id"></span></td>
+                <td class="text-center"><span bo-text="tmp.share_title"></span></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center" id="pagination_add">
+            <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" ng-change="getapi(currentPage)"
+                        rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">图书馆</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('libTmp');">图书馆模板</a>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="col-sm-6">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <div class="col-sm-4">
+                            <select class="form-control"  ng-options="community.community_id as community.community_name for community in community_list"
+                                    ng-model="list_param.community_id"
+                                    ng-change="wish_detail.type = 0; getapi();" ng-class="{'form_dangus':wish_detail.type}" placeholder="请选择小区">
+                                <option value="" disabled>请选择小区</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="form-control" ng-bind="' ID: '+list_param.community_id"></div>
+                        </div>
+                        <div class="col-sm-3">
+                            <a class="btn btn-primary" ng-click="add_lib();">添加</a>
+                        </div>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        <table id="list" class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th style="width: 5%;">编号</th>
+                <th style="width: 20%;">图书名称</th>
+                <th style="width: 5%;">持书人</th>
+                <th style="width: 5%;">书的主人</th>
+                <th style="width: 10%;">状态</th>
+                <th style="width: 10%;">所属小区</th>
+                <th style="width: 15%;">来源</th>
+                <th style="width: 15%;">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr bindonce ng-repeat="lib in lib_list track by lib.template_id"  ng-if="lib">
+                <td class="text-center"><span bo-text="lib.template_id"></span></td>
+                <td class="text-center"><span bo-text="lib.share_title"></span></td>
+                <td class="text-center"><span bo-text="lib.holder_user_info.name"></span></td>
+                <td class="text-center"><span bo-text="lib.owner_user_info.name"></span></td>
+                <td class="text-center"><span bo-text="lib.status | library_status"></span></td>
+                <td class="text-center"><span bo-text="lib.community_name"></span></td>
+                <td class="text-center"><span bo-text="lib.share_src | library_source"></span></td>
+                <td>
+                    <a class="btn btn-warning" ng-click="cancel_lib(lib.template_id,lib.transaction_id);">取消共享</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center" id="pagination">
+        <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" ng-change="getapi(currentPage)"
+                    rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    </div>
+</div>

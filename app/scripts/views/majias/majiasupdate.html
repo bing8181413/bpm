@@ -1,0 +1,165 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">新增团购</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('tuan');">团购列表</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-9">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">联系人账号<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <select class="form-control" ng-model="tuanupdate_param.account_id"
+                                        ng-options="account.account_id as account.username for account in account_list">
+                                    <option value="" disabled="true">请选择联系人账户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">团购标题<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="tuanupdate_param.activity_title"
+                                       placeholder="团购标题">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">组团抢购期限<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-6">
+                                <input class="form-control" ng-model="tuanupdate_param.group_buy_days" type="number"
+                                       placeholder="组团抢购期限">
+                            </div>
+                            <div class="col-sm-3">天</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">成团份数<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-6">
+                                <input class="form-control" ng-model="tuanupdate_param.group_buy_min_num" type="number"
+                                       s
+                                       placeholder="成团份数">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">覆盖小区<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="target_type"
+                                               ng-model="tuanupdate.target_type" ng-value="0" ng-click="init_ids()">
+                                        全部小区
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="target_type"
+                                               ng-model="tuanupdate.target_type" ng-value="1">
+                                        包括小区
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="target_type"
+                                               ng-model="tuanupdate.target_type" ng-value="2">
+                                        不包括小区
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-9" ng-if="tuanadd.target_type!=0">
+                                <select-community ng-model="tuanupdate.ids"></select-community>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">本期团长奖励<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="tuanupdate_param.reward"
+                                       placeholder="字数少于12个">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备用团长<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <tuan_zhang ng-model="tuanupdate_param.group_buy_header_user_id"
+                                            tuanoption="tuanoption"></tuan_zhang>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">商品规格<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <option_info ng-model="tuanupdate.activity_options"
+                                             tuantype="tuanupdate.tuan_type"
+                                             category="tuanupdate.category"
+                                             inventory="tuanupdate.restricted_inventory"
+                                             iscompleted="iscompleted"></option_info>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">封面图片<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <show-upload images="tuanupdate.activity_pics" max="8"
+                                             hasimages="!iscompleted"></show-upload>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">图文详情＊<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <content_or_img ng-model="tuanupdate.activity_contents[0]"
+                                                iscompleted="iscompleted"></content_or_img>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">置顶<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="order_by" ng-model="tuanupdate_param.is_pinned"
+                                               ng-value="true">
+                                        是
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="order_by" ng-model="tuanupdate_param.is_pinned"
+                                               ng-value="false">
+                                        否
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">保存</a>
+        </div>
+    </div>
+</div>

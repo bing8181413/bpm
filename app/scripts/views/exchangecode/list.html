@@ -1,0 +1,68 @@
+<script type="text/ng-template" id="export_list.html">
+    <div class="modal-header">
+        <h3 class="modal-title">兑换码</h3>
+    </div>
+    <div class="modal-body">
+        <textarea class="form-control" cols="30" rows="10" ng-model="export_data"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<script type="text/ng-template" id="export_btn.html">
+    <a class="btn btn-info" ng-click="obj_on('export');">导出</a>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">兑换码列表</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('exchangecode.add');">新增兑换码</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <common_list res_head="res_head" res_data="res_data"></common_list>
+            <!--<table class="table table-hover table-bordered">-->
+            <!--<thead>-->
+            <!--<th>ID</th>-->
+            <!--<th>适用范围</th>-->
+            <!--<th>商品品类</th>-->
+            <!--<th>商品类型(频率)</th>-->
+            <!--<th>额度</th>-->
+            <!--<th>优惠劵名称</th>-->
+            <!--<th>发送用户</th>-->
+            <!--<th>下发时间</th>-->
+            <!--<th>有效期</th>-->
+            <!--<th>状态</th>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr bindonce ng-repeat="item in coupon_list">-->
+            <!--<td><span class="msg_title" bo-text="item.id"></span></td>-->
+            <!--<td><span class="msg_title" bo-text="item.category | coupon_category"></span></td>-->
+            <!--<td><span class="msg_title" bo-text="item.sku |coupon_sku"></span></td>-->
+            <!--<td><span class="msg_title" bo-text="item.commodity_type | coupon_commodity_type"></span></td>-->
+            <!--<td><span class="msg_title" bo-text="item.price"></span></td>-->
+            <!--<td><span class="msg_title" bo-text="item.title"></span></td>-->
+            <!--<td>-->
+            <!--<a class="btn btn-info" ng-click="user_list(item.id,$index);">-->
+            <!--<span class="msg_title" bo-text="item.send_count"></span>-->
+            <!--<a>-->
+            <!--</td>-->
+            <!--<td><span class="msg_title" bo-text="item.start_time"></span></td>-->
+            <!--<td><span class="msg_title" bo-text="item.expire_time"></span></td>-->
+            <!--<td><span class="msg_title" bo-text="item.status | coupon_status"></span></td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+            <!--</table>-->
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

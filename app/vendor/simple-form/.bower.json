@@ -1,0 +1,26 @@
+{
+  "name": "simple-form",
+  "main": "./simple-form.js",
+  "homepage": "https://github.com/cc17/angular-simple-form",
+  "authors": [
+    "cc17 <dengxiaoming1217@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/scripts/demo/vendor",
+    "test",
+    "tests"
+  ],
+  "_release": "2c0d47890d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "2c0d47890d1fc83e85c579098041586a2d1ce595"
+  },
+  "_source": "git://github.com/cc17/angular-simple-form.git",
+  "_target": "*",
+  "_originalSource": "simple-form"
+}

@@ -1,0 +1,803 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .activity20add_time_div {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .activity20add_time {
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .search_community_list {
+        position: absolute;
+        top: 100%;
+        z-index: 1000;
+        float: left;
+        min-width: 160px;
+        padding: 5px 0;
+        margin: 2px 0 0;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    }
+
+    .search_community_list > li {
+        width: 100%;
+    }
+
+    .search_community_list > li > a.divider {
+        height: 1px;
+        margin: 1px 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+        padding: 0;
+    }
+
+    .search_community_list > li > a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+
+    .search_community_list > li > a:hover {
+        background-color: #13c4a5;
+        color: #fff;
+    }
+
+    .select_name {
+        width: 100%;
+        line-height: 26px;
+        height: 34px;
+        margin-right: 15px;
+    }
+
+    .community_title {
+        height: 20px;
+    }
+
+    .add_community {
+        padding-right: 18px;
+    }
+
+    .community_li_div {
+        width: 100%;
+    }
+
+    .community_li_div > .input-group-btn {
+        width: 50%;
+    }
+
+    .community_li_div > .input-group-btn > input {
+        width: 100%;
+    }
+
+    .tongzhiheight {
+        height: 600px;
+    }
+
+    .tongzhieditor {
+        width: 100%;
+        height: 546px;
+    }
+
+    .community_name {
+        position: relative;
+        width: 100% !important;
+    }
+
+    .contents {
+        border: 1px #ccc solid;
+        padding-top: 10px;
+        margin-bottom: 15px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">v20新活动</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="tiaozhuan();">活动管理</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-8">
+                    <form class="form-horizontal" ng-init="ref_activity_id_disable = true;reward_show = true;">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动类型<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="category" ng-model="activity20add_param.category"
+                                               ng-value="1"
+                                               ng-click="activity20add_param.ref_activity_id='';
+                                               ref_activity_id_disable = true;reward_show = true;">
+                                        一起玩
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="category" ng-model="activity20add_param.category"
+                                               ng-value="2"
+                                               ng-click="ref_activity_id_disable=false;activity20add_param.reward='';reward_show = false;">
+                                        一起便宜
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <input class="form-control" type="text" placeholder="关联一起玩ID"
+                                           ng-disabled="ref_activity_id_disable"
+                                           ng-model="activity20add_param.ref_activity_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">置顶<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="order_by" ng-model="activity20add_param.order_by"
+                                               ng-value="1"
+                                               ng-click="ref_activity_id='';ref_activity_id_disable = true;">
+                                        是
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="order_by" ng-model="activity20add_param.order_by"
+                                               ng-value="0" ng-click="ref_activity_id_disable=false;">
+                                        否
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动城市<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <!--<input class="form-control" id="city_name" ng-class="{'form_dangus':activity20add.city_name}"-->
+                                <!--ng-change="activity20add.city_name = 0" ng-model="activity20add_param.city_name"-->
+                                <!--placeholder="活动城市">-->
+                                <select class="form-control" id="city_name"
+                                        ng-class="{'form_dangus':activity20add.city_name}"
+                                        ng-options="city_name for city_name in city_names"
+                                        ng-change="activity20add.city_name = 0"
+                                        ng-model="activity20add_param.city_name"
+                                        ng-disabled="{{current_city_name && current_city_name != '未登录'}}">
+                                    <option value="" disabled="true">请选择一个城市</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动名称<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="title" ng-class="{'form_dangus':activity20add.title}"
+                                       ng-change="activity20add.title = 0" ng-model="activity20add_param.title"
+                                       placeholder="活动名称">
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-3 control-label">活动类型<span class="form_label_dangus">*</span></label>-->
+
+                            <!--<div class="col-sm-9">-->
+                                <!--<input class="form-control" id="type" ng-class="{'form_dangus':activity20add.type}"-->
+                                       <!--ng-change="activity20add.type = 0" ng-model="activity20add_param.type"-->
+                                       <!--placeholder="活动类型">-->
+                                <!--&lt;!&ndash;<select class="form-control"&ndash;&gt;-->
+                                        <!--&lt;!&ndash;ng-options="activity_type for activity_type in ['不选择']"&ndash;&gt;-->
+                                        <!--&lt;!&ndash;ng-model="activity20add_param.type"&ndash;&gt;-->
+                                        <!--&lt;!&ndash;ng-change="activity.type = 0;" ng-class="{'form_dangus':activity20add.type}"&ndash;&gt;-->
+                                        <!--&lt;!&ndash;placeholder="活动类型">&ndash;&gt;-->
+                                    <!--&lt;!&ndash;<option value="不选择" selected>请选择活动类型</option>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</select>&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group " ng-show="activity20add_param.category == 1">
+                            <label class="col-sm-3 control-label">活动举办开始时间<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="date" class="form-control" datepicker-popup
+                                           ng-model="activity20add.start.dt" is-open="openstart_a" min-date="minDate"
+                                           date-disabled="disabled(date, mode)" ng-required="true"
+                                           ng-change="changed();" close-text="关闭"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openstart($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <timepicker ng-model="activity20add.start.tp" show-meridian="false"
+                                            show-spinners='false' mousewheel="false" arrowkeys="true"
+                                            ng-change="changed();">
+                                </timepicker>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动举办结束时间<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="date" class="form-control" datepicker-popup
+                                           ng-model="activity20add.end.dt" is-open="openend_a" min-date="minDate"
+                                           date-disabled="disabled(date, mode)" ng-required="true"
+                                           ng-change="changed();" close-text="关闭"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openend($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <timepicker ng-model="activity20add.end.tp" show-meridian="false"
+                                            show-spinners="false" mousewheel="false" arrowkeys="true"
+                                            ng-change="changed();">
+                                </timepicker>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">报名／抢购截止时间<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="date" class="form-control" datepicker-popup
+                                           ng-model="activity20add.apply_end.dt" is-open="openapplyend_a" min-date="minDate"
+                                           date-disabled="disabled(date, mode)" ng-required="true"
+                                           ng-change="changed();" close-text="关闭"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openapplyend($event)">
+                                            <i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <timepicker ng-model="activity20add.apply_end.tp" show-meridian="false"
+                                            show-spinners="false" mousewheel="false" arrowkeys="true"
+                                            ng-change="changed();">
+                                </timepicker>
+                            </div>
+                        </div>
+                        <!--<div class="form-group"  ng-if="activity20add_param.category == 2">-->
+                            <!--<label class="col-sm-3 control-label">初始化团购数<span class="form_label_dangus">*</span></label>-->
+
+                            <!--<div class="col-sm-4">-->
+                                <!--<input class="form-control" id="init_buy_num" type="number"-->
+                                       <!--ng-class="{'form_dangus':activity20add.init_buy_num}"-->
+                                       <!--ng-change="activity20add.init_buy_num = 0;"-->
+                                       <!--ng-model="activity20add_param.init_buy_num"-->
+                                       <!--placeholder="最少参团人数">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">报名人数<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <input class="form-control" id="people_min_num"
+                                       ng-class="{'form_dangus':activity20add.people_min_num}"
+                                       ng-change="activity20add.people_min_num = 0;"
+                                       ng-model="activity20add_param.people_min_num"
+                                       placeholder="最少参团人数">
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="people_num"
+                                       ng-class="{'form_dangus':activity20add.people_num}"
+                                       ng-change="activity20add.people_num = 0;"
+                                       ng-model="activity20add_param.people_num"
+                                       placeholder="最多参团人数">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="activity20add_param.category == 1">
+                            <label class="col-sm-3 control-label">活动地址<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="addr" ng-class="{'form_dangus':activity20add.addr}"
+                                       ng-change="activity20add.addr = 0;" ng-model="activity20add_param.addr"
+                                       placeholder="活动地址">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="activity20add_param.category == 2">
+                            <label class="col-sm-3 control-label">产品原价<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <input class="form-control" id="orig_price"
+                                       ng-class="{'form_dangus':activity20add.orig_price}"
+                                       ng-change="activity20add.orig_price = 0;"
+                                       ng-model="activity20add_param.orig_price"
+                                       placeholder="产品原价">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">支付价格<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <input class="form-control" id="price" ng-class="{'form_dangus':activity20add.price}"
+                                       ng-change="activity20add.price = 0;" ng-model="activity20add_param.price"
+                                       placeholder="支付价格">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="activity20add_param.category == 2">
+                            <label class="col-sm-3 control-label">单位<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <input class="form-control" id="price_label"
+                                       ng-class="{'form_dangus':activity20add.price_label}"
+                                       ng-change="activity20add.price_label = 0;"
+                                       ng-model="activity20add_param.price_label"
+                                       placeholder="单位">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">产品类目<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <table class="table table-hover table-bordered"
+                                       ng-class="{'form_dangus':activity20add.option_info}">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 40%; text-align: center;">类目</th>
+                                        <th style="width: 40%; text-align: center;">金额</th>
+                                        <th style="width: 20%; text-align: center;">
+                                            <a class="btn btn-primary"
+                                               ng-click="activity20add.option_info = 0;option_info_array.push({option_info_name: '',option_info_price : ''})">添加</a>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="obj in option_info_array track by $index"
+                                        ng-init="obj.index = $index;">
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="obj.option_info_name">
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="obj.option_info_price">
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger"
+                                               ng-click="option_info_array.splice($index,1)">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">覆盖小区<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="target_type"
+                                               ng-model="activity20add_param.target_type" ng-value="2"
+                                               ng-click="community_names_array=[];">
+                                        全部小区
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="target_type"
+                                               ng-model="activity20add_param.target_type" ng-value="1">
+                                        部分小区可见
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="target_type"
+                                               ng-model="activity20add_param.target_type" ng-value="3">
+                                        部分小区不可见
+                                    </label>
+                                </div>
+                            </div>
+                            <label class="col-sm-3 control-label"></label>
+
+                            <div class="col-sm-9" ng-if="activity20add_param.target_type!==2">
+                                <table class="table table-hover table-bordered"
+                                       ng-class="{'form_dangus':activity20add.option_info}">
+                                    <thead>
+                                    <tr>
+                                        <th style="width: 40%; text-align: center;">小区关键字</th>
+                                        <th style="width: 10%; text-align: center;">搜索</th>
+                                        <th style="width: 40%; text-align: center;">验证后小区名称</th>
+                                        <th style="width: 10%; text-align: center;">
+                                            <a class="btn btn-primary"
+                                               ng-click="community_names_array.push({community_name: '',new_community : '',hide: false})">添加</a>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="obj in community_names_array track by $index"
+                                        ng-init="obj.index = $index;" ng-if="!obj.hide">
+                                        <td>
+                                            <input type="text" class="form-control" ng-model="obj.community_name">
+                                        </td>
+                                        <td>
+                                            <div class="community_name">
+                                                <a type="button" class="btn btn-default"
+                                                   ng-click="search_community($index, obj.index, obj.community_name);">
+                                                    搜索
+                                                </a>
+                                                <ul class="search_community_list" ng-if="obj.search_community_list">
+                                                    <li ng-repeat="searchobj in obj.search_community_list track by $index">
+                                                        <a class="btn"
+                                                           ng-click="select_community($index,obj.index,searchobj);"
+                                                           ng-bind="searchobj.name"></a>
+                                                    </li>
+                                                    <li><a class="divider"></a></li>
+                                                    <li>
+                                                        <a class="btn" ng-click="obj.search_community_list='';">取消</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a type="button" class="btn btn-default select_name"
+                                               ng-bind="obj.new_community"></a>
+                                        </td>
+                                        <td>
+                                            <a class="btn btn-danger" ng-click="obj.hide = true;">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">团类型<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="tuan_type" ng-model="activity20add_param.tuan_type"
+                                               ng-value="1">
+                                        独立成团
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="tuan_type" ng-model="activity20add_param.tuan_type"
+                                               ng-value="2">
+                                        一起团
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">联系人号码<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <!--<input class="form-control" id="mobile" type="tel"  ng-class="{'form_dangus':activity20add.mobile}"-->
+                                <!--ng-change="activity20add.mobile = 0;" ng-model="activity20add_param.mobile"-->
+                                <!--placeholder="请输入手机号码">-->
+                                <select class="form-control" id="account_id"
+                                        ng-class="{'form_dangus':activity20add.account_id}"
+                                        ng-options="account.account_id as account.username for account in account_list"
+                                        ng-change="activity20add.account_id = 0"
+                                        ng-model="activity20add_param.account_id">
+                                    <option value="" disabled="true">请选择联系人账户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">卖点<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="selling_points"
+                                       ng-class="{'form_dangus':activity20add.selling_points}"
+                                       ng-change="activity20add.selling_points = 0;"
+                                       ng-model="activity20add_param.selling_points"
+                                       placeholder="卖点">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="reward_show">
+                            <label class="col-sm-3 control-label">奖励<span
+                                    class="form_label_dangus">&nbsp;</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="reward"
+                                       ng-class="{'form_dangus':activity20add.reward}"
+                                       ng-change="activity20add.reward = 0;" ng-model="activity20add_param.reward"
+                                       placeholder="奖励">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="activity20add_param.category == 2">
+                            <label class="col-sm-3 control-label">仅认证用户可定<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="apply_verifiy"
+                                               ng-model="activity20add_param.apply_verifiy" ng-value="1">
+                                        是
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="apply_verifiy"
+                                               ng-model="activity20add_param.apply_verifiy" ng-value="0">
+                                        否
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-8 form-horizontal">
+                    <form class="form-horizontal">
+                        <div class="col-sm-12 form-group">
+                            <label class="col-sm-3 control-label">封面图片</label>
+
+                            <div class="col-sm-9">
+                                <table class="table table-hover table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <th width="50%">图片名称</th>
+                                        <th width="10%" ng-show="uploader.isHTML5">大小</th>
+                                        <th width="20%" ng-show="uploader.isHTML5">上传进度</th>
+                                        <th width="10%">状态</th>
+                                        <th width="10%">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in uploader.queue" class="ng-scope">
+                                        <td>
+                                            <strong class="ng-binding" ng-bind="item.file.name"></strong>
+
+                                            <div ng-show="uploader.isHTML5"
+                                                 ng-thumb="{ file: item._file, height: 100 , itemobj : item}"></div>
+                                        </td>
+                                        <td ng-show="uploader.isHTML5" nowrap="" class="ng-binding">
+                                            {{item.file.size/1024/1024|number:2}}MB
+                                        </td>
+                                        <td ng-show="uploader.isHTML5">
+                                            <div class="progress" style="margin-bottom: 0;">
+                                                <div class="progress-bar" role="progressbar"
+                                                     ng-style="{ 'width': item.progress + '%' }"
+                                                     style="width: 0%;"></div>
+                                            </div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>
+                                            <span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                            <span ng-show="item.isError"><i
+                                                    class="glyphicon glyphicon-remove"></i></span>
+                                        </td>
+                                        <td nowrap="">
+                                            <button type="button" class="btn btn-success btn-xs"
+                                                    ng-click="item.upload()"
+                                                    ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                                <span class="glyphicon glyphicon-upload"></span> 上传
+                                            </button>
+                                            <button type="button" class="btn btn-warning btn-xs"
+                                                    ng-click="item.cancel()" ng-disabled="!item.isUploading"
+                                                    disabled="disabled">
+                                                <span class="glyphicon glyphicon-ban-circle"></span> 取消
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-xs"
+                                                    ng-click="item.remove()">
+                                                <span class="glyphicon glyphicon-trash"></span> 移除
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <div>
+                                    <div>
+                                        上传过程:
+                                        <div class="progress" style="">
+                                            <div class="progress-bar" role="progressbar"
+                                                 ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()"
+                                            ng-disabled="!uploader.getNotUploadedItems().length">
+                                        <span class="glyphicon glyphicon-upload"></span> 全部上传
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()"
+                                            ng-disabled="!uploader.isUploading">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> 全部取消
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()"
+                                            ng-disabled="!uploader.queue.length">
+                                        <span class="glyphicon glyphicon-trash"></span> 全部移除
+                                    </button>
+                                </div>
+                                <br/>
+
+                                <div class="col-sm-12 form-group">
+                                    <input class="form-control" type="file" nv-file-select="" uploader="uploader"
+                                           multiple/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 form-group">
+                            <label class="col-sm-3 control-label">活动说明</label>
+                        </div>
+
+                        <div class="col-md-12 form-group" ng-repeat="uploader in contents_array track by $index">
+                            <label class="col-sm-3 control-label"></label>
+
+                            <div class="col-sm-9 contents">
+                                <div class="col-sm-12 form-group">
+                                    <label class="col-sm-2 control-label">类型</label>
+
+                                    <div class="col-sm-10">
+                                        <select class="form-control" ng-model="uploader.category"
+                                                style="display:inline-block;width: 170px;margin-right: 5px;">
+                                            <!--<option value="" disabled="true">请选择</option>-->
+                                            <option value="活动说明" selected>活动说明</option>
+                                            <option value="不成团说明">不成团说明</option>
+                                        </select>
+                                        <a class="btn btn-danger" ng-click="contents_reset('del',$index);">删除这一条</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <select ng-options="font_size.id as font_size.val for font_size in font_size_all"
+                                                    ng-change="uploader.change_styles();"
+                                                    ng-model="uploader.font_size"
+                                                    style="width: 100px;margin-left: 10px;">
+                                                <option value="" disabled="false">大小</option>
+                                            </select>
+                                            <input type="color" ng-model="uploader.font_color"
+                                                   ng-change="uploader.change_styles();"
+                                                   style="width: 70px;margin-left: 10px;border-radius: 5px;">
+                                            <select ng-options="font_align.id as font_align.val for font_align in font_align_all"
+                                                    ng-change="uploader.change_styles();"
+                                                    ng-model="uploader.font_align"
+                                                    style="width: 70px;margin-left: 10px;">
+                                                <option value="" disabled="false">左右</option>
+                                            </select>
+                                            <select ng-options="font_bold.id  as font_bold.val for font_bold  in font_bold_all"
+                                                    ng-change="uploader.change_styles();"
+                                                    ng-model="uploader.font_bold"
+                                                    style="width: 70px;margin-left: 10px;">
+                                                <option value="" disabled="false">粗细</option>
+                                            </select>
+                                            <select ng-options="font_ita.id as font_ita.val for font_ita  in font_ita_all"
+                                                    ng-change="uploader.change_styles();"
+                                                    ng-model="uploader.font_ita" style="width: 70px;margin-left: 10px;">
+                                                <option value="" disabled="false">斜体</option>
+                                            </select>
+                                        </div>
+                                        <div class="panel-body">
+                                    <textarea class="form-control" rows="3" contentEditable=true style="height: auto;"
+                                              ng-model="uploader.content" ng-style="uploader.styles"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12">
+                                    <table class="table table-hover table-bordered">
+                                        <thead>
+                                        <tr>
+                                            <th width="50%">图片名称</th>
+                                            <th width="10%" ng-show="uploader.isHTML5">大小</th>
+                                            <th width="20%" ng-show="uploader.isHTML5">上传进度</th>
+                                            <th width="10%">状态</th>
+                                            <th width="10%">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr ng-repeat="item in uploader.queue">
+                                            <td>
+                                                <strong class="ng-binding" ng-bind="item.file.name"></strong>
+
+                                                <div ng-show="uploader.isHTML5"
+                                                     ng-thumb="{ file: item._file, height: 100 , itemobj : item}"></div>
+                                            </td>
+                                            <td ng-show="uploader.isHTML5" nowrap="" class="ng-binding">
+                                                {{item.file.size/1024/1024|number:2}}MB
+                                            </td>
+                                            <td ng-show="uploader.isHTML5">
+                                                <div class="progress" style="margin-bottom: 0;">
+                                                    <div class="progress-bar" role="progressbar"
+                                                         ng-style="{ 'width': item.progress + '%' }"
+                                                         style="width: 0%;"></div>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <span ng-show="item.isSuccess"><i
+                                                        class="glyphicon glyphicon-ok"></i></span>
+                                                <span ng-show="item.isCancel"><i
+                                                        class="glyphicon glyphicon-ban-circle"></i></span>
+                                                <span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>
+                                            </td>
+                                            <td nowrap="">
+                                                <button type="button" class="btn btn-success btn-xs"
+                                                        ng-click="item.upload()"
+                                                        ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                                    <span class="glyphicon glyphicon-upload"></span> 上传
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-xs"
+                                                        ng-click="item.cancel()" ng-disabled="!item.isUploading"
+                                                        disabled="disabled">
+                                                    <span class="glyphicon glyphicon-ban-circle"></span> 取消
+                                                </button>
+                                                <button type="button" class="btn btn-danger btn-xs"
+                                                        ng-click="item.remove()">
+                                                    <span class="glyphicon glyphicon-trash"></span> 移除
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                    <div>
+                                        <div>
+                                            上传过程:
+                                            <div class="progress" style="">
+                                                <div class="progress-bar" role="progressbar"
+                                                     ng-style="{ 'width': uploader.progress + '%' }"></div>
+                                            </div>
+                                        </div>
+                                        <button type="button" class="btn btn-success btn-s"
+                                                ng-click="uploader.uploadAll()"
+                                                ng-disabled="!uploader.getNotUploadedItems().length">
+                                            <span class="glyphicon glyphicon-upload"></span> 全部上传
+                                        </button>
+                                        <button type="button" class="btn btn-warning btn-s"
+                                                ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                                            <span class="glyphicon glyphicon-ban-circle"></span> 全部取消
+                                        </button>
+                                        <button type="button" class="btn btn-danger btn-s"
+                                                ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                                            <span class="glyphicon glyphicon-trash"></span> 全部移除
+                                        </button>
+                                    </div>
+                                    <br/>
+
+                                    <div class="col-sm-12 form-group">
+                                        <input class="form-control" type="file" nv-file-select="" uploader="uploader"
+                                               multiple/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <a class="btn btn-primary" ng-click="contents_reset('add');">新增活动说明</a>
+                        </div>
+                    </form>
+                    <div class="col-sm-12 form-group">
+                        <div class="home_dangus" ng-repeat="alert in alerts" ng-click="closeAlert($index)">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <strong>{{alert.msg}}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">保存</a>
+        </div>
+    </div>
+</div>

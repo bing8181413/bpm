@@ -1,0 +1,50 @@
+define([
+    'jQuery',
+    'angular',
+    'ui.router',
+    'bindonce',
+    'ui.bootstrap',
+    //'ui.select2',
+    //'ng.ueditor',
+    'angular-file-upload',
+    //'angular-async-loader',
+    //'me-pageloading',
+    //'snap',
+    'ab-base64',
+    'twitter',
+    'ngSanitize',
+    'ngCsv',
+    //'huijiaControllers',
+    //'huijiaStates',
+    //'huijiaDirectives',
+    //'huijiaFilters',
+    //'huijiaServices',
+    'controllers/_base',
+    'states/_base',
+    'directives/_base',
+    'filters/_base',
+    'services/_base',
+    //'./app-tpl'
+    'app-tpl'
+], function () {
+    //console.log('app.js');
+    return angular.module('huijiaApp', [
+        'ui.router',
+        'pasvaz.bindonce',
+        'ui.bootstrap',
+        //'ui.select2',
+        //'ng.ueditor',
+        'angularFileUpload',
+        //'asyncLoader',
+        //'me-pageloading',
+        'ab-base64',
+        'ngSanitize',
+        'ngCsv',
+        'app-tpl',
+        'huijiaControllers',
+        'huijiaStates',
+        'huijiaDirectives',
+        'huijiaFilters',
+        'huijiaServices'
+    ]);
+});

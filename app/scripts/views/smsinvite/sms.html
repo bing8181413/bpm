@@ -1,0 +1,61 @@
+<script type="text/ng-template" id="mobile_list.html">
+    <div class="modal-header">
+        <h3 class="modal-title text-center">发送范围的手机号码</h3>
+    </div>
+    <div class="modal-body">
+        <textarea class="form-control" style="width: 100%;" rows="10" ng-bind="mobile_list"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">短信列表</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('smsAdd');">发送短信</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th>ID</th>
+                <th style="width: 70%;">内容</th>
+                <!--<th>目标小区</th>-->
+                <th>时间</th>
+                <th>状态</th>
+                <th>操作</th>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="item in sms_list">
+                    <td><span class="msg_title" bo-text="item.id"></span></td>
+                    <td><span class="msg_title" bo-text="item.content"></span></td>
+                    <!--<td>-->
+                    <!--<a class="btn btn-success" ng-click="user_list(item.sms_id);">-->
+                    <!--<span class="msg_title" bo-text="item.send_count"></span>-->
+                    <!--<a>-->
+                    <!--</td>-->
+                    <td><span class="msg_title" bo-text="item.send_time"></span></td>
+                    <td><span class="msg_title" bo-text="item.status | sms_status"></span></td>
+                    <td>
+                        <a class="btn btn-success" ng-click="mobile_list(item);">
+                            <span class="msg_title" bo-text="'查看'"></span>
+                            <a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,283 @@
+<style>
+    .form_dangus{
+        border-color: #E21100;
+    }
+    .form_label_dangus{
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+    .activemod_time_div{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .activemod_time{
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">添加模板</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('activemod');">模板管理</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-6">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">标题<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="title" ng-class="{'form_dangus':activemod.title}"
+                                       ng-change="activemod.title = 0" ng-model="activemod_param.title"
+                                       placeholder="标题">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">开始时间<span class="form_label_dangus">&nbsp;</span></label>
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="date" class="form-control" datepicker-popup ng-model="activemod.start.dt" is-open="openedstart" min-date="minDate"
+                                           date-disabled="disabled(date, mode)" ng-required="true"
+                                           ng-change="changed();"  close-text="关闭" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openstart($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <timepicker ng-model="activemod.start.tp" show-meridian="false"
+                                            show-spinners='false' mousewheel="false" arrowkeys="true"
+                                            ng-change="activemod.time = 0;changed();" >
+                                </timepicker>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">结束时间<span class="form_label_dangus">&nbsp;</span></label>
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="date" class="form-control" datepicker-popup ng-model="activemod.end.dt" is-open="openedend" min-date="minDate"
+                                           date-disabled="disabled(date, mode)" ng-required="true"
+                                           ng-change="changed();"  close-text="关闭" />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openend($event)"><i class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <timepicker ng-model="activemod.end.tp" show-meridian="false"
+                                            show-spinners="false" mousewheel="false" arrowkeys="true"
+                                            ng-change="activemod.end_time = 0;changed();" >
+                                </timepicker>
+                            </div>
+                        </div>
+                        <!--<div class="form-group ">-->
+                            <!--<label class="col-sm-3 control-label">开始时间<span class="form_label_dangus">&nbsp;</span></label>-->
+                            <!--<div class="col-sm-1 activemod_time_div" style="padding-left: 15px;">-->
+                                <!--<input class="form-control activemod_time" type="text" ng-model="activemod_start.year"/>-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-1 activemod_time_div">-->
+                                <!--<input class="form-control activemod_time" type="text" ng-model="activemod_start.month"/>-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-1 activemod_time_div">-->
+                                <!--<input class="form-control activemod_time" type="text" ng-model="activemod_start.day"/>-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-1 activemod_time_div"><span>&nbsp;</span></div>-->
+                            <!--<div class="col-sm-1 activemod_time_div">-->
+                                <!--<input class="form-control activemod_time" type="text" ng-model="activemod_start.hour"/>-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-1 activemod_time_div">-->
+                                <!--<input class="form-control activemod_time" type="text" ng-model="activemod_start.minute"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group ">-->
+                            <!--<label class="col-sm-3 control-label">结束时间<span class="form_label_dangus">&nbsp;</span></label>-->
+                            <!--<div class="col-sm-1 activemod_time_div" style="padding-left: 15px;">-->
+                                <!--<input class="form-control activemod_time" type="text" ng-model="activemod_end.year"/>-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-1 activemod_time_div">-->
+                                <!--<input class="form-control activemod_time" type="text" ng-model="activemod_end.month"/>-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-1 activemod_time_div">-->
+                                <!--<input class="form-control activemod_time" type="text" ng-model="activemod_end.day"/>-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-1 activemod_time_div"><span>&nbsp;</span></div>-->
+                            <!--<div class="col-sm-1 activemod_time_div">-->
+                                <!--<input class="form-control activemod_time" type="text" ng-model="activemod_end.hour"/>-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-1 activemod_time_div">-->
+                                <!--<input class="form-control activemod_time" type="text" ng-model="activemod_end.minute"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">地址<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="addr" ng-class="{'form_dangus':activemod.addr}"
+                                       ng-change="activemod.addr = 0;" ng-model="activemod_param.addr"
+                                       placeholder="地址">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">地址补充</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="addr_ex" ng-class="{'form_dangus':activemod.addr_ex}"
+                                       ng-change="activemod.addr_ex = 0;" ng-model="activemod_param.addr_ex"
+                                       placeholder="地址">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动人数<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="people_num"  ng-class="{'form_dangus':activemod.people_num}"
+                                       ng-change="activemod.people_num = 0;" ng-model="activemod_param.people_num"
+                                       placeholder="活动人数">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">人数补充</label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="people_num_ex"  ng-class="{'form_dangus':activemod.people_num_ex}"
+                                       ng-change="activemod.people_num_ex = 0;" ng-model="activemod_param.people_num_ex"
+                                       placeholder="活动人数">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">年龄范围<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <select class="form-control"  ng-options="age_range for age_range in pubdata.age_range" ng-model="activemod_param.age_range"
+                                        ng-change="activemod.age_range = 0;" ng-class="{'form_dangus':activemod.age_range}" placeholder="年龄范围">
+                                    <option value="">请选择一个年龄范围</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动类型<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <select class="form-control"  ng-options="activity_type for activity_type in pubdata.activity_type" ng-model="activemod_param.type"
+                                        ng-change="activemod.type = 0;" ng-class="{'form_dangus':activemod.type}" placeholder="活动类型">
+                                    <option value="">请选择活动类型</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">报名范围<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <select class="form-control"  ng-options="activity_apply_range for activity_apply_range in pubdata.activity_apply_range" ng-model="activemod_param.apply_range"
+                                        ng-change="activemod.apply_range = 0;" ng-class="{'form_dangus':activemod.apply_range}" placeholder="报名范围">
+                                    <option value="">请选择报名范围</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动费用<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="cost" ng-class="{'form_dangus':activemod.cost}"
+                                       ng-change="activemod.cost = 0;" ng-model="activemod_param.cost"
+                                       placeholder="活动费用">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动规则<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" rows="15" id="rule" ng-class="{'form_dangus':activemod.rule}"
+                                          ng-change="activemod.rule = 0;" ng-model="activemod_param.rule"
+                                          placeholder="活动规则"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动注意事项<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <textarea class="form-control" rows="15" id="note" ng-class="{'form_dangus':activemod.note}"
+                                          ng-change="activemod.note = 0;" ng-model="activemod_param.note"
+                                          placeholder="活动注意事项"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <div class="home_dangus" ng-repeat="alert in alerts" ng-click="closeAlert($index)">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <strong>{{alert.msg}}</strong>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-sm-12 form-group">
+                        <label>活动图片</label>
+                    </div>
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th width="50%">图片名称</th>
+                            <th width="10%" ng-show="uploader.isHTML5">大小</th>
+                            <th width="20%" ng-show="uploader.isHTML5">上传进度</th>
+                            <th width="10%">状态</th>
+                            <th width="10%">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="item in uploader.queue" class="ng-scope">
+                            <td>
+                                <strong class="ng-binding" ng-bind="item.file.name"></strong>
+                                <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 , itemobj : item}"></div>
+                            </td>
+                            <td ng-show="uploader.isHTML5" nowrap="" class="ng-binding">{{item.file.size/1024/1024|number:2}}MB</td>
+                            <td ng-show="uploader.isHTML5">
+                                <div class="progress" style="margin-bottom: 0;">
+                                    <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }" style="width: 0%;"></div>
+                                </div>
+                            </td>
+                            <td class="text-center">
+                                <span ng-show="item.isSuccess" ><i class="glyphicon glyphicon-ok"></i></span>
+                                <span ng-show="item.isCancel" ><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                <span ng-show="item.isError" ><i class="glyphicon glyphicon-remove"></i></span>
+                            </td>
+                            <td nowrap="">
+                                <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                    <span class="glyphicon glyphicon-upload"></span> 上传
+                                </button>
+                                <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading" disabled="disabled">
+                                    <span class="glyphicon glyphicon-ban-circle"></span> 取消
+                                </button>
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                    <span class="glyphicon glyphicon-trash"></span> 移除
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div>
+                        <div>
+                            上传过程:
+                            <div class="progress" style="">
+                                <div class="progress-bar" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                            <span class="glyphicon glyphicon-upload"></span> 全部上传
+                        </button>
+                        <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                            <span class="glyphicon glyphicon-ban-circle"></span> 全部取消
+                        </button>
+                        <button type="button" class="btn btn-danger btn-s" ng-click="uploader.clearQueue()" ng-disabled="!uploader.queue.length">
+                            <span class="glyphicon glyphicon-trash"></span> 全部移除
+                        </button>
+                    </div>
+                    <br/>
+                    <div class="col-sm-12 form-group">
+                        <input class="form-control" type="file" nv-file-select="" uploader="uploader"  multiple />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">保存</a>
+        </div>
+    </div>
+</div>

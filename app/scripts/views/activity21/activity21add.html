@@ -1,0 +1,400 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+    .contents {
+        border: 1px #ccc solid;
+        padding-top: 10px;
+        margin-bottom: 15px;
+    }
+    .contentOrImg {
+        padding: 0 30px 0 40px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">v2.1新活动</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('activity21');">活动管理</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-8">
+                    <form class="form-horizontal" ng-init="ref_activity_id_disable = true;reward_show = true;">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">联系人账号<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <select class="form-control" id="account_id"
+                                        ng-class="{'form_dangus':activity21adderr.account_id}"
+                                        ng-change="activity21adderr.account_id = 0"
+                                        ng-model="activity21add_param.account_id"
+                                        ng-options="account.account_id as account.username for account in account_list">
+                                    <option value="" disabled="true">请选择联系人账户</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动类型<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="category" ng-model="activity21add_param.category"
+                                               ng-value="1"
+                                               ng-click="activity21add_param.ref_activity_id='';
+                                               ref_activity_id_disable = true;reward_show = true;">
+                                        一起玩
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="category" ng-model="activity21add_param.category"
+                                               ng-value="2"
+                                               ng-click="ref_activity_id_disable=false;activity21add_param.reward='';reward_show = false;">
+                                        一起便宜
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <input class="form-control" type="text" placeholder="关联一起玩ID"
+                                           ng-disabled="ref_activity_id_disable"
+                                           ng-model="activity21add_param.ref_activity_id">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动名称<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="title" ng-class="{'form_dangus':activity21adderr.title}"
+                                       ng-change="activity21adderr.title = 0" ng-model="activity21add_param.title"
+                                       placeholder="活动名称 不要超过20个字">
+                            </div>
+                        </div>
+                        <div class="form-group " ng-show="activity21add_param.category == 1">
+                            <label class="col-sm-3 control-label">活动举办开始时间<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="">
+                                <hjm_date_time ng-model="activity21add.time" showtip="1"></hjm_date_time>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动举办结束时间<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="">
+                                <hjm_date_time ng-model="activity21add.end_time"></hjm_date_time>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">报名／抢购截止时间<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="">
+                                <hjm_date_time ng-model="activity21add.apply_end_time"></hjm_date_time>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动城市<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-2">
+                                <select class="form-control" id="city_name"
+                                        ng-class="{'form_dangus':activity21adderr.city_name}"
+                                        ng-options="city_name for city_name in city_names"
+                                        ng-change="activity21adderr.city_name = 0"
+                                        ng-model="activity21add_param.city_name"
+                                        ng-disabled="{{current_city_name && current_city_name != '未登录'}}">
+                                    <option value="" disabled="true">请选择一个城市</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-7">
+                                <input class="form-control" id="addr" ng-class="{'form_dangus':activity21adderr.addr}"
+                                       ng-change="activity21adderr.addr = 0;" ng-model="activity21add_param.addr"
+                                       placeholder="活动地址">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">卖点<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="selling_points"
+                                       ng-class="{'form_dangus':activity21adderr.selling_points}"
+                                       ng-change="activity21adderr.selling_points = 0;"
+                                       ng-model="activity21add_param.selling_points"
+                                       placeholder="卖点">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="reward_show">
+                            <label class="col-sm-3 control-label">奖励<span
+                                    class="form_label_dangus">&nbsp;</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="reward"
+                                       ng-class="{'form_dangus':activity21adderr.reward}"
+                                       ng-change="activity21adderr.reward = 0;" ng-model="activity21add_param.reward"
+                                       placeholder="奖励">
+                            </div>
+                        </div>
+                        <!--<div class="form-group"  ng-if="activity21add_param.category == 2">-->
+                        <!--<label class="col-sm-3 control-label">初始化团购数<span class="form_label_dangus">*</span></label>-->
+
+                        <!--<div class="col-sm-4">-->
+                        <!--<input class="form-control" id="init_buy_num" type="number"-->
+                        <!--ng-class="{'form_dangus':activity21adderr.init_buy_num}"-->
+                        <!--ng-change="activity21adderr.init_buy_num = 0;"-->
+                        <!--ng-model="activity21add_param.init_buy_num"-->
+                        <!--placeholder="最少参团人数">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group" ng-if="activity21add_param.category == 1">-->
+                        <!--<label class="col-sm-3 control-label">活动地址<span class="form_label_dangus">*</span></label>-->
+
+                        <!--<div class="col-sm-9">-->
+                        <!--<input class="form-control" id="addr" ng-class="{'form_dangus':activity21adderr.addr}"-->
+                        <!--ng-change="activity21adderr.addr = 0;" ng-model="activity21add_param.addr"-->
+                        <!--placeholder="活动地址">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group" ng-if="activity21add_param.category == 2">-->
+                            <!--<label class="col-sm-3 control-label">产品原价<span class="form_label_dangus">*</span></label>-->
+
+                            <!--<div class="col-sm-4">-->
+                                <!--<input class="form-control" id="orig_price"-->
+                                       <!--ng-class="{'form_dangus':activity21adderr.orig_price}"-->
+                                       <!--ng-change="activity21adderr.orig_price = 0;"-->
+                                       <!--ng-model="activity21add_param.orig_price"-->
+                                       <!--placeholder="产品原价">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                        <!--<label class="col-sm-3 control-label">支付价格<span class="form_label_dangus">*</span></label>-->
+
+                        <!--<div class="col-sm-4">-->
+                        <!--<input class="form-control" id="price" ng-class="{'form_dangus':activity21adderr.price}"-->
+                        <!--ng-change="activity21adderr.price = 0;" ng-model="activity21add_param.price"-->
+                        <!--placeholder="支付价格">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group" ng-if="activity21add_param.category == 2">
+                            <label class="col-sm-3 control-label">单位<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <input class="form-control" id="price_label"
+                                       ng-class="{'form_dangus':activity21adderr.price_label}"
+                                       ng-change="activity21adderr.price_label = 0;"
+                                       ng-model="activity21add_param.price_label"
+                                       placeholder="单位">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">覆盖小区<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="target_type"
+                                               ng-model="activity21add_param.target_type" ng-value="2"
+                                               ng-click="community_names_array=[];">
+                                        全部小区
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="target_type"
+                                               ng-model="activity21add_param.target_type" ng-value="1">
+                                        部分小区可见
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="target_type"
+                                               ng-model="activity21add_param.target_type" ng-value="3">
+                                        部分小区不可见
+                                    </label>
+                                </div>
+                            </div>
+                            <label class="col-sm-3 control-label"></label>
+
+                            <div class="col-sm-9" ng-if="activity21add_param.target_type!==2">
+                                <select-community ng-model="activity21add.communityinfo"></select-community>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">团类型<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="tuan_type" ng-model="activity21add_param.tuan_type"
+                                               ng-value="2" ng-click="activity21add_param.people_num=''">
+                                        一起团
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="tuan_type" ng-model="activity21add_param.tuan_type"
+                                               ng-value="1">
+                                        独立成团
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">成团人数<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <input class="form-control" id="people_min_num" type="number"
+                                       ng-class="{'form_dangus':activity21adderr.people_min_num}"
+                                       ng-change="activity21adderr.people_min_num = 0;"
+                                       ng-model="activity21add_param.people_min_num"
+                                       placeholder="最少参团人数">
+                            </div>
+                            <div class="col-sm-4">
+                                <input class="form-control" id="people_num" type="number"
+                                       ng-class="{'form_dangus':activity21adderr.people_num}"
+                                       ng-change="activity21adderr.people_num = 0;"
+                                       ng-model="activity21add_param.people_num"
+                                       placeholder="最多参团人数"  ng-disabled="true">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">限制库存<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="restricted_inventory"
+                                               ng-model="activity21add_param.restricted_inventory" ng-value="1">
+                                        限制库存
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="restricted_inventory"
+                                               ng-model="activity21add_param.restricted_inventory" ng-value="0">
+                                        不限制库存
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">产品类目<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <option_info ng-model="activity21add.option_info"
+                                             tuantype="activity21add_param.tuan_type"
+                                             category="activity21add_param.category"
+                                             inventory="activity21add_param.restricted_inventory"></option_info>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="activity21add_param.category == 2">
+                            <label class="col-sm-3 control-label">仅认证用户可定<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="apply_verifiy"
+                                               ng-model="activity21add_param.apply_verifiy" ng-value="1">
+                                        是
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="apply_verifiy"
+                                               ng-model="activity21add_param.apply_verifiy" ng-value="0">
+                                        否
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">封面图片<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <show-upload images="activity21add.pics_info" max="1" hasimages=""></show-upload>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动摘要<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <content_or_img ng-model="activity21add.contents[0]"></content_or_img>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动流程<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <content_or_img ng-model="activity21add.contents[1]"></content_or_img>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">费用说明<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <content_or_img ng-model="activity21add.contents[2]" only-text="1"></content_or_img>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">不成团说明<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <content_or_img ng-model="activity21add.contents[3]" only-text="1"></content_or_img>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">注意事项<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <content_or_img ng-model="activity21add.contents[4]" only-text="1"></content_or_img>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">置顶<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="order_by" ng-model="activity21add_param.order_by"
+                                               ng-value="1">
+                                        是
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="order_by" ng-model="activity21add_param.order_by"
+                                               ng-value="0">
+                                        否
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save(1)">保存为草稿</a>
+            <a class="btn btn-success" ng-click="save()">发布活动</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,308 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .img_a {
+        display: inline-block;
+        width: 50px;
+        max-height: 50px;
+        max-width: 30%;
+        cursor: pointer;
+        margin-right: 3px;
+    }
+
+    .img_a > img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .big_pic {
+        width: 500px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .img_a.big_pic > img {
+        width: auto;
+        height: auto;
+    }
+</style>
+<script type="text/ng-template" id="add_comment.html">
+    <div class="modal-header">
+        <h3 class="modal-title">回复</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">回复内容<span class="form_label_dangus">*</span></label>
+
+                <div class="col-sm-8">
+                    <textarea class="form-control" rows="3" ng-model="content" ng-change="checkLength(200)"
+                              placeholder="请输入内容..."></textarea>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<script type="text/ng-template" id="comment_list.html">
+    <div class="modal-header">
+        <h3 class="modal-title">回复</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <th>ID</th>
+            <th>回复者ID</th>
+            <th>回复者</th>
+            <th>回复对象ID</th>
+            <th>回复对象</th>
+            <th>内容</th>
+            <th>创建时间</th>
+            </thead>
+            <tbody>
+            <tr bindonce ng-repeat="comment in comment_list">
+                <td><span class="msg_title" bo-text="comment.fc_id"></span></td>
+                <td><span class="msg_title" bo-text="comment.user_id"></span></td>
+                <td><span class="msg_title" bo-text="comment.post_name"></span></td>
+                <td><span class="msg_title" bo-text="comment.reply_user_id"></span></td>
+                <td><span class="msg_title" bo-text="comment.reply_to_name"></span></td>
+                <td><span class="msg_title" bo-text="comment.content"></span></td>
+                <td><span class="msg_title" bo-text="comment.created_at"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<script type="text/ng-template" id="ask_list.html">
+    <div class="modal-header">
+        <h3 class="modal-title">问吧</h3>
+    </div>
+    <div class="panel-body">
+        <ul class="nav nav-pills">
+            <li role="presentation" ng-class="{active:list_param.has_replied ==0}">
+                <a class="btn btn-default" ng-click="list_param.has_replied=0;getapi(1);">新增问题</a>
+            </li>
+            <li role="presentation" ng-class="{active:list_param.has_replied ==1}">
+                <a class="btn btn-default" ng-click="list_param.has_replied=1;getapi(1);">已回复问题</a>
+            </li>
+        </ul>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <th>用户ID</th>
+            <th>用户名</th>
+            <th>手机号码</th>
+            <th>所在小区</th>
+            <th style="width: 10%;">文字内容</th>
+            <th>提交时间</th>
+            <th style="width: 50px;">操作</th>
+            </thead>
+            <tbody>
+
+            <tr bindonce ng-repeat="ask in ask_list">
+                <td><span class="msg_title" bo-text="ask.post_user_info.user_id"></span></td>
+                <td><span class="msg_title" bo-text="ask.post_user_info.name"></span></td>
+                <td><span class="msg_title" bo-text="ask.mobile"></span></td>
+                <td><span class="msg_title" bo-text="ask.post_user_info.community_name"></span></td>
+                <td><span class="msg_title" bo-text="ask.content"></span></td>
+                <td><span class="msg_title" bo-text="ask.created_at"></span></td>
+                <td>
+                    <a class="btn btn-primary" ng-click="add_comment(ask.feed_id);">回复</a>
+                    <a class="btn btn-info" ng-click="comment_list(ask);">反馈详情</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center" id="pagination">
+            <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                        max-size="maxSize" class="pagination"
+                        boundary-links="true" ng-change="getapi(currentPage)"
+                        rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                        first-text="&laquo;" last-text="&raquo;"></pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<script type="text/ng-template" id="meet_list.html">
+    <div class="modal-header">
+        <h3 class="modal-title">约吧/感谢</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <th>用户ID</th>
+            <th>用户名</th>
+            <th>手机号码</th>
+            <th>所在小区</th>
+            <th style="width: 10%;">服务内容</th>
+            <th>提交时间</th>
+            <th style="width: 20%;">备注内容</th>
+            </thead>
+            <tbody>
+
+            <tr bindonce ng-repeat="meet in meet_list">
+                <td><span class="msg_title" bo-text="meet.user_id"></span></td>
+                <td><span class="msg_title" bo-text="meet.name"></span></td>
+                <td><span class="msg_title" bo-text="meet.mobile"></span></td>
+                <td><span class="msg_title" bo-text="meet.community_name"></span></td>
+                <td><span class="msg_title" bo-text="meet.ser_name"></span></td>
+                <td><span class="msg_title" bo-text="meet.raw_add_time"></span></td>
+                <td>{{meet.expect}}</td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center" id="pagination">
+            <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                        max-size="maxSize" class="pagination"
+                        boundary-links="true" ng-change="getapi(currentPage)"
+                        rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                        first-text="&laquo;" last-text="&raquo;"></pagination>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">达人管理</div>
+
+        <div class="panel" ng-if="Page.tab == 1">
+            <div class="panel-heading">
+                <a class="btn btn-info" ui-sref="talentAdd">新增小区达人</a>
+                <!--<a class="btn btn-info" ui-sref="talentTag">新增小区达人</a>-->
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <ul class="nav nav-pills">
+                <li role="presentation">
+                    <a class="btn">审核状态:</a>
+                </li>
+                <li role="presentation" ng-class="{active:list_param.status ==1}">
+                    <a class="btn btn-link" ng-click="list_param.status=1;getData();">待审核</a>
+                </li>
+                <li role="presentation" ng-class="{active:list_param.status ==2}">
+                    <a class="btn btn-link" ng-click="list_param.status=2;getData();">已通过审核</a>
+                </li>
+                <li role="presentation" ng-class="{active:list_param.status ==3}">
+                    <a class="btn btn-link" ng-click="list_param.status=3;getData();">未通过审核</a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th>申请ID</th>
+                <th>用户ID</th>
+                <th>姓名</th>
+                <th>手机号码</th>
+                <th>所属小区</th>
+                <th>达人标签</th>
+                <th style="width:250px;">详细介绍</th>
+                <th>感谢</th>
+                <th>约吧</th>
+                <th>问吧</th>
+                <th>玩吧</th>
+                <th>话题</th>
+                <th>达人状态</th>
+                <th>操作</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="v in list track by $index">
+                    <td>{{v.eid}}</td>
+                    <td>{{v.uid}}</td>
+                    <td>{{v.name}}</td>
+                    <td>{{v.tel}}</td>
+                    <td>{{v.community_name}}</td>
+                    <td>{{v.tags}}</td>
+                    <td>{{v.des}}</td>
+
+                    <td>
+                        <a class="btn btn-success"
+                           ng-click="thxs_list(v.uid);">
+                            <span class="msg_title" ng-bind="v.thxs"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-success"
+                           ng-click="meet_list(v.uid);">
+                            <span class="msg_title" ng-bind="v.yue"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-success"
+                           ng-click="ask_list(v.eid);">
+                            <span class="msg_title" ng-bind="v.feed_count"></span>
+                        </a>
+                    </td>
+                    <td>{{v.wan}}</td>
+                    <td>{{v.topics}}</td>
+                    <td>{{v.status | talent_status}}</td>
+                    <td>
+                        <div class="btn btn-info" style="margin-right:5px;"
+                             ui-sref="talentAdd({eid: v.eid, tel: v.tel})" ui-sref-opts="{reload: true}">编辑详情
+                        </div>
+                        <div class="btn btn-danger" ng-show="v.status!=3"
+                             ng-click="change_status(v.uid, 3)">不通过
+                        </div>
+                        <div class="btn btn-success" ng-show="v.status!=2"
+                             ng-click="change_status(v.uid, 2)">通过
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <!--<table class="table table-hover table-bordered" ng-if="Page.tab == 2">-->
+                <!--<thead>-->
+                <!--<th>申请人ID</th>-->
+                <!--<th>姓名</th>-->
+                <!--<th>手机号码</th>-->
+                <!--<th>所属小区</th>-->
+                <!--<th>申请介绍</th>-->
+                <!--<th>操作</th>-->
+                <!--</thead>-->
+                <!--<tbody>-->
+                <!--<tr ng-repeat="v in DataList.list track by $index">-->
+                    <!--<td>{{v.uid}}</td>-->
+                    <!--<td>{{v.name}}</td>-->
+                    <!--<td>{{v.tel}}</td>-->
+                    <!--<td>{{v.community_name}}</td>-->
+                    <!--<td>{{v.self_des}}</td>-->
+                    <!--<td>-->
+                        <!--<div class="btn btn-primary" ui-sref="talentAdd({tel: v.tel})" ui-sref-opts="{reload: true}">-->
+                            <!--转化成达人-->
+                        <!--</div>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
+
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getData(currentPage)"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,111 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">负责人</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('account.list');">负责人列表</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-9">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">负责人账号<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="param.username"
+                                       placeholder="负责人账号" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">回家么账号</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="param.mobile"
+                                       placeholder="回家么账号">
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                        <!--<label class="col-sm-3 control-label">负责区域<span class="form_label_dangus">*</span></label>-->
+
+                        <!--<div class="col-sm-9">-->
+                        <!--<select_boards areas="param.areas"></select_boards>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                        <!--<div class="col-sm-9">-->
+                        <!--<input type="text" ng-model="communityerr.count">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">微信二维码</label>
+
+                            <div class="col-sm-9">
+                                <show-upload images="tmp_param.weixin_qrcode" max="1"
+                                             hasimages="!iscompleted"></show-upload>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">微信昵称</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="param.weixin_nickname"
+                                       placeholder="微信昵称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">角色<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <label class="radio-inline">
+                                    <input type="radio" name="inlineRadioOptions" ng-model="param.type" value="op"> op
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="inlineRadioOptions" ng-model="param.type" value="pm"> pm
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="inlineRadioOptions" ng-model="param.type" value="admin"> admin
+                                </label>
+                                <label class="radio-inline">
+                                    <input type="radio" name="inlineRadioOptions" ng-model="param.type" value="cw"> cw
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">所属城市列表<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <select_city city_list="param.city_list" city_name="param.city_name"></select_city>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">备注</label>
+
+                            <div class="col-sm-9">
+                                <textarea class="form-control" ng-model="param.remark"
+                                          placeholder="备注" cols="10" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">更新</a>
+        </div>
+    </div>
+</div>

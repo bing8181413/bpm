@@ -1,0 +1,62 @@
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">负责人列表</div>
+        <!--<div class="panel-body ">-->
+        <!--<div class="panel">-->
+        <!--<div class="panel-heading">-->
+        <!--<a class="btn btn-info" ng-click="$state.go('account.add');">新增负责人</a>-->
+        <!--</div>-->
+        <!--<br/>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th style="width: 50px;">ID</th>
+                <th style="width: 100px;">负责人姓名</th>
+                <th style="width: 100px;">回家么账号</th>
+                <th style="width: 75px;">负责城市</th>
+                <th style="width:100px;">微信二维码</th>
+                <th style="width: 100px;">微信昵称</th>
+                <th style="width: 100px;">角色</th>
+                <th style="width: 100px;">备注</th>
+                <th style="width: 100px;">负责区域</th>
+                <th>操作</th>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="item in list" ng-init="item.idx = $index">
+                    <td><span class="msg_title" bo-text="item.account_id"></span></td>
+                    <td><span class="msg_title" bo-text="item.username"></span></td>
+                    <td><span class="msg_title" bo-text="item.mobile"></span></td>
+                    <td>
+                        <show_str str="item.city_list" split="','" title="'负责城市'" size="''"></show_str>
+                        <!--<span class="msg_title" bo-text="item.city_list|split_str:','"></span>-->
+                    </td>
+                    <td>
+                        <show_image url="item.weixin_qrcode"></show_image>
+                        <!--<span class="msg_title" bo-text="item.weixin_qrcode"></span>-->
+                    </td>
+                    <td><span class="msg_title" bo-text="item.weixin_nickname"></span></td>
+                    <td><span class="msg_title" bo-text="item.type"></span></td>
+                    <td><span class="msg_title" bo-text="item.remark"></span></td>
+                    <td>
+                        <select_boards areas="item.areas" account_id="item.account_id"
+                                       city_name="item.city_name"></select_boards>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary"
+                           ng-click="redirect2update(item);">编辑</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

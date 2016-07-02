@@ -1,0 +1,127 @@
+<style>
+    .form_dangus{
+        border-color: #E21100;
+    }
+    .form_label_dangus{
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<script type="text/ng-template" id="activity_del_user.html">
+    <div class="modal-header">
+        <h3 class="modal-title">结束活动</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">结束原因<span class="form_label_dangus">*</span></label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" rows="3" id="reason" ng-model="reason" placeholder="结束原因">
+                    </textarea>
+                </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<script type="text/ng-template" id="close_activenew.html">
+    <div class="modal-header">
+        <h3 class="modal-title">结束活动</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">结束原因<span class="form_label_dangus">*</span></label>
+                <div class="col-sm-6">
+                    <textarea class="form-control" rows="3" id="reason" ng-model="reason" placeholder="结束原因">
+                    </textarea>
+                </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">立即结束</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<script type="text/ng-template" id="user_list.html">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-bind="activityTitle"></h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-hover table-bordered">
+            <thead>
+            <th>姓名</th>
+            <th>手机号码</th>
+            <th>地址</th>
+            <th>报名品类</th>
+            <th>价格</th>
+            <th>当前状态</th>
+            <th>操作</th>
+            </thead>
+            <tbody>
+            <tr bindonce ng-repeat="user in user_list">
+                <td><span class="msg_title" bo-text="user.name"></span></td>
+                <td><span class="msg_title" bo-text="user.mobile"></span></td>
+                <td><span class="msg_title" bo-text="user.addr"></span></td>
+                <td><span class="msg_title" bo-text="user.option_name"></span></td>
+                <td><span class="msg_title" bo-text="user.option_price"></span></td>
+                <td><span class="msg_title" bo-text="user.pay_status | pay_status"></span></td>
+                <td>
+                    <a class="btn btn-danger" ng-if="user.pay_status == 1||user.pay_status == 2" ng-click="activity_del_user(user.apply_id,$index,sup_index)">取消报名</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">活动申请小区列表</div>
+        <div class="panel-body">
+            <ol class="breadcrumb">
+                <li class="active">活动名称:</li>
+                <li><a ng-bind="activityTitle" ui-sref="activity20"></a></li>
+                <li class="active">活动小区</li>
+            </ol>
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th>报名小区</th>
+                <th>活动人数</th>
+                <th>报名人数</th>
+                <th>已支付</th>
+                <th>状态</th>
+                <th>操作</th>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="community in community_list">
+                    <td><span class="msg_title" bo-text="community.community_name"></span></td>
+                    <td><span class="msg_title" bo-text="'活动人数'"></span></td>
+                    <td>
+                        <a class="btn btn-success"
+                           ng-click="user_list(community.community_name,community.users,$index);">
+                            <span class="msg_title" bo-text="community.users.length || 0"></span>
+                        <a>
+                    </td>
+                    <td><span class="msg_title" ng-bind="community.pay_num"></span></td>
+                    <td><span class="msg_title" ng-bind="community.status | acticity_comunity_status"></span></td>
+                    <td>
+                        <a class="btn btn-danger" ng-if="community.status == 1" ng-click="close_activenew(community.community_id,$index)">结束该小区活动</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage"items-per-page="itemsPerPage"   max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)" items-per-page="10"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

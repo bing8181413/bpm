@@ -1,0 +1,120 @@
+<div>
+    <style type="text/css">
+        .select_name {
+            width: 100%;
+            line-height: 26px;
+            height: 34px;
+            margin-right: 15px;
+        }
+
+        .community_name {
+            position: relative;
+            width: 100% !important;
+        }
+
+        .search_community_list {
+            position: absolute;
+            top: 100%;
+            z-index: 1000;
+            float: left;
+            min-width: 160px;
+            padding: 5px 0;
+            margin: 2px 0 0;
+            font-size: 14px;
+            text-align: left;
+            list-style: none;
+            background-color: #fff;
+            -webkit-background-clip: padding-box;
+            background-clip: padding-box;
+            border: 1px solid #ccc;
+            border: 1px solid rgba(0, 0, 0, .15);
+            border-radius: 4px;
+            -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+        }
+
+        .search_community_list > li {
+            width: 100%;
+        }
+
+        .search_community_list > li > a.divider {
+            height: 1px;
+            margin: 1px 0;
+            overflow: hidden;
+            background-color: #e5e5e5;
+            padding: 0;
+        }
+
+        .search_community_list > li > a {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            font-weight: normal;
+            line-height: 1.42857143;
+            color: #333;
+            white-space: nowrap;
+        }
+
+        .search_community_list > li > a:hover {
+            background-color: #13c4a5;
+            color: #fff;
+        }
+    </style>
+    <!--<input type="text" ng-model="communityerr.count"/>-->
+    <table class="table table-hover table-bordered">
+        <thead>
+        <tr>
+            <th style="width: 40%; text-align: center;">小区关键字</th>
+            <th style="width: 10%; text-align: center;">搜索</th>
+            <th style="width: 40%; text-align: center;">验证后小区名称</th>
+            <th style="width: 10%; text-align: center;">
+                <a class="btn btn-primary" ng-click="add();conslog();">添加</a>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr ng-repeat="obj in list.old track by $index" ng-init="obj.index = $index;" ng-if="!obj.hide">-->
+            <!--<td>-->
+                <!--<input type="text" class="form-control" ng-model="obj.community_name" disabled>-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<div class="community_name"></div>-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--<a type="button" class="btn btn-default select_name" ng-bind="obj.community_name"></a>-->
+            <!--</td>-->
+            <!--<td></td>-->
+        <!--</tr>-->
+        <tr ng-repeat="obj in communitys track by $index" ng-init="obj.index = $index;" ng-if="!obj.hide">
+            <td>
+                <input type="text" class="form-control" ng-model="obj.community_keyword">
+            </td>
+            <td>
+                <div class="community_name">
+                    <a type="button" class="btn btn-default"
+                       ng-click="search_community($index, obj.index, obj.community_keyword);">
+                        <span ng-if="!obj.search_community_list">搜索</span>
+                        <span ng-if="obj.search_community_list">取消</span>
+                    </a>
+                    <ul class="search_community_list" ng-if="obj.search_community_list">
+                        <li ng-repeat="searchobj in obj.search_community_list track by $index">
+                            <a class="btn" ng-click="select_community($index,obj.index,searchobj);"
+                               ng-bind="searchobj.name"></a>
+                        </li>
+                        <li><a class="divider"></a></li>
+                        <li>
+                            <a class="btn" ng-click="obj.search_community_list=''">取消</a>
+                        </li>
+                    </ul>
+                </div>
+            </td>
+            <td>
+                <a type="button" class="btn btn-default select_name" ng-bind="obj.community_name"></a>
+            </td>
+            <td>
+                <a class="btn btn-danger" ng-click="del(obj.index)">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

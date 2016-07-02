@@ -1,0 +1,186 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">新增消息推送</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('push');">消息推送管理</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-8">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">消息标题<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="title" ng-class="{'form_dangus':pushadd.title}"
+                                       ng-change="pushadd.title = 0" ng-model="pushadd_param.title"
+                                       placeholder="消息标题">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">内容<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <textarea class="form-control" ng-model="pushadd_param.content" rows="5"
+                                          ng-change="pushadd.content=0;"
+                                          ng-class="{'form_dangus':pushadd.content}" placeholder="短信内容不超过140个字">
+                                </textarea>
+                            </div>
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <show-upload images="pushadd.images" max="1" hasimages=""></show-upload>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">消息跳转页面<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="param" ng-value="1" ng-model="pushadd.param_type"
+                                               ng-click="default_param_change('');"
+                                               ng-checked="true">不跳转任何页面</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="param" ng-value="2" ng-model="pushadd.param_type"
+                                               ng-click="default_param_change('url');"
+                                                >跳转至网页</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="param" ng-value="3" ng-model="pushadd.param_type"
+                                               ng-click="default_param_change('activity_id');"
+                                                >跳转至活动详情</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="param" ng-value="4" ng-model="pushadd.param_type"
+                                               ng-click="default_param_change('topic_id');"
+                                                >跳转至话题详情</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="param" ng-value="5" ng-model="pushadd.param_type"
+                                               ng-click="default_param_change('feed_id');"
+                                                >跳转至邻里圈详情</label>
+                                </div>
+                                <!--<div class="radio-inline">-->
+                                <!--<label>-->
+                                <!--<input type="radio" name="param" ng-value="6" ng-model="pushadd.param_type"-->
+                                <!--ng-click="default_param_change('url');">跳转至积分商城</label>-->
+                                <!--</div>-->
+
+                            </div>
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <input class="form-control" ng-class="{'form_dangus':pushadd.param_hasval}"
+                                       ng-model="pushadd.param.url" ng-if="default_param.url=='1'"
+                                       ng-change="pushadd.param_hasval=0"
+                                       placeholder="输入网页链接地址url">
+                            </div>
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <input class="form-control" ng-class="{'form_dangus':pushadd.param_hasval}"
+                                       ng-model="pushadd.param.activity_id" ng-if="default_param.activity_id==1"
+                                       ng-change="pushadd.param_hasval=0"
+                                       placeholder="输入活动ID">
+                            </div>
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <input class="form-control" ng-class="{'form_dangus':pushadd.param_hasval}"
+                                       ng-model="pushadd.param.topic_id" ng-if="default_param.topic_id==1"
+                                       ng-change="pushadd.param_hasval=0"
+                                       placeholder="输入话题ID">
+                            </div>
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <input class="form-control" ng-class="{'form_dangus':pushadd.param_hasval}"
+                                       ng-model="pushadd.param.feed_id" ng-if="default_param.feed_id==1"
+                                       ng-change="pushadd.param_hasval=0"
+                                       placeholder="输入邻里圈ID">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">发送用户<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="scope_type" ng-model="pushadd_param.scope_type"
+                                               ng-value="0">指定用户</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="scope_type" ng-model="pushadd_param.scope_type"
+                                               ng-value="1">所有用户</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="scope_type" ng-model="pushadd_param.scope_type"
+                                               ng-value="2">注册用户</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="scope_type" ng-model="pushadd_param.scope_type"
+                                               ng-value="3">认证用户</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="scope_type" ng-model="pushadd_param.scope_type"
+                                               ng-value="4">需升级用户</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3" ng-show="pushadd_param.scope_type==0">
+                                <select-community ng-model="pushadd.ids"></select-community>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                        <!--<div class="col-sm-9 col-sm-offset-3">-->
+                        <!--<div class="checkbox-inline">-->
+                        <!--<label>-->
+                        <!--<input type="checkbox" ng-model="pushadd_param.is_nofity"-->
+                        <!--ng-true-value="'1'" ng-false-value="'0'">开启定时发送-->
+                        <!--</label>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-4 col-sm-offset-3">-->
+                        <!--<p class="input-group">-->
+                        <!--<input type="date" class="form-control" datepicker-popup-->
+                        <!--ng-model="pushadd.expire_time" is-open="openend_a" min-date="minDate"-->
+                        <!--date-disabled="disabled(date, mode)" ng-required="true" ng-change="changed()"-->
+                        <!--close-text="关闭"/>-->
+                        <!--<span class="input-group-btn">-->
+                        <!--<button type="button" class="btn btn-default" ng-click="openend($event);">-->
+                        <!--<i class="glyphicon glyphicon-calendar"></i></button>-->
+                        <!--</span>-->
+                        <!--</p>-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-4">-->
+                        <!--<timepicker ng-model="pushadd.expire_time" show-meridian="false"-->
+                        <!--show-spinners='false' mousewheel="false" arrowkeys="true"-->
+                        <!--ng-change="changed();">-->
+                        <!--</timepicker>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">发布</a>
+        </div>
+    </div>
+</div>

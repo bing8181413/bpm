@@ -1,0 +1,35 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">切换城市</div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-9">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">切换城市<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <select_current_city current_city_list="param.current_city_list"
+                                                     current_city_name="param.current_city_name"></select_current_city>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">更新</a>
+        </div>
+    </div>
+</div>

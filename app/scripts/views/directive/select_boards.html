@@ -1,0 +1,87 @@
+<div>
+    <style type="text/css">
+        .select-boards-tabs {
+            padding: 15px 15px 0;
+            margin-right: 0;
+            margin-left: 0;
+            background-color: #fff;
+            border-color: #e5e5e5 #eee #eee;
+            border-width: 1px;
+            border-radius: 4px;
+            /*border-style: solid;*/
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+
+        .select-boards-tabs > .tab-content {
+            margin: 0 -15px;
+        }
+
+        .tab-content-view > ul > li {
+            margin-right: 30px;
+        }
+
+        .sb_select {
+            color: #fff !important;
+        }
+    </style>
+    <script type="text/ng-template" id="community_boards.html">
+        <div class="modal-header">
+            <h3 class="modal-title text-center">更新负责区域</h3>
+        </div>
+        <div class="panel-body">
+            <div class="select-boards-tabs">
+                <ul class="nav nav-pills" role="tablist">
+                    <li role="presentation" ng-repeat="sup in all_boards">
+                        <a ng-href="{{'#a'+sup.district}}" aria-controls="{{'a'+sup.district}}" role="tab"
+                           data-toggle="tab">
+                            {{sup.district}}
+                            <span class="badge" ng-bind="sup.self_count" ng-if="sup.self_count>0"></span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="active">
+                        <a ng-href="#cancel" aria-controls="cancel" role="tab"
+                           data-toggle="tab">
+                            取消
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane" id="{{'a'+sup.district}}"
+                         ng-repeat="sup in all_boards" ng-init="sup.idx = $index">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <a class="btn btn-primary sb_select" ng-click="select_all(sup);">全选</a>
+                                    <a class="btn btn-primary sb_select" ng-click="reverse_all(sup);">反选</a>
+                                    <a class="btn btn-primary sb_select" ng-click="regain(sup);">恢复上次修改前的状态</a>
+                                    {{sup.district}}
+                                    <span class="badge" ng-bind="sup.count+'个小区'"></span>
+                                </h3>
+                            </div>
+                            <div class="panel-body tab-content-view">
+                                <ul class="nav nav-pills" role="tablist">
+                                    <li role="presentation" ng-repeat="sub in sup.boards">
+                                        <div class="checkbox">
+                                            <label title="{{sub.count+'个小区，负责人是： '+sub.username}}">
+                                                <input type="checkbox" ng-checked="sub.change==1"
+                                                       ng-click="toggle(sub);" ng-disabled="sub.def == 3">
+                                                {{sub.area}}
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane active" id="cancel"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a class="btn btn-warning" ng-click="cancel()">关闭</a>
+            <a class="btn btn-success" ng-click="update()">更新</a>
+        </div>
+    </script>
+    <a class="btn btn-primary" ng-click="community_boards()">编辑</a>
+</div>

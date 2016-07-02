@@ -1,0 +1,79 @@
+<style>
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<script type="text/ng-template" id="roles_menu.html">
+    <div class="modal-header">
+        <h3 class="modal-title text-center">角色菜单</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <div class="col-sm-12">
+                    <ul class="nav nav-pills" role="tablist">
+                        <li role="presentation" ng-repeat="menu in menus">
+                            <div class="checkbox">
+                                <label title="240个小区，负责人是： jinniu" class="ng-binding">
+                                    <input type="checkbox" ng-checked="menu.checked" ng-click="toggle(menu);">
+                                    {{menu.name}}
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">角色列表</div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th style="width: 50px;">ID</th>
+                <th style="width: 100px;">标示</th>
+                <th style="width: 100px;">角色名称</th>
+                <th style="width: 70px;">菜单</th>
+
+                <th>模块</th>
+                <th style="width: 70px;">操作</th>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="item in list">
+                    <td><span class="msg_title" bo-text="item.id"></span></td>
+                    <td>
+                        <span class="msg_title span100" ng-bind="item.key"></span>
+                    </td>
+                    <td>
+                        <span class="msg_title span100" ng-bind="item.name"></span>
+                    </td>
+                    <td>
+                        <show_str str="item.menus_str" split="" title="'菜单'">菜单</show_str>
+                    </td>
+                    <td>
+                        <span class="msg_title" ng-bind="item.modules"></span>
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" ng-click="menu(item.id,item.menus)">菜单</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

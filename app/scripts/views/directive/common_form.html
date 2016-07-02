@@ -1,0 +1,31 @@
+<div class="pull-right">
+    <style type="text/css">
+        .bot_margin_20 {
+            margin-bottom: 0 !important;
+        }
+    </style>
+    <script type="text/ng-template" id="form_data.html">
+        <div class="panel panel-primary bot_margin_20">
+            <div class="panel-heading">
+                {{form_title}}
+                <span class="badge pointer pull-right" ng-click="cancel()">X</span>
+            </div>
+            <div class="panel-body">
+                <form class="form-horizontal">
+                    <div class="form-group" ng-repeat="item in form_data">
+                        <label class="col-sm-3 control-label">{{item.name}}
+                            <span class="form_label_dangus" ng-bind="(item.allownull|| item.isprimary)?'':'*'"></span>
+                        </label>
+
+                        <div class="col-sm-6">
+                            <input class="form-control" ng-model="item.val" ng-disabled="item.isprimary==1">
+                        </div>
+                    </div>
+                </form>
+                <a class="btn btn-success pull-right" ng-click="submit()">提交</a>
+            </div>
+        </div>
+    </script>
+    <a class="btn btn-default pull-right btn-xs" ng-click="open()" ng-bind="form_title"></a>
+    <!--<a class="btn btn-default pull-right" ng-click="refresh()">1111111</a>-->
+</div>

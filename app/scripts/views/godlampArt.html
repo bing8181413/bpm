@@ -1,0 +1,92 @@
+<style>
+    .form_dangus{
+        border-color: #E21100;
+    }
+    .form_label_dangus{
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">添加模板</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('godlamp');">模板管理</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-4">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">愿望名称<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="title" ng-class="{'form_dangus':wish_detail.title}"
+                                       ng-change="wish_detail.title = 0" ng-model="wish_param.title"
+                                       placeholder="标题">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动类型<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <select class="form-control"  ng-options="activity_type for activity_type in pubdata.activity_type"
+                                        ng-model="wish_param.type"
+                                        ng-change="wish_detail.activity_type = 0;" ng-class="{'form_dangus':wish_detail.activity_type}" placeholder="活动类型">
+                                    <option value="">请选择活动类型</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">活动人数<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="people_num"  ng-class="{'form_dangus':wish_detail.people_num}"
+                                       ng-change="wish_detail.people_num = 0;" ng-model="wish_param.people_num"
+                                       placeholder="活动人数">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">URL<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="people_num"  ng-class="{'form_dangus':wish.url}"
+                                       ng-change="wish_detail.url = 0;" ng-model="wish_param.url"
+                                       placeholder="URL">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">封面图<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" type="file" nv-file-select="" uploader="uploader" accept="image/*"  />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3 ">
+                                <a class="btn btn-success" ng-click="uploader.uploadAll();closeAlert();">上传</a>
+                                <a class="btn btn-danger"
+                                   ng-click="uploader.clearQueue();wish.image='';">删除</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <img class="img-responsive" ng-src="{{wish.image}}" ng-if="wish.image">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="home_dangus" ng-repeat="alert in alerts" ng-click="closeAlert($index)">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <strong>{{alert.msg}}</strong>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">保存</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,337 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">小区添加或编辑</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('community')">小区列表</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-8">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">小区名称<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="name" ng-class="{'form_dangus':community.name}"
+                                       ng-change="community.name = 0" ng-model="community_param.name"
+                                       placeholder="小区名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">位置类型</label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="poi_type"
+                                               ng-model="community_param.poi_type"
+                                               ng-value="1">
+                                        小区
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="poi_type"
+                                               ng-model="community_param.poi_type"
+                                               ng-value="2">
+                                        办公室
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">别名</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="alias" ng-class="{'form_dangus':community.alias}"
+                                       ng-change="community.alias = 0" ng-model="community_param.alias"
+                                       placeholder="别名">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">城市<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <!--<input class="form-control" id="city_name"-->
+                                <!--ng-class="{'form_dangus':community.city_name}"-->
+                                <!--ng-change="community.city_name = 0" ng-model="community_param.city_name"-->
+                                <!--placeholder="城市名称">-->
+                                <select class="form-control" ng-model="community_param.city_name" placeholder="城市名称">
+                                    <option value="上海">上海</option>
+                                    <option value="北京">北京</option>
+                                    <option value="厦门">厦门</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">行政区<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="district" ng-class="{'form_dangus':community.district}"
+                                       ng-change="community.district = 0" ng-model="community_param.district"
+                                       placeholder="行政区">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">板块<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="area" ng-class="{'form_dangus':community.area}"
+                                       ng-change="community.area = 0" ng-model="community_param.area"
+                                       placeholder="板块">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">小区地址<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-6">
+                                <input class="form-control" id="address" ng-class="{'form_dangus':community.address}"
+                                       ng-change="community.address = 0" ng-model="community_param.address"
+                                       placeholder="小区地址">
+                            </div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-info" ng-click="add()">查询</a>
+                            </div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-info" ng-click="showmap()"
+                                   ng-bind="!isshowmap?'展示地图':'隐藏地图'"></a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">经度<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="longitude"
+                                       ng-class="{'form_dangus':community.longitude}"
+                                       ng-change="community.longitude = 0" ng-model="community_param.longitude"
+                                       placeholder="经度">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">纬度<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="latitude" ng-class="{'form_dangus':community.latitude}"
+                                       ng-change="community.latitude = 0" ng-model="community_param.latitude"
+                                       placeholder="纬度">
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="isshowmap">
+                            <div class="col-sm-10 col-sm-offset-2" style="height: 450px;">
+                                <baidumap lng="community_param.longitude" lat="community_param.latitude"
+                                          city="community_param.city_name" address="community_param.address"
+                                          district="community_param.district" callback="callback"></baidumap>
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                        <!--<label class="col-sm-3 control-label">所属街道<span class="form_label_dangus">*</span></label>-->
+
+                        <!--<div class="col-sm-9">-->
+                        <!--<input class="form-control" id="street" ng-class="{'form_dangus':community.street}"-->
+                        <!--ng-change="community.street = 0" ng-model="community_param.street"-->
+                        <!--placeholder="所属街道">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">房屋类型</label>
+
+                            <div class="col-sm-9">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="property_type"
+                                               ng-model="community_param.property_type"
+                                               ng-value="'住宅'">
+                                        住宅
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="property_type"
+                                               ng-model="community_param.property_type"
+                                               ng-value="'公寓'">
+                                        公寓
+                                    </label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="property_type"
+                                               ng-model="community_param.property_type"
+                                               ng-value="'别墅'">
+                                        别墅
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">建筑时间</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="completed_time"
+                                       ng-class="{'form_dangus':community.completed_time}"
+                                       ng-change="community.completed_time = 0"
+                                       ng-model="community_param.completed_time"
+                                       placeholder="建筑时间">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">总户数</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="room_total"
+                                       ng-class="{'form_dangus':community.room_total}"
+                                       ng-change="community.room_total = 0" ng-model="community_param.room_total"
+                                       placeholder="总户数">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">房屋均价</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="price" ng-class="{'form_dangus':community.price}"
+                                       ng-change="community.price = 0" ng-model="community_param.price"
+                                       placeholder="房屋均价">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">邮编</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="post_code"
+                                       ng-class="{'form_dangus':community.post_code}"
+                                       ng-change="community.post_code = 0" ng-model="community_param.post_code"
+                                       placeholder="邮编">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">物业公司</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="property_company"
+                                       ng-class="{'form_dangus':community.property_company}"
+                                       ng-change="community.property_company = 0"
+                                       ng-model="community_param.property_company"
+                                       placeholder="物业公司">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">物业办公地点</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="property_address"
+                                       ng-class="{'form_dangus':community.property_address}"
+                                       ng-change="community.property_address = 0"
+                                       ng-model="community_param.property_address"
+                                       placeholder="物业办公地点">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">物业电话</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="property_phone"
+                                       ng-class="{'form_dangus':community.property_phone}"
+                                       ng-change="community.property_phone = 0"
+                                       ng-model="community_param.property_phone"
+                                       placeholder="物业电话">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">物业费</label>
+
+                            <div class="col-sm-6">
+                                <input class="form-control" id="property_fee"
+                                       ng-class="{'form_dangus':community.property_fee}"
+                                       ng-change="community.property_fee = 0" ng-model="community_param.property_fee"
+                                       placeholder="物业费">
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="control-label">元/平米.月</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">居委会名称</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="committee_name"
+                                       ng-class="{'form_dangus':community.committee_name}"
+                                       ng-change="community.committee_name = 0"
+                                       ng-model="community_param.committee_name"
+                                       placeholder="居委会名称">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">居委会地址</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="committee_address"
+                                       ng-class="{'form_dangus':community.committee_address}"
+                                       ng-change="community.committee_address = 0"
+                                       ng-model="community_param.committee_address"
+                                       placeholder="居委会地址">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">居委会电话</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="committee_phone"
+                                       ng-class="{'form_dangus':community.committee_phone}"
+                                       ng-change="community.committee_phone = 0"
+                                       ng-model="community_param.committee_phone"
+                                       placeholder="居委会电话">
+                            </div>
+                        </div>
+                        <!--<div class="form-group">-->
+                        <!--<label class="col-sm-3 control-label">社区民警<span class="form_label_dangus">*</span></label>-->
+
+                        <!--<div class="col-sm-9">-->
+                        <!--<input class="form-control" id="community_police" ng-class="{'form_dangus':community.community_police}"-->
+                        <!--ng-change="community.community_police = 0" ng-model="community_param.community_police"-->
+                        <!--placeholder="社区民警">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">社区民警电话</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="community_police_phone"
+                                       ng-class="{'form_dangus':community.community_police_phone}"
+                                       ng-change="community.community_police_phone = 0"
+                                       ng-model="community_param.community_police_phone"
+                                       placeholder="社区民警电话">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">搜房网ID</label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" id="cell_biz_id"
+                                       ng-class="{'form_dangus':community.cell_biz_id}"
+                                       ng-change="community.cell_biz_id = 0" ng-model="community_param.cell_biz_id"
+                                       placeholder="搜房网ID">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="ok()">保存</a>
+        </div>
+    </div>
+</div>

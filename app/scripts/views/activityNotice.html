@@ -1,0 +1,234 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .img_a {
+        display: inline-block;
+        width: 50px;
+        max-height: 50px;
+        max-width: 30%;
+        cursor: pointer;
+        margin-right: 3px;
+    }
+
+    .img_a > img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .big_pic {
+        width: 500px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .img_a.big_pic > img {
+        width: auto;
+        height: auto;
+    }
+
+    .mod_select_two{
+        display: -webkit-box;
+        width: 100%;
+    }
+    .mod_select_two ul{ list-style:none; padding:0; margin:0; }
+    .mod_select_two div{
+        width:150px; border:1px solid #ccc; height: 120px; position: relative; overflow: hidden;
+        -webkit-border-radius: 3px;
+        -webkit-box-shadow: inset -1px 1px 1px rgba(0, 0, 0, 0.1);
+    }
+    .mod_select_two ul{
+        width:120px; display:-webkit-box; -webkit-box-orient:vertical; -webkit-box-pack:center; padding: 0 10px;
+    }
+    .mod_select_two ul li{
+        display:block; line-height:30px; margin: 5px 0; background:#46b8da; color:#fff; text-align:center; cursor: pointer;
+    }
+    .mod_select_two select {
+        width: 100%; border: none; height: 100%; outline: none;
+    }
+</style>
+
+
+
+<script type="text/ng-template" id="add_notice.html">
+    <div class="modal-header">
+        <h3 class="modal-title">新增通知</h3>
+    </div>
+
+    <div class="modal-body" style="border:0;">
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">标题</label>
+                <div class="col-sm-9">
+                    <input ng-model="tInput.title" type="text" class="form-control" />
+                </div>
+            </div>
+            <div style="height:10px;overflow:hidden;clear:both;"></div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">消息内容</label>
+                <div class="col-sm-9">
+                    <textarea ng-model="tInput.content" type="text" class="form-control"></textarea>
+                </div>
+            </div>
+            <div style="height:10px;overflow:hidden;clear:both;"></div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">发送用户</label>
+                <div class="col-sm-9">
+                    <div style="padding-bottom:10px;">
+                        <label class="radio-inline">
+                            <input type="radio" name="scope_type" ng-model="tInput.scope_type" value="0"
+                                   ng-click="tInput.noticeRange = 0"> 活动覆盖小区
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="scope_type" ng-model="tInput.scope_type" value="2"
+                                   ng-click="tInput.noticeRange = 0;"> 部分小区
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="scope_type" ng-model="tInput.scope_type" value="1"
+                                   ng-click="tInput.noticeRange = 1;tInput.order_status=0;"> 全城用户
+                        </label>
+                    </div>
+                    <div class="mod_select_two" ng-if="tInput.scope_type==2">
+                        <div>
+                            <select multiple ng-options="opts.community_id as opts.community_name for opts in tmp.list" ng-model="tmp.left">
+                            </select>
+                        </div>
+                        <ul>
+                            <li ng-click="addData()">添加>></li>
+                            <li ng-click="addAll()">全部添加>></li>
+                            <li ng-click="removeData()">移除</li>
+                        </ul>
+                        <div>
+                            <select multiple ng-options="opts.community_id as opts.community_name for opts in tInput.community" ng-model="tmp.right">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="height:10px;overflow:hidden;clear:both;"></div>
+
+            <div class="form-group" ng-show="tInput.scope_type!=1">
+                <label class="col-sm-3 control-label">支付状态</label>
+                <div class="col-sm-9">
+                    <label class="radio-inline">
+                        <input type="radio" name="pay" ng-model="tInput.order_status" value="0"> 不限
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="pay" ng-model="tInput.order_status" value="3"> 已支付
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="pay" ng-model="tInput.order_status" value="1"> 未支付
+                    </label>
+                </div>
+            </div>
+            <div style="height:10px;overflow:hidden;clear:both;"></div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">定时发送</label>
+                <div class="col-sm-9">
+                    <div style="padding-bottom:10px;"><input name="timer" type="checkbox" ng-model="tmp.check" />开启定时发送</div>
+                    <div class="form-group" ng-if="tmp.check">
+                        <div class="col-sm-6">
+                            <p class="input-group">
+                                <input
+                                    type="date"
+                                    datepicker-popup
+                                    ng-model="tmp.timer"
+                                    is-open="openedstart"
+                                    min-date="minDate"
+                                    date-disabled="disabled(date, mode)"
+                                    ng-required="true"
+                                    close-text="关闭"
+                                    // ng-change="changeDate()"
+                                    class="form-control"
+                                />
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-default" ng-click="openstart($event)">
+                                        <i class="glyphicon glyphicon-calendar"></i>
+                                    </button>
+                                </span>
+                            </p>
+                        </div>
+                        <div class="col-sm-3">
+                            <timepicker
+                                ng-model="tmp.minute"
+                                show-meridian="false"
+                                show-spinners="false"
+                                mousewheel="false"
+                                arrowkeys="true"
+                            >
+                            </timepicker>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <p class="btn btn-primary" ng-click="ok()">发布</p>
+        <p class="btn btn-warning" ng-click="cancel()">取消</p>
+    </div>
+</script>
+
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">活动通知</div>
+
+        <div class="panel">
+            <div class="panel-heading">
+                <a class="btn btn-info" ng-click="addNotice()">新增通知</a>
+            </div>
+        </div>
+
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <th>消息ID</th>
+                    <th>活动名称</th>
+                    <th>消息内容</th>
+                    <th>发布时间</th>
+                    <th>发送用户</th>
+                    <th>支付状态</th>
+                    <th>消息状态</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="v in DataList.list track by $index">
+                        <td>{{v.id}}</td>
+                        <td>{{v.title}}</span></td>
+                        <td>{{v.content}}</td>
+                        <td>{{v.created_at}}</span></td>
+                        <td>{{v.scope_type | activity_notice_scope}}</td>
+                        <td>{{v.param | activity_notice_pay}}</td>
+                        <td>{{v.status | activity_notice_msg}}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="text-center" id="pagination">
+                <pagination
+                    total-items="Page.pageTotal"
+                    ng-model="Page.pageIndex"
+                    items-per-page="Page.pageSize"
+                    max-size="Page.pageMax"
+                    num-pages="Page.numPages"
+                    ng-change="getData()"
+
+                    class="pagination" boundary-links="true" items-per-page="10" rotate="false" previous-text="&lsaquo;"
+                    next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"
+                >
+                </pagination>
+            </div>
+        </div>
+    </div>
+</div>

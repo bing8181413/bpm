@@ -1,6 +1,5 @@
 .DS_Store
 node_modules/
 .idea/
-app/.idea/
 app/scripts/app-tpl.js
 app/scripts/main.min.js

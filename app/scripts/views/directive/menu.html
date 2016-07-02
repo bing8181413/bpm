@@ -1,0 +1,24 @@
+<ul class="l_nav_sup" class="nav tab-list" ng-class="{sm:tab_sm ==true}">
+    <li class="">
+        <a class="" ng-click="tab_sm_toggle()">
+        <span class="glyphicon" ng-class="{'glyphicon-plus':tab_sm ==true,'glyphicon-remove':tab_sm ==false}"
+              aria-hidden="true"></span>
+            <span>功能管理</span>
+        </a>
+    </li>
+    <li class="" ng-repeat="menu in menus" ng-class="{'active':(menu.childs_route.indexOf(rootState) > -1)}">
+    <a class="{{rootState}}" ng-click="menu.open=((menu.childs_route.indexOf(rootState) > -1)?false:(!menu.open))">
+        <span class="glyphicon {{menu.icon}}" aria-hidden="true"></span>
+        <span>{{menu.name +(menu.name.length==4?'&nbsp;&nbsp;&nbsp;':'')}}</span>
+    </a>
+    <ul class="l_nav_sub"
+        ng-class="{open:(menu.open ==true || tab_sm== true)}">
+        <li ng-class="{'active':(rootState == item.route)}" ng-repeat="item in menu.childs">
+            <a ui-sref="{{item.route||'pintuan.list'}}">
+                <span class="glyphicon {{item.icon || menu.icon}}" aria-hidden="true"></span>
+                <span>{{item.name}}</span>
+            </a>
+        </li>
+    </ul>
+</li>
+</ul>

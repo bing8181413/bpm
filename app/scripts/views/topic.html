@@ -1,0 +1,114 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .img_a {
+        display: inline-block;
+        width: 50px;
+        max-height: 50px;
+        max-width: 30%;
+        cursor: pointer;
+        margin-right: 3px;
+    }
+
+    .img_a > img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .big_pic {
+        width: 500px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .img_a.big_pic > img {
+        width: auto;
+        height: auto;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">话题列表</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('topicAdd');">新增话题</a>
+                </div>
+            </div>
+            <ul class="nav nav-pills">
+                <!--<li role="presentation" ng-class="{active:list_param.category ==0}">-->
+                    <!--<a class="btn btn-default" ng-click="list_param.category=0;getapi(1,0);">全部</a>-->
+                <!--</li>-->
+                <li role="presentation" ng-class="{active:list_param.category ==1}">
+                    <a class="btn btn-default" ng-click="list_param.category=1;getapi(1,1);">普通话题</a>
+                </li>
+                <li role="presentation" ng-class="{active:list_param.category ==2}">
+                    <a class="btn btn-default" ng-click="list_param.category=2;getapi(1,2);">活动话题</a>
+                </li>
+                <!--<li role="presentation" >-->
+                    <!--<a class="btn btn-default" ng-click="$state.go('hotTopic');">热门话题</a>-->
+                <!--</li>-->
+            </ul>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th style="width:5%">话题ID</th>
+                <th style="width:15%">话题名称</th>
+                <th style="width:10%">话题上线时间</th>
+                <th ng-if="list_param.category==2">话题相关活动</th>
+                <!--<th style="width:10%">话题页面</th>-->
+                <th style="width:10%">覆盖小区</th>
+                <th style="width:5%">参与热度</th>
+                <th style="width:5%">管理员</th>
+                <th style="width:20%">标题图片</th>
+                <th style="width:5%">当前状态</th>
+                <th style="width:10%">操作</th>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="topic in topic_list">
+                    <td><span class="msg_title" bo-text="topic.topic_id"></span></td>
+                    <td><span class="msg_title" bo-text="topic.title"></span></td>
+                    <td><span class="msg_title" bo-text="topic.start_time +' ~ ' + topic.end_time"></span></td>
+                    <td ng-if="list_param.category==2"><span class="msg_title" bo-text="'【'+topic.activity_id+'】'+topic.title"></span></td>
+                    <!--<td><span class="msg_title" style="max-width: 200px;display: inline-block;overflow: hidden; text-overflow:ellipsis" bo-text="topic.url"></span></td>-->
+                    <td><span class="msg_title" bo-text="topic.target_type | target_type"></span></td>
+                    <td><span class="msg_title" bo-text="topic.feed_total"></span></td>
+                    <td><span class="msg_title" bo-text="topic.account_id"></span></td>
+                    <td>
+                        <div class="img_a" ng-class="{big_pic:topic.toggleclass}" ng-repeat="item in topic.pics">
+                            <img class="img-responsive" bo-src="item.pic_url"
+                                 ng-click="topic.toggleclass = !topic.toggleclass">
+                        </div>
+                    </td>
+                    <td><span class="msg_title" ng-bind="topic.status | topic_status"></span></td>
+                    <td>
+                        <a class="btn btn-info"
+                           ng-click="$state.go('topicUpdate', {topicId:topic.topic_id});">编辑</a>
+                        <a class="btn btn-danger" ng-if="topic.status == '1'"
+                           ng-click="update(topic,'2',$index);">下线</a>
+                        <a class="btn btn-success" ng-if="topic.status != '1'"
+                           ng-click="update(topic,'1',$index);">上线</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)" items-per-page="10"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

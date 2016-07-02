@@ -1,0 +1,140 @@
+<style>
+    #list>thead>tr>th{
+        border-bottom: 0;
+        text-align: center;
+    }
+    .img_a{
+        display: inline-block;
+        width: 50px;
+        max-height: 50px;
+        max-width: 30%;
+        cursor:pointer;
+        margin-right: 3px;
+    }
+    .img_a>img{
+        width: 50px;
+        height: 50px;
+    }
+    .big_pic{
+        width: 500px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+    .img_a.big_pic>img{
+        width: auto;
+        height: auto;
+    }
+    /*#pagination{*/
+        /*position: fixed;*/
+        /*bottom: 20px;*/
+        /*right: 50px;*/
+        /*background: #999;*/
+        /*padding: 0 25px;*/
+        /*opacity: 0.8;*/
+        /*border-radius: 5px;*/
+    /*}*/
+    .address{
+        color: #999;
+        font-size: 12px;
+    }
+</style>
+<script type="text/ng-template" id="family_members.html">
+    <div class="modal-header">
+        <h3 class="modal-title">家庭成员</h3>
+    </div>
+    <div class="modal-body">
+        <table id="list" class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>姓名</th>
+                <th>手机号码</th>
+                <th>性别</th>
+                <th>年龄</th>
+                <th>注册时间</th>
+            <tr>
+            </thead>
+            <tbody>
+            <tr bindonce ng-repeat="member in member_list track by member.member_id"  ng-if="member">
+                <td class="text-center"><span bo-text="member.user_id"></span></td>
+                <td class="text-center"><span bo-text="member.name"></span></td>
+                <td class="text-center"><span bo-text="member.mobile"></span></td>
+                <td class="text-center"><span bo-text="member.gender | gender"></span></td>
+                <td class="text-center"><span bo-text="member.birthday | brithday2age"></span></td>
+                <td class="text-center"><span bo-text="member.created_at|limitTo:10"></span></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">家庭管理</div>
+        <div class="panel-body">
+            <ul class="nav nav-pills">
+                <li role="presentation" ng-class="{active:tab ==0}"><a class="btn" ng-click="tab=0;getapi('family_list',1,0);">所有家庭</a></li>
+                <li role="presentation" ng-class="{active:tab ==2}"><a class="btn" ng-click="tab=2;getapi('family_list',1,2);">待认证</a></li>
+                <li role="presentation" ng-class="{active:tab ==3}"><a class="btn" ng-click="tab=3;getapi('family_list',1,3);">已认证</a></li>
+                <li role="presentation" ng-class="{active:tab ==4}"><a class="btn" ng-click="tab=4;getapi('family_list',1,4);">未通过</a></li>
+            </ul>
+        </div>
+        <div class="panel-body">
+        <table id="list" class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th style="width: 5%;">家庭ID</th>
+                <th style="width: 10%;">家庭名称</th>
+                <th style="width: 5%;">家人数量</th>
+                <th style="width: 15%;">小区名称</th>
+                <th style="width: 10%;">门牌号</th>
+                <th style="width: 10%;">申请认证时间</th>
+                <th style="width: 20%;">验证图片</th>
+                <th style="width: 10%;" ng-if="tab==3">验证通过时间</th>
+                <th style="width: 15%;" ng-if="tab!=0">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr bindonce ng-repeat="family in Familys track by family.family_id"  ng-if="family">
+                <td class="text-center"><span bo-text="family.family_id"></span></td>
+                <td class="text-center"><span bo-text="family.family_name"></span></td>
+                <td class="text-center"><a class="btn btn-success"  ng-click="open_members(family.family_id);" bo-text="'查看('+family.member_count+')'"></a></td>
+                <td><span bo-text="family.community_name"></span><br/><span class="address" bo-text="family.address"></span></td>
+                <td><span bo-text="family.family_address"></span></td>
+                <td class="text-center"><span bo-text="family.applied_at | null2empty | limitTo:10"></span></td>
+                <td>
+                    <div class="img_a"  ng-class="{big_pic:family.toggleclass}"  ng-if="family.address_image" >
+                        <img class="img-responsive" bo-src="family.address_image"  ng-click="family.toggleclass = !family.toggleclass">
+                    </div>
+                </td>
+                <td class="text-center" ng-if="tab==3"><span bo-text="family.verified_at | null2empty | limitTo:10"></span></td>
+                <td ng-if="tab!=0">
+                    <!--<div ng-if="tab==0">-->
+                        <!--<a class="btn btn-success"  ng-click="change_family(family.family_id, 3, $index);" ng-if="family.address_status==2" >通过认证</a>-->
+                    <!--</div>-->
+                    <div ng-if="tab==2">
+                        <a class="btn btn-success"  ng-click="change_family(family.family_id, 3, $index);">通过</a>
+                        <a class="btn btn-danger" ng-click="change_family(family.family_id, 4, $index);">不通过</a>
+                    </div>
+                    <div ng-if="tab==3">
+                        <a class="btn btn-danger"  ng-click="change_family(family.family_id, 4, $index);">不通过</a>
+                    </div>
+                    <div ng-if="tab==4">
+                        <a class="btn btn-success"  ng-click="change_family(family.family_id, 3, $index);">通过</a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="text-center" id="pagination">
+            <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" ng-change="getapi('family_list',currentPage)"
+                        rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+        </div>
+    </div>
+    <!--<div class="text-center" id="pagination">-->
+        <!--<pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" ng-change="getapi('family_list',currentPage)"-->
+                    <!--rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>-->
+    <!--</div>-->
+</div>

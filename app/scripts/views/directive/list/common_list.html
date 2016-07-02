@@ -1,0 +1,21 @@
+<table class="table table-hover table-bordered">
+    <thead>
+    <th class="{{header.className}}" bindonce ng-repeat="header in res_head" bo-text="header.name"></th>
+    </thead>
+    <tbody>
+    <tr bindonce ng-repeat="result in res_data" ng-init="result.idx = $index">
+        <td bindonce ng-repeat="item in res_head" ng-if="item.key=='idx'">
+            <span class="msg_title" bo-text="result.idx+1"></span>
+        </td>
+        <td bindonce ng-repeat="item in res_head" ng-if="item.key!=='idx'">
+            <span class="msg_title {{item.className}}" ng-if="(!item.template && item.key)"
+                  bo-text="result.{{item.key}}{{item.filter?(' | '+item.filter):''}}"></span>
+
+            <a class="{{obj.className}}" ng-click="obj_on(obj.event,result);" ng-if="(!item.template && item.on)"
+               ng-repeat="obj in item.on">{{obj.name}}</a><br>
+
+            <div ng-if="item.template" bind-html-compile="item.template" result="result" res_extra="res_extra"></div>
+        </td>
+    </tr>
+    </tbody>
+</table>

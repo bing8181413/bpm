@@ -1,0 +1,136 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 18px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">新增短信</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('sms');">短信管理</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-8">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">是否为营销短信<span
+                                    class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" ng-model="smsadd_param.is_marketing"
+                                               ng-true-value="'1'" ng-false-value="'0'">是
+                                    </label>
+                                    <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="bg-primary">提示： 发送前请短信发送负责人与运营商沟通备案</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">短信内容<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <textarea class="form-control" ng-model="smsadd_param.content" rows="5"
+                                          ng-class="{'form_dangus':smsadd.content}" placeholder="短信内容不超过140个字">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">注意<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <h5 class="form_label_dangus">发送之前请先测试，不要使用特殊字符，例如空格，中文逗号</h5>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">发送用户<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <!-- 禁止删除   后续要用-->
+                                <!-- 禁止删除   后续要用-->
+                                <!-- 禁止删除   后续要用-->
+                                <!-- 禁止删除   后续要用-->
+                                <!-- 禁止删除   后续要用-->
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="scope_type" ng-model="smsadd_param.scope_type"
+                                               ng-value="1">注册用户</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="scope_type" ng-model="smsadd_param.scope_type"
+                                               ng-value="2">认证用户</label>
+                                </div>
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" ng-model="smsadd_param.scope_type"
+                                               ng-value="3" ng-checked="true">
+                                        自定义用户（手机号码，逗号隔开）
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-sm-offset-3" ng-if="smsadd_param.scope_type==3">
+                                <textarea class="form-control" ng-model="smsadd_param.mobile_list" rows="5"
+                                          ng-class="{'form_dangus':smsadd.mobile_list}">
+                                </textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <h5 class="form_label_dangus">营销短信必须发送10条以上</h5>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" ng-model="smsadd_param.is_timing"
+                                               ng-true-value="'1'" ng-false-value="'0'">开启定时发送
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-sm-offset-3">
+                                <div class="">
+                                    <hjm_date_time ng-model="smsadd_param.send_time"></hjm_date_time>
+                                </div>
+                            </div>
+                            <!--<div class="col-sm-4 col-sm-offset-3">-->
+                                <!--<p class="input-group">-->
+                                    <!--<input type="date" class="form-control" datepicker-popup-->
+                                           <!--ng-model="smsadd.send_time" is-open="openend_a" min-date="minDate"-->
+                                           <!--date-disabled="disabled(date, mode)" ng-required="true" ng-change="changed()"-->
+                                           <!--close-text="关闭"/>-->
+                                    <!--<span class="input-group-btn">-->
+                                        <!--<button type="button" class="btn btn-default" ng-click="openend($event);">-->
+                                            <!--<i class="glyphicon glyphicon-calendar"></i></button>-->
+                                    <!--</span>-->
+                                <!--</p>-->
+                            <!--</div>-->
+                            <!--<div class="col-sm-4">-->
+                                <!--<timepicker ng-model="smsadd.send_time" show-meridian="false"-->
+                                            <!--show-spinners='false' mousewheel="false" arrowkeys="true"-->
+                                            <!--ng-change="changed();">-->
+                                <!--</timepicker>-->
+                            <!--</div>-->
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">发布</a>
+        </div>
+    </div>
+</div>

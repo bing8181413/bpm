@@ -1,0 +1,29 @@
+<ul class="nav navbar-nav pull-right navbar-right">
+    <li class="admin-dropdown">
+        <a class="" ng-click="logout()">Logout</a>
+    </li>
+    <li class="dropdown" dropdown="" on-toggle="toggled(open)">
+        <a class="dropdown-toggle notoggle"
+           dropdown-toggle="" aria-haspopup="true"
+           aria-expanded="false">
+            <span class="ng-binding">Language</span> </a>
+        <ul class="dropdown-menu lang pull-right animated fadeIn">
+            <li><a ng-click="changeLanguage('en')">English</a></li>
+            <li><a ng-click="changeLanguage('de')">Dutch</a></li>
+            <li><a ng-click="changeLanguage('ur')">اردو</a></li>
+            <li><a ng-click="changeLanguage('hn')">हिन्दी</a></li>
+        </ul>
+    </li>
+    <li class="dropdown admin-dropdown" dropdown="" on-toggle="toggled(open)">
+        <a class="dropdown-toggle"
+           dropdown-toggle=""
+           aria-haspopup="true"
+           aria-expanded="false">
+            <img src="styles/images/flat-avatar.png" class="topnav-img">
+            <span class="hidden-sm" ng-bind="hjm.username"></span></a>
+        <ul class="dropdown-menu pull-right animated fadeIn">
+            <li><a ui-sref="account" class="ng-binding">Profile</a></li>
+            <li><a class="ng-binding" ng-click="logout()">Logout</a></li>
+        </ul>
+    </li>
+</ul>

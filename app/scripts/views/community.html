@@ -1,0 +1,178 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .commnewadd_time_div {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .commnewadd_time {
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .community_name {
+        width: 48% !important;
+    }
+
+    .search_community_list {
+        position: absolute;
+        top: 100%;
+        left: 100%;
+        z-index: 1000;
+        float: left;
+        min-width: 160px;
+        padding: 5px 0;
+        margin: 2px 0 0;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    }
+
+    .search_community_list > li {
+        width: 100%;
+    }
+
+    .search_community_list > li > a.divider {
+        height: 1px;
+        margin: 1px 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+        padding: 0;
+    }
+
+    .search_community_list > li > a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+
+    .search_community_list > li > a:hover {
+        background-color: #13c4a5;
+        color: #fff;
+    }
+
+    .select_name {
+        width: 200px;
+        height: 34px;
+        margin-right: 15px;
+    }
+
+    .community_title {
+        height: 20px;
+    }
+
+    .add_community {
+        padding-right: 18px;
+    }
+
+    .community_li_div {
+        width: 100%;
+    }
+
+    .community_li_div > .input-group-btn {
+        width: 50%;
+    }
+
+    .community_li_div > .input-group-btn > input {
+        width: 100%;
+    }
+
+    .tongzhiheight {
+        height: 600px;
+    }
+
+    .tongzhieditor {
+        width: 100%;
+        height: 546px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">小区列表</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('communityadd');">新增小区</a>
+                </div>
+            </div>
+            <!--<ul class="nav nav-pills">-->
+                <!--<li role="presentation" ng-class="{active:list_param.tuan_type ==1}">-->
+                    <!--<a class="btn btn-default" ng-click="list_param.tuan_type=1;getapi(1,1);">独立团</a>-->
+                <!--</li>-->
+                <!--<li role="presentation" ng-class="{active:list_param.tuan_type ==2}">-->
+                    <!--<a class="btn btn-default" ng-click="list_param.tuan_type=2;getapi(1,2);">一起团</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th>小区ID</th>
+                <th>小区名称</th>
+                <th>别名</th>
+                <th>城市</th>
+                <th>行政区</th>
+                <th>板块</th>
+                <th>街道</th>
+                <th>建筑时间</th>
+                <th>住宅类型</th>
+                <!--<th>房价</th>-->
+                <!--<th>上次更新时间</th>-->
+                <th>创建时间</th>
+                <th>操作</th>
+                <th>搜房ID</th>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="comm in community_list">
+                    <td><span class="msg_title" bo-text="comm.community_id"></span></td>
+                    <td><span class="msg_title" bo-text="comm.name"></span></td>
+                    <td><span class="msg_title" bo-text="comm.alias"></span></td>
+                    <td><span class="msg_title" bo-text="comm.city_name"></span></td>
+                    <td><span class="msg_title" bo-text="comm.district"></span></td>
+                    <td><span class="msg_title" bo-text="comm.area"></span></td>
+                    <td><span class="msg_title" bo-text="comm.street"></span></td>
+                    <td><span class="msg_title" bo-text="comm.completed_time | null2empty"></span></td>
+                    <td><span class="msg_title" bo-text="comm.property_type"></span></td>
+                    <!--<td><span class="msg_title" bo-text="comm.price"></span></td>-->
+                    <!--<td><span class="msg_title" bo-text="comm.updated_at"></span></td>-->
+                    <td><span class="msg_title" bo-text="comm.created_at"></span></td>
+                    <td>
+                        <a class="btn btn-primary"
+                           ng-click="$state.go('communityupdate', {communityId:comm.community_id});">编辑</a>
+                    </td>
+                    <td><span class="msg_title" bo-text="comm.cell_biz_id"></span></td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)" items-per-page="10"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

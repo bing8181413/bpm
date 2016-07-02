@@ -1,0 +1,56 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">负责人</div>
+        <!--<div class="panel-body">-->
+            <!--<div class="panel">-->
+                <!--<div class="panel-heading">-->
+                    <!--<a class="btn btn-info" ng-click="$state.go('account.list');">负责人列表</a>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-9">
+                    <form class="form-horizontal">
+                        <!--<div class="form-group">-->
+                        <!--<label class="col-sm-3 control-label">原密码<span class="form_label_dangus">*</span></label>-->
+
+                        <!--<div class="col-sm-9">-->
+                        <!--<input class="form-control" type="password" ng-model="param_tmp.originpwd"-->
+                        <!--placeholder="原密码">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                        <!--<label class="col-sm-3 control-label">新密码<span class="form_label_dangus">*</span></label>-->
+
+                        <!--<div class="col-sm-9">-->
+                        <!--<input class="form-control" ng-model="param_tmp.pwd1" placeholder="新密码">-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">新密码<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-model="param_tmp.pwd2" placeholder="再次输入新密码">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">修改密码</a>
+        </div>
+    </div>
+</div>

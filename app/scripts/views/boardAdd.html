@@ -1,0 +1,142 @@
+<style>
+    .form_dangus{
+        border-color: #E21100;
+    }
+    .form_label_dangus{
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">新增运营位</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="tiaozhuan();">运营位列表</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-6">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">运营位位置<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <div class="radio-block">
+                                    <label>
+                                        <input type="radio" name="board_type" ng-model="boardAdd_param.board_type" ng-value="1"
+                                               ng-click="">
+                                        积分商城页轮播图
+                                    </label>
+                                </div>
+                                <div class="radio-block">
+                                    <label>
+                                        <input type="radio" name="board_type" ng-model="boardAdd_param.board_type" ng-value="2"
+                                               ng-click="">
+                                        积分商城页推广位
+                                    </label>
+                                </div>
+                                <div class="radio-block">
+                                    <label>
+                                        <input type="radio" name="board_type" ng-model="boardAdd_param.board_type" ng-value="3"
+                                               ng-click="">
+                                        积分规则页顶部
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">运营位标题<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="title" ng-class="{'form_dangus':boardAdd.title}"
+                                       ng-change="boardAdd.title = 0" ng-model="boardAdd_param.title"
+                                       placeholder="运营位标题">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">链接url<span class="form_label_dangus">&nbsp;</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control" id="url" ng-class="{'form_dangus':boardAdd.url}"
+                                       ng-change="boardAdd.url = 0" ng-model="boardAdd_param.url"
+                                       placeholder="链接url">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">排序数字<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-9">
+                                <input class="form-control"  type="number" id="sort_num" ng-class="{'form_dangus':boardAdd.sort_num}"
+                                       ng-change="boardAdd.sort_num = 0" ng-model="boardAdd_param.sort_num"
+                                       placeholder="一个数字">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 form-group">
+                            <div class="home_dangus" ng-repeat="alert in alerts" ng-click="closeAlert($index)">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <strong>{{alert.msg}}</strong>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div class="col-sm-12 form-group">
+                        <label>运营位图片</label>
+                    </div>
+                    <div class="col-sm-12">
+                        <table class="table table-hover table-bordered">
+                            <thead>
+                            <tr>
+                                <th width="50%">图片名称</th>
+                                <th width="10%" ng-show="uploader.isHTML5">大小</th>
+                                <th width="20%" ng-show="uploader.isHTML5">上传进度</th>
+                                <th width="10%">状态</th>
+                                <th width="10%">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="item in uploader.queue" class="ng-scope">
+                                <td>
+                                    <strong class="ng-binding" ng-bind="item.file.name"></strong>
+                                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 , itemobj : item}"></div>
+                                </td>
+                                <td ng-show="uploader.isHTML5" nowrap="" class="ng-binding">{{item.file.size/1024/1024|number:2}}MB</td>
+                                <td ng-show="uploader.isHTML5">
+                                    <div class="progress" style="margin-bottom: 0;">
+                                        <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }" style="width: 0%;"></div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <span ng-show="item.isSuccess" ><i class="glyphicon glyphicon-ok"></i></span>
+                                    <span ng-show="item.isCancel" ><i class="glyphicon glyphicon-ban-circle"></i></span>
+                                    <span ng-show="item.isError" ><i class="glyphicon glyphicon-remove"></i></span>
+                                </td>
+                                <td nowrap="">
+                                    <button type="button" class="btn btn-success btn-xs" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                        <span class="glyphicon glyphicon-upload"></span> 上传
+                                    </button>
+                                    <button type="button" class="btn btn-warning btn-xs" ng-click="item.cancel()" ng-disabled="!item.isUploading" disabled="disabled">
+                                        <span class="glyphicon glyphicon-ban-circle"></span> 取消
+                                    </button>
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                        <span class="glyphicon glyphicon-trash"></span> 移除
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <br/>
+                        <div class="col-sm-12 form-group">
+                            <input class="form-control" type="file" nv-file-select="" uploader="uploader"  multiple />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">保存</a>
+        </div>
+    </div>
+</div>

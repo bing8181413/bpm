@@ -1,0 +1,85 @@
+<style type="text/css">
+    .panel-group .panel {
+        width: 48%;
+        display: inline-table;
+        margin-left: 0.5%;
+        /*margin-right: 0.5%;*/
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">菜单管理</div>
+        <div class="panel-body ">
+            <common_form form_param="param" form_init_data="{sort:menus.length+1}" form_url="add_url"
+                         form_title="'新增主菜单'" callback="getapi"></common_form>
+        </div>
+        <div class="panel-group" id="accordion">
+            <div class="panel" ng-class="{'panel-success':$odd,'panel-info':$even}" ng-repeat-start="menu in menus"
+                 ng-if="$index%2==0">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="btn btn-sm btn-link pointer" data-toggle="collapse" data-parent="#accordion"
+                           ng-href="#{{menu.name}}">
+                            <span class="badge pointer" ng-click="update_sup(menu)"></span>
+                            {{menu.name+'(ID:'+menu.id+')'}}
+                        </a>
+                        <common_form form_param="param" form_init_data="menu" form_url="update_url"
+                                     form_title="'更新'" callback="getapi"></common_form>
+                        <common_form form_param="param_sub" form_init_data="{pid:menu.id,sort:menu.childs.length+1}"
+                                     form_url="add_url"
+                                     form_title="'新增子菜单'" callback="getapi"></common_form>
+                        <a class="btn btn-default btn-xs pull-right" ng-click="swap(menu.id,menus[$index-1].id);"
+                           ng-if="!$first">向上交换</a>
+                    </h4>
+                </div>
+                <div id="{{menu.name}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="item in menu.childs">
+                                <common_form form_param="param_sub" form_init_data="item" form_url="update_url"
+                                             form_extra_data="{pid:menu.id}"
+                                             form_title="'更新'" callback="getapi"></common_form>
+                                <a class="btn btn-default btn-xs pull-right"
+                                   ng-click="swap(item.id,menu.childs[$index-1].id);" ng-if="!$first">向上交换</a>
+                                {{item.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel" ng-class="{'panel-success':$odd,'panel-info':$even}" ng-repeat-end
+                 ng-if="$index%2==1">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="btn btn-sm btn-link pointer" data-toggle="collapse" data-parent="#accordion"
+                           ng-href="#{{menu.name}}">
+                            <span class="badge pointer" ng-click="update_sup(menu)"></span>
+                            {{menu.name+'(ID:'+menu.id+')'}}
+                        </a>
+                        <common_form form_param="param" form_init_data="menu" form_url="update_url"
+                                     form_title="'更新'" callback="getapi"></common_form>
+                        <common_form form_param="param_sub" form_init_data="{pid:menu.id,sort:menu.childs.length+1}"
+                                     form_url="add_url"
+                                     form_title="'新增子菜单'" callback="getapi"></common_form>
+                        <a class="btn btn-default btn-xs pull-right" ng-click="swap(menu.id,menus[$index-1].id);"
+                           ng-if="!$first">向上交换</a>
+                    </h4>
+                </div>
+                <div id="{{menu.name}}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="item in menu.childs">
+                                <common_form form_param="param_sub" form_init_data="item" form_url="update_url"
+                                             form_extra_data="{pid:menu.id}"
+                                             form_title="'更新'" callback="getapi"></common_form>
+                                <a class="btn btn-default btn-xs pull-right"
+                                   ng-click="swap(item.id,menu.childs[$index-1].id);" ng-if="!$first">向上交换</a>
+                                {{item.name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

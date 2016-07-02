@@ -1,0 +1,108 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .img_a {
+        display: inline-block;
+        width: 50px;
+        max-height: 50px;
+        max-width: 30%;
+        cursor: pointer;
+        margin-right: 3px;
+    }
+
+    .img_a > img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .big_pic {
+        width: 500px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .img_a.big_pic > img {
+        width: auto;
+        height: auto;
+    }
+</style>
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">运营位列表</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('boardAdd',{board_type:list_param.board_type});">新增运营位</a>
+                </div>
+            </div>
+            <ul class="nav nav-pills">
+                <!--<li role="presentation" ng-class="{active:list_param.board_type ==0}">-->
+                    <!--<a class="btn btn-default" ng-click="list_param.board_type=0;getapi(1,0);">全部</a>-->
+                <!--</li>-->
+                <li role="presentation" ng-class="{active:list_param.board_type ==1}">
+                    <a class="btn btn-default" ng-click="list_param.board_type=1;getapi(1,1);">积分商城页轮播图</a>
+                </li>
+                <li role="presentation" ng-class="{active:list_param.board_type ==2}">
+                    <a class="btn btn-default" ng-click="list_param.board_type=2;getapi(1,2);">积分商城页推广位</a>
+                </li>
+                <li role="presentation" ng-class="{active:list_param.board_type ==3}">
+                    <a class="btn btn-default" ng-click="list_param.board_type=2;getapi(1,3);">积分规则页顶部</a>
+                </li>
+            </ul>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th>运营位ID</th>
+                <th>运营位位置</th>
+                <th>标题</th>
+                <th>链接url</th>
+                <th style="width:20%;">标题图片</th>
+                <th style="width: 159px;">当前状态</th>
+                <th ng-if="list_param.board_type!=0">排序</th>
+                <th ng-if="list_param.board_type!=0">操作</th>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="board in board_list">
+                    <td><span class="msg_title" bo-text="board.board_id"></span></td>
+                    <td><span class="msg_title" bo-text="board.place"></span></td>
+                    <td><span class="msg_title" bo-text="board.title"></span></td>
+                    <td><span class="msg_title" bo-text="board.url"></span></td>
+                    <td>
+                        <div class="img_a" ng-class="{big_pic:board.toggleclass}" ng-if="board.image">
+                            <img class="img-responsive" bo-src="board.image"
+                                 ng-click="board.toggleclass = !board.toggleclass">
+                        </div>
+                    </td>
+                    <td><span class="msg_title" ng-bind="board.status | board_status"></span></td>
+                    <td ng-if="list_param.board_type!=0"><span class="msg_title" bo-text="board.sort_num"></span></td>
+                    <td ng-if="list_param.board_type!=0">
+                        <a class="btn btn-info"
+                           ng-click="$state.go('boardUpdate', {boardId:board.board_id});">编辑</a>
+                        <a class="btn btn-danger" ng-if="board.status == '2'"
+                           ng-click="update(board,'3',$index);">下线</a>
+                        <a class="btn btn-success" ng-if="board.status != '2'"
+                           ng-click="update(board,'2',$index);">上线</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)" items-per-page="10"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

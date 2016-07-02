@@ -1,0 +1,95 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">新增热门话题</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="tiaozhuan();">热门话题管理</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-8">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">话题ID<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-9">
+                                <input class="form-control" ng-class="{'form_dangus':hotTopicAdd.ref_topic_id}"
+                                       ng-change="hotTopicAdd.ref_topic_id = 0" ng-model="hotTopicAdd_param.ref_topic_id"
+                                       placeholder="话题ID">
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">开始时间<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="date" class="form-control" datepicker-popup
+                                           ng-model="hotTopicAdd.start.dt" is-open="openedstart" min-date="minDate"
+                                           date-disabled="disabled(date, mode)" ng-required="true"
+                                           ng-change="changed();" close-text="关闭"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openstart($event)"><i
+                                                class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <timepicker ng-model="hotTopicAdd.start.tp" show-meridian="false"
+                                            show-spinners='false' mousewheel="false" arrowkeys="true"
+                                            ng-change="changed();">
+                                </timepicker>
+                            </div>
+                        </div>
+                        <div class="form-group ">
+                            <label class="col-sm-3 control-label">结束时间<span class="form_label_dangus">*</span></label>
+
+                            <div class="col-sm-4">
+                                <p class="input-group">
+                                    <input type="date" class="form-control" datepicker-popup ng-model="hotTopicAdd.end.dt"
+                                           is-open="openedend" min-date="minDate"
+                                           date-disabled="disabled(date, mode)" ng-required="true"
+                                           ng-change="changed();" close-text="关闭"/>
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openend($event)"><i
+                                                class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                </p>
+                            </div>
+                            <div class="col-sm-4">
+                                <timepicker ng-model="hotTopicAdd.end.tp" show-meridian="false"
+                                            show-spinners="false" mousewheel="false" arrowkeys="true"
+                                            ng-change="changed();">
+                                </timepicker>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-sm-12 form-group">
+                        <div class="home_dangus" ng-repeat="alert in alerts" ng-click="closeAlert($index)">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span></button>
+                            <strong>{{alert.msg}}</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save()">保存</a>
+        </div>
+    </div>
+</div>

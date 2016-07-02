@@ -1,0 +1,141 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .img_a {
+        display: inline-block;
+        width: 50px;
+        max-height: 50px;
+        max-width: 30%;
+        cursor: pointer;
+        margin-right: 3px;
+    }
+
+    .img_a > img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .big_pic {
+        width: 500px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .img_a.big_pic > img {
+        width: auto;
+        height: auto;
+    }
+</style>
+<script type="text/ng-template" id="update_status.html">
+    <div class="modal-header">
+        <h3 class="modal-title text-center">更新状态</h3>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">运营位列表</div>
+        <div class="panel-body ">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('banneradd',{category:list_param.category});">新增运营位</a>
+                </div>
+            </div>
+            <div class="panel" ng-if="isActivityBanner==0">
+                <ul class="nav nav-pills">
+                    <li role="presentation">
+                        <a class="btn">类型:</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:list_param.category ==1}">
+                        <a class="btn btn-link" ng-click="list_param.category=1;getapi(1);">活动</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:list_param.category ==2}">
+                        <a class="btn btn-link" ng-click="list_param.category=2;getapi(1);">邻里圈</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:list_param.category ==3}">
+                        <a class="btn btn-link" ng-click="list_param.category=3;getapi(1);">邻邻帮</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:list_param.category ==4}">
+                        <a class="btn btn-link" ng-click="list_param.category=4;getapi(1);">拼团</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th>ID</th>
+                <th style="width: 100px;">标题</th>
+                <th style="width: 100px;">类型</th>
+                <th style="width: 100px;">图片</th>
+                <th style="width: 200px;">备注</th>
+                <th>包含小区列表</th>
+                <th>排除小区列表</th>
+                <th style="width: 100px;">当前状态</th>
+                <th style="width: 90px;">排序</th>
+                <th>操作</th>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="item in banner_list">
+                    <td><span class="msg_title" bo-text="item.banner_id"></span></td>
+                    <td><span class="msg_title" bo-text="item.title"></span></td>
+                    <td><span class="msg_title" bo-text="item.category | banner_category"></span></td>
+                    <td>
+                        <div class="img_a" ng-class="{big_pic:item.toggleclass}" ng-if="item.pic_url">
+                            <img class="img-responsive" bo-src="item.pic_url"
+                                 ng-click="item.toggleclass = !item.toggleclass">
+                        </div>
+                    </td>
+                    <td>
+                        <div style="width: 200px;word-wrap: break-word;" class="msg_title" bo-text="item.remark"></div>
+                    </td>
+                    <td><span class="msg_title" bo-text="item.include_ids"></span></td>
+                    <td><span class="msg_title" bo-text="item.exclude_ids"></span></td>
+                    <td>
+                        <progressbar ng-if="item.status=='1'" class="progress-striped active" max="200"
+                                     value="200"
+                                     type="success">
+                            已上线
+                        </progressbar>
+                        <progressbar ng-if="item.status=='2'" class="dynamic" max="200" value="200"
+                                     type="warning">
+                            已下线
+                        </progressbar>
+                        <progressbar ng-if="item.status=='0'" class="dynamic" max="200" value="200"
+                                     type="warning">
+                            待上线
+                        </progressbar>
+                    </td>
+                    <td><span class="msg_title" bo-text="item.sort_num"></span></td>
+                    <td>
+                        <a class="btn btn-primary" ng-if="item.status=='0' || item.status == '2'"
+                           ng-click="update_status(item,1,$index)">上线</a>
+                        <a class="btn btn-danger" ng-if="item.status==1"
+                           ng-click="update_status(item,2,$index)">下架</a>
+                        <a class="btn btn-primary"
+                           ng-click="toupdate(item)">编辑</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,120 @@
+<style>
+    .form_dangus{
+        border-color: #E21100;
+    }
+    .form_label_dangus{
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<script type="text/ng-template" id="updateUserCredit.html">
+    <div class="modal-header">
+        <h3 class="modal-title">编辑订单信息</h3>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">编号<span class="form_label_dangus">*</span></label>
+                <div class="col-sm-6">
+                    <input class="form-control"
+                           ng-model="UserCredit.item_id" placeholder="编号" disabled>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">用户名<span class="form_label_dangus">*</span></label>
+                <div class="col-sm-6">
+                    <input class="form-control"
+                           ng-model="UserCredit.name" placeholder="用户名">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">用户名手机<span class="form_label_dangus">*</span></label>
+                <div class="col-sm-6">
+                    <input class="form-control"
+                           ng-model="UserCredit.mobile" placeholder="用户名手机">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">用户地址<span class="form_label_dangus">*</span></label>
+                <div class="col-sm-6">
+                    <input class="form-control"
+                           ng-model="UserCredit.address" placeholder="用户地址">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">物流公司<span class="form_label_dangus">*</span></label>
+                <div class="col-sm-6">
+                    <input class="form-control"
+                           ng-model="UserCredit.express_company" placeholder="库存总数">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">物流订单<span class="form_label_dangus">*</span></label>
+                <div class="col-sm-6">
+                    <input class="form-control"
+                           ng-model="UserCredit.express_number" placeholder="物流订单">
+                </div>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">兑换订单列表</div>
+        <div class="panel-body">
+            <ol class="breadcrumb">
+                <li class="active">积分商品列表:</li>
+                <li><a ng-bind="title" ui-sref="credit"></a></li>
+                <!--<li class="active">活动小区</li>-->
+            </ol>
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th>编号</th>
+                <th>订单号</th>
+                <th>订单时间</th>
+                <th>用户ID</th>
+                <th>用户名称</th>
+                <th>用户手机</th>
+                <th>用户地址</th>
+                <th>物流公司</th>
+                <th>物流单号</th>
+                <!--<th>当前状态</th>-->
+                <th>操作</th>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="user in credit_user_list">
+                    <td><span class="msg_title" bo-text="user.item_id"></span></td>
+                    <td><span class="msg_title" bo-text="user.order_no"></span></td>
+                    <td><span class="msg_title" bo-text="user.created_at"></span></td>
+                    <td><span class="msg_title" bo-text="user.user_id"></span></td>
+                    <td><span class="msg_title" bo-text="user.name"></span></td>
+                    <td><span class="msg_title" bo-text="user.mobile"></span></td>
+                    <td><span class="msg_title" bo-text="user.address"></span></td>
+                    <td><span class="msg_title" bo-text="user.express_company"></span></td>
+                    <td><span class="msg_title" bo-text="user.express_number"></span></td>
+                    <!--<td>-->
+                        <!--<a class="btn btn-success"-->
+                           <!--ng-click="user_list(user.user_name,user.users,$index);">-->
+                            <!--<span class="msg_title" bo-text="user.users.length || 0"></span>-->
+                        <!--<a>-->
+                    <!--</td>-->
+                    <!--<td><span class="msg_title" ng-bind="user.status | credit_user_status"></span></td>-->
+                    <td>
+                        <a class="btn btn-primary" ng-click="updateUserCredit(user, $index)">修改详情信息</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage"items-per-page="itemsPerPage"   max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)" items-per-page="10"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

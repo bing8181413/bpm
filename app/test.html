@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap/bootstrap.css"/>
+    <script src="vendor/jquery/jquery.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <br/><br/><br/><br/><br/><br/>
+    <a class="btn btn-primary btn-block" href="javascript:void(0);" id="ios">ios</a>
+    <br/><br/><br/><br/><br/><br/>
+    <a class="btn btn-primary btn-block" href="javascript:void(0);" id="andriod">andriod</a>
+</div>
+<script>
+    $(function () {
+        var USER = {};
+        if(typeof HJM =='undefined'){
+            alert('请使用回家么APP登录');
+        }else{
+            $("#ios").click(function () {
+                USER = HJM.userInfo();
+                alert('我的IOS 设备的密码：  '+USER.password);
+            });
+            $("#andriod").click(function () {
+                USER = eval('('+HJM.userInfo()+')');
+                alert('我的Andriod 设备的密码：  '+USER.password);
+            });
+        }
+
+    });
+
+</script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<style>
+    #list>thead>tr>th{
+        border-bottom: 0;
+        text-align: center;
+    }
+    .img_a{
+        float: left;
+        width: 50px;
+        height: 50px;
+    }
+    .img_a>img{
+        width: 50px;
+    }
+    .img_a+span{
+        line-height: 50px;
+        margin-left: 20px;
+    }
+    #pagination{
+        position: fixed;
+        bottom: 20px;
+        right: 50px;
+        background: #999;
+        padding: 0 25px;
+        opacity: 0.8;
+        border-radius: 5px;
+    }
+    .panel{
+        margin-bottom: 100px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-default">
+        <table id="list" class="table table-hover table-bordered">
+            <thead>
+            <tr>
+                <th style="width: 10%;">用户ID</th>
+                <th style="width: 10%;">姓名</th>
+                <th style="width: 5%;">性别</th>
+                <th style="width: 5%;">年龄</th>
+                <th style="width: 10%;">手机号码</th>
+                <th style="width: 10%;">城市</th>
+                <th style="width: 10%;">小区名称</th>
+                <th style="width: 10%;">注册时间</th>
+                <th style="width: 10%;">上次登录时间</th>
+                <th style="width: 10%;">验证状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr bindonce ng-repeat="user in users track by user.user_id">
+                <td><span bo-text="user.user_id"></span></td>
+                <td><span bo-text="user.name|null2empty"></span></td>
+                <td><span bo-text="user.gender|gender"></span></td>
+                <td><span bo-text="user.birthday|brithday2age"></span></td>
+                <td><span bo-text="user.mobile"></span></td>
+                <td><span bo-text="user.city"></span></td>
+                <td><span bo-text="user.community_name"></span></td>
+                <td><span bo-text="user.created_at|limitTo:10"></span></td>
+                <td><span bo-text="user.last_login_time | null2empty | limitTo:10"></span></td>
+                <td>
+                    <span ng-bind="user.verify_type|verify_type"></span>
+                    <a class="btn btn-success" ng-click="user_verify(user,$index,6)" ng-if="user.verify_type==5">通过</a>
+                    <a class="btn btn-danger" ng-click="user_verify(user,$index,5)" ng-if="user.verify_type!=5 && user.verify_type!=6">待验证</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center" id="pagination">
+        <pagination total-items="totalItems" ng-model="currentPage" max-size="maxSize" class="pagination" boundary-links="true" ng-change="getlist(currentPage)"
+                    items-per-page="20" rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" last-text="&raquo;"></pagination>
+    </div>
+</div>

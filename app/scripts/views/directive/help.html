@@ -1,0 +1,46 @@
+<div class="help-block hjm-help">
+    <style type="text/css">
+        .hjm-help{
+            font-style: italic;
+            color: #ccc;!important;
+            line-height: 40px;
+            padding-right: 10px;
+            cursor: pointer;
+        }
+        .hjm-help:hover{
+            color: #fff;!important;
+            text-decoration: none;
+        }
+    </style>
+    <a class="hjm-help" ng-click="show();">帮助</a>
+    <script type="text/ng-template" id="help_tmp.html">
+        <div class="modal-header">
+            <h3 class="modal-title">常规操作帮助提示(后续不断更新)</h3>
+        </div>
+        <div class="modal-body">
+            <!-- Standard button -->
+            <button type="button" class="btn btn-default btn-sm">（默认）Default</button>
+
+            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+            <button type="button" class="btn btn-primary btn-sm">（操作）Primary</button>
+
+            <!-- Indicates a successful or positive action -->
+            <button type="button" class="btn btn-success btn-sm">（成功）Success</button>
+
+            <!-- Contextual button for informational alert messages -->
+            <button type="button" class="btn btn-info btn-sm">（一般）Info</button>
+
+            <!-- Indicates caution should be taken with this action -->
+            <button type="button" class="btn btn-warning btn-sm">（警告）Warning</button>
+
+            <!-- Indicates a dangerous or potentially negative action -->
+            <button type="button" class="btn btn-danger btn-sm">（危险）Danger</button>
+
+            <!-- Deemphasize a button by making it look like a link while maintaining button behavior -->
+            <button type="button" class="btn btn-link btn-sm">超链接</button>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+        </div>
+    </script>
+</div>

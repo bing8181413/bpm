@@ -1,0 +1,497 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .activity20add_time_div {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .activity20add_time {
+        padding-left: 0;
+        padding-right: 0;
+        text-align: center;
+    }
+
+    .search_community_list {
+        position: absolute;
+        top: 100%;
+        z-index: 1000;
+        float: left;
+        min-width: 160px;
+        padding: 5px 0;
+        margin: 2px 0 0;
+        font-size: 14px;
+        text-align: left;
+        list-style: none;
+        background-color: #fff;
+        -webkit-background-clip: padding-box;
+        background-clip: padding-box;
+        border: 1px solid #ccc;
+        border: 1px solid rgba(0, 0, 0, .15);
+        border-radius: 4px;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
+    }
+
+    .search_community_list > li {
+        width: 100%;
+    }
+
+    .search_community_list > li > a.divider {
+        height: 1px;
+        margin: 1px 0;
+        overflow: hidden;
+        background-color: #e5e5e5;
+        padding: 0;
+    }
+
+    .search_community_list > li > a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: normal;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+    }
+
+    .search_community_list > li > a:hover {
+        background-color: #13c4a5;
+        color: #fff;
+    }
+
+    .select_name {
+        width: 100%;
+        line-height: 26px;
+        height: 34px;
+        margin-right: 15px;
+    }
+
+    .community_title {
+        height: 20px;
+    }
+
+    .add_community {
+        padding-right: 18px;
+    }
+
+    .community_li_div {
+        width: 100%;
+    }
+
+    .community_li_div > .input-group-btn {
+        width: 50%;
+    }
+
+    .community_li_div > .input-group-btn > input {
+        width: 100%;
+    }
+
+    .tongzhiheight {
+        height: 600px;
+    }
+
+    .tongzhieditor {
+        width: 100%;
+        height: 546px;
+    }
+
+    .community_name {
+        position: relative;
+        width: 100% !important;
+    }
+
+    .contents {
+        border: 1px #ccc solid;
+        padding: 10px;
+        margin-bottom: 15px;
+    }
+
+    .mod_table {
+        display: table;
+        width: 100%;
+    }
+
+    .mod_table dt
+    .mod_table dd, {
+        display: table-row;
+    }
+
+    .mod_table p {
+        display: table-cell;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <span ng-if="eid">修改达人</span>
+            <span ng-if="!eid">添加达人</span>
+        </div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <!--  <div class="btn btn-info" ui-sref="talent({tab: 1})" ui-sref-opts="{reload: true}">
+                         达人管理
+                     </div> -->
+                    <div class="btn btn-info" ng-click="toBack()">
+                        达人管理
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="span10 tongzhiheight">
+                <div class="col-md-8">
+                    <section class="form-horizontal">
+                        <div class="col-md-12 form-group">
+                            <label class="col-sm-3 control-label text-primary">基本信息（必填）</label>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">手机号码</label>
+
+                            <div class="col-sm-6">
+                                <input ng-model="tel" placeholder="运营输入手机号码，关联信息" type="text" class="form-control"
+                                       ng-readonly="eid"/>
+                            </div>
+                            <div class="col-sm-3" ng-if="!eid">
+                                <div class="btn btn-primary" ng-click="searchUser(tel)">
+                                    查询
+                                </div>
+                            </div>
+                        </div>
+
+                        <div ng-show="showinfo">
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">用户姓名</label>
+
+                                <div class="col-sm-9">
+                                    <input ng-model="tInput.name" placeholder="用户姓名" type="text" class="form-control"
+                                           readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">所在小区</label>
+
+                                <div class="col-sm-9">
+                                    <input ng-model="tInput.community_name" placeholder="所在小区" type="text"
+                                           class="form-control" readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">性别</label>
+
+                                <div class="col-sm-9">
+                                    <select ng-model="tInput.gender">
+                                        <option value="2">保密</option>
+                                        <option value="1">男</option>
+                                        <option value="0">女</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">生日</label>
+
+                                <div class="col-sm-4">
+                                    <!-- <input type="text" ng-model="tInput.birthday" placeholder="生日" class="form-control" /> -->
+                                    <p class="input-group">
+                                        <input
+                                                type="date"
+                                                datepicker-popup
+                                                ng-model="talentTemp.birthday"
+                                                is-open="openedstart"
+                                                min-date="minDate"
+                                                date-disabled="disabled(date, mode)"
+                                                ng-required="true"
+                                                close-text="关闭"
+                                                ng-change="changeDate()"
+                                                class="form-control"
+                                                />
+                                    <span class="input-group-btn">
+                                        <button type="button" class="btn btn-default" ng-click="openstart($event)"><i
+                                                class="glyphicon glyphicon-calendar"></i></button>
+                                    </span>
+                                    </p>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12 form-group">
+                                <label class="col-sm-3 control-label text-primary">达人介绍（必填）</label>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">达人标签</label>
+
+                                <div class="col-sm-9">
+                                    <select ng-options="opts.lid as opts.name for opts in ListLabel"
+                                            ng-model="talentTemp.tagId" style="margin-right:10px;">
+                                        <option value="" disabled="false">选择标签</option>
+                                    </select>
+                                    <button class="btn btn-primary" ng-click="addLabel()">添加</button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">置顶<span
+                                        class="form_label_dangus">*</span></label>
+
+                                <div class="col-sm-9">
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="on_top"
+                                                   ng-model="tInput.on_top" ng-value="1">
+                                            是
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="on_top"
+                                                   ng-model="tInput.on_top" ng-value="0">
+                                            否
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label"></label>
+
+                                <div class="col-sm-9">
+                                    <div class="btn btn-success" style="margin-right:10px;"
+                                         ng-repeat="v in tInput.tags track by $index"
+                                         ng-click="tInput.tags.splice($index, 1)">
+                                        {{v.name}} <span class="glyphicon glyphicon-remove"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">小区范围<span
+                                        class="form_label_dangus">*</span></label>
+
+                                <div class="col-sm-9">
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="target_type"
+                                                   ng-model="tInput.target_type" ng-value="0" ng-click="init_ids()">
+                                            全部小区
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="target_type"
+                                                   ng-model="tInput.target_type" ng-value="1">
+                                            包括小区
+                                        </label>
+                                    </div>
+                                    <div class="radio-inline">
+                                        <label>
+                                            <input type="radio" name="target_type"
+                                                   ng-model="tInput.target_type" ng-value="2">
+                                            不包括小区
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-9" ng-if="tInput.target_type!=0">
+                                    <select-community ng-model="tInput.ids"></select-community>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">达人简介</label>
+
+                                <div class="col-sm-9">
+                                    <textarea ng-model="tInput.short_des" placeholder="达人简介"
+                                              class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">达人介绍</label>
+
+                                <div class="col-sm-9">
+                                    <textarea ng-model="tInput.des" placeholder="达人介绍" class="form-control"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">顶部图片<br><span style="font-size:12px;color:#999">一张图片</span></label>
+
+                                <div class="col-sm-9">
+                                    <show-upload images="tInput.banner" hasimages="hasimages" max="1"></show-upload>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">介绍图片</label>
+
+                                <div class="col-sm-9">
+                                    <show-upload images="tInput.images" hasimages="hasimages"></show-upload>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12 form-group">
+                                <label class="col-sm-3 control-label text-primary">达人服务（必填）</label>
+                            </div>
+                            <section ng-repeat="(k, v) in tInput.sers track by $index">
+                                <label class="col-sm-3 control-label"></label>
+
+                                <div class="col-sm-9 contents">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">服务标题</label>
+
+                                        <div class="col-sm-9">
+                                            <input ng-model="v.name" placeholder="服务标题，不超过30个字" type="text"
+                                                   class="form-control"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">内容介绍</label>
+
+                                        <div class="col-sm-9">
+                                            <textarea ng-model="v.des" placeholder="内容介绍" type="text"
+                                                      class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <!--
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">收费方式</label>
+                                        <div class="col-sm-9">
+                                            <input ng-model="v.charge" placeholder="手动填写收费的内容，不超过30个字" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">约见方式</label>
+                                        <div class="col-sm-9">
+                                            <input ng-model="v.meet" placeholder="约见方式，不超过30个字" type="text" class="form-control" />
+                                        </div>
+                                    </div>
+                                    -->
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">服务时间</label>
+
+                                        <div class="col-sm-9">
+                                            <label class="radio-inline">
+                                                <input type="checkbox" ng-model="v.timer[0]"> 随时
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="checkbox" ng-model="v.timer[1]"> 工作日白天
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="checkbox" ng-model="v.timer[2]" value="3"> 工作日晚上
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="checkbox" ng-model="v.timer[3]" value="4"> 双休日白天
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="checkbox" ng-model="v.timer[4]" value="5"> 双休日晚上
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-danger btn-s"
+                                            ng-click="removeService({sid: v.sid || 0, key: $index})">
+                                        <span class="glyphicon glyphicon-trash"></span> 删除
+                                    </button>
+                                </div>
+                            </section>
+                            <div class="col-md-12">
+                                <a class="btn btn-primary" ng-click="addService()">新增达人服务</a>
+                            </div>
+
+
+                            <div class="col-md-12 form-group">
+                                <label class="col-sm-3 control-label text-primary">玩吧（选填）</label>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label class="col-sm-3"></label>
+
+                                <div class="col-sm-9">
+                                    <table class="table table-hover table-bordered table-condensed">
+                                        <thead>
+                                        <th style="width:120px;">活动ID</th>
+                                        <th>活动名称</th>
+                                        <th style="width:100px;">操作</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr bindonce ng-repeat="v in tInput.wan track by $index">
+                                            <td ng-bind="v.activity_id"></td>
+                                            <td ng-bind="v.activity_title"></td>
+                                            <td>
+                                                <div type="button" class="btn btn-danger btn-s"
+                                                     ng-click="tInput.wan.splice($index, 1)">
+                                                    <span class="glyphicon glyphicon-trash"></span> 删除
+                                                </div>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td><input class="form-control" type="text" placeholder="输入活动ID"
+                                                       ng-model="talentTemp.activityId"/></td>
+                                            <td></td>
+                                            <td>
+                                                <div class="btn btn-primary"
+                                                     ng-click="addActivity(talentTemp.activityId)">添加活动
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12 form-group">
+                                <label class="col-sm-3 control-label text-primary">话题（选填）</label>
+                            </div>
+                            <div class="col-md-12 form-group">
+                                <label class="col-sm-3"></label>
+
+                                <div class="col-sm-9">
+                                    <table class="table table-hover table-bordered table-condensed">
+                                        <thead>
+                                        <th style="width:120px;">话题ID</th>
+                                        <th>话题名称</th>
+                                        <th style="width:100px;">操作</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr bindonce ng-repeat="v in tInput.topics track by $index">
+                                            <td ng-bind="v.topic_id"></td>
+                                            <td ng-bind="v.title"></td>
+                                            <td>
+                                                <div type="button" class="btn btn-danger btn-s"
+                                                     ng-click="tInput.topics.splice($index, 1)">
+                                                    <span class="glyphicon glyphicon-trash"></span> 删除
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><input class="form-control" type="text" placeholder="输入话题ID"
+                                                       ng-model="talentTemp.topicId"/></td>
+                                            <td></td>
+                                            <td>
+                                                <div class="btn btn-primary" ng-click="addTopic(talentTemp.topicId)">
+                                                    添加话题
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </section>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="btn btn-success" ng-click="saveTalent()">保存</div>
+        </div>
+    </div>
+</div>

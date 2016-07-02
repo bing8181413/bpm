@@ -1,0 +1,127 @@
+<style>
+    .form_dangus {
+        border-color: #E21100;
+    }
+
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+
+    .img_a {
+        display: inline-block;
+        width: 50px;
+        max-height: 50px;
+        max-width: 30%;
+        cursor: pointer;
+        margin-right: 3px;
+    }
+
+    .img_a > img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .big_pic {
+        width: 500px;
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .img_a.big_pic > img {
+        width: auto;
+        height: auto;
+    }
+</style>
+
+
+
+<script type="text/ng-template" id="add_tag.html">
+    <div class="modal-header">
+        <h3 class="modal-title" ng-bind="activityTitle"></h3>
+    </div>
+    
+    <div class="modal-body" style="border:0;">
+        <div class="panel-body">
+            <div class="form-group">
+                <label class="col-sm-3 control-label">标签名称</label>
+                <div class="col-sm-9">
+                    <input ng-model="tInput.name" placeholder="标签名称" type="text" class="form-control" />
+                </div>
+            </div>
+            <div style="height:10px;overflow:hidden;clear:both;"></div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">图片<br><span style="font-size:12px;color:#999">一张图片</span></label>
+                <div class="col-sm-9">
+                    <show-upload images="tInput.images" hasimages="hasimages" max="1"></show-upload>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <p class="btn btn-primary" ng-click="ok()">保存</p>
+        <p class="btn btn-warning" ng-click="cancel()">取消</p>
+    </div>
+</script>
+
+
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">达人标签管理</div>
+
+        <div class="panel">
+            <div class="panel-heading">
+                <a class="btn btn-info" ng-click="addLabel()">新增标签</a>
+            </div>
+        </div>
+
+        <!--<div class="panel-body">-->
+            <!--<ul class="nav nav-pills">-->
+                <!--<li role="presentation">-->
+                    <!--<a class="btn btn-default" ui-sref="talent({tab: 1})" ui-sref-opts="{reload: true}">社区达人</a>-->
+                <!--</li>-->
+                <!--<li role="presentation">-->
+                    <!--<a class="btn btn-default" ui-sref="talent({tab: 2})" ui-sref-opts="{reload: true}">达人申请</a>-->
+                <!--</li>-->
+                <!--<li role="presentation" class="active">-->
+                    <!--<a class="btn btn-default">达人标签</a>-->
+                <!--</li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                    <th>标签ID</th>
+                    <th>标签内容</th>
+                    <th>图片</th>
+                    <th>达人数量</th>
+                    <th>操作</th>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="v in DataList.list track by $index">
+                        <td>{{v.lid}}</td>
+                        <td>{{v.name}}</span></td>
+                        <td><img style="width:100px;" ng-src="{{v.url}}" /></td>
+                        <td>{{v.experts}}</span></td>
+                        <td>
+                            <div type="button" class="btn btn-link" ng-click="addLabel(v.lid)">编辑</div>
+                            <div type="button" class="btn btn-link" ng-click="delLabel(v.lid)">删除</div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="text-center" id="pagination">
+                <pagination
+                    total-items="Page.pageTotal" ng-model="Page.pageIndex" items-per-page="Page.pageSize"
+                    max-size="Page.pageMax" class="pagination"
+                    boundary-links="true" ng-change="getData()" items-per-page="10"
+                    rotate="false" num-pages="Page.numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                    first-text="&laquo;" last-text="&raquo;"
+                ></pagination>
+            </div>
+        </div>
+    </div>
+</div>

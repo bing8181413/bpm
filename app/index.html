@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>回家么管理系统</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="styles/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/animate/animate.min.css"/>
+    <link rel="stylesheet" href="styles/app.css">
+    <!--<link rel="stylesheet" href="main.min.css">-->
+    <style type="text/css">
+    </style>
+    <style type="text/css" id="loading">
+    </style>
+    <!--<script type="text/javascript" src="vendor/ueditor/third-party/zeroclipboard/ZeroClipboard.js"></script>-->
+</head>
+<body>
+<div class="loading_content" ng-if="loading">
+    <div class="loading">
+        <div class="loader"></div>
+    </div>
+    <!--<div class="loading">-->
+    <!--<img src="http://activity.huijiame.com/loadinghouse.gif" alt=""/>-->
+    <!--<span ng-bind="loading_text"></span>-->
+    <!--</div>-->
+</div>
+
+<header id="header" class="navbar">
+    <ul class="nav navbar-nav navbar-avatar navbar-right">
+        <li class="dropdown-toggle leftborder">
+            <a id="dLabel">
+                <span class="hidden-xs-only current_city_name" ng-bind="hjm.current_city_name"></span>
+                <span class="thumb-small avatar inline">
+                    <img class="img-circle app-avart" src="favicon.ico" alt="头像"/>
+                </span>
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li><a ui-sref="login" ng-if="!hjm">登录</a></li>
+                <!--<li class="divider" ng-if="!hjm"></li>-->
+                <li><a ui-sref="easemob" ng-if="hjm">查环信用户</a></li>
+                <li class="divider" ng-if="hjm"></li>
+                <li><a ui-sref="swap_city" ng-if="hjm">切换城市</a></li>
+                <li class="divider" ng-if="hjm"></li>
+                <li><a ui-sref="select_boards" ng-if="hjm">负责区块</a></li>
+                <li class="divider" ng-if="hjm"></li>
+                <li><a ui-sref="change_pwd" ng-if="hjm">修改密码</a></li>
+                <li class="divider" ng-if="hjm"></li>
+                <li><a ui-sref="change_user_info" ng-if="hjm">修改个人信息</a></li>
+                <li class="divider" ng-if="hjm"></li>
+                <li><a ng-click="logout()" ng-if="hjm">退出登录</a></li>
+            </ul>
+        </li>
+    </ul>
+    <div class="nav navbar-nav navbar-right">
+        <help></help>
+    </div>
+    <a class="navbar-brand">HOME</a>
+
+    <div class="navbar-form pull-left shift">
+        <span class="glyphicon glyphicon-search"></span>
+        <input type="text" class="input-sm form-control" placeholder="关键字搜索" ng-model="search"
+               ng-keypress="searchkeyword($event);"/>
+    </div>
+</header>
+<nav id="nav" class="nav-primary hidden-xs nav-vertical" ng-cloak ng-init="tab_sm = false;">
+    <menu></menu>
+    <!--<ul class="nav tab-list" ng-class="{sm:tab_sm ==true}">-->
+        <!--<li class="">-->
+            <!--<a class="btn" ng-click="tab_sm=!tab_sm">-->
+                <!--<span class="glyphicon" ng-class="{'glyphicon-plus':tab_sm ==true,'glyphicon-remove':tab_sm ==false,}"-->
+                      <!--aria-hidden="true"></span>-->
+                <!--<span>功能管理</span>-->
+            <!--</a>-->
+        <!--</li>-->
+        <!--&lt;!&ndash;<li class="" ng-class="{active:$state.includes('report')}">&ndash;&gt;-->
+        <!--&lt;!&ndash;<a ui-sref="report">&ndash;&gt;-->
+        <!--&lt;!&ndash;<span class="glyphicon glyphicon-dashboard" aria-hidden="true"></span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<span>统计报表</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+        <!--<li class="dropdown-submenu" ng-class="{active:$state.includes('user') || $state.includes('verify')-->
+         <!--}"-->
+            <!--ng-if="module_list.indexOf('user')>=0;">-->
+            <!--<a ui-sref="verify({verifyStatus: 1})">-->
+                <!--<span class="glyphicon glyphicon-user" aria-hidden="true"></span>-->
+                <!--<span>账户管理&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="verify({verifyStatus: 1})">验证管理</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="user">全部用户</a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--<li class="dropdown-submenu"-->
+            <!--ng-class="{active:$state.includes('activity21') || $state.includes('activity21add') || $state.includes('activity21update')-->
+            <!--||$state.includes('activitytuan') || $state.includes('activitytuanadd') || $state.includes('activitytuanupdate')-->
+             <!--|| $state.includes('activitytuanComments') || $state.includes('activitytuan_apply_list')|| $state.includes('activitytuanByAccount')-->
+             <!--|| $state.includes('activity21Comments') || $state.includes('activity21_apply_list')|| $state.includes('activity21ByAccount')-->
+             <!--|| $state.includes('activity21Feeds') || $state.includes('activityNotice') || $state.includes('banner') && $state.params.category==1-->
+              <!--|| $state.includes('activitytuanFeeds') || $state.includes('banneradd') && $state.params.category==1}"-->
+            <!--ng-if="module_list.indexOf('activitynew')>=0;">-->
+            <!--<a ui-sref="activitytuan">-->
+                <!--<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>-->
+                <!--<span>活动管理&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="activitytuan">活动列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="activitytuanadd">添加活动</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--&lt;!&ndash;<li><a ui-sref="activity21">2.1活动列表</a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="activity21add">添加2.1活动</a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--<li><a ui-sref="banner({category: 1})">运营位列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="banneradd({category: 1})">添加运营位</a></li>-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="activity20">最新版2.0活动列表</a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="activity20add">添加最新版2.0活动</a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="activity20Comments({hasReplied:'0',accountId:account_id})">咨询回复管理</a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="activity20ByAccount({accountId:account_id})">精彩回顾</a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="activitynew">活动列表1.8老版本</a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="activitynewadd">添加活动1.8老版本</a></li>&ndash;&gt;-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--<li class="dropdown-submenu"-->
+            <!--ng-class="{active:$state.includes('tuan') || $state.includes('tuanadd') || $state.includes('tuanupdate')-->
+            <!--|| $state.includes('opening_community_list') || $state.includes('success_community_list')-->
+            <!--|| $state.includes('buy') || $state.includes('buyadd') || $state.includes('buyupdate')-->
+            <!--|| $state.includes('no_opening_community_list') || $state.includes('consult_reply') && $state.params.type=='tuan'-->
+            <!--|| $state.includes('goods')|| $state.includes('pintuan')-->
+            <!--|| $state.includes('account.list') ||  $state.includes('account.add') || $state.includes('account.update')-->
+            <!--}"-->
+            <!--ng-if="module_list.indexOf('tuan')>=0;">-->
+            <!--<a ui-sref="pintuan.list">-->
+                <!--<span class="glyphicon glyphicon-text-size" aria-hidden="true"></span>-->
+                <!--<span>邻小店管理</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="goods.list">商品列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="pintuan.list">拼团列表</a></li>-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="tuan">旧拼团列表</a></li>&ndash;&gt;-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="buy">直接买列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="account.list">负责人列表</a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--<li class="dropdown-submenu"-->
+            <!--ng-class="{active:$state.includes('order')}" ng-if="module_list.indexOf('order')>=0;">-->
+            <!--<a ui-sref="order">-->
+                <!--<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>-->
+                <!--<span>订单管理&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+        <!--</li>-->
+        <!--<li class="dropdown-submenu"-->
+            <!--ng-class="{active:$state.includes('topic') || $state.includes('topicAdd')|| $state.includes('topicUpdate')-->
+              <!--|| $state.includes('banner') && $state.params.category==2 || $state.includes('banneradd') && $state.params.category==2-->
+              <!--|| $state.includes('majias') || $state.includes('listmajia')||$state.includes('listmajiaadd') }"-->
+            <!--ng-if="module_list.indexOf('topic')>=0;">-->
+            <!--<a ui-sref="topic">-->
+                <!--<span class="glyphicon glyphicon-list" aria-hidden="true"></span>-->
+                <!--<span>邻里圈管理</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="topic">话题列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="topicAdd">新增话题</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="listmajia">帖子列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="majias">马甲管理</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="banner({category: 2})">运营位列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="banneradd({category: 2})">新增运营位</a></li>-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="hotTopic">热门话题列表</a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="hotTopicAdd">新增热门话题</a></li>&ndash;&gt;-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--<li class="dropdown-submenu"-->
+            <!--ng-class="{active:$state.includes('credit') || $state.includes('creditAdd')|| $state.includes('creditUpdate')  || $state.includes('board') || $state.includes('boardAdd') || $state.includes('boardUpdate') }"-->
+            <!--ng-if="module_list.indexOf('credit')>=0;">-->
+            <!--<a ui-sref="credit">-->
+                <!--<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>-->
+                <!--<span>积分管理&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="credit">积分商品列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="creditAdd">新增积分商品</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="board">运营位列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="boardAdd">新增运营位</a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--<li class="dropdown-submenu"-->
+            <!--ng-class="{active:$state.includes('feed') ||$state.includes('community') || $state.includes('communityupdate')-->
+            <!--|| $state.includes('communityadd')}"-->
+            <!--ng-if="module_list.indexOf('feed')>=0;">-->
+            <!--<a ui-sref="community">-->
+                <!--<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>-->
+                <!--<span>小区列表&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="community">小区列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="feed">小区动态</a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--<li ng-class="{active:$state.includes('invite')}" ng-if="module_list.indexOf('invite')>=0;">-->
+            <!--<a ui-sref="invite">-->
+                <!--<span class="glyphicon glyphicon-qrcode" aria-hidden="true"></span>-->
+                <!--<span>邀请码管理</span>-->
+            <!--</a>-->
+        <!--</li>-->
+        <!--<li class="dropdown-submenu"-->
+            <!--ng-class="{active: $state.includes('talent') || $state.includes('talentAdd') || $state.includes('talentTag')-->
+            <!--|| $state.includes('banner') && $state.params.category==3 ||  $state.includes('banneradd')&& $state.params.category==3}"-->
+            <!--ng-if="module_list.indexOf('library')>=0;">-->
+            <!--<a href="#/talent.htm?tab=1">-->
+                <!--<span class="glyphicon glyphicon-fire" aria-hidden="true"></span>-->
+                <!--<span>达人管理&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="talent({tab: 1})">达人管理</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--&lt;!&ndash;<li><a ui-sref="talent({tab: 2})">达人申请(老版本)</a></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--<li><a ui-sref="talentTag">达人标签</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="banner({category: 3})">运营位列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="banneradd({category: 3})">新增运营位</a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--&lt;!&ndash;<li ng-class="{active:$state.includes('push') || $state.includes('pushAdd')}"&ndash;&gt;-->
+        <!--&lt;!&ndash;ng-if="module_list.indexOf('push')>=0;">&ndash;&gt;-->
+        <!--&lt;!&ndash;<a ui-sref="push">&ndash;&gt;-->
+        <!--&lt;!&ndash;<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<span>系统推送&nbsp;&nbsp;&nbsp;</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+        <!--<li class="dropdown-submenu"-->
+            <!--ng-class="{active:$state.includes('push') || $state.includes('pushAdd')}"-->
+            <!--ng-if="module_list.indexOf('message')>=0;">-->
+            <!--<a ui-sref="message">-->
+                <!--<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>-->
+                <!--<span>消息管理&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="push">系统推送列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="pushAdd">添加系统推送</a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--<li class="dropdown-submenu"-->
+            <!--ng-class="{active: $state.includes('message') || $state.includes('sms') || $state.includes('smsAdd')-->
+            <!--|| $state.includes('smsinvite')}"-->
+            <!--ng-if="module_list.indexOf('sms')>=0;">-->
+            <!--<a ui-sref="smsinvite" ui-sref-opts="{reload: true}">-->
+                <!--<span class="glyphicon glyphicon-phone" aria-hidden="true"></span>-->
+                <!--<span>短信管理&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="smsinvite">万能短信验证码列表</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="sms">短信群发</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="message">短信回复</a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--<li class="dropdown-submenu"-->
+            <!--ng-class="{active: $state.includes('coupon') || $state.includes('couponAdd')|| $state.includes('welcomeimg')-->
+             <!--|| $state.includes('welcomeimgadd') || $state.includes('welcomeimgupdate') || $state.includes('sysconf')}"-->
+            <!--ng-if="module_list.indexOf('coupon')>=0;">-->
+            <!--<a ui-sref="welcomeimg" ui-sref-opts="{reload: true}">-->
+                <!--<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>-->
+                <!--<span>系统管理&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="welcomeimg">欢迎图片</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="coupon">优惠劵管理</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="sysconf">系统升级管理</a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--&lt;!&ndash;<li ng-class="{active:$state.includes('org')}" ng-if="module_list.indexOf('org')>=0;">&ndash;&gt;-->
+        <!--&lt;!&ndash;<a ui-sref="org">&ndash;&gt;-->
+        <!--&lt;!&ndash;<span class="glyphicon glyphicon-apple" aria-hidden="true"></span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<span>机构管理&nbsp;&nbsp;&nbsp;</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li class="dropdown-submenu"  ng-class="{active:$state.includes('godlamp') || $state.includes('godlampArt')}" >&ndash;&gt;-->
+        <!--&lt;!&ndash;<a ui-sref="godlamp">&ndash;&gt;-->
+        <!--&lt;!&ndash;<span class="glyphicon glyphicon-lamp" aria-hidden="true"></span>&ndash;&gt;-->
+        <!--&lt;!&ndash;<span>神灯计划</span>&ndash;&gt;-->
+        <!--&lt;!&ndash;</a>&ndash;&gt;-->
+        <!--&lt;!&ndash;<ul class="dropdown-menu">&ndash;&gt;-->
+        <!--&lt;!&ndash;<li><a ui-sref="godlamp">神灯模板</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;<li><a ui-sref="godlampArt">添加模板</a></li>&ndash;&gt;-->
+        <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+        <!--&lt;!&ndash;</li>&ndash;&gt;-->
+        <!--<li class="dropdown-submenu" ng-class="{active:$state.includes('refund')}"-->
+            <!--ng-if="module_list.indexOf('refund')>=0;">-->
+            <!--<a ui-sref="refund">-->
+                <!--<span class="glyphicon glyphicon-usd" aria-hidden="true"></span>-->
+                <!--<span>财务管理&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="refund">退款列表</a></li>-->
+                <!--&lt;!&ndash;<li class="divider"></li>&ndash;&gt;-->
+                <!--&lt;!&ndash;<li><a ui-sref="activitynewadd">添加活动</a></li>&ndash;&gt;-->
+            <!--</ul>-->
+        <!--</li>-->
+        <!--<li class="dropdown-submenu" ng-show="false"-->
+            <!--ng-class="{active:$state.includes('library') || $state.includes('libTmp')}"-->
+            <!--ng-if="module_list.indexOf('library')>=0;">-->
+            <!--<a ui-sref="library">-->
+                <!--<span class="glyphicon glyphicon-lamp" aria-hidden="true"></span>-->
+                <!--<span>图书管理&nbsp;&nbsp;&nbsp;</span>-->
+            <!--</a>-->
+            <!--<ul class="dropdown-menu">-->
+                <!--<li><a ui-sref="library">图书管理</a></li>-->
+                <!--<li class="divider"></li>-->
+                <!--<li><a ui-sref="libTmp">图书目录</a></li>-->
+            <!--</ul>-->
+        <!--</li>-->
+    <!--</ul>-->
+</nav>
+<section id="content" ng-class="{sm:tab_sm ==true}">
+    <section class="main padder">
+        <div style="width:100%;border-radius:5px;margin-bottom: 60px;">
+            <div ui-view="viewA">
+                <div ui-view="viewA1"></div>
+            </div>
+            <div ui-view="viewB"></div>
+        </div>
+    </section>
+</section>
+<script data-main="scripts/main.js" src="scripts/require.js"></script>
+<script src="scripts/main.min.js"></script>
+<script>
+    require(['./bootstrap']);
+</script>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=8wBktwVQM9GWdeP5ldMXogY48glg5sgD"></script>
+<!--由于百度的edtior 不能使用require 无痛加载 所以使用阻塞加载方式 -->
+<!--<script type="text/javascript" src="vendor/ueditor/ueditor.config.js"></script>-->
+<!--<script type="text/javascript" src="vendor/ueditor/ueditor.all.js"></script>-->
+<!--<script type="text/javascript" src="vendor/ueditor/lang/zh-cn/zh-cn.js"></script>-->
+</body>
+</html>

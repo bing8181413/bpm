@@ -1,0 +1,348 @@
+<style>
+    .form_label_dangus {
+        color: #E21100;
+        vertical-align: middle;
+        font-size: 24px;
+    }
+</style>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">新增活动</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="$state.go('activitytuan');">活动管理</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-8">
+                <form class="form-horizontal" ng-init="ref_activity_id_disable = true;reward_show = true;">
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">联系人账号<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <select class="form-control"
+                                    ng-model="activitytuanadd_param.account_id"
+                                    ng-options="account.account_id as account.username for account in account_list">
+                                <option value="" disabled="true">请选择联系人账户</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!--<div class="form-group">-->
+                        <!--<label class="col-sm-3 control-label">活动类型<span class="form_label_dangus">*</span></label>-->
+
+                        <!--<div class="col-sm-9">-->
+                            <!--<div class="radio-inline">-->
+                                <!--<label>-->
+                                    <!--<input type="radio" name="category" ng-model="activitytuanadd_param.category"-->
+                                           <!--ng-value="1"-->
+                                           <!--ng-click="activitytuanadd_param.ref_activity_id='';-->
+                                               <!--ref_activity_id_disable = true;activitytuanadd_param.apply_verify=0;-->
+                                               <!--reward_show = true;">-->
+                                    <!--一起玩-->
+                                <!--</label>-->
+                            <!--</div>-->
+                            <!--<div class="radio-inline">-->
+                                <!--<label>-->
+                                    <!--<input type="radio" name="category" ng-model="activitytuanadd_param.category"-->
+                                           <!--ng-value="2"-->
+                                           <!--ng-click="ref_activity_id_disable=false;activitytuanadd_param.reward='';-->
+                                           <!--activitytuanadd_param.apply_verify=0;reward_show = false;">-->
+                                    <!--一起便宜-->
+                                <!--</label>-->
+                            <!--</div>-->
+                            <!--<div class="radio-inline" ng-show="false">-->
+                                <!--<input class="form-control" type="text" placeholder="关联一起玩ID"-->
+                                       <!--ng-disabled="ref_activity_id_disable"-->
+                                       <!--ng-model="activitytuanadd_param.ref_activity_id">-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">发布者ID<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <tuan_zhang ng-model="activitytuanadd_param.post_user_id"></tuan_zhang>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">关联话题ID<span
+                                class="form_label_dangus">&nbsp;</span></label>
+
+                        <div class="col-sm-3">
+                            <input class="form-control" type="number" ng-model="activitytuanadd_param.ref_topic_id"
+                                   placeholder="关联一起玩ID">
+                        </div>
+                        <div class="col-sm-2">
+                            <a class="btn btn-success" ng_click="get_topic()">查询</a>
+                        </div>
+                        <div class="col-sm-4">
+                            <span class="info" ng-bind="activitytuanadd.ref_topic_name"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">活动名称<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <input class="form-control" ng-model="activitytuanadd_param.activity_title"
+                                   placeholder="活动名称 不要超过20个字">
+                        </div>
+                    </div>
+                    <div class="form-group " ng-show="activitytuanadd_param.category == 1">
+                        <label class="col-sm-3 control-label">活动举办开始时间<span
+                                class="form_label_dangus">*</span></label>
+
+                        <div class="">
+                            <hjm_date_time ng-model="activitytuanadd.activity_time" showtip="1"></hjm_date_time>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">活动举办结束时间<span
+                                class="form_label_dangus">*</span></label>
+
+                        <div class="">
+                            <hjm_date_time ng-model="activitytuanadd.activity_end_time"></hjm_date_time>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label class="col-sm-3 control-label">报名／抢购截止时间<span
+                                class="form_label_dangus">*</span></label>
+
+                        <div class="">
+                            <hjm_date_time ng-model="activitytuanadd.activity_apply_end_time"></hjm_date_time>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">活动城市<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-2">
+                            <select class="form-control" id="city_name"
+                                    ng-options="city_name for city_name in city_names"
+                                    ng-model="activitytuanadd_param.city_name"
+                                    ng-disabled="{{current_city_name && current_city_name != '未登录'}}">
+                                <option value="" disabled="true">请选择一个城市</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-7">
+                            <input class="form-control" ng-model="activitytuanadd_param.address"
+                                   placeholder="活动地址">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">卖点<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <input class="form-control"
+                                   ng-model="activitytuanadd_param.sale_point" placeholder="卖点">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="reward_show">
+                        <label class="col-sm-3 control-label">奖励<span
+                                class="form_label_dangus">&nbsp;</span></label>
+
+                        <div class="col-sm-9">
+                            <input class="form-control" ng-model="activitytuanadd_param.reward"
+                                   placeholder="奖励">
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="activitytuanadd_param.category == 2">
+                        <label class="col-sm-3 control-label">单位<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-4">
+                            <input class="form-control" ng-model="activitytuanadd_param.unit"
+                                   placeholder="单位">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">覆盖小区<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="target_type"
+                                           ng-model="activitytuanadd.target_type" ng-value="0" ng-click="init_ids()">
+                                    全部小区
+                                </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="target_type"
+                                           ng-model="activitytuanadd.target_type" ng-value="1">
+                                    包括小区
+                                </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="target_type"
+                                           ng-model="activitytuanadd.target_type" ng-value="2">
+                                    不包括小区
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-9" ng-if="activitytuanadd.target_type!=0">
+                            <select-community ng-model="activitytuanadd.ids"></select-community>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">团类型<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="tuan_type" ng-model="activitytuanadd_param.tuan_type"
+                                           ng-value="2" ng-click="activitytuanadd_param.people_num=''">
+                                    一起成团
+                                </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="tuan_type" ng-model="activitytuanadd_param.tuan_type"
+                                           ng-value="1">
+                                    独立成团
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-if="activitytuanadd_param.category == 2">
+                        <label class="col-sm-3 control-label">成团人数<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <input class="form-control" type="number"
+                                   ng-model="activitytuanadd_param.people_min_num"
+                                   placeholder="最少参团人数">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">限制库存<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="restrict_inventory"
+                                           ng-model="activitytuanadd_param.restrict_inventory" ng-value="1">
+                                    限制库存
+                                </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="restrict_inventory"
+                                           ng-model="activitytuanadd_param.restrict_inventory" ng-value="0">
+                                    不限制库存
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">产品类目<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <option_info ng-model="activitytuanadd.activity_options"
+                                         tuantype="activitytuanadd_param.tuan_type"
+                                         category="activitytuanadd_param.category"
+                                         inventory="activitytuanadd_param.restrict_inventory"></option_info>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="activitytuanadd_param.category == 1">
+                        <label class="col-sm-3 control-label">仅认证用户可定<span
+                                class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="apply_verifiy"
+                                           ng-model="activitytuanadd_param.apply_verify" ng-value="1">
+                                    是
+                                </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="apply_verifiy"
+                                           ng-model="activitytuanadd_param.apply_verify" ng-value="0">
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">封面图片<span
+                                class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <show-upload images="activitytuanadd.activity_pics" max="1" hasimages=""></show-upload>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">活动摘要<span
+                                class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <content_or_img ng-model="activitytuanadd.activity_contents[0]"></content_or_img>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">活动流程<span
+                                class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <content_or_img ng-model="activitytuanadd.activity_contents[1]"></content_or_img>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">费用说明<span
+                                class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <content_or_img ng-model="activitytuanadd.activity_contents[2]"
+                                            only-text="1"></content_or_img>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-show="activitytuanadd_param.category == 1">
+                        <label class="col-sm-3 control-label">不成团说明<span
+                                class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <content_or_img ng-model="activitytuanadd.activity_contents[3]"
+                                            only-text="1"></content_or_img>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">注意事项<span
+                                class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <content_or_img ng-model="activitytuanadd.activity_contents[4]"
+                                            only-text="1"></content_or_img>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label">置顶<span class="form_label_dangus">*</span></label>
+
+                        <div class="col-sm-9">
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="is_pinned" ng-model="activitytuanadd_param.is_pinned"
+                                           ng-value="1">
+                                    是
+                                </label>
+                            </div>
+                            <div class="radio-inline">
+                                <label>
+                                    <input type="radio" name="is_pinned" ng-model="activitytuanadd_param.is_pinned"
+                                           ng-value="0">
+                                    否
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn-success" ng-click="save(0)">保存为草稿</a>
+            <a class="btn btn-success" ng-click="save()">发布活动</a>
+        </div>
+    </div>
+</div>

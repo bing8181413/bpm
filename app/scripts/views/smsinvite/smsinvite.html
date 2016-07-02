@@ -1,0 +1,60 @@
+<script type="text/ng-template" id="add.html">
+    <div class="modal-header">
+        <h3 class="modal-title text-center">验证码备注信息</h3>
+    </div>
+    <div class="modal-body">
+        <textarea class="form-control" rows="5" ng-model="add_param.remark"></textarea>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success" ng-click="ok()">确定</button>
+        <button class="btn btn-warning" ng-click="cancel()">关闭</button>
+    </div>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">万能短信验证码列表</div>
+        <div class="panel-body">
+            <div class="panel">
+                <div class="panel-heading">
+                    <a class="btn btn-info" ng-click="add();">生成短信验证码</a>
+                </div>
+            </div>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover table-bordered">
+                <thead>
+                <th>ID</th>
+                <th style="width: 100px;">验证码</th>
+                <th>使用验证码的手机</th>
+                <th>创建时间</th>
+                <th>过期时间</th>
+                <th>状态</th>
+                <th>备注</th>
+                </thead>
+                <tbody>
+                <tr bindonce ng-repeat="item in smsinvite_list">
+                    <td><span class="msg_title" bo-text="item.invite_id"></span></td>
+                    <td><span class="msg_title" bo-text="item.code"></span></td>
+                    <td><span class="msg_title" bo-text="item.mobile"></span></td>
+                    <td><span class="msg_title" bo-text="item.created_at"></span></td>
+                    <td><span class="msg_title" bo-text="item.expire_at+'000' | date :'yyyy-MM-dd HH:mm:ss'"></span></td>
+                    <td><span class="msg_title" bo-text="item.status | smsinvite_status"></span></td>
+                    <td><span class="msg_title" bo-text="item.remark"></span></td>
+                    <!--<td>-->
+                    <!--<a class="btn btn-success" ng-click="mobile_list(item);">-->
+                    <!--<span class="msg_title" bo-text="'查看'"></span>-->
+                    <!--<a>-->
+                    <!--</td>-->
+                </tr>
+                </tbody>
+            </table>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>

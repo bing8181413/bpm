@@ -1,0 +1,141 @@
+<style type="text/css">
+    .bot_margin_0 {
+        margin-bottom: 0 !important;
+    }
+</style>
+<script type="text/ng-template" id="audit_btn.html">
+    <a class="btn btn-info" ng-click="obj_on('audit');"
+       ng-if="status === 0&&cancel_from!==1&&res_extra.init_param.audit_type !== 2">审核</a>
+    <p class="bg-primary text-center" ng-if="status ===2||cancel_from===1">审核通过</p>
+    <p class="bg-danger text-center" ng-if="status ===1">审核失败</p>
+</script>
+<script type="text/ng-template" id="audit.html">
+    <div class="panel panel-primary bot_margin_0">
+        <div class="panel-heading">
+            审核
+            <span class="badge pointer pull-right" ng-click="cancel()">X</span>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">审核操作
+                        <span class="form_label_dangus">*</span>
+                    </label>
+
+                    <div class="col-sm-6">
+                        <div class="radio-inline">
+                            <label>
+                                <input type="radio" name="status"
+                                       ng-model="param.status" ng-value="2">
+                                通过
+                            </label>
+                        </div>
+                        <div class="radio-inline">
+                            <label>
+                                <input type="radio" name="status"
+                                       ng-model="param.status" ng-value="1">
+                                拒绝
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">备注</label>
+
+                    <div class="col-sm-6">
+                    <textarea class="form-control" rows="3" id="refund_reason" ng-model="param.refund_reason"
+                              placeholder="备注">
+                    </textarea>
+                    </div>
+                </div>
+            </form>
+            <a class="btn btn-success pull-right" ng-click="submit()">提交</a>
+        </div>
+    </div>
+</script>
+<div class="container-fluid">
+    <div class="panel panel-primary">
+        <div class="panel-heading">取消订单</div>
+        <div class="panel-body ">
+            <div class="panel">
+                <ul class="nav nav-pills">
+                    <li role="presentation">
+                        <a class="btn">审核模式:</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.audit_type === null}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.audit_type=null;getapi();">不限</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.audit_type === 1}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.audit_type=1;getapi();">人工审核</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.audit_type === 2}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.audit_type=2;getapi();">系统自动审核</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel">
+                <ul class="nav nav-pills">
+                    <li role="presentation">
+                        <a class="btn">审核状态:</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.status === ''}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.status='';getapi();">不限</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.status === 0}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.status=0;getapi();">待审核</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.status === 2}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.status=2;getapi();">审核通过</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.status === 1}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.status=1;getapi();">审核失败</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="panel">
+                <ul class="nav nav-pills">
+                    <li role="presentation">
+                        <a class="btn">取消方式:</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.cancel_from === ''}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.cancel_from='';getapi();">不限</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.cancel_from === 0}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.cancel_from=0;getapi();">用户取消</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.cancel_from === 1}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.cancel_from=1;getapi();">块长取消</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.cancel_from === 2}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.cancel_from=2;getapi();">不成团取消</a>
+                    </li>
+                    <li role="presentation" ng-class="{active:init_param.cancel_from === 9}">
+                        <a class="btn btn-link"
+                           ng-click="init_param.cancel_from=9;getapi();">历史数据</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="panel-body">
+            <common_list res_head="res_head" res_data="res_data" res_extra="res_extra"></common_list>
+            <div class="text-center" id="pagination">
+                <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage"
+                            max-size="maxSize" class="pagination"
+                            boundary-links="true" ng-change="getapi(currentPage)"
+                            rotate="false" num-pages="numPages" previous-text="&lsaquo;" next-text="&rsaquo;"
+                            first-text="&laquo;" last-text="&raquo;"></pagination>
+            </div>
+        </div>
+    </div>
+</div>
