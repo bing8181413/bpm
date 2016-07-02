@@ -33,7 +33,6 @@ define(['./services', '../cons/simpleCons'], function (mod, simpleCons) {
                 $rootScope.get_account_list = function () {
 
 
-
                     return false;
                     if ($rootScope.getaccount_times > 1) {
                         widget.msgToast('未获取到账户信息，请尝试 Ctrl+F5 刷新页面获取最新数据。');
@@ -117,50 +116,51 @@ define(['./services', '../cons/simpleCons'], function (mod, simpleCons) {
 
                     if (!params) return;
 
-                    if (!params.scope) return;
+                    // if (!params.scope) return;
 
-                    var $scope = params.scope,
-                        options = {
-                            success: function () {
-                            }, //---成功回调
-                            // failure: function () {}, //--失败回调
-                            // error: function() {}, //-----错误回调
-                            msgerr: ''
-                        };
+                    // var $scope = params.scope,
+                    var options = {
+                        success: function () {
+                        }, //---data.code == 0 成功回调
+                        failure: function () {
+                        }, //--失败回调
+                        error: function () {
+                        }, //-----错误回调
+                        msgerr: ''
+                    };
 
                     angular.extend(options, params);
                     var ajaxConfig = {
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded'
-                        },
-                        method: 'POST',
-                        url: simpleCons.domain + params.url,
+                        method: params.method || 'POST',
+                        url: params.url.indexOf('http') == 0 ? params.url : (simpleCons.domain + params.url),
                         data: options.data,
                         timeout: 15000
                     };
 
-                    // $rootScope.loading = true;
-                    $http(ajaxConfig).success(function (res) {
-                        if (res.code == 0) {
-                            if (typeof options.success === 'function') {
-                                options.success(res);
+                    $http(ajaxConfig).then(
+                        function (res) {
+                            if (res.status == 200) {
+                                if (res.data.code == 0) {
+                                    if (options.success && typeof options.success === 'function') {
+                                        options.success(res.data);
+                                    }
+                                } else {
+                                    if (options.failure && typeof options.failure === 'function') {
+                                        options.failure(res.data);
+                                    } else {
+                                        self.msgToast(res.data.msg);
+                                    }
+                                }
                             }
-                        } else {
-                            if (options.failure && typeof options.failure === 'function') {
-                                options.failure(res);
+
+                        },
+                        function (err) {
+                            if (options.error && typeof options.error === 'function') {
+                                options.error(err);
                             } else {
-                                self.msgToast(res.msg);
+                                self.msgToast('网络错误，请稍候再试');
                             }
-                        }
-                        // $rootScope.loading = false;
-                    }).error(function (err) {
-                        if (options.error && typeof options.error === 'function') {
-                            options.error(err);
-                        } else {
-                            self.msgToast('网络错误，请稍候再试');
-                        }
-                        // $rootScope.loading = false;
-                    });
+                        });
                 },
 
             };

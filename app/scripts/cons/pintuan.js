@@ -1,7 +1,7 @@
 define([], function () {
     var rtn = {
         pintuanList: {
-            store: '/manage/tuan/items/list',
+            store: '/tuan/items/list',
             search: [
                 {name: 'ID', param: 'activity_id'},
                 {name: 'account_id', param: 'account_id', paramDirective: '<div hjm-search hjm-select=""></div>'},

@@ -58,76 +58,65 @@ define([
             }
             $scope.param = {username: $scope.uname, userpass: $scope.pwd, usercode: $scope.usercode};
             $scope.loading = 0;
-            $http.post(cons.api.user_admin_login, $scope.param)
-                .success(function (json) {
-                    if (json.code == 0) {
-                        //console.log('menus from login api :',json.data.menus);
-                        $scope.baseAuth = 'Basic :' + base64.encode(json.username + ':' + json.password);
-                        $rootScope.hjm = {
-                            account_id: json.data.account_id,
-                            current_city_name: json.data.city_name,
-                            current_city_list: json.data.city_list,
-                            menus: json.data.menus,
-                            username: json.data.username,
-                            pwd: $scope.pwd,
-                            type: json.data.type,
-                            mobile: json.data.mobile,
-                            email: json.data.email,
-                            weixin_nickname: json.data.weixin_nickname,
-                            weixin_qrcode: json.data.weixin_qrcode,
-                            remark: json.data.remark,
-                            pubData: json.pubData,
-                            Authorization: $scope.baseAuth
-                        };
+            widget.ajaxRequest({
+                url: cons.api.user_admin_login,
+                scope: $scope,
+                data: $scope.param,
+                success: function (json) {
+                    $scope.baseAuth = 'Basic :' + base64.encode(json.username + ':' + json.password);
+                    $rootScope.hjm = {
+                        account_id: json.data.account_id,
+                        current_city_name: json.data.city_name,
+                        current_city_list: json.data.city_list,
+                        menus: json.data.menus,
+                        username: json.data.username,
+                        pwd: $scope.pwd,
+                        type: json.data.type,
+                        mobile: json.data.mobile,
+                        email: json.data.email,
+                        weixin_nickname: json.data.weixin_nickname,
+                        weixin_qrcode: json.data.weixin_qrcode,
+                        remark: json.data.remark,
+                        pubData: json.pubData,
+                        Authorization: $scope.baseAuth
+                    };
 
-                        $rootScope.selected = {
-                            account_id: '',
-                            menus: json.data.menus,
-                            username: $rootScope.username,
-                            Authorization: $scope.baseAuth
-                        };
-                        $http.defaults.headers.common.Authorization = $scope.baseAuth;
-                        $rootScope.nowlogintimestamp = new Date().getTime();
-                        $rootScope.lastlogintimestamp = JSON.parse($rootScope.nowlogintimestamp);
+                    $rootScope.selected = {
+                        account_id: '',
+                        menus: json.data.menus,
+                        username: $rootScope.username,
+                        Authorization: $scope.baseAuth
+                    };
+                    $http.defaults.headers.common.Authorization = $scope.baseAuth;
+                    $rootScope.nowlogintimestamp = new Date().getTime();
+                    $rootScope.lastlogintimestamp = JSON.parse($rootScope.nowlogintimestamp);
 
-                        $rootScope.get_account_list();
-                        $rootScope.login_account = {
-                            uname: $scope.uname,
-                            pwd: $scope.pwd
-                        }
-                        localStorage.setItem('login_account', base64.encode(JSON.stringify($rootScope.login_account)));
-                        localStorage.setItem('hjm', JSON.stringify($rootScope.hjm));
-                        localStorage.setItem('lastlogintimestamp', $rootScope.lastlogintimestamp);
-                        $scope.success_time = 2.5;
-                        var interval = $interval(function () {
-                            $scope.loading += 0.1;
-                            if ($scope.loading >= 0.8) {
-                                $scope.loading = 1;
-                                $interval.cancel(interval);
-                            }
-                        }, ($scope.success_time / 10) * 1000);
-                        var interval_success_time = $interval(function () {
-                            $interval.cancel(interval_success_time);
-                            if ($rootScope.hjm.type == 'cw') {
-                                $rootScope.$state.go(cons.state.main + '.refund');
-                            } else {
-                                $rootScope.$state.go(cons.state.main + '.pintuan');
-                            }
-                        }, $scope.success_time * 1000);
-                    } else {
-                        widget.msgToast(json.msg);
+                    $rootScope.get_account_list();
+                    $rootScope.login_account = {
+                        uname: $scope.uname,
+                        pwd: $scope.pwd
                     }
-                })
-                .error(function (err) {
+                    localStorage.setItem('login_account', base64.encode(JSON.stringify($rootScope.login_account)));
+                    localStorage.setItem('hjm', JSON.stringify($rootScope.hjm));
+                    localStorage.setItem('lastlogintimestamp', $rootScope.lastlogintimestamp);
+                    $scope.success_time = 1.0;
                     var interval = $interval(function () {
                         $scope.loading += 0.1;
                         if ($scope.loading >= 0.5) {
-                            $scope.loading = 0;
-                            widget.msgToast('网络错误,联系管理员');
+                            $scope.loading = 1;
                             $interval.cancel(interval);
                         }
-                    }, (1.5 / 10) * 1000);
-                });
+                    }, ($scope.success_time / 10) * 1000);
+                    var interval_success_time = $interval(function () {
+                        $interval.cancel(interval_success_time);
+                        if ($rootScope.hjm.type == 'cw') {
+                            $rootScope.$state.go(cons.state.main + '.refund');
+                        } else {
+                            $rootScope.$state.go(cons.state.main + '.pintuan');
+                        }
+                    }, $scope.success_time * 1000);
+                }
+            });
         }
         $scope.login_keypress = function (event) {
             if (event.keyCode !== 13) return;

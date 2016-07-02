@@ -40,7 +40,7 @@ define([
                     }
                     console.log($scope.biz);
                     this.getStore = function () {
-                        // console.log(cons.domain + $scope.biz.store);
+                        console.log(cons.domain + $scope.biz.store);
                         widget.ajaxRequest({
                             url: $scope.biz.store,
                             scope: $scope,
@@ -54,7 +54,7 @@ define([
                                 // $scope.maxSize = '5';
                             },
                             error: function () {
-
+                                
                             }
                         });
                     }
