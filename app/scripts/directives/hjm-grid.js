@@ -58,7 +58,7 @@ define([
                             }
                         });
                     }
-                    this.getStore();
+                    // this.getStore();
                 }
             };
         })

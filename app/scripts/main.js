@@ -5,7 +5,7 @@
         paths: {
             "jquery": '../vendor/jquery/jquery.min',
             //'domready':'../vendor/requirejs-domready/domReady',
-            'angular': '../vendor/angular/angular.min',
+            'angular': '../vendor/angular/angular',
             // 'highcharts' : '../vendor/highcharts/highcharts',
             "ui.router": '../vendor/angular-ui-router/release/angular-ui-router.min',
             //"ui.select2":'../vendor/angular-ui-select2/src/select2',
@@ -29,6 +29,7 @@
             'perfect_scrollbar': '../vendor/angular-perfect-scrollbar/src/angular-perfect-scrollbar',
             'angular-loading-bar': '../vendor/angular-loading-bar/build/loading-bar.min',
             'progressButton': '../vendor/angular-progress-button/dist/progress-button.min',
+            'angular-animate': '../vendor/angular-animate/angular-animate',
             'app-tpl': './app-tpl'
         },
         shim: {
@@ -38,6 +39,7 @@
                 exports: 'angular',
                 deps: ['jquery']
             },
+            'angular-animate': {deps: ['angular']},
             'ui.bootstrap': {deps: ['angular']},
             'app-tpl': {deps: ['angular']},
             // 'perfect-scrollbar': {exports: 'perfect-scrollbar'},

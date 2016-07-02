@@ -39,7 +39,7 @@ define([
                     $scope.remain_time = $scope.time_count;
                 }
             }, 1000, $scope.time_count);
-            $http.post(cons.api.user_admin_check, $scope.verify_praram)
+            $http.post(cons.api.account_check, $scope.verify_praram)
                 .success(function (json) {
                     if (json.code == 0) {
                         widget.msgToast('短信发送成功,注意手机查收');
@@ -59,7 +59,7 @@ define([
             $scope.param = {username: $scope.uname, userpass: $scope.pwd, usercode: $scope.usercode};
             $scope.loading = 0;
             widget.ajaxRequest({
-                url: cons.api.user_admin_login,
+                url: cons.api.account_login,
                 scope: $scope,
                 data: $scope.param,
                 success: function (json) {

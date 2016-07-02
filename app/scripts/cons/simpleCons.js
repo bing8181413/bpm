@@ -27,12 +27,12 @@ define([
         // qiniu_domain = 'http://qiniu.hjm.com';
     }
     api = {
-        'user_admin_check': domain + '/account/check',//登陆获取手机验证码
-        'user_admin_login': domain + '/account/login',//登陆
+        'account_check': domain + '/account/check',//登陆获取手机验证码
+        'account_login': domain + '/account/login',//登陆
         // 'add_account': domain + '/account/add',//添加账户
         // 'update_account': domain + '/account/update',//更新账户
-        'account_list_url': domain + '/account/mans'
-}
+        'account_mans': domain + '/account/mans',
+    }
     ;
     state = {
         main: 'main'
