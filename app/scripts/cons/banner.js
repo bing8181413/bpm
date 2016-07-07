@@ -1,9 +1,8 @@
 define([], function () {
     var rtn = {
-        accountList: {
+        bannerList: {
             columns: [
-                // {name: '编号', field: 'idx', className: 'text-right'},
-                {name: '编号', field: 'account_id', className: 'text-right'},
+                {name: '编号', field: 'banner_id', className: 'text-right'},
                 {name: '用户名', field: 'username'},
                 {
                     name: '手机',
@@ -22,12 +21,10 @@ define([], function () {
                 },
                 {name: '定位城市', field: 'city_name'},
                 {name: '微信昵称', field: 'weixin_nickname'},
-                // {name: '微信二维码', fieldDirective: '<show_image url="item.weixin_qrcode"></show_image>'},
-                {name: '操作', fieldDirective: '<div vpc-instance-list-actions></div>'}
             ],
             config: {
-                title: '账户管理',
-                api: '/accounts',
+                title: '运营位管理',
+                api: '/banners',
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
@@ -42,7 +39,7 @@ define([], function () {
                     {value: 'cityname', text: '城市', placeholder: '城市', type: 'date'}
                 ],
                 preSelectionSearch: {
-                    status: '0',
+                    // status: '0',
                 },
                 paginationSupport: true,
                 pageInfo: {

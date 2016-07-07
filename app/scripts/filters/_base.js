@@ -5,9 +5,56 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                 return val == '1' ? '男' : '女';
             }
         }])
+        .filter('num2week', [function () {
+            return function (val) {
+                val = val + '';
+                var rtn = '';
+                switch (val) {
+                    case '1':
+                        rtn = '星期一';
+                        break;
+                    case '2':
+                        rtn = '星期二';
+                        break;
+                    case '3':
+                        rtn = '星期三';
+                        break;
+                    case '4':
+                        rtn = '星期四';
+                        break;
+                    case '5':
+                        rtn = '星期五';
+                        break;
+                    case '6':
+                        rtn = '星期六';
+                        break;
+                    case '7':
+                        rtn = '星期天';
+                        break;
+                    default :
+                        rtn = '星期八';
+                }
+                return rtn;
+            }
+        }])
+        .filter('num2hour', [function () {// 数字转小时数
+            return function (val) {
+                return parseInt((val * 1) / (60 * 60 * 1000));
+            }
+        }])
         .filter('null2empty', [function () {
             return function (val) {
                 return (!val || val == null || val == 'null') ? '' : val;
+            }
+        }])
+        .filter('arraySub2String', [function () {
+            return function (val, param) {
+                // "item.menus | arraySub2String:\'name\'"
+                var rtn = '';
+                angular.forEach(val, function (v, k) {
+                    rtn += eval('v.' + param);
+                })
+                return rtn;
             }
         }])
         .filter('to_trusted', ['$sce', function ($sce) {

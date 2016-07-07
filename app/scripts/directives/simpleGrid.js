@@ -391,7 +391,7 @@ define(['./aliyunCommonDirectives', 'angular', './aliyunConsolePagination', 'bin
           }
 
           /**
-           * 当用户点击搜索的时候取消所有的过滤条件。
+           * 当用件户点击搜索的时候取消所有的过滤条。
            * @param data
            */
           scope.searchAction = function(data){

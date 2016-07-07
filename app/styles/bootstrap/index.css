@@ -10045,3 +10045,16 @@ html, body {
     background: rgba(0, 0, 0, 0.7);
     -webkit-border-radius: 5px;
 }
+
+/*表单*/
+/*directive show_images*/
+.show_image_radius {
+    border-radius: 6px;
+}
+
+.show_image_top_radius {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
+/*directive show_images*/

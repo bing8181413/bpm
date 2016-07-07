@@ -1,10 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<div ng-repeat="item in productPattern">
+    <p ng-if="item.brief" ng-bind="item.brief |characters:6:true" tooltip-placement="bottom" tooltip="{{item.brief}}">
+</div>

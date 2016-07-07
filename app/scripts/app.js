@@ -3,6 +3,7 @@ define([
     // 'angular',
     'ui.router',
     'angular-animate',
+    'angular-truncate',
     'bindonce',
     'ui.bootstrap',
     'angular-file-upload',
@@ -33,6 +34,7 @@ define([
     return angular.module('huijiaApp', [
         'ui.router',
         'ngAnimate',
+        'truncate',
         'pasvaz.bindonce',
         'ui.bootstrap',
         'angularFileUpload',

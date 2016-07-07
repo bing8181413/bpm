@@ -45,6 +45,11 @@ define([
     // 'states/exchangecode',//兑换码
     'states/container',
     'states/hjm/pintuan',
+    'states/hjm/account',
+    'states/hjm/product',
+    'states/hjm/order',
+    'states/hjm/banner',
+    'states/hjm/export',
     'states/home'
 ], function () {
 

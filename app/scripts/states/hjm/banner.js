@@ -12,30 +12,31 @@ define([
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.pintuan', {
-                            url: "/pintuan",
+                        .state(cons.state.main + '.banner', {
+                            url: "/banner",
                             templateProvider: function ($templateCache) {
-                                return $templateCache.get('app/' + cons.main_path + 'container.html');
+                                // return $templateCache.get('app/' + cons.main_path + 'banner/list.html');
+                                return $templateCache.get('app/' + cons.biz_path + 'banner/list.html');
                             }
                         })
-                        .state(cons.state.main + '.pintuan.list', {
+                        .state(cons.state.main + '.list', {
                             url: "/list.html",
                             views: {
                                 "": {
                                     // controller: 'pintuanController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'pintuan/list.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'banner/list.html');
                                     }
                                 }
                             }
                         })
-                        .state(cons.state.main + '.pintuan.update', {
+                        .state(cons.state.main + '.update', {
                             url: "/update.html/:activity_id",
                             views: {
                                 "": {
                                     // controller: "pintuan.updateController",
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'pintuan/update.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'banner/update.html');
                                     }
                                 }
                             }

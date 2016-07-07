@@ -1,5 +1,10 @@
 define([
     './pintuan',
+    './account',
+    './product',
+    './order',
+    './banner',
+    './export',
 ], function () {
     // console.log(arguments);
     var domain = '';
@@ -35,11 +40,13 @@ define([
     }
     ;
     state = {
-        main: 'main'
+        main: 'main',
+        biz: 'biz'
     }
     return {
         'VIEW_PATH': 'scripts/views/',
         'main_path': 'scripts/views/' + state.main + '/',
+        'biz_path': 'scripts/views/' + state.biz + '/',
         'DIRECTIVE_PATH': 'scripts/views/directive/',
         'DIRECTIVE_LIST_PATH': 'scripts/views/directive/list/',
         'PARTIALS_PATH': 'scripts/partials/',
@@ -50,7 +57,7 @@ define([
         'default_param': default_param,
         'api': api,
         'state': state,
-        'modsconf': arguments,
+        'modsconfs': arguments,
         'last': 'ooo:)'
     };
 });

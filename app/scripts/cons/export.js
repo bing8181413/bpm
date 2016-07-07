@@ -1,17 +1,24 @@
 define([], function () {
     var rtn = {
-        productList: {
+        exportList: {
             columns: [
                 // {name: '编号', field: 'idx', className: 'text-right'},
-                {name: 'ID', field: 'product_id', className: 'text-right'},
-                {name: '管理备注', field: 'admin_remark'},
-                {name: '标题', field: 'title'},
-                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern="item"></div>'},
-                {name: '开团数量', field: 'order.groupbuy_count'},
-                {name: '订单数', field: 'order.order_count'},
-                {name: '已售份数', field: 'order.order_copies'},
-                {name: '配送规则', fieldDirective: '<div product-pattern="item.patterns"></div>'},
-                {name: '商品状态', field: 'status'},
+                {name: 'ID', field: 'id', className: 'text-right'},
+                {name: '描述', field: 'name'},
+                {name: '导出次数', field: 'run_count'},
+                // {
+                //     name: 'SQL参数', field: 'sql_param',
+                //     truncateText: true,
+                //     truncateTextLength: 11,
+                //     truncateTextBreakOnWord: false,
+                // },
+                {
+                    name: '脚本', field: 'sql_statement',
+                    truncateText: true,
+                    truncateTextLength: 15,
+                    truncateTextBreakOnWord: true,
+                },
+                {name: '操作', fieldDirective: '<div><a class="btn btn-success">运行</a></div>'},
                 // {name: '操作', field: 'product_id'},
                 // {
                 //     name: '手机',
@@ -22,27 +29,75 @@ define([], function () {
                 // },
             ],
             config: {
-                title: '商品管理',
-                api: '/products',
+                title: '导出管理',
+                api: '/exports',
                 rowItemName: 'item',
-                searchSupport: true,
+                searchSupport: false,
                 searchItems: [
-                    {
-                        value: 'status',
-                        text: '状态',
-                        placeholder: '状态',
-                    },
-                    // {value: 'mobile', text: '手机号码', placeholder: '手机号码'},
-                    // {value: 'email', text: '邮箱', placeholder: '邮箱'},
-                    // {value: 'cityname', text: '城市', placeholder: '城市', type: 'date'}
+                    // {
+                    //     value: 'status',
+                    //     text: '状态',
+                    //     placeholder: '状态',
+                    // },
                 ],
                 preSelectionSearch: {
-                    key: 'deviceNo',
-                    value: 'testinfo'
+                    // ID: '123',
                 },
                 paginationSupport: true,
                 pageInfo: {
-                    count: 10,
+                    count: 5,
+                    page: 1,
+                    maxSize: 2, //最大展示页，默认3
+                    // showPageGoto: false //属性为true将显示前往第几页。
+                },
+            }
+        },
+        exportList: {
+            columns: [
+                // {name: '编号', field: 'idx', className: 'text-right'},
+                {name: 'ID', field: 'id', className: 'text-right'},
+                {name: '描述', field: 'name'},
+                {name: '导出次数', field: 'run_count'},
+                // {
+                //     name: 'SQL参数', field: 'sql_param',
+                //     truncateText: true,
+                //     truncateTextLength: 11,
+                //     truncateTextBreakOnWord: false,
+                // },
+                {
+                    name: '脚本', field: 'sql_statement',
+                    truncateText: true,
+                    truncateTextLength: 15,
+                    truncateTextBreakOnWord: true,
+                },
+                {name: '操作', fieldDirective: '<div><a class="btn btn-success">运行</a></div>'},
+                // {name: '操作', field: 'product_id'},
+                // {
+                //     name: '手机',
+                //     field: 'mobile',
+                //     truncateText: true,
+                //     truncateTextLength: 11,
+                //     truncateTextBreakOnWord: false,
+                // },
+            ],
+            config: {
+                title: '导出管理',
+                api: '/exports',
+                rowItemName: 'item',
+                searchSupport: false,
+                searchItems: [
+                    // {
+                    //     value: 'status',
+                    //     text: '状态',
+                    //     placeholder: '状态',
+                    // },
+                ],
+                preSelectionSearch: {
+                    // ID: '123',
+                },
+                paginationSupport: true,
+                pageInfo: {
+                    count: 5,
                     page: 1,
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。

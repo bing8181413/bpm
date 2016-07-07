@@ -14,48 +14,32 @@ define([
                     $stateProvider
                         .state(cons.state.main + '.pintuan', {
                             url: "/pintuan",
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.main_path + 'container.html');
+                            }
+                        })
+                        .state(cons.state.main + '.pintuan.list', {
+                            url: "/list.html",
                             views: {
                                 "": {
                                     // controller: 'pintuanController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.main_path + 'pintuan.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'pintuan/list.html');
                                     }
                                 }
                             }
                         })
-                    // .state("pintuan.list", {
-                    //     url: "/list.html",
-                    //     views: {
-                    //         "": {
-                    //             controller: 'pintuan.listController'
-                    //             , templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + simpleCons.VIEW_PATH + 'pintuan/list.html');
-                    //             }
-                    //         }
-                    //     }
-                    // })
-                    // .state("pintuan.add", {
-                    //     url: "/add.html",
-                    //     views: {
-                    //         "": {
-                    //             controller: "pintuan.addController"
-                    //             , templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + simpleCons.VIEW_PATH + 'pintuan/add.html');
-                    //             }
-                    //         }
-                    //     }
-                    // })
-                    // .state("pintuan.update", {
-                    //     url: "/update.html/:activity_id",
-                    //     views: {
-                    //         "": {
-                    //             controller: "pintuan.updateController",
-                    //             templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + simpleCons.VIEW_PATH + 'pintuan/update.html');
-                    //             }
-                    //         }
-                    //     }
-                    // })
+                        .state(cons.state.main + '.pintuan.update', {
+                            url: "/update.html/:activity_id",
+                            views: {
+                                "": {
+                                    // controller: "pintuan.updateController",
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'pintuan/update.html');
+                                    }
+                                }
+                            }
+                        })
                 }
             ])
         ;

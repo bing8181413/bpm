@@ -1,178 +1,19 @@
 <div class="side-menu">
     <div class="menu-body">
         <ul class="nav nav-pills nav-stacked sidenav">
-            <li class="" ng-repeat="menu in menus" ng-class="{'active':(menu.childs_route.indexOf(rootState) > -1)}">
-                <a class="{{rootState}}"
-                   ng-click="menu.open=((menu.childs_route.indexOf(rootState) > -1)?false:(!menu.open))">
-                    <span class="glyphicon {{menu.icon}}" aria-hidden="true"></span>
-                    <span>{{menu.name +(menu.name.length==4?'&nbsp;&nbsp;&nbsp;':'')}}</span>
-                </a>
-                <ul class="l_nav_sub"
-                    ng-class="{open:(menu.open ==true || tab_sm== true)}">
-                    <li ng-class="{'active':(rootState == item.route)}" ng-repeat="item in menu.childs">
-                        <a ui-sref="{{item.route||'pintuan.list'}}">
-                            <span class="glyphicon {{item.icon || menu.icon}}" aria-hidden="true"></span>
-                            <span>{{item.name}}</span>
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <li ng-class="{active: $state.includes('home')}" class="active">
-                <a ui-sref="home" href="#/dashboard/home">
-                    <span class="glyphicon glyphicon-home"></span>
+            <li ng-repeat="menu in menus"
+                ng-class="{active: $state.includes('{{cons.state.main+'.'+menu.route}}') }">
+                <a ui-sref="{{cons.state.main+'.'+menu.route}}">
+                    <span class="glyphicon" ng-class="menu.icon"></span>
                 </a>
                 <ul class="nested-dropdown animated fadeIn">
-                    <li>
-                        <a ng-class="{active: $state.includes('home')}" ui-sref="home"
-                           class="ng-binding active" href="#/dashboard/home">Dashboard</a>
+                    <li class="sidemenu-header" ng-bind="menu.name" ng-if="menu.childs.length>0"></li>
+                    <li ng-repeat="item in menu.childs">
+                        <a ng-class="{active: $state.includes(menu.route)}" ui-sref="{{cons.state.main+'.'+item.route}}"
+                           ng-bind="item.name"></a>
                     </li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('typography')}" class="">
-                <a ui-sref="typography" href="#/dashboard/typography">
-                    <span class="glyphicon glyphicon-text-size"></span>
-                </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li>
-                        <a ng-class="{active: $state.includes('typography')}" ui-sref="typography"
-                           class="ng-binding" href="#/dashboard/typography">Typography</a>
-                    </li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('grid')}">
-                <a ui-sref="grid" href="#/dashboard/grid">
-                    <span class="glyphicon glyphicon-th-large"></span>
-                </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li><a ui-sref="grid" class="ng-binding" href="#/dashboard/grid">Grid</a></li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('table')}" class="">
-                <a ui-sref="table" href="#/dashboard/table"> <span
-                        class="glyphicon glyphicon-list"></span>
-                </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li>
-                        <a ng-class="{active: $state.includes('table')}" ui-sref="table" class="ng-binding"
-                           href="#/dashboard/table">Table</a>
-                    </li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('form')}">
-                <a ui-sref="elements" href="#/dashboard/form/elements">
-                    <span class="glyphicon glyphicon-equalizer"></span>
-                </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li class="sidemenu-header ng-binding">Form</li>
-                    <li>
-                        <a ng-class="{active: $state.includes('form')}" ui-sref="elements"
-                           class="ng-binding" href="#/dashboard/form/elements">Form Elements</a>
-                    </li>
-                    <li>
-                        <a ng-class="{active: $state.includes('form')}" ui-sref="components"
-                           class="ng-binding" href="#/dashboard/form/components">Form Components</a>
-                    </li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('ui-interface')}">
-                <a ui-sref="button" href="#/dashboard/ui-interface/button">
-                    <span class="glyphicon glyphicon-cloud-download"></span>
-                </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li class="sidemenu-header ng-binding">User Interface</li>
-                    <li><a ui-sref="button" class="ng-binding"
-                           href="#/dashboard/ui-interface/button">Button</a></li>
-                    <li><a ui-sref="dropdown" class="ng-binding" href="#/dashboard/ui-interface/dropdown">Dropwown</a>
-                    </li>
-                    <li><a ui-sref="icons" class="ng-binding" href="#/dashboard/ui-interface/icons">Icon</a>
-                    </li>
-                    <li><a ui-sref="panels" class="ng-binding"
-                           href="#/dashboard/ui-interface/panels">Panel</a></li>
-                    <li><a ui-sref="alerts" class="ng-binding"
-                           href="#/dashboard/ui-interface/alerts">Alert</a></li>
-                    <li><a ui-sref="progressbars" class="ng-binding"
-                           href="#/dashboard/ui-interface/progressbars">Progressbars</a></li>
-                    <li><a ui-sref="pagination" class="ng-binding"
-                           href="#/dashboard/ui-interface/pagination">Pagination</a></li>
-                    <li><a ui-sref="other-elements" class="ng-binding"
-                           href="#/dashboard/ui-interface/other-elements">Other Elements</a></li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('charts')}"><a ui-sref="chartjs"
-                                                                  href="#/dashboard/charts/chart.js"> <span
-                    class="glyphicon glyphicon-signal"></span> </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li class="sidemenu-header ng-binding">Charts</li>
-                    <li><a ui-sref="chartjs" href="#/dashboard/charts/chart.js">Chart.js</a></li>
-                    <li><a ui-sref="c3chart" href="#/dashboard/charts/c3chart">C3.js</a></li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('calendar')}"><a ui-sref="calendar"
-                                                                    href="#/dashboard/calendar"> <span
-                    class="glyphicon glyphicon-calendar"></span> </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li><a ui-sref="calendar" class="ng-binding" href="#/dashboard/calendar">Calendar</a>
-                    </li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('mail')}"><a ui-sref="inbox"
-                                                                href="#/dashboard/mail/inbox"> <span
-                    class="glyphicon glyphicon-envelope"></span> </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li class="sidemenu-header ng-binding">Mail</li>
-                    <li><a ui-sref="inbox" class="ng-binding" href="#/dashboard/mail/inbox">Inbox</a></li>
-                    <li><a ui-sref="compose" class="ng-binding" href="#/dashboard/mail/compose">Compose</a>
-                    </li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('invoice')}"><a ui-sref="invoice"
-                                                                   href="#/dashboard/invoice"> <span
-                    class="glyphicon glyphicon-list-alt"></span> </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li><a ui-sref="invoice" class="ng-binding" href="#/dashboard/invoice">Invoice</a></li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('docs')}"><a ui-sref="docs" href="#/dashboard/docs">
-                <span class="glyphicon glyphicon-credit-card"></span> </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li><a ui-sref="docs" href="#/dashboard/docs">Docs</a></li>
-                </ul>
-            </li>
-            <li ng-class="{active: $state.includes('pages')}"><a ui-sref="blank" href="#/dashboard/blank">
-                <span class="glyphicon glyphicon-duplicate"></span> </a>
-                <ul class="nested-dropdown animated fadeIn">
-                    <li class="sidemenu-header ng-binding">Pages</li>
-                    <li><a ui-sref="blank" class="ng-binding" href="#/dashboard/blank">Blank page</a></li>
-                    <li><a ui-sref="login" class="ng-binding" href="#/login">Log in</a></li>
-                    <li><a ui-sref="signup" class="ng-binding" href="#/signup">signup</a></li>
-                    <li><a ui-sref="404-page" class="ng-binding" href="#/404-page">404 Page</a></li>
                 </ul>
             </li>
         </ul>
     </div>
 </div>
-<!--<ul class="l_nav_sup" class="nav tab-list" ng-class="{sm:tab_sm ==true}">-->
-<!--<li class="">-->
-<!--<a class="" ng-click="tab_sm_toggle()">-->
-<!--<span class="glyphicon" ng-class="{'glyphicon-plus':tab_sm ==true,'glyphicon-remove':tab_sm ==false}"-->
-<!--aria-hidden="true"></span>-->
-<!--<span>功能管理</span>-->
-<!--</a>-->
-<!--</li>-->
-<!--<li class="" ng-repeat="menu in menus" ng-class="{'active':(menu.childs_route.indexOf(rootState) > -1)}">-->
-<!--<a class="{{rootState}}" ng-click="menu.open=((menu.childs_route.indexOf(rootState) > -1)?false:(!menu.open))">-->
-<!--<span class="glyphicon {{menu.icon}}" aria-hidden="true"></span>-->
-<!--<span>{{menu.name +(menu.name.length==4?'&nbsp;&nbsp;&nbsp;':'')}}</span>-->
-<!--</a>-->
-<!--<ul class="l_nav_sub"-->
-<!--ng-class="{open:(menu.open ==true || tab_sm== true)}">-->
-<!--<li ng-class="{'active':(rootState == item.route)}" ng-repeat="item in menu.childs">-->
-<!--<a ui-sref="{{item.route||'pintuan.list'}}">-->
-<!--<span class="glyphicon {{item.icon || menu.icon}}" aria-hidden="true"></span>-->
-<!--<span>{{item.name}}</span>-->
-<!--</a>-->
-<!--</li>-->
-<!--</ul>-->
-<!--</li>-->
-<!--</ul>-->

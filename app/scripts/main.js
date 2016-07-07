@@ -30,6 +30,7 @@
             'angular-loading-bar': '../vendor/angular-loading-bar/build/loading-bar.min',
             'progressButton': '../vendor/angular-progress-button/dist/progress-button.min',
             'angular-animate': '../vendor/angular-animate/angular-animate',
+            'angular-truncate': '../vendor/angular-truncate/src/truncate',
             'app-tpl': './app-tpl'
         },
         shim: {
@@ -40,6 +41,7 @@
                 deps: ['jquery']
             },
             'angular-animate': {deps: ['angular']},
+            'angular-truncate': {deps: ['angular']},
             'ui.bootstrap': {deps: ['angular']},
             'app-tpl': {deps: ['angular']},
             // 'perfect-scrollbar': {exports: 'perfect-scrollbar'},

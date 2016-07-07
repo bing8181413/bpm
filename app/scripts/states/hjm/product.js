@@ -13,7 +13,7 @@ define([
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
                         .state(cons.state.main + '.goods', {
-                            url: "/products",
+                            url: "/product",
                             templateProvider: function ($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
@@ -24,7 +24,7 @@ define([
                                 "": {
                                     // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'products/list.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'product/list.html');
                                     }
                                 }
                             }

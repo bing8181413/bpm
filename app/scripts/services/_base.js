@@ -1,4 +1,4 @@
-define(['./services', '../cons/simpleCons','./widget'], function (mod, cons) {
+define(['./services', '../cons/simpleCons', './widget'], function (mod, cons) {
     mod
         .run(['$rootScope', '$state', '$stateParams', '$http', '$modal', '$location', 'widget',
             function ($rootScope, $state, $stateParams, $http, $modal, $location, widget) {
@@ -9,6 +9,8 @@ define(['./services', '../cons/simpleCons','./widget'], function (mod, cons) {
                 //     // 路由改变 初始化 search
                 //     //初始化每次的 公共查询方法
                 //     // $rootScope.searchkeyword = angular.noop();
+                //     // $rootScope.current_state = $state.current.name;
+                //     // console.log($rootScope.current_state);
                 // });
                 //活动公共数据
                 // 获取公共数据 初始化
@@ -18,7 +20,10 @@ define(['./services', '../cons/simpleCons','./widget'], function (mod, cons) {
                     //超过一天就更新
                     $rootScope.lastlogintimestamp = JSON.parse($rootScope.nowlogintimestamp);
                     localStorage.removeItem('hjm');
-                    $state.go('login');
+                    // console.log($state);
+                    // if($state.current.name!=='login'){
+                    //     $state.go('login');
+                    // }
                 } else {
                     $rootScope.hjm = JSON.parse(localStorage.getItem('hjm'));
                     $rootScope.selected = angular.copy($rootScope.hjm);

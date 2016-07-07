@@ -12,52 +12,41 @@ define([
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.pintuan', {
-                            url: "/pintuan",
+                        .state(cons.state.main + '.account', {
+                            url: "/account",
                             templateProvider: function ($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
-                        .state(cons.state.main + '.pintuan.list', {
+                        .state(cons.state.main + '.account.list', {
                             url: "/list",
                             views: {
                                 "": {
-                                    // controller: 'pintuanController'
+                                    // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.main_path + 'list.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'account/list.html');
                                     }
                                 }
                             }
                         })
-                    // .state("pintuan.list", {
-                    //     url: "/list.html",
+                        .state(cons.state.main + '.roles', {
+                            url: "/role/list.html",
+                            views: {
+                                "": {
+                                    // controller: 'accountController'
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'role/list.html');
+                                    }
+                                }
+                            }
+                        })
+                    // .state("account.update", {
+                    //     url: "/update.html/:account_id",
                     //     views: {
                     //         "": {
-                    //             controller: 'pintuan.listController'
-                    //             , templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + simpleCons.VIEW_PATH + 'pintuan/list.html');
-                    //             }
-                    //         }
-                    //     }
-                    // })
-                    // .state("pintuan.add", {
-                    //     url: "/add.html",
-                    //     views: {
-                    //         "": {
-                    //             controller: "pintuan.addController"
-                    //             , templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + simpleCons.VIEW_PATH + 'pintuan/add.html');
-                    //             }
-                    //         }
-                    //     }
-                    // })
-                    // .state("pintuan.update", {
-                    //     url: "/update.html/:activity_id",
-                    //     views: {
-                    //         "": {
-                    //             controller: "pintuan.updateController",
+                    //             // controller: "account.updateController",
                     //             templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + simpleCons.VIEW_PATH + 'pintuan/update.html');
+                    //                 return $templateCache.get('app/' + cons.biz_path + 'pintuan/update.html');
                     //             }
                     //         }
                     //     }

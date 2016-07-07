@@ -16,6 +16,7 @@ define([
     './common_list',// 公用表单列表
     './bindHtmlCompile',// 编译带绑定的 bindHtmlCompile
     './baidumap',// 百度地图绑定
+    './product/product-list',// 商品规则
 ], function (mod,
              simpleCons) {
     mod
