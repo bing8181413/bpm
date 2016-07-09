@@ -7,20 +7,106 @@
     <meta name="description" content="">
     <meta name="keywords" content="">
     <!--<link href="styles/bootstrap/bootstrap.min.css" rel="stylesheet">-->
-    <!--<link rel="stylesheet" href="styles/animate/animate.min.css"/>-->
+    <link rel="stylesheet" href="styles/animate/animate.min.css"/>
     <link rel="stylesheet" href="styles/bootstrap/index.css">
     <link rel="stylesheet" href="styles/bootstrap/vendor.css">
     <link rel="stylesheet" href="vendor/angular-progress-button/dist/progress-button.min.css">
+    <style type="text/css">
+        #body-container > [ui-view].ng-enter,
+        #body-container > [ui-view].ng-leave {
+            transition: all rotateFall(0.250, 0.460, 0.450, 0.940) 1.5s;
+            display: block;
+            width: 100%
+            border-left: 1px solid black;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            padding: 10px;
+        }
+
+        #body-container > [ui-view].ng-enter {
+            left: 100%;
+        }
+
+        #body-container > [ui-view].ng-enter.ng-enter-active {
+            left: 0;
+        }
+
+        #body-container > [ui-view].ng-leave.ng-leave-active {
+            left: -100%;
+        }
+
+        /* rotate and fall */
+        @-webkit-keyframes rotateFall {
+            0% {
+                -webkit-transform: rotateZ(0deg);
+            }
+            20% {
+                -webkit-transform: rotateZ(10deg);
+                -webkit-animation-timing-function: ease-out;
+            }
+            40% {
+                -webkit-transform: rotateZ(17deg);
+            }
+            60% {
+                -webkit-transform: rotateZ(16deg);
+            }
+            100% {
+                -webkit-transform: translateY(100%) rotateZ(17deg);
+            }
+        }
+
+        @-moz-keyframes rotateFall {
+            0% {
+                -moz-transform: rotateZ(0deg);
+            }
+            20% {
+                -moz-transform: rotateZ(10deg);
+                -moz-animation-timing-function: ease-out;
+            }
+            40% {
+                -moz-transform: rotateZ(17deg);
+            }
+            60% {
+                -moz-transform: rotateZ(16deg);
+            }
+            100% {
+                -moz-transform: translateY(100%) rotateZ(17deg);
+            }
+        }
+
+        @keyframes rotateFall {
+            0% {
+                transform: rotateZ(0deg);
+            }
+            20% {
+                transform: rotateZ(10deg);
+                animation-timing-function: ease-out;
+            }
+            40% {
+                transform: rotateZ(17deg);
+            }
+            60% {
+                transform: rotateZ(16deg);
+            }
+            100% {
+                transform: translateY(100%) rotateZ(17deg);
+            }
+        }
+
+    </style>
 </head>
 <body>
 <div id="loading-bar-container"></div>
 <div>
-    <div ui-view>
-        <div></div>
-    </div>
+    <div ui-view></div>
 </div>
 <script data-main="scripts/main.js" src="scripts/require.js"></script>
 <script src="scripts/main.min.js"></script>
+<!--<script src="scripts/"></script>-->
 <script>
     require(['./bootstrap']);
 </script>

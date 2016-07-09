@@ -37,8 +37,8 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
-                    {value: 'date_min', text: '开始时间'},
-                    {value: 'date_max', text: '结束时间'},
+                    {value: 'date_min', text: '开始时间',type:'datetime'},
+                    {value: 'date_max', text: '结束时间',type:'date'},
                     {value: 'keyword', text: '关键字', placeholder: '订单编号,订单ID'},
                     {value: 'product_id', text: '商品ID'},
                     {value: 'user_id', text: '用户ID'},

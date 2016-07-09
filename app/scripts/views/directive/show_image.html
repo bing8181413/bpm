@@ -1,5 +1,5 @@
 <div>
-    <div ng-click="show();" ng-if="url">
+    <div ng-click="show();" ng-if="url" style="{{widthPx&&('width:'+widthPx) }}">
         <img class="img-responsive pointer show_image_radius" ng-src="{{url}}" alt="">
     </div>
     <script type="text/ng-template" id="show.html">

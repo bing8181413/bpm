@@ -10,14 +10,17 @@ define([
         .directive('commonForm', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
             return {
                 restrict: 'E',
-                replace: true,
+                // replace: true,
                 scope: {
                     form_param: '=formParam',
                     form_init_data: '=formInitData',
                     form_extra_data: '=formExtraData',
                     form_url: '=formUrl',
+                    form_method: '@formMethod',
+                    form_param_id: '@formParamId',
                     form_title: '=formTitle',
                     callback: '&callback',
+                    btnClass: '@',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'common_form.html'),
                 link: function ($scope, $element, $attrs) {
@@ -50,6 +53,8 @@ define([
                                 $scope.form_data = sup_scope.form_data;
                                 $scope.form_url = sup_scope.form_url;
                                 $scope.form_title = sup_scope.form_title;
+                                $scope.form_method = sup_scope.form_method;
+                                $scope.form_param_id = sup_scope.form_param_id || '';
                                 // console.log($scope.form_data);
                                 //console.log(sup_scope.form_param);
                                 // console.log(sup_scope.form_extra_data);
@@ -70,17 +75,17 @@ define([
                                     });
                                     //console.log($scope.post_data);
                                     if (!keepGoing) return false;
-                                    $http.post($scope.form_url, $scope.post_data)
-                                        .success(function (json) {
-                                            if (json.code == 0) {
-                                                sup_scope.callback()();
-                                                $rootScope.loading = false;
-                                                $scope.cancel();
-                                            } else {
-                                                widget.msgToast(json.msg);
-                                                $rootScope.loading = false;
-                                            }
-                                        });
+                                    widget.ajaxRequest({
+                                        method: $scope.form_method,
+                                        url: $scope.form_url + $scope.form_param_id,
+                                        scope: $scope,
+                                        data: $scope.post_data,
+                                        success: function (json) {
+                                            sup_scope.callback()();
+                                            $rootScope.loading = false;
+                                            $scope.cancel();
+                                        }
+                                    });
                                 }
                                 $scope.cancel = function () {
                                     $modalInstance.dismiss('cancel');

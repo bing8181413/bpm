@@ -999,6 +999,28 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                 return result;
             }
         }])
+        .filter('product_status', [function () { // 状态：0草稿箱，1为正常，2为已结束，3已删除
+            return function (val) {
+                var result = '未知状态';
+                val = val + '';
+                switch (val) {
+                    case "0":
+                        result = "草稿箱";
+                        break;
+                    case "1":
+                        result = "正在进行";
+                        break;
+                    case "2":
+                        result = "已结束";
+                        break;
+                    case "3":
+                        result = "已删除";
+                        break;
+                }
+
+                return result;
+            }
+        }])
 
     ;
 });

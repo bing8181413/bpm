@@ -2,25 +2,40 @@ define([], function () {
     var rtn = {
         bannerList: {
             columns: [
-                {name: '编号', field: 'banner_id', className: 'text-right'},
-                {name: '用户名', field: 'username'},
+                {name: '运营位ID', field: 'banner_id', className: 'text-right'},
                 {
-                    name: '手机',
-                    field: 'mobile',
-                    truncateText: true,
-                    truncateTextLength: 11,
+                    name: '标题', field: 'title', truncateText: true,
+                    truncateTextLength: 7,
                     truncateTextBreakOnWord: false,
+                    tooltipPlacement: 'bottom',
+                    tooltip: 'title',
+                },
+                {name: '类型', field: 'category'},
+                {name: '图片', fieldDirective: '<show_image url="item.pic_url" width="100"></show_image>',},
+                {
+                    name: '备注', field: 'remark',
+                    truncateText: true,
+                    truncateTextLength: 10,
+                    truncateTextBreakOnWord: false,
+                    tooltipPlacement: 'bottom',
+                    tooltip: 'remark',
+                },
+                {name: '当前排序', field: 'sort_num'},
+                {name: '当前状态', field: 'status'},
+                {
+                    name: '展示时间',
+                    fieldDirective: '<p ng-bind="(item.start_time+item.end_time) |characters:6:true" tooltip-placement="bottom" ' +
+                    'tooltip="上线时间: {{item.start_time}} 下线时间: {{item.end_time}}">'
                 },
                 {
-                    name: '邮箱',
-                    field: 'email',
-                    truncateText: true,
-                    truncateTextLength: 5,
+                    name: '创建时间', field: 'created_at', truncateText: true,
+                    truncateTextLength: 10,
                     truncateTextBreakOnWord: false,
-                    htmlField: false
+                    tooltip: 'created_at',
+                    tooltipPlacement: 'bottom',
+
                 },
-                {name: '定位城市', field: 'city_name'},
-                {name: '微信昵称', field: 'weixin_nickname'},
+                {name: '操作', fieldDirective: '<a class="btn btn-primary">下线</a>'},
             ],
             config: {
                 title: '运营位管理',
@@ -29,14 +44,14 @@ define([], function () {
                 searchSupport: true,
                 searchItems: [
                     {
-                        value: 'account_id',
-                        text: '账户ID',
-                        placeholder: '账户ID',
-                        paramDirective: '<div hjm-search hjm-select=""></div>'
+                        value: 'status', text: '状态', type: 'btnGroup', default: '1',
+                        enum: [
+                            // {value: '', text: '全部'},
+                            {value: '1', text: '正在进行'},
+                            {value: '0', text: '已下线'},
+                        ]
                     },
-                    {value: 'mobile', text: '手机号码', placeholder: '手机号码'},
-                    {value: 'email', text: '邮箱', placeholder: '邮箱'},
-                    {value: 'cityname', text: '城市', placeholder: '城市', type: 'date'}
+                    // {value: 'stauts', text: '状态', placeholder: '1:正在进行,0:已下线'}
                 ],
                 preSelectionSearch: {
                     // status: '0',

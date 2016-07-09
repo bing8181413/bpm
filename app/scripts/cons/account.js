@@ -1,4 +1,5 @@
 define([], function () {
+    // accountList roleList
     var rtn = {
         accountList: {
             columns: [
@@ -35,11 +36,13 @@ define([], function () {
                         value: 'account_id',
                         text: '账户ID',
                         placeholder: '账户ID',
-                        paramDirective: '<div hjm-search hjm-select=""></div>'
+                        // paramDirective: '<div hjm-search hjm-select=""></div>'
                     },
                     {value: 'mobile', text: '手机号码', placeholder: '手机号码'},
-                    {value: 'email', text: '邮箱', placeholder: '邮箱'},
-                    {value: 'cityname', text: '城市', placeholder: '城市', type: 'date'}
+                    {value: 'haha', text: '城市', placeholder: '城市', type: 'datetime'},
+                    // {value: 'cityname', text: '城市', placeholder: '城市', type: 'datetime'},
+                    {value: 'haha32132', text: '城市', placeholder: '城市', type: 'date'},
+                    {value: 'email', text: '邮箱', placeholder: '邮箱'}
                 ],
                 preSelectionSearch: {
                     status: '0',
@@ -82,10 +85,57 @@ define([], function () {
                         value: 'account_id',
                         text: '账户ID',
                         placeholder: '账户ID',
-                        paramDirective: '<div hjm-search hjm-select=""></div>'
+                        // paramDirective: '<div hjm-search hjm-select=""></div>'
                     },
                     {value: 'mobile', text: '手机号码', placeholder: '手机号码'},
-                    {value: 'email', text: '邮箱', placeholder: '邮箱'},
+                    // {value: 'email', text: '邮箱', placeholder: '邮箱'},
+                    {value: 'cityname', text: '城市', placeholder: '城市', type: 'date'}
+                ],
+                preSelectionSearch: {
+                    status: '0',
+                },
+                paginationSupport: true,
+                pageInfo: {
+                    count: 5,
+                    page: 1,
+                    maxSize: 2, //最大展示页，默认3
+                    // showPageGoto: false //属性为true将显示前往第几页。
+                },
+            }
+        },
+        menuList: {
+            columns: [
+                // {name: '编号', field: 'idx', className: 'text-right'},
+                {name: 'ID', field: 'id', className: 'text-right'},
+                {name: '标示', field: 'key'},
+                {name: '角色名称', field: 'name'},
+                {
+                    name: '菜单',
+                    fieldDirective: '<show_str str="item.menus | arraySub2String:\'name\'" split="" title="\'菜单\'" btn_str="\'菜单\'"></show_str>',
+                },
+                {name: '操作', fieldDirective: '<a class="btn btn-primary" ng-click="menu(item.id,item.menus)">菜单</a>'},
+                // {
+                //     name: '手机',
+                //     field: 'mobile',
+                //     truncateText: true,
+                //     truncateTextLength: 11,
+                //     truncateTextBreakOnWord: false,
+                // },
+            ],
+            config: {
+                title: '菜单管理',
+                api: '/accounts/menus',
+                rowItemName: 'item',
+                searchSupport: true,
+                searchItems: [
+                    {
+                        value: 'menus_id',
+                        text: '账户ID',
+                        placeholder: '账户ID',
+                        // paramDirective: '<div hjm-search hjm-select=""></div>'
+                    },
+                    {value: 'mobile', text: '手机号码', placeholder: '手机号码'},
+                    // {value: 'email', text: '邮箱', placeholder: '邮箱'},
                     {value: 'cityname', text: '城市', placeholder: '城市', type: 'date'}
                 ],
                 preSelectionSearch: {

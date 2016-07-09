@@ -28,10 +28,16 @@ define([], function () {
                 searchSupport: true,
                 searchItems: [
                     {
-                        value: 'status',
-                        text: '状态',
-                        placeholder: '状态',
+                        value: 'status', text: '状态', type: 'btnGroup', default: '',
+                        enum: [
+                            {value: '', text: '全部'},
+                            {value: '1', text: '正在进行'},
+                            {value: '0', text: '已下线'},
+                        ]
                     },
+                    {value: 'haha', text: '城市', placeholder: '城市'},
+                    {value: 'date_min', text: '开始日期', type: 'date'},
+                    {value: 'date_max', text: '结束日期', type: 'date'},
                 ],
                 preSelectionSearch: {
                     ID: '123',
@@ -43,6 +49,7 @@ define([], function () {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
+                route: [{value: 'product.add', text: '新增商品'}]
             }
         }
     }

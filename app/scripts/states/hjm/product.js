@@ -12,19 +12,30 @@ define([
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.goods', {
+                        .state(cons.state.main + '.product', {
                             url: "/product",
                             templateProvider: function ($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
-                        .state(cons.state.main + '.goods.list', {
+                        .state(cons.state.main + '.product.list', {
                             url: "/list",
                             views: {
                                 "": {
                                     // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
                                         return $templateCache.get('app/' + cons.biz_path + 'product/list.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.product.add', {
+                            url: "/list",
+                            views: {
+                                "": {
+                                    // controller: 'productController'
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'product/add.html');
                                     }
                                 }
                             }

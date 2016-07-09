@@ -54,15 +54,16 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                     var options = {
                         success: function () {
                         }, //---data.code == 0 成功回调
-                        failure: function () {
-                        }, //--失败回调
-                        error: function () {
-                        }, //-----错误回调
+                        // failure: function () {}, //--失败回调
+                        // error: function () {}, //-----错误回调
                         msgerr: ''
                     };
 
                     angular.extend(options, params);
                     var ajaxConfig = {
+                        headers: {
+                            'x-requested-with': 'XMLHttpRequest'
+                        },
                         method: params.method || 'POST',
                         url: params.url.indexOf('http') == 0 ? params.url : (cons.domain + params.url),
                         timeout: 15000
@@ -84,7 +85,7 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                                     if (options.failure && typeof options.failure === 'function') {
                                         options.failure(res.data);
                                     } else {
-                                        self.msgToast(res.data.msg);
+                                        self.msgToast(res.data.message);
                                     }
                                 }
                             }

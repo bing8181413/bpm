@@ -1,7 +1,7 @@
 <div class="side-menu">
     <div class="menu-body">
         <ul class="nav nav-pills nav-stacked sidenav">
-            <li ng-repeat="menu in menus"
+            <li ng-repeat="menu in menus" ng-if="menu.childs.length>0"
                 ng-class="{active: $state.includes('{{cons.state.main+'.'+menu.route}}') }">
                 <a ui-sref="{{cons.state.main+'.'+menu.route}}">
                     <span class="glyphicon" ng-class="menu.icon"></span>

@@ -577,7 +577,8 @@ define([
                 restrict: 'E',
                 replace: true,
                 scope: {
-                    ngModel: '=ngModel'
+                    ngModel: '=ngModel',
+                    ngModelTxt: '@ngModel',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_date.html'),
                 link: function ($scope, $element, $attrs) {
@@ -590,16 +591,31 @@ define([
                         return oDate;
                     }
                     $scope.$watch('ngModel', function () {
-                        if (typeof ($scope.ngModel) == 'undefined') {
-                            // console.log('日期必须初始化');
-                        } else if (!$scope.init) {// 没有初始化
-                            $scope.init = true;
-                            // console.log("2 ：初始化 ngModel :$scope.ngModel type " + typeof ($scope.ngModel));
-                            $scope.dateTime = $scope.ngModel ? new Date($scope.ngModel) : null;
-                            $scope.dt = $scope.strToDateTime($scope.dateTime);
+                        if (!$scope.ngModel) {
+                            if (!$scope.init) {
+                                // console.log('初始化 赋值');
+                                $scope.init = true;
+                                $scope.dateTime = new Date();
+                                $scope.dt = $scope.strToDateTime($scope.dateTime);
+                                $scope.changed();
+                            } else {
+                                // console.log('已初始化 赋值');
+                                $scope.dateTime = null;
+                                $scope.dt = '';
+                            }
                         } else { //  初始化过了
+                            if (!$scope.init) {
+                                $scope.init = true;
+                            }
                             // console.log('初始化过ngModel 进行watch 事件 ');
-                            $scope.dateTime = new Date($scope.ngModel) || new Date();
+                            $scope.dateTime = new Date($scope.ngModel);
+                            $scope.dt = $scope.strToDateTime($scope.dateTime);
+                        }
+                    });
+                    $scope.$watch('dt', function (val) {
+                        // 清空日期动作 执行后
+                        if (!val) {
+                            $scope.ngModel = '';
                         }
                     });
                     $scope.open = function ($event) {
@@ -609,7 +625,9 @@ define([
                     }
                     // 赋值
                     $scope.changed = function () {
-                        if (!$scope.dt)return false;
+                        if (!$scope.dt) {
+                            return false;
+                        }
                         $scope.ngModel = $filter('date')($scope.dt, 'yyyy-MM-dd')
                     }
                 }
@@ -626,6 +644,7 @@ define([
                 replace: true,
                 scope: {
                     ngModel: '=ngModel',
+                    ngModelTxt: '@ngModel',
                     showtip: '=showtip'
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_date_time.html'),
@@ -638,18 +657,34 @@ define([
                         return oDate;
                     }
                     $scope.$watch('ngModel', function () {
-                        //console.log($scope.ngModel);
-                        if (typeof ($scope.ngModel) == 'undefined') {
-                            //console.log('日期必须初始化');
-                        } else if (!$scope.init) {// 没有初始化
-                            $scope.init = true;
-                            //console.log("2 ：初始化 ngModel :$scope.ngModel type " + typeof ($scope.ngModel));
-                            $scope.dateTime = $scope.ngModel ? new Date($scope.ngModel) : null;
+                        if (!$scope.ngModel) {
+                            if (!$scope.init) {
+                                // console.log('初始化 赋值');
+                                $scope.init = true;
+                                $scope.dateTime = new Date();
+                                $scope.dt = $scope.strToDateTime($scope.dateTime);
+                                $scope.tp = $scope.strToDateTime($scope.dateTime);
+                                $scope.changed();
+                            } else {
+                                // console.log('已初始化 赋值');
+                                $scope.dateTime = null;
+                                $scope.dt = '';
+                                // 把时间制为 00:00:00
+                                $scope.tp = $scope.strToDateTime(new Date('2000-01-01 00:00:00'));
+                            }
+                        } else { //  初始化过了
+                            if (!$scope.init) {
+                                $scope.init = true;
+                            }
+                            $scope.dateTime = new Date($scope.ngModel);
                             $scope.dt = $scope.strToDateTime($scope.dateTime);
                             $scope.tp = $scope.strToDateTime($scope.dateTime);
-                        } else { //  初始化过了
-                            //console.log('初始化过ngModel 进行watch 事件 ');
-                            $scope.dateTime = new Date($scope.ngModel) || new Date();
+                        }
+                    });
+                    $scope.$watch('dt', function (val) {
+                        // 清空日期
+                        if (!val) {
+                            $scope.ngModel = '';
                         }
                     });
                     $scope.open = function ($event) {
@@ -659,12 +694,12 @@ define([
                     }
                     // 赋值
                     $scope.changed = function () {
+                        // console.log($scope.tp,$scope.dt);
                         if (!$scope.tp || !$scope.dt)return false;
                         $scope.ngModel = ($scope.dt.getFullYear() + '-' + ($scope.dt.getMonth() + 1)
                         + '-' + $scope.dt.getDate() + ' ' + $scope.tp.getHours() + ':' + $scope.tp.getMinutes() + ':00')
                             .replace(/([\-\: ])(\d{1})(?!\d)/g, '$10$2');
                     }
-                    //$scope.init();
                 }
 
             };

@@ -15,6 +15,7 @@ define([
                     $scope.modsconfs = angular.copy(cons.modsconfs);
                     this.modsconfs = angular.extend({}, $scope.modsconfs);
                     this.buildSearchBar = function (config, element) {
+                        var router = buildRouter(config);
                         if (config.searchSupport) {
                             var preSelectionSearch = '';
                             if (config.preSelectionSearch) {
@@ -22,9 +23,9 @@ define([
                             }
                             var searchHtml = '<div hjm-search-bar search-items="searchItems" search-text="searchParams"' + preSelectionSearch +
                                 'reset-search="refreshCurrentView" search-action="searchAction(searchParams)"></div>'
-                            return searchHtml;
+                            return router + searchHtml;
                         }
-                        return '';
+                        return router + '';
                     }
 
                     this.buildTable = function (columns, config) {
@@ -32,6 +33,17 @@ define([
                         var rowDef = buildRows(columns, config);
                         var tpigination = buildTfoot(columns, config);
                         return '<table class="table table-bordered table-striped table-hover">' + header + rowDef + '</table>' + tpigination;
+                    }
+
+                    function buildRouter(config) {
+                        var router = '';
+                        if (config.route && config.route.length > 0) {
+                            angular.forEach(config.route, function (router_val, router_key) {
+                                router += '<a class="btn btn-success btn-rounded" ui-sref="' + router_val.value + '" >' + router_val.text + '</a>';
+                            });
+                            return '<div class="row"><div class="col-sm-12"><div class="panel panel-default"><div class="panel-body">' + router + '</div></div></div></div>';
+                        }
+                        return '';
                     }
 
                     function buildHeader(columns, config) {
@@ -82,7 +94,13 @@ define([
                                 var textLength = colDef.truncateTextLength;
                                 var textBreakOnWord = colDef.truncateTextBreakOnWord;
                                 itemString += '|' + ('characters: ' + textLength || 10) + ' : ' + textBreakOnWord;
-                                cellContent = '<span ng-bind="' + itemString + '" ></span>';
+                                if (!!colDef.tooltip) {
+                                    cellContent = '<span ng-bind="' + itemString + '" tooltip="{{' + rowItemName + '.' + colDef.tooltip + '}}"' +
+                                        ' tooltip-placement="' + (colDef.tooltipPlacement || 'bottom') + '" ></span>';
+                                } else {
+                                    cellContent = '<span ng-bind="' + itemString + '" ></span>';
+
+                                }
                             } else {
                                 if (useBindOnce == false) {
                                     if (colDef.htmlField) {
@@ -206,42 +224,87 @@ define([
                 template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm/hjm-search-bar.html'),
                 link: function ($scope, $element, $attrs, $ctrl) {
                     $scope.searchParams = {}
+                    $scope.autoSearch = false;//是否自动搜索 有监听 autoSearch = !autoSearch 就能够自动搜索了
                     $scope.$watch('searchItems', function (searchItemsVal) {
                         if (searchItemsVal) {
                             $scope.searchItems = searchItemsVal;
                             var searchItemsHtml = ''
                             angular.forEach(searchItemsVal, function (val, key) {
                                 var placeholder = '';
-                                if (val.placeholder) {
-                                    placeholder = 'placeholder="' + val.placeholder + '"';
+                                if (val.paramDirective) {
+                                    searchItemsHtml += '<div class="form-group col-sm-6">' +
+                                        '<label class="col-sm-2 control-label">' + val.text + '</label>' +
+                                        '<div class="col-sm-10">' + val.paramDirective +
+                                        '</div>' +
+                                        '</div>';
+                                } else {
+                                    if (val.type == 'datetime' || val.type == 'date') {
+                                        var dateHtml = val.type == "datetime" ?
+                                        '<hjm_date_time ng-model="params.' + val.value + '"></hjm_date_time>'
+                                            : '<hjm_date ng-model="params.' + val.value + '"></hjm_date>';
+                                        searchItemsHtml += '<div class="form-group col-sm-6">' +
+                                            '<label class="col-sm-2 control-label">' + val.text + '</label>' +
+                                            '<div class="col-sm-10">' + dateHtml +
+                                            '</div>' +
+                                            '</div>';
+                                    } else if (val.type == 'btnGroup') {
+                                        // 赋予默认值  param 对象
+                                        $scope.$eval('params.' + val.value + '="' + val.default + '"');
+                                        var btnHtml = '';
+                                        if (val.enum.length > 0) {
+                                            angular.forEach(val.enum, function (enum_val, enum_key) {
+                                                var btnClassHtml = ('"btn-primary":params.' + val.value + '=="' + enum_val.value + '"');
+                                                btnHtml += (' <button type="button" class="btn btn-default" ' +
+                                                ' ng-class={' + btnClassHtml + '}' +
+                                                ' ng-model="params.' + val.value + '"' +
+                                                ' ng-click="params.' + val.value + ' = \'' + enum_val.value + '\';autoSearch=!autoSearch;">' +
+                                                enum_val.text + '</button>');
+                                            });
+                                            btnHtml = '<div class="btn-group" role="group">' + btnHtml + '</div>';
+                                        }
+                                        searchItemsHtml += '<div class="form-group col-sm-12">' +
+                                            '<label class="col-sm-1 control-label">' + val.text + '</label>' +
+                                            '<div class="col-sm-11">' + btnHtml +
+                                            '</div>' +
+                                            '</div>';
+                                    } else {
+                                        if (val.placeholder) {
+                                            placeholder = 'placeholder="' + val.placeholder + '"';
+                                        }
+                                        searchItemsHtml += '<div class="form-group col-sm-6">' +
+                                            '<label class="col-sm-2 control-label">' + val.text + '</label>' +
+                                            '<div class="col-sm-10">' +
+                                            '<input type="input" class="form-control" ' + placeholder +
+                                            ' ng-model="params.' + val.value + '">' +
+                                            '</div>' +
+                                            '</div>';
+                                    }
                                 }
-                                searchItemsHtml += '<div class="form-group col-sm-6">' +
-                                    '<label class="col-sm-2 control-label">' + val.text + '</label>' +
-                                    '<div class="col-sm-10">' +
-                                    '<input type="input" class="form-control" ' + placeholder +
-                                    ' ng-model="params.' + val.value + '">' +
-                                    '</div>' +
-                                    '</div>';
                             })
                             searchItemsHtml += '<div class="form-group col-sm-6">' +
                                 '<label class="col-sm-2 control-label"></label>' +
-                                '<button type="button" class="btn btn-success btn-bordered" ng-click="search($event)">' +
+                                '<button type="button" class="btn btn-success btn-bordered" ng-click="search()">' +
                                 '<i class="fa fa-search"></i>' +
                                 '&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;' +
                                 '</button>' +
-                                // '<button class="btn btn-info btn-bordered" ng-click="resetSearch($event)">' +
-                                // '<i class="fa fa-refresh"></i>' +
-                                // '&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;' +
-                                // '</button>' +
+                                '<button class="btn btn-info btn-bordered" ng-click="resetSearch($event)">' +
+                                '<i class="fa fa-refresh"></i>' +
+                                '&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;' +
+                                '</button>' +
                                 '</div>';
                             $element.find('.searchParam').html(searchItemsHtml);
                             $compile($element.contents())($scope);
                         }
                     });
-                    $scope.$watch('params', function (val) {
-                        $scope.searchText = angular.extend($scope.searchText, $scope.params);
+                    $scope.$watchCollection('[params,autoSearch]', function (newVal, oldVal) {
+                        angular.extend($scope.searchText, $scope.params);
+                        if (newVal[1] != oldVal[1])
+                            $scope.search();
                     }, true);
-                    $scope.search = function (event) {
+                    $scope.btnGroupSearch = function () {
+                        $scope.search();
+                    }
+                    $scope.search = function () {
                         $scope.searchAction();
                     }
                     $scope.resetSearch = function () {

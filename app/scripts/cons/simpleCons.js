@@ -45,6 +45,7 @@ define([
     }
     return {
         'VIEW_PATH': 'scripts/views/',
+        'view_path': 'scripts/views/',
         'main_path': 'scripts/views/' + state.main + '/',
         'biz_path': 'scripts/views/' + state.biz + '/',
         'DIRECTIVE_PATH': 'scripts/views/directive/',

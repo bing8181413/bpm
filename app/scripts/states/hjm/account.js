@@ -6,6 +6,7 @@ define([
         '../states'
         , '../../cons/simpleCons'
         // , '../controllers/pintuanController'
+        , '../../controllers/menusController'
     ],
     function (stateModule, cons) {
         stateModule.config(
@@ -36,6 +37,18 @@ define([
                                     // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
                                         return $templateCache.get('app/' + cons.biz_path + 'role/list.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.menus', {
+                            url: "/menu/list.html",
+                            views: {
+                                "": {
+                                    controller: 'menusController',
+                                    templateProvider: function ($templateCache) {
+                                        // return $templateCache.get('app/' + cons.biz_path + 'menu/list.html');
+                                        return $templateCache.get('app/' + cons.view_path + 'menus/menus.html');
                                     }
                                 }
                             }
