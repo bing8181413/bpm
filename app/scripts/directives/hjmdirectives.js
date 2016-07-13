@@ -397,57 +397,68 @@ define([
                 replace: true,
                 scope: {
                     ngModel: '=',
-                    list: '=ngModel',
-                    onlyContent: '=onlyText',
-                    // iscompleted: '='
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_content2img.html'),
                 link: function ($scope, $element, $attrs) {
-                    // $scope.$watch('iscompleted', function (defIscompleted) {
-                    // console.log(defIscompleted);
-                    // console.log($scope.list);
-                    // $scope.list = $scope.ngModel;
-                    // if ($scope.iscompleted || angular.isUndefined($scope.iscompleted)) {
-                    //console.log($scope.list);
-                    $scope.$watch('list', function (deflist) {
-                        $scope.list = $scope.list || [];
-                        angular.forEach($scope.list, function (val, key) {
-                            var obj = {};
-                            obj.images = val.images || [];
-                            obj.contentData = angular.extend({
-                                content: '',
-                                category: $scope.ngModel.category,
-                                font_align: '',
-                                font_bold: '',
-                                font_color: '',
-                                font_ita: '',
-                                font_size: '',
-                                font_style: '',
-                                font_italic: ''
-                            }, val.contentData || {});
-                            // $scope.list[key]
-                            console.log(obj);
-                            $scope.list.push(angular.extend(obj, {
-                                //contentData: val,
-                                //images: val.images ||[],
-                                showContent: obj.contentData.content != '',
-                                showImg: obj.images.length > 0 ? true : false,
-                                showContentTitle: obj.contentData.content != '' ? '取消文字' : '添加文字',
-                                showImgTitle: obj.images.length > 0 ? '取消图片' : '添加图片'
-                            }));
-                        });
-                    },true);
-                    // }
-                    //console.log('iscompleted  图文展示 ', $scope.list);
-                    // });
-
-                    $scope.init = function () {
-                        if ($scope.onlyContent == 1) {
-                            $scope.onlyContent = 1;
-                        } else {
-                            $scope.onlyContent = 0;
+                    var init = false;
+                    $scope.$watch('ngModel', function (defval) {
+                        if (!init) {
+                            console.log(defval);
+                            init = true;
+                            $scope.list = $scope.list || [];
+                            angular.forEach(defval, function (val, key) {
+                                var obj = {};
+                                obj.images = val.images || [];
+                                obj.contentData = angular.extend({
+                                    content: '',
+                                    // category: $scope.ngModel.category,
+                                    font_align: '',
+                                    font_bold: '',
+                                    font_color: '',
+                                    font_ita: '',
+                                    font_size: '',
+                                    font_style: '',
+                                    font_italic: ''
+                                }, val.contentData || {});
+                                // $scope.list[key]
+                                // console.log(obj);
+                                $scope.list.push(angular.extend(obj, {
+                                    //contentData: val,
+                                    //images: val.images ||[],
+                                    showContent: obj.contentData.content != '',
+                                    showImg: obj.images.length > 0 ? true : false,
+                                    showContentTitle: obj.contentData.content != '' ? '取消文字' : '添加文字',
+                                    showImgTitle: obj.images.length > 0 ? '取消图片' : '添加图片'
+                                }));
+                            });
                         }
-                    }
+
+                    }, true);
+                    $scope.$watch('list', function (defval) {
+                        if (init) {
+                            if (defval.length > 0) {
+                                $scope.ngModel = [];
+                            }
+                            angular.forEach(defval, function (val, key) {
+                                var obj = {};
+                                obj.images = val.images || [];
+                                obj.contentData = angular.extend({
+                                    content: '',
+                                    // category: $scope.ngModel.category,
+                                    font_align: '',
+                                    font_bold: '',
+                                    font_color: '',
+                                    font_ita: '',
+                                    font_size: '',
+                                    font_style: '',
+                                    font_italic: ''
+                                }, val.contentData || {});
+                                $scope.ngModel.push(obj);
+                            });
+                            // console.log(defval);
+                        }
+                    }, true);
+
                     $scope.add = function (obj) {
                         obj = obj || {};
                         $scope.list.push(angular.extend({
@@ -494,7 +505,6 @@ define([
                     $scope.conslog = function (index) {
                         console.log($scope.list);
                     }
-                    $scope.init();
 
                 }
             };

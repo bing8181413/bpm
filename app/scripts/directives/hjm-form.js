@@ -187,6 +187,53 @@ define([
                 }
             }
         })
+        .directive('hjmFormTextarea', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+            return {
+                restrict: 'EA',
+                replace: true,
+                template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
+                scope: {
+                    ngModel: '=ngModel',
+                    ngModelText: '@ngModel',
+                    text: '@',
+                    name: '@',
+                    required: '@',
+                    type: '@',
+                    placeholder: '@',
+                    ngMaxlength: '@max',
+                    ngMinlength: '@min',
+                },
+                link: function ($scope, $element, $attrs, $ctrl) {
+                    // console.log('hjmFormElement', $scope, $attrs);
+                    // console.log($scope.ngModelText);
+                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var required = $scope.required ? (' required') : '';
+                    var type = $scope.type ? (' type="' + $scope.type + '"') : '';
+                    var placeholder = $scope.placeholder ? (' placeholder="' + $scope.placeholder + '"') : '';
+                    var ngMaxlength = $scope.ngMaxlength ? (' ng-maxlength="' + $scope.ngMaxlength + '"') : '';
+                    var ngMinlength = $scope.ngMinlength ? (' ng-minlength="' + $scope.ngMinlength + '"') : '';
+                    var err_show = ($scope.name || $scope.ngModelText) ?
+                        ('<span class="glyphicon glyphicon-ok form-control-feedback"' +
+                        'ng-show="$parent.hjmForm[\'' + ($scope.name || $scope.ngModelText) +
+                        '\'].$viewValue && $parent.hjmForm[\'' + ($scope.name || $scope.ngModelText) +
+                        '\'].$dirty && $parent.hjmForm[\'' + ($scope.name || $scope.ngModelText) + '\'].$valid">' +
+                        '</span>') : '';
+                    // err_show += '{{$parent.hjmForm["' + ($scope.name || $scope.ngModelText) +
+                    //     '"]}}=============={{$parent.hjmForm["' + ($scope.name || $scope.ngModelText) +
+                    //     '"].$dirty}}========={{$parent.hjmForm["' + ($scope.name || $scope.ngModelText) + '"].$valid}}';
+                    var content = '<label class="col-sm-2 control-label">' + $scope.text + '</label>' +
+                        '<div class="col-sm-8">' +
+                        '<textarea class="form-control" rows="5" ng-model="' + $scope.ngModelText + '"' +
+                        type + name + placeholder + ngMaxlength + ngMinlength + required + '>' +
+                        err_show + '</div>';
+                    $element.find('.form_element').html(content);
+                    $compile($element.contents())($scope);
+                    $scope.$watch($scope.ngModelText, function (val) {
+                        $scope.ngModel = val;
+                    });
+                }
+            }
+        })
         .directive('hjmFormRadio', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
             return {
                 restrict: 'EA',
@@ -250,8 +297,8 @@ define([
                     $compile($element.contents())($scope);
                     $scope.$watch($scope.ngModelText, function (modelNew) {
                         var err = false;
-                        console.log($scope.$parent.hjmForm);
-                        console.log('$scope.$parent.hjmForm["' + ($scope.name || $scope.ngModelText || undefined) + '"]');
+                        // console.log($scope.$parent.hjmForm);
+                        // console.log('$scope.$parent.hjmForm["' + ($scope.name || $scope.ngModelText || undefined) + '"]');
                         angular.forEach(modelNew, function (val, key) {
                             if (!val.url || !val.width || !val.height) {
                                 err = true;
@@ -289,15 +336,7 @@ define([
                     $compile($element.contents())($scope);
                     $scope.$watch($scope.ngModelText, function (modelNew) {
                         // console.log(modelNew);
-                        // var err = false;
-                        // console.log($scope.$parent.hjmForm);
-                        // console.log('$scope.$parent.hjmForm["' + ($scope.name || $scope.ngModelText || undefined) + '"]');
-                        // angular.forEach(modelNew, function (val, key) {
-                        //     if (!val.url || !val.width || !val.height) {
-                        //         err = true;
-                        //     }
-                        // });
-                        // $scope.ngModel = err ? undefined : modelNew;
+                        $scope.ngModel = modelNew || undefined;
                     });
                 }
             }

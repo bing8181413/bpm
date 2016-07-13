@@ -8,26 +8,23 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>商品信息</h4>
-                        <!--<div hjm-form-input text="商品标题" ng-model="param.product_title"-->
-                             <!--placeholder="商品标题" min="2" required></div>-->
-                        <!--<div hjm-form-input text="商品简介" ng-model="param.product_title1"-->
-                             <!--placeholder="不超过30个字" min="1" max="30" required></div>-->
-                        <!--<div hjm-form-radio text="商品品类" type="radio"-->
-                             <!--ng-model="param.product_title3"-->
-                             <!--source="[{text:'鲜花',value:1},{text:'其他',value:2}]" source-api=""></div>-->
-                        <!--<div hjm-form-radio text="商品类型" type="radio"-->
-                             <!--ng-model="param.product_title4"-->
-                             <!--source="[{text:'单次',value:1},{text:'包月',value:2}]" source-api=""></div>-->
-                        <!--<div hjm-form-input text="商品单位" ng-model="param.product_title5"-->
-                             <!--min="1" max="30" required></div>-->
-                        <!--<div hjm-form-input text="库存总数" ng-model="param.product_title6"-->
-                             <!--min="1" max="30" required></div>-->
-                        <!--<div hjm-form-input text="单次限购份数" ng-model="param.product_title7"-->
-                             <!--min="1" max="30" required></div>-->
+                        <div hjm-form-input text="商品标题" ng-model="param.product_title"
+                             placeholder="商品标题" min="2" required></div>
+                        <div hjm-form-input text="商品简介" ng-model="param.product_title1"
+                             placeholder="不超过30个字" min="1" max="30" required></div>
+                        <div hjm-form-radio text="商品品类" type="radio"
+                             ng-model="param.product_title3"
+                             source="[{text:'鲜花',value:1},{text:'其他',value:2}]" source-api=""></div>
+                        <div hjm-form-radio text="商品类型" type="radio"
+                             ng-model="param.product_title4"
+                             source="[{text:'单次',value:1},{text:'包月',value:2}]" source-api=""></div>
+                        <div hjm-form-input text="商品单位" ng-model="param.product_title5" required></div>
+                        <div hjm-form-input text="库存总数" ng-model="param.product_title6" required></div>
+                        <div hjm-form-input text="单次限购份数" ng-model="param.product_title7"
+                             min="1" max="30" required></div>
                         <div hjm-form-date text="上架时间" ng-model="param.product_title8" required></div>
                         <div hjm-form-date-time text="下架时间" ng-model="param.product_title9" required></div>
-                        <!--<div hjm-form-image text="大头图" ng-model="param.product_title10"-->
-                             <!--min="1" max="30" required></div>-->
+                        <div hjm-form-image text="大头图" ng-model="param.product_title10" required></div>
                         <div hjm-form-image text="横图" ng-model="param.product_title11" max="1" required></div>
                         <div hjm-form-image-content text="图文详情" ng-model="param.product_title12" required></div>
                     </div>
@@ -35,13 +32,50 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>拼团规则</h4>
-                        <!--<div hjm-form-input text="互助团类型" ng-model="param.product_title20"-->
-                             <!--placeholder="互助团类型" required></div>-->
-                        <!--<div hjm-form-input text="玩法说明" ng-model="param.product_title21"-->
-                             <!--placeholder="玩法说明" required></div>-->
+                        <div hjm-form-radio text="互助团类型" type="radio" ng-model="param.product_title20"
+                             source="[{text:'砍价团',value:1},{text:'人数团',value:2}]" source-api=""></div>
+                        <div hjm-form-input text="玩法说明标题" ng-model="param.product_title21"
+                             placeholder="玩法说明标题" required></div>
+                        <div hjm-form-textarea text="玩法说明内容" ng-model="param.product_title22"
+                             placeholder="玩法说明内容" required></div>
+
+                        <div hjm-form-input text="起始价" ng-model="param.product_title23" ng-required=""
+                             ng-if="param.product_title20==1"></div>
+                        <div hjm-form-input text="底价" ng-model="param.product_title24" ng-required=""
+                             ng-if="param.product_title20==1"></div>
+                        <div hjm-form-input text="单人返现金额" ng-model="param.product_title25" ng-required=""
+                             ng-if="param.product_title20==1"></div>
+                        <div hjm-form-input text="拼团有效期" ng-model="param.product_title26" ng-required=""
+                             ng-if="param.product_title20==1"></div>
+
+                        <div hjm-form-input text="拼团人数" ng-model="param.product_title27" ng-required=""
+                             ng-if="param.product_title20==2"></div>
+                        <div hjm-form-input text="拼团单价" ng-model="param.product_title28" ng-required=""
+                             ng-if="param.product_title20==2"></div>
+                        <div hjm-form-input text="拼团有效时间" ng-model="param.product_title29" ng-required=""
+                             ng-if="param.product_title20==2"></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>配送规则</h4>
+                        <div hjm-form-input text="配送次数" ng-model="param.product_title30" required=""></div>
+                        <div hjm-form-input text="配送城市" ng-model="param.product_title31" required=""></div>
+                        <div hjm-form-radio text="配送城市" type="radio" ng-model="param.product_title32"
+                             source="[{text:'上海',value:'上海'},{text:'南京',value:'南京'},
+                             {text:'厦门',value:'厦门'},{text:'北京',value:'北京'}]" source-api=""></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>管理</h4>
+                        <div hjm-form-textarea text="管理备注" ng-model="param.product_title33" required=""></div>
+                        <div hjm-form-radio text="置顶" type="radio" ng-model="param.product_title34"
+                             source="[{text:'是',value:'上海'},{text:'否',value:'南京'}]" source-api=""></div>
                     </div>
                 </div>
                 <a class="btn btn-primary btn-rounded" ng-disabled="hjmForm.$invalid" ng-click="submit()">提交</a>
+                <a class="btn btn-info btn-rounded" ng-disabled="hjmForm.$invalid" ng-click="submit(0)">保存草稿</a>
             </form>
         </div>
     </div>

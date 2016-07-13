@@ -1,4 +1,4 @@
-<div class="contentOrImg">
+<div class="contentimg">
     <style type="text/css">
         .contents {
             border-top: 1px #ccc solid;
@@ -6,19 +6,19 @@
             margin-bottom: 15px;
         }
 
-        .contentOrImg .btn {
+        .contentimg .btn {
             margin-right: 10px;
         }
 
-        .contentOrImg .panel-body {
+        .contentimg .panel-body {
             padding: 0;
         }
 
-        .contentOrImg .panel-body textarea {
+        .contentimg .panel-body textarea {
             border: 0;
         }
     </style>
-    <div class="form-group" ng-repeat="item in list track by $index">
+    <div class="form-group" ng-repeat="item in list">
         <div class="col-sm-12" ng-class="{contents:onlyContent!=1}">
             <div class="col-sm-12 form-group">
                 <a class="btn btn-info" ng-bind="($index+1)"></a>
