@@ -1,8 +1,9 @@
 <div class="datepicker_class">
     <p class="input-group">
         <input type="date" class="form-control" datepicker-popup ng-model="dt" is-open="isopen" min-date="minDate"
-               date-disabled="disabled(date, mode)" ng-required="true" ng-change="changed();" close-text="关闭"/>
-        <span class="input-group-btn">
+               date-disabled="disabled(date, mode)" ng-change="changed();" close-text="关闭" clear-text="清空"
+               current-text="今天" style="width: 160px;"/>
+        <span class="input-group-btn" style="width: 40px;">
             <button type="button" class="btn btn-default" ng-click="open($event)">
                 <i class="glyphicon glyphicon-calendar"></i>
             </button>

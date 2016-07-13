@@ -1,0 +1,45 @@
+<div class="contentOrImg">
+    <style type="text/css">
+        .contents {
+            border-top: 1px #ccc solid;
+            padding-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .contentOrImg .btn {
+            margin-right: 10px;
+        }
+
+        .contentOrImg .panel-body {
+            padding: 0;
+        }
+
+        .contentOrImg .panel-body textarea {
+            border: 0;
+        }
+    </style>
+    <div class="form-group" ng-repeat="item in list track by $index">
+        <div class="col-sm-12" ng-class="{contents:onlyContent!=1}">
+            <div class="col-sm-12 form-group">
+                <a class="btn btn-info" ng-bind="($index+1)"></a>
+                <a class="btn btn-success" ng-if="onlyContent!=1"
+                   ng-class="{'btn-success':!item.showContent,'btn-danger':item.showContent}"
+                   ng-click="toggleShow(item,'showContent')" ng-bind="item.showContentTitle"></a>
+                <a class="btn btn-success" ng-if="onlyContent!=1"
+                   ng-class="{'btn-success':!item.showImg,'btn-danger':item.showImg}"
+                   ng-click="toggleShow(item,'showImg')" ng-bind="item.showImgTitle"></a>
+                <a class="btn btn-danger" ng-if="onlyContent!=1" ng-click="del($index);">删除这一条图文</a>
+            </div>
+            <div class="col-sm-12" ng-if="!!item.showContent">
+                <show-textarea ng-model="item.contentData" placeholder="填写你要说的"></show-textarea>
+            </div>
+            <div class="col-sm-12" ng-if="!!item.showImg">
+                <show-upload images="item.images" hasimages=""></show-upload>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <a class="btn btn-primary" ng-click="add();" ng-if="onlyContent!=1">新增一条</a>
+        <a class="btn btn-warning" ng-click="conslog()">loooooooog</a>
+    </div>
+</div>

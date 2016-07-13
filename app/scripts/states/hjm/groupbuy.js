@@ -12,30 +12,30 @@ define([
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.pintuan', {
-                            url: "/pintuan",
+                        .state(cons.state.main + '.groupbuy', {
+                            url: "/groupbuy",
                             templateProvider: function ($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
-                        .state(cons.state.main + '.pintuan.list', {
+                        .state(cons.state.main + '.groupbuy.list', {
                             url: "/list.html",
                             views: {
                                 "": {
                                     // controller: 'pintuanController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'pintuan/list.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'groupbuy/list.html');
                                     }
                                 }
                             }
                         })
-                        .state(cons.state.main + '.pintuan.update', {
+                        .state(cons.state.main + '.groupbuy.update', {
                             url: "/update.html/:activity_id",
                             views: {
                                 "": {
                                     // controller: "pintuan.updateController",
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'pintuan/update.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'groupbuy/update.html');
                                     }
                                 }
                             }

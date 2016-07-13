@@ -1,10 +1,12 @@
 define([
-    './pintuan',
+    './groupbuy',
     './account',
     './product',
     './order',
     './banner',
     './export',
+    './user',
+    './refund',
 ], function () {
     // console.log(arguments);
     var domain = '';

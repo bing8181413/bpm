@@ -2,6 +2,7 @@ define([
     './directives',
     '../cons/simpleCons',
     './hjm-grid',// grid
+    './hjm-form',// form
     './nav-top',// 上边内容
     './side-left',// 左边菜单
     './hjmdirectives',
@@ -156,92 +157,6 @@ define([
                     hasimages: '='
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showUpload.html'),
-                // template: '<div>' +
-                // '<style type="text/css">' +
-                // '.upload-image{width:60px;height:60px;overflow:hidden;background:#eee;-webkit-border-radius:0;position:relative;}' +
-                // '.upload-image:before{content:"+";line-height:50px;cursor:pointer;color:#000;font-size:40px;text-align:center;position:absolute;left:0;top:0;width:100%;height:100%;background:#eee;}' +
-                // '</style>' +
-                // '<table class="table table-hover table-bordered table-condensed">' +
-                // '<thead>' +
-                // '   <tr>' +
-                // '       <th width="50%">图片名称</th>' +
-                // '       <th width="10%" ng-show="uploader.isHTML5">大小</th>' +
-                // '       <th width="20%" ng-show="uploader.isHTML5">上传进度</th>' +
-                // '       <th width="10%">状态</th>' +
-                // '       <th width="10%">操作</th>' +
-                // '   </tr>' +
-                // '</thead>' +
-                // '<tbody>' +
-                // '   <tr ng-repeat="item in oldImages track by $index">' +
-                // '       <td>' +
-                // '           <a class="img_a">' +
-                // '               <img class="img-responsive" ng-src="{{item.url}}"/>' +
-                // '           </a>' +
-                // '       </td>' +
-                // '       <td></td>' +
-                // '       <td></td>' +
-                // '       <td class="text-center"></td>' +
-                // '       <td>' +
-                // '           <button type="button" class="btn btn-danger btn-xs" ng-click="removeImage($index)">' +
-                // '               <span class="glyphicon glyphicon-trash"></span> 移除' +
-                // '           </button>' +
-                // '       </td>' +
-                // '   </tr>' +
-                // '   <tr ng-repeat="(k,v) in uploader.queue track by $index" class="ng-scope">' +
-                // '       <td>' +
-                // '           <strong class="ng-binding" ng-bind="v.file.name"></strong>' +
-                // '           <div ng-show="uploader.isHTML5" ng-thumb="{ file: v._file, height: 100 , itemobj : v}"></div>' +
-                // '       </td>' +
-                // '       <td ng-show="uploader.isHTML5" nowrap="" class="ng-binding">{{v.file.size/1024/1024|number:2}}MB</td>' +
-                // '       <td ng-show="uploader.isHTML5">' +
-                // '           <div class="progress" style="margin-bottom: 0;">' +
-                // '               <div class="progress-bar" role="progressbar" style="width:{{v.progress}}%;" style="width: 0%;"></div>' +
-                // '           </div>' +
-                // '       </td>' +
-                // '       <td class="text-center">' +
-                // '           <span ng-show="v.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>' +
-                // '           <span ng-show="v.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>' +
-                // '           <span ng-show="v.isError"><i class="glyphicon glyphicon-remove"></i></span>' +
-                // '       </td>' +
-                // '       <td nowrap="">' +
-                // '           <button type="button" class="btn btn-success btn-xs" ng-click="v.upload()" ng-disabled="v.isReady || v.isUploading || v.isSuccess">' +
-                // '               <span class="glyphicon glyphicon-upload"></span> 上传' +
-                // '           </button>' +
-                // // '           <button type="button" class="btn btn-warning btn-xs" ng-click="v.cancel()" ng-disabled="!v.isUploading" disabled="disabled">'+
-                // // '               <span class="glyphicon glyphicon-ban-circle"></span> 取消'+
-                // // '           </button>'+
-                // // '           <button type="button" class="btn btn-danger btn-xs" ng-click="v.remove()">'+
-                // // '               <span class="glyphicon glyphicon-trash"></span> 移除'+
-                // // '           </button>'+
-                // '           <button type="button" class="btn btn-danger btn-xs" ng-click="delImage(v)">' +
-                // '               <span class="glyphicon glyphicon-trash"></span> 移除' +
-                // '           </button>' +
-                // '       </td>' +
-                // '   </tr>' +
-                // '</tbody>' +
-                // '</table>' +
-                // '<div>' +
-                // '   <div>' +
-                // '       上传过程:' +
-                // '       <div class="progress" style="">' +
-                // '           <div class="progress-bar" role="progressbar" style="width:{{uploader.progress}}%"></div>' +
-                // '       </div>' +
-                // '   </div>' +
-                // '   <button type="button" class="btn btn-success btn-s" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">' +
-                // '       <span class="glyphicon glyphicon-upload"></span> 全部上传' +
-                // '   </button>' +
-                // // '   <button type="button" class="btn btn-warning btn-s" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">'+
-                // // '       <span class="glyphicon glyphicon-ban-circle"></span> 全部取消'+
-                // // '   </button>'+
-                // '   <button type="button" class="btn btn-danger btn-s" ng-click="removeAll()" ng-disabled="!uploader.queue.length">' +
-                // '       <span class="glyphicon glyphicon-trash"></span> 全部移除' +
-                // '   </button>' +
-                // '</div>' +
-                // '<br/>' +
-                // '<div class="col-sm-12 form-group">' +
-                // '   <input class="form-control upload-image" type="file" nv-file-select uploader="uploader" multiple />' +
-                // '</div>' +
-                // '</div>',
                 controller: function ($scope, $element, $attrs) {
 
                     $scope.uploader = new FileUploader({

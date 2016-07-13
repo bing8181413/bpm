@@ -391,103 +391,66 @@ define([
         //    </div>
         //    </div>
 
-        .directive('contentOrImg', function ($state, $rootScope, $timeout) {
+        .directive('contentOrImg', function ($state, $rootScope, $timeout, $templateCache) {
             return {
                 restrict: 'E',
                 replace: true,
                 scope: {
                     ngModel: '=',
+                    list: '=ngModel',
                     onlyContent: '=onlyText',
-                    iscompleted: '='
+                    // iscompleted: '='
                 },
-                template: '<div class="contentOrImg">' +
-                '<style type="text/css">' +
-                '.contents {border-top: 1px #ccc solid;padding-top: 10px;margin-bottom: 15px;}' +
-                //'.contentOrImg {padding: 0 30px 0 40px;}' +// 这个样式加到全局中最好
-                '.contentOrImg .btn {margin-right: 10px;}' +
-                '.contentOrImg .panel-body {padding: 0;}' +
-                '.contentOrImg .panel-body textarea{border: 0;}' +
-                '</style>' +
-                '<div class="form-group" ng-repeat="item in list.new track by $index">' +
-                '<div class="col-sm-12" ng-class="{contents:onlyContent!=1}">' +
-                '<div class="col-sm-12 form-group" >' +
-                '<a class="btn btn-info" ng-bind="($index+1)"></a>' +
-                '<a class="btn btn-success" ng-if="onlyContent!=1" ng-class="{\'btn-success\':!item.showContent,\'btn-danger\':item.showContent}" ng-click="toggleShow(item,\'showContent\')" ng-bind="item.showContentTitle"></a>' +
-                '<a class="btn btn-success" ng-if="onlyContent!=1"  ng-class="{\'btn-success\':!item.showImg,\'btn-danger\':item.showImg}" ng-click="toggleShow(item,\'showImg\')" ng-bind="item.showImgTitle"></a>' +
-                '<a class="btn btn-danger" ng-if="onlyContent!=1"  ng-click="del($index);">删除这一条图文</a>' +
-                '</div>' +
-                '<div class="col-sm-12" ng-if="!!item.showContent">' +
-                '<show-textarea ng-model="item.contentData" placeholder="填写你要说的"></show-textarea>' +
-                '</div>' +
-                '<div class="col-sm-12" ng-if="!!item.showImg">' +
-                '<show-upload images="item.images" max="9" hasimages=""></show-upload>' +
-                '</div>' +
-                '</div>' +
-                '</div>' +
-                '<div class="form-group">' +
-                '<a class="btn btn-primary" ng-click="add();" ng-if="onlyContent!=1" >新增一条</a>' +
-                //'<a class="btn btn-warning" ng-click="conslog()">loooooooog</a>' +
-                '</div>' +
-                '</div>',
-
+                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_content2img.html'),
                 link: function ($scope, $element, $attrs) {
-                    //$scope.list = angular.extend({empty_obj_num: 0}, $scope.ngModel || {
-                    //        old: [],
-                    //        new: []
-                    //    });
-                    $scope.$watch('iscompleted', function () {
-                        $scope.list = angular.extend({empty_obj_num: 0}, $scope.ngModel || {
-                                old: [],
-                                new: []
-                            });
-                        if ($scope.iscompleted || angular.isUndefined($scope.iscompleted)) {
-                            //old 更新到new 上面  发现不需要new了
-                            //console.log($scope.list);
-                            angular.forEach($scope.ngModel.old, function (val, key) {
-                                var obj = {};
-                                obj.images = val.images || [];
-                                obj.contentData = angular.extend({
-                                    content: '',
-                                    category: $scope.ngModel.category,
-                                    font_align: '',
-                                    font_bold: '',
-                                    font_color: '',
-                                    font_ita: '',
-                                    font_size: '',
-                                    font_style: '',
-                                    font_italic: ''
-                                }, val.contentData || {});
-                                $scope.list.new.push(angular.extend(obj, {
-                                    //contentData: val,
-                                    //images: val.images ||[],
-                                    showContent: obj.contentData.content != '',
-                                    showImg: obj.images.length > 0 ? true : false,
-                                    showContentTitle: obj.contentData.content != '' ? '取消文字' : '添加文字',
-                                    showImgTitle: obj.images.length > 0 ? '取消图片' : '添加图片'
-                                }));
-                            });
-                        }
-                        //console.log('iscompleted  图文展示 ', $scope.list);
-                    });
-
-                    $scope.$watch('list', function () {
-                        $scope.setval();
-                        $scope.ngModel = $scope.list;
-                        //console.log('监控 contents 的 list ', $scope.list);
-                    }, true);
+                    // $scope.$watch('iscompleted', function (defIscompleted) {
+                    // console.log(defIscompleted);
+                    // console.log($scope.list);
+                    // $scope.list = $scope.ngModel;
+                    // if ($scope.iscompleted || angular.isUndefined($scope.iscompleted)) {
+                    //console.log($scope.list);
+                    $scope.$watch('list', function (deflist) {
+                        $scope.list = $scope.list || [];
+                        angular.forEach($scope.list, function (val, key) {
+                            var obj = {};
+                            obj.images = val.images || [];
+                            obj.contentData = angular.extend({
+                                content: '',
+                                category: $scope.ngModel.category,
+                                font_align: '',
+                                font_bold: '',
+                                font_color: '',
+                                font_ita: '',
+                                font_size: '',
+                                font_style: '',
+                                font_italic: ''
+                            }, val.contentData || {});
+                            // $scope.list[key]
+                            console.log(obj);
+                            $scope.list.push(angular.extend(obj, {
+                                //contentData: val,
+                                //images: val.images ||[],
+                                showContent: obj.contentData.content != '',
+                                showImg: obj.images.length > 0 ? true : false,
+                                showContentTitle: obj.contentData.content != '' ? '取消文字' : '添加文字',
+                                showImgTitle: obj.images.length > 0 ? '取消图片' : '添加图片'
+                            }));
+                        });
+                    },true);
+                    // }
+                    //console.log('iscompleted  图文展示 ', $scope.list);
+                    // });
 
                     $scope.init = function () {
                         if ($scope.onlyContent == 1) {
                             $scope.onlyContent = 1;
-                            //$scope.add($scope.list.new[0]);
-                            //$scope.toggleShow($scope.list.new[0], 'showContent');
                         } else {
                             $scope.onlyContent = 0;
                         }
                     }
                     $scope.add = function (obj) {
                         obj = obj || {};
-                        $scope.list.new.push(angular.extend({
+                        $scope.list.push(angular.extend({
                             contentData: {},
                             images: [],
                             showContent: false,
@@ -495,13 +458,11 @@ define([
                             showContentTitle: '添加文字',
                             showImgTitle: '添加图片'
                         }, obj))
-                        $scope.setval();
                     }
                     //从搜索的列表中选择小区的ID
                     //删除一条 list.new 的记录
                     $scope.del = function (index) {
-                        $scope.list.new.splice(index, 1);
-                        $scope.setval();
+                        $scope.list.splice(index, 1);
                     }
                     // 切换新增和删除图文
                     $scope.toggleShow = function (item, typeTitle) {
@@ -531,36 +492,7 @@ define([
                         }
                     }
                     $scope.conslog = function (index) {
-                        $scope.setval();
                         console.log($scope.list);
-                    }
-                    // 赋值
-                    $scope.setval = function () {
-                        //console.log($scope.list.new);
-                        $scope.list.empty_obj_num = 0;
-                        if ($scope.list.old.length == 0 && $scope.list.new.length == 0) {// 不能没有一条记录吧
-                            $scope.list.empty_obj_num++;
-                        }
-                        angular.forEach($scope.list.new, function (val, key) {
-                            if (!val.showContent && !val.showImg) {//无图无文
-                                $scope.list.empty_obj_num++;
-                            }
-                            if (val.showContent && (!val.contentData.content || val.contentData.content == '')) {
-                                $scope.list.empty_obj_num++;
-                            }
-                            if (val.showImg) {
-                                //console.log(val.images);
-                                if (!val.images || val.images.length == 0) {
-                                    $scope.list.empty_obj_num++;
-                                } else {
-                                    angular.forEach(val.images, function (v, k) {
-                                        if (!v.url || v.url == 'undefined' || typeof v.url == 'undefined') {
-                                            $scope.list.empty_obj_num++;
-                                        }
-                                    })
-                                }
-                            }
-                        });
                     }
                     $scope.init();
 
@@ -592,17 +524,19 @@ define([
                     }
                     $scope.$watch('ngModel', function () {
                         if (!$scope.ngModel) {
-                            if (!$scope.init) {
-                                // console.log('初始化 赋值');
-                                $scope.init = true;
-                                $scope.dateTime = new Date();
-                                $scope.dt = $scope.strToDateTime($scope.dateTime);
-                                $scope.changed();
-                            } else {
-                                // console.log('已初始化 赋值');
-                                $scope.dateTime = null;
-                                $scope.dt = '';
-                            }
+                            $scope.dateTime = null;
+                            $scope.dt = '';
+                            // if (!$scope.init) {
+                            //     // console.log('初始化 赋值');
+                            //     $scope.init = true;
+                            //     $scope.dateTime = new Date();
+                            //     $scope.dt = $scope.strToDateTime($scope.dateTime);
+                            //     $scope.changed();
+                            // } else {
+                            //     // console.log('已初始化 赋值');
+                            //     $scope.dateTime = null;
+                            //     $scope.dt = '';
+                            // }
                         } else { //  初始化过了
                             if (!$scope.init) {
                                 $scope.init = true;
@@ -615,7 +549,7 @@ define([
                     $scope.$watch('dt', function (val) {
                         // 清空日期动作 执行后
                         if (!val) {
-                            $scope.ngModel = '';
+                            $scope.ngModel = undefined;
                         }
                     });
                     $scope.open = function ($event) {
@@ -658,20 +592,24 @@ define([
                     }
                     $scope.$watch('ngModel', function () {
                         if (!$scope.ngModel) {
-                            if (!$scope.init) {
-                                // console.log('初始化 赋值');
-                                $scope.init = true;
-                                $scope.dateTime = new Date();
-                                $scope.dt = $scope.strToDateTime($scope.dateTime);
-                                $scope.tp = $scope.strToDateTime($scope.dateTime);
-                                $scope.changed();
-                            } else {
-                                // console.log('已初始化 赋值');
-                                $scope.dateTime = null;
-                                $scope.dt = '';
-                                // 把时间制为 00:00:00
-                                $scope.tp = $scope.strToDateTime(new Date('2000-01-01 00:00:00'));
-                            }
+                            $scope.dateTime = null;
+                            $scope.dt = '';
+                            // 把时间制为 00:00:00
+                            $scope.tp = $scope.strToDateTime(new Date('2000-01-01 00:00:00'));
+                            // if (!$scope.init) {
+                            //     // console.log('初始化 赋值');
+                            //     $scope.init = true;
+                            //     $scope.dateTime = new Date();
+                            //     $scope.dt = $scope.strToDateTime($scope.dateTime);
+                            //     $scope.tp = $scope.strToDateTime($scope.dateTime);
+                            //     $scope.changed();
+                            // } else {
+                            //     // console.log('已初始化 赋值');
+                            //     $scope.dateTime = null;
+                            //     $scope.dt = '';
+                            //     // 把时间制为 00:00:00
+                            //     $scope.tp = $scope.strToDateTime(new Date('2000-01-01 00:00:00'));
+                            // }
                         } else { //  初始化过了
                             if (!$scope.init) {
                                 $scope.init = true;
@@ -684,7 +622,7 @@ define([
                     $scope.$watch('dt', function (val) {
                         // 清空日期
                         if (!val) {
-                            $scope.ngModel = '';
+                            $scope.ngModel = undefined;
                         }
                     });
                     $scope.open = function ($event) {

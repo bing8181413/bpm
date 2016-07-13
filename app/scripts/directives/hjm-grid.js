@@ -4,7 +4,7 @@ define([
 ], function (mod, cons) {
 
     mod
-        .directive('hjmGrid', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget) {
+        .directive('hjmGrid', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -88,7 +88,11 @@ define([
                         }
                         if (colField) {
                             if (cellFilter) {
-                                itemString += '|' + cellFilter;
+                                if (angular.isArray(cellFilter)) {
+                                    itemString += '|' + cellFilter;
+                                } else if (angular.isString(cellFilter)) {
+                                    itemString += '|' + cellFilter;
+                                }
                             }
                             if (colDef.truncateText) {
                                 var textLength = colDef.truncateTextLength;
@@ -137,8 +141,7 @@ define([
                     $scope.searchParams = {};
                     $scope.filterParams = {};
                     $scope.searchAction = function (searchParams) {
-                        console.log($scope.searchParams);
-                        // $scope.searchParams = searchParams;
+                        $log.info('当前查询条件 :', $scope.searchParams);
                         $scope.pageInfo.currentPage = 1;
                         $scope.updateList();
                     }
@@ -147,7 +150,17 @@ define([
                             page: $scope.pageInfo.currentPage || 1,
                             count: configDef.pageInfo.count || 1,
                         };
-                        var searchParam = angular.extend({}, configDef.preSelectionSearch, $scope.searchParams, pageInfo);
+                        var searchItemsParamDefault = {};
+                        angular.forEach(configDef.searchItems, function (searchItems_val, searchItems_key) {
+                            if (searchItems_val.default) {
+                                angular.forEach(configDef.searchItems, function (searchItems_val, searchItems_key) {
+                                    if (searchItems_val.default || searchItems_val.default == '') {
+                                        eval('searchItemsParamDefault.' + searchItems_val.value + ' = ' + searchItems_val.default);
+                                    }
+                                });
+                            }
+                        });
+                        var searchParam = angular.extend({}, configDef.preSelectionSearch, searchItemsParamDefault, $scope.searchParams, pageInfo);
                         // console.log(configDef.pageInfo);
                         widget.ajaxRequest({
                             method: 'GET',
@@ -156,11 +169,12 @@ define([
                             data: searchParam,
                             success: function (json) {
                                 $scope.list = json.list;
-                                $scope.pageInfo.totalItems = json.count || 20;//获取总数
+                                $scope.pageInfo.totalItems = ((json.count == 0) ? 0 : (json.count || $scope.pageInfo.totalItems));//获取总数
                             }
                         });
                     }
                     $scope.$watchCollection('[columns,config,modid]', function (gridDef) {
+                            //这里初始化 执行一次 以后不会执行
                             if (gridDef) {
                                 var modidDef = gridDef[2];
                                 // console.log('$ctrl.modsconfs', $ctrl.modsconfs);
@@ -173,7 +187,12 @@ define([
                                             $scope.configDef = configDef;// 提供页面展示
                                         }
                                     });
-                                });
+                                    ;
+                                })
+                                if (!columnsDef || !configDef) {
+                                    $log.error('未找到modid为' + modidDef + '的config,请检查对应配置文件');
+                                    return false;
+                                }
                                 $scope.pageInfo = {
                                     itemsPerPage: configDef.pageInfo.count,
                                     maxSize: configDef.pageInfo.maxSize || 5,
@@ -184,8 +203,8 @@ define([
                                 // configDef.refreshCurrentView = $scope.refreshCurrentView;
                                 var searchBar = $ctrl.buildSearchBar(configDef, $element);
                                 var tableContent = $ctrl.buildTable(columnsDef, configDef);
-                                console.log(searchBar);
-                                $element.find('.searchSection').html(searchBar)
+                                // console.log(searchBar);
+                                $element.find('.searchSection').html(searchBar);
                                 $element.find(".gridSection").html(tableContent);
                                 $compile($element.contents())($scope);
                                 $scope.updateList();
@@ -196,8 +215,9 @@ define([
                         if ($scope.initTableRequestSend == false) {
                             $scope.initTableRequestSend = true;
                         } else {
-                            //初始化组件已经获取过一次数据 totalItems 为空 等totalItems不是空了就可以走正常的了
+                            //初始化组件已经获取过一次数据 totalItems 为空 等 totalItems 不是空了就可以走正常的了
                             if (pageInfoDef && pageInfoOld.totalItems) {
+                                // console.log('pageInfoDef  ', pageInfoDef, pageInfoOld);
                                 $scope.updateList('$watch pageInfo');
                             }
                         }
@@ -257,7 +277,7 @@ define([
                                                 btnHtml += (' <button type="button" class="btn btn-default" ' +
                                                 ' ng-class={' + btnClassHtml + '}' +
                                                 ' ng-model="params.' + val.value + '"' +
-                                                ' ng-click="params.' + val.value + ' = \'' + enum_val.value + '\';autoSearch=!autoSearch;">' +
+                                                ' ng-click="params.' + val.value + ' = \'' + enum_val.value + '\';autoSearch=!!!autoSearch;">' +
                                                 enum_val.text + '</button>');
                                             });
                                             btnHtml = '<div class="btn-group" role="group">' + btnHtml + '</div>';
@@ -296,22 +316,32 @@ define([
                             $compile($element.contents())($scope);
                         }
                     });
-                    $scope.$watchCollection('[params,autoSearch]', function (newVal, oldVal) {
+                    $scope.watch = [$scope.params, $scope.autoSearch];
+
+                    $scope.$watch('autoSearch', function (val, oldval) {
+                        $scope.watch[1] = val;
+                    });
+                    $scope.$watch('params', function (val) {
+                        $scope.watch[0] = val;
+                    }, true);
+
+                    $scope.$watch('watch', function (newVal, oldVal) {
                         angular.extend($scope.searchText, $scope.params);
                         if (newVal[1] != oldVal[1])
                             $scope.search();
                     }, true);
-                    $scope.btnGroupSearch = function () {
-                        $scope.search();
-                    }
+
                     $scope.search = function () {
                         $scope.searchAction();
                     }
                     $scope.resetSearch = function () {
-                        $scope.params = {};
+                        // 清空对象  清空第一层
+                        angular.forEach($scope.params, function (val, key) {
+                            $scope.params[key] = undefined;
+                        });
                         $ctrl.refreshCurrentView();
                     }
-                    $scope.search_keypress = function (event) {
+                    $scope.search_keyup = function (event) {
                         if (event.keyCode == 13) {
                             $scope.search();
                         }

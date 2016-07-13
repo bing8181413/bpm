@@ -1,0 +1,48 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">新增商品</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="hjmForm" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>商品信息</h4>
+                        <!--<div hjm-form-input text="商品标题" ng-model="param.product_title"-->
+                             <!--placeholder="商品标题" min="2" required></div>-->
+                        <!--<div hjm-form-input text="商品简介" ng-model="param.product_title1"-->
+                             <!--placeholder="不超过30个字" min="1" max="30" required></div>-->
+                        <!--<div hjm-form-radio text="商品品类" type="radio"-->
+                             <!--ng-model="param.product_title3"-->
+                             <!--source="[{text:'鲜花',value:1},{text:'其他',value:2}]" source-api=""></div>-->
+                        <!--<div hjm-form-radio text="商品类型" type="radio"-->
+                             <!--ng-model="param.product_title4"-->
+                             <!--source="[{text:'单次',value:1},{text:'包月',value:2}]" source-api=""></div>-->
+                        <!--<div hjm-form-input text="商品单位" ng-model="param.product_title5"-->
+                             <!--min="1" max="30" required></div>-->
+                        <!--<div hjm-form-input text="库存总数" ng-model="param.product_title6"-->
+                             <!--min="1" max="30" required></div>-->
+                        <!--<div hjm-form-input text="单次限购份数" ng-model="param.product_title7"-->
+                             <!--min="1" max="30" required></div>-->
+                        <div hjm-form-date text="上架时间" ng-model="param.product_title8" required></div>
+                        <div hjm-form-date-time text="下架时间" ng-model="param.product_title9" required></div>
+                        <!--<div hjm-form-image text="大头图" ng-model="param.product_title10"-->
+                             <!--min="1" max="30" required></div>-->
+                        <div hjm-form-image text="横图" ng-model="param.product_title11" max="1" required></div>
+                        <div hjm-form-image-content text="图文详情" ng-model="param.product_title12" required></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>拼团规则</h4>
+                        <!--<div hjm-form-input text="互助团类型" ng-model="param.product_title20"-->
+                             <!--placeholder="互助团类型" required></div>-->
+                        <!--<div hjm-form-input text="玩法说明" ng-model="param.product_title21"-->
+                             <!--placeholder="玩法说明" required></div>-->
+                    </div>
+                </div>
+                <a class="btn btn-primary btn-rounded" ng-disabled="hjmForm.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

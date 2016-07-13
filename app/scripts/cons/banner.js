@@ -63,6 +63,7 @@ define([], function () {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
+                route: [{value: 'main.banner.add', text: '新增运营位'}]
             }
         }
     }

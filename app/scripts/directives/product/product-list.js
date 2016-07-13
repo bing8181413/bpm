@@ -31,7 +31,7 @@ define([
                     $scope.txt = '有效期:' + $filter('num2hour')($scope.groupbuyPattern.group_seconds);
                     $scope.txt += '<br/>起始价:' + $scope.groupbuyPattern.high_price;
                     $scope.txt += '<br/>底价:' + $scope.groupbuyPattern.bottom_price;
-                    $scope.txt += '<br/>单人返现金额:' + $scope.groupbuyPattern.per_cut_amount;
+                    $scope.txt += '<br/>单人返现:' + $scope.groupbuyPattern.per_cut_amount;
                 }
             }
         })

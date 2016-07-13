@@ -44,12 +44,14 @@ define([
     // 'states/sharelink',//分享链接生成
     // 'states/exchangecode',//兑换码
     'states/container',
-    'states/hjm/pintuan',
+    'states/hjm/groupbuy',
     'states/hjm/account',
     'states/hjm/product',
     'states/hjm/order',
     'states/hjm/banner',
     'states/hjm/export',
+    'states/hjm/user',
+    'states/hjm/refund',
     'states/home'
 ], function () {
 

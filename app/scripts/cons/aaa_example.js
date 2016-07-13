@@ -38,9 +38,11 @@ define([], function () {
                     {value: 'haha', text: '城市', placeholder: '城市'},
                     {value: 'date_min', text: '开始日期', type: 'date'},
                     {value: 'date_max', text: '结束日期', type: 'date'},
+                    {value: 'datetime_min', text: '开始时间', type: 'datetime'},
+                    {value: 'datetime_max', text: '结束时间', type: 'datetime'},
                 ],
                 preSelectionSearch: {
-                    ID: '123',
+                    // ID: '123',
                 },
                 paginationSupport: true,
                 pageInfo: {

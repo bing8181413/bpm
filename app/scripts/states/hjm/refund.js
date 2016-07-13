@@ -4,49 +4,28 @@
  */
 define([
         '../states'
-        , '../../cons/simpleCons',
-        , '../../controllers/biz/pintuanController'
+        , '../../cons/simpleCons'
+        // , '../controllers/pintuanController'
+        , '../../controllers/menusController'
     ],
     function (stateModule, cons) {
         stateModule.config(
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.product', {
-                            url: "/product",
+                        .state(cons.state.main + '.refund', {
+                            url: "/refund",
                             templateProvider: function ($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
-                        .state(cons.state.main + '.product.list', {
+                        .state(cons.state.main + '.refund.list', {
                             url: "/list",
                             views: {
                                 "": {
                                     // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'product/list.html');
-                                    }
-                                }
-                            }
-                        })
-                        .state(cons.state.main + '.product.add', {
-                            url: "/add",
-                            views: {
-                                "": {
-                                    controller: 'product.addController',
-                                    templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'product/update.html');
-                                    }
-                                }
-                            }
-                        })
-                        .state(cons.state.main + '.product.update', {
-                            url: "/update/:product_id",
-                            views: {
-                                "": {
-                                    controller: 'product.updateController',
-                                    templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'product/update.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'refund/list.html');
                                     }
                                 }
                             }

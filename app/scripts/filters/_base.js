@@ -92,16 +92,21 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
         // 剩余时间  跟当前时间比较 当前时间-结束时间
         .filter('remaining_time', [function () {
             return function (end_time) {
-                var rtn_now = new Date().getTime();
-                var rtn_end_time = new Date(end_time.replace(/-/g, "/")).getTime();
-                var remaining_time = (rtn_end_time - rtn_now);
-                if (remaining_time <= 0) {
-                    remaining_time = '已结束';
-                } else {
-                    remaining_time = parseInt(remaining_time / (24 * 60 * 60 * 1000)) + '天' + parseInt((remaining_time % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)) + '小时'
-                        + parseInt(((remaining_time % (24 * 60 * 60 * 1000)) % (60 * 60 * 1000)) / (60 * 1000)) + '分钟';
+                if (end_time) {
+                    var rtn_now = new Date().getTime();
+                    var rtn_end_time = new Date(end_time.replace(/-/g, "/")).getTime();
+                    var remaining_time = (rtn_end_time - rtn_now);
+                    if (remaining_time <= 0) {
+                        remaining_time = '已结束';
+                    } else {
+                        remaining_time = parseInt(remaining_time / (24 * 60 * 60 * 1000)) + '天' + parseInt((remaining_time % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)) + '小时'
+                            + parseInt(((remaining_time % (24 * 60 * 60 * 1000)) % (60 * 60 * 1000)) / (60 * 1000)) + '分钟';
+                    }
+                    return remaining_time;
                 }
-                return remaining_time;
+                return '';
+
+
             }
         }])
         .filter('verify_type', [function () {
@@ -683,26 +688,20 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
         // 已完成的成团状态
         .filter('accomplish_status', [function () {
             return function (val) {
-                var result = '未成团';
+                var result = '未知状态';
                 val = val + '';
                 switch (val) {
-                    case "0":
-                        result = "进行中";
-                        break;
                     case "1":
-                        result = "已成团";
+                        result = "开团";
                         break;
                     case "2":
-                        result = "拼团失败";
+                        result = "拼团进行中";
                         break;
                     case "3":
-                        result = "未开团";
+                        result = "拼团成功";
                         break;
                     case "4":
-                        result = "待发货";
-                        break;
-                    case "5":
-                        result = "拼团完成";
+                        result = "拼团取消";
                         break;
                 }
 

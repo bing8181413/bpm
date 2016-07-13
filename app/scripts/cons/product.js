@@ -12,7 +12,12 @@ define([], function () {
                 {name: '已售份数', field: 'order.order_copies'},
                 {name: '配送规则', fieldDirective: '<div product-pattern="item.patterns"></div>'},
                 {name: '商品状态', field: 'status', filter: 'product_status'},
-                {name: '操作', fieldDirective: '<div btn-alert data="item"></div>'},
+                {
+                    name: '操作',
+                    fieldDirective: '<a class="btn btn-success" data="item" ' +
+                    'ui-sref="main.product.update({product_id:item.product_id})">编辑</a>' +
+                    '<a class="btn btn-success" data="item" ng-click="change_status()">下线</a>'
+                },
                 // {
                 //     name: '手机',
                 //     field: 'mobile',
@@ -43,9 +48,9 @@ define([], function () {
                 },
                 paginationSupport: true,
                 pageInfo: {
-                    count: 10,
+                    count: 20,
                     page: 1,
-                    maxSize: 2, //最大展示页，默认3
+                    maxSize: 5, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
                 route: [{value: 'main.product.add', text: '新增商品'}]
