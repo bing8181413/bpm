@@ -2,58 +2,89 @@
 define([
     './../controllers'
     , '../../cons/simpleCons'
-], function (mod, simpleCons) {
-    mod.controller('product.addController', addController);
+], function (mod, con) {
+    mod.controller('product.addController', addController)
+        .controller('product.updateController', updateController)
 
     addController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter'];
-    function addController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, $filter) {
-        // $scope.$watch('param', function (val) {
-        //     console.log(val);
-        // }, true);
-        // $scope.param = {
-        //     // 注释的都是可以直接提交的数据 或者直接用 tuanadd_param
-        //     //account_id: '',
-        //     //activity_title: '',
-        //     //reward: '',// 团长奖励
-        //     //group_buy_min_num: '',
-        //     //group_buy_days: '',
-        //     //black_list: '',
-        //     //white_list: '',
-        //     group_buy_header_user_id: null,
-        //     //is_pinned: '',
-        //     //activity_options: '',
-        //     //activity_pics: '',
-        //     //activity_contents: '',
-        //     target_type: 0,// 0 全部小区 1：部分小区 2：排除部分小区
-        //     activity_pics: [],
-        //     activity_small_pics: [],
-        //     activity_contents: [
-        //         {
-        //             id: 0,
-        //             category: '活动摘要',
-        //             old: [],
-        //             new: []
-        //         }
-        //     ]
-        //     //activity_time: new Date($filter('date')(new Date(), 'yyyy-MM-dd 09:00:00')),
-        //     //activity_end_time: new Date($filter('date')(new Date(), 'yyyy-MM-dd 11:00:00')),
-        //     //activity_apply_end_time: new Date($filter('date')(new Date(), 'yyyy-MM-dd 18:00:00'))
-        // };
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter'];
+    function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter) {
+        if ($stateParams.product_id) {
+            widget.ajaxRequest({
+                url: '/products/' + $stateParams.product_id,
+                method: 'get',
+                scope: $scope,
+                data: {},
+                success: function (json) {
+                    $scope.param = angular.copy(json.data);
+                }
+            })
+        } else {
+            widget.msgToast('未获取到数据');
+        }
+        $scope.aaa = function () {
+            console.log('$scope.param', $scope.param);
+        }
         $scope.submit = function (status) {
-            console.log($scope.param);
-            if (status == 0) {//草稿
+            if (comfunc.isEmptyArray($scope.param.pics)) {
+                widget.msgToast('运营大图没有上传');
+                return false;
+            }
+            if (comfunc.isEmptyArray($scope.param.thumbnail_pics)) {
+                widget.msgToast('缩略图片没有上传');
+                return false;
+            }
+            if (comfunc.isEmptyArray($scope.param.contents)) {
+                widget.msgToast('图文详情没有上传');
+                return false;
+            }
+            if (status || status == 0) {
                 $scope.param.status = status;
             } else {
                 $scope.param.status = 1;
             }
-            var url = simpleCons.domain + '/products';
             widget.ajaxRequest({
-                url: url,
-                method: 'POST',
+                url: '/products/' + $stateParams.product_id,
+                method: 'PUT',
+                scope: $scope,
                 data: $scope.param,
                 success: function (json) {
-                    alert('发布成功！');
-                    $state.go('goods.list');
+                    widget.msgToast('发布成功！');
+                    $state.go(con.state.main + '.product.list');
+                }
+            })
+        }
+    };
+    function addController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter) {
+        $scope.aaa = function () {
+            console.log('$scope.param', $scope.param);
+        }
+        $scope.submit = function (status) {
+            if (comfunc.isEmptyArray($scope.param.pics)) {
+                widget.msgToast('运营大图没有上传');
+                return false;
+            }
+            if (comfunc.isEmptyArray($scope.param.thumbnail_pics)) {
+                widget.msgToast('缩略图片没有上传');
+                return false;
+            }
+            if (comfunc.isEmptyArray($scope.param.contents)) {
+                widget.msgToast('图文详情没有上传');
+                return false;
+            }
+            if (status || status == 0) {
+                $scope.param.status = status;
+            } else {
+                $scope.param.status = 1;
+            }
+            widget.ajaxRequest({
+                url: '/products',
+                method: 'POST',
+                scope: $scope,
+                data: $scope.param,
+                success: function (json) {
+                    widget.msgToast('发布成功！');
+                    $state.go(con.state.main + '.product.list');
                 }
             })
         }

@@ -12,13 +12,13 @@ define([
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        // .state(cons.state.main + '.order', {
-                        //     url: "/order",
-                        //     templateProvider: function ($templateCache) {
-                        //         return $templateCache.get('app/' + cons.main_path + 'container.html');
-                        //     }
-                        // })
                         .state(cons.state.main + '.order', {
+                            url: "/order",
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.main_path + 'container.html');
+                            }
+                        })
+                        .state(cons.state.main + '.order.list', {
                             url: "/order/list",
                             views: {
                                 "": {

@@ -402,48 +402,51 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var init = false;
                     $scope.$watch('ngModel', function (defval) {
-                        if (!init) {
-                            console.log(defval);
+                        if (defval && !init) {
                             init = true;
+                            // console.log(defval);
                             $scope.list = $scope.list || [];
                             angular.forEach(defval, function (val, key) {
                                 var obj = {};
-                                obj.images = val.images || [];
-                                obj.contentData = angular.extend({
-                                    content: '',
-                                    // category: $scope.ngModel.category,
-                                    font_align: '',
-                                    font_bold: '',
-                                    font_color: '',
-                                    font_ita: '',
-                                    font_size: '',
-                                    font_style: '',
-                                    font_italic: ''
-                                }, val.contentData || {});
+                                obj.pics = val.pics || [];
+                                obj.contentData = {
+                                    content_id: val.content_id,
+                                    content: val.content,
+                                    category: val.category,
+                                    font_align: val.font_align,
+                                    font_bold: val.font_bold,
+                                    font_color: val.font_color,
+                                    font_ita: val.font_ita,
+                                    font_size: val.font_size,
+                                    font_style: val.font_style,
+                                    // font_italic: val.font_italic
+                                }
                                 // $scope.list[key]
                                 // console.log(obj);
                                 $scope.list.push(angular.extend(obj, {
                                     //contentData: val,
                                     //images: val.images ||[],
                                     showContent: obj.contentData.content != '',
-                                    showImg: obj.images.length > 0 ? true : false,
+                                    showImg: obj.pics.length > 0 ? true : false,
                                     showContentTitle: obj.contentData.content != '' ? '取消文字' : '添加文字',
-                                    showImgTitle: obj.images.length > 0 ? '取消图片' : '添加图片'
+                                    showImgTitle: obj.pics.length > 0 ? '取消图片' : '添加图片'
                                 }));
+                                // console.log($scope.list);
                             });
                         }
 
                     }, true);
                     $scope.$watch('list', function (defval) {
                         if (init) {
-                            if (defval.length > 0) {
-                                $scope.ngModel = [];
-                            }
+                            $scope.ngModel = [];
                             angular.forEach(defval, function (val, key) {
                                 var obj = {};
-                                obj.images = val.images || [];
+                                // obj.pics = val.pics || [];
                                 obj.contentData = angular.extend({
+                                    content_id: val.content_id || undefined,
+                                    pics: val.pics || [],
                                     content: '',
+                                    category: 1,
                                     // category: $scope.ngModel.category,
                                     font_align: '',
                                     font_bold: '',
@@ -451,19 +454,19 @@ define([
                                     font_ita: '',
                                     font_size: '',
                                     font_style: '',
-                                    font_italic: ''
+                                    // font_italic: ''
                                 }, val.contentData || {});
-                                $scope.ngModel.push(obj);
+                                $scope.ngModel.push(obj.contentData);
                             });
-                            // console.log(defval);
                         }
                     }, true);
 
                     $scope.add = function (obj) {
                         obj = obj || {};
+                        $scope.list = $scope.list || [];
                         $scope.list.push(angular.extend({
                             contentData: {},
-                            images: [],
+                            pics: [],
                             showContent: false,
                             showImg: false,
                             showContentTitle: '添加文字',
@@ -480,26 +483,36 @@ define([
                         if (typeTitle == 'showContent') {
                             item.showContent = !item.showContent;
                             item.showContentTitle = item.showContent ? '取消文字' : '添加文字';
-                            if (!item.showContent) {
-                                //不需要把所有样式都删除掉
-                                item.contentData.content = '';
-                            } else if (item.showContent) {
-                                item.contentData.content = '';
-                                item.contentData.font_align = '';
-                                item.contentData.font_bold = '';
-                                item.contentData.font_color = '';
-                                item.contentData.font_ita = '';
-                                item.contentData.font_size = '';
-                                item.contentData.font_style = '';
-                                item.contentData.font_italic = '';
-                            }
+                            item.contentData.content = '';
+                            item.contentData.category = '';
+                            item.contentData.font_align = '';
+                            item.contentData.font_bold = '';
+                            item.contentData.font_color = '';
+                            item.contentData.font_ita = '';
+                            item.contentData.font_size = '';
+                            item.contentData.font_style = '';
+                            // item.contentData.font_italic = '';
+                            // if (!item.showContent) {
+                            //     //不需要把所有样式都删除掉
+                            //     item.contentData.content = '';
+                            // } else if (item.showContent) {
+                            //     item.contentData.content = '';
+                            //     item.contentData.font_align = '';
+                            //     item.contentData.font_bold = '';
+                            //     item.contentData.font_color = '';
+                            //     item.contentData.font_ita = '';
+                            //     item.contentData.font_size = '';
+                            //     item.contentData.font_style = '';
+                            //     item.contentData.font_italic = '';
+                            // }
                         }
                         if (typeTitle == 'showImg') {
                             item.showImg = !item.showImg;
                             item.showImgTitle = item.showImg ? '取消图片' : '添加图片';
-                            if (!item.showImg) {
-                                item.images = [];
-                            }
+                            item.pics = [];
+                            // if (!item.showImg) {
+                            //     item.pics = [];
+                            // }
                         }
                     }
                     $scope.conslog = function (index) {

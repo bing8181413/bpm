@@ -1,4 +1,4 @@
-define(['./services', '../cons/simpleCons', './widget'], function (mod, cons) {
+define(['./services', '../cons/simpleCons', './widget','./comfunc'], function (mod, cons) {
     mod
         .run(['$rootScope', '$state', '$stateParams', '$http', '$modal', '$location', 'widget',
             function ($rootScope, $state, $stateParams, $http, $modal, $location, widget) {

@@ -37,7 +37,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr ng-repeat="item in oldImages track by $index">
+        <tr ng-repeat="item in oldImages">
             <td>
                 <a class="img_a">
                     <img class="img-responsive" ng-src="{{item.url}}"/>
@@ -52,7 +52,7 @@
                 </button>
             </td>
         </tr>
-        <tr ng-repeat="(k,v) in uploader.queue track by $index" class="ng-scope">
+        <tr ng-repeat="(k,v) in uploader.queue track by $index" class="ng-scope" ng-required="required">
             <td>
                 <strong class="ng-binding" ng-bind="v.file.name" ng-if="!v.qiniu_url"></strong>
                 <img class="img-responsive" ng-src="{{v.qiniu_url}}" ng-if="v.qiniu_url">

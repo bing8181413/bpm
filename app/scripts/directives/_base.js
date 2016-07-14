@@ -154,7 +154,8 @@ define([
                 replace: true,
                 scope: {
                     images: '=',
-                    hasimages: '='
+                    required: '@'
+                    // hasimages: '='
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showUpload.html'),
                 controller: function ($scope, $element, $attrs) {
@@ -162,75 +163,69 @@ define([
                     $scope.uploader = new FileUploader({
                         url: simpleCons.qiniu_domain + '/qiniu/controller.php?action=uploadimage'
                     });
-
-                    $scope.$watch('hasimages', function () {
-                        if ($scope.hasimages) return;
-
-                        $scope.max = $attrs.max || 9;
-                        $scope.oldImages = [];
-                        if ($scope.images && $scope.images.length > 0) {
-                            angular.forEach($scope.images, function (v, k) {
-                                $scope.oldImages.push({
-                                    url: v.url,
-                                    width: v.width,
-                                    height: v.height
+                    var init = false;
+                    $scope.$watch('images', function (imagesVal) {
+                        $scope.max = $attrs.max || 100;
+                        // console.log(imagesVal);
+                        if (imagesVal && (imagesVal.length > 0 ) && !init) {
+                            init = true;
+                            $scope.oldImages = [];
+                            if ($scope.images && $scope.images.length > 0) {
+                                angular.forEach($scope.images, function (v, k) {
+                                    $scope.oldImages.push({
+                                        url: v.pic_url || v.url || undefined,
+                                        width: v.pic_width || v.width || undefined,
+                                        height: v.pic_height || v.height || undefined,
+                                        old: true
+                                    });
                                 });
-                            });
+                            }
                         }
-
-                        // 删除历史数据
-                        $scope.removeImage = function (key) {
-                            var item = $scope.oldImages[key].url,
-                                num;
-
-                            angular.forEach($scope.images, function (v, k) {
-                                if (v.url == item) {
-                                    num = k;
-                                    return;
-                                }
-                            });
-                            if (typeof num !== 'undefined') {
-                                $scope.images.splice(num, 1);
-                            }
-                            $scope.oldImages.splice(key, 1);
-                        };
-
-                        // 上传成功
-                        $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
-                            // console.log(fileItem, response);
-                            if (response) {
-                                if (response.code == 1001) {
-                                    // console.log(1, response);
-                                    alert(response.msg);
-                                    fileItem.qiniu_url = '';
-                                    fileItem.isReady = false;
-                                    fileItem.isError = true;
-                                    fileItem.isUploaded = true;
-                                    fileItem.isSuccess = false;
-                                    updateImages();
-                                    // return false;
-                                } else if (!response.url || response.state == 'ERROR') {
-                                    // console.log(2, response);
-                                    fileItem.qiniu_url = '';
-                                    fileItem.isReady = false;
-                                    fileItem.isError = true;
-                                    fileItem.isUploaded = true;
-                                    fileItem.isSuccess = false;
-                                    // return false;
-                                    updateImages();
-                                } else {
-                                    // console.log(3, response);
-                                    fileItem.qiniu_url = response.url;
-                                    fileItem.width = response.width;
-                                    fileItem.height = response.height;
-                                    //console.log(fileItem);
-
-                                    //console.log('success', $scope.uploader);
-                                    updateImages();
-                                }
-                            }
-                        };
+                        // console.log($scope.images);
                     }, true);
+
+                    // 删除历史数据
+                    $scope.removeImage = function (key) {
+                        $scope.oldImages.splice(key, 1);
+                        console.log('$scope.oldImages   ', $scope.oldImages);
+                        updateImages();
+                    };
+
+                    // 上传成功
+                    $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+                        // console.log(fileItem, response);
+                        if (response) {
+                            if (response.code == 1001) {
+                                // console.log(1, response);
+                                alert(response.msg);
+                                fileItem.qiniu_url = '';
+                                fileItem.isReady = false;
+                                fileItem.isError = true;
+                                fileItem.isUploaded = true;
+                                fileItem.isSuccess = false;
+                                updateImages();
+                                // return false;
+                            } else if (!response.url || response.state == 'ERROR') {
+                                // console.log(2, response);
+                                fileItem.qiniu_url = '';
+                                fileItem.isReady = false;
+                                fileItem.isError = true;
+                                fileItem.isUploaded = true;
+                                fileItem.isSuccess = false;
+                                // return false;
+                                updateImages();
+                            } else {
+                                // console.log(3, response);
+                                fileItem.qiniu_url = response.url;
+                                fileItem.width = response.width;
+                                fileItem.height = response.height;
+                                //console.log(fileItem);
+
+                                //console.log('success', $scope.uploader);
+                                updateImages();
+                            }
+                        }
+                    };
 
 
                     // FILTERS
@@ -245,7 +240,7 @@ define([
                     $scope.uploader.filters.push({
                         name: 'customFilter',
                         fn: function (item /*{File|FileLikeObject}*/, options) {
-                            var len = $scope.images ? $scope.images.length : 0;
+                            var len = ($scope.images && $scope.images != 'undefined') ? $scope.images.length : 0;
                             return this.queue.length < $scope.max - len;
                         }
                     });
@@ -280,7 +275,6 @@ define([
                         // console.log('num',num);
                         // console.log('progress',$scope.uploader.progress);
                         obj.remove();
-
                         updateImages();
                     };
 
@@ -290,18 +284,19 @@ define([
                         if ($scope.oldImages.length > 0) {
                             angular.forEach($scope.oldImages, function (v, k) {
                                 $scope.images.push({
-                                    url: v.url,
-                                    width: v.width,
-                                    height: v.height
+                                    pic_url: v.url,
+                                    pic_width: v.width,
+                                    pic_height: v.height
                                 });
                             });
                         }
+                        // console.log($scope.oldImages);
                         // console.log($scope.uploader);
                         angular.forEach($scope.uploader.queue, function (v, k) {
                             $scope.images.push({
-                                url: v.qiniu_url,
-                                width: v.width,
-                                height: v.height
+                                pic_url: v.qiniu_url,
+                                pic_width: v.width,
+                                pic_height: v.height
                             });
                         });
                     }

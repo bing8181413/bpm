@@ -10098,18 +10098,18 @@ html, body {
 }
 
 /*msgToast*/
-input.ng-pristine {
+[name=hjmForm] input.ng-pristine {
     /*background-color: white;*/
 }
 
-input.ng-dirty {
+[name=hjmForm] input.ng-dirty {
     background-color: lightyellow;
 }
 
-input.ng-valid {
+[name=hjmForm] input.ng-valid {
     /*background-color: lightgreen;*/
 }
 
-input.ng-invalid {
+[name=hjmForm] input.ng-invalid {
     background-color: pink;
 }
