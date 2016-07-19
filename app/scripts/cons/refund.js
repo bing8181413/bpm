@@ -2,7 +2,7 @@ define([], function () {
     var rtn = {
         refundList: {
             columns: [
-                {name: '订单ID', field: 'order_id', className: 'text-right'},
+                {name: '订单ID', field: 'src_id', className: 'text-right'},
                 {name: '母订单号', field: 'order_no'},
                 {name: '送达时间', field: ''},
                 {

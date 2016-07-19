@@ -19,12 +19,24 @@ define([
                             }
                         })
                         .state(cons.state.main + '.order.list', {
-                            url: "/order/list",
+                            url: "/list.html",
                             views: {
                                 "": {
                                     // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
                                         return $templateCache.get('app/' + cons.biz_path + 'order/list.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.order.deliveries', {
+                            url: "/deliveries/list.html",
+                            views: {
+                                "": {
+                                    // controller: 'accountController'
+                                    templateProvider: function ($templateCache) {
+                                        return '<div hjm-grid modid="orderDeliverList" config="config" columns="columns"></div>';
+                                        // return $templateCache.get('app/' + cons.biz_path + 'order/list.html');
                                     }
                                 }
                             }

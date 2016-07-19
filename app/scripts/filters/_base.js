@@ -708,35 +708,6 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                 return result;
             }
         }])
-        // 活动支付状态
-        .filter('order_status', [function () {
-            return function (val) {
-                var result = '其他';
-                val = val + '';
-                switch (val) {
-                    case "0":
-                        result = "等待支付";
-                        break;
-                    case "1":
-                        result = "支付中";
-                        break;
-                    case "2":
-                        result = "已取消";
-                        break;
-                    case "3":
-                        result = "支付成功";
-                        break;
-                    case "4":
-                        result = "支付失败";
-                        break;
-                    case "5":
-                        result = "已完成";
-                        break;
-                }
-
-                return result;
-            }
-        }])
         // banner 类型
         .filter('banner_category', [function () {
             return function (val) {
@@ -998,7 +969,7 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                 return result;
             }
         }])
-        .filter('product_status', [function () { // 状态：0草稿箱，1为正常，2为已结束，3已删除
+        .filter('product_status', [function () { // 状态：0草稿箱，1为正常，2为已结束，3已删除,已下线
             return function (val) {
                 var result = '未知状态';
                 val = val + '';
@@ -1007,16 +978,110 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                         result = "草稿箱";
                         break;
                     case "1":
-                        result = "正在进行";
+                        result = "进行中";
                         break;
                     case "2":
                         result = "已结束";
                         break;
                     case "3":
-                        result = "已删除";
+                        result = "已下线";
                         break;
                 }
 
+                return result;
+            }
+        }])
+        // 订单状态,1待支付,2支付中,3已支付,4支付失败,5已完成,6已取消
+        .filter('order_status', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "":
+                        result = "全部";
+                        break;
+                    case "1":
+                        result = "待支付";
+                        break;
+                    case "2":
+                        result = "支付中";
+                        break;
+                    case "3":
+                        result = "已支付";
+                        break;
+                    case "4":
+                        result = "支付失败";
+                        break;
+                    case "5":
+                        result = "已完成";
+                        break;
+                    case "6":
+                        result = "已取消";
+                        break;
+                }
+                return result;
+            }
+        }])
+        // poi_type 位置类型，1小区，2写字楼
+        .filter('poi_type', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "小区";
+                        break;
+                    case "2":
+                        result = "写字楼";
+                        break;
+                }
+                return result;
+            }
+        }])
+        // return_status 返现状态:1未返现,2返现中,3已经返现,4返现失败,5作废
+        .filter('return_status', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "未返现";
+                        break;
+                    case "2":
+                        result = "返现中";
+                        break;
+                    case "3":
+                        result = "已经返现";
+                        break;
+                    case "4":
+                        result = "返现失败";
+                        break;
+                    case "5":
+                        result = "作废";
+                        break;
+                }
+                return result;
+            }
+        }])
+        // delivery_status 子单状态:1 待发货,2 已发货,3 已签收,4 已经取消
+        .filter('order_deliver_status', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "待发货";
+                        break;
+                    case "2":
+                        result = "已发货";
+                        break;
+                    case "3":
+                        result = "已签收";
+                        break;
+                    case "4":
+                        result = "已经取消";
+                        break;
+                }
                 return result;
             }
         }])

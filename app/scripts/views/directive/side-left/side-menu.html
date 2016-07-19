@@ -2,15 +2,15 @@
     <div class="menu-body">
         <ul class="nav nav-pills nav-stacked sidenav">
             <li ng-repeat="menu in menus" ng-if="menu.childs.length>0"
-                ng-class="{active: $state.includes('{{cons.state.main+'.'+menu.route}}') }">
+                ng-class="{active: (mainmenu == cons.state.main+'.'+menu.route) || $state.includes('{{cons.state.main+'.'+menu.route}}')}">
+                <!--ng-class="{active: $state.includes('{{cons.state.main+'.'+menu.route}}') }">-->
                 <a ui-sref="{{cons.state.main+'.'+menu.route}}">
                     <span class="glyphicon" ng-class="menu.icon"></span>
                 </a>
                 <ul class="nested-dropdown animated fadeIn">
                     <li class="sidemenu-header" ng-bind="menu.name" ng-if="menu.childs.length>0"></li>
                     <li ng-repeat="item in menu.childs">
-                        <a ng-class="{active: $state.includes(menu.route)}" ui-sref="{{cons.state.main+'.'+item.route}}"
-                           ng-bind="item.name"></a>
+                        <a ui-sref="{{cons.state.main+'.'+item.route}}" ng-bind="item.name"></a>
                     </li>
                 </ul>
             </li>

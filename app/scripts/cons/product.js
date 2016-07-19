@@ -2,29 +2,30 @@ define([], function () {
     var rtn = {
         productList: {
             columns: [
-                // {name: '编号', field: 'idx', className: 'text-right'},
                 {name: '商品ID', field: 'product_id', className: 'text-right'},
-                {name: '管理备注', field: 'admin_remark'},
-                {name: '标题', field: 'title'},
+                {
+                    name: '标题', field: 'title',
+                    truncateText: true,
+                    truncateTextLength: 5,
+                    truncateTextBreakOnWord: false,
+                    tooltip: 'product.title',
+                    tooltipPlacement: 'bottom',
+                },
+                {name: '上线时间', fieldDirective: '<div product-start-end data="item"></div>'},
                 {name: '拼团规则', fieldDirective: '<div groupbuy-pattern="item"></div>'},
-                {name: '开团数量', field: 'order.groupbuy_count'},
-                {name: '订单数', field: 'order.order_count'},
-                {name: '已售份数', field: 'order.order_copies'},
-                {name: '配送规则', fieldDirective: '<div product-pattern="item.patterns"></div>'},
-                {name: '商品状态', field: 'status', filter: 'product_status'},
+                {name: '配送规则', fieldDirective: '<div product-pattern data="item"></div>'},
+                {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
+                {name: '支付成<br/>功订单', field: 'order.order_count'},
+                {name: '已售<br/>份数', field: 'order.order_copies'},
+                {name: '剩余<br/>库存', field: 'inventory.used_count'},
+                {name: '商品<br/>状态', field: 'status', filter: 'product_status'},
+                {name: '商品<br/>状态', field: 'admin_remark'},
                 {
                     name: '操作',
                     fieldDirective: '<a class="btn btn-success" data="item" ' +
                     'ui-sref="main.product.update({product_id:item.product_id})">编辑</a>' +
-                    '<a class="btn btn-success" data="item" ng-click="change_status()">下线</a>'
+                    '<div product-change-status data="item"></div>'
                 },
-                // {
-                //     name: '手机',
-                //     field: 'mobile',
-                //     truncateText: true,
-                //     truncateTextLength: 11,
-                //     truncateTextBreakOnWord: false,
-                // },
             ],
             config: {
                 title: '商品管理',
@@ -35,8 +36,10 @@ define([], function () {
                     {
                         value: 'status', text: '商品状态', type: 'btnGroup', default: '1',
                         enum: [
+                            {value: '', text: '全部'},
                             {value: '1', text: '正在进行'},
-                            {value: '0', text: '已下线'},
+                            {value: '3', text: '已下线'},
+                            // {value: '0', text: '草稿'},
                         ]
                     },
                     // {value: 'date_min', text: '开始日期', type: 'date'},

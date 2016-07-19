@@ -16,16 +16,13 @@ define([
                     // console.log($rootScope.hjm.menus);
                     $rootScope.current_state = $state.current.name;
                     $scope.menus = ($rootScope.hjm || {}).menus;
-                    // angular.forEach($scope.menus, function (val, key) {
-                    //     val.childs_route = [];
-                    //     angular.forEach(val.childs, function (v, k) {
-                    //         // val.childs_route.push(v.route);
-                    //         console.log(v.name);
-                    //     });
-                    // });
-                    // $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-                    //     $rootScope.current_state_name = $state.current.name;
-                    // });
+                    $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
+                        angular.forEach($rootScope.hjm.menus, function (menuval, key) {
+                            if (menuval.route == $state.current.name.split('main.')[1]) {
+                                $scope.mainmenu = 'main.' + menuval.route;
+                            }
+                        });
+                    });
                 }
             };
         })

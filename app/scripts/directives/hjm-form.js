@@ -264,6 +264,7 @@ define([
                 scope: {
                     ngModel: '=ngModel',
                     ngModelText: '@ngModel',
+                    default: '=',
                     text: '@',
                     name: '@',
                     required: '@',
@@ -273,8 +274,8 @@ define([
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     // console.log('formElement', $scope, $attrs);
+
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
-                    // var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var type = ' type="radio"';
                     var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
@@ -308,6 +309,14 @@ define([
                             } else {
                                 $scope.$eval($scope.ngModelText + '="' + val + '"');
                             }
+                        }
+                    });
+                    $scope.$watch('default', function (val) {
+                        // console.log('default ' + $scope.default, typeof  val, val);
+                        if (typeof val == 'number') {
+                            $scope.ngModel = parseFloat(val);
+                        } else {
+                            $scope.ngModel = val;
                         }
                     });
                 }

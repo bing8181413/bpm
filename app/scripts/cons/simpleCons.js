@@ -7,6 +7,7 @@ define([
     './export',
     './user',
     './refund',
+    './order_deliver',
 ], function () {
     // console.log(arguments);
     var domain = '';

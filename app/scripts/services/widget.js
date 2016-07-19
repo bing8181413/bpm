@@ -62,7 +62,8 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                     angular.extend(options, params);
                     var ajaxConfig = {
                         headers: {
-                            'x-requested-with': 'XMLHttpRequest'
+                            'x-requested-with': 'XMLHttpRequest',
+                            'Content-Type': 'application/json;charset=UTF-8'
                         },
                         method: params.method || 'POST',
                         url: params.url.indexOf('http') == 0 ? params.url : (cons.domain + params.url),

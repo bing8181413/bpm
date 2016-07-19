@@ -19,6 +19,8 @@ define([], function () {
                 //     truncateText: true,
                 //     truncateTextLength: 11,
                 //     truncateTextBreakOnWord: false,
+                //      tooltip: 'product.title',
+                //      tooltipPlacement: 'bottom',
                 // },
             ],
             config: {
@@ -35,7 +37,8 @@ define([], function () {
                             {value: '0', text: '已下线'},
                         ]
                     },
-                    {value: 'haha', text: '城市', placeholder: '城市'},
+                    // , width: '12'  代表 col-sm-12  一列宽度 默认是6
+                    {value: 'haha', text: '城市', placeholder: '城市', width: '12'},
                     {value: 'date_min', text: '开始日期', type: 'date'},
                     {value: 'date_max', text: '结束日期', type: 'date'},
                     {value: 'datetime_min', text: '开始时间', type: 'datetime'},

@@ -1,16 +1,20 @@
-define(['./services', '../cons/simpleCons', './widget','./comfunc'], function (mod, cons) {
+define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (mod, cons) {
     mod
         .run(['$rootScope', '$state', '$stateParams', '$http', '$modal', '$location', 'widget',
             function ($rootScope, $state, $stateParams, $http, $modal, $location, widget) {
                 // $compileProvider.debugInfoEnabled(true);
                 // 监听路由事件
                 // $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-                //     // console.log(event, toState, toParams, fromState, fromParams);
-                //     // 路由改变 初始化 search
-                //     //初始化每次的 公共查询方法
-                //     // $rootScope.searchkeyword = angular.noop();
-                //     // $rootScope.current_state = $state.current.name;
-                //     // console.log($rootScope.current_state);
+                // console.log(event, toState, toParams, fromState, fromParams);
+                // 路由改变 初始化 search
+                //初始化每次的 公共查询方法
+                // $rootScope.searchkeyword = angular.noop();
+                // $rootScope.current_state = $state.current.name;
+                // console.log($rootScope.current_state);
+                // console.log($state);
+                // console.log($rootScope.hjm.menus);
+                // console.log($state.current.name);
+                // console.log($rootScope.mainmenu);
                 // });
                 //活动公共数据
                 // 获取公共数据 初始化
