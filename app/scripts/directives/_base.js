@@ -21,6 +21,7 @@ define([
     './groupbuy/list',// 拼团规则
     './order/list',// 订单规则
     './deliveries/list',// 配送规则
+    './banner/list',// 配送规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,
              simpleCons) {
@@ -284,8 +285,9 @@ define([
 
 
                     function updateImages() {
+                        init = true;
                         $scope.images = [];
-                        if ($scope.oldImages.length > 0) {
+                        if ($scope.oldImages && $scope.oldImages.length > 0) {
                             angular.forEach($scope.oldImages, function (v, k) {
                                 $scope.images.push({
                                     pic_url: v.url,

@@ -17,11 +17,13 @@ define([
                     $rootScope.current_state = $state.current.name;
                     $scope.menus = ($rootScope.hjm || {}).menus;
                     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
-                        angular.forEach($rootScope.hjm.menus, function (menuval, key) {
-                            if (menuval.route == $state.current.name.split('main.')[1]) {
-                                $scope.mainmenu = 'main.' + menuval.route;
-                            }
-                        });
+                        if ($rootScope.hjm && $rootScope.hjm.menus) {
+                            angular.forEach($rootScope.hjm.menus, function (menuval, key) {
+                                if (menuval.route == $state.current.name.split('main.')[1]) {
+                                    $scope.mainmenu = 'main.' + menuval.route;
+                                }
+                            });
+                        }
                     });
                 }
             };

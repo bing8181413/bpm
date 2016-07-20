@@ -70,7 +70,7 @@ define([
                             return false;
                         }
                         var modalInstance = $modal.open({
-                            template: '<div hjm-grid modid="orderDeliverList" config="configByOrder" columns="columnsByOrder" ext-api="extApi"></div>',
+                            template: '<div hjm-grid modid="deliveryList" config="configByOrder" columns="columnsByOrder" ext-api="extApi"></div>',
                             controller: function ($scope, $modalInstance) {
                                 // console.log($scope);
                                 $scope.extApi = '/orders/' + supscope.data.order_id + '/deliveries'

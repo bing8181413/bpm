@@ -364,7 +364,6 @@ define([
                                             angular.forEach(val.enum, function (enum_val, enum_key) {
                                                 var btnClassHtml = ('"btn-rounded":params.' + val.value + '=="' + enum_val.value + '",' +
                                                 '"btn-bordered":params.' + val.value + '!=="' + enum_val.value + '"');
-                                                console.log(btnClassHtml);
                                                 btnHtml += (' <a class="btn btn-primary" ' +
                                                 ' ng-class={' + btnClassHtml + '}' +
                                                 ' ng-model="params.' + val.value + '"' +
@@ -373,11 +372,24 @@ define([
                                             });
                                             btnHtml = '<div class="">' + btnHtml + '</div>';
                                         }
-                                        searchItemsHtml += '<div class="form-group col-sm-12">' +
-                                            '<label class="col-sm-2 control-label">' + val.text + '</label>' +
-                                            '<div class="col-sm-10">' + btnHtml +
-                                            '</div>' +
-                                            '</div>';
+                                        // searchItemsHtml += '<div class="form-group col-sm-12">' +
+                                        //     '<label class="col-sm-2 control-label">' + val.text + '</label>' +
+                                        //     '<div class="col-sm-10">' + btnHtml +
+                                        //     '</div>' +
+                                        //     '</div>';
+                                        if (val.width=='6') {
+                                            searchItemsHtml += '<div class="form-group col-sm-' + val.width + '">' +
+                                                '<label class="col-sm-4 control-label">' + val.text + '</label>' +
+                                                '<div class="col-sm-8">' + btnHtml +
+                                                '</div>' +
+                                                '</div>';
+                                        } else {
+                                            searchItemsHtml += '<div class="form-group col-sm-12">' +
+                                                '<label class="col-sm-2 control-label">' + val.text + '</label>' +
+                                                '<div class="col-sm-10">' + btnHtml +
+                                                '</div>' +
+                                                '</div>';
+                                        }
                                     } else {
                                         if (val.placeholder) {
                                             placeholder = 'placeholder="' + val.placeholder + '"';

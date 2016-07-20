@@ -186,7 +186,7 @@ define([
                     $compile($element.contents())($scope);
                     $scope.$watch($scope.ngModelText, function (val) {
                         if ($scope.type == 'number') {
-                            $scope.ngModel = parseFloat(val);
+                            $scope.ngModel = (parseFloat(val) || 0);
                         } else {
                             $scope.ngModel = val;
                         }
@@ -194,7 +194,7 @@ define([
                     $scope.$watch('ngModel', function (val) {
                         if (val || val == 0) {
                             if ($scope.type == 'number') {
-                                $scope.$eval($scope.ngModelText + '=' + parseFloat(val) + '');
+                                $scope.$eval($scope.ngModelText + '=' + (parseFloat(val) || 0) + '');
                             } else {
                                 $scope.$eval($scope.ngModelText + '="' + val + '"');
                             }
@@ -477,6 +477,7 @@ define([
                     }, true);
 
                     $scope.$watch('ngModel', function (val) {
+                        // console.log(val);
                         if (val) {
                             $scope.$eval($scope.ngModelText + '=' + JSON.stringify(val));
                         }

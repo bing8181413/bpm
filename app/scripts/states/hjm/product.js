@@ -5,7 +5,7 @@
 define([
         '../states'
         , '../../cons/simpleCons',
-        , '../../controllers/biz/pintuanController'
+        , '../../controllers/biz/productController'
     ],
     function (stateModule, cons) {
         stateModule.config(
@@ -41,7 +41,7 @@ define([
                             }
                         })
                         .state(cons.state.main + '.product.update', {
-                            url: "/update/:product_id",
+                            url: "/update.html/:product_id",
                             views: {
                                 "": {
                                     controller: 'product.updateController',

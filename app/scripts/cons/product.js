@@ -34,7 +34,7 @@ define([], function () {
                 searchSupport: true,
                 searchItems: [
                     {
-                        value: 'status', text: '商品状态', type: 'btnGroup', default: '1',
+                        value: 'status', text: '商品状态', type: 'btnGroup', default: '1', width: '6',
                         enum: [
                             {value: '', text: '全部'},
                             {value: '1', text: '正在进行'},

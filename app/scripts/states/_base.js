@@ -52,6 +52,7 @@ define([
     'states/hjm/export',
     'states/hjm/user',
     'states/hjm/refund',
+    'states/hjm/delivery',
     'states/home'
 ], function () {
 

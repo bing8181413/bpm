@@ -738,10 +738,10 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                         result = "待上线";
                         break;
                     case "1":
-                        result = "上线";
+                        result = "正在进行";
                         break;
                     case "2":
-                        result = "下线";
+                        result = "已下线";
                         break;
                 }
 

@@ -54,7 +54,26 @@ define([], function () {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                route: [{value: 'product.add', text: '新增商品'}]
+                route: [{value: 'product.add', text: '新增商品'}],
+                // 额外的bar  在搜索框下面 可以自定义事件
+                ext: {
+                    checked: {
+                        text: '',
+                        value: '_checked'
+                    },
+                    showNum: [
+                        {text: '总数', type: 'count'},
+                        {text: '已选', type: 'selected'},
+                    ],
+                    eventBtn: [
+                        {text: '全选', event: 'all_select'},
+                        {text: '取消全选', event: 'cancel_all_select'},
+                        {
+                            text: '修改子订单状态',
+                            fieldFirective: '<div change-deliveries-status data="list"></div>',
+                        },
+                    ]
+                }
             }
         }
     }

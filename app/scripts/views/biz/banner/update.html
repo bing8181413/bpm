@@ -1,1 +1,32 @@
-<div>products.add </div>
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!$stateParams.banner_id">新增运营位</h3>
+            <h3 class="panel-title" ng-if="$stateParams.banner_id">修改运营位</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>运营位</h4>
+                        <div form-input text="ID" ng-model="param.banner_id"
+                             ng-show="$stateParams.banner_id"
+                             placeholder="ID" ng-disabled="$stateParams.banner_id == param.banner_id"></div>
+                        <div form-input text="运营位标题" ng-model="param.title" placeholder="运营位标题" required="true"></div>
+                        <div form-image text="运营位图片" ng-model="_param.pics" max="1" required="true"></div>
+                        <div form-date-time text="上线时间" ng-model="param.start_time" required="true"></div>
+                        <div form-date-time text="下线时间" ng-model="param.end_time" required="true"></div>
+                        <div form-radio text="跳转类型" ng-model="param.category" required="true"
+                             source="[{text:'不跳转任何页面',value:'1'},{text:'跳转至网页',value:'0'}]" source-api=""></div>
+                        <div form-input text="URL" ng-model="param.url" placeholder="url" required="true"
+                             ng-if="param.category=='0'"></div>
+                        <div form-input text="排序数字" ng-model="param.sort_num" type="number"
+                             placeholder="排序数字" required="true"></div>
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                <a class="btn btn-info btn-rounded" ng-click="aaa()">控制台数据</a>
+            </form>
+        </div>
+    </div>
+</div>

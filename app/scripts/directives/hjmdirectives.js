@@ -438,6 +438,7 @@ define([
                     }, true);
                     $scope.$watch('list', function (defval) {
                         if (init) {
+                            // console.log('init', defval);
                             $scope.ngModel = [];
                             angular.forEach(defval, function (val, key) {
                                 var obj = {};
@@ -462,6 +463,7 @@ define([
                     }, true);
 
                     $scope.add = function (obj) {
+                        init = true;
                         obj = obj || {};
                         $scope.list = $scope.list || [];
                         $scope.list.push(angular.extend({

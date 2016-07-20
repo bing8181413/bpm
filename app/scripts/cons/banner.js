@@ -10,18 +10,25 @@ define([], function () {
                     tooltipPlacement: 'bottom',
                     tooltip: 'title',
                 },
-                {name: '类型', field: 'category'},
-                {name: '图片', fieldDirective: '<show_image url="item.pic_url" width="100"></show_image>',},
+                {name: '当前排序', field: 'sort_num'},
+                {name: '缩略图', fieldDirective: '<show_image url="item.pic_url" width="100"></show_image>',},
                 {
-                    name: '备注', field: 'remark',
+                    name: 'URL', field: 'url',
                     truncateText: true,
                     truncateTextLength: 10,
                     truncateTextBreakOnWord: false,
                     tooltipPlacement: 'bottom',
-                    tooltip: 'remark',
+                    tooltip: 'url',
                 },
-                {name: '当前排序', field: 'sort_num'},
-                {name: '当前状态', field: 'status'},
+                // {
+                //     name: '备注', field: 'remark',
+                //     truncateText: true,
+                //     truncateTextLength: 10,
+                //     truncateTextBreakOnWord: false,
+                //     tooltipPlacement: 'bottom',
+                //     tooltip: 'remark',
+                // },
+                {name: '当前状态', field: 'status', filter: 'banner_status'},
                 {
                     name: '展示时间',
                     fieldDirective: '<p ng-bind="(item.start_time+item.end_time) |characters:6:true" tooltip-placement="bottom" ' +
@@ -35,7 +42,11 @@ define([], function () {
                     tooltipPlacement: 'bottom',
 
                 },
-                {name: '操作', fieldDirective: '<a class="btn btn-primary">下线</a>'},
+                {
+                    name: '操作',
+                    fieldDirective: '<div banner-update data="item"></div>' +
+                    '<div banner-change-status data="item"></div>'
+                },
             ],
             config: {
                 title: '运营位管理',
@@ -43,15 +54,24 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
-                    {
-                        value: 'status', text: '状态', type: 'btnGroup', default: '1',
+                    {// 1 城市首页
+                        value: 'category', text: '类型', type: 'btnGroup', default: '1', width: '6',
+                        enum: [
+                            {value: '1', text: '城市首页'},
+                            {value: '', text: '全部类型'},
+                        ]
+                    },
+                    {// 0 待上线，1 上线，2 下线
+                        value: 'status', text: '状态', type: 'btnGroup', default: '1', width: '6',
                         enum: [
                             // {value: '', text: '全部'},
                             {value: '1', text: '正在进行'},
-                            {value: '0', text: '已下线'},
+                            {value: '2', text: '已下线'},
+                            {value: '0', text: '未上线'},
                         ]
                     },
-                    // {value: 'stauts', text: '状态', placeholder: '1:正在进行,0:已下线'}
+                    {value: 'banner_id', text: '运营位ID'},
+                    {value: 'title', text: '标题'},
                 ],
                 preSelectionSearch: {
                     // status: '0',

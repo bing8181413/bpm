@@ -12,34 +12,24 @@ define([
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.order', {
-                            url: "/order",
+                        .state(cons.state.main + '.delivery', {
+                            url: "/delivery",
                             templateProvider: function ($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
-                        .state(cons.state.main + '.order.list', {
+                        .state(cons.state.main + '.delivery.list', {
                             url: "/list.html",
                             views: {
                                 "": {
                                     // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'order/list.html');
+                                        return '<div hjm-grid modid="deliveryList" config="config" columns="columns"></div>';
+                                        // return $templateCache.get('app/' + cons.biz_path + 'order/list.html');
                                     }
                                 }
                             }
                         })
-                    // .state("account.update", {
-                    //     url: "/update.html/:account_id",
-                    //     views: {
-                    //         "": {
-                    //             // controller: "account.updateController",
-                    //             templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + cons.biz_path + 'pintuan/update.html');
-                    //             }
-                    //         }
-                    //     }
-                    // })
                 }
             ])
         ;

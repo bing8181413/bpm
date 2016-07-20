@@ -1,6 +1,6 @@
 define([], function () {
     var rtn = {
-        orderDeliverList: {
+        deliveryList: {
             columns: [
                 {name: '子订单号', field: 'order_sub_no'},
                 {
@@ -75,7 +75,7 @@ define([], function () {
                         {text: '取消全选', event: 'cancel_all_select'},
                         {
                             text: '修改子订单状态',
-                            fieldFirective: '<div change-deliveries-status data="list">修改子订单状态</div>',
+                            fieldFirective: '<div change-deliveries-status data="list"></div>',
                         },
                     ]
                 }
