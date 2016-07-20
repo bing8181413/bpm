@@ -15,9 +15,6 @@ define([
                 link: function ($scope, $element, $attrs) {
                     $scope.update = function () {
                         $state.go('main.banner.update', {banner_id: $scope.data.banner_id});
-                        $rootScope.bannerObj = angular.copy($scope.data);
-                        // $rootScope.selected.banner = angular.copy($scope.data);
-                        // console.log($rootScope.selected.banner);
                     }
                 }
             }
@@ -44,11 +41,13 @@ define([
                         status_text = 'ng-bind="\'上线\'"';
                         click_text = 'ng-click="change(1);"';
                         $scope.show_text = true;
+                    }else{
+                        $scope.show_text = false;
                     }
                     $scope.change = function (status) {
                         if (confirm('确认修改为' + status_title + '状态?')) {
                             widget.ajaxRequest({
-                                url: '/banner/' + $scope.data.banner_id || 0,
+                                url: '/banners/' + $scope.data.banner_id || 0,
                                 method: 'patch',
                                 scope: $scope,
                                 data: {status: status},

@@ -31,8 +31,8 @@ define([], function () {
                 {name: '当前状态', field: 'status', filter: 'banner_status'},
                 {
                     name: '展示时间',
-                    fieldDirective: '<p ng-bind="(item.start_time+item.end_time) |characters:6:true" tooltip-placement="bottom" ' +
-                    'tooltip="上线时间: {{item.start_time}} 下线时间: {{item.end_time}}">'
+                    fieldDirective: '<p ng-bind="((item.start_time || \'\')+(item.end_time || \'\')) |characters:6:true" ' +
+                    'tooltip-placement="bottom" tooltip="上线时间: {{item.start_time}} 下线时间: {{item.end_time}}">'
                 },
                 {
                     name: '创建时间', field: 'created_at', truncateText: true,
@@ -70,15 +70,15 @@ define([], function () {
                             {value: '0', text: '未上线'},
                         ]
                     },
-                    {value: 'banner_id', text: '运营位ID'},
-                    {value: 'title', text: '标题'},
+                    // {value: 'banner_id', text: '运营位ID'},
+                    {value: 'keyword', text: '关键字', placeholder: '标题,URL,备注'},
                 ],
                 preSelectionSearch: {
                     // status: '0',
                 },
                 paginationSupport: true,
                 pageInfo: {
-                    count: 5,
+                    count: 20,
                     page: 1,
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。

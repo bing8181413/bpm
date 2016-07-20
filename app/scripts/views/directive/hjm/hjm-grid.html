@@ -1,64 +1,65 @@
 <div>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">{{configDef.title||'Regular'}}
-                <!--<div class="panel-control pull-right">-->
-                <!--<a class="panelButton"><i class="fa fa-refresh"></i> </a>-->
-                <!--<a class="panelButton"><i class="fa fa-minus"></i> </a>-->
-                <!--<a class="panelButton"><i class="fa fa-remove"></i> </a>-->
-                <!--</div>-->
+            <h3 class="panel-title">
+                <div class="row">
+                    <div class="col-sm-6" style="line-height: 34px;">
+                        <span class="content" ng-bind="configDef.title||'Regular'"></span>
+                    </div>
+                    <div class="routerSection col-sm-6"></div>
+                </div>
             </h3>
         </div>
         <div class="panel-body">
             <div class="searchSection"></div>
             <div class="gridSection"></div>
-                <!--<table class="table table-bordered">-->
-                <!--<thead>-->
-                <!--<th class="{{header.className}}" bindonce ng-repeat="header in biz.columns" bo-text="header.name"></th>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                <!--<tr bindonce ng-repeat="result in biz.list" ng-init="result.idx = $index">-->
-                <!--<td bindonce ng-repeat="item in biz.columns" ng-if="item.field=='idx'" class="{{item.className}}">-->
-                <!--<span class="msg_title" bo-text="result.idx+1"></span>-->
-                <!--</td>-->
-                <!--<td bindonce ng-repeat="item in biz.columns" ng-if="item.field!=='idx'" class="{{item.className}}">-->
-                <!--<span class="msg_title {{item.className}}" ng-if="(!item.fieldDirective && item.field)"-->
-                <!--bo-text="result.{{item.field}}{{item.filter?(' | '+item.filter):''}}"></span>-->
-                <!--<a class="{{obj.className}}" ng-click="obj_on(obj.event,result);"-->
-                <!--ng-if="(!item.template && item.on)"-->
-                <!--ng-repeat="obj in item.on">{{obj.name}}</a><br>-->
+            <!--<table class="table table-bordered">-->
+            <!--<thead>-->
+            <!--<th class="{{header.className}}" bindonce ng-repeat="header in biz.columns" bo-text="header.name"></th>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr bindonce ng-repeat="result in biz.list" ng-init="result.idx = $index">-->
+            <!--<td bindonce ng-repeat="item in biz.columns" ng-if="item.field=='idx'" class="{{item.className}}">-->
+            <!--<span class="msg_title" bo-text="result.idx+1"></span>-->
+            <!--</td>-->
+            <!--<td bindonce ng-repeat="item in biz.columns" ng-if="item.field!=='idx'" class="{{item.className}}">-->
+            <!--<span class="msg_title {{item.className}}" ng-if="(!item.fieldDirective && item.field)"-->
+            <!--bo-text="result.{{item.field}}{{item.filter?(' | '+item.filter):''}}"></span>-->
+            <!--<a class="{{obj.className}}" ng-click="obj_on(obj.event,result);"-->
+            <!--ng-if="(!item.template && item.on)"-->
+            <!--ng-repeat="obj in item.on">{{obj.name}}</a><br>-->
 
-                <!--<div ng-if="item.fieldDirective" bind-html-compile="item.fieldDirective"></div>-->
-                <!--</td>-->
-                <!--</tr>-->
-                <!--</tbody>-->
+            <!--<div ng-if="item.fieldDirective" bind-html-compile="item.fieldDirective"></div>-->
+            <!--</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
 
 
-                <!--<thead>-->
-                <!--<tr>-->
-                <!--<th>Name</th>-->
-                <!--<th>Email</th>-->
-                <!--<th>Address</th>-->
-                <!--</tr>-->
-                <!--</thead>-->
-                <!--<tbody>-->
-                <!--<tr>-->
-                <!--<td>John</td>-->
-                <!--<td>john@gmail.com</td>-->
-                <!--<td>London, UK</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                <!--<td>Andy</td>-->
-                <!--<td>andygmail.com</td>-->
-                <!--<td>Merseyside, UK</td>-->
-                <!--</tr>-->
-                <!--<tr>-->
-                <!--<td>Frank</td>-->
-                <!--<td>frank@gmail.com</td>-->
-                <!--<td>Southampton, UK</td>-->
-                <!--</tr>-->
-                <!--</tbody>-->
-                </table>
-            </div>
+            <!--<thead>-->
+            <!--<tr>-->
+            <!--<th>Name</th>-->
+            <!--<th>Email</th>-->
+            <!--<th>Address</th>-->
+            <!--</tr>-->
+            <!--</thead>-->
+            <!--<tbody>-->
+            <!--<tr>-->
+            <!--<td>John</td>-->
+            <!--<td>john@gmail.com</td>-->
+            <!--<td>London, UK</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td>Andy</td>-->
+            <!--<td>andygmail.com</td>-->
+            <!--<td>Merseyside, UK</td>-->
+            <!--</tr>-->
+            <!--<tr>-->
+            <!--<td>Frank</td>-->
+            <!--<td>frank@gmail.com</td>-->
+            <!--<td>Southampton, UK</td>-->
+            <!--</tr>-->
+            <!--</tbody>-->
+            </table>
         </div>
     </div>
+</div>

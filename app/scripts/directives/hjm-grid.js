@@ -15,7 +15,6 @@ define([
                     $scope.modsconfs = angular.copy(cons.modsconfs);
                     this.modsconfs = angular.extend({}, $scope.modsconfs);
                     this.buildSearchBar = function (config, element) {
-                        var router = buildRouter(config);
                         var ext = buildExt(config);
                         if (config.searchSupport) {
                             var preSelectionSearch = '';
@@ -24,7 +23,7 @@ define([
                             }
                             var searchHtml = '<div hjm-search-bar search-items="searchItems" search-text="searchParams"' + preSelectionSearch +
                                 'reset-search="refreshCurrentView" search-action="searchAction(searchParams)"></div>'
-                            return router + searchHtml + ext;
+                            return searchHtml + ext;
                         }
                         return router + '';
                     }
@@ -37,13 +36,14 @@ define([
                     }
 
 
-                    function buildRouter(config) {
+                    this.buildRouter = function (config) {
                         var router = '';
                         if (config.route && config.route.length > 0) {
                             angular.forEach(config.route, function (router_val, router_key) {
-                                router += '<a class="btn btn-success btn-rounded" ui-sref="' + router_val.value + '" >' + router_val.text + '</a>';
+                                router += '<a class="btn btn-success btn-rounded pull-right" ui-sref="' + router_val.value + '" >' + router_val.text + '</a>';
                             });
-                            return '<div class="row"><div class="col-sm-12"><div class="panel panel-default"><div class="panel-body">' + router + '</div></div></div></div>';
+                            return router;
+                            // return '<div class="row"><div class="col-sm-12"><div class="panel panel-default"><div class="panel-body">' + router + '</div></div></div></div>';
                         }
                         return '';
                     }
@@ -281,9 +281,11 @@ define([
                                 $scope.searchItems = configDef.searchItems || [];
                                 $ctrl.refreshCurrentView();
                                 // configDef.refreshCurrentView = $scope.refreshCurrentView;
+                                var routerBar = $ctrl.buildRouter(configDef);
                                 var searchBar = $ctrl.buildSearchBar(configDef, $element);
                                 var tableContent = $ctrl.buildTable(columnsDef, configDef);
                                 // console.log(searchBar);
+                                $element.find('.routerSection').html(routerBar);
                                 $element.find('.searchSection').html(searchBar);
                                 $element.find(".gridSection").html(tableContent);
                                 $compile($element.contents())($scope);
@@ -377,7 +379,7 @@ define([
                                         //     '<div class="col-sm-10">' + btnHtml +
                                         //     '</div>' +
                                         //     '</div>';
-                                        if (val.width=='6') {
+                                        if (val.width == '6') {
                                             searchItemsHtml += '<div class="form-group col-sm-' + val.width + '">' +
                                                 '<label class="col-sm-4 control-label">' + val.text + '</label>' +
                                                 '<div class="col-sm-8">' + btnHtml +
