@@ -1,21 +1,21 @@
 define([], function () {
     var rtn = {
-        userList: {
+        addressList: {
             columns: [
-                {name: '用户ID', field: 'user_id', className: 'text-right'},
-                {name: '微信昵称', field: 'name'},
-                {name: '性别', field: 'gender', filter: 'gender'},
-                {name: '手机号', field: 'mobile'},
-                {name: '收货地址', fieldDirective: '<div user-address data="item"></div>'},
-                {name: '优惠券', field: 'coupon.count'},
-                {name: '注册时间', field: 'created_at'},
-                {name: '最近一次使用时间', field: 'authed_at'},
+                {name: '编号', field: 'address_id', className: 'text-center'},
+                {name: '联系人', field: 'contact_name'},
+                {name: '手机号', field: 'contact_mobile'},
+                {name: '城市', field: 'city_name'},
+                {name: '收货地址', field: 'address'},
+                {name: '地址标签', field: 'poi_type', filter: 'address_poi_type'},
+                {name: '地址状态', field: 'status', filter: 'address_status'},
             ],
             config: {
-                title: '用户列表',
-                api: '/users',
+                title: '收货地址列表',
+                api: '/address',
+                itemList: 'data',
                 rowItemName: 'item',
-                searchSupport: true,
+                searchSupport: false,
                 searchItems: [
                     {value: 'mobile', text: '手机号码'},
                     {value: 'name', text: '微信昵称'},
@@ -26,7 +26,7 @@ define([], function () {
                 preSelectionSearch: {
                     // ID: '123',
                 },
-                paginationSupport: true,
+                paginationSupport: false,
                 pageInfo: {
                     count: 50,
                     page: 1,

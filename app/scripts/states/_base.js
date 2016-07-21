@@ -1,5 +1,20 @@
 define([
     'states/states',
+    'states/container',
+    'states/hjm/groupbuy',
+    'states/hjm/account',
+    'states/hjm/product',
+    'states/hjm/order',
+    'states/hjm/banner',
+    'states/hjm/export',
+    'states/hjm/user',
+    'states/hjm/refund',
+    'states/hjm/delivery',
+    'states/hjm/coupon',
+    'states/hjm/exchangecode',
+    'states/hjm/community',
+    'states/hjm/sms',
+    'states/home'
     // 'states/feed',
     // 'states/family',
     // 'states/message',
@@ -43,17 +58,6 @@ define([
     // 'states/handpintuan',//手动拼团
     // 'states/sharelink',//分享链接生成
     // 'states/exchangecode',//兑换码
-    'states/container',
-    'states/hjm/groupbuy',
-    'states/hjm/account',
-    'states/hjm/product',
-    'states/hjm/order',
-    'states/hjm/banner',
-    'states/hjm/export',
-    'states/hjm/user',
-    'states/hjm/refund',
-    'states/hjm/delivery',
-    'states/home'
 ], function () {
 
 });

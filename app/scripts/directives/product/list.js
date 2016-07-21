@@ -36,13 +36,13 @@ define([
                     // console.log($scope.groupbuyPattern);
                     if ($scope.groupbuyPattern.category == 1) {
                         $scope.txt = '砍价团';
-                        $scope.txt += '<br/>拼团有效时间:' + $filter('num2hour')($scope.groupbuyPattern.group_seconds);
+                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.groupbuyPattern.group_seconds)+'小时';
                         $scope.txt += '<br/>起始价:' + $scope.groupbuyPattern.high_price;
                         $scope.txt += '<br/>底价:' + $scope.groupbuyPattern.bottom_price;
                         $scope.txt += '<br/>单人返现:' + $scope.groupbuyPattern.per_cut_amount;
                     } else if ($scope.groupbuyPattern.category == 2) {
                         $scope.txt = '人数团';
-                        $scope.txt += '<br/>拼团有效时间:' + $filter('num2hour')($scope.groupbuyPattern.group_seconds);
+                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.groupbuyPattern.group_seconds)+'小时';
                         $scope.txt += '<br/>人数:' + $scope.groupbuyPattern.group_min_num;
                         $scope.txt += '<br/>单价:' + $scope.groupbuyPattern.price;
                     }

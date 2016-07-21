@@ -25,7 +25,7 @@ define([
                                 'reset-search="refreshCurrentView" search-action="searchAction(searchParams)"></div>'
                             return searchHtml + ext;
                         }
-                        return router + '';
+                        return '';
                     }
 
                     this.buildTable = function (columns, config) {

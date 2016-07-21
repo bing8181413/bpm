@@ -2,13 +2,13 @@ define([], function () {
     var rtn = {
         productList: {
             columns: [
-                {name: '商品ID', field: 'product_id', className: 'text-right'},
+                {name: 'ID', field: 'product_id', className: 'text-center'},
                 {
                     name: '标题', field: 'title',
                     truncateText: true,
                     truncateTextLength: 5,
                     truncateTextBreakOnWord: false,
-                    tooltip: 'product.title',
+                    tooltip: 'title',
                     tooltipPlacement: 'bottom',
                 },
                 {name: '上线时间', fieldDirective: '<div product-start-end data="item"></div>'},
@@ -19,7 +19,14 @@ define([], function () {
                 {name: '已售<br/>份数', field: 'order.order_copies'},
                 {name: '剩余<br/>库存', field: 'inventory.used_count'},
                 {name: '商品<br/>状态', field: 'status', filter: 'product_status'},
-                {name: '商品<br/>状态', field: 'admin_remark'},
+                {
+                    name: '商品<br/>备注', field: 'admin_remark',
+                    truncateText: true,
+                    truncateTextLength: 7,
+                    truncateTextBreakOnWord: false,
+                    tooltip: 'admin_remark',
+                    tooltipPlacement: 'bottom',
+                },
                 {
                     name: '操作',
                     fieldDirective: '<a class="btn btn-success" data="item" ' +

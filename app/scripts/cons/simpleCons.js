@@ -8,6 +8,11 @@ define([
     './user',
     './refund',
     './deliver',
+    './coupon',
+    './exchangecode',
+    './address',
+    './community',
+    './sms',
 ], function () {
     // console.log(arguments);
     var domain = '';
@@ -19,13 +24,13 @@ define([
     };
     var api = {};
     var state = {};
-    if (location.href.indexOf('//admin.huijiame.com') > 0) {
-        domain = 'https://adminapi.huijiame.com';
+    if (location.href.indexOf('//bpm.huijiame.com') > 0) {
+        domain = 'https://mgrapi.huijiame.com';
         web_domain = 'https://www.huijiame.com';
         qiniu_domain = 'http://admin.huijiame.com';
-    } else if (location.href.indexOf('//testadmin.huijiame.com') > 0) {
-        domain = 'https://testadminapi.huijiame.com';
-        web_domain = 'https://testwww.huijiame.com';
+    } else if (location.href.indexOf('//testbpm.huijiame.com') > 0) {
+        domain = 'https://testmgrapi.huijiame.com';
+        web_domain = 'https://testbpm.huijiame.com';
         qiniu_domain = 'http://admin.huijiame.com';
     } else {
         // domain = 'https://devapi.huijiame.com';

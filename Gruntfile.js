@@ -44,16 +44,16 @@ module.exports = function (grunt) {
             }
         },
         copy: {
-            debug: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: 'app',
-                        src: ['**/*.{css,js,png,jpg,gif,jpeg,html,svg,eot,ttf,woff,woff2,json,htm,php}'],
-                        dest: '.tmp'
-                    }
-                ]
-            },
+            // debug: {
+            //     files: [
+            //         {
+            //             expand: true,
+            //             cwd: 'app',
+            //             src: ['**/*.{css,js,png,jpg,gif,jpeg,html,svg,eot,ttf,woff,woff2,json,htm,php}'],
+            //             dest: '.tmp'
+            //         }
+            //     ]
+            // },
             dist: {
                 files: [
                     {
@@ -66,7 +66,7 @@ module.exports = function (grunt) {
                             //'vendor/**/*.js', //  三方包 一般不用copy
                             '**/bootstrap.js'
                         ],
-                        dest: '../build/huijiame_admin2'
+                        dest: '../build/bpm'
                     }
                 ]
             },
@@ -84,7 +84,7 @@ module.exports = function (grunt) {
                             '!vendor/**/*.js', //  三方包 一般不用copy
                             '**/bootstrap.js'
                         ],
-                        dest: '../build/huijiame_admin2'
+                        dest: '../build/bpm'
                     }
                 ]
             }
@@ -179,7 +179,7 @@ module.exports = function (grunt) {
                     baseUrl: "app/scripts",
                     mainConfigFile: "app/scripts/main.js",
                     name: "bootstrap", // assumes a production build using almond
-                    out: "../build/huijiame_admin2/scripts/main.min.js"
+                    out: "../build/bpm/scripts/main.min.js"
                 }
             },
             //newdist: {
@@ -239,13 +239,13 @@ module.exports = function (grunt) {
         'open:dev',
         'watch'
     ]);
-    grunt.registerTask('build', [
-        'html2js:compileTpl',
-        //'compass:dev',
-        'copy:dist',
-        'requirejs:dist',
-        'connect:dist:keepalive'
-    ]);
+    // grunt.registerTask('build', [
+    //     'html2js:compileTpl',
+    //     //'compass:dev',
+    //     'copy:dist',
+    //     'requirejs:dist',
+    //     'connect:dist:keepalive'
+    // ]);
     grunt.registerTask('hbbbuild', [
         'html2js:compileTpl',
         //'compass:dev',

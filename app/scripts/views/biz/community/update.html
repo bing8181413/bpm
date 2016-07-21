@@ -1,0 +1,48 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!$stateParams.community_id">新增小区</h3>
+            <h3 class="panel-title" ng-if="$stateParams.community_id">修改小区</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>小区管理</h4>
+                        <div form-input text="ID" ng-model="param.community_id"
+                             ng-show="$stateParams.community_id"
+                             placeholder="ID" ng-disabled="$stateParams.community_id == param.community_id"></div>
+                        <div form-input text="小区名称" ng-model="param.name" placeholder="小区名称" required="true"></div>
+                        <div form-radio text="位置类型" ng-model="param.poi_type" required="true"
+                             source="[{text:'小区',value:'1'},{text:'办公室',value:'2'}]" source-api=""></div>
+                        <div form-input text="别名" ng-model="param.alias"></div>
+                        <div form-input text="城市" ng-model="param.city_name" required="true"></div>
+                        <div form-input text="行政区" ng-model="param.district" required="true"></div>
+                        <div form-input text="板块" ng-model="param.area" required="true"></div>
+                        <div form-input text="小区地址" ng-model="param.address" required="true"></div>
+                        <div form-input text="经度" ng-model="param.longitude" required="true"></div>
+                        <div form-input text="纬度" ng-model="param.latitude" required="true"></div>
+                        <!--<div form-radio text="房屋类型" ng-model="param.property_type" required="true"-->
+                             <!--source="[{text:'住宅',value:'住宅'},{text:'公寓',value:'公寓'},{text:'别墅',value:'别墅'}]"-->
+                             <!--source-api=""></div>-->
+                        <div form-input text="建筑时间" ng-model="param.completed_time" ></div>
+                        <div form-input text="总户数" ng-model="param.room_total" ></div>
+                        <div form-input text="房屋均价" ng-model="param.price" ></div>
+                        <div form-input text="邮编" ng-model="param.post_code" ></div>
+                        <div form-input text="物业公司" ng-model="param.property_company" ></div>
+                        <div form-input text="物业办公地点" ng-model="param.property_address" ></div>
+                        <div form-input text="物业电话" ng-model="param.property_phone" ></div>
+                        <div form-input text="物业费" ng-model="param.property_fee" ></div>
+                        <div form-input text="居委会名称" ng-model="param.committee_name" ></div>
+                        <div form-input text="居委会地址" ng-model="param.committee_address" ></div>
+                        <div form-input text="居委会电话" ng-model="param.committee_phone" ></div>
+                        <div form-input text="社区民警电话" ng-model="param.community_police_phone" ></div>
+                        <div form-input text="搜房网ID" ng-model="param.cell_biz_id" ></div>
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                <a class="btn btn-info btn-rounded" ng-click="aaa()">控制台数据</a>
+            </form>
+        </div>
+    </div>
+</div>

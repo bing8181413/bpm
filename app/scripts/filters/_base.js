@@ -37,6 +37,11 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                 return rtn;
             }
         }])
+        .filter('second2hour', [function () {// 秒数转小时数
+            return function (val) {
+                return parseInt((val * 1) / (60 * 60));
+            }
+        }])
         .filter('num2hour', [function () {// 数字转小时数
             return function (val) {
                 return parseInt((val * 1) / (60 * 60 * 1000));
@@ -1080,6 +1085,38 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                         break;
                     case "4":
                         result = "已经取消";
+                        break;
+                }
+                return result;
+            }
+        }])
+        // address_poi_type 地址类型 1：小区 2：公司
+        .filter('address_poi_type', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "小区";
+                        break;
+                    case "2":
+                        result = "公司";
+                        break;
+                }
+                return result;
+            }
+        }])
+        // address_status 状态 1：正常 2：删除
+        .filter('address_status', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "正常";
+                        break;
+                    case "2":
+                        result = "删除";
                         break;
                 }
                 return result;

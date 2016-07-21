@@ -33,7 +33,7 @@ define([
                         var modalInstance = $modal.open({
                             templateUrl: 'show_str_tmp.html',
                             controller: function ($scope, $modalInstance) {
-                                if (supscope.split) {
+                                if (supscope.str) {
                                     $scope.str = supscope.str.split(supscope.split);
                                 } else {
                                     $scope.str = angular.isArray(supscope.str) ? supscope.str : [supscope.str];

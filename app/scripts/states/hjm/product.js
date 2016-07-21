@@ -4,7 +4,7 @@
  */
 define([
         '../states'
-        , '../../cons/simpleCons',
+        , '../../cons/simpleCons'
         , '../../controllers/biz/productController'
     ],
     function (stateModule, cons) {
@@ -63,6 +63,5 @@ define([
                     //     }
                     // })
                 }
-            ])
-        ;
+            ]);
     })
