@@ -2,7 +2,7 @@ define([], function () {
     var rtn = {
         orderList: {
             columns: [
-                {name: '订单ID', field: 'order_id', className: 'text-right'},
+                {name: 'ID', field: 'order_id', className: 'text-right'},
                 {
                     name: '母订单号', field: 'order_no', truncateText: true,
                     truncateTextLength: 10,
@@ -19,14 +19,14 @@ define([], function () {
                     '<br/>价格:<span ng-bind="item.product.high_price"></span>'
                 },
                 {
-                    name: '收货<br/>信息',
+                    name: '收货信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/>详细地址:<br/><span ng-bind="item.address.address"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {
-                    name: '订单<br/>详情',
+                    name: '订单详情',
                     fieldDirective: '<span ng-bind="\'份数:\'+item.order_count"></span>' +
                     '<br/>金额<br/><span ng-bind="item.order_price"></span>'
                 },

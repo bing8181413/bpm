@@ -30,8 +30,8 @@ define([
                                 }
                             }
                         })
-                        .state(cons.state.main + '.roles', {
-                            url: "/role/list.html",
+                        .state(cons.state.main + '.account.roles', {
+                            url: "/role.html",
                             views: {
                                 "": {
                                     // controller: 'accountController'
@@ -41,8 +41,8 @@ define([
                                 }
                             }
                         })
-                        .state(cons.state.main + '.menus', {
-                            url: "/menu/list.html",
+                        .state(cons.state.main + '.account.menus', {
+                            url: "/menu.html",
                             views: {
                                 "": {
                                     controller: 'menusController',

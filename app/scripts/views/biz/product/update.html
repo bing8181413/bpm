@@ -13,13 +13,12 @@
                              ng-show="$stateParams.product_id"
                              placeholder="商品ID" ng-disabled="$stateParams.product_id == param.product_id"></div>
                         <div form-input text="商品标题" ng-model="param.title" placeholder="商品标题" required="true"></div>
-                        <div form-input text="商品简介" ng-model="param.brief"
-                             placeholder="不超过30个字" min="1" max="30" required="true"></div>
+                        <div form-input text="商品简介" ng-model="param.brief" placeholder="不超过30个字" min="1" max="30"></div>
                         <div form-radio text="商品品类" ng-model="param.sku" required="true"
                              source="[{text:'鲜花',value:'1'},{text:'其他',value:'0'}]" source-api=""></div>
                         <div form-radio text="商品类型" ng-model="param.frequency_type" required="true"
                              source="[{text:'单次',value:1},{text:'包月',value:2}]" source-api=""></div>
-                        <div form-input text="商品单位" ng-model="param.price_label" required="true"></div>
+                        <div form-input text="商品单位" ng-model="param.price_label"></div>
                         <div form-input text="库存总数" ng-model="param.origin_inventory" type="number"
                              required="true"></div>
                         <div form-input text="单次限购份数" ng-model="param.order_count_max" type="number"
@@ -36,8 +35,7 @@
                         <h4>拼团规则</h4>
                         <div form-radio text="互助团类型" type="radio" ng-model="param.category" required="true"
                              source="[{text:'砍价团',value:'1'},{text:'人数团',value:'2'}]" source-api=""></div>
-                        <div form-input text="玩法说明标题" ng-model="param.play_subject"
-                             placeholder="玩法说明标题" required="true"></div>
+                        <div form-input text="玩法说明标题" ng-model="param.play_subject" placeholder="玩法说明标题"></div>
                         <div form-textarea text="玩法说明内容" ng-model="param.play_introduction"
                              placeholder="玩法说明内容" required="true"></div>
 
@@ -73,13 +71,14 @@
                     <div class="panel-body">
                         <h4>管理</h4>
                         <div form-textarea text="管理备注" ng-model="param.admin_remark" required="true"></div>
-                        <div form-radio text="置顶" ng-model="param.order_by" required="true"
+                        <div form-radio text="置顶" ng-model="param.order_by" required="true" default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'0'}]" source-api=""></div>
+                        <div form-radio text="显示" ng-model="param.visible" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'0'}]" source-api=""></div>
                     </div>
                 </div>
-                <a class="btn btn-info btn-rounded" ng-click="submit(0)">保存草稿</a>
+                <a class="btn btn-info btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit(0)">保存草稿</a>
                 <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
-                <a class="btn btn-info btn-rounded" ng-click="aaa()">控制台数据</a>
             </form>
         </div>
     </div>

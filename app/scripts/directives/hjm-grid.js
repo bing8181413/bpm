@@ -40,12 +40,12 @@ define([
                         var router = '';
                         if (config.route && config.route.length > 0) {
                             angular.forEach(config.route, function (router_val, router_key) {
-                                router += '<a class="btn btn-success btn-rounded pull-right" ui-sref="' + router_val.value + '" >' + router_val.text + '</a>';
+                                router += '<a class="btn btn-success btn-rounded btn-sm pull-right" style="margin-top: -5.5px;" ui-sref="' + router_val.value + '" >' + router_val.text + '</a>';
                             });
-                            return router;
+                            return router + '<h3 class="panel-title">' + (config.title || '') + '</h3>';
                             // return '<div class="row"><div class="col-sm-12"><div class="panel panel-default"><div class="panel-body">' + router + '</div></div></div></div>';
                         }
-                        return '';
+                        return '<h3 class="panel-title">' + (config.title || '') + '</h3>';
                     }
 
                     function buildExt(config) {
@@ -281,11 +281,11 @@ define([
                                 $scope.searchItems = configDef.searchItems || [];
                                 $ctrl.refreshCurrentView();
                                 // configDef.refreshCurrentView = $scope.refreshCurrentView;
-                                var routerBar = $ctrl.buildRouter(configDef);
+                                var routerTitleBar = $ctrl.buildRouter(configDef);
                                 var searchBar = $ctrl.buildSearchBar(configDef, $element);
                                 var tableContent = $ctrl.buildTable(columnsDef, configDef);
                                 // console.log(searchBar);
-                                $element.find('.routerSection').html(routerBar);
+                                $element.find('.routerTitleSection').html(routerTitleBar);
                                 $element.find('.searchSection').html(searchBar);
                                 $element.find(".gridSection").html(tableContent);
                                 $compile($element.contents())($scope);

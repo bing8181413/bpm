@@ -24,6 +24,7 @@ define([
     './banner/list',// 配送规则
     './user/list',// 用户规则
     './sms/list',// 短信群发规则
+    './account/list',//账户 权限  菜单 规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,
              simpleCons) {

@@ -7,6 +7,7 @@ define([
 
     loginController.$injector = ['$scope', '$http', '$rootScope', '$modal', 'ab-base64', 'widget', '$interval', '$timeout'];
     function loginController($scope, $http, $rootScope, $modal, base64, widget, $interval, $timeout) {
+        $scope.loading = 0;
         if (localStorage.getItem('login_account')) {
             $rootScope.login_account = JSON.parse(base64.decode(localStorage.getItem('login_account')));
         }
@@ -106,15 +107,15 @@ define([
                             $scope.loading = 1;
                             $interval.cancel(interval);
                         }
-                    }, ($scope.success_time / 10) * 1000);
+                    }, ($scope.success_time / 10) * 500);
                     var interval_success_time = $interval(function () {
                         $interval.cancel(interval_success_time);
                         if ($rootScope.hjm.type == 'cw') {
-                            $rootScope.$state.go(cons.state.main + '.refund');
+                            $rootScope.$state.go(cons.state.main + '.refund.list');
                         } else {
                             $rootScope.$state.go(cons.state.main + '.groupbuy.list');
                         }
-                    }, $scope.success_time * 1000);
+                    }, $scope.success_time * 500);
                 }
             });
         }

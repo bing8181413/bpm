@@ -66,7 +66,7 @@ define([], function () {
                     name: '菜单',
                     fieldDirective: '<show_str str="item.menus | arraySub2String:\'name\'" split="" title="\'菜单\'" btn_str="\'菜单\'"></show_str>',
                 },
-                {name: '操作', fieldDirective: '<a class="btn btn-primary" ng-click="menu(item.id,item.menus)">菜单</a>'},
+                {name: '操作', fieldDirective: '<div change-role data="item">菜单</a>'},
                 // {
                 //     name: '手机',
                 //     field: 'mobile',

@@ -182,47 +182,6 @@ module.exports = function (grunt) {
                     out: "../build/bpm/scripts/main.min.js"
                 }
             },
-            //newdist: {
-            //    options: {
-            //        optimize: 'none',  // 这里是一个坑  默认没有使用这个选项 不加这个选项会重置为最优方式 就会找不到很多依赖注入的文件 （但是呢 文件会很小 小有个毛用）
-            //        baseUrl: "app/scripts",
-            //        mainConfigFile: "app/scripts/main.js",
-            //        name: "bootstrap", // assumes a production build using almond
-            //        //out: "../build/huijiame_admin/scripts/main.min.js",
-            //        web: {
-            //            include: [
-            //                "jQuery",
-            //                "angular",
-            //                "ui.router",
-            //                "angular-file-upload",
-            //                "bindonce",
-            //                "ab-base64",
-            //                "ui.bootstrap",
-            //                "twitter",
-            //                "ngSanitize",
-            //                "ngCsv",
-            //                "app-tpl"
-            //            ],
-            //            out: "../build/huijiame_admin/scripts/libs.js"
-            //        },
-            //        app: {
-            //            exclude: [
-            //                "jQuery",
-            //                "angular",
-            //                "ui.router",
-            //                "angular-file-upload",
-            //                "bindonce",
-            //                "ab-base64",
-            //                "ui.bootstrap",
-            //                "twitter",
-            //                "ngSanitize",
-            //                "ngCsv",
-            //                "app-tpl"
-            //            ],
-            //            out: "../build/huijiame_admin/scripts/apps.js"
-            //        }
-            //    }
-            //}
         },
         open: {
             dev: {
