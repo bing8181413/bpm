@@ -3,6 +3,7 @@ define([
     // 'angular',
     'ui.router',
     'angular-animate',
+    'angucomplete-alt',
     'angular-truncate',
     'bindonce',
     'ui.bootstrap',
@@ -34,6 +35,7 @@ define([
     return angular.module('huijiaApp', [
         'ui.router',
         'ngAnimate',
+        'angucomplete-alt',
         'truncate',
         'pasvaz.bindonce',
         'ui.bootstrap',

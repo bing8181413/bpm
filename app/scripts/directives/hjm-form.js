@@ -330,6 +330,7 @@ define([
                 scope: {
                     ngModel: '=ngModel',
                     ngModelText: '@ngModel',
+                    default: '=',
                     text: '@',
                     name: '@',
                     required: '@',
@@ -361,10 +362,12 @@ define([
                     $compile($element.contents())($scope);
 
                     $scope.$watch($scope.ngModelText, function (val) {
+                        // console.log('$scope.ngModelText', val);
                         $scope.ngModel = val || [];
                     }, true);
 
                     $scope.$watch('tmp_source', function (val) {
+                        // console.log(val);
                         if (val) {
                             var mod_arr = [];
                             angular.forEach(val, function (v, k) {
@@ -376,6 +379,7 @@ define([
                         }
                     }, true);
                     $scope.$watch('ngModel', function (mod) {
+                        // console.log('ngModel', mod);
                         if (mod) {
                             angular.forEach($scope.source, function (source, key) {
                                 $scope.source[key].checked = false;
@@ -383,15 +387,16 @@ define([
                                 angular.forEach(mod, function (mod_v, mod_k) {
                                     if (source.value == mod_v) {
                                         $scope.source[key].checked = true;
-                                        $scope.tmp_source[key] = source.value;
+                                        $scope.tmp_source[key] = source.value+'';
                                     }
                                 });
                             });
                             $scope.$eval($scope.ngModelText + '=' + JSON.stringify(mod) + '');
                         }
-                        // console.log('ngModel:   ', mod);
-                        // console.log('tmp_source', JSON.stringify($scope.tmp_source));
-                        // console.log('source', JSON.stringify($scope.source));
+                        // $scope.$watch('default', function (val) {
+                        //     console.log(val);
+                        //     $scope.ngModel = val;
+                        // });
                     }, true);
                 }
             }

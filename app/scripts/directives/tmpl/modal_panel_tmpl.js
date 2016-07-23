@@ -22,6 +22,7 @@ define([
                         content = '';
                         if (defVal) {
                             if ($scope.title) {
+                                // console.log($scope, $attrs);
                                 content += '<div class="panel panel-primary" style="margin-bottom: 0;border:0;"> ' +
                                     '           <div class="panel-heading">' +
                                     '           <button type="button" class="close" ng-click="cancel();">×</button>' +

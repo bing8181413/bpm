@@ -3,18 +3,12 @@ define([], function () {
         orderList: {
             columns: [
                 {name: 'ID', field: 'order_id', className: 'text-right'},
-                {
-                    name: '母订单号', field: 'order_no', truncateText: true,
-                    truncateTextLength: 10,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'order_no',
-                    tooltipPlacement: 'bottom',
-                },
+                {name: '母订单号', field: 'order_no'},
                 // {name: '送达时间', fieldDirective: '<div ng-bind="item.pattern.arrive_pm |num2week"></div>'},
                 {
                     name: '商品信息',
                     fieldDirective: '<span ng-bind="\'ID:\'+item.product.product_id"></span>' +
-                    '<br/>标题:<br/><span ng-bind="item.product.title|characters: 5 : false" ' +
+                    '<br/>标题:<br/><span ng-bind="item.product.title|characters: 7 : false" ' +
                     'tooltip="{{item.product.title}}" tooltip-placement="bottom"></span>' +
                     '<br/>价格:<span ng-bind="item.product.high_price"></span>'
                 },
@@ -22,7 +16,8 @@ define([], function () {
                     name: '收货信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address"></span>' +
+                    '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 5 : false" ' +
+                    ' tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {

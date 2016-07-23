@@ -12,7 +12,8 @@ define([], function () {
                     name: '收货信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address"></span>' +
+                    '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 10 : false" ' +
+                    'tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {name: '预计配送时间', field: 'expect_date'},
@@ -44,7 +45,7 @@ define([], function () {
                             {value: '4', text: '已取消'},
                         ]
                     },
-                    {text: '选择预计配送时间', type: 'date', value: 'date', width: '12'},
+                    {text: '预计配送时间', type: 'date', value: 'date', width: '12'},
                     {text: '商品标题', value: 'keyword'},
                     {text: '子订单号', value: 'order_sub_no'},
                     {text: '联系人', value: 'contact_name'},

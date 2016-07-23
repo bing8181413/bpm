@@ -31,6 +31,7 @@
             'progressButton': '../vendor/angular-progress-button/dist/progress-button.min',
             'angular-animate': '../vendor/angular-animate/angular-animate',
             'angular-truncate': '../vendor/angular-truncate/src/truncate',
+            'angucomplete-alt': '../vendor/angucomplete-alt/angucomplete-alt',
             'app-tpl': './app-tpl'
         },
         shim: {
@@ -41,6 +42,7 @@
                 deps: ['jquery']
             },
             'angular-animate': {deps: ['angular']},
+            'angucomplete-alt': {deps: ['angular']},
             'angular-truncate': {deps: ['angular']},
             'ui.bootstrap': {deps: ['angular']},
             'app-tpl': {deps: ['angular']},

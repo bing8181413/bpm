@@ -52,14 +52,26 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                 return (!val || val == null || val == 'null') ? '' : val;
             }
         }])
+        .filter('arraySub2Array', [function () {
+            return function (val, param) {
+                // "item.menus | arraySub2String:\'name\'"
+                var arr = [];
+                angular.forEach(val, function (v, k) {
+                    arr[k] = eval('v.' + param);
+                })
+                return arr;
+            }
+        }])
         .filter('arraySub2String', [function () {
             return function (val, param) {
                 // "item.menus | arraySub2String:\'name\'"
-                var rtn = '';
+                // var rtn = '';
+                var arr = [];
                 angular.forEach(val, function (v, k) {
-                    rtn += eval('v.' + param);
+                    // rtn += eval('v.' + param) + ',';
+                    arr[k] = eval('v.' + param);
                 })
-                return rtn;
+                return arr.join(',');
             }
         }])
         .filter('to_trusted', ['$sce', function ($sce) {

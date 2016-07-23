@@ -12,7 +12,7 @@ define([
     './select_boards',// 负责人管理中 选择板块
     // './order_list',// 订单列表
     // './pintuan_order_list',// 拼团的订单列表
-    // './show_str',// 分割逗号隔开的字符串展示
+    './show_str',// 分割逗号隔开的字符串展示
     './common_form',// 公用表单更新,添加  menu 使用
     './common_list',// 公用表单列表
     // './bindHtmlCompile',// 编译带绑定的 bindHtmlCompile

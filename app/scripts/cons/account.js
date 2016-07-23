@@ -64,16 +64,19 @@ define([], function () {
                 {name: '角色名称', field: 'name'},
                 {
                     name: '菜单',
-                    fieldDirective: '<show_str str="item.menus | arraySub2String:\'name\'" split="" title="\'菜单\'" btn_str="\'菜单\'"></show_str>',
+                    fieldDirective: '<div show-menu data="item.menus">菜单</a>',
+                    // field: 'menus',
+                    // filter: 'arraySub2String:\'name\'',
+                    // truncateText: true,
+                    // truncateTextLength: 11,
+                    // truncateTextBreakOnWord: false,
+                    // tooltipPlacement: 'bottom',
+                    // tooltip: function () {
+                    //     return 'dsadadas';
+                    // },
+
                 },
                 {name: '操作', fieldDirective: '<div change-role data="item">菜单</a>'},
-                // {
-                //     name: '手机',
-                //     field: 'mobile',
-                //     truncateText: true,
-                //     truncateTextLength: 11,
-                //     truncateTextBreakOnWord: false,
-                // },
             ],
             config: {
                 title: '角色管理',

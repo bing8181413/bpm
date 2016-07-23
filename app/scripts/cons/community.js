@@ -62,7 +62,7 @@ define([], function () {
                             {value: '2', text: '写字楼'},
                         ]
                     },
-                    {value: 'mobile', text: '小区名称'},
+                    {value: 'keyword', text: '小区名称'},
                 ],
                 preSelectionSearch: {
                     // ID: '123',
@@ -71,7 +71,7 @@ define([], function () {
                 pageInfo: {
                     count: 50,
                     page: 1,
-                    maxSize: 2, //最大展示页，默认3
+                    maxSize: 10, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
                 route: [{value: 'main.community.add', text: '新增小区'}]

@@ -49,6 +49,14 @@ define([], function () {
                             // {value: '0', text: '草稿'},
                         ]
                     },
+                    {
+                        value: 'visible', text: '是否显示', type: 'btnGroup', default: '0', width: '6',
+                        enum: [
+                            {value: '0', text: '全部'},
+                            {value: '1', text: '是'},
+                            {value: '2', text: '否'},
+                        ]
+                    },
                     // {value: 'date_min', text: '开始日期', type: 'date'},
                     // {value: 'date_max', text: '结束日期', type: 'date'},
                 ],
