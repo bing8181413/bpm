@@ -225,7 +225,7 @@ define([
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
-                    var type = $scope.type ? (' type="' + $scope.type + '"') : '';
+                    // var type = $scope.type ? (' type="' + $scope.type + '"') : '';
                     var placeholder = $scope.placeholder ? (' placeholder="' + $scope.placeholder + '"') : '';
                     var ngMaxlength = $scope.ngMaxlength ? (' ng-maxlength="' + $scope.ngMaxlength + '"') : '';
                     var ngMinlength = $scope.ngMinlength ? (' ng-minlength="' + $scope.ngMinlength + '"') : '';
@@ -241,7 +241,7 @@ define([
                     var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                         '<div class="col-sm-8">' +
                         '<textarea class="form-control" rows="5" ng-model="' + $scope.ngModelText + '"' +
-                        type + name + placeholder + ngMaxlength + ngMinlength + required + '>' +
+                        name + placeholder + ngMaxlength + ngMinlength + required + '>' +
                         err_show + '</div>';
                     $element.find('.form_element').html(content);
                     $compile($element.contents())($scope);

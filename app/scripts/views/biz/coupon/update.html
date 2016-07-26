@@ -1,14 +1,14 @@
 <div class="dashboard-page ">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title" ng-if="!$stateParams.coupon_id">新增兑换码</h3>
+            <h3 class="panel-title" ng-if="!$stateParams.coupon_id">新增优惠劵</h3>
         </div>
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate>
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>优惠劵</h4>
-                        <div form-input text="优惠劵名称" ng-model="param.title" placeholder="兑换码名称" required="true"></div>
+                        <div form-input text="优惠劵名称" ng-model="param.title" placeholder="优惠劵名称" required="true"></div>
 
                         <div form-radio text="适用范围" ng-model="param.category" required="true"
                              source="[{text:'不限',value:'0'},{text:'拼团',value:'1'}]" source-api=""></div>
@@ -22,7 +22,7 @@
 
                         <div form-input text="优惠劵金额" ng-model="param.price" required="true" type="number"></div>
 
-                        <div form-textarea text="手机号" ng-model="param.mobile_list" required="true" type="number"></div>
+                        <div form-textarea text="手机号" ng-model="param.mobile_list" required="true"></div>
 
                         <div form-date-time text="上线时间" ng-model="param.start_time" required="true"></div>
 
