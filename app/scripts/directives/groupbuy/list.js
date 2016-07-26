@@ -11,7 +11,7 @@ define([
                     data: '=',
                     text: '=',
                 },
-                template: '<a class="btn btn-info" ng-click="show();" ng-bind="text" ng-show="text"></a>',
+                template: '<a class="btn btn-info btn-rounded" ng-click="show();" ng-bind="text" ng-show="text"></a>',
                 link: function ($scope, $element, $attrs) {
                     $scope.ext = {groupbuy_id: $scope.data.groupbuy_id};
                     var supscope = $scope;

@@ -8,7 +8,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>兑换码</h4>
-                        <div form-input text="兑换码名称" ng-model="param.title" placeholder="运营位标题" required="true"></div>
+                        <div form-input text="兑换码名称" ng-model="param.title" placeholder="兑换码名称" required="true"></div>
 
                         <div form-radio text="适用范围" ng-model="param.category" required="true"
                              source="[{text:'不限',value:'0'},{text:'拼团',value:'1'}]" source-api=""></div>
@@ -16,7 +16,7 @@
                         <div form-radio text="商品品类" ng-model="param.sku" required="true"
                              source="[{text:'鲜花',value:'1'},{text:'不限',value:'0'}]" source-api=""></div>
 
-                        <div form-radio text="商品类型(频率)" ng-model="param.commodity_type" required="true"
+                        <div form-radio text="商品类型(频率)" ng-model="param.frequency_type" required="true"
                              source="[{text:'包月',value:'1'},{text:'单次',value:'2'},{text:'不限',value:'0'}]"
                              source-api=""></div>
 

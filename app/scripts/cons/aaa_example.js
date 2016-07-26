@@ -37,6 +37,21 @@ define([], function () {
                             {value: '0', text: '已下线'},
                         ]
                     },
+                    {   // status 1 上线 2 下线
+                        // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
+                        type: 'btnGroupArray',
+                        value: 'flag',
+                        text: '状态',
+                        default: 1, //有enum_text时 enumde index 的值
+                        width: '6',
+                        enum_text: ['status', 'available_type'],//  有  enum_text 说明是数组
+                        enum: [
+                            {value: ['', ''], text: '全部'},
+                            {value: ['1', '1'], text: '正在进行'},
+                            {value: ['2', ''], text: '已下线'},
+                            {value: ['1', '2'], text: '待上线'},
+                        ]
+                    },
                     // , width: '12'  代表 col-sm-12  一列宽度 默认是6
                     {value: 'haha', text: '城市', placeholder: '城市', width: '12'},
                     {value: 'date_min', text: '开始日期', type: 'date'},

@@ -155,7 +155,7 @@ define([
                     placeholder: '@',
                     ngMaxlength: '@max',
                     ngMinlength: '@min',
-                    ngDisabled: '@',
+                    ngDisabled: '=',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     // console.log('formElement', $scope, $attrs);

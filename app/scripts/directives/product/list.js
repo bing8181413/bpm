@@ -36,13 +36,13 @@ define([
                     // console.log($scope.groupbuyPattern);
                     if ($scope.groupbuyPattern.category == 1) {
                         $scope.txt = '砍价团';
-                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.groupbuyPattern.group_seconds)+'小时';
+                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.groupbuyPattern.group_seconds) + '小时';
                         $scope.txt += '<br/>起始价:' + $scope.groupbuyPattern.high_price;
                         $scope.txt += '<br/>底价:' + $scope.groupbuyPattern.bottom_price;
                         $scope.txt += '<br/>单人返现:' + $scope.groupbuyPattern.per_cut_amount;
                     } else if ($scope.groupbuyPattern.category == 2) {
                         $scope.txt = '人数团';
-                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.groupbuyPattern.group_seconds)+'小时';
+                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.groupbuyPattern.group_seconds) + '小时';
                         $scope.txt += '<br/>人数:' + $scope.groupbuyPattern.group_min_num;
                         $scope.txt += '<br/>单价:' + $scope.groupbuyPattern.price;
                     }
@@ -76,15 +76,18 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var status_text = '';
                     var click_text = '';
+                    var class_text = '';
                     var status_title = '';
                     if ($scope.data.status == 1) {
                         status_title = '下线';
                         status_text = 'ng-bind="\'下线\'"';
+                        class_text = 'ng-class={\"btn-warning\":true} ';
                         click_text = 'ng-click="change(3);"';
                         $scope.show_text = true;
                     } else if ($scope.data.status == 3) {
                         status_title = '上线';
                         status_text = 'ng-bind="\'上线\'"';
+                        class_text = 'ng-class={\"btn-primary\":true} ';
                         click_text = 'ng-click="change(1);"';
                         $scope.show_text = true;
                     }
@@ -102,7 +105,7 @@ define([
                             })
                         }
                     }
-                    var content = '<a class="btn btn-primary "' + status_text + click_text + ' ng-show="show_text"></a>';
+                    var content = '<a class="btn btn-rounded"' + class_text + status_text + click_text + ' ng-show="show_text"></a>';
                     $element.find('.change-status').html(content);
                     $compile($element.contents())($scope);
                 }

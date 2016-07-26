@@ -33,7 +33,7 @@ define([
                         })
                     }
                 }],
-                template: '<a class="btn btn-success" ng-click="show_change_role();">菜单</a>',
+                template: '<a class="btn btn-success btn-rounded" ng-click="show_change_role();">菜单</a>',
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var supscope = $scope;
                     $scope.show_change_role = function () {

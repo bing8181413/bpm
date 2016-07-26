@@ -47,7 +47,7 @@ define([
                             size: ''
                         });
                     }
-                    var content = '<a class="btn btn-warning" ng-click="show_cancel_order();" ng-show="data.order_status!==6">取消订单</a>';
+                    var content = '<a class="btn btn-warning btn-rounded" ng-click="show_cancel_order();" ng-show="data.order_status!==6">取消订单</a>';
                     $element.find('.order-cancel').html(content);
                     $compile($element.contents())($scope);
                 }
@@ -77,7 +77,7 @@ define([
                             size: 'lg'
                         });
                     }
-                    var content = '<a class="btn btn-info" ng-click="show_deliveries();" ng-bind="data.deliveries.length">子订单</a>';
+                    var content = '<a class="btn btn-info btn-rounded" ng-click="show_deliveries();" ng-bind="data.deliveries.length">子订单</a>';
                     $element.find('.order-deliveries').html(content);
                     $compile($element.contents())($scope);
                 }
@@ -180,7 +180,7 @@ define([
                                     $scope.title = '修改收货地址';
                                     $scope.cancel_order = function () {
                                         var err = 0;
-                                        console.log($scope.address);
+                                        // console.log($scope.address);
                                         angular.forEach($scope.address, function (val, key) {
                                             if (val == null || val == undefined) {
                                                 err++;
@@ -212,7 +212,7 @@ define([
                             }
                         );
                     }
-                    var content = '<a class="btn btn-primary" ng-click="show_order_change_address();">修改收货地址</a>';
+                    var content = '<a class="btn btn-primary btn-rounded" ng-click="show_order_change_address();">修改收货地址</a>';
                     $element.find('.order-change-address').html(content);
                     $compile($element.contents())($scope);
                 }
@@ -273,7 +273,7 @@ define([
                             size: ''
                         });
                     }
-                    var content = '<a class="btn btn-primary" ng-click="show_order_change_pattern();">修改配送时间</a>';
+                    var content = '<a class="btn btn-primary btn-rounded" ng-click="show_order_change_pattern();">修改配送时间</a>';
                     $element.find('.order-change-pattern').html(content);
                     $compile($element.contents())($scope);
                 }
@@ -322,7 +322,7 @@ define([
                             size: ''
                         });
                     }
-                    var content = '<a class="btn btn-primary" ng-click="show_order_change_remark();">修改订单备注</a>';
+                    var content = '<a class="btn btn-primary btn-rounded" ng-click="show_order_change_remark();">修改订单备注</a>';
                     $element.find('.order-change-remark').html(content);
                     $compile($element.contents())($scope);
                 }

@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-        .directive('showSms', function ($templateCache, $modal) {
+        .directive('showSms', function ($templateCache, $modal, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -19,13 +19,13 @@ define([
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                             controller: function ($scope, $modalInstance) {
                                 $scope.title = '查看发送手机号码';
-                                $scope.mobiles = supscope.data.mobiles;
+                                $timeout(function () {
+                                    $scope.mobiles = supscope.data.mobiles;
+                                }, 0);
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea text="手机号码" ng-model="mobiles"></div>' +
-                                    '<a class="btn btn-warning" ng-click="cancel();">关闭</a>' +
                                     '</form>';
                                 $scope.cancel = function () {
-                                    // $modalInstance.close();
                                     $modalInstance.dismiss('cancel');
                                 }
                             },

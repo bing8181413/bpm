@@ -1,0 +1,46 @@
+<div class="dashboard-page ">
+    <style>.angucomplete-dropdown {
+        overflow-y: auto;
+        max-height: 250px;
+    }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">新增支持城市</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="col-sm-8">
+                            <h4>新增支持城市</h4>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">城市<span class="form_label_dangus">*</span></label>
+                                <p class="form-control-static col-sm-4" ng-bind="param.city_name"></p>
+                                <div class="col-sm-4">
+                                    <angucomplete-alt
+                                            id="ex5"
+                                            placeholder="搜索城市"
+                                            pause="400"
+                                            selected-object="selectedCommunity"
+                                            remote-url="{{conDomain}}/supports/allcities"
+                                            remote-url-request-formatter="remoteUrlRequestFn"
+                                            remote-url-data-field="data"
+                                            title-field="city_name"
+                                            search-fields="city_name"
+                                            description-field="city_name"
+                                            minlength="2"
+                                            input-class="form-control form-control-small"
+                                            match-class="highlight"
+                                            override-suggestions="true"
+                                            clear-selected="true"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

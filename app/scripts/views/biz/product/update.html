@@ -11,7 +11,7 @@
                         <h4>商品信息</h4>
                         <div form-input text="商品ID" ng-model="param.product_id"
                              ng-show="$stateParams.product_id"
-                             placeholder="商品ID" ng-disabled="$stateParams.product_id == param.product_id"></div>
+                             placeholder="商品ID" ng-disabled="$stateParams.product_id"></div>
                         <div form-input text="商品标题" ng-model="param.title" placeholder="商品标题" required="true"></div>
                         <div form-input text="商品简介" ng-model="param.brief" placeholder="不超过30个字" min="1" max="30"></div>
                         <div form-radio text="商品品类" ng-model="param.sku" required="true"
@@ -40,16 +40,20 @@
                              placeholder="玩法说明内容" required="true"></div>
 
                         <div form-input text="起始价" ng-model="param.high_price" required="true" type="number"
-                             ng-show="param.category==1"></div>
+                             ng-show="param.category==1"
+                             ng-disabled="$stateParams.product_id"></div>
                         <div form-input text="底价" ng-model="param.bottom_price" required="true" type="number"
-                             ng-show="param.category==1"></div>
+                             ng-show="param.category==1"
+                             ng-disabled="$stateParams.product_id"></div>
                         <div form-input text="单人返现金额" ng-model="param.per_cut_amount" required="true" type="number"
-                             ng-show="param.category==1"></div>
+                             ng-show="param.category==1"
+                             ng-disabled="$stateParams.product_id"></div>
 
                         <div form-input text="拼团人数" ng-model="param.group_min_num" required="true" type="number"
                              ng-show="param.category==2"></div>
                         <div form-input text="拼团单价" ng-model="param.price" required="true" type="number"
-                             ng-show="param.category==2"></div>
+                             ng-show="param.category==2"
+                             ng-disabled="$stateParams.product_id"></div>
 
                         <div form-input text="拼团有效时间(小时)" ng-model="param.group_seconds" required="true"
                              type="number" placeholder="单位:小时"></div>
@@ -79,6 +83,7 @@
                 </div>
                 <a class="btn btn-info btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit(0)">保存草稿</a>
                 <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                <!--<a class="btn btn-success btn-rounded" ng-click="aaa()">提交</a>-->
             </form>
         </div>
     </div>

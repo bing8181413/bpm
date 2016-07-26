@@ -4,9 +4,9 @@ define([], function () {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-right'},
                 {name: '总量', field: 'total'},
-                {name: '适用范围', field: 'category',filter: 'coupon_category'},
-                {name: '商品品类', field: 'sku',filter: 'coupon_sku'},
-                {name: '商品类型(频率)', field: 'commodity_type',filter: 'coupon_commodity_type'},
+                {name: '适用范围', field: 'category', filter: 'coupon_category'},
+                {name: '商品品类', field: 'sku', filter: 'coupon_sku'},
+                {name: '商品类型(频率)', field: 'frequency_type', filter: 'coupon_frequency_type'},
                 {name: '金额', field: 'price'},
                 {name: '优惠券名称', field: 'title'},
                 {name: '优惠券领取数', field: 'coupon_receive_num'},
@@ -16,7 +16,6 @@ define([], function () {
                     truncateTextBreakOnWord: false,
                     tooltip: 'created_at',
                     tooltipPlacement: 'bottom',
-
                 },
                 {
                     name: '有效期',
@@ -33,8 +32,7 @@ define([], function () {
                 api: '/exchangecodes',
                 rowItemName: 'item',
                 searchSupport: false,
-                searchItems: [
-                ],
+                searchItems: [],
                 preSelectionSearch: {
                     // status: '0',
                 },

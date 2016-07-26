@@ -31,7 +31,7 @@
             'progressButton': '../vendor/angular-progress-button/dist/progress-button.min',
             'angular-animate': '../vendor/angular-animate/angular-animate',
             'angular-truncate': '../vendor/angular-truncate/src/truncate',
-            'angucomplete-alt': '../vendor/angucomplete-alt/angucomplete-alt',
+            'angucomplete-alt': '../vendor/angucomplete-alt/angucomplete-alt', // 订单的修改收货地址  使用
             'app-tpl': './app-tpl'
         },
         shim: {

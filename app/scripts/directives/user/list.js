@@ -10,9 +10,8 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-primary " ng-click="show_user_address()" ng-bind="data.address.count || 0"></a>',
+                template: '<a class="btn btn-info btn-rounded" ng-click="show_user_address()" ng-bind="data.address.count || 0"></a>',
                 link: function ($scope, $element, $attrs) {
-                    console.log($scope.data);
                     var supScope = $scope;
                     $scope.show_user_address = function (status) {
                         var modalInstance = $modal.open({
@@ -21,6 +20,9 @@ define([
                                 $scope.extApi = '';
                                 if (supScope.data.user_id) {
                                     $scope.extApi = '/users/' + supScope.data.user_id + '/addresses';
+                                }
+                                $scope.cancel = function () {
+                                    $modalInstance.dismiss('cancel');
                                 }
                             },
                             size: 'lg'

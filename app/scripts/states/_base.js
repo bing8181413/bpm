@@ -14,7 +14,9 @@ define([
     'states/hjm/exchangecode',
     'states/hjm/community',
     'states/hjm/sms',
-    'states/home'
+    'states/hjm/supports',
+
+    'states/home',
     // 'states/feed',
     // 'states/family',
     // 'states/message',

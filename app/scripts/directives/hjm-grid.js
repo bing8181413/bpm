@@ -21,7 +21,8 @@ define([
                             if (config.preSelectionSearch) {
                                 preSelectionSearch = ' pre-selection="searchParams"';
                             }
-                            var searchHtml = '<div hjm-search-bar search-items="searchItems" search-text="searchParams"' + preSelectionSearch +
+                            var searchHtml = '<div hjm-search-bar search-items="searchItems" search-text="searchParams"' +
+                                preSelectionSearch +
                                 'reset-search="refreshCurrentView" search-action="searchAction(searchParams)"></div>'
                             return searchHtml + ext;
                         }
@@ -32,20 +33,27 @@ define([
                         var header = buildHeader(columns, config);
                         var rowDef = buildRows(columns, config);
                         var tpigination = buildTfoot(columns, config);
-                        return '<table class="table table-bordered table-striped table-hover">' + header + rowDef + '</table>' + tpigination;
+                        return '<table class="table table-bordered table-striped table-hover">' + header + rowDef + '</table>' +
+                            tpigination;
                     }
 
 
                     this.buildRouter = function (config) {
+                        var close = '';
                         var router = '';
+                        if (angular.isFunction($scope.$parent.$close)) {
+                            close += '<style>.panel{margin-bottom: 0}</style><button type="button" class="close" ng-click="$parent.$close();">×</button>';
+                        }
                         if (config.route && config.route.length > 0) {
                             angular.forEach(config.route, function (router_val, router_key) {
-                                router += '<a class="btn btn-success btn-rounded btn-sm pull-right" style="margin-top: -5.5px;" ui-sref="' + router_val.value + '" >' + router_val.text + '</a>';
+                                router += '<a class="btn btn-success btn-rounded btn-sm pull-right" ' +
+                                    'style="margin-top: -5.5px;" ui-sref="' + router_val.value + '" >' + router_val.text + '</a>';
                             });
                             return router + '<h3 class="panel-title">' + (config.title || '') + '</h3>';
-                            // return '<div class="row"><div class="col-sm-12"><div class="panel panel-default"><div class="panel-body">' + router + '</div></div></div></div>';
+                            // return '<div class="row"><div class="col-sm-12">
+                            // <div class="panel panel-default"><div class="panel-body">' + router + '</div></div></div></div>';
                         }
-                        return '<h3 class="panel-title">' + (config.title || '') + '</h3>';
+                        return close + '<h3 class="panel-title">' + (config.title || '') + '</h3>';
                     }
 
                     function buildExt(config) {
@@ -58,15 +66,19 @@ define([
                                         showNum += (showNum_val.text || '总数') + ':  {{ count }}   ';
                                     } else if (showNum_val.type == 'selected') {
                                         showNum += (showNum_val.text || '已选') + ':  {{ _selected_num }}';
+                                    } else if (showNum_val.field) {
+                                        showNum += (showNum_val.text || '符合条件的') + ':  {{ _json.' + showNum_val.field + ' }}';
                                     }
                                 });
                             }
                             if (config.ext.eventBtn) {
                                 angular.forEach(config.ext.eventBtn, function (eventBtn_val, eventBtn_key) {
                                     if (eventBtn_val.event == 'all_select') {
-                                        eventBtn += ' <a class="btn btn-info btn-rounded" ng-click="all_select();" >' + eventBtn_val.text + '</a> ';
+                                        eventBtn += ' <a class="btn btn-info btn-rounded" ng-click="all_select();" >' +
+                                            eventBtn_val.text + '</a> ';
                                     } else if (eventBtn_val.event == 'cancel_all_select') {
-                                        eventBtn += ' <a class="btn btn-info btn-rounded" ng-click="cancel_all_select();">' + eventBtn_val.text + '</a> ';
+                                        eventBtn += ' <a class="btn btn-info btn-rounded" ng-click="cancel_all_select();">' +
+                                            eventBtn_val.text + '</a> ';
                                     } else if (eventBtn_val.fieldFirective) {
                                         eventBtn += eventBtn_val.fieldFirective;
                                     }
@@ -114,7 +126,8 @@ define([
                             var cssProperty = col.className ? ' class="' + col.className + '" ' : "";
                             rowItem += '<td' + cssProperty + '>' + cellContent + '</td>'
                         });
-                        return '<tbody><tr ' + useBindOnce + ' ng-repeat="' + rowItemName + ' in ' + itemList + '">' + rowItem + '</tr></tbody>'
+                        return '<tbody><tr ' + useBindOnce + ' ng-repeat="' + rowItemName + ' in ' + itemList + '">' +
+                            rowItem + '</tr></tbody>'
 
                     }
 
@@ -146,7 +159,8 @@ define([
                                 var textBreakOnWord = colDef.truncateTextBreakOnWord;
                                 itemString += '|' + ('characters: ' + textLength || 10) + ' : ' + textBreakOnWord;
                                 if (!!colDef.tooltip) {
-                                    cellContent = '<span ng-bind="' + itemString + '" tooltip="{{' + rowItemName + '.' + colDef.tooltip + '}}"' +
+                                    cellContent = '<span ng-bind="' + itemString + '" tooltip="{{' + rowItemName + '.' +
+                                        colDef.tooltip + '}}"' +
                                         ' tooltip-placement="' + (colDef.tooltipPlacement || 'bottom') + '" ></span>';
                                 } else {
                                     cellContent = '<span ng-bind="' + itemString + '" ></span>';
@@ -183,6 +197,8 @@ define([
                     extApi: '=',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
+                    // console.log(angular.isFunction($scope.$parent.$close));
+
                     var columnsDef = '';
                     var configDef = '';
                     $scope.list = [];
@@ -231,7 +247,8 @@ define([
                             }
                         });
                         // console.log($scope.extSearch);
-                        var searchParam = angular.extend({}, configDef.preSelectionSearch, searchItemsParamDefault, $scope.searchParams, pageInfo, $scope.extSearch);
+                        var searchParam = angular.extend({}, configDef.preSelectionSearch, searchItemsParamDefault,
+                            $scope.searchParams, pageInfo, $scope.extSearch);
                         // console.log(configDef.pageInfo);
                         // console.log(configDef.api);
                         $scope.api = $scope.extApi || configDef.api;
@@ -241,6 +258,7 @@ define([
                             scope: $scope,
                             data: searchParam,
                             success: function (json) {
+                                $scope._json = json;
                                 $scope.list = json.list;
                                 $scope.data = json.data;
                                 $scope.count = json.count;
@@ -307,7 +325,7 @@ define([
                 }
             };
         })
-        .directive('hjmSearchBar', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache, $compile) {
+        .directive('hjmSearchBar', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache, $compile, $log) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -360,8 +378,8 @@ define([
 
                                     } else if (val.type == 'btnGroup') {
                                         // 赋予默认值  param 对象
-                                        $scope.$eval('params.' + val.value + '="' + val.default + '"');
                                         var btnHtml = '';
+                                        $scope.$eval('params.' + val.value + '="' + val.default + '"');
                                         if (val.enum.length > 0) {
                                             angular.forEach(val.enum, function (enum_val, enum_key) {
                                                 var btnClassHtml = ('"btn-rounded":params.' + val.value + '=="' + enum_val.value + '",' +
@@ -374,11 +392,56 @@ define([
                                             });
                                             btnHtml = '<div class="">' + btnHtml + '</div>';
                                         }
-                                        // searchItemsHtml += '<div class="form-group col-sm-12">' +
-                                        //     '<label class="col-sm-2 control-label">' + val.text + '</label>' +
-                                        //     '<div class="col-sm-10">' + btnHtml +
-                                        //     '</div>' +
-                                        //     '</div>';
+                                        if (val.width == '6') {
+                                            searchItemsHtml += '<div class="form-group col-sm-' + val.width + '">' +
+                                                '<label class="col-sm-4 control-label">' + val.text + '</label>' +
+                                                '<div class="col-sm-8">' + btnHtml +
+                                                '</div>' +
+                                                '</div>';
+                                        } else {
+                                            searchItemsHtml += '<div class="form-group col-sm-12">' +
+                                                '<label class="col-sm-2 control-label">' + val.text + '</label>' +
+                                                '<div class="col-sm-10">' + btnHtml +
+                                                '</div>' +
+                                                '</div>';
+                                        }
+                                    } else if (val.type == 'btnGroupArray') {
+                                        // 赋予默认值  param 对象
+                                        var btnHtml = '';
+                                        if (val.enum_text && angular.isArray(val.enum_text)) {
+                                            angular.forEach(val.enum, function (enum_val) {
+                                                if (!angular.isArray(enum_val.value)) {
+                                                    $log.warn('btnGroup enum_text is array, but enum value is not array');
+                                                    return false;
+                                                }
+                                            });
+                                            if (angular.isNumber(val.default) || (val.default = parseInt(val.default))) {
+                                                $scope.$eval('params.' + val.value + '="' + val.default + '"');
+                                                angular.forEach(val.enum[val.default].value, function (value_val, value_key) {
+                                                    $scope.$eval('params.' + val.enum_text[value_key] + '="' + value_val + '"');
+                                                });
+                                            }
+                                            if (val.enum.length > 0) {
+                                                angular.forEach(val.enum, function (enum_val, enum_key) {
+                                                    var btnClassHtml = ('"btn-rounded":params.' + val.value + '==\'' + enum_key + '\',' +
+                                                    '"btn-bordered":params.' + val.value + '!==\'' + enum_key + '\'');
+                                                    var btnClickHtml = '';
+                                                    angular.forEach(enum_val.value, function (enum_val_arr, enum_key_arr) {
+                                                        // console.log(val.enum_text, val.enum_text[enum_key_arr],enum_key_arr);
+                                                        btnClickHtml += 'params.' + val.enum_text[enum_key_arr] + ' = \'' +
+                                                            enum_val_arr + '\';';
+                                                    });
+                                                    btnClickHtml += 'autoSearch=!!!autoSearch;params.' + val.value + '=\'' +
+                                                        enum_key + '\'';
+                                                    btnHtml += (' <a class="btn btn-primary" ' +
+                                                    ' ng-class={' + btnClassHtml + '}' +
+                                                    ' ng-model="params.' + val.value + '"' +
+                                                    ' ng-click="' + btnClickHtml + '">' +
+                                                    enum_val.text + '</a>');
+                                                });
+                                                btnHtml = '<div class="">' + btnHtml + '</div>';
+                                            }
+                                        }
                                         if (val.width == '6') {
                                             searchItemsHtml += '<div class="form-group col-sm-' + val.width + '">' +
                                                 '<label class="col-sm-4 control-label">' + val.text + '</label>' +

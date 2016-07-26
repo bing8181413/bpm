@@ -2,50 +2,20 @@ define([], function () {
     var rtn = {
         couponList: {
             columns: [
-                {name: 'ID', field: 'coupon_id', className: 'text-right'},
+                {name: 'ID', field: 'id', className: 'text-right'},
+                {name: '适用范围', field: 'coupon.category', filter: 'coupon_category'},
+                {name: '商品品类', field: 'coupon.sku', filter: 'coupon_sku'},
+                {name: '商品类型(频率)', field: 'coupon.frequency_type', filter: 'coupon_frequency_type'},
+                {name: '金额', field: 'coupon.price'},
+                {name: '优惠券名称', field: 'coupon.title'},
+                {name: '生成时间', field: 'coupon.created_at'},
                 {
-                    name: '标题', field: 'title', truncateText: true,
-                    truncateTextLength: 7,
-                    truncateTextBreakOnWord: false,
-                    tooltipPlacement: 'bottom',
-                    tooltip: 'title',
-                },
-                {name: '当前排序', field: 'sort_num'},
-                {name: '缩略图', fieldDirective: '<show_image url="item.pic_url" width="100"></show_image>',},
-                {
-                    name: 'URL', field: 'url',
-                    truncateText: true,
-                    truncateTextLength: 10,
-                    truncateTextBreakOnWord: false,
-                    tooltipPlacement: 'bottom',
-                    tooltip: 'url',
-                },
-                // {
-                //     name: '备注', field: 'remark',
-                //     truncateText: true,
-                //     truncateTextLength: 10,
-                //     truncateTextBreakOnWord: false,
-                //     tooltipPlacement: 'bottom',
-                //     tooltip: 'remark',
-                // },
-                {name: '当前状态', field: 'status', filter: 'banner_status'},
-                {
-                    name: '展示时间',
-                    fieldDirective: '<p ng-bind="((item.start_time || \'\')+(item.end_time || \'\')) |characters:6:true" ' +
-                    'tooltip-placement="bottom" tooltip="上线时间: {{item.start_time}} 下线时间: {{item.end_time}}">'
+                    name: '有效期',
+                    fieldDirective: '<span ng-bind="item.coupon.start_time+\'-\'+item.coupon.expire_time"></span>'
                 },
                 {
-                    name: '创建时间', field: 'created_at', truncateText: true,
-                    truncateTextLength: 10,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'created_at',
-                    tooltipPlacement: 'bottom',
-
-                },
-                {
-                    name: '操作',
-                    fieldDirective: '<div banner-update data="item"></div>' +
-                    '<div banner-change-status data="item"></div>'
+                    name: '手机号码',
+                    fieldDirective: '<div modal-textarea title="查看" content="item.mobile_list"></div>'
                 },
             ],
             config: {
@@ -53,9 +23,7 @@ define([], function () {
                 api: '/coupons',
                 rowItemName: 'item',
                 searchSupport: false,
-                searchItems: [
-                    {value: 'keyword', text: '关键字', placeholder: '标题,URL,备注'},
-                ],
+                searchItems: [],
                 preSelectionSearch: {
                     // status: '0',
                 },
@@ -66,7 +34,7 @@ define([], function () {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                // route: [{value: 'main.banner.add', text: '新增运营位'}]
+                route: [{value: 'main.coupon.add', text: '新增优惠劵'}]
             }
         }
     }

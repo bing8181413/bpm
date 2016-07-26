@@ -13,6 +13,7 @@ define([
     './address',
     './community',
     './sms',
+    './supports',
 ], function () {
     // console.log(arguments);
     var domain = '';

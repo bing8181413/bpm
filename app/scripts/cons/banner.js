@@ -2,7 +2,7 @@ define([], function () {
     var rtn = {
         bannerList: {
             columns: [
-                {name: '运营位ID', field: 'banner_id', className: 'text-right'},
+                {name: 'ID', field: 'banner_id', className: 'text-center'},
                 {
                     name: '标题', field: 'title', truncateText: true,
                     truncateTextLength: 7,
@@ -61,13 +61,19 @@ define([], function () {
                             {value: '', text: '全部类型'},
                         ]
                     },
-                    {// 0 待上线，1 上线，2 下线
-                        value: 'status', text: '状态', type: 'btnGroup', default: '1', width: '6',
+                    {   // status 1 上线 2 下线
+                        // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
+                        value: 'flag',
+                        text: '状态',
+                        type: 'btnGroupArray',
+                        default: 1, //有enum_text时 enumde index 的值
+                        width: '6',
+                        enum_text: ['status', 'available_type'],//  有  enum_text 说明是数组
                         enum: [
-                            // {value: '', text: '全部'},
-                            {value: '1', text: '正在进行'},
-                            {value: '2', text: '已下线'},
-                            {value: '0', text: '未上线'},
+                            {value: ['', ''], text: '全部'},
+                            {value: ['1', '1'], text: '正在进行'},
+                            {value: ['2', ''], text: '已下线'},
+                            {value: ['1', '2'], text: '待上线'},
                         ]
                     },
                     // {value: 'banner_id', text: '运营位ID'},
