@@ -2,7 +2,7 @@ define([], function () {
     var rtn = {
         groupbuyList: {
             columns: [
-                {name: '拼团ID', field: 'groupbuy_id'},
+                {name: 'ID', field: 'groupbuy_id', className: 'text-center'},
                 {
                     name: '商品信息', field: 'product.title',
                     truncateText: true,
@@ -25,13 +25,13 @@ define([], function () {
                 searchSupport: true,
                 rowItemName: 'item',
                 searchItems: [
-                    {
+                    { // 成团状态:1:开团,2:进行中,3:完成,4:已取消
                         value: 'accomplish_status', text: '拼团状态', type: 'btnGroup', default: '',
                         enum: [
                             {value: '', text: '全部'},
                             {value: '1', text: '开团'},
-                            {value: '2', text: '拼团进行中'},
-                            {value: '3', text: '拼团成功'},
+                            {value: '2', text: '进行中'},
+                            {value: '3', text: '拼团完成'},
                             {value: '4', text: '拼团取消'},
                         ]
                     },

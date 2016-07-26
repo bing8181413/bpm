@@ -42,7 +42,7 @@ define([
                         var close = '';
                         var router = '';
                         if (angular.isFunction($scope.$parent.$close)) {
-                            close += '<style>.panel{margin-bottom: 0}</style><button type="button" class="close" ng-click="$parent.$close();">×</button>';
+                            close += '<style>.panel{margin-bottom: 0;border: 0;}</style><button type="button" class="close" ng-click="$parent.$close();">×</button>';
                         }
                         if (config.route && config.route.length > 0) {
                             angular.forEach(config.route, function (router_val, router_key) {
@@ -469,17 +469,24 @@ define([
                                     }
                                 }
                             })
-                            searchItemsHtml += '<div class="form-group col-sm-6">' +
-                                '<label class="col-sm-4 control-label"></label>' +
-                                ' <button type="button" class="btn btn-success btn-bordered" ng-click="search()">' +
-                                '<i class="fa fa-search"></i>' +
-                                '&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;' +
-                                '</button>' +
-                                // ' <button class="btn btn-info btn-bordered" ng-click="resetSearch($event)">' +
-                                // '<i class="fa fa-refresh"></i>' +
-                                // '&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;' +
-                                // '</button>' +
-                                '</div>';
+                            var show_search_btn = false;
+                            angular.forEach(searchItemsVal, function (val) {
+                                if (val.type !== 'btnGroup' && val.type !== 'btnGroupArray') {
+                                    show_search_btn = true;
+                                }
+                            });
+                            if (show_search_btn)
+                                searchItemsHtml += '<div class="form-group col-sm-6">' +
+                                    '<label class="col-sm-4 control-label"></label>' +
+                                    ' <button type="button" class="btn btn-success btn-bordered" ng-click="search()">' +
+                                    '<i class="fa fa-search"></i>' +
+                                    '&nbsp;&nbsp;&nbsp;查询&nbsp;&nbsp;&nbsp;' +
+                                    '</button>' +
+                                    // ' <button class="btn btn-info btn-bordered" ng-click="resetSearch($event)">' +
+                                    // '<i class="fa fa-refresh"></i>' +
+                                    // '&nbsp;&nbsp;&nbsp;重置&nbsp;&nbsp;&nbsp;' +
+                                    // '</button>' +
+                                    '</div>';
                             $element.find('.searchParam').html(searchItemsHtml);
                             $compile($element.contents())($scope);
                         }

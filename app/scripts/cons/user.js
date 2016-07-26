@@ -2,7 +2,7 @@ define([], function () {
     var rtn = {
         userList: {
             columns: [
-                {name: '用户ID', field: 'user_id', className: 'text-right'},
+                {name: 'ID', field: 'user_id', className: 'text-center'},
                 {name: '微信昵称', field: 'name'},
                 {name: '性别', field: 'gender', filter: 'gender'},
                 {name: '手机号', field: 'mobile'},

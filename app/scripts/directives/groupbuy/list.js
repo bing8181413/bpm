@@ -37,13 +37,15 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<p ng-bind-html="txt"></p>',
+                template: '<p class="txt"></p>',
                 link: function ($scope, $element, $attrs) {
                     if ($scope.data) {
                         $scope.txt = ($scope.data.user && $scope.data.user.name) ? ('微信昵称:' + $scope.data.user.name) : '';
-                        $scope.txt += ($scope.data.address && $scope.data.address.contact_name ) ? ('<br/>联系人:' + $scope.data.address.contact_name) : '';
+                        $scope.txt += ($scope.data.address && $scope.data.address.contact_name ) ? ('<br/>\n联系人:' + $scope.data.address.contact_name) : '';
                         $scope.txt += ($scope.data.user && $scope.data.user.mobile ) ? ('<br/>手机:' + $scope.data.user.mobile) : '';
                         $scope.txt += ($scope.data.address && $scope.data.address.created_at ) ? ('<br/>开团时间<br/>' + $scope.data.address.created_at) : '';
+                        $element.find(".txt").html($scope.txt);
+                        $compile($element.contents())($scope);
                     }
                 }
             }

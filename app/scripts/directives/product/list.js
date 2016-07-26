@@ -30,7 +30,7 @@ define([
                 scope: {
                     groupbuyPattern: '=',
                 },
-                template: '<p ng-bind-html="txt"></p>',
+                template: '<p class="txt"></p>',
                 // template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'product/groupbuy-pattern.html'),
                 link: function ($scope, $element, $attrs) {
                     // console.log($scope.groupbuyPattern);
@@ -46,6 +46,8 @@ define([
                         $scope.txt += '<br/>人数:' + $scope.groupbuyPattern.group_min_num;
                         $scope.txt += '<br/>单价:' + $scope.groupbuyPattern.price;
                     }
+                    $element.find(".txt").html($scope.txt);
+                    $compile($element.contents())($scope);
                 }
             }
         })

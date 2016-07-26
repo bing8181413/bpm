@@ -515,29 +515,23 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                 return result;
             }
         }])
-        // 已完成的成团状态
+        // 已完成的成团状态  成团状态:1:开团,2:进行中,3:完成,4:已取消
         .filter('accomplish_status', [function () {
             return function (val) {
-                var result = '未成团';
+                var result = '未知';
                 val = val + '';
                 switch (val) {
-                    case "0":
-                        result = "进行中";
-                        break;
                     case "1":
-                        result = "已成团";
+                        result = "开团";
                         break;
                     case "2":
-                        result = "拼团失败";
+                        result = "进行中";
                         break;
                     case "3":
-                        result = "未开团";
+                        result = "已完成";
                         break;
                     case "4":
-                        result = "待发货";
-                        break;
-                    case "5":
-                        result = "拼团完成";
+                        result = "已取消";
                         break;
                 }
 
