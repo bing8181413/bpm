@@ -10,7 +10,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-info btn-rounded" ng-click="show_user_address()" ng-bind="data.address.count || 0"></a>',
+                template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show_user_address()" ng-bind="data.address.count || 0"></a>',
                 link: function ($scope, $element, $attrs) {
                     var supScope = $scope;
                     $scope.show_user_address = function (status) {

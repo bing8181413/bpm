@@ -10,7 +10,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-primary btn-rounded" ng-click="show_sms();">查看</a>',
+                template: '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_sms();">查看</a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_sms = function () {

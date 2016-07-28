@@ -5,8 +5,8 @@
 define([
         '../states'
         , '../../cons/simpleCons'
-        // , '../controllers/pintuanController'
-        , '../../controllers/menusController'
+        , '../../controllers/biz/menusController'
+        , '../../controllers/biz/accountController'
     ],
     function (stateModule, cons) {
         stateModule.config(
@@ -53,17 +53,39 @@ define([
                                 }
                             }
                         })
-                    // .state("account.update", {
-                    //     url: "/update.html/:account_id",
-                    //     views: {
-                    //         "": {
-                    //             // controller: "account.updateController",
-                    //             templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + cons.biz_path + 'pintuan/update.html');
-                    //             }
-                    //         }
-                    //     }
-                    // })
+                        .state(cons.state.main + '.account.update', {
+                            url: "/update.html/:account_id",
+                            views: {
+                                "": {
+                                    controller: "account.updateController",
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'account/update.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.account.add', {
+                            url: "/add.html",
+                            views: {
+                                "": {
+                                    controller: "account.updateController",
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'account/update.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.account.profile', {
+                            url: "/profile.html",
+                            views: {
+                                "": {
+                                    controller: "account.profileController",
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'account/profile.html');
+                                    }
+                                }
+                            }
+                        })
                 }
             ])
         ;

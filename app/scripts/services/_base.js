@@ -31,8 +31,8 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                     // }
                 } else {
                     $rootScope.hjm = JSON.parse(localStorage.getItem('hjm'));
-                    $rootScope.selected = angular.copy($rootScope.hjm);
-                    $rootScope.selected.account_id = '';
+                    // $rootScope.selected = angular.copy($rootScope.hjm);
+                    // $rootScope.selected.account_id = '';
                     $rootScope.current_city_name = $rootScope.hjm.current_city_name == '' ? '' : $rootScope.hjm.current_city_name;
                     $http.defaults.headers.common.Authorization = $rootScope.hjm.Authorization || '';
                 }

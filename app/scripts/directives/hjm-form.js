@@ -218,6 +218,7 @@ define([
                     placeholder: '@',
                     ngMaxlength: '@max',
                     ngMinlength: '@min',
+                    ngDisabled: '=',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     // console.log('formElement', $scope, $attrs);
@@ -225,10 +226,11 @@ define([
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
-                    // var type = $scope.type ? (' type="' + $scope.type + '"') : '';
+                    var type = $scope.type ? (' type="' + $scope.type + '"') : '';
                     var placeholder = $scope.placeholder ? (' placeholder="' + $scope.placeholder + '"') : '';
                     var ngMaxlength = $scope.ngMaxlength ? (' ng-maxlength="' + $scope.ngMaxlength + '"') : '';
                     var ngMinlength = $scope.ngMinlength ? (' ng-minlength="' + $scope.ngMinlength + '"') : '';
+                    var ngDisabled = $scope.ngDisabled && (' ng-disabled="ngDisabled"');
                     var err_show = ($scope.name || $scope.ngModelText) ?
                         ('<span class="glyphicon glyphicon-ok form-control-feedback"' +
                         'ng-show="$parent.form[\'' + ($scope.name || $scope.ngModelText) +
@@ -241,10 +243,11 @@ define([
                     var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                         '<div class="col-sm-8">' +
                         '<textarea class="form-control" rows="5" ng-model="' + $scope.ngModelText + '"' +
-                        name + placeholder + ngMaxlength + ngMinlength + required + '>' +
+                        name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + '>' +
                         err_show + '</div>';
                     $element.find('.form_element').html(content);
                     $compile($element.contents())($scope);
+
                     $scope.$watch($scope.ngModelText, function (val) {
                         $scope.ngModel = val;
                     });
@@ -264,7 +267,7 @@ define([
                 scope: {
                     ngModel: '=ngModel',
                     ngModelText: '@ngModel',
-                    default: '=',
+                    default: '@',
                     text: '@',
                     name: '@',
                     required: '@',
@@ -274,7 +277,6 @@ define([
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     // console.log('formElement', $scope, $attrs);
-
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var type = ' type="radio"';
@@ -283,24 +285,24 @@ define([
                     angular.forEach($scope.source, function (val, key) {
                         var value = '';
                         if (typeof val.value == 'number') {
-                            value = ' ng-value = "' + parseFloat(val.value) + '"';
+                            value = ' value = "' + parseFloat(val.value) + '"';
                         } else {
-                            value = ' ng-value = "' + val.value + '"';
+                            value = ' value = \"' + val.value + '\"';
                         }
-                        content += '<label class="radio-inline radio1"><input type="radio" ng-model="' +
+                        content += '<label class="radio-inline radio1"><input ' + type + ' ng-model="' +
                             $scope.ngModelText + '"' + name + value + '><span></span>' + val.text + '</label>';
                     });
                     content += '</div>';
                     $element.find('.form_element').html(content);
                     $compile($element.contents())($scope);
                     $scope.$watch($scope.ngModelText, function (val) {
-                        // console.log('ngModel ' + $scope.ngModelText, typeof  val, val);
+                        // console.log('ngModelText ' + $scope.ngModelText, typeof  val, val);
                         if (typeof val == 'number') {
                             $scope.ngModel = parseFloat(val);
                         } else {
                             $scope.ngModel = val;
                         }
-                    });
+                    }, true);
                     $scope.$watch('ngModel', function (val) {
                         // console.log('ngModel ' + $scope.ngModelText, typeof  val, val);
                         if (val || val == 0) {
@@ -310,7 +312,7 @@ define([
                                 $scope.$eval($scope.ngModelText + '="' + val + '"');
                             }
                         }
-                    });
+                    }, true);
                     $scope.$watch('default', function (val) {
                         // console.log('default ' + $scope.default, typeof  val, val);
                         if (typeof val == 'number') {
@@ -318,7 +320,7 @@ define([
                         } else {
                             $scope.ngModel = val;
                         }
-                    });
+                    },true);
                 }
             }
         })
@@ -335,19 +337,19 @@ define([
                     name: '@',
                     required: '@',
                     source: '=',
-                    sourceApi: '@',
+                    // sourceApi: '=',
                     callback: '&',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
-                    $scope.tmp_source = [];
+                    // console.log($scope.source);
                     // console.log('formElement', $scope, $attrs);
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     // var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var type = ' type="checkbox"';
+                    $scope.tmp_source = [];
                     var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                         '<div class="col-sm-8">';
-                    var checked = '';
                     angular.forEach($scope.source, function (val, key) {
                         $scope.source[key].checked = false;
                         content += '<label class="checkbox-inline checkbox1"><input ' + type +
@@ -387,16 +389,12 @@ define([
                                 angular.forEach(mod, function (mod_v, mod_k) {
                                     if (source.value == mod_v) {
                                         $scope.source[key].checked = true;
-                                        $scope.tmp_source[key] = source.value+'';
+                                        $scope.tmp_source[key] = source.value + '';
                                     }
                                 });
                             });
                             $scope.$eval($scope.ngModelText + '=' + JSON.stringify(mod) + '');
                         }
-                        // $scope.$watch('default', function (val) {
-                        //     console.log(val);
-                        //     $scope.ngModel = val;
-                        // });
                     }, true);
                 }
             }

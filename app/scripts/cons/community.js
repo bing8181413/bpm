@@ -37,7 +37,7 @@ define([], function () {
                 },
                 {
                     name: '操作',
-                    fieldDirective: '<a class="btn btn-primary" ui-sref="main.community.update({community_id:item.community_id})">编辑</a>'
+                    fieldDirective: '<a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.community.update({community_id:item.community_id})">编辑</a>'
                 },
                 {
                     name: '搜房ID', field: 'cell_biz_id',

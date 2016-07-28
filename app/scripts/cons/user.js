@@ -19,7 +19,8 @@ define([], function () {
                 searchItems: [
                     {value: 'mobile', text: '手机号码'},
                     {value: 'name', text: '微信昵称'},
-                    {value: 'authed_at', text: '登陆日期', type: 'date'},
+                    {value: 'openid', text: '微信ID'},
+                    // {value: 'authed_at', text: '登陆日期', type: 'date'},
                     // {value: 'datetime_min', text: '开始时间', type: 'datetime'},
                     // {value: 'datetime_max', text: '结束时间', type: 'datetime'},
                 ],

@@ -11,7 +11,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: ' <a class="btn btn-primary btn-rounded" ng-click="show_exchangecode_export();">导出</a>',
+                template: ' <a class="btn btn-primary btn-rounded btn-sm" ng-click="show_exchangecode_export();">导出</a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_exchangecode_export = function () {
@@ -21,10 +21,10 @@ define([
                                 $scope.title = '兑换码';
                                 $scope.list = supscope.data.list;
                                 $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
-                                    '<div form-textarea="" text="兑换码" ng-model="export_data" required="true"></div>' +
+                                    '<div form-textarea="" text="兑换码" ng-model="export_data"></div>' +
                                     '</form>';
                                 widget.ajaxRequest({
-                                    url: '/exchangecodes/' + supscope.data.id + '/exports',
+                                    url: '/exchangecodes/exports/' + supscope.data.id + '',
                                     method: 'GET',
                                     scope: $scope,
                                     data: {},

@@ -22,8 +22,8 @@
             // "twitter": "../vendor/bootstrap/bootstrap.min",
             //'highcharts':'../vendor/highcharts/highcharts',
             //'app': './app',
-            'ngSanitize': '../vendor/angular-sanitize/angular-sanitize.min',
-            'ngCsv': '../vendor/ng-csv/build/ng-csv',
+            // 'ngSanitize': '../vendor/angular-sanitize/angular-sanitize.min',
+            // 'ngCsv': '../vendor/ng-csv/build/ng-csv',
             'perfect-scrollbar': '../vendor/perfect-scrollbar/src/perfect-scrollbar',
             // 'perfectScrollbarjquery': '../vendor/perfect-scrollbar/js/perfect-scrollbar',
             'perfect_scrollbar': '../vendor/angular-perfect-scrollbar/src/angular-perfect-scrollbar',
@@ -31,7 +31,8 @@
             'progressButton': '../vendor/angular-progress-button/dist/progress-button.min',
             'angular-animate': '../vendor/angular-animate/angular-animate',
             'angular-truncate': '../vendor/angular-truncate/src/truncate',
-            'angucomplete-alt': '../vendor/angucomplete-alt/angucomplete-alt', // 订单的修改收货地址  使用
+            'angucomplete-alt': '../vendor/angucomplete-alt/dist/angucomplete-alt.min', // 订单的修改收货地址  使用
+            'angular-aria': '../vendor/angular-aria/angular-aria.min', //
             'app-tpl': './app-tpl'
         },
         shim: {
@@ -43,6 +44,7 @@
             },
             'angular-animate': {deps: ['angular']},
             'angucomplete-alt': {deps: ['angular']},
+            'angular-aria': {deps: ['angular']},
             'angular-truncate': {deps: ['angular']},
             'ui.bootstrap': {deps: ['angular']},
             'app-tpl': {deps: ['angular']},
@@ -60,8 +62,8 @@
             //'ui.select2': { deps: ['angular']},
             //'ng.ueditor': { deps: ['angular']},
             'ui.router': {deps: ['angular']},
-            'ngSanitize': {deps: ['angular']},// 使用csv
-            'ngCsv': {deps: ['angular']}, // 使用csv 到处excle 表格
+            // 'ngSanitize': {deps: ['angular']},// 使用csv
+            // 'ngCsv': {deps: ['angular']}, // 使用csv 到处excle 表格
         },
     });
     //require(['bootstrap']); //  这里不能直接加载 因为要先加载玩main.min.js才能执行 否则会找不到对应的模块文件

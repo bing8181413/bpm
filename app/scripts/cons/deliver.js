@@ -37,7 +37,7 @@ define([], function () {
                 searchItems: [
                     {
                         //  delivery_status 子单状态:1 待发货,2 已发货,3 已签收,4 已经取消
-                        value: 'delivery_status', text: '子单状态', type: 'btnGroup', default: '1',
+                        value: 'delivery_status', text: '子单状态', type: 'btnGroup', default: '1',width: '6',
                         enum: [
                             {value: '1', text: '待发货'},
                             {value: '2', text: '已发货'},
@@ -45,11 +45,11 @@ define([], function () {
                             {value: '4', text: '已取消'},
                         ]
                     },
-                    {text: '预计配送时间', type: 'date', value: 'date', width: '12'},
+                    {text: '预计配送时间', type: 'datetime', value: 'date', width: '6'},
                     {text: '商品标题', value: 'keyword'},
                     {text: '子订单号', value: 'order_sub_no'},
                     {text: '联系人', value: 'contact_name'},
-                    {text: '手机号', value: 'mobile'},
+                    {text: '手机号', value: 'contact_mobile'},
                 ],
                 preSelectionSearch: {
                     // key: 'deviceNo',

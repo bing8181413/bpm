@@ -55,7 +55,7 @@ define([
                     var supscope = $scope;
                     var content = '';
                     // console.log($scope, $attrs);
-                    content = '<a class="btn btn-primary btn-rounded" ng-click="show_modal();" ng-bind="title"></a>';
+                    content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_modal();" ng-bind="title"></a>';
                     $element.find('.show_textarea').html(content);
                     $compile($element.contents())($scope)
                     $scope.show_modal = function () {
@@ -68,8 +68,7 @@ define([
                                     $scope.content = supscope.content;
                                 }, 0);
                                 $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
-                                    '<div form-textarea text="{{title}}" ng-model="content"' +
-                                    ' required = "true" > </div > ' +
+                                    '<div form-textarea text="{{title}}" ng-model="content"> </div > ' +
                                     '</form>';
                                 $scope.cancel = function () {
                                     $modalInstance.dismiss('cancel');

@@ -1,15 +1,15 @@
 <ul class="nav navbar-nav pull-right navbar-right">
     <li class="admin-dropdown">
-        <a class="" ng-click="logout()">Logout</a>
+        <a class="" ng-click="logout()">退出账户</a>
     </li>
-    <li class="admin-dropdown" ng-if="hjm.current_city_name">
-        <a ng-bind="hjm.current_city_name"></a>
+    <li class="admin-dropdown" ng-if="hjm.city_name">
+        <a ng-bind="hjm.city_name"></a>
     </li>
     <!--<li class="dropdown" dropdown="" on-toggle="toggled(open)">-->
     <!--<a class="dropdown-toggle notoggle"-->
     <!--dropdown-toggle="" aria-haspopup="true"-->
     <!--aria-expanded="false">-->
-    <!--<span class="ng-binding">Language</span> </a>-->
+    <!--<span ng-bind="hjm.current_city_name"></span> </a>-->
     <!--<ul class="dropdown-menu lang pull-right animated fadeIn">-->
     <!--<li><a ng-click="changeLanguage('en')">English</a></li>-->
     <!--<li><a ng-click="changeLanguage('de')">Dutch</a></li>-->
@@ -25,8 +25,9 @@
             <img src="styles/images/flat-avatar.png" class="topnav-img">
             <span class="hidden-sm" ng-bind="hjm.username"></span></a>
         <ul class="dropdown-menu pull-right animated fadeIn">
-            <!--<li><a ui-sref="account" class="ng-binding">Profile</a></li>-->
-            <li><a class="ng-binding" ng-click="logout()">Logout</a></li>
+            <li><a ui-sref="main.account.profile">个人信息</a></li>
+            <li><a class="ng-binding" ng-click="change_city()">切换定位城市</a></li>
+            <li><a class="ng-binding" ng-click="logout()">退出</a></li>
         </ul>
     </li>
 </ul>

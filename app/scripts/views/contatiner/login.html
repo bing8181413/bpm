@@ -1,9 +1,4 @@
 <div class="login-page">
-    <style>
-        /*.progress-button.login {*/
-            /*background: 0 0;*/
-        /*}*/
-    </style>
     <div class="row">
         <div class="col-md-4 col-lg-4 col-md-offset-4 col-lg-offset-4">
             <img src="styles/images/flat-avatar.png" class="user-avatar">
@@ -13,24 +8,24 @@
                     <div class="form-group">
                         <input type="text" ng-model="uname"
                                class="form-control input-underline input-lg ng-pristine ng-untouched ng-valid"
-                               placeholder="Account">
+                               placeholder="账户">
                     </div>
                     <div class="form-group">
                         <input type="password" ng-model="pwd" class="form-control input-underline input-lg"
-                               placeholder="Password">
+                               placeholder="密码">
                     </div>
                     <div class="form-group">
                         <input type="text" ng-model="usercode" class="form-control input-underline pull-left"
-                               placeholder="verifyCode" style="width:60%">
+                               placeholder="验证码" style="width:60%">
                         <a class="btn btn-white btn-outline" ng-click="get_verify_code()"
-                           ng-disabled="disabled_get_verify_code">verify Code
+                           ng-disabled="disabled_get_verify_code">获取验证码
                             <span ng-if="remain_time<time_count" ng-bind="remain_time"></span>
                         </a>
                     </div>
                 </div>
                 <button progress-button class=" btn btn-white btn-outline btn-lg login" value="loading"
-                        in-progress="Log in.." type="bottom-bar" complete="Success!" ng-click="login()">
-                    Log in
+                        in-progress="登录中.." type="bottom-bar" complete="登录成功!" ng-click="login()">
+                    登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;录
                 </button>
             </form>
         </div>

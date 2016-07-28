@@ -11,7 +11,7 @@ define([
                 // scope: {
                 //     list: '=',
                 // },
-                template: ' <a class="btn btn-primary btn-rounded" ng-click="show_deliveries_change_status();">修改子订单状态</a>',
+                template: ' <a class="btn btn-primary btn-rounded btn-sm" ng-click="show_deliveries_change_status();">修改子订单状态</a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_deliveries_change_status = function () {

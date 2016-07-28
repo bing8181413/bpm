@@ -107,7 +107,7 @@ define([
                             })
                         }
                     }
-                    var content = '<a class="btn btn-rounded"' + class_text + status_text + click_text + ' ng-show="show_text"></a>';
+                    var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text + ' ng-show="show_text"></a>';
                     $element.find('.change-status').html(content);
                     $compile($element.contents())($scope);
                 }

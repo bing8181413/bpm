@@ -40,17 +40,18 @@ define([
                     $scope.remain_time = $scope.time_count;
                 }
             }, 1000, $scope.time_count);
-            $http.post(cons.api.account_check, $scope.verify_praram)
-                .success(function (json) {
+            widget.ajaxRequest({
+                url: cons.api.account_check,
+                scope: $scope,
+                data: $scope.verify_praram,
+                success: function (json) {
                     if (json.code == 0) {
                         widget.msgToast('短信发送成功,注意手机查收');
                     } else {
                         widget.msgToast(json.msg);
                     }
-                })
-                .error(function () {
-                    widget.msgToast('服务器错误,请联系管理员');
-                })
+                }
+            });
         }
         $scope.login = function () {
             if (!$scope.uname || !$scope.pwd) {
@@ -67,12 +68,13 @@ define([
                     $scope.baseAuth = 'Basic :' + base64.encode(json.username + ':' + json.password);
                     $rootScope.hjm = {
                         account_id: json.data.account_id,
-                        current_city_name: json.data.city_name,
+                        city_name: json.data.city_name,
+                        city_list: json.data.city_list,
                         current_city_list: json.data.city_list,
                         menus: json.data.menus,
                         username: json.data.username,
                         pwd: $scope.pwd,
-                        type: json.data.type,
+                        role: json.data.role,
                         mobile: json.data.mobile,
                         email: json.data.email,
                         weixin_nickname: json.data.weixin_nickname,
@@ -82,12 +84,6 @@ define([
                         Authorization: $scope.baseAuth
                     };
 
-                    $rootScope.selected = {
-                        account_id: '',
-                        menus: json.data.menus,
-                        username: $rootScope.username,
-                        Authorization: $scope.baseAuth
-                    };
                     $http.defaults.headers.common.Authorization = $scope.baseAuth;
                     $rootScope.nowlogintimestamp = new Date().getTime();
                     $rootScope.lastlogintimestamp = JSON.parse($rootScope.nowlogintimestamp);

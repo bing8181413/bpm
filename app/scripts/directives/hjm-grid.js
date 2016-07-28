@@ -42,7 +42,7 @@ define([
                         var close = '';
                         var router = '';
                         if (angular.isFunction($scope.$parent.$close)) {
-                            close += '<style>.panel{margin-bottom: 0;border: 0;}</style><button type="button" class="close" ng-click="$parent.$close();">×</button>';
+                            close += '<button type="button" class="close" ng-click="$parent.$close();">×</button>';
                         }
                         if (config.route && config.route.length > 0) {
                             angular.forEach(config.route, function (router_val, router_key) {
@@ -74,10 +74,10 @@ define([
                             if (config.ext.eventBtn) {
                                 angular.forEach(config.ext.eventBtn, function (eventBtn_val, eventBtn_key) {
                                     if (eventBtn_val.event == 'all_select') {
-                                        eventBtn += ' <a class="btn btn-info btn-rounded" ng-click="all_select();" >' +
+                                        eventBtn += ' <a class="btn btn-info btn-rounded btn-sm" ng-click="all_select();" >' +
                                             eventBtn_val.text + '</a> ';
                                     } else if (eventBtn_val.event == 'cancel_all_select') {
-                                        eventBtn += ' <a class="btn btn-info btn-rounded" ng-click="cancel_all_select();">' +
+                                        eventBtn += ' <a class="btn btn-info btn-rounded btn-sm" ng-click="cancel_all_select();">' +
                                             eventBtn_val.text + '</a> ';
                                     } else if (eventBtn_val.fieldFirective) {
                                         eventBtn += eventBtn_val.fieldFirective;
@@ -362,13 +362,13 @@ define([
                                         var dateHtml = val.type == "datetime" ?
                                         '<hjm_date_time ng-model="params.' + val.value + '"></hjm_date_time>'
                                             : '<hjm_date ng-model="params.' + val.value + '"></hjm_date>';
-                                        if (val.width) {
+                                        if (val.width == 12) {
                                             searchItemsHtml += '<div class="form-group col-sm-' + val.width + '">' +
                                                 '<label class="col-sm-2 control-label">' + val.text + '</label>' +
                                                 '<div class="col-sm-10">' + dateHtml +
                                                 '</div>' +
                                                 '</div>';
-                                        } else {
+                                        } else if (val.width == 6 || !val.width) {
                                             searchItemsHtml += '<div class="form-group col-sm-6">' +
                                                 '<label class="col-sm-4 control-label">' + val.text + '</label>' +
                                                 '<div class="col-sm-8">' + dateHtml +
@@ -384,7 +384,7 @@ define([
                                             angular.forEach(val.enum, function (enum_val, enum_key) {
                                                 var btnClassHtml = ('"btn-rounded":params.' + val.value + '=="' + enum_val.value + '",' +
                                                 '"btn-bordered":params.' + val.value + '!=="' + enum_val.value + '"');
-                                                btnHtml += (' <a class="btn btn-primary" ' +
+                                                btnHtml += (' <a class="btn btn-primary btn-sm" ' +
                                                 ' ng-class={' + btnClassHtml + '}' +
                                                 ' ng-model="params.' + val.value + '"' +
                                                 ' ng-click="params.' + val.value + ' = \'' + enum_val.value + '\';autoSearch=!!!autoSearch;">' +
@@ -433,7 +433,7 @@ define([
                                                     });
                                                     btnClickHtml += 'autoSearch=!!!autoSearch;params.' + val.value + '=\'' +
                                                         enum_key + '\'';
-                                                    btnHtml += (' <a class="btn btn-primary" ' +
+                                                    btnHtml += (' <a class="btn btn-primary btn-sm" ' +
                                                     ' ng-class={' + btnClassHtml + '}' +
                                                     ' ng-model="params.' + val.value + '"' +
                                                     ' ng-click="' + btnClickHtml + '">' +

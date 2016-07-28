@@ -69,11 +69,11 @@ define([], function () {
                             {value: '6', text: '已取消'},
                         ]
                     },
-                    {value: 'date_min', text: '下单时间开始', type: 'datetime'},
-                    {value: 'date_max', text: '下单时间结束', type: 'date'},
-                    {value: 'order_id', text: '母订单号'},
-                    {value: 'user_id', text: '联系人'},
-                    {value: 'mobile', text: '手机号'},
+                    {value: 'date_min', text: '(下单时间)--开始', type: 'datetime'},
+                    {value: 'date_max', text: '(下单时间)--结束', type: 'datetime'},
+                    {value: 'order_no', text: '母订单号'},
+                    {value: 'contact_name', text: '联系人'},
+                    {value: 'contact_mobile', text: '手机号'},
                     // {value: 'cityname', text: '城市', placeholder: '城市', type: 'date'}
                 ],
                 preSelectionSearch: {
@@ -82,9 +82,9 @@ define([], function () {
                 },
                 paginationSupport: true,
                 pageInfo: {
-                    count: 2,
+                    count: 20,
                     page: 1,
-                    maxSize: 2, //最大展示页，默认3
+                    maxSize: 5, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
             },

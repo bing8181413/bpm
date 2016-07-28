@@ -5,11 +5,14 @@ define([
 ], function (mod, con) {
     mod.controller('coupon.addController', addController)
 
-    addController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter'];
-    function addController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter) {
+    addController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    function addController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
         }
+        $timeout(function () {
+            $scope.is_nofity = 0;
+        }, 1000);
         $scope.submit = function (status) {
             $scope.param.scope_type = 3;
             if ($scope.param.price <= 0) {

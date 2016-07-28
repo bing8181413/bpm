@@ -26,6 +26,7 @@ define([], function () {
             config: {
                 title: '导出管理',
                 api: '/exports',
+                itemList:'list',
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [

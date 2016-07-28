@@ -11,7 +11,7 @@ define([
                     data: '=',
                     text: '=',
                 },
-                template: '<a class="btn btn-info btn-rounded" ng-click="show();" ng-bind="text" ng-show="text"></a>',
+                template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show();" ng-bind="text" ng-show="text"></a>',
                 link: function ($scope, $element, $attrs) {
                     $scope.ext = {groupbuy_id: $scope.data.groupbuy_id};
                     var supscope = $scope;
@@ -42,8 +42,39 @@ define([
                     if ($scope.data) {
                         $scope.txt = ($scope.data.user && $scope.data.user.name) ? ('微信昵称:' + $scope.data.user.name) : '';
                         $scope.txt += ($scope.data.address && $scope.data.address.contact_name ) ? ('<br/>\n联系人:' + $scope.data.address.contact_name) : '';
-                        $scope.txt += ($scope.data.user && $scope.data.user.mobile ) ? ('<br/>手机:' + $scope.data.user.mobile) : '';
+                        $scope.txt += ($scope.data.address && $scope.data.address.contact_mobile ) ? ('<br/>手机:' + $scope.data.address.contact_mobile) : '';
                         $scope.txt += ($scope.data.address && $scope.data.address.created_at ) ? ('<br/>开团时间<br/>' + $scope.data.address.created_at) : '';
+                        $element.find(".txt").html($scope.txt);
+                        $compile($element.contents())($scope);
+                    }
+                }
+            }
+        })
+        .directive('groupbuyAccomplishStatus', function ($templateCache, $filter, $compile) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="txt"></p>',
+                link: function ($scope, $element, $attrs) {
+                    $scope.txt = '';
+                    if ($scope.data) {
+                        switch ($scope.data.accomplish_status) {
+                            case 1 :
+                                $scope.txt = '<progressbar class="active" value="warning" type="warning">开团</progressbar>';
+                                break;
+                            case 2 :
+                                $scope.txt = '<progressbar class="progress-striped active" value="90" type="primary">进行中</progressbar>';
+                                break;
+                            case 3 :
+                                $scope.txt = '<progressbar class="active" value="success" type="success">已完成</progressbar>';
+                                break;
+                            case 4 :
+                                $scope.txt = '<progressbar class="active" value="warning" type="danger">已取消</progressbar>';
+                                break;
+                        }
                         $element.find(".txt").html($scope.txt);
                         $compile($element.contents())($scope);
                     }

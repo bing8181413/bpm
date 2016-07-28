@@ -443,22 +443,23 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
             }
         }])
         // coupon_category 适用范围，0 不限，1 活动、2 直接买、3 拼团
+        //  1:砍价团 2: 人数团 3：众筹团 4: 邻里团
         .filter('coupon_category', [function () {
             return function (val) {
                 var result = '其他';
                 val = val + '';
                 switch (val) {
-                    case "0":
-                        result = "不限";
-                        break;
                     case "1":
-                        result = "活动";
+                        result = "砍价团";
                         break;
                     case "2":
-                        result = "直接买";
+                        result = "人数团";
                         break;
                     case "3":
-                        result = "拼团";
+                        result = "众筹团";
+                        break;
+                    case "4":
+                        result = "邻里团";
                         break;
                 }
                 return result;

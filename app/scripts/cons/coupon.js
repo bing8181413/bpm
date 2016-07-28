@@ -9,6 +9,7 @@ define([], function () {
                 {name: '金额', field: 'coupon.price'},
                 {name: '优惠券名称', field: 'coupon.title'},
                 {name: '生成时间', field: 'coupon.created_at'},
+                {name: '发送数量', field: 'coupon.send_count'},
                 {
                     name: '有效期',
                     fieldDirective: '<span ng-bind="item.coupon.start_time+\'-\'+item.coupon.expire_time"></span>'

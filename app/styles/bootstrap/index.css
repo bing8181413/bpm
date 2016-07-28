@@ -10126,3 +10126,8 @@ html, body {
 [name=hjmForm] input.ng-invalid {
     background-color: pink;
 }
+
+.modal-dialog  .panel {
+    margin-bottom: 0;
+    border: 0;
+}

@@ -11,7 +11,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<p><a class="btn btn-success btn-rounded" ng-click="update();">编辑</a></p>',
+                template: '<p><a class="btn btn-success btn-rounded btn-sm" ng-click="update();">编辑</a></p>',
                 link: function ($scope, $element, $attrs) {
                     $scope.update = function () {
                         $state.go('main.banner.update', {banner_id: $scope.data.banner_id});
@@ -61,7 +61,7 @@ define([
                             })
                         }
                     }
-                    var content = '<a class="btn btn-rounded"' + class_text + status_text + click_text + ' ng-show="show_text"></a>';
+                    var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text + ' ng-show="show_text"></a>';
                     $element.find('.change-status').html(content);
                     $compile($element.contents())($scope);
                 }

@@ -32,7 +32,7 @@ define([], function () {
                 },
                 {
                     name: '操作',
-                    fieldDirective: '<p><a class="btn btn-success btn-rounded" data="item" ' +
+                    fieldDirective: '<p><a class="btn btn-success btn-rounded btn-sm" data="item" ' +
                     'ui-sref="main.product.update({product_id:item.product_id})">编辑</a></p>' +
                     '<div product-change-status data="item"></div>'
                 },
