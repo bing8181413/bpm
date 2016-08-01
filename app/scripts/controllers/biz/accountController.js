@@ -7,8 +7,8 @@ define([
     mod.controller('account.profileController', profileController);
 
     updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
-    profileController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
-    function profileController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, $filter, $timeout) {
+    profileController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout', 'base64'];
+    function profileController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, $filter, $timeout, base64) {
         $scope.param = {};
         $scope.openCitys = [];
         // if ($rootScope.hjm.pubData.open_citys) {
@@ -32,31 +32,52 @@ define([
         }
         $scope.submit = function (status) {
             $scope.param.password = $scope.param.userpass;
-            widget.ajaxRequest({
-                url: '/account/' + $rootScope.hjm.account_id,
-                method: 'PUT',
-                scope: $scope,
-                data: $scope.param,
-                success: function (json) {
-                    $rootScope.hjm.mobile = json.data.mobile;
-                    $rootScope.hjm.remark = json.data.remark;
-                    $rootScope.selected.mobile = json.data.mobile;
-                    $rootScope.selected.remark = json.data.remark;
-                    widget.msgToast('更新成功！');
-                    $state.go(con.state.main + '.account.list');
-                }
-            })
+            var pattern = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+            if (pattern.test($scope.param.userpass)) {
+                widget.ajaxRequest({
+                    url: '/account/' + $rootScope.hjm.account_id,
+                    method: 'PUT',
+                    scope: $scope,
+                    data: $scope.param,
+                    success: function (json) {
+                        $rootScope.hjm.mobile = json.data.mobile;
+                        $rootScope.hjm.remark = json.data.remark;
+                        if ($rootScope.hjm.pwd != $scope.param.password) {
+                            widget.msgToast('修改成功,重新登录');
+                            $http.defaults.headers.common.Authorization = '';
+                            delete $rootScope.hjm;
+                            delete $rootScope.selected;
+                            delete $rootScope.login_account;
+                            localStorage.clear();
+                            $rootScope.$state.go('login');
+                        } else {
+                            widget.msgToast('更新成功！');
+                            $state.go(con.state.main + '.account.list');
+                        }
+                    }
+                })
+            } else {
+                widget.msgToast('密码必须包含字母和数字,并8~16位');
+            }
+
         }
     };
 
     function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, $filter, $timeout) {
         $scope.param = {};
         $scope.openCitys = [];
+        $scope.roles = [];
         if ($rootScope.hjm.pubData.open_citys) {
             angular.forEach($rootScope.hjm.pubData.open_citys, function (val, key) {
                 $scope.openCitys.push({text: val, value: val});
             });
         }
+        if ($rootScope.hjm.pubData.roles) {
+            angular.forEach($rootScope.hjm.pubData.roles, function (val, key) {
+                $scope.roles.push({text: val, value: key});
+            });
+        }
+        // console.log($scope.roles);
         // console.log($scope.openCitys);
         $timeout(function () {
             if ($stateParams.account_id && $rootScope.account_obj) {

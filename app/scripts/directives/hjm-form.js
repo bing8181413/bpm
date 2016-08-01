@@ -153,8 +153,10 @@ define([
                     required: '@',
                     type: '@',
                     placeholder: '@',
-                    ngMaxlength: '@max',
-                    ngMinlength: '@min',
+                    maxlength: '@',
+                    minlength: '@',
+                    min: '@',
+                    max: '@',
                     ngDisabled: '=',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
@@ -165,9 +167,11 @@ define([
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var type = $scope.type ? (' type="' + $scope.type + '"') : '';
+                    var min = $scope.min ? (' min="' + $scope.min + '"') : '';
+                    var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     var placeholder = $scope.placeholder ? (' placeholder="' + $scope.placeholder + '"') : '';
-                    var ngMaxlength = $scope.ngMaxlength ? (' ng-maxlength="' + $scope.ngMaxlength + '"') : '';
-                    var ngMinlength = $scope.ngMinlength ? (' ng-minlength="' + $scope.ngMinlength + '"') : '';
+                    var maxlength = $scope.maxlength ? (' maxlength="' + $scope.maxlength + '"') : '';
+                    var minlength = $scope.minlength ? (' minlength="' + $scope.minlength + '"') : '';
                     var err_show = ($scope.name || $scope.ngModelText) ?
                         ('<span class="glyphicon glyphicon-ok form-control-feedback"' +
                         'ng-show="$parent.FormBody[\'' + ($scope.name || $scope.ngModelText) +
@@ -179,8 +183,8 @@ define([
                     //     '"].$dirty}}========={{$parent.FormBody["' + ($scope.name || $scope.ngModelText) + '"].$valid}}';
                     var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                         '<div class="col-sm-8">' +
-                        '<input class="form-control" ng-model="' + $scope.ngModelText + '"' +
-                        type + name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + '>' +
+                        '<input class="form-control" ng-model="' + $scope.ngModelText + '"' + min + max +
+                        type + name + placeholder + maxlength + minlength + required + ngDisabled + '>' +
                         err_show + '</div>';
                     $element.find('.form_element').html(content);
                     $compile($element.contents())($scope);
@@ -320,7 +324,7 @@ define([
                         } else {
                             $scope.ngModel = val;
                         }
-                    },true);
+                    }, true);
                 }
             }
         })

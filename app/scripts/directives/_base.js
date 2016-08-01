@@ -26,6 +26,7 @@ define([
     './sms/list',// 短信群发规则
     './account/list',//账户 权限  菜单 规则
     './exchangecode/list',//账户 权限  菜单 规则
+    './export/list',//导出 规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,
              simpleCons) {

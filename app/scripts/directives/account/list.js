@@ -166,7 +166,7 @@ define([
                 }
             }
         })
-        .directive('resetPwd', function ($templateCache, $rootScope, $compile, widget, $state) {
+        .directive('resetPwd', function ($templateCache, $rootScope, $compile, widget, $state,base64) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -179,8 +179,9 @@ define([
                     $element.find(".reset-pwd").html(content);
                     $compile($element.contents())($scope);
                     $scope.resetPwd = function () {
-                        var pwd = window.prompt("请在此输入新密码", "123456");
-                        if (pwd) {
+                        var pwd = window.prompt("请在此输入新密码", "");
+                        var pattern = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$/;
+                        if (pattern.test(pwd)) {
                             widget.ajaxRequest({
                                 url: '/accounts/' + $scope.data.account_id,
                                 method: 'PUT',
@@ -191,6 +192,8 @@ define([
                                     $state.go(con.state.main + '.account.list');
                                 }
                             })
+                        }else{
+                            widget.msgToast('密码必须包含字母和数字,并8~16位');
                         }
 
                     }

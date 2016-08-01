@@ -45,7 +45,7 @@ define([], function () {
                             {value: '4', text: '已取消'},
                         ]
                     },
-                    {text: '预计配送时间', type: 'datetime', value: 'date', width: '6'},
+                    {text: '预计配送时间', type: 'date', value: 'date', width: '6'},
                     {text: '商品标题', value: 'keyword'},
                     {text: '子订单号', value: 'order_sub_no'},
                     {text: '联系人', value: 'contact_name'},

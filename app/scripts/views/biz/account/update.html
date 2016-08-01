@@ -19,8 +19,8 @@
                         <div form-input text="手机号码" ng-model="param.mobile" min="11" max="11" placeholder="11位数字"
                              required="true"></div>
                         <div form-radio text="角色" ng-model="param.role" required="true" default="param.role"
-                             source="[{text:'op',value:'op'},{text:'pm',value:'pm'},{text:'admin',value:'admin'},{text:'cw',value:'cw'}]"
-                             source-api=""></div>
+                             source="roles"></div>
+                             <!--source="[{text:'op',value:'op'},{text:'pm',value:'pm'},{text:'admin',value:'admin'},{text:'cw',value:'cw'}]"-->
                         <div form-checkbox text="所属城市列表" ng-model="param.city_list" required="true"
                              source="openCitys"></div>
                         <!--<div form-radio text="定位城市" ng-model="param.city_name" required="true"-->
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
-                <a class="btn btn-warning btn-rounded" ng-click="aaa()">查看提交的数据</a>
+                <!--<a class="btn btn-warning btn-rounded" ng-click="aaa()">查看提交的数据</a>-->
             </form>
         </div>
     </div>

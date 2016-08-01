@@ -33,23 +33,19 @@ define([
             }
             $scope.disabled_get_verify_code = true;
             $scope.remain_time = $scope.time_count;
-            $interval(function (count) {
-                $scope.remain_time--;
-                if ($scope.remain_time <= 0) {
-                    $scope.disabled_get_verify_code = false;
-                    $scope.remain_time = $scope.time_count;
-                }
-            }, 1000, $scope.time_count);
             widget.ajaxRequest({
                 url: cons.api.account_check,
                 scope: $scope,
                 data: $scope.verify_praram,
                 success: function (json) {
-                    if (json.code == 0) {
-                        widget.msgToast('短信发送成功,注意手机查收');
-                    } else {
-                        widget.msgToast(json.msg);
-                    }
+                    $interval(function (count) {
+                        $scope.remain_time--;
+                        if ($scope.remain_time <= 0) {
+                            $scope.disabled_get_verify_code = false;
+                            $scope.remain_time = $scope.time_count;
+                        }
+                    }, 1000, $scope.time_count);
+                    widget.msgToast('短信发送成功,注意手机查收');
                 }
             });
         }

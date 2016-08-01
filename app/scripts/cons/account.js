@@ -42,15 +42,24 @@ define([], function () {
                 title: '账户管理',
                 api: '/accounts',
                 rowItemName: 'item',
-                searchSupport: false,
+                searchSupport: true,
                 searchItems: [
+                    // {
+                    //     value: 'account_id',
+                    //     text: '账户ID',
+                    //     placeholder: '账户ID',
+                    //     // paramDirective: '<div hjm-search hjm-select=""></div>'
+                    // },
                     {
-                        value: 'account_id',
-                        text: '账户ID',
-                        placeholder: '账户ID',
-                        // paramDirective: '<div hjm-search hjm-select=""></div>'
+                        value: 'role', text: '角色', type: 'btnGroup', default: '',
+                        enum: [
+                            {value: 'admin', text: 'admin'},
+                            {value: 'pm', text: 'pm'},
+                            {value: 'op', text: 'op'},
+                            {value: '', text: '所有角色'},
+                        ]
                     },
-                    {value: 'mobile', text: '手机号码', placeholder: '手机号码'},
+                    // {value: 'mobile', text: '手机号码', placeholder: '手机号码'},
                     // {value: 'haha', text: '城市', placeholder: '城市', type: 'datetime'},
                     // {value: 'cityname', text: '城市', placeholder: '城市', type: 'datetime'},
                     // {value: 'haha32132', text: '城市', placeholder: '城市', type: 'date'},

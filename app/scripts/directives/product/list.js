@@ -51,22 +51,6 @@ define([
                 }
             }
         })
-        .directive('productStartEnd', function ($templateCache, $filter, $compile, widget) {
-            return {
-                restrict: 'AE',
-                replace: false,
-                scope: {
-                    data: '=',
-                },
-                template: '<p ng-bind-html="txt"></p>',
-                link: function ($scope, $element, $attrs) {
-                    if ($scope.data) {
-                        $scope.txt = '上架时间<br/>' + $scope.data.start_time;
-                        $scope.txt += '<br/>下架时间<br/>' + $scope.data.end_time;
-                    }
-                }
-            }
-        })
         .directive('productChangeStatus', function ($templateCache, $filter, $compile, widget) {
             return {
                 restrict: 'AE',
