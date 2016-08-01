@@ -48,7 +48,7 @@ define([
                                     controller: 'menusController',
                                     templateProvider: function ($templateCache) {
                                         // return $templateCache.get('app/' + cons.biz_path + 'menu/list.html');
-                                        return $templateCache.get('app/' + cons.view_path + 'menus/menus.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'menu/menus.html');
                                     }
                                 }
                             }

@@ -63,7 +63,7 @@ define([
         'domain': domain,
         'web_domain': web_domain,
         'qiniu_domain': qiniu_domain,
-        'domain_noauth': 'action_noauth.php?',
+        // 'domain_noauth': 'action_noauth.php?',
         'default_param': default_param,
         'api': api,
         'state': state,

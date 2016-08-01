@@ -3,9 +3,9 @@
  * 默认的产品首页和默认的跳转规则
  */
 define([
-        './states'
-        , '../cons/simpleCons'
-        , '../controllers/loginController'
+        './../states'
+        , '../../cons/simpleCons'
+        , '../../controllers/loginController'
     ],
     function (stateModule, cons) {
         stateModule.config(
@@ -19,7 +19,7 @@ define([
                                 "": {
                                     controller: 'loginController',
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.VIEW_PATH + 'contatiner/login.html');
+                                        return $templateCache.get('app/' + cons.VIEW_PATH + 'container/login.html');
                                     }
                                 }
                             }
@@ -29,7 +29,7 @@ define([
                             views: {
                                 "": {
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.VIEW_PATH + 'contatiner/main.html');
+                                        return $templateCache.get('app/' + cons.VIEW_PATH + 'container/main.html');
                                     }
                                 }
                             }

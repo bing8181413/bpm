@@ -105,7 +105,11 @@ module.exports = function (grunt) {
             compileTpl: {
                 src: [
                     //'app/scripts/partials/**/*.html',
-                    'app/scripts/views/**/*.html'
+                    // 'app/scripts/views/**/*.html',
+                    'app/scripts/views/container/**/*.html',
+                    'app/scripts/views/main/**/*.html',
+                    'app/scripts/views/biz/**/*.html',
+                    'app/scripts/views/directive/**/*.html',
                 ],
                 dest: 'app/scripts/app-tpl.js'
             }
