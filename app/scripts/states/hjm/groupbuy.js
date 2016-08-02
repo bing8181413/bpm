@@ -5,7 +5,6 @@
 define([
         '../states'
         , '../../cons/simpleCons'
-        // , '../controllers/pintuanController'
     ],
     function (stateModule, cons) {
         stateModule.config(

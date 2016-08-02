@@ -5,8 +5,6 @@
 define([
         '../states'
         , '../../cons/simpleCons'
-        // , '../controllers/pintuanController'
-        , '../../controllers/menusController'
     ],
     function (stateModule, cons) {
         stateModule.config(
@@ -30,17 +28,6 @@ define([
                                 }
                             }
                         })
-                    // .state("account.update", {
-                    //     url: "/update.html/:account_id",
-                    //     views: {
-                    //         "": {
-                    //             // controller: "account.updateController",
-                    //             templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + cons.biz_path + 'pintuan/update.html');
-                    //             }
-                    //         }
-                    //     }
-                    // })
                 }
             ])
         ;

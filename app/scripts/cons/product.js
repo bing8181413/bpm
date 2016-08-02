@@ -15,7 +15,7 @@ define([], function () {
                     name: '上线时间',
                     fieldDirective: '<p>上架时间<br/> <span ng-bind="item.start_time"></span><br/>下架时间<br/><span ng-bind="item.end_time"></span></p>'
                 },
-                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern="item"></div>'},
+                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item"></div>'},
                 {name: '配送规则', fieldDirective: '<div product-pattern data="item"></div>'},
                 {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
                 {name: '支付成<br/>功订单', field: 'order.order_count'},

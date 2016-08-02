@@ -11,7 +11,7 @@ define([], function () {
                     tooltip: 'product.title',
                     tooltipPlacement: 'bottom',
                 },
-                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern="item.product"></div>'},
+                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item.product"></div>'},
                 {name: '开团订单', fieldDirective: '<div groupbuy-order data="item"></div>'},
                 {name: '团订单数', fieldDirective: '<div groupbuy-order-copies data="item" text="item.order.count"></div>'},
                 {name: '返现金额', field: 'return_amount'},

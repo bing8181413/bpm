@@ -28,23 +28,23 @@ define([
                 restrict: 'AE',
                 replace: false,
                 scope: {
-                    groupbuyPattern: '=',
+                    data: '=',
                 },
                 template: '<p class="txt"></p>',
                 // template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'product/groupbuy-pattern.html'),
                 link: function ($scope, $element, $attrs) {
-                    // console.log($scope.groupbuyPattern);
-                    if ($scope.groupbuyPattern.category == 1) {
+                    console.log($scope.data);
+                    if ($scope.data && $scope.data.category == 1) {
                         $scope.txt = '砍价团';
-                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.groupbuyPattern.group_seconds) + '小时';
-                        $scope.txt += '<br/>起始价:' + $scope.groupbuyPattern.high_price;
-                        $scope.txt += '<br/>底价:' + $scope.groupbuyPattern.bottom_price;
-                        $scope.txt += '<br/>单人返现:' + $scope.groupbuyPattern.per_cut_amount;
-                    } else if ($scope.groupbuyPattern.category == 2) {
+                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.data.group_seconds) + '小时';
+                        $scope.txt += '<br/>起始价:' + $scope.data.high_price;
+                        $scope.txt += '<br/>底价:' + $scope.data.bottom_price;
+                        $scope.txt += '<br/>单人返现:' + $scope.data.per_cut_amount;
+                    } else if ($scope.data && $scope.data.category == 2) {
                         $scope.txt = '人数团';
-                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.groupbuyPattern.group_seconds) + '小时';
-                        $scope.txt += '<br/>人数:' + $scope.groupbuyPattern.group_min_num;
-                        $scope.txt += '<br/>单价:' + $scope.groupbuyPattern.price;
+                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.data.group_seconds) + '小时';
+                        $scope.txt += '<br/>人数:' + $scope.data.group_min_num;
+                        $scope.txt += '<br/>单价:' + $scope.data.price;
                     }
                     $element.find(".txt").html($scope.txt);
                     $compile($element.contents())($scope);

@@ -5,7 +5,6 @@
 define([
         '../states'
         , '../../cons/simpleCons'
-        , '../../controllers/biz/smsController'
     ],
     function (stateModule, cons) {
         stateModule.config(
@@ -22,10 +21,8 @@ define([
                             url: "/list.html",
                             views: {
                                 "": {
-                                    // controller: 'pintuanController'
                                     templateProvider: function ($templateCache) {
                                         return '<div hjm-grid modid="smsList" config="config" columns="columns"></div>'
-                                        // return $templateCache.get('app/' + cons.biz_path + 'sms/list.html');
                                     }
                                 }
                             }
@@ -36,7 +33,10 @@ define([
                                 "": {
                                     // controller: 'sms.addController',
                                     controller: function ($scope, widget, $state) {
+                                        $scope.param = {mobiles: []};
+                                        $scope.mobiles = '';
                                         $scope.submit = function (status) {
+                                            $scope.param.mobiles = $scope.mobiles.replace(/\n/g, ',').split(',');
                                             widget.ajaxRequest({
                                                 url: '/markets/sms',
                                                 method: 'POST',

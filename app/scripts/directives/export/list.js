@@ -27,6 +27,8 @@ define([
                                     if (val.type == 'checkbox') {
                                         $scope.tmpl += '<div form-checkbox text="' + val.name + '" ng-model="param.' + key + '"' +
                                             ' source="condition[\'' + key + '\'].options"></div>';
+                                    } else if (val.type == 'date') {
+                                        $scope.tmpl += '<div form-date="" text="' + val.name + '" ng-model="param.' + key + '"></div>';
                                     } else if (val.type == 'datetime') {
                                         $scope.tmpl += '<div form-date-time="" text="' + val.name + '" ng-model="param.' + key + '"></div>';
                                     } else if (val.type == 'text') {

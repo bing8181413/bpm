@@ -6,7 +6,7 @@ define([], function () {
                 {name: 'ID', field: 'export_id', className: 'text-right'},
                 {name: '管理备注', field: 'admin_remark'},
                 {name: '标题', field: 'title'},
-                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern="item"></div>'},
+                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item"></div>'},
                 {name: '开团数量', field: 'order.groupbuy_count'},
                 {name: '订单数', field: 'order.order_count'},
                 {name: '已售份数', field: 'order.order_copies'},

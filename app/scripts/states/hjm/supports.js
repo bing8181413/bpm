@@ -5,7 +5,7 @@
 define([
         '../states'
         , '../../cons/simpleCons'
-        , '../../controllers/support/supportController'
+        , '../../controllers/biz/supportController'
     ],
     function (stateModule, cons) {
         stateModule.config(
