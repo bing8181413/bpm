@@ -25,6 +25,7 @@ define([
     //'huijiaDirectives',
     //'huijiaFilters',
     //'huijiaServices',
+    // 'angular-async-loader',
     'controllers/_base',
     'states/_base',
     'directives/_base',
@@ -33,6 +34,7 @@ define([
     'app-tpl'
 ], function () {
     //console.log('app.js');
+
     return angular.module('huijiaApp', [
         'ui.router',
         'ngAnimate',
@@ -52,6 +54,7 @@ define([
         'perfect_scrollbar',
         'angular-loading-bar',
         'progressButton',
+        // 'asyncLoader',
         'huijiaControllers',
         'huijiaStates',
         'huijiaDirectives',

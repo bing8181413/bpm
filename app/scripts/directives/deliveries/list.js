@@ -20,9 +20,9 @@ define([
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                             controller: function ($scope, $modalInstance) {
                                 $scope.title = '修改子订单状态';
-                                $scope.list = supscope.list;
+                                $scope.data = supscope.data;
                                 $scope.delivery_ids = [];
-                                angular.forEach($scope.list, function (val, key) {
+                                angular.forEach($scope.data, function (val, key) {
                                     if (val._checked) {
                                         $scope.delivery_ids.push(val.delivery_id);
                                     }
@@ -69,9 +69,62 @@ define([
                             size: 'lg'
                         });
                     }
-                    // var content = '<a class="btn btn-primary btn-rounded" ng-click="show_deliveries_change_status();">修改配送时间类型</a>';
-                    // $element.find('.order-deliveries-status').html(content);
-                    // $compile($element.contents())($scope);
+                }
+            }
+        })
+        // 修改配送模式时间类型
+        .directive('deliverDelay', function ($templateCache, $filter, $compile, widget, $modal) {
+            return {
+                restrict: 'AE',
+                replace: true,
+                scope: {
+                    data: '=',
+                },
+                template: ' <a class="btn btn-primary btn-rounded btn-sm" ng-click="show_deliver_delay();">延迟一周配送</a>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_deliver_delay = function () {
+                        // console.log($scope.data);
+                        var modalInstance = $modal.open({
+                            template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                            controller: function ($scope, $modalInstance) {
+                                $scope.title = '延迟一周配送';
+                                $scope.data = supscope.data;
+                                $scope.expect_date = $scope.data.expect_date;
+                                $scope.expect_date_new = new Date(Date.parse($scope.expect_date) + (86400000 * 7));
+                                $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
+                                    '<h5>当前子订单、及后续子订单配送时间都会顺延，是否确定延迟一周配送？</h5>' +
+                                    '<h5>当前子订单预计配送时间：<span ng-bind="expect_date|limitTo :10"></span></h5>' +
+                                    '<h5>延迟一周后预计配送时间：<span ng-bind="expect_date_new | date:\'yyyy-MM-dd\'"></span></h5>' +
+                                    '<div class="panel panel-primary">' +
+                                    '<div class="panel-body">' +
+                                    '</div>' +
+                                    '</div>' +
+                                    '<a class="btn btn-primary btn-rounded pull-right" ng-click="deliver_delay()">确定</a>' +
+                                    '</form>';
+                                $scope.deliver_delay = function () {
+                                    console.log(supscope.data.delivery_id);
+                                    if (confirm('延迟一周配送?')) {
+                                        widget.ajaxRequest({
+                                            url: '/orders/deliveries/' + supscope.data.delivery_id + '/delay',
+                                            method: 'PUT',
+                                            scope: $scope,
+                                            data: {},
+                                            success: function (json) {
+                                                widget.msgToast('已经修改为延迟一周配送,请刷新查看');
+                                                supscope.$parent.$parent.searchAction();
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                }
+                                $scope.cancel = function () {
+                                    $modalInstance.dismiss('cancel');
+                                };
+                            },
+                            size: ''
+                        });
+                    }
                 }
             }
         })

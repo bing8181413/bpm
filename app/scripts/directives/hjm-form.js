@@ -198,7 +198,7 @@ define([
                     $scope.$watch('ngModel', function (val) {
                         if (val || val == 0) {
                             if ($scope.type == 'number') {
-                                $scope.$eval($scope.ngModelText + '=' + (parseFloat(val) || 0) + '');
+                                $scope.$eval($scope.ngModelText + '=' + (parseFloat(val) || parseFloat($scope.min) || 0) + '');
                             } else {
                                 $scope.$eval($scope.ngModelText + '="' + val + '"');
                             }

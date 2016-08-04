@@ -13,12 +13,12 @@ define([
 
     mod
 
-        // 选择图文说明
-        //  <content_or_img ng-model="list"></content_or_img>
-        //list = {
-        //    old: [],
-        //    new: [{}]
-        //},
+    // 选择图文说明
+    //  <content_or_img ng-model="list"></content_or_img>
+    //list = {
+    //    old: [],
+    //    new: [{}]
+    //},
 
         .directive('contentOrImg', function ($state, $rootScope, $timeout, $templateCache) {
             return {
@@ -84,7 +84,6 @@ define([
                                     font_ita: '',
                                     font_size: '',
                                     font_style: '',
-                                    // font_italic: ''
                                 }, val.contentData || {});
                                 $scope.ngModel.push(obj.contentData);
                             });
@@ -111,7 +110,25 @@ define([
                     }
                     // 切换新增和删除图文
                     $scope.toggleShow = function (item, typeTitle) {
+                        // if (!window.confirm('图片和文字只能选其一,确定切换吗')) {
+                        //     return false;
+                        // }
+                        // if (!item.showContent) {
+                        //     item.showImg = false;
+                        //     item.showImgTitle = '添加图片';
+                        //     item.pics = [];
+                        // } else if (!item.showImg) {
+                        //     item.showContent = false;
+                        //     item.showContentTitle = '取消文字';
+                        //     item.contentData.content = null;
+                        // }
                         if (typeTitle == 'showContent') {
+                            // if (!item.showContent) {
+                            //     item.showImg = false;
+                            //     item.showImgTitle = '添加图片';
+                            //     item.pics = [];
+                            // }
+
                             item.showContent = !item.showContent;
                             item.showContentTitle = item.showContent ? '取消文字' : '添加文字';
                             item.contentData.content = '';
@@ -122,28 +139,17 @@ define([
                             item.contentData.font_ita = '';
                             item.contentData.font_size = '';
                             item.contentData.font_style = '';
-                            // item.contentData.font_italic = '';
-                            // if (!item.showContent) {
-                            //     //不需要把所有样式都删除掉
-                            //     item.contentData.content = '';
-                            // } else if (item.showContent) {
-                            //     item.contentData.content = '';
-                            //     item.contentData.font_align = '';
-                            //     item.contentData.font_bold = '';
-                            //     item.contentData.font_color = '';
-                            //     item.contentData.font_ita = '';
-                            //     item.contentData.font_size = '';
-                            //     item.contentData.font_style = '';
-                            //     item.contentData.font_italic = '';
-                            // }
                         }
                         if (typeTitle == 'showImg') {
+                            // if (!item.showImg) {
+                            //     item.showContent = false;
+                            //     item.showContentTitle = '取消文字';
+                            //     item.contentData.content = null;
+                            // }
+
                             item.showImg = !item.showImg;
                             item.showImgTitle = item.showImg ? '取消图片' : '添加图片';
                             item.pics = [];
-                            // if (!item.showImg) {
-                            //     item.pics = [];
-                            // }
                         }
                     }
                     $scope.conslog = function (index) {

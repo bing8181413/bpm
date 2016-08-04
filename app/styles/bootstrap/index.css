@@ -3851,7 +3851,8 @@ tbody.collapse.in {
 .input-group {
     position: relative;
     display: table;
-    border-collapse: separate
+    border-collapse: separate;
+    margin-bottom: 0;
 }
 
 .input-group[class*="col-"] {
@@ -10128,7 +10129,7 @@ html, body {
     background-color: pink;
 }
 
-.modal-dialog  .panel {
+.modal-dialog .panel {
     margin-bottom: 0;
     border: 0;
 }

@@ -62,8 +62,8 @@ define([
                         if (config.ext) {
                             if (config.ext.showNum) {
                                 angular.forEach(config.ext.showNum, function (showNum_val, showNum_key) {
-                                    if (showNum_val.type == 'count') {
-                                        showNum += (showNum_val.text || '总数') + ':  {{ count }}   ';
+                                    if (showNum_val.type == 'total') {
+                                        showNum += (showNum_val.text || '总数') + ':  {{ total }}   ';
                                     } else if (showNum_val.type == 'selected') {
                                         showNum += (showNum_val.text || '已选') + ':  {{ _selected_num }}';
                                     } else if (showNum_val.field) {
@@ -107,7 +107,7 @@ define([
                     function buildRows(columns, config) {
                         // console.log(arguments);
                         var useBindOnce = config.useBindOnce || 'bindonce';
-                        var itemList = config.itemList || 'list';
+                        var itemList = config.itemList || 'data';
                         var rowItemName = config.rowItemName || 'item';
                         var rowItem = '';
                         if (config.ext && config.ext.checked) {
@@ -201,25 +201,25 @@ define([
 
                     var columnsDef = '';
                     var configDef = '';
-                    $scope.list = [];
+                    $scope.data = [];
                     $scope.searchParams = {};
                     $scope.filterParams = {};
                     $scope.all_select = function () {
                         $scope._selected_num = 0;
-                        angular.forEach($scope.list, function (val, key) {
+                        angular.forEach($scope.data, function (val, key) {
                             $scope._selected_num++;
                             val._checked = true;
                         });
                     }
                     $scope.cancel_all_select = function () {
                         $scope._selected_num = 0;
-                        angular.forEach($scope.list, function (val, key) {
+                        angular.forEach($scope.data, function (val, key) {
                             val._checked = false;
                         });
                     }
                     $scope.toggle_checked = function (index) {
                         $scope._selected_num = 0;
-                        angular.forEach($scope.list, function (val, key) {
+                        angular.forEach($scope.data, function (val, key) {
                             if (val._checked) {
                                 $scope._selected_num++;
                             }
@@ -232,26 +232,30 @@ define([
                         $scope.updateList();
                     }
                     $scope.updateList = function () {
+                        $scope.api = $scope.extApi || configDef.api;
                         var pageInfo = {
                             page: $scope.pageInfo.currentPage || 1,
                             count: configDef.pageInfo.count || 1,
                         };
                         var searchItemsParamDefault = {};
                         angular.forEach(configDef.searchItems, function (searchItems_val, searchItems_key) {
-                            if (searchItems_val.default) {
+                            if ((searchItems_val.type == 'btnGroup' || searchItems_val.type == 'btnGroupArray') && searchItems_val.default) {
                                 angular.forEach(configDef.searchItems, function (searchItems_val, searchItems_key) {
                                     if (searchItems_val.default || searchItems_val.default == '') {
                                         eval('searchItemsParamDefault.' + searchItems_val.value + ' = ' + searchItems_val.default);
                                     }
                                 });
+                            } else if (searchItems_val.type == 'btnGroupArray2' && searchItems_val.default) {
+                                eval('searchItemsParamDefault.' + searchItems_val.enum_text + ' = ' + JSON.stringify(searchItems_val.enum[searchItems_val.default].value));
                             }
                         });
+                        // console.log(searchItemsParamDefault);
                         // console.log($scope.extSearch);
                         var searchParam = angular.extend({}, configDef.preSelectionSearch, searchItemsParamDefault,
                             $scope.searchParams, pageInfo, $scope.extSearch);
                         // console.log(configDef.pageInfo);
                         // console.log(configDef.api);
-                        $scope.api = $scope.extApi || configDef.api;
+
                         widget.ajaxRequest({
                             method: 'GET',
                             url: $scope.api,
@@ -261,9 +265,11 @@ define([
                                 $scope._json = json;
                                 $scope.list = json.list;
                                 $scope.data = json.data;
-                                $scope.count = json.count;
+
+                                $scope.total = json.total;
+
                                 $scope._selected_num = 0;
-                                $scope.pageInfo.totalItems = ((json.count == 0) ? 0 : (json.count || $scope.pageInfo.totalItems));//获取总数
+                                $scope.pageInfo.totalItems = ((json.total == 0) ? 0 : (json.total || $scope.pageInfo.totalItems));//获取总数
                             }
                         });
                     }
@@ -316,8 +322,9 @@ define([
                             $scope.initTableRequestSend = true;
                         } else {
                             //初始化组件已经获取过一次数据 totalItems 为空 等 totalItems 不是空了就可以走正常的了
-                            if (pageInfoDef && pageInfoOld.totalItems) {
-                                // console.log('pageInfoDef  ', pageInfoDef, pageInfoOld);
+                            // console.log(pageInfoDef, pageInfoOld);
+                            if (pageInfoDef && (pageInfoDef.currentPage != pageInfoOld.currentPage)) {
+                                console.log('pageInfoDef  ', pageInfoDef, pageInfoOld);
                                 $scope.updateList('$watch pageInfo');
                             }
                         }
@@ -380,6 +387,7 @@ define([
                                         // 赋予默认值  param 对象
                                         var btnHtml = '';
                                         $scope.$eval('params.' + val.value + '="' + val.default + '"');
+
                                         if (val.enum.length > 0) {
                                             angular.forEach(val.enum, function (enum_val, enum_key) {
                                                 var btnClassHtml = ('"btn-rounded":params.' + val.value + '=="' + enum_val.value + '",' +
@@ -387,10 +395,54 @@ define([
                                                 btnHtml += (' <a class="btn btn-primary btn-sm" ' +
                                                 ' ng-class={' + btnClassHtml + '}' +
                                                 ' ng-model="params.' + val.value + '"' +
-                                                ' ng-click="params.' + val.value + ' = \'' + enum_val.value + '\';autoSearch=!!!autoSearch;">' +
+                                                ' ng-click="params.' + val.value + ' = \'' + enum_val.value + '\';autoSearch=!autoSearch;">' +
                                                 enum_val.text + '</a>');
                                             });
                                             btnHtml = '<div class="">' + btnHtml + '</div>';
+                                        }
+                                        if (val.width == '6') {
+                                            searchItemsHtml += '<div class="form-group col-sm-' + val.width + '">' +
+                                                '<label class="col-sm-4 control-label">' + val.text + '</label>' +
+                                                '<div class="col-sm-8">' + btnHtml +
+                                                '</div>' +
+                                                '</div>';
+                                        } else {
+                                            searchItemsHtml += '<div class="form-group col-sm-12">' +
+                                                '<label class="col-sm-2 control-label">' + val.text + '</label>' +
+                                                '<div class="col-sm-10">' + btnHtml +
+                                                '</div>' +
+                                                '</div>';
+                                        }
+                                    } else if (val.type == 'btnGroupArray2') {
+                                        // 赋予默认值  param 对象
+                                        var btnHtml = '';
+                                        if (val.enum_text) {
+                                            angular.forEach(val.enum, function (enum_val) {
+                                                if (!angular.isArray(enum_val.value)) {
+                                                    $log.warn('btnGroupArray2 enum_text is array, but enum value is not array');
+                                                    return false;
+                                                }
+                                            });
+                                            if (angular.isNumber(val.default) || (val.default = parseInt(val.default))) {
+                                                $scope.$eval(val.value + '="' + val.default + '"');
+                                                $scope.$eval('params.' + val.enum_text + '=' + JSON.stringify(val.enum[val.default]) + '');
+                                            }
+                                            if (val.enum.length > 0) {
+                                                angular.forEach(val.enum, function (enum_val, enum_key) {
+                                                    var btnClassHtml = ('"btn-rounded":' + val.value + '==\'' + enum_key + '\',' +
+                                                    '"btn-bordered":' + val.value + '!==\'' + enum_key + '\'');
+                                                    var btnClickHtml = '';
+                                                    btnClickHtml += 'params.' + val.enum_text + '=' + JSON.stringify(enum_val.value) + ';';
+                                                    btnClickHtml += 'autoSearch=!!!autoSearch;' + val.value + '=\'' +
+                                                        enum_key + '\'';
+                                                    btnHtml += (' <a class="btn btn-primary btn-sm" ' +
+                                                    ' ng-class={' + btnClassHtml + '}' +
+                                                    ' ng-model="' + val.value + '"' +
+                                                    ' ng-click="' + btnClickHtml + '">' +
+                                                    enum_val.text + '</a>');
+                                                });
+                                                btnHtml = '<div class="">' + btnHtml + '</div>';
+                                            }
                                         }
                                         if (val.width == '6') {
                                             searchItemsHtml += '<div class="form-group col-sm-' + val.width + '">' +
@@ -411,7 +463,7 @@ define([
                                         if (val.enum_text && angular.isArray(val.enum_text)) {
                                             angular.forEach(val.enum, function (enum_val) {
                                                 if (!angular.isArray(enum_val.value)) {
-                                                    $log.warn('btnGroup enum_text is array, but enum value is not array');
+                                                    $log.warn('btnGroupArray enum_text is array, but enum value is not array');
                                                     return false;
                                                 }
                                             });

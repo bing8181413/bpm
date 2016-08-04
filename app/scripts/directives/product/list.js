@@ -33,8 +33,8 @@ define([
                 template: '<p class="txt"></p>',
                 // template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'product/groupbuy-pattern.html'),
                 link: function ($scope, $element, $attrs) {
-                    console.log($scope.data);
-                    console.log(1);
+                    // console.log($scope.data);
+                    // console.log(1);
                     if ($scope.data && $scope.data.category == 1) {
                         $scope.txt = '砍价团';
                         $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.data.group_seconds) + '小时';

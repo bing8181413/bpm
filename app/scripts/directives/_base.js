@@ -197,7 +197,7 @@ define([
                     // 删除历史数据
                     $scope.removeImage = function (key) {
                         $scope.oldImages.splice(key, 1);
-                        console.log('$scope.oldImages   ', $scope.oldImages);
+                        // console.log('$scope.oldImages   ', $scope.oldImages);
                         updateImages();
                     };
 

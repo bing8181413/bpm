@@ -26,7 +26,7 @@ define([], function () {
             config: {
                 title: '导出管理',
                 api: '/exports',
-                itemList:'list',
+                itemList: 'list',
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
@@ -51,6 +51,18 @@ define([], function () {
                             {value: ['1', '1'], text: '正在进行'},
                             {value: ['2', ''], text: '已下线'},
                             {value: ['1', '2'], text: '待上线'},
+                        ]
+                    },
+                    {  // accomplish_status 成团状态:1:开团,2:进行中,3:完成,4:已取消
+                        value: 'flag', text: '状态', type: 'btnGroupArray2',
+                        default: 1, //有enum_text时 enumde index 的值
+                        width: '6',
+                        enum_text: 'accomplish_status',//
+                        enum: [
+                            {value: [], text: '全部'},
+                            {value: [1, 2], text: '正在进行'},
+                            {value: [3], text: '已下线'},
+                            {value: [4], text: '待上线'},
                         ]
                     },
                     // , width: '12'  代表 col-sm-12  一列宽度 默认是6

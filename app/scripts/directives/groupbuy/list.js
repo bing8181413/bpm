@@ -9,10 +9,10 @@ define([
                 replace: false,
                 scope: {
                     data: '=',
-                    text: '=',
                 },
                 template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show();" ng-bind="text" ng-show="text"></a>',
                 link: function ($scope, $element, $attrs) {
+                    $scope.text = (($scope.data.order || {}).count || 0) + '/' + (($scope.data.allorder || {}).count || 0);
                     $scope.ext = {groupbuy_id: $scope.data.groupbuy_id};
                     var supscope = $scope;
                     $scope.show = function () {

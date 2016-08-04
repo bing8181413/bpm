@@ -56,17 +56,29 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
-                    {
-                        //1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
-                        value: 'order_status', text: '母订单状态', type: 'btnGroup', default: '',
+                    // {
+                    //     //1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
+                    //     value: 'order_status', text: '母订单状态', type: 'btnGroup', default: '',
+                    //     enum: [
+                    //         {value: '', text: '全部'},
+                    //         {value: '1', text: '待支付'},
+                    //         {value: '2', text: '支付中'},
+                    //         {value: '3', text: '已支付'},
+                    //         {value: '4', text: '支付失败'},
+                    //         {value: '5', text: '已完成'},
+                    //         {value: '6', text: '已取消'},
+                    //     ]
+                    // },
+                    {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
+                        value: 'flag', text: '状态', type: 'btnGroupArray2',
+                        default: 0, width: '6',
+                        enum_text: 'order_status',// 
                         enum: [
-                            {value: '', text: '全部'},
-                            {value: '1', text: '待支付'},
-                            {value: '2', text: '支付中'},
-                            {value: '3', text: '已支付'},
-                            {value: '4', text: '支付失败'},
-                            {value: '5', text: '已完成'},
-                            {value: '6', text: '已取消'},
+                            {value: [], text: '全部'},
+                            {value: [1, 2], text: '待支付'},
+                            {value: [3], text: '已支付'},
+                            {value: [5], text: '已完成'},
+                            {value: [4, 6], text: '已取消'},
                         ]
                     },
                     {value: 'date_min', text: '(下单时间)--开始', type: 'datetime'},
@@ -127,7 +139,8 @@ define([], function () {
                     name: '收货<br/>信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address"></span>' +
+                    '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 5 : false" ' +
+                    'tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {name: '购买<br/>份数', field: 'order_count',},
@@ -156,7 +169,58 @@ define([], function () {
                 //     '<br/><span ng-bind="\'价格:\'+item.product.high_price"></span>'
                 // },
             ],
-        }
+            columns_by_user: [
+                {name: 'ID', field: 'order_id', className: 'text-right'},
+                {name: '母订单号', field: 'order_no',},
+                {
+                    name: '收货<br/>信息',
+                    fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
+                    '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
+                    '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 5 : false" ' +
+                    'tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
+                },
+                {name: '购买<br/>份数', field: 'order_count',},
+                {name: '支付<br/>金额', field: 'order_price',},
+                {name: '配送<br/>时间', field: 'pattern.arrive_pm', filter: 'num2week'},
+                {name: '下单时间', field: 'order_time',},
+                {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
+                {
+                    name: '备注', field: 'remark', truncateText: true,
+                    truncateTextLength: 10,
+                    truncateTextBreakOnWord: false,
+                    tooltip: 'remark',
+                    tooltipPlacement: 'bottom',
+                },
+            ],
+            config_by_user: {
+                title: '用户的订单列表',
+                api: '/orders',
+                rowItemName: 'item',
+                searchSupport: true,
+                searchItems: [
+                    {
+                        value: 'order_status', text: '母订单状态', type: 'btnGroup', default: '',
+                        enum: [
+                            {value: '', text: '全部'},
+                            {value: '1', text: '待支付'},
+                            {value: '2', text: '支付中'},
+                            {value: '3', text: '已支付'},
+                            {value: '4', text: '支付失败'},
+                            {value: '5', text: '已完成'},
+                            {value: '6', text: '已取消'},
+                        ]
+                    },
+                ],
+                paginationSupport: true,
+                pageInfo: {
+                    count: 20,
+                    page: 1,
+                    maxSize: 2, //最大展示页，默认3
+                    // showPageGoto: false //属性为true将显示前往第几页。
+                },
+            },
+        },
     }
     return rtn;
 });

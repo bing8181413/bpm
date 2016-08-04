@@ -17,7 +17,7 @@
             //'snap':  '../vendor/Snap.svg/dist/snap.svg-min',
             //'me-pageloading':  '../vendor/me-pageloading/me-pageloading',
             "ui.bootstrap": "../vendor/angular-bootstrap/ui-bootstrap-tpls.min",
-            //"angular-async-loader": "../vendor/angular-async-loader/src/angular-async-loader",
+            // "angular-async-loader": "../vendor/angular-async-loader/src/angular-async-loader",
             //"ui.bootstrap":"../vendor/bootstrap/ui-bootstrap-tpls.min",
             // "twitter": "../vendor/bootstrap/bootstrap.min",
             //'highcharts':'../vendor/highcharts/highcharts',

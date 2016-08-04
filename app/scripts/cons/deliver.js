@@ -25,8 +25,8 @@ define([], function () {
                 },
                 // {
                 //     name: '操作',
-                //     fieldDirective: '<div order-deliver-cancel data="item"></div>' +
-                //     '<div order-deliver-change-remark data="item"></div>'
+                //     fieldDirective: '<div deliver-delay data="item"></div>' +
+                //     '<div deliver-change-remark data="item"></div>'
                 // },
             ],
             config: {
@@ -37,7 +37,7 @@ define([], function () {
                 searchItems: [
                     {
                         //  delivery_status 子单状态:1 待发货,2 已发货,3 已签收,4 已经取消
-                        value: 'delivery_status', text: '子单状态', type: 'btnGroup', default: '1',width: '6',
+                        value: 'delivery_status', text: '子单状态', type: 'btnGroup', default: '1', width: '6',
                         enum: [
                             {value: '1', text: '待发货'},
                             {value: '2', text: '已发货'},
@@ -46,7 +46,7 @@ define([], function () {
                         ]
                     },
                     {text: '预计配送时间', type: 'date', value: 'date', width: '6'},
-                    {text: '商品标题', value: 'keyword'},
+                    {text: '商品ID', value: 'product_id'},
                     {text: '子订单号', value: 'order_sub_no'},
                     {text: '联系人', value: 'contact_name'},
                     {text: '手机号', value: 'contact_mobile'},
@@ -68,7 +68,7 @@ define([], function () {
                         value: '_checked'
                     },
                     showNum: [
-                        {text: '总数', type: 'count'},
+                        {text: '总数', type: 'total'},
                         {text: '已选', type: 'selected'},
                     ],
                     eventBtn: [
@@ -85,6 +85,10 @@ define([], function () {
                 {name: '子订单号', field: 'order_sub_no'},
                 {name: '预计配送时间', field: 'expect_date'},
                 {name: '子订单状态', field: 'status', filter: 'order_deliver_status'},
+                {
+                    name: '操作',
+                    fieldDirective: '<div deliver-delay data="item"></div>'
+                },
             ],
             configByOrder: {
                 title: '子订单列表',

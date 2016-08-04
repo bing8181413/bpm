@@ -70,7 +70,23 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                         timeout: 15000
                     };
                     if ($filter('uppercase')(params.method) == 'GET') {
-                        ajaxConfig.params = options.data;
+                        ajaxConfig.url += '?';
+                        angular.forEach(options.data, function (val, key) {
+                            var tmp = [];
+                            if (angular.isArray(val)) {
+                                angular.forEach(val, function (v, k) {
+                                    ajaxConfig.url += (key + '[]=' + v + '&');
+                                });
+                            } else {
+                                ajaxConfig.url += (key + '=' + val + '&');
+                            }
+                        });
+                        if (ajaxConfig.url.charAt(ajaxConfig.url.length - 1) == '&' ||
+                            ajaxConfig.url.charAt(ajaxConfig.url.length - 1) == '?') {
+                            ajaxConfig.url = ajaxConfig.url.substring(0, ajaxConfig.url.length - 1);
+                        }
+                        // ajaxConfig.url.splice('&',-1);
+                        // ajaxConfig.params = options.data;
                     } else {
                         ajaxConfig.data = options.data;
                     }
