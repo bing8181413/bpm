@@ -57,8 +57,8 @@ define([
                                     //images: val.images ||[],
                                     showContent: obj.contentData.content != '',
                                     showImg: obj.pics.length > 0 ? true : false,
-                                    showContentTitle: obj.contentData.content != '' ? '取消文字' : '添加文字',
-                                    showImgTitle: obj.pics.length > 0 ? '取消图片' : '添加图片'
+                                    showContentTitle: obj.contentData.content != '' ? '取消文字' : '文字模式',
+                                    showImgTitle: obj.pics.length > 0 ? '取消图片' : '图片模式'
                                 }));
                                 // console.log($scope.list);
                             });
@@ -99,8 +99,8 @@ define([
                             pics: [],
                             showContent: false,
                             showImg: false,
-                            showContentTitle: '添加文字',
-                            showImgTitle: '添加图片'
+                            showContentTitle: '文字模式',
+                            showImgTitle: '图片模式'
                         }, obj))
                     }
                     //从搜索的列表中选择小区的ID
@@ -110,27 +110,25 @@ define([
                     }
                     // 切换新增和删除图文
                     $scope.toggleShow = function (item, typeTitle) {
-                        // if (!window.confirm('图片和文字只能选其一,确定切换吗')) {
-                        //     return false;
-                        // }
-                        // if (!item.showContent) {
-                        //     item.showImg = false;
-                        //     item.showImgTitle = '添加图片';
-                        //     item.pics = [];
-                        // } else if (!item.showImg) {
-                        //     item.showContent = false;
-                        //     item.showContentTitle = '取消文字';
-                        //     item.contentData.content = null;
-                        // }
+                        // 这一组判断是只准图片和文字选其一 去掉可以选择多种
+                        if (!item.showContent && item.showImg && typeTitle == 'showContent') {
+                            if (!window.confirm('图片和文字只能选其一,确定切换吗')) {
+                                return false;
+                            }
+                            item.showImg = false;
+                            item.showImgTitle = '图片模式';
+                            item.pics = [];
+                        } else if (!item.showImg && item.showContent && typeTitle == 'showImg') {
+                            if (!window.confirm('图片和文字只能选其一,确定切换吗')) {
+                                return false;
+                            }
+                            item.showContent = false;
+                            item.showContentTitle = '文字模式';
+                            item.contentData.content = null;
+                        }
                         if (typeTitle == 'showContent') {
-                            // if (!item.showContent) {
-                            //     item.showImg = false;
-                            //     item.showImgTitle = '添加图片';
-                            //     item.pics = [];
-                            // }
-
                             item.showContent = !item.showContent;
-                            item.showContentTitle = item.showContent ? '取消文字' : '添加文字';
+                            item.showContentTitle = item.showContent ? '取消文字' : '文字模式';
                             item.contentData.content = '';
                             item.contentData.category = '';
                             item.contentData.font_align = '';
@@ -141,14 +139,8 @@ define([
                             item.contentData.font_style = '';
                         }
                         if (typeTitle == 'showImg') {
-                            // if (!item.showImg) {
-                            //     item.showContent = false;
-                            //     item.showContentTitle = '取消文字';
-                            //     item.contentData.content = null;
-                            // }
-
                             item.showImg = !item.showImg;
-                            item.showImgTitle = item.showImg ? '取消图片' : '添加图片';
+                            item.showImgTitle = item.showImg ? '取消图片' : '图片模式';
                             item.pics = [];
                         }
                     }
@@ -302,92 +294,103 @@ define([
 
             };
         })
-
-
-        // 备用团长
-        //  <tuan_zhang ng-model="date" ></tuan_zhang>
-
-        .directive('tuanZhang', function ($parse, $http, widget) {
+        .directive('jsonTable', function ($state, $rootScope, $timeout, $templateCache, $compile) {
             return {
                 restrict: 'E',
                 replace: true,
                 scope: {
-                    ngModel: '=ngModel',
-                    tuanoption: '=tuanoption'
+                    ngModel: '=',
+                    columns: '=',
+                    max: '@',
+                    config: '=',
                 },
-                template: '<div class="panel panel-default">' +
-                '<div class="panel-heading" ng-show="show">' +
-                //'<h3 class="panel-title">用户</h3>' +
-                '<input class="form-control" ng-model="mobile" placeholder="输入11位手机号码自动查询">' +
-                '</div>' +
-                '<div class="panel-body">' +
-                '<div class="col-sm-12">' +
-                '<ul class="list-group">' +
-                //'<li class="list-group-item">' +
-                //'<span>请最终确认信息准确</span>' +
-                //'</li>' +
-                '<li class="list-group-item">' +
-                '<span>用户ID：</span>' +
-                '<span ng-bind="user_id"></span>' +
-                '</li>' +
-                '<li class="list-group-item">' +
-                '<span>用户名称：</span>' +
-                '<span ng-bind="name"></span>' +
-                '</li>' +
-                '<li class="list-group-item">' +
-                '<span>手机号码：</span>' +
-                '<span ng-bind="mobile"></span>' +
-                '</li>' +
-                '</ul>' +
-                '</div>' +
-                '<div class="col-sm-offset-4 col-sm-9">' +
-                '<a class="btn btn-warning" ng-click="show = true;" ng-show="show == false">重选用户</a>' +
-                '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' +
-                '<a class="btn btn-success" ng-click="show = false;" ng-show="show == true">确定</a>' +
-                '</div>' +
-                '</div>' +
-                '</div>',
+                controller: ['$scope', function ($scope) {
+                    this.buildTable = function (columns, config) {
+                        config = config || {};
+                        var header = buildHeader(columns, config);
+                        var rowDef = buildRows(columns, config);
+                        return '<table class="table table-bordered table-striped">' + header + rowDef + '</table>';
+                    }
+                    function buildHeader(columns, config) {
+                        var headerContent = '';
+                        angular.forEach(columns, function (col) {
+                            if (!col.disabled) {
+                                headerContent += '<th class="text-center">' + col.name + '</th>';
+                            }
+                        });
+                        if (!config.readonly) {
+                            headerContent += '<th class="text-center">' +
+                                '<a class="btn btn-primary btn-sm btn-bordered" ng-click="add()">添加</a>' +
+                                // '<a class="btn btn-primary btn-sm btn-bordered" ng-click="conslog()">log</a>' +
+                                '</th>';
+                        }
 
-                link: function ($scope, $element, $attrs) {
-                    $scope.init = false;
-                    $scope.show = true;
-                    $scope.$watch('tuanoption', function () {
-                        // tuanoption :{
-                        //    user_id:'',
-                        //    name:'',
-                        //    mobile:'',
-                        //  }
-                        //console.log($scope.tuanoption);
-                        if (typeof ($scope.tuanoption) !== 'undefined') {
-                            $scope.user_id = $scope.tuanoption.user_id;
-                            $scope.name = $scope.tuanoption.name;
-                            $scope.mobile = $scope.tuanoption.mobile;
-                            $scope.show = false;
+                        return '<thead><tr>' + headerContent + '</tr></thead>';
+                    }
+
+                    function buildRows(columns, config) {
+                        var rowItem = '';
+                        angular.forEach(columns, function (col) {
+                            if (!col.disabled) {
+                                var cellContent = cellRender(col, config);
+                                rowItem += '<td>' + cellContent + '</td>'
+                            }
+                        });
+                        if (!config.readonly) {
+                            rowItem += '<th class="text-center">' +
+                                '<a class="btn btn-danger btn-sm btn-bordered" ng-click="del($index)">删除</a></th>';
+                        }
+                        return '<tbody><tr ' + ' ng-repeat="item in data">' + rowItem + '</tr></tbody>'
+                    }
+
+                    function cellRender(col, config) {
+                        var cellContent = '';
+                        // var cellFilter = colDef.filter;
+                        var colField = 'item.' + col.field;
+                        if (!col.disabled) {
+                            cellContent = '<input class="form-control" ng-model="' + colField + '"/>';
+                        }
+                        if (config.readonly) {
+                            cellContent = '<span ng-bind="' + colField + '"><span/>';
+                        }
+                        return cellContent;
+                    }
+                }],
+                template: '',
+                link: function ($scope, $element, $attrs, $ctrl) {
+                    var tmpHtml = '';
+                    if (angular.isArray($scope.columns)) {
+                        tmpHtml = $ctrl.buildTable($scope.columns, $scope.config);
+                        $element.html(tmpHtml);
+                        $compile($element.contents())($scope);
+                    }
+
+                    $scope.$watch('ngModel', function (defval) {
+                        // console.log(defval);
+                        if (defval && angular.isArray(defval)) {
+                            $scope.data = defval || [];
                         }
                     }, true);
-                    $scope.$watch('mobile', function () {
-                        if ($scope.mobile && $scope.mobile.length == 11) {
-                            $scope.search();
-                        }
-                    });
-                    $scope.search = function () {
-                        var url = simpleCons.domain + '/manage/user/get_user_by_mobile';
-                        $http.post(url, {mobile: $scope.mobile})
-                            .success(function (json) {
-                                if (json.code == 0) {
-                                    $scope.user_id = json.data.user_id;
-                                    $scope.name = json.data.name;
-                                    $scope.mobile = json.data.mobile;
-                                    $scope.ngModel = json.data.user_id;
-                                } else {
-                                    widget.msgToast(json.msg);
-                                }
-                            });
+                    $scope.$watch('data', function (defval) {
+                        // console.log(defval);
+                        $scope.ngModel = defval;
+                    }, true);
 
+                    $scope.add = function (obj) {
+                        var obj = obj || {};
+                        $scope.data = $scope.data || [];
+                        $scope.data.push(obj);
                     }
-                }
+                    $scope.del = function (index) {
+                        $scope.data.splice(index, 1);
+                    }
+                    $scope.conslog = function () {
+                        console.log($scope.data);
+                    }
 
+                }
             };
         })
+
 })
 ;

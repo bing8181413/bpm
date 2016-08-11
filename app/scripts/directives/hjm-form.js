@@ -571,5 +571,59 @@ define([
                 }
             }
         })
+        .directive('formTable', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+            return {
+                restrict: 'EA',
+                replace: true,
+                template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
+                scope: {
+                    ngModel: '=ngModel',
+                    ngModelText: '@ngModel',
+                    columns: '=',
+                    config: '=',
+                    text: '@',
+                    name: '@',
+                    required: '@',
+                    max: '@',
+                    callback: '&',
+                },
+                link: function ($scope, $element, $attrs, $ctrl) {
+                    // console.log($scope.category);
+                    var columns = $scope.columns ? (' columns=' + JSON.stringify($scope.columns) + '') : ('');
+                    var config = $scope.config ? (' config=' + JSON.stringify($scope.config) + '') : ('');
+                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var required = $scope.required ? (' required') : '';
+                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
+                    var max = $scope.max ? (' max="' + $scope.max + '"') : '';
+                    var content = '';
+                    if (!$scope.text) {
+                        content = '<div class="col-sm-12 ">';
+                    } else {
+                        content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">';
+                    }
+                    if ($scope.columns) {
+                        content += '<json-table ng-model="' + $scope.ngModelText + '"' + columns + config + name + required + max + '></json-table>';
+                    }
+                    content += '</div>';
+                    // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
+                    $element.find('.form_element').html(content);
+                    $compile($element.contents())($scope);
+
+                    $scope.$watch($scope.ngModelText, function (modelNew) {
+                        // console.log(modelNew);
+                        $scope.ngModel = modelNew || undefined;
+                    }, true);
+
+                    $scope.$watch('ngModel', function (val) {
+                        // console.log(val);
+                        if (val) {
+                            $scope.$eval($scope.ngModelText + '=' + JSON.stringify(val));
+                        }
+                    }, true);
+
+                }
+            }
+        })
 
 })

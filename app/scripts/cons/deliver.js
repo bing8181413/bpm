@@ -84,7 +84,7 @@ define([], function () {
             columnsByOrder: [
                 {name: '子订单号', field: 'order_sub_no'},
                 {name: '预计配送时间', field: 'expect_date'},
-                {name: '子订单状态', field: 'status', filter: 'order_deliver_status'},
+                {name: '子订单状态', field: 'delivery_status', filter: 'order_deliver_status'},
                 {
                     name: '操作',
                     fieldDirective: '<div deliver-delay data="item"></div>'

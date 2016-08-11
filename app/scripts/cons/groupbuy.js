@@ -14,6 +14,7 @@ define([], function () {
                 {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item.product"></div>'},
                 {name: '开团订单', fieldDirective: '<div groupbuy-order data="item"></div>'},
                 {name: '团订单数', fieldDirective: '<div groupbuy-order-copies data="item"></div>'},
+                {name: '成功购买份数', field: 'order.copies'},
                 {name: '团支付金额', field: 'order.amounts'},
                 {name: '返现金额', field: 'return_amount'},
                 {name: '剩余时间', field: 'group_end_time', filter: 'null2empty|remaining_time'},
@@ -36,16 +37,26 @@ define([], function () {
                     {text: '拼团ID', value: 'groupbuy_id', placeholder: '拼团ID'},
                     {text: '开团用户', value: 'contact_name', placeholder: '开团联系人'},
                     {text: '开团手机', value: 'contact_mobile', placeholder: '开团手机号'},
+                    // { // 成团状态:1:开团,2:进行中,3:完成,4:已取消
+                    //     value: 'accomplish_status', text: '拼团状态', type: 'btnGroup', default: '', width: '6',
+                    //     enum: [
+                    //         {value: '', text: '全部'},
+                    //         {value: '1', text: '开团'},
+                    //         {value: '2', text: '进行中'},
+                    //         {value: '3', text: '拼团完成'},
+                    //         {value: '4', text: '拼团取消'},
+                    //     ]
+                    // },
                     {  // accomplish_status 成团状态:1:开团,2:进行中,3:完成,4:已取消
                         value: 'flag', text: '状态', type: 'btnGroupArray2',
                         default: 1, //有enum_text时 enumde index 的值
                         width: '6',
-                        enum_text: 'accomplish_status',//  有  enum_text 说明是数组
+                        enum_text: 'accomplish_status',
                         enum: [
                             {value: [], text: '全部'},
                             {value: [1, 2], text: '正在进行'},
-                            {value: [3], text: '已下线'},
-                            {value: [4], text: '待上线'},
+                            {value: [3], text: '拼团完成'},
+                            {value: [4], text: '拼团取消'},
                         ]
                     },
                 ],

@@ -2,7 +2,6 @@ define([
     '../../directives/directives',
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
-    // <div product-pattern="patterns"></div>
     mod
         .directive('productPattern', function ($templateCache) {
             return {
@@ -97,5 +96,18 @@ define([
                     $compile($element.contents())($scope);
                 }
             }
+        })
+        .directive('productOption', function ($templateCache) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'product/product-option.html'),
+                link: function ($scope, $element, $attrs) {
+
+                }
+            };
         })
 });

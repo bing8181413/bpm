@@ -3,7 +3,6 @@ define([
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-    // 修改配送模式时间类型
         .directive('changeDeliveriesStatus', function ($templateCache, $filter, $compile, widget, $modal) {
             return {
                 restrict: 'AE',
@@ -33,7 +32,6 @@ define([
                                     '<div form-radio text="修改状态为" type="radio" ng-model="delivery_status" required="true"' +
                                     'source="' + source + '" default=""></div>' +
                                     '<a class="btn btn-primary btn-rounded pull-right" ng-click="change_deliveries_status()">确定</a>' +
-                                    '<a class="btn btn-warning btn-rounded " ng-click="cancel()">关闭</a>' +
                                     '</form>';
                                 $scope.change_deliveries_status = function () {
                                     // console.log($scope.delivery_ids, $scope.delivery_status);
@@ -103,20 +101,17 @@ define([
                                     '<a class="btn btn-primary btn-rounded pull-right" ng-click="deliver_delay()">确定</a>' +
                                     '</form>';
                                 $scope.deliver_delay = function () {
-                                    console.log(supscope.data.delivery_id);
-                                    if (confirm('延迟一周配送?')) {
-                                        widget.ajaxRequest({
-                                            url: '/orders/deliveries/' + supscope.data.delivery_id + '/delay',
-                                            method: 'PUT',
-                                            scope: $scope,
-                                            data: {},
-                                            success: function (json) {
-                                                widget.msgToast('已经修改为延迟一周配送,请刷新查看');
-                                                supscope.$parent.$parent.searchAction();
-                                                $scope.cancel();
-                                            }
-                                        })
-                                    }
+                                    widget.ajaxRequest({
+                                        url: '/orders/deliveries/' + supscope.data.delivery_id + '/delay',
+                                        method: 'PUT',
+                                        scope: $scope,
+                                        data: {},
+                                        success: function (json) {
+                                            widget.msgToast('已经修改为延迟一周配送,请刷新查看');
+                                            supscope.$parent.$parent.searchAction();
+                                            $scope.cancel();
+                                        }
+                                    })
                                 }
                                 $scope.cancel = function () {
                                     $modalInstance.dismiss('cancel');

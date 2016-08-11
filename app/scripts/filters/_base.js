@@ -559,5 +559,27 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                 return result;
             }
         }])
+        //  category 类型 1:砍价团 2: 人数团 3：众筹团 4: 邻里团
+        .filter('product_category', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "砍价团";
+                        break;
+                    case "2":
+                        result = "人数团";
+                        break;
+                    case "3":
+                        result = "一起团";
+                        break;
+                    case "4":
+                        result = "众筹";
+                        break;
+                }
+                return result;
+            }
+        }])
     ;
 });

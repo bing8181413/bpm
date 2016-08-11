@@ -22,9 +22,8 @@ define([
                             url: "/list.html",
                             views: {
                                 "": {
-                                    // controller: 'pintuanController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'banner/list.html');
+                                        return '<div hjm-grid modid="bannerList" config="config" columns="columns"></div>';
                                     }
                                 }
                             }

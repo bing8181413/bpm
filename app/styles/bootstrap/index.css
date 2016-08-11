@@ -2921,7 +2921,8 @@ input[type="search"] {
 
 .radio-inline + .radio-inline, .checkbox-inline + .checkbox-inline {
     margin-top: 0;
-    margin-left: 10px
+    /*margin-left: 10px;*/
+    margin-left: 0;
 }
 
 input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="radio"].disabled, input[type="checkbox"].disabled, fieldset[disabled] input[type="radio"], fieldset[disabled] input[type="checkbox"], .radio-inline.disabled, .checkbox-inline.disabled, fieldset[disabled] .radio-inline, fieldset[disabled] .checkbox-inline, .radio.disabled label, .checkbox.disabled label, fieldset[disabled] .radio label, fieldset[disabled] .checkbox label {
@@ -8183,7 +8184,8 @@ pre {
     color: #3ca2e0;
     display: block;
     padding: 8px;
-    height: auto
+    height: auto;
+    font-size:13px;
 }
 
 #sidebar div.side-menu .menu-body ul.sidenav li ul.nested-dropdown li a:hover, #sidebar div.side-menu .menu-body ul.sidenav li ul.nested-dropdown li a:focus, #sidebar div.side-menu .menu-body ul.sidenav li ul.nested-dropdown li a:active {
@@ -8198,14 +8200,14 @@ pre {
     padding-top: 8px;
     padding-left: 8px;
     border-bottom: 1px solid #eee;
-    font-size: 12px;
+    font-size: 15px;
     font-weight: 700;
     line-height: 21px;
     color: #2698dd
 }
 
 #sidebar div.side-menu .menu-body ul.sidenav li ul.nested-dropdown li.sidemenu-header a {
-    color: #2698dd
+    color: #2698dd;
 }
 
 #sidebar div.side-menu .menu-body ul.sidenav li:hover ul.nested-dropdown {

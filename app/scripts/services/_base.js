@@ -2,7 +2,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
     mod
         .run(['$rootScope', '$state', '$stateParams', '$http', '$modal', '$location', 'widget',
             function ($rootScope, $state, $stateParams, $http, $modal, $location, widget) {
-                
+
                 // $compileProvider.debugInfoEnabled(true);
                 // 监听路由事件
                 // $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

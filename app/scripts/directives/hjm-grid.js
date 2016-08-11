@@ -226,7 +226,7 @@ define([
                         });
                         // console.log($scope._selected_num);
                     }
-                    $scope.searchAction = function (searchParams) {
+                    $scope.searchAction = function () {
                         $log.info('当前查询条件 :', $scope.searchParams);
                         $scope.pageInfo.currentPage = 1;
                         $scope.updateList();
@@ -239,22 +239,26 @@ define([
                         };
                         var searchItemsParamDefault = {};
                         angular.forEach(configDef.searchItems, function (searchItems_val, searchItems_key) {
-                            if ((searchItems_val.type == 'btnGroup' || searchItems_val.type == 'btnGroupArray') && searchItems_val.default) {
-                                angular.forEach(configDef.searchItems, function (searchItems_val, searchItems_key) {
-                                    if (searchItems_val.default || searchItems_val.default == '') {
-                                        eval('searchItemsParamDefault.' + searchItems_val.value + ' = ' + searchItems_val.default);
-                                    }
+                            if ((searchItems_val.type == 'btnGroup') && (searchItems_val.default || searchItems_val.default == 0)) {
+                                eval('searchItemsParamDefault.' + searchItems_val.value + ' = ' + JSON.stringify(searchItems_val.enum[searchItems_val.default].value));
+                            } else if (searchItems_val.type == 'btnGroupArray' && (searchItems_val.default || searchItems_val.default == 0)) {
+                                angular.forEach(searchItems_val.enum_text, function (enum_val, enum_key) {
+                                    eval('searchItemsParamDefault.' + enum_val + ' = "' + searchItems_val.enum[searchItems_val.default].value[enum_key] + '"');
                                 });
-                            } else if (searchItems_val.type == 'btnGroupArray2' && searchItems_val.default) {
+                            } else if (searchItems_val.type == 'btnGroupArray2' && (searchItems_val.default || searchItems_val.default == 0)) {
                                 eval('searchItemsParamDefault.' + searchItems_val.enum_text + ' = ' + JSON.stringify(searchItems_val.enum[searchItems_val.default].value));
                             }
-                        });
-                        // console.log(searchItemsParamDefault);
+                        })
+                        // console.log('configDef.preSelectionSearch', configDef.preSelectionSearch);
+                        // console.log('$scope.searchParams', $scope.searchParams);
+                        // console.log('searchItemsParamDefault', searchItemsParamDefault);
                         // console.log($scope.extSearch);
                         var searchParam = angular.extend({}, configDef.preSelectionSearch, searchItemsParamDefault,
                             $scope.searchParams, pageInfo, $scope.extSearch);
                         // console.log(configDef.pageInfo);
                         // console.log(configDef.api);
+
+                        // console.log(searchParam);
 
                         widget.ajaxRequest({
                             method: 'GET',
@@ -423,9 +427,10 @@ define([
                                                     return false;
                                                 }
                                             });
+                                            //下面的   =是对的不是双=
                                             if (angular.isNumber(val.default) || (val.default = parseInt(val.default))) {
                                                 $scope.$eval(val.value + '="' + val.default + '"');
-                                                $scope.$eval('params.' + val.enum_text + '=' + JSON.stringify(val.enum[val.default]) + '');
+                                                $scope.$eval('params.' + val.enum_text + '=' + JSON.stringify(val.enum[val.default].value) + '');
                                             }
                                             if (val.enum.length > 0) {
                                                 angular.forEach(val.enum, function (enum_val, enum_key) {
@@ -468,22 +473,22 @@ define([
                                                 }
                                             });
                                             if (angular.isNumber(val.default) || (val.default = parseInt(val.default))) {
-                                                $scope.$eval('params.' + val.value + '="' + val.default + '"');
+                                                $scope.$eval(val.value + '="' + val.default + '"');
                                                 angular.forEach(val.enum[val.default].value, function (value_val, value_key) {
                                                     $scope.$eval('params.' + val.enum_text[value_key] + '="' + value_val + '"');
                                                 });
                                             }
                                             if (val.enum.length > 0) {
                                                 angular.forEach(val.enum, function (enum_val, enum_key) {
-                                                    var btnClassHtml = ('"btn-rounded":params.' + val.value + '==\'' + enum_key + '\',' +
-                                                    '"btn-bordered":params.' + val.value + '!==\'' + enum_key + '\'');
+                                                    var btnClassHtml = ('"btn-rounded":' + val.value + '==\'' + enum_key + '\',' +
+                                                    '"btn-bordered":' + val.value + '!==\'' + enum_key + '\'');
                                                     var btnClickHtml = '';
                                                     angular.forEach(enum_val.value, function (enum_val_arr, enum_key_arr) {
                                                         // console.log(val.enum_text, val.enum_text[enum_key_arr],enum_key_arr);
                                                         btnClickHtml += 'params.' + val.enum_text[enum_key_arr] + ' = \'' +
                                                             enum_val_arr + '\';';
                                                     });
-                                                    btnClickHtml += 'autoSearch=!!!autoSearch;params.' + val.value + '=\'' +
+                                                    btnClickHtml += 'autoSearch=!!!autoSearch;' + val.value + '=\'' +
                                                         enum_key + '\'';
                                                     btnHtml += (' <a class="btn btn-primary btn-sm" ' +
                                                     ' ng-class={' + btnClassHtml + '}' +
@@ -523,7 +528,7 @@ define([
                             })
                             var show_search_btn = false;
                             angular.forEach(searchItemsVal, function (val) {
-                                if (val.type !== 'btnGroup' && val.type !== 'btnGroupArray') {
+                                if (val.type !== 'btnGroup' && val.type !== 'btnGroupArray' && val.type !== 'btnGroupArray2') {
                                     show_search_btn = true;
                                 }
                             });

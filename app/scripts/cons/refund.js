@@ -2,7 +2,7 @@ define([], function () {
     var rtn = {
         refundList: {
             columns: [
-                {name: '订单序号', field: 'refund_id', className: 'text-right'},
+                {name: '退款编号', field: 'refund_id', className: 'text-right'},
                 {name: '退款类型', field: 'refund_type', filter: 'refund_type'},
                 {name: '母订单号', field: 'order_no'},
                 {name: '商品名称', field: 'order.order_title'},
@@ -19,6 +19,7 @@ define([], function () {
                 {name: '退款时间', field: 'verified_at'},
                 {name: '退款原因', field: 'refund_reason'},
                 {name: '退款来源', field: 'cancel_from', filter: 'refund_cancel_from'},
+                {name: '操作', fieldDirective: '<div order-single-refund data="item"></div>'},
             ],
             config: {
                 title: '退款管理',
@@ -37,7 +38,7 @@ define([], function () {
                         value: 'refund_status', text: '退款状态', type: 'btnGroup', default: '1', width: '6',
                         enum: [
                             {value: '0', text: '未退款'},
-                            {value: '1', text: '待退款'},
+                            {value: '1', text: '退款中'},
                             {value: '2', text: '退款失败'},
                             {value: '3', text: '退款成功'},
                         ]
@@ -59,23 +60,23 @@ define([], function () {
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
                 ext: {
-                    // checked: {
-                    //     text: '',
-                    //     value: '_checked'
-                    // },
+                    checked: {
+                        text: '',
+                        value: '_checked'
+                    },
                     showNum: [
-                        {text: '退单数量', type: 'count'},
+                        {text: '退单数量', type: 'total'},
                         {text: '退款总金额', field: 'amounts'},
                         // {text: '已选', type: 'selected'},
                     ],
-                    // eventBtn: [
-                    //     {text: '全选', event: 'all_select'},
-                    //     {text: '取消全选', event: 'cancel_all_select'},
-                    //     {
-                    //         text: '修改子订单状态',
-                    //         fieldFirective: '<div change-deliveries-status data="list"></div>',
-                    //     },
-                    // ]
+                    eventBtn: [
+                        {text: '全选', event: 'all_select'},
+                        {text: '取消全选', event: 'cancel_all_select'},
+                        {
+                            text: '批量退款',
+                            fieldFirective: '<div order-refunds data="data"></div>',
+                        },
+                    ]
                 }
             }
         }

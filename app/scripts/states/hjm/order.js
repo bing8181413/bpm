@@ -21,24 +21,28 @@ define([
                             url: "/list.html",
                             views: {
                                 "": {
-                                    // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'order/list.html');
+                                        return '<div hjm-grid modid="orderList" config="config" columns="columns"></div>';
                                     }
                                 }
                             }
                         })
-                    // .state("account.update", {
-                    //     url: "/update.html/:account_id",
-                    //     views: {
-                    //         "": {
-                    //             // controller: "account.updateController",
-                    //             templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + cons.biz_path + 'pintuan/update.html');
-                    //             }
-                    //         }
-                    //     }
-                    // })
+                        .state(cons.state.main + '.act_order', {
+                            url: "/act_order",
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.main_path + 'container.html');
+                            }
+                        })
+                        .state(cons.state.main + '.act_order.list', {
+                            url: "/list.html",
+                            views: {
+                                "": {
+                                    templateProvider: function ($templateCache) {
+                                        return '<div hjm-grid modid="orderList" config="config_by_act" columns="columns_by_act"></div>';
+                                    }
+                                }
+                            }
+                        })
                 }
             ])
         ;

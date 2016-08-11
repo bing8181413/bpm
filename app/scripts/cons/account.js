@@ -86,7 +86,7 @@ define([], function () {
                 {name: '角色名称', field: 'name'},
                 {
                     name: '菜单',
-                    fieldDirective: '<div show-menu data="item.menus">菜单</a>',
+                    fieldDirective: '<div show-menu data="item.menus">菜单</div>',
                     // field: 'menus',
                     // filter: 'arraySub2String:\'name\'',
                     // truncateText: true,

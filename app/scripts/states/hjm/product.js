@@ -6,6 +6,7 @@ define([
         '../states'
         , '../../cons/simpleCons'
         , '../../controllers/biz/productController'
+        , '../../controllers/biz/actController'
     ],
     function (stateModule, cons) {
         stateModule.config(
@@ -24,7 +25,7 @@ define([
                                 "": {
                                     // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'product/list.html');
+                                        return '<div hjm-grid modid="productList" config="config" columns="columns"></div>';
                                     }
                                 }
                             }
@@ -51,17 +52,45 @@ define([
                                 }
                             }
                         })
-                    // .state("account.update", {
-                    //     url: "/update.html/:account_id",
-                    //     views: {
-                    //         "": {
-                    //             // controller: "account.updateController",
-                    //             templateProvider: function ($templateCache) {
-                    //                 return $templateCache.get('app/' + cons.biz_path + 'pintuan/update.html');
-                    //             }
-                    //         }
-                    //     }
-                    // })
+                        .state(cons.state.main + '.act', {
+                            url: "/act",
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.main_path + 'container.html');
+                            }
+                        })
+                        .state(cons.state.main + '.act.list', {
+                            url: "/list",
+                            views: {
+                                "": {
+                                    // controller: 'accountController'
+                                    templateProvider: function ($templateCache) {
+                                        return '<div hjm-grid modid="productList" config="act_config" columns="act_columns"></div>';
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.act.add', {
+                            url: "/add",
+                            views: {
+                                "": {
+                                    controller: 'act.updateController',
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'act/update.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.act.update', {
+                            url: "/update.html/:product_id",
+                            views: {
+                                "": {
+                                    controller: 'act.updateController',
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'act/update.html');
+                                    }
+                                }
+                            }
+                        })
                 }
             ]);
     })

@@ -51,13 +51,13 @@ define([
                                     '</form>';
                                 $scope.change_city_name = function () {
                                     widget.ajaxRequest({
-                                        url: '/accounts/' + $rootScope.hjm.account_id,
+                                        url: '/account/' + $rootScope.hjm.account_id,
                                         method: 'PUT',
                                         scope: $scope,
                                         data: {city_name: $scope.city_name},
                                         success: function (json) {
                                             widget.msgToast('切换城市成功');
-                                            $rootScope.hjm.current_city_name = $scope.city_name;
+                                            $rootScope.hjm.city_name = $scope.city_name;
                                             $scope.cancel();
                                         }
                                     })
