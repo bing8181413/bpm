@@ -240,7 +240,7 @@ define([
                         var searchItemsParamDefault = {};
                         angular.forEach(configDef.searchItems, function (searchItems_val, searchItems_key) {
                             if ((searchItems_val.type == 'btnGroup') && (searchItems_val.default || searchItems_val.default == 0)) {
-                                eval('searchItemsParamDefault.' + searchItems_val.value + ' = ' + JSON.stringify(searchItems_val.enum[searchItems_val.default].value));
+                                eval('searchItemsParamDefault.' + searchItems_val.value + ' = "' + searchItems_val.default + '"');
                             } else if (searchItems_val.type == 'btnGroupArray' && (searchItems_val.default || searchItems_val.default == 0)) {
                                 angular.forEach(searchItems_val.enum_text, function (enum_val, enum_key) {
                                     eval('searchItemsParamDefault.' + enum_val + ' = "' + searchItems_val.enum[searchItems_val.default].value[enum_key] + '"');
