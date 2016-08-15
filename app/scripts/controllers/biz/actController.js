@@ -19,10 +19,35 @@ define([
                 }
             })
         }
+        var change_options = function () {
+            $scope.options_goal_price = 0;
+            if ($scope.param && $scope.param.options) {
+                angular.forEach($scope.param.options, function (v, k) {
+                    $scope.options_goal_price += comfunc.numMulti(v.option_price, v.option_inventory);
+                });
+                if ($scope.param && $scope.param.act_goal_price && $scope.param.act_goal_price > $scope.options_goal_price) {
+                    $scope.param.act_goal_price = $scope.options_goal_price;
+                }
+            }
+        }
+
+        $scope.$watch('param.options', function (val) {
+            change_options();
+        }, true);
+        $scope.$watch('param.act_goal_price', function (val) {
+            change_options();
+        });
+
+        $scope.$watch('param.delivery_type', function (val) {
+            if (!!val && val == '3') {
+                $scope.param.frequency_num = 0;
+            }
+        });
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
         }
         $scope.submit = function (status) {
+            $scope.param.act_coupon = 2;
             if (comfunc.isEmptyArray($scope.param.pics)) {
                 widget.msgToast('运营大图没有上传');
                 return false;

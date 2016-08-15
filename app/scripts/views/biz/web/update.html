@@ -1,0 +1,28 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">生成推广网址</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>推广参数</h4>
+                        <div form-input text="推广网址" ng-model="param.url" placeholder="推广网址" required="true"></div>
+                        <div form-input text="广告来源" ng-model="param.utm_source" placeholder="例如:wx"
+                             required="true"></div>
+                        <div form-input text="广告媒介" ng-model="param.utm_medium" placeholder="例如:微信文章"
+                             required="true"></div>
+                        <div form-input text="广告名称" ng-model="param.utm_campaign" placeholder="例如:20160808"></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>生成结果</h4>
+                        <div form-textarea="" text="URL" ng-model="web_url"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

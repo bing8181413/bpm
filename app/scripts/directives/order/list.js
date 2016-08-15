@@ -123,7 +123,7 @@ define([
                                         };
                                     };
                                     $scope.selectedCommunity = function (selected) {
-                                        // console.log(selected);
+                                        console.log(selected);
                                         if (selected) {
                                             $scope.address.community_name = selected.originalObject.name;
                                             $scope.address.community_id = selected.originalObject.community_id;
@@ -159,7 +159,7 @@ define([
                                         'selected-object="selectedCommunity"' +
                                         'remote-url="' + simpleCons.domain + '/communities"' +
                                         'remote-url-request-formatter="remoteUrlRequestFn"' +
-                                        'remote-url-data-field="list"' +
+                                        'remote-url-data-field="data"' +
                                         'title-field="name"' +
                                         'search-fields="keyword"' +
                                         'description-field="address"' +

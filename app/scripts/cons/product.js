@@ -159,8 +159,8 @@ define([], function () {
                         enum_text: 'category',
                         enum: [
                             {value: [3, 4], text: '全部'},
-                            {value: [3], text: '一起团'},
-                            {value: [4], text: '众筹'},
+                            {value: [3], text: '众筹'},
+                            {value: [4], text: '一起玩'},
                         ]
                     },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外

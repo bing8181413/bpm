@@ -347,8 +347,12 @@ define([
                         var cellContent = '';
                         // var cellFilter = colDef.filter;
                         var colField = 'item.' + col.field;
+                        var typeContent = (col.type == 'number') ? 'type="number"' : '';
+                        var minContent = (col.min || col.min == 0) ? ('min="' + col.min + '"' ) : '';
+                        var maxContent = (col.max || col.max == 0) ? ('max="' + col.max + '"' ) : '';
                         if (!col.disabled) {
-                            cellContent = '<input class="form-control" ng-model="' + colField + '"/>';
+                            cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent +
+                                'ng-model="' + colField + '"/>';
                         }
                         if (config.readonly) {
                             cellContent = '<span ng-bind="' + colField + '"><span/>';

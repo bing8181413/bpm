@@ -12,6 +12,7 @@ define([], function () {
                 // {name: '优惠券', field: 'coupon.count'},
                 {name: '注册时间', field: 'created_at'},
                 {name: '最近一次使用时间', field: 'authed_at'},
+                {name: '模拟登陆', fieldDirective: '<div user-token data="item"></div>'},
             ],
             config: {
                 title: '用户列表',

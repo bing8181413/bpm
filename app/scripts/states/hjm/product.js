@@ -34,7 +34,7 @@ define([
                             url: "/add",
                             views: {
                                 "": {
-                                    controller: 'product.addController',
+                                    controller: 'product.updateController',
                                     templateProvider: function ($templateCache) {
                                         return $templateCache.get('app/' + cons.biz_path + 'product/update.html');
                                     }

@@ -13,7 +13,8 @@
                              ng-show="$stateParams.product_id"
                              placeholder="商品ID" ng-disabled="$stateParams.product_id"></div>
                         <div form-input text="商品标题" ng-model="param.title" placeholder="商品标题" required="true"></div>
-                        <div form-input text="商品简介" ng-model="param.brief" placeholder="不超过30个字" minlength="1" maxlength="30"></div>
+                        <div form-input text="商品简介" ng-model="param.brief" placeholder="不超过30个字" minlength="1"
+                             maxlength="30"></div>
                         <div form-radio text="商品品类" ng-model="param.sku" required="true" default="1"
                              source="[{text:'鲜花',value:'1'},{text:'其他',value:'0'}]" source-api=""></div>
                         <div form-radio text="商品类型" ng-model="param.frequency_type" required="true" default="2"
@@ -24,7 +25,7 @@
                         <div form-input text="单次限购份数" ng-model="param.order_count_max" type="number"
                              min="1" required="true"></div>
                         <!--<div form-input text="已售份数基数" ng-model="param.base_sale_count" type="number"-->
-                             <!--min="1" required="true"></div>-->
+                        <!--min="1"></div>-->
                         <div form-date-time text="上架时间" ng-model="param.start_time" required="true"></div>
                         <div form-date-time text="下架时间" ng-model="param.end_time" required="true"></div>
                         <div form-image text="运营大图" ng-model="param.pics" max="100" required="true"></div>
@@ -54,7 +55,7 @@
                              ng-show="param.category==2"
                              ng-disabled="$stateParams.product_id"></div>
 
-                        <div form-input text="拼团有效时间(小时)" ng-model="param.group_seconds" min="0" required="true"
+                        <div form-input text="拼团有效时间(小时)" ng-model="hours" min="0" required="true"
                              type="number" placeholder="单位:小时"></div>
                     </div>
                 </div>
@@ -64,6 +65,7 @@
                         <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
                              required="true"></div>
                         <div form-radio text="物流" ng-model="param.delivery_type" required="true"
+                             ng-change="delivery_type()"
                              source="[{text:'顺丰配送',value:'1'},{text:'商家负责配送',value:'2'},{text:'无配送',value:'3'}]"
                              source-api=""></div>
                         <div form-checkbox text="配送城市" ng-model="param.visible_cities" required="true"

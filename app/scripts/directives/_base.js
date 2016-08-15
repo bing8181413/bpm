@@ -159,7 +159,7 @@ define([
     *   height:
     * }]
          */
-        .directive('showUpload', function ($state, $rootScope, $timeout, FileUploader, $templateCache) {
+        .directive('showUpload', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -200,6 +200,23 @@ define([
                         $scope.oldImages.splice(key, 1);
                         // console.log('$scope.oldImages   ', $scope.oldImages);
                         updateImages();
+                    };
+
+                    // 历史数据插入图片
+                    $scope.addImage = function (key) {
+                        var object = new FileUploader.FileSelect({
+                            uploader: $scope.uploader,
+                            element: $element
+                        });
+
+                        object.getOptions = $parse($attrs.options).bind(object, $scope);
+                        object.getFilters = function () {
+                            return $scope.uploader.filters;
+                        };
+                        // console.log(object);
+                        // $scope.oldImages.splice(key, 0);
+                        // console.log($scope.uploader);
+                        // updateImages();
                     };
 
                     // 上传成功

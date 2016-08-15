@@ -572,10 +572,10 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                         result = "人数团";
                         break;
                     case "3":
-                        result = "一起团";
+                        result = "众筹";
                         break;
                     case "4":
-                        result = "众筹";
+                        result = "一起玩";
                         break;
                 }
                 return result;

@@ -15,6 +15,7 @@ define([
     'states/hjm/community',//小区
     'states/hjm/sms',//发送短信
     'states/hjm/supports',//支持城市
+    'states/hjm/web',//网站推广
 
 ], function () {
 

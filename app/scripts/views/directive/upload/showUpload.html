@@ -47,12 +47,16 @@
             <td></td>
             <td class="text-center"></td>
             <td>
+                <!--<input class="form-control upload-image" type="file" nv-file-select uploader="uploader"/>-->
+                <button type="button" class="btn btn-primary btn-xs btn-rounded" ng-click="addImage($index)">
+                    <span class="glyphicon glyphicon-plus"></span> 插入
+                </button>
                 <button type="button" class="btn btn-danger btn-xs btn-rounded" ng-click="removeImage($index)">
                     <span class="glyphicon glyphicon-trash"></span> 移除
                 </button>
             </td>
         </tr>
-        <tr ng-repeat="(k,v) in uploader.queue track by $index" class="ng-scope" ng-required="required">
+        <tr ng-repeat="(k,v) in uploader.queue track by $index" ng-required="required">
             <td>
                 <strong class="ng-binding" ng-bind="v.file.name" ng-if="!v.qiniu_url"></strong>
                 <img class="img-responsive" ng-src="{{v.qiniu_url}}" ng-if="v.qiniu_url">
