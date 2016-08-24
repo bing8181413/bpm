@@ -41,13 +41,17 @@ define([
                     this.buildRouter = function (config) {
                         var close = '';
                         var router = '';
-                        if (angular.isFunction($scope.$parent.$close)) {
+                        if (angular.isFunction($scope.$parent.$close)) {//弹框的 关闭按钮
                             close += '<button type="button" class="close" ng-click="$parent.$close();">×</button>';
                         }
                         if (config.route && config.route.length > 0) {
                             angular.forEach(config.route, function (router_val, router_key) {
-                                router += '<a class="btn btn-success btn-rounded btn-sm pull-right" ' +
-                                    'style="margin-top: -5.5px;" ui-sref="' + router_val.value + '" >' + router_val.text + '</a>';
+                                if (router_val.routeDirective) {
+                                    router = router_val.routeDirective;
+                                } else {
+                                    router += '<a class="btn btn-success btn-rounded btn-sm pull-right" ' +
+                                        'style="margin-top: -5.5px;" ui-sref="' + router_val.value + '" >' + router_val.text + '</a>';
+                                }
                             });
                             return router + '<h3 class="panel-title">' + (config.title || '') + '</h3>';
                             // return '<div class="row"><div class="col-sm-12">

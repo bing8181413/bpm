@@ -78,9 +78,14 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: ' <a class="btn btn-primary btn-rounded btn-sm" ng-click="show_deliver_delay();">延迟一周配送</a>',
+                template: ' <a class="btn btn-primary btn-rounded btn-sm" ng-click="show_deliver_delay();" ng-disabled="disabled">延迟一周配送</a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
+                    if (!!$scope.data.expect_date) {
+                        $scope.disabled = false;
+                    } else {
+                        $scope.disabled = true;
+                    }
                     $scope.show_deliver_delay = function () {
                         // console.log($scope.data);
                         var modalInstance = $modal.open({
@@ -89,7 +94,7 @@ define([
                                 $scope.title = '延迟一周配送';
                                 $scope.data = supscope.data;
                                 $scope.expect_date = $scope.data.expect_date;
-                                $scope.expect_date_new = new Date(Date.parse($scope.expect_date) + (86400000 * 7));
+                                $scope.expect_date_new = ($scope.expect_date ? new Date(Date.parse($scope.expect_date) + (86400000 * 7)) : '');
                                 $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
                                     '<h5>当前子订单、及后续子订单配送时间都会顺延，是否确定延迟一周配送？</h5>' +
                                     '<h5>当前子订单预计配送时间：<span ng-bind="expect_date|limitTo :10"></span></h5>' +

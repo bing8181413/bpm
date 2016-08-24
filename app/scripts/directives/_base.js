@@ -6,7 +6,7 @@ define([
     './nav-top',// 上边内容
     './side-left',// 左边菜单
     './hjmdirectives',
-    // './community',
+    './role-permission',
     './show_image',
     './select_city',
     './select_boards',// 负责人管理中 选择板块
@@ -45,15 +45,14 @@ define([
     *    'content': ''  文本内容
     * }
      */
-        .directive('showTextarea', function ($state,
-                                             $rootScope) {
+        .directive('showTextarea', function ($state, $rootScope, $timeout, $compile) {
             return {
                 restrict: 'E',
                 replace: true,
                 require: '?ngModel',
                 scope: {},
                 template: '<div class="panel panel-default">' +
-                '    <div class="panel-heading">' +
+                '    <div class="panel-heading" ng-class="{\'hide\':disabled}" >' +
                 '        <select ng-options="opts.id as opts.val for opts in FontOpts.size" ng-change="selectOpts()" ng-model="Update.font_size" style="width:100px;margin-left:10px;">' +
                 '            <option value="" disabled="false">大小</option>' +
                 '        </select>' +
@@ -69,12 +68,16 @@ define([
                 '        </select>' +
                 '    </div>' +
                 '    <div class="panel-body">' +
-                '        <textarea class="form-control" rows="3" contentEditable=true style="height:auto;" ng-model="Update.content" ng-style="FontStyle" placeholder="{{Attrs.placeholder}}"></textarea>' +
+                '        <textarea class="form-control" rows="5" disabled-role="\'{{disabledRole}}\'" contentEditable=true style="height:auto;" ng-model="Update.content" ng-style="FontStyle" placeholder="{{Attrs.placeholder}}"></textarea>' +
                 '    </div>' +
                 '</div>',
                 link: function ($scope, $element, $attrs, ngModel) {
+                    $timeout(function () {
+                        // console.log($scope, $attrs);
+                        $scope.disabled = ($attrs.disabled ? true : false);
+                        $scope.disabledRole = $attrs.disabledRole || '';
+                    }, 0);
                     if (!ngModel) return;
-
                     ngModel.$render = function () {
                         $scope.Update = angular.extend({}, ngModel.$viewValue || {
                                 'font_size': '',
@@ -165,12 +168,17 @@ define([
                 replace: true,
                 scope: {
                     images: '=',
-                    required: '@'
+                    required: '@',
                     // hasimages: '='
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showUpload.html'),
                 controller: function ($scope, $element, $attrs) {
-
+                    $timeout(function () {
+                        $scope.disabled = ($attrs.disabled ? true : false);
+                        $scope.disabledRole = $attrs.disabledRole || '';
+                        // console.log($scope, $attrs.disabledRole);
+                        // console.log($scope, $attrs, $scope.disabled);
+                    }, 0);
                     $scope.uploader = new FileUploader({
                         url: simpleCons.qiniu_domain + '/qiniu/controller.php?action=uploadimage'
                     });
@@ -183,11 +191,19 @@ define([
                             $scope.oldImages = [];
                             if ($scope.images && $scope.images.length > 0) {
                                 angular.forEach($scope.images, function (v, k) {
-                                    $scope.oldImages.push({
+                                    // $scope.oldImages.push({
+                                    //     url: v.pic_url || v.url || undefined,
+                                    //     width: v.pic_width || v.width || undefined,
+                                    //     height: v.pic_height || v.height || undefined,
+                                    //     old: true
+                                    // });
+                                    $scope.uploader.queue.push({
                                         url: v.pic_url || v.url || undefined,
                                         width: v.pic_width || v.width || undefined,
                                         height: v.pic_height || v.height || undefined,
-                                        old: true
+                                        old: true,
+                                        progress: 100,
+                                        isUploaded: true,
                                     });
                                 });
                             }
@@ -197,7 +213,8 @@ define([
 
                     // 删除历史数据
                     $scope.removeImage = function (key) {
-                        $scope.oldImages.splice(key, 1);
+                        // $scope.oldImages.splice(key, 1);
+                        $scope.uploader.queue.splice(key, 1);
                         // console.log('$scope.oldImages   ', $scope.oldImages);
                         updateImages();
                     };
@@ -273,7 +290,10 @@ define([
                         }
                     });
 
-
+                    $scope.log = function () {
+                        updateImages();
+                        console.log($scope.uploader);
+                    }
                     // 全部取消
                     $scope.removeAll = function () {
                         $scope.uploader.clearQueue();
@@ -289,20 +309,13 @@ define([
 
 
                     // 移除上传的数据
-                    $scope.delImage = function (obj) {
-                        // $scope.uploader.queue.splice(key, 1);
-
-                        // // if ($scope.uploader.queue.length =)
-                        // var len = $scope.uploader.queue.length,
-                        //     num = 0;
-                        // angular.forEach($scope.uploader.queue, function (v, k) {
-                        //     if (v.isUploaded) num++;
-                        // });
-                        // $scope.uploader.progress = (num/len)*100;
-                        // console.log('len',len);
-                        // console.log('num',num);
-                        // console.log('progress',$scope.uploader.progress);
-                        obj.remove();
+                    $scope.delImage = function (key, obj) {
+                        if (obj.old) {
+                            $scope.uploader.queue.splice(key, 1);
+                        } else {
+                            obj.remove();
+                        }
+                        console.log(obj);
                         updateImages();
                     };
 
@@ -310,24 +323,24 @@ define([
                     function updateImages() {
                         init = true;
                         $scope.images = [];
-                        if ($scope.oldImages && $scope.oldImages.length > 0) {
-                            angular.forEach($scope.oldImages, function (v, k) {
+                        // console.log($scope.uploader);
+                        angular.forEach($scope.uploader.queue, function (v, k) {
+                            if (v.old) {
                                 $scope.images.push({
                                     pic_url: v.url,
                                     pic_width: v.width,
                                     pic_height: v.height
                                 });
-                            });
-                        }
-                        // console.log($scope.oldImages);
-                        // console.log($scope.uploader);
-                        angular.forEach($scope.uploader.queue, function (v, k) {
-                            $scope.images.push({
-                                pic_url: v.qiniu_url,
-                                pic_width: v.width,
-                                pic_height: v.height
-                            });
+                            } else {
+                                $scope.images.push({
+                                    pic_url: v.qiniu_url,
+                                    pic_width: v.width,
+                                    pic_height: v.height
+                                });
+                            }
+
                         });
+                        // console.log($scope.uploader.queue);
                     }
                 }
             };

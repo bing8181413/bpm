@@ -32,7 +32,7 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                         rtn = '星期天';
                         break;
                     default :
-                        rtn = '星期八';
+                        rtn = '无配送';
                 }
                 return rtn;
             }
@@ -56,8 +56,8 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
             }
         }])
         .filter('null2empty', [function () {
-            return function (val) {
-                return (!val || val == null || val == 'null') ? '' : val;
+            return function (val, rtn_str) {
+                return (!val || val == null || val == 'null') ? (rtn_str || '') : val;
             }
         }])
         .filter('arraySub2Array', [function () {
@@ -78,6 +78,28 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                     arr[k] = eval('v.' + param);
                 })
                 return arr.join(',');
+            }
+        }])
+        .filter('arraySum', [function () {
+            return function (val, param) {
+                var Sum = 0;
+                angular.forEach(val, function (v, k) {
+                    Sum += eval('v.' + param);
+                })
+                return Sum;
+            }
+        }])
+        // 百分比
+        .filter('process', [function (comfunc) {
+            return function (val, param) {
+                var Sum = 0;
+                var tmp = 1000000000000;//  换算整数
+                if (param > 0) {
+                    Sum = (parseFloat(parseInt(val * tmp) * 100) / parseInt(param * tmp)).toFixed(2) + '%';
+                } else {
+                    Sum = '0%';
+                }
+                return Sum;
             }
         }])
         .filter('to_trusted', ['$sce', function ($sce) {
@@ -488,9 +510,12 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                 val = val + '';
                 switch (val) {
                     case "0":
-                        result = "单次";
+                        result = "不限";
                         break;
                     case "1":
+                        result = "单次";
+                        break;
+                    case "2":
                         result = "包月";
                         break;
                 }
@@ -576,6 +601,22 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                         break;
                     case "4":
                         result = "一起玩";
+                        break;
+                }
+                return result;
+            }
+        }])
+        //  option_status  状态 1：正常 2：删除
+        .filter('product_option_status', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "正常";
+                        break;
+                    case "2":
+                        result = "删除";
                         break;
                 }
                 return result;

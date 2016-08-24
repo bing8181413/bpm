@@ -83,7 +83,7 @@ define([
                 }
             }
         })
-        // 修改收货地址
+        // 修改收货地址 拼团
         .directive('orderChangeAddress', function ($templateCache, $filter, $compile, widget, $modal, $timeout) {
             return {
                 restrict: 'AE',
@@ -98,7 +98,7 @@ define([
                         var modalInstance = $modal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                                 controller: function ($scope, $modalInstance) {
-                                    console.log(supscope.data.address);
+                                    // console.log(supscope.data.address);
                                     $timeout(function () {
                                         $scope.address = {
                                             contact_name: supscope.data.address.contact_name,
@@ -123,7 +123,6 @@ define([
                                         };
                                     };
                                     $scope.selectedCommunity = function (selected) {
-                                        console.log(selected);
                                         if (selected) {
                                             $scope.address.community_name = selected.originalObject.name;
                                             $scope.address.community_id = selected.originalObject.community_id;
@@ -214,6 +213,83 @@ define([
                     }
                     var content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_change_address();">修改收货地址</a>';
                     $element.find('.order-change-address').html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
+        // 修改收货地址 拼团
+        .directive('orderChangeAddressOfAct', function ($templateCache, $filter, $compile, widget, $modal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="order-change-address-of-act" ></p>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_order_change_address = function () {
+                        var modalInstance = $modal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $modalInstance) {
+                                    $timeout(function () {
+                                        $scope.address = {
+                                            contact_name: supscope.data.address.contact_name,
+                                            contact_mobile: supscope.data.address.contact_mobile,
+                                            // city_name: supscope.data.address.city_name,
+                                            // community_name: supscope.data.address.community_name,
+                                            // community_id: supscope.data.address.community_id,
+                                            // address: supscope.data.address.address,
+                                            // district: supscope.data.address.district,
+                                            // poi_type: supscope.data.address.poi_type,
+                                            // province: supscope.data.address.province,
+                                        };
+                                    }, 0);
+
+                                    $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
+                                        '<div form-input text="联系人" ng-model="address.contact_name"' +
+                                        ' placeholder = "联系人" required = "true" > </div > ' +
+                                        '<div form-input text="手机号" ng-model="address.contact_mobile"' +
+                                        ' placeholder = "手机号" required = "true" > </div > ' +
+                                        '<a class="btn btn-primary btn-rounded pull-right" ng-click="cancel_order()">确定</a>' +
+                                        '</form>';
+                                    $scope.title = '修改收货信息';
+                                    $scope.cancel_order = function () {
+                                        var err = 0;
+                                        // console.log($scope.address);
+                                        angular.forEach($scope.address, function (val, key) {
+                                            if (val == null || val == undefined) {
+                                                err++;
+                                            }
+                                        });
+                                        if (err > 0) {
+                                            widget.msgToast('有数据为填写完整');
+                                            return false;
+                                        }
+                                        if (confirm('确认修改收货信息吗?')) {
+                                            widget.ajaxRequest({
+                                                url: '/orders/' + (supscope.data.order_id || 0) + '/addresses/' + (supscope.data.address && supscope.data.address.order_address_id || 0),
+                                                method: 'put',
+                                                scope: $scope,
+                                                data: $scope.address,
+                                                success: function (json) {
+                                                    widget.msgToast('修改成功,请刷新查看');
+                                                    supscope.$parent.$parent.searchAction();
+                                                    $scope.cancel();
+                                                }
+                                            })
+                                        }
+                                    }
+                                    $scope.cancel = function () {
+                                        $modalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'lg'
+                            }
+                        );
+                    }
+                    var content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_change_address();">修改收货地址</a>';
+                    $element.find('.order-change-address-of-act').html(content);
                     $compile($element.contents())($scope);
                 }
             }

@@ -46,6 +46,12 @@ define([
                         }
                     }, 1000, $scope.time_count);
                     widget.msgToast('短信发送成功,注意手机查收');
+                },
+                failure: function (err) {
+                    widget.msgToast(err.message);
+                    $scope.disabled_get_verify_code = false;
+                    $scope.time_count = 30;
+                    $scope.remain_time = $scope.time_count;
                 }
             });
         }

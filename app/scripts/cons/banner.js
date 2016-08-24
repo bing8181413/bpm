@@ -49,7 +49,7 @@ define([], function () {
                 },
             ],
             config: {
-                title: '运营位管理',
+                title: '运营位列表',
                 api: '/banners',
                 rowItemName: 'item',
                 searchSupport: true,
@@ -63,7 +63,7 @@ define([], function () {
                     },
                     {   // status 1 上线 2 下线
                         // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
-                        value: 'flag',
+                        value: 'flag1',
                         text: '状态',
                         type: 'btnGroupArray',
                         default: 1, //有enum_text时 enumde index 的值

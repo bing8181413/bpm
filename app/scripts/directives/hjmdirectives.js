@@ -2,14 +2,6 @@ define([
     '../directives/directives',
     '../cons/simpleCons'
 ], function (mod, simpleCons) {
-    //  activity21用到的下列所有的指令
-
-    //  selectCommunity  选择小区
-    //  optionInfo       选择类目
-    //  content_or_img   图文说明可多个
-    //  hjmDateTime      hjm日期时间同时选择
-    //  tuan_zhang       选择备用团长
-    // order_list        订单支付列表
 
     mod
 
@@ -20,15 +12,54 @@ define([
     //    new: [{}]
     //},
 
-        .directive('contentOrImg', function ($state, $rootScope, $timeout, $templateCache) {
+        .directive('contentOrImg', function ($state, $rootScope, $timeout, $templateCache, $compile) {
             return {
                 restrict: 'E',
                 replace: true,
+                // require: '^?showTextarea',
                 scope: {
                     ngModel: '=',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_content2img.html'),
                 link: function ($scope, $element, $attrs) {
+                    $timeout(function () {
+                        $scope.disabled = ($attrs.disabled ? true : false);
+                        $scope.disabledRole = $attrs.disabledRole || '';
+                        // console.log($element, $attrs, $scope.disabled);
+
+                        var conent_tmp = '<div class="form-group " ng-repeat="item in list">' +
+                            '<div class="col-sm-12" ng-class="{contents:onlyContent!=1}">' +
+                            '<div class="col-sm-12 form-group" ng-class="{\'hide\':' + $scope.disabled + '}">' +
+                            '<a class="btn btn-info btn-rounded" ng-bind="($index+1)"></a>' +
+                            '<a class="btn btn-success btn-rounded" ng-if="onlyContent!=1"' +
+                            'ng-class="{\'btn-success\':!item.showContent,\'btn-danger\':item.showContent}"' +
+                            'ng-click="toggleShow(item,\'showContent\')">' +
+                            '<span class="glyphicon"' +
+                            'ng-class="{\'glyphicon-plus\':!item.showContent,\'glyphicon-trash\':item.showContent}">' +
+                            '</span> {{item.showContentTitle}}' +
+                            '</a>' +
+                            '<a class="btn btn-success btn-rounded" ng-if="onlyContent!=1"' +
+                            'ng-class="{\'btn-success\':!item.showImg,\'btn-danger\':item.showImg}"' +
+                            'ng-click = "toggleShow(item,\'showImg\')" > ' +
+                            '<span class="glyphicon"' +
+                            'ng-class="{\'glyphicon-plus\':!item.showImg,\'glyphicon-trash\':item.showImg}">' +
+                            '</span> {{item.showImgTitle}}' +
+                            '</a>' +
+                            '<a class="btn btn-danger btn-rounded" ng-if="onlyContent!=1" ng-click="del($index);">' +
+                            '<span class="glyphicon glyphicon-trash"></span> 删除这一条图文</a>' +
+                            '</div>' +
+                            '<div class="col-sm-12" ng-if="!!item.showContent">' +
+                            '<show-textarea ng-model="item.contentData" placeholder="填写你要说的"' +
+                            'disabled-role="' + $scope.disabledRole + '"></show-textarea>' +
+                            '</div>' +
+                            '<div class="col-sm-12" ng-if="!!item.showImg">' +
+                            '<show-upload images="item.pics" hasimages="" disabled-role="' + $scope.disabledRole + '"></show-upload>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                        $element.find('.content-and-img').html(conent_tmp);
+                        $compile($element.contents())($scope);
+                    }, 0);
                     var init = false;
                     $scope.$watch('ngModel', function (defval) {
                         if (defval && !init) {
@@ -156,16 +187,21 @@ define([
         //  <hjm_date ng-model="date" ></hjm_date>
         //  date = new date(),
 
-        .directive('hjmDate', function ($parse, $templateCache, $filter) {
+        .directive('hjmDate', function ($parse, $templateCache, $filter, $timeout, $compile) {
             return {
                 restrict: 'E',
                 replace: true,
                 scope: {
                     ngModel: '=ngModel',
                     ngModelTxt: '@ngModel',
+                    disabledRole: '@',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_date.html'),
                 link: function ($scope, $element, $attrs) {
+                    $timeout(function () {
+                        $scope.disabled = ($attrs.disabled ? true : false);
+                        // console.log($scope, $attrs, $scope.disabled);
+                    }, 0);
                     $scope.init = false;
                     $scope.strToDateTime = function (str) {
                         if (!str) return new Date();
@@ -224,17 +260,28 @@ define([
         //  <hjm_date_time ng-model="date" ></hjm_date_time>
         //  date = new date(),
 
-        .directive('hjmDateTime', function ($parse, $templateCache) {
+        .directive('hjmDateTime', function ($parse, $templateCache, $timeout, $compile) {
             return {
                 restrict: 'E',
                 replace: true,
                 scope: {
                     ngModel: '=ngModel',
                     ngModelTxt: '@ngModel',
-                    showtip: '=showtip'
+                    showtip: '=showtip',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_date_time.html'),
                 link: function ($scope, $element, $attrs) {
+                    $timeout(function () {
+                        $scope.disabled = ($attrs.disabled ? true : false);
+                        $scope.timepicker = '<timepicker class="" ng-model="tp" show-meridian="false" show-spinners="false"' +
+                            'mousewheel="true" readonly-input="' + $scope.disabled + '"' +
+                            'arrowkeys="true" style="margin-left: 3px;"' +
+                            'ng-change="changed();">' +
+                            '</timepicker>';
+                        $element.find('.appendTimepicker').append($scope.timepicker);
+                        $compile($element.contents())($scope);
+                        // console.log($scope, $attrs, $scope.disabled);
+                    }, 0);
                     $scope.init = false;
                     $scope.strToDateTime = function (str) {
                         str = str.toString();
@@ -294,7 +341,7 @@ define([
 
             };
         })
-        .directive('jsonTable', function ($state, $rootScope, $timeout, $templateCache, $compile) {
+        .directive('jsonTable', function ($state, $rootScope, $timeout, $templateCache, $compile, $timeout) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -302,7 +349,7 @@ define([
                     ngModel: '=',
                     columns: '=',
                     max: '@',
-                    config: '=',
+                    config: '=?',
                 },
                 controller: ['$scope', function ($scope) {
                     this.buildTable = function (columns, config) {
@@ -345,17 +392,17 @@ define([
 
                     function cellRender(col, config) {
                         var cellContent = '';
-                        // var cellFilter = colDef.filter;
+                        var cellFilter = col.filter ? ('|' + col.filter) : '';
                         var colField = 'item.' + col.field;
                         var typeContent = (col.type == 'number') ? 'type="number"' : '';
                         var minContent = (col.min || col.min == 0) ? ('min="' + col.min + '"' ) : '';
                         var maxContent = (col.max || col.max == 0) ? ('max="' + col.max + '"' ) : '';
                         if (!col.disabled) {
                             cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent +
-                                'ng-model="' + colField + '"/>';
+                                'ng-model="' + colField + cellFilter + '"/>';
                         }
-                        if (config.readonly) {
-                            cellContent = '<span ng-bind="' + colField + '"><span/>';
+                        if (config.readonly || col.readonly) {
+                            cellContent = '<span ng-bind="' + colField + cellFilter + '"><span/>';
                         }
                         return cellContent;
                     }
@@ -363,11 +410,19 @@ define([
                 template: '',
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var tmpHtml = '';
-                    if (angular.isArray($scope.columns)) {
-                        tmpHtml = $ctrl.buildTable($scope.columns, $scope.config);
-                        $element.html(tmpHtml);
-                        $compile($element.contents())($scope);
-                    }
+                    $timeout(function () {
+                        if (angular.isArray($scope.columns)) {
+                            // console.log($attrs.disabled);
+                            if (!!$attrs.disabled) {
+                                $scope.config = angular.extend($scope.config || {}, {readonly: true});
+                            }
+                            // console.log($scope.config);
+                            tmpHtml = $ctrl.buildTable($scope.columns, $scope.config);
+                            $element.html(tmpHtml);
+                            $compile($element.contents())($scope);
+                        }
+                    }, 0);
+
 
                     $scope.$watch('ngModel', function (defval) {
                         // console.log(defval);

@@ -11,14 +11,14 @@
                         <div form-input text="优惠劵名称" ng-model="param.title" placeholder="优惠劵名称" required="true"></div>
 
                         <div form-radio text="适用范围" ng-model="param.category" required="true" default="0"
-                             source="[{text:'不限',value:'0'},{text:'砍价团',value:'1'},{text:'人数团',value:'2'},{text:'众筹团',value:'3'},{text:'邻里团',value:'4'}]"
+                             source="[{text:'不限',value:'0'},{text:'砍价团',value:'1'},{text:'人数团',value:'2'},{text:'众筹团',value:'3'},{text:'一起玩',value:'4'}]"
                              source-api=""></div>
 
                         <div form-radio text="商品品类" ng-model="param.sku" required="true" default="1"
                              source="[{text:'鲜花',value:'1'},{text:'不限',value:'0'}]" source-api=""></div>
 
                         <div form-radio text="商品类型(频率)" ng-model="param.frequency_type" required="true" default="1"
-                             source="[{text:'包月',value:'1'},{text:'单次',value:'2'},{text:'不限',value:'0'}]"
+                             source="[{text:'单次',value:'1'},{text:'包月',value:'2'},{text:'不限',value:'0'}]"
                              source-api=""></div>
 
                         <div form-input text="优惠劵金额" ng-model="param.price" required="true" type="number"></div>

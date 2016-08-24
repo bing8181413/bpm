@@ -4,7 +4,7 @@ define([
 ], function (mod, con) {
     // <div product-pattern="patterns"></div>
     mod
-        .directive('changeRole', function ($templateCache, $compile, widget, $state, $modal, $rootScope, $timeout) {
+        .directive('changeRole', function ($templateCache, $compile, widget, $state, $modal, $rootScope, $timeout, $q) {
             return {
                 restrict: 'AE',
                 replace: true,
@@ -13,6 +13,8 @@ define([
                 },
                 controller: ['$scope', function ($scope) {
                     this.getMenus = function (callback) {
+                        var deferred = $q.defer();
+                        var promise = deferred.promise;
                         $scope.source = '';
                         widget.ajaxRequest({
                             url: '/accounts/menus/tree',
@@ -20,43 +22,49 @@ define([
                             scope: $scope,
                             data: {},
                             success: function (json) {
-                                $scope.menus = json.data;
-                                $scope.source = '[';
-                                angular.forEach($scope.menus, function (val, key) {
-                                    $scope.source += '{text:\'' + val.name + '\',value:' + val.id + '},';
-                                });
-                                $scope.source += ']';
-                                if (angular.isFunction(callback)) {
-                                    callback($scope.source);
-                                }
+                                deferred.resolve(json);//执行成功
                             }
                         })
+                        return promise;
                     }
                 }],
                 template: '<a class="btn btn-success btn-rounded btn-sm" ng-click="show_change_role();">菜单</a>',
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var supscope = $scope;
                     $scope.show_change_role = function () {
-                        $ctrl.getMenus(callback);
+                        $ctrl.getMenus().then(
+                            function (json) {
+                                $scope.menus = json.data;
+                                $scope.source = '[';
+                                angular.forEach($scope.menus, function (val, key) {
+                                    $scope.source += '{text:\'' + val.name + '\',value:' + val.id + '},';
+                                });
+                                $scope.source += ']';
+                                // $scope.menuIds = [];
+                                // angular.forEach($scope.menus, function (val, key) {
+                                //     $scope.menuIds.push(val.menu_id + '');
+                                // });
+                                callback($scope.source);
+                            }
+                        );
                         function callback(source) {
                             var modalInstance = $modal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl" callback="callback"></div>',
                                 controller: function ($scope, $modalInstance, $timeout) {
-                                    $scope.menu = supscope.data.menus;
-                                    $scope.title = '修改角色权限';
-                                    $timeout(function () {
-                                        $scope.callback();
-                                    }, 0);
-                                    $scope.callback = function () {
-                                        angular.forEach($scope.menu, function (val, key) {
-                                            $scope.menuIds.push(val.menu_id + '');
-                                        });
-                                    }
-                                    $scope.tmpl = '<style type="text/css">.checkbox-inline{margin-left: 10px;}</style>' +
+                                    $scope.tmpl = '<style type="text/css">.checkbox-inline{margin-left: 0px;}</style>' +
                                         '<form class="form-horizontal" name="FormBody" novalidate>' +
                                         '<div form-checkbox text="角色菜单" ng-model="menuIds" ' + ' source="' + source + '"> </div> ' +
                                         '<a class="btn btn-primary btn-rounded pull-right" ng-click="change_role()">确定</a>' +
                                         '</form>';
+                                    $scope.menu = supscope.data.menus;
+                                    $scope.menuIds = supscope.menuIds;
+                                    $scope.menuIds = [];
+                                    $scope.title = '修改角色权限';
+                                    $timeout(function () {
+                                        angular.forEach($scope.menu, function (val, key) {
+                                            $scope.menuIds.push(val.menu_id + '');
+                                        })
+                                    }, 100);
                                     $scope.change_role = function () {
                                         widget.ajaxRequest({
                                             url: '/accounts/roles/' + supscope.data.id,
@@ -166,7 +174,7 @@ define([
                 }
             }
         })
-        .directive('resetPwd', function ($templateCache, $rootScope, $compile, widget, $state,base64) {
+        .directive('resetPwd', function ($templateCache, $rootScope, $compile, widget, $state, base64) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -192,7 +200,7 @@ define([
                                     $state.go(con.state.main + '.account.list');
                                 }
                             })
-                        }else{
+                        } else {
                             widget.msgToast('密码必须包含字母和数字,并8~16位');
                         }
 
@@ -200,4 +208,5 @@ define([
                 }
             }
         })
-});
+})
+;

@@ -30,7 +30,7 @@ define([], function () {
                 // },
             ],
             config: {
-                title: '配送管理',
+                title: '配送列表',
                 api: '/orders/deliveries',
                 rowItemName: 'item',
                 searchSupport: true,
@@ -83,7 +83,7 @@ define([], function () {
             },
             columnsByOrder: [
                 {name: '子订单号', field: 'order_sub_no'},
-                {name: '预计配送时间', field: 'expect_date'},
+                {name: '预计配送时间', field: 'expect_date',filter:'null2empty:\'无配送时间\''},
                 {name: '子订单状态', field: 'delivery_status', filter: 'order_deliver_status'},
                 {
                     name: '操作',

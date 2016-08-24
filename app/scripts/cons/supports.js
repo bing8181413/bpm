@@ -9,7 +9,7 @@ define([], function () {
                 {name: '更新时间', field: 'updated_at'},
             ],
             config: {
-                title: '支持城市',
+                title: '开通城市',
                 api: '/supports/cities',
                 rowItemName: 'item',
                 searchSupport: false,
@@ -20,7 +20,7 @@ define([], function () {
                     // status: '0',
                 },
                 paginationSupport: true,
-                route: [{value: 'main.support.opencitiesadd', text: '新增支持城市'}],
+                route: [{value: 'main.support.opencitiesadd', text: '新增开通城市'}],
                 pageInfo: {
                     count: 5000,
                     page: 1,

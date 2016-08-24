@@ -19,6 +19,7 @@ define([
                 }
             })
         }
+        // 目标金额 和option 事件
         var change_options = function () {
             $scope.options_goal_price = 0;
             if ($scope.param && $scope.param.options) {
@@ -47,7 +48,6 @@ define([
             console.log('$scope.param', $scope.param);
         }
         $scope.submit = function (status) {
-            $scope.param.act_coupon = 2;
             if (comfunc.isEmptyArray($scope.param.pics)) {
                 widget.msgToast('运营大图没有上传');
                 return false;

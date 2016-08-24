@@ -140,10 +140,11 @@ define([
     //         }
     //     };
     // })
-        .directive('formInput', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+        .directive('formInput', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
+                // require: '^?$parent',
                 template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
                 scope: {
                     ngModel: '=ngModel',
@@ -160,7 +161,7 @@ define([
                     ngDisabled: '=',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
-                    // console.log('formElement', $scope, $attrs);
+                    // console.log('formElement', $scope, $attrs, $element, $ctrl);
                     // console.log($scope.ngModelText);
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
@@ -181,13 +182,17 @@ define([
                     // err_show += '{{$parent.FormBody["' + ($scope.name || $scope.ngModelText) +
                     //     '"]}}=============={{$parent.FormBody["' + ($scope.name || $scope.ngModelText) +
                     //     '"].$dirty}}========={{$parent.FormBody["' + ($scope.name || $scope.ngModelText) + '"].$valid}}';
-                    var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                        '<div class="col-sm-8">' +
-                        '<input class="form-control" ng-model="' + $scope.ngModelText + '"' + min + max +
-                        type + name + placeholder + maxlength + minlength + required + ngDisabled + '>' +
-                        err_show + '</div>';
-                    $element.find('.form_element').html(content);
-                    $compile($element.contents())($scope);
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">' +
+                            '<input class="form-control" ng-model="' + $scope.ngModelText + '"' + min + max +
+                            type + name + placeholder + maxlength + minlength + required + disabledRole + ngDisabled + '>' +
+                            err_show + '</div>';
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                    }, 0);
                     $scope.$watch($scope.ngModelText, function (val) {
                         if ($scope.type == 'number') {
                             $scope.ngModel = (parseFloat(val) || 0);
@@ -207,7 +212,7 @@ define([
                 }
             }
         })
-        .directive('formTextarea', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+        .directive('formTextarea', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -244,13 +249,17 @@ define([
                     // err_show += '{{$parent.form["' + ($scope.name || $scope.ngModelText) +
                     //     '"]}}=============={{$parent.form["' + ($scope.name || $scope.ngModelText) +
                     //     '"].$dirty}}========={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"].$valid}}';
-                    var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                        '<div class="col-sm-8">' +
-                        '<textarea class="form-control" rows="5" ng-model="' + $scope.ngModelText + '"' +
-                        name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + '>' +
-                        err_show + '</div>';
-                    $element.find('.form_element').html(content);
-                    $compile($element.contents())($scope);
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">' +
+                            '<textarea class="form-control" rows="5" ng-model="' + $scope.ngModelText + '"' +
+                            name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + disabledRole + '>' +
+                            err_show + '</div>';
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                    }, 0);
 
                     $scope.$watch($scope.ngModelText, function (val) {
                         $scope.ngModel = val;
@@ -263,7 +272,7 @@ define([
                 }
             }
         })
-        .directive('formRadio', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+        .directive('formRadio', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -278,27 +287,33 @@ define([
                     source: '=',
                     sourceApi: '@',
                     callback: '&',
+                    ngDisabled: '='
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     // console.log('formElement', $scope, $attrs);
+                    var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var type = ' type="radio"';
-                    var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                        '<div class="col-sm-8">';
-                    angular.forEach($scope.source, function (val, key) {
-                        var value = '';
-                        if (typeof val.value == 'number') {
-                            value = ' value = "' + parseFloat(val.value) + '"';
-                        } else {
-                            value = ' value = \"' + val.value + '\"';
-                        }
-                        content += '<label class="radio-inline radio1"><input ' + type + ' ng-model="' +
-                            $scope.ngModelText + '"' + name + value + '><span></span>' + val.text + '</label>';
-                    });
-                    content += '</div>';
-                    $element.find('.form_element').html(content);
-                    $compile($element.contents())($scope);
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">';
+                        angular.forEach($scope.source, function (val, key) {
+                            var value = '';
+                            if (typeof val.value == 'number') {
+                                value = ' value = "' + parseFloat(val.value) + '"';
+                            } else {
+                                value = ' value = \"' + val.value + '\"';
+                            }
+                            content += '<label class="radio-inline radio1"><input ' + type + ' ng-model="' +
+                                $scope.ngModelText + '"' + name + value + disabledRole + ngDisabled + '><span></span>' + val.text + '</label>';
+                        });
+                        content += '</div>';
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                    }, 0);
                     $scope.$watch($scope.ngModelText, function (val) {
                         // console.log('ngModelText ' + $scope.ngModelText, typeof  val, val);
                         if (typeof val == 'number') {
@@ -328,7 +343,7 @@ define([
                 }
             }
         })
-        .directive('formCheckbox', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+        .directive('formCheckbox', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -352,21 +367,24 @@ define([
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var type = ' type="checkbox"';
                     $scope.tmp_source = [];
-                    var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                        '<div class="col-sm-8">';
-                    angular.forEach($scope.source, function (val, key) {
-                        $scope.source[key].checked = false;
-                        content += '<label class="checkbox-inline checkbox1"><input ' + type +
-                            ' ng-model="tmp_source[' + key + ']"' + name +
-                            ' ng-true-value="\'' + val.value + '\'" ' +
-                            ' ng-false-value="false" ' +
-                            ' ng-checked = "source[' + key + '].checked" ' +
-                            '><span></span>' + val.text + '</label>';
-                    });
-                    content += '</div>';
-                    $element.find('.form_element').html(content);
-                    $compile($element.contents())($scope);
-
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">';
+                        angular.forEach($scope.source, function (val, key) {
+                            $scope.source[key].checked = false;
+                            content += '<label class="checkbox-inline checkbox1"><input ' + type + disabledRole +
+                                ' ng-model="tmp_source[' + key + ']"' + name +
+                                ' ng-true-value="\'' + val.value + '\'" ' +
+                                ' ng-false-value="false" ' +
+                                ' ng-checked = "source[' + key + '].checked" ' +
+                                '><span></span>' + val.text + '</label>';
+                        });
+                        content += '</div>';
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                    }, 0);
                     $scope.$watch($scope.ngModelText, function (val) {
                         // console.log('$scope.ngModelText', val);
                         $scope.ngModel = val || [];
@@ -403,7 +421,7 @@ define([
                 }
             }
         })
-        .directive('formImage', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+        .directive('formImage', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -422,13 +440,18 @@ define([
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
-                    var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                        '<div class="col-sm-8">' +
-                        '<show-upload images="' + $scope.ngModelText + '" ' + name + max + required + '></show-upload>' +
-                        '</div>';
-                    // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
-                    $element.find('.form_element').html(content);
-                    $compile($element.contents())($scope);
+
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">' +
+                            '<show-upload images="' + $scope.ngModelText + '" ' + name + max + required + disabledRole + '></show-upload>' +
+                            '</div>';
+                        // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                    }, 0);
 
                     $scope.$watch($scope.ngModelText, function (modelNew) {
                         var err = false;
@@ -451,7 +474,7 @@ define([
                 }
             }
         })
-        .directive('formImageContent', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+        .directive('formImageContent', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -470,13 +493,17 @@ define([
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
-                    var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                        '<div class="col-sm-8">' +
-                        '<content_or_img ng-model="' + $scope.ngModelText + '"' + name + required + '></content_or_img>' +
-                        '</div>';
-                    // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
-                    $element.find('.form_element').html(content);
-                    $compile($element.contents())($scope);
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">' +
+                            '<content_or_img ng-model="' + $scope.ngModelText + '"' + name + required + disabledRole + '></content_or_img>' +
+                            '</div>';
+                        // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                    }, 0);
 
                     $scope.$watch($scope.ngModelText, function (modelNew) {
                         // console.log(modelNew);
@@ -493,7 +520,7 @@ define([
                 }
             }
         })
-        .directive('formDateTime', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+        .directive('formDateTime', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -511,14 +538,17 @@ define([
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
-                    var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                        '<div class="col-sm-8">' +
-                        '<hjm_date_time ng-model="' + $scope.ngModelText + '"' + required + '></hjm_date_time>' +
-                        '</div>';
-                    // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
-                    $element.find('.form_element').html(content);
-                    $compile($element.contents())($scope);
-
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">' +
+                            '<hjm_date_time ng-model="' + $scope.ngModelText + '"' + required + disabledRole + '></hjm_date_time>' +
+                            '</div>';
+                        // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                    }, 0);
                     $scope.$watch($scope.ngModelText, function (modelNew) {
                         $scope.ngModel = modelNew;
                     });
@@ -532,7 +562,7 @@ define([
                 }
             }
         })
-        .directive('formDate', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+        .directive('formDate', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -550,13 +580,17 @@ define([
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
-                    var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                        '<div class="col-sm-8">' +
-                        '<hjm_date ng-model="' + $scope.ngModelText + '"' + required + ' ></hjm_date>' +
-                        '</div>';
                     // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
-                    $element.find('.form_element').html(content);
-                    $compile($element.contents())($scope);
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">' +
+                            '<hjm_date ng-model="' + $scope.ngModelText + '"' + required + disabledRole + ' ></hjm_date>' +
+                            '</div>';
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                    }, 0);
 
                     $scope.$watch($scope.ngModelText, function (modelNew) {
                         $scope.ngModel = modelNew;
@@ -571,7 +605,7 @@ define([
                 }
             }
         })
-        .directive('formTable', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log) {
+        .directive('formTable', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -580,35 +614,46 @@ define([
                     ngModel: '=ngModel',
                     ngModelText: '@ngModel',
                     columns: '=',
-                    config: '=',
+                    config: '=?config',
                     text: '@',
                     name: '@',
                     required: '@',
                     max: '@',
                     callback: '&',
+                    ngDisabled: '='
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
-                    // console.log($scope.category);
-                    var columns = $scope.columns ? (' columns=' + JSON.stringify($scope.columns) + '') : ('');
-                    var config = $scope.config ? (' config=' + JSON.stringify($scope.config) + '') : ('');
-                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
-                    var required = $scope.required ? (' required') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
-                    var max = $scope.max ? (' max="' + $scope.max + '"') : '';
-                    var content = '';
-                    if (!$scope.text) {
-                        content = '<div class="col-sm-12 ">';
-                    } else {
-                        content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                            '<div class="col-sm-8">';
-                    }
-                    if ($scope.columns) {
-                        content += '<json-table ng-model="' + $scope.ngModelText + '"' + columns + config + name + required + max + '></json-table>';
-                    }
-                    content += '</div>';
-                    // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
-                    $element.find('.form_element').html(content);
-                    $compile($element.contents())($scope);
+                    $timeout(function () {
+                        var columns = $scope.columns ? (' columns=' + JSON.stringify($scope.columns) + '') : ('');
+                        if ($scope.ngDisabled) {
+                        // || $scope.$parent && $scope.$parent.disabledRole
+                            $scope.config = $scope.config || {};
+                            angular.extend($scope.config, {readonly: true});
+                        }
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                        var config = $scope.config ? (' config=' + JSON.stringify($scope.config) + '') : ('');
+                        var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                        var required = $scope.required ? (' required') : '';
+                        var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
+                        var max = $scope.max ? (' max="' + $scope.max + '"') : '';
+                        var content = '';
+                        if (!$scope.text) {
+                            content = '<div class="col-sm-12 ">';
+                        } else {
+                            content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                                '<div class="col-sm-8">';
+                        }
+                        if ($scope.columns) {
+                            content += '<json-table ng-model="' + $scope.ngModelText + '"' + columns + config + name +
+                                required + max + disabledRole + '></json-table>';
+
+                        }
+                        content += '</div>';
+                        // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                    }, 0);
 
                     $scope.$watch($scope.ngModelText, function (modelNew) {
                         // console.log(modelNew);

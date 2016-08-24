@@ -5,7 +5,9 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%
 }
-
+*{
+    outline: none;
+}
 body {
     margin: 0
 }
@@ -1545,7 +1547,7 @@ ul, ol {
 }
 
 ul ul, ol ul, ul ol, ol ol {
-    margin-bottom: 0
+    margin-bottom: 0;
 }
 
 .list-unstyled, .list-inline {
@@ -5865,11 +5867,16 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 }
 
 button.close {
+    width: 21px;
+    line-height: 21px;
+    background: #fff;
+    opacity: 1;
+    border-radius: 50%;
+    border: 0;
+    padding: 0;
     padding: 0;
     cursor: pointer;
-    background: 0 0;
-    border: 0;
-    -webkit-appearance: none
+    font-size: small;
 }
 
 .modal-open, .modal {
@@ -8008,13 +8015,15 @@ pre {
 }
 
 #sidebar:hover {
-    width: 235px;
+    /*width: 235px;*/
+    width: 45px;
 }
 
 #sidebar {
     width: 45px;
     position: fixed;
-    top: 0;
+    /*top: 0;*/
+    top: 50px;
     bottom: 0;
     /*background: #3ca2e0;*/
     z-index: 9999;
@@ -8023,6 +8032,8 @@ pre {
 #sidebar .sidenav-outer {
     position: absolute;
     top: 50px;
+
+    /*top: 0;*/
     bottom: 0;
     left: 0;
     right: 0;

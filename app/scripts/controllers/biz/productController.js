@@ -32,6 +32,18 @@ define([
         $scope.$watch('param.delivery_type', function (val) {
             if (!!val && val == '3') {
                 $scope.param.frequency_num = 0;
+            } else if (!!val && val != '3') { // 有配送 至少为一次
+                $scope.param.frequency_num = (($scope.param.frequency_num > 0) ? $scope.param.frequency_num : 1);
+            }
+        });
+        $scope.$watch('param.frequency_num', function (frequency_num) {
+            if (frequency_num || frequency_num == 0) {
+                var delivery_type = ($scope.param || {}).delivery_type || '3';
+                if (delivery_type == '3') {
+                    $scope.param.frequency_num = 0;
+                } else if (delivery_type != '3') { // 有配送 至少为一次
+                    $scope.param.frequency_num = ((frequency_num > 0) ? frequency_num : 1);
+                }
             }
         });
 

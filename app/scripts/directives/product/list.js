@@ -53,12 +53,13 @@ define([
         })
         .directive('productChangeStatus', function ($templateCache, $filter, $compile, widget) {
             return {
+                multiElement: true,
                 restrict: 'AE',
                 replace: false,
                 scope: {
                     data: '=',
                 },
-                template: '<p class="change-status" ></p>',
+                template: '<p class="change-status"></p>',
                 link: function ($scope, $element, $attrs) {
                     var status_text = '';
                     var click_text = '';
@@ -91,9 +92,84 @@ define([
                             })
                         }
                     }
-                    var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text + ' ng-show="show_text"></a>';
+                    var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text +
+                        ' ng-show="show_text" show-role="\'admin,op\'"></a>';
                     $element.find('.change-status').html(content);
                     $compile($element.contents())($scope);
+                }
+            }
+        })
+        .directive('productEdit', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="product-edit"></p>',
+                link: function ($scope, $element, $attrs) {
+                    var content = '';
+                    if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
+                        content = '<a class="btn btn-success btn-rounded btn-sm"' +
+                            'ui-sref="main.product.update({product_id:' + $scope.data.product_id + '})" show-role="\'admin,op\'" >编辑</a>';
+                    } else {
+                        content = '<a class="btn btn-info btn-rounded btn-sm"' +
+                            'ui-sref="main.product.update({product_id:' + $scope.data.product_id + '})" show-role="\'!admin,op\'" >详情</a>';
+                    }
+                    $element.find('.product-edit').html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
+        .directive('actEdit', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="act-edit"></p>',
+                link: function ($scope, $element, $attrs) {
+                    var content = '';
+                    if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
+                        content = '<a class="btn btn-success btn-rounded btn-sm"' +
+                            'ui-sref="main.act.update({product_id:' + $scope.data.product_id + '})" show-role="\'admin,op\'" >编辑</a>';
+                    } else {
+                        content = '<a class="btn btn-info btn-rounded btn-sm"' +
+                            'ui-sref="main.act.update({product_id:' + $scope.data.product_id + '})" show-role="\'!admin,op\'" >详情</a>';
+                    }
+                    $element.find('.act-edit').html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
+        .directive('productAdd', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-success btn-rounded btn-sm pull-right" style="margin-top: -5.5px;" ' +
+                'ui-sref="main.product.add" show-role="\'admin,op\'" >新增商品</a>',
+                link: function ($scope, $element, $attrs) {
+                }
+            }
+        })
+        .directive('actAdd', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-success btn-rounded btn-sm pull-right" style="margin-top: -5.5px;" ' +
+                'ui-sref="main.act.add" show-role="\'admin,op\'" >新增活动</a>',
+                link: function ($scope, $element, $attrs) {
                 }
             }
         })
@@ -109,5 +185,58 @@ define([
 
                 }
             };
+        })
+        .directive('productOrderCopies', function ($rootScope, $templateCache, $filter, $compile, widget, $modal) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-rounded btn-sm btn-info" ng-bind="data.order.order_copies" ng-click="show_order_copies()"' +
+                ' ng-show="data.order.order_copies"></a>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_order_copies = function () {
+                        if ('adminpm'.indexOf($rootScope.hjm.role) == -1) {
+                            widget.msgToast('权限不够');
+                            return false;
+                        }
+
+                        var modalInstance = $modal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $modalInstance) {
+                                    widget.ajaxRequest({
+                                        url: '/products/' + (supscope.data.product_id || 0) + '/options',
+                                        method: 'get',
+                                        scope: $scope,
+                                        data: {},
+                                        success: function (json) {
+                                            $scope.rtn_json = json.data;
+                                        }
+                                    })
+
+                                    $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
+                                        ' <div form-table ng-model="rtn_json" config="{readonly:\'true\'}"' +
+                                        'columns="[{\'name\': \'ID\', \'field\': \'option_id\',\'disabled\':\'true\'},' +
+                                        '{\'name\': \'类目ID\', \'field\': \'option_id\',readonly:\'true\'},' +
+                                        '{\'name\': \'类目\', \'field\': \'option_name\',readonly:\'true\'},' +
+                                        '{\'name\': \'价格\', \'field\': \'option_price\',readonly:\'true\'},' +
+                                        '{\'name\': \'剩余库存\', \'field\': \'left_inventory\',readonly:\'true\'},' +
+                                        '{\'name\': \'库存\', \'field\': \'option_inventory\',readonly:\'true\'},' +
+                                        '{\'name\': \'状态\', \'field\': \'option_status\',filter:\'product_option_status\',readonly:\'true\'}' +
+                                        ']"></div>' +
+                                        '</form>';
+                                    $scope.title = '类目详情';
+                                    $scope.cancel = function () {
+                                        $modalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'lg'
+                            }
+                        );
+                    }
+                }
+            }
         })
 });

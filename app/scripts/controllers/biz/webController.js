@@ -10,7 +10,7 @@ define([
         $scope.param = {};
         $timeout(function () {
             // $scope.param = {url: 'https://m.huijiame.com/produnct/detail?product_id=10000'};
-            $scope.param = {url: 'https://m.huijiame.com'};
+            $scope.param = {url: 'https://m.huijiame.com/'};
         }, 0);
 
         $scope.$watch('param', function (val) {

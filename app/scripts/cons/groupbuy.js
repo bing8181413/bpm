@@ -25,7 +25,7 @@ define([], function () {
                 },
             ],
             config: {
-                title: '拼团管理',
+                title: '拼团列表',
                 api: '/groupbuys',
                 paginationSupport: true,
                 searchSupport: true,

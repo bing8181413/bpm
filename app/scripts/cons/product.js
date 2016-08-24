@@ -11,6 +11,7 @@ define([], function () {
                 //     tooltip: 'title',
                 //     tooltipPlacement: 'bottom',
                 // },
+                {name: '排序', field: 'order_by'},
                 {name: '标题', field: 'title'},
                 {
                     name: '上线时间',
@@ -37,13 +38,12 @@ define([], function () {
                 {name: '商品备注', field: 'admin_remark'},
                 {
                     name: '操作',
-                    fieldDirective: '<p><a class="btn btn-success btn-rounded btn-sm" data="item" ' +
-                    'ui-sref="main.product.update({product_id:item.product_id})">编辑</a></p>' +
-                    '<div product-change-status data="item"></div>'
+                    fieldDirective: '<div product-edit data="item" ></div>' +
+                    '<div product-change-status data="item" ></div>'
                 },
             ],
             config: {
-                title: '商品管理',
+                title: '商品列表',
                 api: '/products',
                 rowItemName: 'item',
                 searchSupport: true,
@@ -92,10 +92,14 @@ define([], function () {
                     maxSize: 5, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                route: [{value: 'main.product.add', text: '新增商品'}]
+                route: [
+                    // {value: 'main.product.add', text: '新增商品'},
+                    {routeDirective: '<div product-add data="">新增商品</div>'}
+                ]
             },
             act_columns: [
                 {name: '活动ID', field: 'product_id', className: 'text-center'},
+                {name: '排序', field: 'order_by'},
                 {name: '活动类型', field: 'category', filter: 'product_category'},
                 {
                     name: '标题', field: 'title',
@@ -118,11 +122,16 @@ define([], function () {
                 },
                 {name: '活动类目', fieldDirective: '<div product-option data="item"></div>'},
                 {name: '覆盖城市', field: 'citys', filter: 'arraySub2String:\'city_name\''},
-                {name: '报名人数', field: 'order.groupbuy_count'},
-                {name: '已售份数', field: 'order.order_copies'},
+                {name: '报名人数', field: 'order.order_count'},
+                {name: '已售份数', fieldDirective: '<div product-order-copies data="item"></div>'},
+                {name: '剩余<br/>库存', field: 'options', filter: 'arraySum:\'left_inventory\''},
                 {
-                    name: '剩余<br/>库存',
-                    fieldDirective: '<span ng-bind="item.origin_inventory-item.inventory.used_count"></span>'
+                    name: '众筹进度',
+                    fieldDirective: '<p ng-if="item.category==3">众筹进度<br/>' +
+                    ' <span ng-bind="((item.order && item.order.amounts)||0)| process:item.act_goal_price"></span><br/>' +
+                    '已筹金额<br/><span ng-bind="(item.order && item.order.amounts)||0"></span><br/>' +
+                    '目标金额<br/><span ng-bind="item.act_goal_price"></span></p>' +
+                    '<p ng-if="item.category!==3">——</p>'
                 },
                 {
                     name: '上下架时间',
@@ -139,13 +148,15 @@ define([], function () {
                 },
                 {
                     name: '操作',
-                    fieldDirective: '<p><a class="btn btn-success btn-rounded btn-sm" data="item" ' +
-                    'ui-sref="main.act.update({product_id:item.product_id})">编辑</a></p>' +
-                    '<div product-change-status data="item"></div>'
+                    fieldDirective:'<div act-edit data="item" ></div>' +
+                    '<div product-change-status data="item" ></div>'
+                    // '<p><a class="btn btn-success btn-rounded btn-sm" data="item" ' +
+                    // 'ui-sref="main.act.update({product_id:item.product_id})">编辑</a></p>' +
+                    // '<div product-change-status data="item"></div>'
                 },
             ],
             act_config: {
-                title: '活动管理',
+                title: '活动列表',
                 api: '/products',
                 rowItemName: 'item',
                 searchSupport: true,
@@ -201,7 +212,11 @@ define([], function () {
                     maxSize: 5, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                route: [{value: 'main.act.add', text: '新增活动'}]
+                // route: [{value: 'main.act.add', text: '新增活动'}]
+                route: [
+                    // {value: 'main.act.add', text: '新增商品'},
+                    {routeDirective: '<div act-add data="" >新增活动</div>'}
+                ]
             },
         }
     }

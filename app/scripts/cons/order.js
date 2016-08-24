@@ -51,13 +51,13 @@ define([], function () {
                 },
             ],
             config: {
-                title: '订单管理',
+                title: '拼团订单列表',
                 api: '/orders',
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
                     {   // order_type 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
-                        value: 'flag', text: '订单类型', type: 'btnGroupArray2',
+                        value: 'flag1', text: '订单类型', type: 'btnGroupArray2',
                         default: 0, width: '6',
                         enum_text: 'order_type',//
                         enum: [
@@ -67,7 +67,7 @@ define([], function () {
                         ]
                     },
                     {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
-                        value: 'flag', text: '订单状态', type: 'btnGroupArray2',
+                        value: 'flag2', text: '订单状态', type: 'btnGroupArray2',
                         default: 0, width: '6',
                         enum_text: 'order_status',//
                         enum: [
@@ -140,18 +140,18 @@ define([], function () {
                 {
                     name: '操作',
                     fieldDirective: '<div order-cancel data="item"></div>' +
-                    '<div order-change-address data="item"></div>' +
+                    '<div order-change-address-of-act data="item"></div>' +
                     '<div order-change-remark data="item"></div>'
                 },
             ],
             config_by_act: {
-                title: '订单管理',
+                title: '活动订单列表',
                 api: '/orders',
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
                     {   // order_type 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
-                        value: 'flag', text: '订单类型', type: 'btnGroupArray2',
+                        value: 'flag1', text: '订单类型', type: 'btnGroupArray2',
                         default: 0, width: '6',
                         enum_text: 'order_type',//
                         enum: [
@@ -161,7 +161,7 @@ define([], function () {
                         ]
                     },
                     {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
-                        value: 'flag', text: '订单状态', type: 'btnGroupArray2',
+                        value: 'flag2', text: '订单状态', type: 'btnGroupArray2',
                         default: 0, width: '6',
                         enum_text: 'order_status',//
                         enum: [

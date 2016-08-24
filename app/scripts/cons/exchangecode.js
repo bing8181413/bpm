@@ -26,9 +26,10 @@ define([], function () {
                     name: '导出兑换码',
                     fieldDirective: '<div exchangecode-export data="item"></div>'
                 },
+                {name: '操作账户', field: 'account.username'}
             ],
             config: {
-                title: '兑换码管理',
+                title: '兑换码',
                 api: '/exchangecodes',
                 rowItemName: 'item',
                 searchSupport: false,

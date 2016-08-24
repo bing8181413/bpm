@@ -2,17 +2,19 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title" ng-if="!$stateParams.product_id">新增商品</h3>
-            <h3 class="panel-title" ng-if="$stateParams.product_id">修改商品</h3>
+            <h3 class="panel-title" show-role="'admin,op'" ng-if="$stateParams.product_id">修改商品</h3>
+            <h3 class="panel-title" show-role="'!admin,op'" ng-if="$stateParams.product_id">商品详情</h3>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" name="FormBody" novalidate>
+            <form class="form-horizontal" name="FormBody" novalidate
+                  disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>商品信息</h4>
-                        <div form-input text="商品ID" ng-model="param.product_id"
-                             ng-show="$stateParams.product_id"
+                        <div form-input text="商品ID" ng-model="param.product_id" ng-show="$stateParams.product_id"
                              placeholder="商品ID" ng-disabled="$stateParams.product_id"></div>
-                        <div form-input text="商品标题" ng-model="param.title" placeholder="商品标题" required="true"></div>
+                        <div form-input text="商品标题" ng-model="param.title" placeholder="商品标题"
+                             required="true"></div>
                         <div form-input text="商品简介" ng-model="param.brief" placeholder="不超过30个字" minlength="1"
                              maxlength="30"></div>
                         <div form-radio text="商品品类" ng-model="param.sku" required="true" default="1"
@@ -43,17 +45,16 @@
                              placeholder="玩法说明内容" required="true"></div>
 
                         <div form-input text="起始价" ng-model="param.high_price" required="true" min="0" type="number"
-                             ng-show="param.category==1" ng-disabled="$stateParams.product_id"></div>
+                             ng-show="param.category==1"></div>
                         <div form-input text="底价" ng-model="param.bottom_price" required="true" min="0" type="number"
-                             ng-show="param.category==1" ng-disabled="$stateParams.product_id"></div>
+                             ng-show="param.category==1"></div>
                         <div form-input text="单人返现金额" ng-model="param.per_cut_amount" required="true" min="0"
-                             type="number" ng-show="param.category==1" ng-disabled="$stateParams.product_id"></div>
+                             type="number" ng-show="param.category==1"></div>
 
                         <div form-input text="拼团人数" ng-model="param.group_min_num" required="true" min="0" type="number"
                              ng-show="param.category==2"></div>
                         <div form-input text="拼团单价" ng-model="param.price" required="true" min="0" type="number"
-                             ng-show="param.category==2"
-                             ng-disabled="$stateParams.product_id"></div>
+                             ng-show="param.category==2"></div>
 
                         <div form-input text="拼团有效时间(小时)" ng-model="hours" min="0" required="true"
                              type="number" placeholder="单位:小时"></div>
@@ -62,30 +63,37 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>配送规则</h4>
-                        <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
-                             required="true"></div>
                         <div form-radio text="物流" ng-model="param.delivery_type" required="true"
-                             ng-change="delivery_type()"
-                             source="[{text:'顺丰配送',value:'1'},{text:'商家负责配送',value:'2'},{text:'无配送',value:'3'}]"
+                             ng-change="delivery_type()" ng-disabled="$stateParams.product_id"
+                             source="[{text:'顺丰配送',value:'1'},{text:'无需配送',value:'3'}]"
                              source-api=""></div>
-                        <div form-checkbox text="配送城市" ng-model="param.visible_cities" required="true"
+                        <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
+                             ng-show="param.delivery_type!=3"
+                             ng-disabled="$stateParams.product_id"></div>
+                        <div form-checkbox text="覆盖／配送城市" ng-model="param.visible_cities" required="true"
                              source="[{text:'上海市',value:'上海市'},{text:'南京市',value:'南京市'},
-                             {text:'厦门市',value:'厦门市'},{text:'北京市',value:'北京市'}]" source-api=""></div>
+                             {text:'厦门市',value:'厦门市'},{text:'北京市',value:'北京市'}]"
+                             source-api=""></div>
+                        <div form-radio text="送达时间类型" ng-model="param.arrive_type"
+                             ng-show="param.delivery_type!=3" ng-disabled="$stateParams.product_id"
+                             source="[{text:'周六/周一',value:'1'},{text:'无需指定',value:'2'}]" source-api=""></div>
                     </div>
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>管理</h4>
                         <div form-textarea text="管理备注" ng-model="param.admin_remark" required="true"></div>
-                        <div form-radio text="置顶" ng-model="param.order_by" required="true" default="1"
-                             source="[{text:'是',value:'1'},{text:'否',value:'0'}]" source-api=""></div>
+                        <!--<div form-radio text="置顶" ng-model="param.order_by" required="true" default="1"-->
+                        <!--source="[{text:'是',value:'1'},{text:'否',value:'0'}]" source-api=""></div>-->
+                        <div form-input text="排序" ng-model="param.order_by" required="true" type="number" min="0"></div>
                         <div form-radio text="显示" ng-model="param.visible" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
                     </div>
                 </div>
                 <!--<a class="btn btn-info btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit(0)">保存草稿</a>-->
-                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
-                <!--<a class="btn btn-success btn-rounded" ng-click="aaa()">提交</a>-->
+                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
+                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                <!--<a class="btn btn-success btn-rounded" ng-click="aaa()">浏览器控制台查看提交数据</a>-->
             </form>
         </div>
     </div>
