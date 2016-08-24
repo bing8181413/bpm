@@ -5,8 +5,8 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%
 }
-*{
-    outline: none;
+*, .btn:focus{
+    outline:none!important;
 }
 body {
     margin: 0

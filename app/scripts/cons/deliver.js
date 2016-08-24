@@ -16,7 +16,7 @@ define([], function () {
                     'tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
-                {name: '预计配送时间', field: 'expect_date'},
+                {name: '预计配送时间', field: 'expect_date',filter:'null2empty:\'无配送时间\''},
                 {name: '子订单状态', field: 'delivery_status', filter: 'order_deliver_status'},
                 {
                     name: '管理备注',

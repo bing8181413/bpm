@@ -2,7 +2,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
     mod
         .run(['$rootScope', '$state', '$stateParams', '$http', '$modal', '$location', 'widget', '$document',
             function ($rootScope, $state, $stateParams, $http, $modal, $location, widget, $document) {
-                $document.bind("keydown", function (event) {
+                $document.bind("keyup", function (event) {
                     if (document.activeElement.tagName == 'BODY' && $rootScope.hjm.role == 'admin') {
                         // console.log(event.keyCode);
                         switch (event.keyCode) {
