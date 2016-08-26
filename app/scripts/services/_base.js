@@ -2,8 +2,14 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
     mod
         .run(['$rootScope', '$state', '$stateParams', '$http', '$modal', '$location', 'widget', '$document',
             function ($rootScope, $state, $stateParams, $http, $modal, $location, widget, $document) {
+                var arr = [];
+                $document.bind("keydown", function (event) {
+
+                });
                 $document.bind("keyup", function (event) {
-                    if (document.activeElement.tagName == 'BODY' && $rootScope.hjm.role == 'admin') {
+                    // console.log(document.activeElement.tagName);
+                    var tagName = document.activeElement.tagName == 'BODY' || document.activeElement.tagName == 'A';
+                    if (tagName && $rootScope.hjm.role == 'admin') {
                         // console.log(event.keyCode);
                         switch (event.keyCode) {
                             case 84:// t uan
@@ -18,9 +24,9 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                             case 68://d elivery
                                 $rootScope.$state.go(cons.state.main + '.delivery.list');
                                 break;
-                            // case 77: // m oney
-                            //     $rootScope.$state.go(cons.state.main + '.refund.list');
-                            //     break;
+                            case 77: // m oney
+                                $rootScope.$state.go(cons.state.main + '.refund.list');
+                                break;
                             case 79:// o p
                                 $rootScope.$state.go(cons.state.main + '.banner.list');
                                 break;
@@ -28,7 +34,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 $rootScope.$state.go(cons.state.main + '.coupon.list');
                                 break;
                         }
-                    } else if (document.activeElement.tagName == 'BODY' && $rootScope.hjm.role == 'op') {
+                    } else if (tagName && $rootScope.hjm.role == 'op') {
                         // console.log(event.keyCode);
                         switch (event.keyCode) {
                             case 84:// t uan
