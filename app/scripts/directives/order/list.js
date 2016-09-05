@@ -288,9 +288,17 @@ define([
                             }
                         );
                     }
-                    var content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_change_address();">修改收货地址</a>';
-                    $element.find('.order-change-address-of-act').html(content);
-                    $compile($element.contents())($scope);
+                    var content = '';
+                    // console.log($scope.data.delivery_type);
+                    if ($scope.data.delivery_type && $scope.data.delivery_type !== 3) {
+                        content = '<div order-change-address data="data"></div>';
+                        $element.find('.order-change-address-of-act').html(content);
+                        $compile($element.contents())($scope);
+                    }else{
+                        content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_change_address();">修改收货地址</a>';
+                        $element.find('.order-change-address-of-act').html(content);
+                        $compile($element.contents())($scope);
+                    }
                 }
             }
         })

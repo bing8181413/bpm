@@ -532,6 +532,7 @@ define([
                     name: '@',
                     required: '@',
                     callback: '&',
+                    ngDisabled: '&',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
@@ -539,8 +540,9 @@ define([
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     $timeout(function () {
-                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
-                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+                        var disabledRole = $scope.ngDisabled ? (' disabled-role="aaaaaaaaa"'):
+                            (($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ');
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">' +
                             '<hjm_date_time ng-model="' + $scope.ngModelText + '"' + required + disabledRole + '></hjm_date_time>' +

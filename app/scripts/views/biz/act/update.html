@@ -27,8 +27,8 @@
                              min="1" required="true"></div>
                         <div form-input text="单人限购份数" ng-model="param.per_buy_count" type="number"
                              min="0"></div>
-                        <div form-input text="已售份数基数" ng-model="param.base_sale_count" type="number"
-                             min="0"></div>
+                        <!--<div form-input text="已售份数基数" ng-model="param.base_sale_count" type="number"-->
+                             <!--min="0"></div>-->
                         <div form-date-time text="上架时间" ng-model="param.start_time" required="true"></div>
                         <div form-date-time text="下架时间" ng-model="param.end_time" required="true"></div>
                         <div form-image text="运营大图" ng-model="param.pics" max="100" required="true"></div>
@@ -53,10 +53,17 @@
                         <div form-checkbox text="配送城市" ng-model="param.visible_cities" required="true"
                              source="[{text:'上海市',value:'上海市'},{text:'南京市',value:'南京市'},
                              {text:'厦门市',value:'厦门市'},{text:'北京市',value:'北京市'}]" source-api=""></div>
+
                         <div form-radio text="物流" ng-model="param.delivery_type" required="true"
-                             source="[{text:'无配送',value:'3'}]" default="3"
-                             source-api=""></div>
-                        <div form-input text="活动地点" ng-model="param.act_address" placeholder="玩法说明标题"></div>
+                             ng-change="delivery_type()" ng-disabled="$stateParams.product_id"
+                             source="[{text:'顺丰配送',value:'1'},{text:'无需配送',value:'3'}]"
+                             default="3"></div>
+                        <div form-radio text="送达时间类型" ng-model="param.arrive_type" default="2"
+                             ng-show="param.delivery_type!=3" ng-disabled="$stateParams.product_id"
+                             source="[{text:'无需指定',value:'2'}]" source-api=""></div>
+
+                        <div form-input text="活动地点" ng-model="param.act_address" placeholder="活动地点"></div>
+                        <div form-input text="详细地址" ng-model="param.act_detailed_address" placeholder="详细地址"></div>
                         <div form-date-time text="活动开始时间" ng-model="param.act_start_time" required="true"></div>
                         <div form-date-time text="活动结束时间" ng-model="param.act_end_time" required="true"></div>
                         <div form-date-time text="报名开始时间" ng-model="param.act_apply_start_time" required="true"></div>
