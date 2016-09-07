@@ -144,6 +144,41 @@ define([], function () {
                     '<div order-change-remark data="item"></div>'
                 },
             ],
+            config_by_act_2: {
+                title: '当前活动订单列表',
+                api: '/orders',
+                rowItemName: 'item',
+                searchSupport: true,
+                searchItems: [
+                    {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
+                        value: 'flag2', text: '订单状态', type: 'btnGroupArray2',
+                        default: 0, width: '12',
+                        enum_text: 'order_status',//
+                        enum: [
+                            {value: [], text: '全部'},
+                            {value: [1, 2], text: '待支付'},
+                            {value: [3], text: '已支付'},
+                            {value: [5], text: '已完成'},
+                            {value: [4, 6], text: '已取消'},
+                        ]
+                    }
+                ],
+                preSelectionSearch: {
+                    order_type: [3, 4]
+                },
+                paginationSupport: false,
+                pageInfo: {
+                    count: 20,
+                    page: 1,
+                    maxSize: 5, //最大展示页，默认3
+                    // showPageGoto: false //属性为true将显示前往第几页。
+                },
+                ext: {
+                    showNum: [
+                        {text: '总数', type: 'total'},
+                    ]
+                }
+            },
             config_by_act: {
                 title: '活动订单列表',
                 api: '/orders',

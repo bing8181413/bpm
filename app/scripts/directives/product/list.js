@@ -258,15 +258,15 @@ define([
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
                                         '<h4>修改活动时间、地点，操作“确定”后，报名用户会收到消息提醒，请确认无误后操作！</h4>' +
-                                        '<div form-date-time text="活动开始时间" ng-model="param.act_start_time" ng-disabled="\'true\'"></div>' +
-                                        '<div form-date-time text="活动结束时间" ng-model="param.act_end_time" disabled="true"></div>' +
+                                        '<div form-date-time text="活动开始时间" ng-model="param.act_start_time" ng-disabled="true"></div>' +
+                                        '<div form-date-time text="活动结束时间" ng-model="param.act_end_time" ng-disabled="true"></div>' +
                                         '<div form-input text="活动地点" ng-model="param.act_address" ng-disabled="true"></div>' +
                                         '<div form-input text="详细地址" ng-model="param.act_detailed_address" ng-disabled="true"></div>' +
                                         '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
                                         '</form>';
                                     $timeout(function () {
                                         $scope.param = supscope.data;
-                                        console.log($scope.param);
+                                        // console.log($scope.param);
                                     }, 0);
                                     $scope.submit = function () {
                                         console.log($scope);
@@ -287,6 +287,109 @@ define([
                                 size: 'lg'
                             }
                         );
+                    }
+                }
+            }
+        })
+        .directive('actCrowdfunding', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p><a class="btn btn-rounded btn-sm btn-warning" ng-click="show_act_crowdfunding()"' +
+                ' ng-show="data.category==3">发送众筹结果通知</a></p>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.is_show = true;
+                    if ($scope.data.category == 3) {
+                        // console.log($filter('remaining_time')(supscope.data.act_apply_end_time),
+                        //     $filter('arraySum')($scope.data.options, 'left_inventory'));
+                        if (!($filter('remaining_time')(supscope.data.act_apply_end_time) == '已结束'
+                            || $filter('arraySum')($scope.data.options, 'left_inventory') == 0)) {
+                            $scope.is_show = false;
+                        }
+                    }
+                    $scope.show_act_crowdfunding = function () {
+                        if (!$scope.is_show) {
+                            widget.msgToast('众筹报名结束，或库存已售完，才能发送众筹结果通知');
+                            return false;
+                        }
+                        var modalInstance = $modal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $modalInstance) {
+                                    $scope.title = '发送众筹结果通知';
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
+                                        '<h4>请选择该众筹结果，操作完成后，报名用户会收到消息提醒；若众筹失败，则该活动订单会全部自动取消！请确认无误后再操作。</h4>' +
+                                        '<div form-radio text="众筹结果" ng-model="param.act_result" ng-disabled="disabled_act_result"' +
+                                        ' source="[{text:\'众筹成功\',value:\'1\'},{text:\'众筹失败\',value:\'2\'}]" ></div>' +
+                                        '<div form-textarea text="失败原因" ng-model="param.act_update_reason" ng-show="param.act_result==2"' +
+                                        ' data-placeholder="请填写失败原因，不超过30个字"></div>' +
+                                        '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
+                                        '</form>';
+                                    $timeout(function () {
+                                        $scope.param = {product_id: supscope.data.product_id};
+                                    }, 0);
+                                    $scope.$watch('param.act_result', function (val) {
+                                        if (val && val == 1) {
+                                            $scope.param.act_update_reason = '';
+                                        }
+                                    });
+                                    $scope.submit = function () {
+                                        // console.log($scope.param);
+                                        if (!$scope.param.act_result) {
+                                            widget.msgToast('没有选择众筹结果');
+                                            return false;
+                                        }
+                                        if ($scope.param.act_result == 2 && $scope.param.act_update_reason == '') {
+                                            widget.msgToast('众筹失败要写原因');
+                                            return false;
+                                        }
+                                        widget.ajaxRequest({
+                                            url: '/products/' + (supscope.data.product_id || 0) + '/crowdFunding',
+                                            method: 'PUT',
+                                            scope: $scope,
+                                            data: $scope.param,
+                                            success: function (json) {
+                                                $scope.rtn_json = json.data;
+                                            }
+                                        })
+                                    }
+                                    $scope.cancel = function () {
+                                        $modalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: ''
+                            }
+                        );
+                    }
+                }
+            }
+        })
+        .directive('actOrderCopies', function ($templateCache, $filter, $compile, widget, $modal) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show();" ng-bind="text" ng-show="text"></a>',
+                link: function ($scope, $element, $attrs) {
+                    $scope.text = (($scope.data.order || {}).order_count || 0);// + '/' + (($scope.data.allorder || {}).count || 0);
+                    $scope.ext = {product_id: $scope.data.product_id};
+                    var supscope = $scope;
+                    $scope.show = function () {
+                        var modalInstance = $modal.open({
+                            template: '<div hjm-grid modid="orderList" config="config_by_act_2" columns="columns_by_act" ext-search="ext"></div>',
+                            controller: function ($scope, $modalInstance) {
+                                $scope.ext = supscope.ext;
+                                $scope.cancel = function () {
+                                    $modalInstance.dismiss('cancel');
+                                };
+                            },
+                            size: 'lg'
+                        });
                     }
                 }
             }

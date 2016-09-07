@@ -532,7 +532,7 @@ define([
                     name: '@',
                     required: '@',
                     callback: '&',
-                    ngDisabled: '&',
+                    ngDisabled: '@',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');

@@ -124,6 +124,7 @@ define([], function () {
                 {name: '覆盖城市', field: 'citys', filter: 'arraySub2String:\'city_name\''},
                 {name: '报名人数', field: 'order.order_count'},
                 {name: '已售份数', fieldDirective: '<div product-order-copies data="item"></div>'},
+                {name: '订单数', fieldDirective: '<div act-order-copies data="item"></div>'},
                 {name: '剩余<br/>库存', field: 'options', filter: 'arraySum:\'left_inventory\''},
                 {
                     name: '众筹进度',
@@ -151,7 +152,7 @@ define([], function () {
                     name: '操作',
                     fieldDirective:'<div act-edit data="item" ></div>' +
                     '<div product-change-status data="item" ></div>'
-                    // +'<div product-change-status data="item" ></div>'
+                    +'<div act-crowdfunding data="item" ></div>'
                     +'<div act-change-notice data="item" ></div>'
                     // '<p><a class="btn btn-success btn-rounded btn-sm" data="item" ' +
                     // 'ui-sref="main.act.update({product_id:item.product_id})">编辑</a></p>' +
