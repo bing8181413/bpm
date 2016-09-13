@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-        .directive('showSms', function ($templateCache, $modal, $timeout) {
+        .directive('showSms', function ($templateCache, $modal, $timeout, widget) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -18,10 +18,16 @@ define([
                         var modalInstance = $modal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                             controller: function ($scope, $modalInstance) {
+                                widget.ajaxRequest({
+                                    url: '/markets/sms/' + (supscope.data.id || 0),
+                                    method: 'get',
+                                    scope: $scope,
+                                    data: {},
+                                    success: function (json) {
+                                        $scope.mobiles = json.data.mobiles;
+                                    }
+                                })
                                 $scope.title = '查看发送手机号码';
-                                $timeout(function () {
-                                    $scope.mobiles = supscope.data.mobiles;
-                                }, 0);
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea text="手机号码" ng-model="mobiles"></div>' +
                                     '</form>';

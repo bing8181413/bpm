@@ -21,6 +21,8 @@ define([
                                 $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea text="取消原因" ng-model="cancel_reason"' +
                                     ' placeholder = "取消原因" required = "true" > </div > ' +
+                                    '<div form-radio text="取消来源" ng-model="cancel_from" required="true" default="1"' +
+                                    'source="[{text:\'块长取消\',value:1},{text:\'用户反馈取消\',value:2},{text:\'测试取消\',value:3}]"></div>' +
                                     '<a class="btn btn-primary btn-rounded pull-right " ng-click="cancel_order()">确定</a>' +
                                     // '<a class="btn btn-warning btn-rounded " ng-click="cancel()">关闭</a>' +
                                     '</form>';
@@ -31,7 +33,10 @@ define([
                                             url: '/orders/' + supscope.data.order_id || 0,
                                             method: 'delete',
                                             scope: $scope,
-                                            data: {cancel_reason: $scope.cancel_reason},
+                                            data: {
+                                                cancel_reason: $scope.cancel_reason,
+                                                cancel_from: $scope.cancel_from
+                                            },
                                             success: function (json) {
                                                 widget.msgToast('修改成功,请刷新查看');
                                                 supscope.$parent.$parent.searchAction();
@@ -47,7 +52,8 @@ define([
                             size: ''
                         });
                     }
-                    var content = '<a class="btn btn-warning btn-rounded btn-sm" ng-click="show_cancel_order();" ng-show="data.order_status!==6">取消订单</a>';
+                    var content = '<a class="btn btn-warning btn-rounded btn-sm" ng-click="show_cancel_order();" ' +
+                        'ng-show="data.order_status!==1&&data.order_status!==2&&data.order_status!==6">取消订单</a>';
                     $element.find('.order-cancel').html(content);
                     $compile($element.contents())($scope);
                 }
@@ -294,7 +300,7 @@ define([
                         content = '<div order-change-address data="data"></div>';
                         $element.find('.order-change-address-of-act').html(content);
                         $compile($element.contents())($scope);
-                    }else{
+                    } else {
                         content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_change_address();">修改收货地址</a>';
                         $element.find('.order-change-address-of-act').html(content);
                         $compile($element.contents())($scope);

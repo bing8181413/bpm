@@ -139,7 +139,9 @@ define([], function () {
                     fieldDirective: '<p>上架时间<br/> <span ng-bind="item.start_time"></span><br/>下架时间<br/><span ng-bind="item.end_time"></span></p>'
                 },
                 {name: '活动<br/>状态', field: 'status', filter: 'product_status'},
-                {name: '众筹<br/>结果', field: 'result'},
+                {name: '众筹<br/>结果',
+                    fieldDirective:'<span ng-bind="item.act_result|act_result" ng-if="item.category==3"></span>' +
+                    '<span ng-if="item.category!==3">——</span>'},
                 {
                     name: '管理<br/>备注', field: 'admin_remark',
                     truncateText: true,
@@ -150,8 +152,9 @@ define([], function () {
                 },
                 {
                     name: '操作',
-                    fieldDirective:'<div act-edit data="item" ></div>' +
-                    '<div product-change-status data="item" ></div>'
+                    fieldDirective:'<div act-edit data="item" ></div>'
+                    +'<div product-change-status data="item" ></div>'
+                    +'<div change-product-type data="item" ></div>'
                     +'<div act-crowdfunding data="item" ></div>'
                     +'<div act-change-notice data="item" ></div>'
                     // '<p><a class="btn btn-success btn-rounded btn-sm" data="item" ' +

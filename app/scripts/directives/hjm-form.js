@@ -261,10 +261,12 @@ define([
                         $compile($element.contents())($scope);
                     }, 0);
 
-                    $scope.$watch($scope.ngModelText, function (val) {
-                        $scope.ngModel = val;
+                    $scope.$watch($scope.ngModelText, function (val, oldVal) {
+                        if (val) {
+                            $scope.ngModel = val;
+                        }
                     });
-                    $scope.$watch('ngModel', function (val) {
+                    $scope.$watch('ngModel', function (val, oldVal) {
                         if (val) {
                             $scope.$eval($scope.ngModelText + '="' + val + '"');
                         }
@@ -540,9 +542,9 @@ define([
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     $timeout(function () {
-                        var disabledRole = $scope.ngDisabled ? (' disabled-role="aaaaaaaaa"'):
+                        var disabledRole = $scope.ngDisabled ? (' disabled-role="aaaaaaaaa"') :
                             (($scope.$parent && $scope.$parent.disabledRole) ?
-                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ');
+                                (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ');
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">' +
                             '<hjm_date_time ng-model="' + $scope.ngModelText + '"' + required + disabledRole + '></hjm_date_time>' +
@@ -628,7 +630,7 @@ define([
                     $timeout(function () {
                         var columns = $scope.columns ? (' columns=' + JSON.stringify($scope.columns) + '') : ('');
                         if ($scope.ngDisabled) {
-                        // || $scope.$parent && $scope.$parent.disabledRole
+                            // || $scope.$parent && $scope.$parent.disabledRole
                             $scope.config = $scope.config || {};
                             angular.extend($scope.config, {readonly: true});
                         }

@@ -14,11 +14,13 @@ define([
         }, 0);
 
         $scope.$watch('param', function (val) {
-            if (!!val.url && !!val.utm_source && !!val.utm_medium) {
+            if (!!val.url && !!val.utm_source) {
                 var tmp = val.url.indexOf('?') > 0 ? '&' : '?';
-                $scope.web_url = encodeURI(val.url + tmp + 'channel=' + val.utm_source + '_' + val.utm_medium +
-                    (val.utm_campaign ? ('_' + val.utm_campaign) : '') +
-                    '&utm_source=' + val.utm_source + '&utm_medium=' + val.utm_medium +
+                $scope.web_url = encodeURI(val.url + tmp +
+                    // 'channel=' + val.utm_source + '_' + val.utm_medium +
+                    // (val.utm_campaign ? ('_' + val.utm_campaign) : '') +
+                    'utm_source=' + val.utm_source +
+                    (val.utm_medium ? ('&utm_medium=' + val.utm_medium) : '')+
                     (val.utm_campaign ? ('&utm_campaign=' + val.utm_campaign) : ''));
             } else {
                 $scope.web_url = ' ';

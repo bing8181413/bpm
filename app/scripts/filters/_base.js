@@ -622,5 +622,24 @@ define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
                 return result;
             }
         }])
+        //  act_result  状态 1：成功 2：失败
+        .filter('act_result', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "0":
+                        result = "";
+                        break;
+                    case "1":
+                        result = "成功";
+                        break;
+                    case "2":
+                        result = "失败";
+                        break;
+                }
+                return result;
+            }
+        }])
     ;
 });

@@ -67,13 +67,13 @@ define([
                     var status_title = '';
                     if ($scope.data.status == 1) {
                         status_title = '下线';
-                        status_text = 'ng-bind="\'下线\'"';
+                        status_text = 'ng-bind="\'下线商品\'"';
                         class_text = 'ng-class={\"btn-warning\":true} ';
                         click_text = 'ng-click="change(3);"';
                         $scope.show_text = true;
                     } else if ($scope.data.status == 3) {
                         status_title = '上线';
-                        status_text = 'ng-bind="\'上线\'"';
+                        status_text = 'ng-bind="\'上线商品\'"';
                         class_text = 'ng-class={\"btn-primary\":true} ';
                         click_text = 'ng-click="change(1);"';
                         $scope.show_text = true;
@@ -95,6 +95,54 @@ define([
                     var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text +
                         ' ng-show="show_text" show-role="\'admin,op\'"></a>';
                     $element.find('.change-status').html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
+        .directive('changeProductType', function ($templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="change-product-type"></p>',
+                link: function ($scope, $element, $attrs) {
+                    var product_type_text = '';
+                    var click_text = '';
+                    var class_text = '';
+                    var product_type_title = '';
+                    if ($scope.data.product_type == 1) {
+                        product_type_title = '测试商品';
+                        product_type_text = 'ng-bind="\'正常商品\'"';
+                        class_text = 'ng-class={\"btn-primary\":true} ';
+                        click_text = 'ng-click="change(2);"';
+                        $scope.show_text = true;
+                    } else if ($scope.data.product_type == 2) {
+                        product_type_title = '正常商品';
+                        product_type_text = 'ng-bind="\'测试商品\'"';
+                        class_text = 'ng-class={\"btn-warning\":true} ';
+                        click_text = 'ng-click="change(1);"';
+                        $scope.show_text = true;
+                    }
+                    $scope.change = function (product_type) {
+                        if (confirm('确认修改为' + product_type_title + '类型?')) {
+                            widget.ajaxRequest({
+                                url: '/products/' + ($scope.data.product_id || 0 )+ '/prodtype',
+                                method: 'PUT',
+                                scope: $scope,
+                                data: {product_type: product_type},
+                                success: function (json) {
+                                    widget.msgToast('修改成功,请刷新查看');
+                                    $scope.$parent.$parent.searchAction();
+                                }
+                            })
+                        }
+                    }
+                    var content = '<a class="btn btn-rounded btn-sm"' + class_text + product_type_text + click_text +
+                        ' ng-show="show_text" show-role="\'admin,op\'"></a>';
+                    $element.find('.change-product-type').html(content);
                     $compile($element.contents())($scope);
                 }
             }
@@ -247,7 +295,7 @@ define([
                     data: '=',
                 },
                 template: '<a class="btn btn-rounded btn-sm btn-warning" ng-click="show_act_change_notice()"' +
-                ' ng-show="data.category==3">活动更改通知</a>',
+                ' ng-show="data.category==3||data.category==4">活动更改通知</a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_act_change_notice = function () {
@@ -269,16 +317,16 @@ define([
                                         // console.log($scope.param);
                                     }, 0);
                                     $scope.submit = function () {
-                                        console.log($scope);
-                                        // widget.ajaxRequest({
-                                        //     url: '/products/' + (supscope.data.product_id || 0) + '/options',
-                                        //     method: 'get',
-                                        //     scope: $scope,
-                                        //     data: {},
-                                        //     success: function (json) {
-                                        //         $scope.rtn_json = json.data;
-                                        //     }
-                                        // })
+                                        // console.log($scope);
+                                        widget.ajaxRequest({
+                                            url: '/products/' + (supscope.data.product_id || 0) + '/notify',
+                                            method: 'POST',
+                                            scope: $scope,
+                                            data: {},
+                                            success: function (json) {
+                                                widget.msgToast('发送活动更改通知成功!');
+                                            }
+                                        })
                                     }
                                     $scope.cancel = function () {
                                         $modalInstance.dismiss('cancel');
@@ -337,7 +385,6 @@ define([
                                         }
                                     });
                                     $scope.submit = function () {
-                                        // console.log($scope.param);
                                         if (!$scope.param.act_result) {
                                             widget.msgToast('没有选择众筹结果');
                                             return false;
@@ -346,13 +393,22 @@ define([
                                             widget.msgToast('众筹失败要写原因');
                                             return false;
                                         }
+                                        if ($scope.param.act_update_reason && $scope.param.act_update_reason.length > 30) {
+                                            widget.msgToast('众筹失败原因字数要在30个以内');
+                                            return false;
+                                        }
                                         widget.ajaxRequest({
-                                            url: '/products/' + (supscope.data.product_id || 0) + '/crowdFunding',
+                                            url: '/products/' + (supscope.data.product_id || 0) + '/crowdfunding',
                                             method: 'PUT',
                                             scope: $scope,
                                             data: $scope.param,
                                             success: function (json) {
                                                 $scope.rtn_json = json.data;
+                                                widget.msgToast('发送众筹结果通知成功');
+                                            },
+                                            failure: function (json) {
+                                                widget.msgToast(json.message);
+                                                $scope.cancel();
                                             }
                                         })
                                     }
