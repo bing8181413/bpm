@@ -20,8 +20,8 @@ define([
                     // 'channel=' + val.utm_source + '_' + val.utm_medium +
                     // (val.utm_campaign ? ('_' + val.utm_campaign) : '') +
                     'utm_source=' + val.utm_source +
-                    (val.utm_medium ? ('&utm_medium=' + val.utm_medium) : '')+
-                    (val.utm_campaign ? ('&utm_campaign=' + val.utm_campaign) : ''));
+                    '&utm_medium=' + (val.utm_medium || '') +
+                    '&utm_campaign=' + (val.utm_campaign || ''));
             } else {
                 $scope.web_url = ' ';
             }

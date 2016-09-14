@@ -39,6 +39,7 @@ define([], function () {
                 {
                     name: '操作',
                     fieldDirective: '<div product-edit data="item" ></div>' +
+                    '<div change-product-type data="item" ></div>'+
                     '<div product-change-status data="item" ></div>'
                 },
             ],

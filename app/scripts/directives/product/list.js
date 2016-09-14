@@ -107,27 +107,27 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<p class="change-product-type"></p>',
+                template: '<p class="change-product-type"  show-role="admin"></p>',
                 link: function ($scope, $element, $attrs) {
                     var product_type_text = '';
                     var click_text = '';
                     var class_text = '';
                     var product_type_title = '';
                     if ($scope.data.product_type == 1) {
-                        product_type_title = '测试商品';
-                        product_type_text = 'ng-bind="\'正常商品\'"';
+                        product_type_title = '测试';
+                        product_type_text = 'ng-bind="\'正式\'"';
                         class_text = 'ng-class={\"btn-primary\":true} ';
                         click_text = 'ng-click="change(2);"';
                         $scope.show_text = true;
                     } else if ($scope.data.product_type == 2) {
-                        product_type_title = '正常商品';
-                        product_type_text = 'ng-bind="\'测试商品\'"';
+                        product_type_title = '正式';
+                        product_type_text = 'ng-bind="\'测试\'"';
                         class_text = 'ng-class={\"btn-warning\":true} ';
                         click_text = 'ng-click="change(1);"';
                         $scope.show_text = true;
                     }
                     $scope.change = function (product_type) {
-                        if (confirm('确认修改为' + product_type_title + '类型?')) {
+                        if (confirm('确认修改为' + product_type_title + '数据?')) {
                             widget.ajaxRequest({
                                 url: '/products/' + ($scope.data.product_id || 0 )+ '/prodtype',
                                 method: 'PUT',
@@ -347,23 +347,21 @@ define([
                     data: '=',
                 },
                 template: '<p><a class="btn btn-rounded btn-sm btn-warning" ng-click="show_act_crowdfunding()"' +
-                ' ng-show="data.category==3">发送众筹结果通知</a></p>',
+                ' ng-show="data.category==3&&is_show">发送众筹结果通知</a></p>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.is_show = true;
                     if ($scope.data.category == 3) {
-                        // console.log($filter('remaining_time')(supscope.data.act_apply_end_time),
-                        //     $filter('arraySum')($scope.data.options, 'left_inventory'));
                         if (!($filter('remaining_time')(supscope.data.act_apply_end_time) == '已结束'
                             || $filter('arraySum')($scope.data.options, 'left_inventory') == 0)) {
                             $scope.is_show = false;
                         }
                     }
                     $scope.show_act_crowdfunding = function () {
-                        if (!$scope.is_show) {
-                            widget.msgToast('众筹报名结束，或库存已售完，才能发送众筹结果通知');
-                            return false;
-                        }
+                        // if (!$scope.is_show) {
+                        //     widget.msgToast('众筹报名结束，或库存已售完，才能发送众筹结果通知');
+                        //     return false;
+                        // }
                         var modalInstance = $modal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                                 controller: function ($scope, $modalInstance) {
