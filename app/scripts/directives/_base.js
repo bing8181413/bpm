@@ -13,6 +13,7 @@ define([
     // './order_list',// 订单列表
     // './pintuan_order_list',// 拼团的订单列表
     './show_str',// 分割逗号隔开的字符串展示
+    './thumb',// 展示本地图片
     './common_form',// 公用表单更新,添加  menu 使用
     './common_list',// 公用表单列表
     // './bindHtmlCompile',// 编译带绑定的 bindHtmlCompile
@@ -185,19 +186,14 @@ define([
                     var init = false;
                     $scope.$watch('images', function (imagesVal) {
                         $scope.max = $attrs.max || 100;
-                        // console.log(imagesVal);
+                        // console.log('images1111', imagesVal);
                         if (imagesVal && (imagesVal.length > 0 ) && !init) {
                             init = true;
                             $scope.oldImages = [];
                             if ($scope.images && $scope.images.length > 0) {
                                 angular.forEach($scope.images, function (v, k) {
-                                    // $scope.oldImages.push({
-                                    //     url: v.pic_url || v.url || undefined,
-                                    //     width: v.pic_width || v.width || undefined,
-                                    //     height: v.pic_height || v.height || undefined,
-                                    //     old: true
-                                    // });
                                     $scope.uploader.queue.push({
+                                        pic_id: v.pic_id || undefined,
                                         url: v.pic_url || v.url || undefined,
                                         width: v.pic_width || v.width || undefined,
                                         height: v.pic_height || v.height || undefined,
@@ -218,24 +214,6 @@ define([
                         // console.log('$scope.oldImages   ', $scope.oldImages);
                         updateImages();
                     };
-
-                    // 历史数据插入图片
-                    $scope.addImage = function (key) {
-                        var object = new FileUploader.FileSelect({
-                            uploader: $scope.uploader,
-                            element: $element
-                        });
-
-                        object.getOptions = $parse($attrs.options).bind(object, $scope);
-                        object.getFilters = function () {
-                            return $scope.uploader.filters;
-                        };
-                        // console.log(object);
-                        // $scope.oldImages.splice(key, 0);
-                        // console.log($scope.uploader);
-                        // updateImages();
-                    };
-
                     // 上传成功
                     $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
                         // console.log(fileItem, response);
@@ -272,7 +250,6 @@ define([
                         }
                     };
 
-
                     // FILTERS
                     $scope.uploader.filters.push({
                         name: 'imageFilter',
@@ -290,14 +267,23 @@ define([
                         }
                     });
 
+                    $scope.uploader.onAfterAddingAll = function (fileItems) {
+                        angular.forEach(fileItems, function (v, k) {
+                            $scope.images.push({});
+                        });
+                        $timeout(function () {
+                            updateImages();
+                        }, 0);
+                    };
                     $scope.log = function () {
                         updateImages();
-                        console.log($scope.uploader);
+                        console.log($scope.uploader.queue);
                     }
                     // 全部取消
                     $scope.removeAll = function () {
-                        $scope.uploader.clearQueue();
+                        // $scope.uploader.clearQueue();
                         $scope.images = [];
+                        $scope.uploader.queue = [];
                         $scope.oldImages = [];
                     }
                     // $scope.uploader.clearAll = function () {
@@ -323,10 +309,11 @@ define([
                     function updateImages() {
                         init = true;
                         $scope.images = [];
-                        // console.log($scope.uploader);
                         angular.forEach($scope.uploader.queue, function (v, k) {
                             if (v.old) {
                                 $scope.images.push({
+                                    pic_id: v.pic_id || undefined,
+                                    old: v.old || undefined,
                                     pic_url: v.url,
                                     pic_width: v.width,
                                     pic_height: v.height
@@ -338,9 +325,26 @@ define([
                                     pic_height: v.height
                                 });
                             }
-
                         });
-                        // console.log($scope.uploader.queue);
+                    }
+
+                    $scope.getEle = function (eleKey) {
+                        if (angular.isNumber($scope.eleKey) && angular.isNumber($scope.posIndex)) {
+                            $scope.eleKey = eleKey;
+                            var a = $scope.eleKey < $scope.posIndex ? $scope.eleKey : ($scope.eleKey - 1);
+                            var b = $scope.eleKey > $scope.posIndex ? $scope.posIndex : ($scope.posIndex - 1);
+                            console.log($scope.eleKey + ' 插入到位置 ' + $scope.posIndex + '  ', a, b, $scope.uploader.queue);
+                            var eleKeyObj = new Object($scope.uploader.queue[a]);
+                            var posIndexObj = new Object($scope.uploader.queue[b]);
+                            $scope.uploader.queue.splice(a, 1, posIndexObj);
+                            $scope.uploader.queue.splice(b, 1, eleKeyObj);
+                            // console.log($scope.uploader.queue);
+                        }
+                        updateImages();
+
+                    }
+                    $scope.getPos = function (posIndex) {
+                        $scope.posIndex = posIndex;
                     }
                 }
             };

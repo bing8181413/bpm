@@ -3,6 +3,7 @@ define([
     // 'angular',
     'ui.router',
     'angular-animate',
+    'dndLists',
     'angucomplete-alt',
     'angular-aria',
     'angular-truncate',
@@ -38,6 +39,7 @@ define([
     return angular.module('huijiaApp', [
         'ui.router',
         'ngAnimate',
+        'dndLists',
         'angucomplete-alt',
         'ngAria',
         'truncate',
