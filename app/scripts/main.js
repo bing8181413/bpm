@@ -33,6 +33,7 @@
             'angular-truncate': '../vendor/angular-truncate/src/truncate',
             'angucomplete-alt': '../vendor/angucomplete-alt/dist/angucomplete-alt.min', // 订单的修改收货地址  使用
             'angular-aria': '../vendor/angular-aria/angular-aria.min', //
+            'dndLists': '../vendor/angular-drag-and-drop-lists/angular-drag-and-drop-lists', //
             'app-tpl': './app-tpl'
         },
         shim: {
@@ -42,6 +43,7 @@
                 exports: 'angular',
                 deps: ['jquery']
             },
+            'dndLists': {deps: ['angular']},
             'angular-animate': {deps: ['angular']},
             'angucomplete-alt': {deps: ['angular']},
             'angular-aria': {deps: ['angular']},
