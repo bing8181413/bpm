@@ -28,7 +28,9 @@ define([
     './account/list',//账户 权限  菜单 规则
     './exchangecode/list',//账户 权限  菜单 规则
     './export/list',//导出 规则
-    './refund/list',//导出 规则
+    './refund/list',//财务 规则
+    './subject/list',//专题 规则
+    // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,
              simpleCons) {
@@ -170,7 +172,6 @@ define([
                 scope: {
                     images: '=',
                     required: '@',
-                    // hasimages: '='
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showUpload.html'),
                 controller: function ($scope, $element, $attrs) {
@@ -186,17 +187,16 @@ define([
                     var init = false;
                     $scope.$watch('images', function (imagesVal) {
                         $scope.max = $attrs.max || 100;
-                        // console.log('images1111', imagesVal);
-                        if (imagesVal && (imagesVal.length > 0 ) && !init) {
+                        // console.log('images1111', imagesVal, init, $scope.uploader.queue);
+                        if (imagesVal && (imagesVal.length > 0 ) && !init && $scope.uploader.queue.length == 0) {
                             init = true;
-                            $scope.oldImages = [];
                             if ($scope.images && $scope.images.length > 0) {
                                 angular.forEach($scope.images, function (v, k) {
                                     $scope.uploader.queue.push({
                                         pic_id: v.pic_id || undefined,
-                                        url: v.pic_url || v.url || undefined,
-                                        width: v.pic_width || v.width || undefined,
-                                        height: v.pic_height || v.height || undefined,
+                                        url: v.pic_url || v.url || '',
+                                        width: v.pic_width || v.width || 100,
+                                        height: v.pic_height || v.height || 100,
                                         old: true,
                                         progress: 100,
                                         isUploaded: true,
@@ -204,14 +204,11 @@ define([
                                 });
                             }
                         }
-                        // console.log($scope.images);
                     }, true);
 
                     // 删除历史数据
                     $scope.removeImage = function (key) {
-                        // $scope.oldImages.splice(key, 1);
                         $scope.uploader.queue.splice(key, 1);
-                        // console.log('$scope.oldImages   ', $scope.oldImages);
                         updateImages();
                     };
                     // 上传成功
@@ -282,13 +279,14 @@ define([
                     // 全部取消
                     $scope.removeAll = function () {
                         // $scope.uploader.clearQueue();
+                        if(!confirm('确定全部移除吗?')){
+                            return false;
+                        }
                         $scope.images = [];
                         $scope.uploader.queue = [];
-                        $scope.oldImages = [];
                     }
                     // $scope.uploader.clearAll = function () {
                     //     $scope.images = [];
-                    //     $scope.oldImages = [];
                     //     $scope.uploader.queue = [];
                     //     $scope.uploader.progress = 0;
                     // };
@@ -296,17 +294,21 @@ define([
 
                     // 移除上传的数据
                     $scope.delImage = function (key, obj) {
+                        if(!confirm('确定移除?')){
+                            return false;
+                        }
                         if (obj.old) {
                             $scope.uploader.queue.splice(key, 1);
                         } else {
                             obj.remove();
                         }
-                        console.log(obj);
+                        // console.log(obj);
                         updateImages();
                     };
 
 
                     function updateImages() {
+                        // 重新填充 images 对象
                         init = true;
                         $scope.images = [];
                         angular.forEach($scope.uploader.queue, function (v, k) {

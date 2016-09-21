@@ -14,6 +14,8 @@ define([
     './community',
     './sms',
     './supports',
+    './subject',
+    // './subject_group',
 ], function () {
     // console.log(arguments);
     var domain = '';

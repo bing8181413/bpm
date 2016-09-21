@@ -18,7 +18,7 @@ define([
         $scope.remain_time = $scope.time_count;
         $rootScope.current_city_name = localStorage.getItem('hjm') ? localStorage.getItem('hjm').current_city_name : '未登录';
         if (localStorage.getItem('hjm')) {
-            $rootScope.$state.go(cons.state.main + '.groupbuy.list');
+            $rootScope.$state.go(cons.state.main + '.act.list');
         }
         $rootScope.search = '';
         // 获取短信验证码
@@ -111,7 +111,7 @@ define([
                         if ($rootScope.hjm.type == 'cw') {
                             $rootScope.$state.go(cons.state.main + '.refund.list');
                         } else {
-                            $rootScope.$state.go(cons.state.main + '.groupbuy.list');
+                            $rootScope.$state.go(cons.state.main + '.act.list');
                         }
                     }, $scope.success_time * 500);
                 }

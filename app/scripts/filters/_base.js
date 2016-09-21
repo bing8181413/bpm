@@ -1,5 +1,25 @@
 define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
     mod
+    // status0or1or2   0 待上线，1 上线，2 下线
+        .filter('status0or1or2', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "0":
+                        result = "待上线";
+                        break;
+                    case "1":
+                        result = "正在进行";
+                        break;
+                    case "2":
+                        result = "已下线";
+                        break;
+                }
+
+                return result;
+            }
+        }])
         .filter('gender', [function () {
             return function (val) {
                 return val == '1' ? '男' : '女';

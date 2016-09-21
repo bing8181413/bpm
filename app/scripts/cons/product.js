@@ -226,6 +226,93 @@ define([], function () {
                     {routeDirective: '<div act-add data="" >新增活动</div>'}
                 ]
             },
+            columns_by_subject: [
+                {name: '活动类型', field: 'product.category',filter:'product_category'},
+                {name: '活动ID', field: 'product_id', className: 'text-center'},
+                {
+                    name: '标题', field: 'product.title',
+                    truncateText: true,
+                    truncateTextLength: 5,
+                    truncateTextBreakOnWord: false,
+                    tooltip: 'product.title',
+                    tooltipPlacement: 'bottom',
+                },
+                {name: '简介', field: 'product.brief'},
+                {
+                    name: '报名时间',
+                    fieldDirective: '<p>开始时间<br/> <span ng-bind="item.product.act_apply_start_time"></span>' +
+                    '<br/>结束时间<br/><span ng-bind="item.product.act_apply_end_time"></span></p>'
+                },
+                {name: '活动类目', fieldDirective: '<div product-option data="item.product"></div>'},
+                {name: '已售份数', fieldDirective: '<div product-order-copies data="item.product"></div>'},
+                {name: '剩余<br/>库存', field: 'product.options', filter: 'arraySum:\'left_inventory\''},
+                {name: '当前<br/>状态', field: 'product.status', filter: 'product_status'},
+                {
+                    name: '操作',
+                    fieldDirective:'<div del-subject-products data="item" ></div>'
+                },
+            ],
+            config_by_subject: {
+                title: '专题活动列表',
+                api: '/subjects/products',
+                rowItemName: 'item',
+                searchSupport: false,
+                searchItems: [
+                    {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
+                        type: 'btnGroupArray2',
+                        value: 'flag1',
+                        text: '活动类别',
+                        default: 0, //有enum_text时 enumde index 的值
+                        width: '6',
+                        enum_text: 'category',
+                        enum: [
+                            {value: [3, 4], text: '全部'},
+                            {value: [3], text: '众筹'},
+                            {value: [4], text: '一起玩'},
+                        ]
+                    },
+                    {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
+                        type: 'btnGroupArray',
+                        value: 'flag2',
+                        text: '活动状态',
+                        default: 1, //有enum_text时 enumde index 的值
+                        width: '6',
+                        enum_text: ['status', 'available_type'],//  有  enum_text 说明是数组
+                        enum: [
+                            {value: ['', ''], text: '全部'},
+                            {value: ['1', '1'], text: '正在进行'},
+                            {value: ['3', ''], text: '已下线'},
+                            {value: ['1', '2'], text: '待上线'},
+                        ]
+                    },
+                    {
+                        value: 'visible', text: '是否显示', type: 'btnGroup', default: '0', width: '12',
+                        enum: [
+                            {value: '0', text: '全部'},
+                            {value: '1', text: '是'},
+                            {value: '2', text: '否'},
+                        ]
+                    },
+                    {value: 'keyword', text: '活动标题'},
+                    // {value: 'date_min', text: '开始日期', type: 'date'},
+                    // {value: 'date_max', text: '结束日期', type: 'date'},
+                ],
+                preSelectionSearch: {
+                    // category: [3, 4],
+                },
+                paginationSupport: true,
+                pageInfo: {
+                    count: 20,
+                    page: 1,
+                    maxSize: 5, //最大展示页，默认3
+                    // showPageGoto: false //属性为true将显示前往第几页。
+                },
+                // route: [{value: 'main.act.add', text: '新增活动'}]
+                route: [
+                    // {value: 'main.act.add', text: '新增商品'},
+                    // {routeDirective: '<div act-add data="" >新增活动</div>'}
+                ]
+            },
         }
     }
     return rtn;

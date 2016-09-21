@@ -76,7 +76,7 @@
         <div class="panel panel-info" style="border: 0">
             <!--<div class="panel-heading"></div>-->
             <div class="panel-body dndsimpleDemo">
-                <!--<pre ng-bind="uploader.queue | json">  这个不能json </pre>-->
+                <!--<pre ng-bind="uploader.queue | json">  这个不能json 这个自定义的对象里面有循环嵌套 </pre>-->
                 <!--<pre ng-bind="images | json"></pre>-->
                 <ul dnd-list="images" ng-init="img_min = true;"
                     dnd-inserted="getPos(index)"
@@ -118,16 +118,16 @@
                             </div>
                             <div class="handle col-md-2 pull-right">
                                 <div ng-class="{'hide':disabled}">
+                                    <button type="button" class="btn btn-danger btn-xs btn-rounded"
+                                            ng-click="delImage(k,uploader.queue[k])"
+                                            show-role="'{{disabledRole}}'">
+                                        <span class="glyphicon glyphicon-trash"></span> 移除
+                                    </button>
                                     <button type="button" class="btn btn-success btn-xs btn-rounded"
                                             ng-click="uploader.queue[k].upload()"
                                             ng-if="!v.pic_id"
                                             ng-disabled="uploader.queue[k].isReady || uploader.queue[k].isUploading || uploader.queue[k].isSuccess">
                                         <span class="glyphicon glyphicon-upload"></span> 上传
-                                    </button>
-                                    <button type="button" class="btn btn-danger btn-xs btn-rounded"
-                                            ng-click="delImage(k,uploader.queue[k])"
-                                            show-role="'{{disabledRole}}'">
-                                        <span class="glyphicon glyphicon-trash"></span> 移除
                                     </button>
                                 </div>
                             </div>

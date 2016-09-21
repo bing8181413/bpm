@@ -1,0 +1,235 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .subject-pro {
+            padding-left: 0;
+        }
+
+        .subject-pro-ul {
+            padding-left: 10px;
+        }
+
+        .subject-pro-img {
+            /*display: block;*/
+            /*width: 50%;*/
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .subject-pro-img > .subject-pro-img-sub {
+            display: flex;
+            width: 100%;
+            height: 170px;
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+
+        .subject-pro-img > .subject-pro-img-sub > img {
+            display: inline;
+            width: 120px;
+            height: 120px;
+        }
+
+        .subject-pro-img > .subject-pro-img-sub > .desc {
+            display: inline-flex;
+            flex: 1;
+        }
+    </style>
+    <style type="text/css">
+        .dndsimpleSubject ul[dnd-list],
+        .dndsimpleSubject ul[dnd-list] > li {
+            position: relative;
+        }
+
+        .dndsimpleSubject ul[dnd-list]  .dndDragging {
+            opacity: 0.7;
+        }
+
+        .dndsimpleSubject ul[dnd-list] .dndDraggingSource {
+            display: none;
+        }
+
+        .dndsimpleSubject ul[dnd-list] .dndPlaceholder {
+            /*display: block;*/
+            float: left;
+            background-color: #ddd;
+            display: flex;
+            height: 170px;
+            width: 100%;
+            border: 1px solid #ddd;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .dndsimpleSubject ul[dnd-list] > li {
+            /*background-color: #fff;*/
+            /*display: block;*/
+            /*width: 100%;*/
+        }
+
+        .dndsimpleSubject ul[dnd-list] > li.selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!$stateParams.subject_id">新增运营专题</h3>
+            <h3 class="panel-title" show-role="'admin,op'" ng-if="$stateParams.subject_id">修改运营专题</h3>
+            <h3 class="panel-title" show-role="'!admin,op'" ng-if="$stateParams.subject_id">运营专题详情</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate
+                  disabled-role="{{$stateParams.subject_id?'admin,op':''}}">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>专题信息</h4>
+                        <div form-input text="商品ID" ng-model="param.subject_id" ng-show="$stateParams.subject_id"
+                             placeholder="商品ID" ng-disabled="$stateParams.subject_id"></div>
+                        <div form-input text="专题名称" ng-model="param.name" placeholder="专题名称"
+                             required="true"></div>
+                        <div form-input text="专题简介" ng-model="param.brief" placeholder="不超过30个字" minlength="1"
+                             maxlength="30"></div>
+                        <div form-image text="缩略图" ng-model="share_pics" max="1" required="true"></div>
+                        <div form-image text="运营专题介绍图" ng-model="intro_pics" max="1" required="true"></div>
+                        <div form-input text="分享文案标题" ng-model="param.share_title" placeholder="分享文案标题"
+                             required="true"></div>
+                        <div form-input text="分享文案描述" ng-model="param.share_desc" placeholder="分享文案描述"
+                             required="true"></div>
+                        <div form-textarea text="管理备注" ng-model="param.remark"
+                             placeholder="管理备注" required="true"></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary dndsimpleSubject">
+                    <div class="panel-body">
+                        <h4>专题列表</h4>
+                        <div>
+                            <div class="col-sm-8">
+                                <div class="panel panel-primary">
+                                    <div class="panel-body">
+                                        <div class="col-sm-4" form-input text="活动ID" ng-model="searchparams.product_id"
+                                             label-width="4" content-width="8"></div>
+                                        <div class="col-sm-4" form-input text="标题" ng-model="searchparams.keyword"
+                                             label-width="4" content-width="8"></div>
+                                        <div class="col-sm-4" form-select text="标签" ng-model="searchparams.act_type"
+                                             source="[{text:'亲子',value:'亲子'},{text:'DIY',value:'DIY'},{text:'展览',value:'展览'},
+                                                {text:'运动',value:'运动'},{text:'周边／户外',value:'周边／户外'},
+                                                {text:'演出／赛事',value:'演出／赛事'},{text:'多人聚会',value:'多人聚会'},
+                                                {text:'沙龙讲座',value:'沙龙讲座'},{text:'主题节／市集',value:'主题节／市集'}]"
+                                             source-api="" label-width="4" content-width="8"></div>
+                                        <div class="col-sm-4" form-select text="标签" ng-model="searchparams.category"
+                                             source="[{text:'砍价团',value:'1'},{text:'人数团',value:'2'},{text:'众筹',value:'3'},
+                                                {text:'一起玩',value:'4'}]"
+                                             source-api="" label-width="4" content-width="8"></div>
+                                        <div class="col-sm-4" form-select text="状态" ng-model="searchparamsExt.status"
+                                             source="[{text:'全部',value:'1'},{text:'进行中',value:'2'},
+                                             {text:'已下线',value:'3'},{text:'待上线',value:'4'}]"
+                                             source-api="" label-width="4" content-width="8"></div>
+                                        <div class="form-group col-sm-4">
+                                            <label class="col-sm-4 control-label"></label>
+                                            <button type="button" class="btn btn-success btn-bordered"
+                                                    ng-click="search()"><i class="fa fa-search"></i>
+                                                &nbsp;&nbsp;&nbsp;搜索&nbsp;&nbsp;&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="panel-body">
+                                        <ul class="row subject-pro">
+                                            <li class="col-sm-6 subject-pro-img" ng-repeat="item in products_source">
+                                                <div class="subject-pro-img-sub">
+                                                    <img ng-src="{{item.thumbnail_pics[0].pic_url+'?/thumbnail/120X120'}}">
+                                                    <div class="desc">
+                                                        <ul class="subject-pro-ul">
+                                                            <li>活动ID：<span ng-bind="item.product_id"></span></li>
+                                                            <li>标题：
+                                                                <span ng-bind="item.title |characters:12:true"
+                                                                      tooltip-placement="bottom"
+                                                                      tooltip="{{item.title}}"></span>
+                                                            </li>
+                                                            <li>简介：
+                                                                <span ng-bind="item.brief|characters: 12:true"
+                                                                      tooltip-placement="bottom"
+                                                                      tooltip="{{item.brief}}"></span>
+                                                            </li>
+                                                            <li>已售：<span ng-bind="item.order.order_copies"></span></li>
+                                                            <li>状态：
+                                                                <span ng-bind="item.status|product_status"></span>
+                                                            </li>
+                                                            <li>
+                                                                <a class="btn btn-primary btn-xs btn-rounded"
+                                                                   ng-disabled="item.in_subject"
+                                                                   ng-click="add_subject(item,$index)">
+                                                                    &nbsp;添加&nbsp;</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="panel panel-primary">
+                                <div class="panel-body">
+                                    <div class="col-sm-12" form-input text="活动ID" ng-model="already_products.product_id"
+                                         label-width="4" content-width="8"></div>
+                                    <div class="col-sm-12" form-input text="标题" ng-model="already_products.title"
+                                         label-width="4" content-width="8"></div>
+                                    <div class="col-sm-12" form-select text="排序" ng-model="orderby"
+                                         source="[{text:'活动上线时间先后',value:'start_time'},{text:'活动上线时间倒序',value:'-start_time'}]"
+                                         source-api="" label-width="4" content-width="8">
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <ul class="row subject-pro" dnd-list="param.products">
+                                        <li class="col-sm-12 subject-pro-img"
+                                            ng-repeat="item in param.products| filter:already_products:strict"
+                                            dnd-draggable="item"
+                                            dnd-moved="param.products.splice($index, 1);"
+                                            dnd-effect-allowed="copyMove">
+                                            <div class="subject-pro-img-sub">
+                                                <img ng-src="{{item.thumbnail_pics[0].pic_url+'?/thumbnail/120X120'}}">
+                                                <div class="desc">
+                                                    <ul class="subject-pro-ul">
+                                                        <li>活动ID：<span ng-bind="item.product_id"></span></li>
+                                                        <li>标题：
+                                                                <span ng-bind="item.title |characters:12:true"
+                                                                      tooltip-placement="bottom"
+                                                                      tooltip="{{item.title}}"></span>
+                                                        </li>
+                                                        <li>简介：
+                                                                <span ng-bind="item.brief|characters: 12:true"
+                                                                      tooltip-placement="bottom"
+                                                                      tooltip="{{item.brief}}"></span>
+                                                        </li>
+                                                        <li>已售：<span ng-bind="item.order.order_copies"></span></li>
+                                                        <li>状态：<span ng-bind="item.status|product_status"></span>
+                                                        </li>
+                                                        <li>
+                                                            <a class="btn btn-danger btn-xs btn-rounded"
+                                                               ng-click="sub_subject(item,$index)">
+                                                                &nbsp;删除&nbsp;</a>
+                                                        </li>
+                                                    </ul>
+                                                    <div style="position: absolute;left: 0;top: 0;">
+                                                        <a class="btn btn-success btn-sm btn-rounded"
+                                                           ng-bind="$index+1"></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.subject_id?'admin,op':''}}'"
+           ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+        <!--<a class="btn btn-success btn-rounded" ng-click="aaa()">浏览器控制台查看提交数据</a>-->
+        </form>
+    </div>
+</div>
+</div>
