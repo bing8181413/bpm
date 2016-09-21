@@ -16,6 +16,7 @@ define([
     'states/hjm/sms',//发送短信
     'states/hjm/supports',//支持城市
     'states/hjm/web',//网站推广
+    'states/hjm/subject',//运营专题
 
 ], function () {
 

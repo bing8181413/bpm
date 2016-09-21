@@ -1,6 +1,6 @@
 define(['./services', '../cons/simpleCons'], function (mod, cons) {
     mod
-        .factory('comfunc', function ($q, $state, $compile, $location, $rootScope) {
+        .factory('comfunc', function ($q, $state, $compile, $location, $rootScope,$log) {
             var comfunc = {
                 isEmptyArray: function (arr) {
                     if (angular.isArray(arr)) {

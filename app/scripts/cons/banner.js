@@ -11,7 +11,7 @@ define([], function () {
                     tooltip: 'title',
                 },
                 {name: '当前排序', field: 'sort_num'},
-                {name: '缩略图', fieldDirective: '<show_image url="item.pic_url" width="100"></show_image>',},
+                {name: '缩略图', fieldDirective: '<show_image url="item.pic_url" width="100"></show_image>'},
                 {
                     name: 'URL', field: 'url',
                     truncateText: true,
