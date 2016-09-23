@@ -6,15 +6,15 @@ define([], function () {
                 {name: '运营专题ID', field: 'subject_id'},
                 {name: '名称', field: 'name'},
                 {name: '简介', field: 'brief'},
-                {name: '缩略图', fieldDirective: '<show_image url="item.intro_pic.pic_url" width="100"></show_image>'},
+                {name: '缩略图', fieldDirective: '<show_image url="item.share_pic.pic_url" width="100"></show_image>'},
                 {name: '专题活动列表', fieldDirective: '<div subject-product data="item"></div>'},
                 // {name: '展示时间', fieldDIrective: ''},
                 {name: '创建时间', field: 'created_at'},
-                {name: '状态', field: 'status',filter:'status0or1or2'},
+                {name: '状态', field: 'visible:',filter:'status0or1or2'},
                 {
                     name: '操作',
-                    fieldDirective: '<div subject-edit data="item"></div>' +
-                    '<div subject-change-status data="item"></div>'
+                    fieldDirective: '<div subject-edit data="item"></div>'
+                    // +'<div subject-change-status data="item"></div>'
                 },
             ],
             config: {
@@ -24,7 +24,7 @@ define([], function () {
                 searchSupport: true,
                 searchItems: [
                     {
-                        value: 'status', text: '专题状态', type: 'btnGroup', default: '',
+                        value: 'visible', text: '专题状态', type: 'btnGroup', default: '',
                         enum: [
                             {value: '', text: '全部'},
                             {value: '1', text: '正在进行'},

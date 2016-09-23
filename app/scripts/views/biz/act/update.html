@@ -28,7 +28,7 @@
                         <div form-input text="单人限购份数" ng-model="param.per_buy_count" type="number"
                              min="0"></div>
                         <!--<div form-input text="已售份数基数" ng-model="param.base_sale_count" type="number"-->
-                             <!--min="0"></div>-->
+                        <!--min="0"></div>-->
                         <div form-date-time text="上架时间" ng-model="param.start_time" required="true"></div>
                         <div form-date-time text="下架时间" ng-model="param.end_time" required="true"></div>
                         <div form-image text="运营大图" ng-model="param.pics" max="100" required="true"></div>
@@ -63,7 +63,8 @@
                              source="[{text:'无需指定',value:'2'}]" source-api=""></div>
 
                         <div form-input text="活动地点" ng-model="param.act_address" placeholder="例如:永达国际大厦"></div>
-                        <div form-input text="详细地址" ng-model="param.act_detailed_address" placeholder="例如:上海市浦东新区龙阳路2277号"></div>
+                        <div form-input text="详细地址" ng-model="param.act_detailed_address"
+                             placeholder="例如:上海市浦东新区龙阳路2277号"></div>
                         <div form-date-time text="活动开始时间" ng-model="param.act_start_time" required="true"></div>
                         <div form-date-time text="活动结束时间" ng-model="param.act_end_time" required="true"></div>
                         <div form-date-time text="报名开始时间" ng-model="param.act_apply_start_time" required="true"></div>
@@ -75,7 +76,13 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>活动详情</h4>
-                        <div form-image-content text="图文详情" ng-model="param.contents" required="true"></div>
+                        <div form-input text="图文详情视频地址" ng-model="param.video_url"></div>
+                        <div form-radio text="详情类型" ng-model="param.content_type" default="2"
+                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""></div>
+                        <div form-image-content text="图文详情" ng-model="param.contents"
+                             ng-show="param.content_type==1"></div>
+                        <div form-rich-content text="富文本" ng-model="param.rich_text"
+                             ng-show="param.content_type==2"></div>
                     </div>
                 </div>
                 <div class="panel panel-primary">

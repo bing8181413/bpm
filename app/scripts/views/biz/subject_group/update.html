@@ -1,0 +1,142 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .subject-pro {
+            padding-left: 0;
+        }
+
+        .subject-pro-ul {
+            padding-left: 10px;
+        }
+
+        .subject-pro-img {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .subject-pro-img > .subject-pro-img-sub {
+            display: flex;
+            /*width: 100%;*/
+            height: 150px;
+            min-height: 150px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-left: 0;
+        }
+
+        .subject-pro-img > .subject-pro-img-sub:first-child {
+            border-left: 1px solid #ddd;
+        }
+        .subject-pro-img > .subject-pro-img-sub:last-child {
+            border-left: 1px solid #ddd;
+            margin-left: 10px;
+        }
+
+        .subject-pro-img > .subject-pro-img-sub > img {
+            display: inline;
+            width: 120px;
+            height: 120px;
+        }
+
+        .subject-pro-img > .subject-pro-img-sub > .desc {
+            display: inline-flex;
+            flex: 1;
+            font-size: 12px;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" show-role="'admin,op'">运营专题组管理</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary dndsimpleSubject">
+                    <div class="panel-body">
+                        <h4 class="col-sm-4">专题组列表</h4>
+                        <div class="col-sm-4 pull-right">
+                            <a class="btn btn-primary btn-rounded pull-right"
+                               ng-click="add_subject_group()"><i class="glyphicon glyphicon-plus"></i>&nbsp;增加专题组&nbsp;
+                            </a>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="panel panel-primary" style="border: 0;">
+                                <div class="panel-body">
+                                    <ul class="row subject-pro">
+                                        <li class="subject-pro-img"
+                                            ng-repeat="(key,value) in subjects_group|orderBy:'key'"
+                                            ng-init="value.empty = [1,2,3];value.empty.length = (3-value.length);value.sub_index = $index">
+                                            <div class="subject-pro-img-sub col-sm-3 " ng-repeat="item in value">
+                                                <img ng-src="{{item.share_pic.pic_url+'?/thumbnail/120X120'}}">
+                                                <div class="desc">
+                                                    <ul class="subject-pro-ul">
+                                                        <li>专题ID：<span ng-bind="item.subject_id"></span></li>
+                                                        <li>名称：
+                                                                <span ng-bind="item.name |characters:12:true"
+                                                                      tooltip-placement="bottom"
+                                                                      tooltip="{{item.name}}"></span>
+                                                        </li>
+                                                        <li>简介：
+                                                                <span ng-bind="item.brief|characters: 12:true"
+                                                                      tooltip-placement="bottom"
+                                                                      tooltip="{{item.brief}}"></span>
+                                                        </li>
+                                                        <li>
+                                                            <a class="btn btn-info btn-xs btn-rounded"
+                                                               ng-disabled="item.in_subject"
+                                                               ui-sref="main.subject.update({subject_id:item.subject_id})">
+                                                                &nbsp;详情&nbsp;</a>
+                                                            <a class="btn btn-primary btn-xs btn-rounded"
+                                                               ng-disabled="item.in_subject"
+                                                               ng-click="add_update_subject(key,value,$index)">
+                                                                &nbsp;修改&nbsp;</a>
+                                                            <a class="btn btn-danger btn-xs btn-rounded"
+                                                               ng-disabled="item.in_subject"
+                                                               ng-click="sub_subject(key,value,$index)">
+                                                                &nbsp;移除&nbsp;</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                            <div class="subject-pro-img-sub col-sm-3 " ng-repeat="empty in value.empty">
+                                                <ul class="subject-pro-ul">
+                                                    <li>
+                                                        <a class="btn btn-primary btn-lg btn-rounded"
+                                                           ng-disabled="item.in_subject"
+                                                           ng-click="add_update_subject(key,value)">
+                                                            &nbsp;添加专题&nbsp;</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="subject-pro-img-sub col-sm-3">
+                                                <ul class="subject-pro-ul">
+                                                    <li>
+                                                        <h3><span class="label label-info"
+                                                                  ng-bind="'专题组'+($index+1)">
+                                                        </span>
+                                                        </h3>
+                                                    </li>
+                                                    <li>
+                                                        <a class="btn btn-primary btn-sm btn-rounded"
+                                                           ng-disabled="value.disabled"
+                                                           ng-click="save_subject_group(key,value)">
+                                                            &nbsp;保存并提交&nbsp;</a>
+                                                        <a class="btn btn-danger btn-sm btn-rounded"
+                                                           ng-click="save_subject_group(key)">
+                                                            &nbsp;删除专题组&nbsp;</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+        <!--<a class="btn btn-success btn-rounded" show-role="''admin,op''"-->
+        <!--ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>-->
+        <!--<a class="btn btn-success btn-rounded" ng-click="aaa()">浏览器控制台查看提交数据</a>-->
+        </form>
+    </div>
+</div>
+</div>

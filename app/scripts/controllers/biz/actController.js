@@ -52,8 +52,12 @@ define([
                 widget.msgToast('运营大图没有上传');
                 return false;
             }
-            if (comfunc.isEmptyArray($scope.param.contents)) {
+            if ($scope.param.content_type == 1 && comfunc.isEmptyArray($scope.param.contents)) {
                 widget.msgToast('图文详情没有上传');
+                return false;
+            }
+            if ($scope.param.content_type == 2 && $scope.param.rich_text == '') {
+                widget.msgToast('富文本内容未填写');
                 return false;
             }
             if (status || status == 0) {

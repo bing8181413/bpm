@@ -66,76 +66,77 @@ $config['timeout'] = $TIMEOUT;
 // exit(json_encode($config));
 $qiniu = new Qiniu($config);
 //命名规则
-if($SAVETYPE == 'date'){
-    $key = time().'.'.pathinfo($_FILES[$fieldName]["name"], PATHINFO_EXTENSION);
-}else{
+if ($SAVETYPE == 'date') {
+    $key = time() . '.' . pathinfo($_FILES[$fieldName]["name"], PATHINFO_EXTENSION);
+} else {
     $key = $_FILES[$fieldName]['name'];
 }
 
 $upfile = array(
-        'name'=>'file',
-        'fileName'=>$key,
-        'fileBody'=>file_get_contents($_FILES[$fieldName]['tmp_name'])
-    );
+    'name' => 'file',
+    'fileName' => $key,
+    'fileBody' => file_get_contents($_FILES[$fieldName]['tmp_name'])
+);
 
 // $config = array();
 $result = $qiniu->upload($config, $upfile);
 // exit(json_encode($result));
-if(!empty($result['hash'])){
+if (!empty($result['hash'])) {
     $url = '';
-    if(htmlspecialchars($_GET['action']) == 'uploadimage'){
-        if($USEWATER){
+    if (htmlspecialchars($_GET['action']) == 'uploadimage') {
+        if ($USEWATER) {
             $waterBase = urlsafe_base64_encode($WATERIMAGEURL);
-            $url  =  $qiniu->downlink($result['key'])."?watermark/1/image/{$waterBase}/dissolve/{$DISSOLVE}/gravity/{$GRAVITY}/dx/{$DX}/dy/{$DY}";
-        }else{
-            $url  =  $qiniu->downlink($result['key']);
+            $url = $qiniu->downlink($result['key']) . "?watermark/1/image/{$waterBase}/dissolve/{$DISSOLVE}/gravity/{$GRAVITY}/dx/{$DX}/dy/{$DY}";
+        } else {
+            $url = $qiniu->downlink($result['key']);
         }
-    }else{
-            $url  =  $qiniu->downlink($result['key']);
+    } else {
+        $url = $qiniu->downlink($result['key']);
     }
 //    exit($url);
     // 再包裹一层  修改上传的图片重新来一次
     //开始包裹
-    $_name = explode('.',$result['key'])[0];
-    $_suffix = explode('.',$result['key'])[1];
-    $entry = $config['bucket'] . ':' . $_name  . '-1280.' . $_suffix;
+    $_name = explode('.', $result['key'])[0];
+    $_suffix = explode('.', $result['key'])[1];
+    $entry = $config['bucket'] . ':' . $_name . '-1280.' . $_suffix;
     // .'?imageView2/0/w/1280/h/1280'
     // exit();
     $encodedEntryURI = urlsafe_base64_encode($entry);
     // $signingStr = $config['bucket'] .".qiniudn.com/". $result['key'] ."?imageView2/0/w/1280/h/1280|saveas/" . $encodedEntryURI;
-    $signingStr = $config['bucket'] .".huijiame.com/". $result['key'] ."?imageView2/0/w/1280/h/1280|saveas/" . $encodedEntryURI;
+    $signingStr = $config['bucket'] . ".huijiame.com/" . $result['key'] . "?imageView2/0/w/1280/h/1280|saveas/" . $encodedEntryURI;
     // exit(urlsafe_base64_encode("t-test:Ship-thumb-200.jpg"));
     // $sign_change = hash_hmac('sha1', $signingStr, $sk, true);
     $sign_change = $qiniu->sign($config['secrectKey'], $config['accessKey'], $signingStr);
-    $url_tmp = $signingStr . '/sign/' .$sign_change;
+    $url_tmp = $signingStr . '/sign/' . $sign_change;
 //  exit($url_tmp);
 //  exit(json_encode($result));
 
     $ch_final = curl_init();
     $timeout = 5;
-    curl_setopt ($ch_final, CURLOPT_URL, $url_tmp);
-    curl_setopt ($ch_final, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch_final, CURLOPT_CONNECTTIMEOUT, $timeout);
+    curl_setopt($ch_final, CURLOPT_URL, $url_tmp);
+    curl_setopt($ch_final, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch_final, CURLOPT_CONNECTTIMEOUT, $timeout);
     $file_contents = curl_exec($ch_final);
     curl_close($ch_final);
-    $file_contents=json_decode($file_contents,true);
-    $url_final  =  $qiniu->downlink($file_contents['key']);
+    $file_contents = json_decode($file_contents, true);
+    $url_final = $qiniu->downlink($file_contents['key']);
 //     exit(json_encode($file_contents));
     //获取图片信息 
     $ch_info = curl_init();
     $timeout = 5;
-    curl_setopt ($ch_info, CURLOPT_URL, $url_final.'?imageInfo');
-    curl_setopt ($ch_info, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt ($ch_info, CURLOPT_CONNECTTIMEOUT, $timeout);
+    curl_setopt($ch_info, CURLOPT_URL, $url_final . '?imageInfo');
+    curl_setopt($ch_info, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($ch_info, CURLOPT_CONNECTTIMEOUT, $timeout);
     $file_ch_info = curl_exec($ch_info);
     curl_close($ch_info);
-    $file_ch_info=json_decode($file_ch_info,true);
+    $file_ch_info = json_decode($file_ch_info, true);
 
     // exit(json_encode($file_ch_info));
+//    exit(json_encode($_FILES[$fieldName]));
     // 结束包裹
-    if($file_contents['error']){
+    if ($file_contents['error']) {
         $file_contents['state'] = "ERROR";
-    }else{
+    } else {
         $file_contents['state'] = "SUCCESS";
     }
     $file_contents['url'] = $url_final;
@@ -145,21 +146,21 @@ if(!empty($result['hash'])){
     $file_contents['original'] = $_FILES[$fieldName]['name'];
     $file_contents['name'] = $_FILES[$fieldName]['name'];
     $file_contents['type'] = $_FILES[$fieldName]['type'];
-    // $file_contents['size'] = $_FILES[$fieldName]['size'];
+    $file_contents['size'] = $_FILES[$fieldName]['size'];
 //    exit(json_encode($file_contents));
-     return json_encode($file_contents);
+    return json_encode($file_contents);
     /*构建返回数据格式*/
     $FileInfo = array(
-                      "state" => "SUCCESS",
-                      "url"   => $url,
-                      "title" => $result['key'],
-                      "width" => $result['w'],
-                      "height" => $result['h'],
-                      "original" => $_FILES[$fieldName]['name'],
-                      "name" => $_FILES[$fieldName]['name'],
-                      "type" => $_FILES[$fieldName]['type'],
-                      "size" => $_FILES[$fieldName]['size'],
-                  );
+        "state" => "SUCCESS",
+        "url" => $url,
+        "title" => $result['key'],
+        "width" => $result['w'],
+        "height" => $result['h'],
+        "original" => $_FILES[$fieldName]['name'],
+        "name" => $_FILES[$fieldName]['name'],
+        "type" => $_FILES[$fieldName]['type'],
+        "size" => $_FILES[$fieldName]['size'],
+    );
     /* 返回数据 */
     return json_encode($FileInfo);
 }

@@ -9,8 +9,8 @@
             // 'highcharts' : '../vendor/highcharts/highcharts',
             "ui.router": '../vendor/angular-ui-router/release/angular-ui-router.min',
             //"ui.select2":'../vendor/angular-ui-select2/src/select2',
-            //"ng.ueditor": '../vendor/angular-ueditor/dist/angular-ueditor',
-            //"clipboard": '../vendor/zeroclipboard/ZeroClipboard',
+            "ng.ueditor": '../vendor/angular-ueditor/dist/angular-ueditor',
+            // "clipboard": '../vendor/zeroclipboard/ZeroClipboard',
             "angular-file-upload": '../vendor/angular-file-upload/angular-file-upload',
             'bindonce': '../vendor/angular-bindonce/bindonce',
             "ab-base64": '../vendor/angular-utf8-base64/angular-utf8-base64',
@@ -62,7 +62,7 @@
             'bindonce': {deps: ['angular']},
             'ab-base64': {deps: ['angular']},
             //'ui.select2': { deps: ['angular']},
-            //'ng.ueditor': { deps: ['angular']},
+            'ng.ueditor': { deps: ['angular']},
             'ui.router': {deps: ['angular']},
             // 'ngSanitize': {deps: ['angular']},// 使用csv
             // 'ngCsv': {deps: ['angular']}, // 使用csv 到处excle 表格
