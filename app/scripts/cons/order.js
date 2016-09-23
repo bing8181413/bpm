@@ -166,7 +166,7 @@ define([], function () {
                 preSelectionSearch: {
                     order_type: [3, 4]
                 },
-                paginationSupport: false,
+                paginationSupport: true,
                 pageInfo: {
                     count: 20,
                     page: 1,
