@@ -3,6 +3,7 @@ define([
     '../cons/simpleCons',
     './hjm-grid',// grid
     './hjm-form',// form
+    './hjm-ueditor',// ueditor
     './nav-top',// 上边内容
     './side-left',// 左边菜单
     './hjmdirectives',
@@ -197,6 +198,7 @@ define([
                                         url: v.pic_url || v.url || '',
                                         width: v.pic_width || v.width || 100,
                                         height: v.pic_height || v.height || 100,
+                                        size: v.pic_size || v.size || 1,
                                         old: true,
                                         progress: 100,
                                         isUploaded: true,
@@ -239,6 +241,7 @@ define([
                                 fileItem.qiniu_url = response.url;
                                 fileItem.width = response.width;
                                 fileItem.height = response.height;
+                                fileItem.size = response.size;
                                 //console.log(fileItem);
 
                                 //console.log('success', $scope.uploader);
@@ -318,13 +321,15 @@ define([
                                     old: v.old || undefined,
                                     pic_url: v.url,
                                     pic_width: v.width,
-                                    pic_height: v.height
+                                    pic_height: v.height,
+                                    pic_size: v.size
                                 });
                             } else {
                                 $scope.images.push({
                                     pic_url: v.qiniu_url,
                                     pic_width: v.width,
-                                    pic_height: v.height
+                                    pic_height: v.height,
+                                    pic_size: v.size
                                 });
                             }
                         });

@@ -34,13 +34,13 @@ define([
     } else if (location.href.indexOf('//testbpm.huijiame.com') > 0 || location.href.indexOf('//bpmsss.hjm.com') > 0) {
         domain = 'https://testmgrapi.huijiame.com';
         web_domain = 'https://testbpm.huijiame.com';
-        qiniu_domain = 'https://bpm.huijiame.com';
+        qiniu_domain = 'https://testbpm.huijiame.com';
     } else {
         // domain = 'https://devapi.huijiame.com';
         domain = 'https://devmgrapi.huijiame.com';
         web_domain = 'https://devwww.huijiame.com';
         qiniu_domain = 'https://devbpm.huijiame.com';
-        // qiniu_domain = 'http://qiniu.hjm.com';
+        // qiniu_domain = 'http://qiniu.hjm.com/';
     }
     api = {
         'account_check': domain + '/account/check',//登陆获取手机验证码

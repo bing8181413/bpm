@@ -6,7 +6,7 @@ define([
         '../states'
         , '../../cons/simpleCons'
         , '../../controllers/biz/subjectController'
-        // , '../../controllers/biz/accountController'
+        , '../../controllers/biz/subjectGroupController'
     ],
     function (stateModule, cons) {
         stateModule.config(
@@ -47,6 +47,23 @@ define([
                                     controller: "subject.updateController",
                                     templateProvider: function ($templateCache) {
                                         return $templateCache.get('app/' + cons.biz_path + 'subject/update.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.subject_group', {
+                            url: "/subject_group",
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.main_path + 'container.html');
+                            }
+                        })
+                        .state(cons.state.main + '.subject_group.update', {
+                            url: "/update.html",
+                            views: {
+                                "": {
+                                    controller: "subjectGroup.updateController",
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'subject_group/update.html');
                                     }
                                 }
                             }

@@ -601,6 +601,64 @@ define([
                 }
             }
         })
+        .directive('formRichContent', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout, $sce) {
+            return {
+                restrict: 'EA',
+                replace: true,
+                template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
+                scope: {
+                    ngModel: '=ngModel',
+                    ngModelText: '@ngModel',
+                    text: '@',
+                    name: '@',
+                    required: '@',
+                    callback: '&',
+                },
+                link: function ($scope, $element, $attrs, $ctrl) {
+                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var required = $scope.required ? (' required') : '';
+                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;&nbsp;';
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">' +
+                            '<ueditor config="editorConfig" ng-model="content" style="width: 450px;height: 500px;">' +
+                            // '<p><span style="font-size: 36px;">大字</span><span style="color: rgb(255, 0, 0);">颜色</span></p>' +
+                            // '<p>来点动画试试<img src="http://img.baidu.com/hi/jx2/j_0013.gif"/></p>' +
+                            '</ueditor>' +
+                            '<div class="col-sm-8">' +
+                            // '<h4>预览</h4>' +
+                            // '<div ng-bind-html="html"></div>' +
+                            // '</div>' +
+                            '</div>';
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                    }, 0);
+                    var vm = $scope.vm = {};
+                    $scope.editorConfig = {
+                        focus: true //自动把光标放到UEditor中。测试config配置
+                    }
+
+                    $scope.$watch('content', function () {
+                        $scope.html = $sce.trustAsHtml($scope.content);
+                    })
+
+                    $scope.$watch($scope.ngModelText, function (modelNew) {
+                        // console.log(modelNew);
+                        $scope.ngModel = modelNew || undefined;
+                    }, true);
+
+                    $scope.$watch('ngModel', function (val) {
+                        // console.log(val);
+                        if (val) {
+                            $scope.$eval($scope.ngModelText + '=' + JSON.stringify(val));
+                        }
+                    }, true);
+
+                }
+            }
+        })
         .directive('formDateTime', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',

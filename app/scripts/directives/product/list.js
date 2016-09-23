@@ -274,7 +274,7 @@ define([
                                         '{\'name\': \'库存\', \'field\': \'option_inventory\',readonly:\'true\'},' +
                                         '{\'name\': \'状态\', \'field\': \'option_status\',filter:\'product_option_status\',readonly:\'true\'}' +
                                         ']"></div>' +
-                                        '</form>';
+                                        '</div>';
                                     $scope.title = '类目详情';
                                     $scope.cancel = function () {
                                         $modalInstance.dismiss('cancel');
