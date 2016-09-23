@@ -24448,6 +24448,7 @@ UE.plugin.register('simpleupload', function (){
             var iframe = btnIframeDoc.getElementById('edui_iframe_' + timestrap);
 
             domUtils.on(input, 'change', function(){
+                console.log(input,'inserthtml');
                 if(!input.value) return;
                 var loadingId = 'loading_' + (+new Date()).toString(36);
                 var params = utils.serializeParam(me.queryCommandValue('serverparam')) || '';
@@ -24460,6 +24461,7 @@ UE.plugin.register('simpleupload', function (){
 
                 function callback(){
                     try{
+                        console.log('callback',iframe.contentDocument);
                         var link, json, loader,
                             body = (iframe.contentDocument || iframe.contentWindow.document).body,
                             result = body.innerText || body.textContent || '';

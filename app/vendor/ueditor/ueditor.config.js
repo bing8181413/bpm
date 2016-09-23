@@ -22,7 +22,7 @@
     // window.UEDITOR_HOME_URL = "../";
     window.UEDITOR_HOME_URL = "../vendor/ueditor/";
     var URL = window.UEDITOR_HOME_URL || getUEBasePath();
-    // console.log(URL);
+    // console.log(window.UEDITOR_HOME_URL,getUEBasePath());
     /**
      * 配置项主体。注意，此处所有涉及到路径的配置别遗漏URL变量。
      */
@@ -35,13 +35,29 @@
 
         // 服务器统一请求接口路径
         // , serverUrl: URL + "qiniu/controller.php"
-        , serverUrl: "https://bpm.huijiame.com/qiniu/controller.php"
-        , imagePath: 'url'
+        // , serverUrl: "https://bpm.hjm.com/qiniu/controller.php"
+        // , imageFieldName: 'url'
+        // , imageUrlPrefix:''
+        // ,imageUrl:"http://devbpm.huijiame.com/qiniu/controller.php"             //图片上传提交后台对应的地址
+        // ,imagePath: ""                   //图片在服务器上的存储目录
+        // ,imageFieldName:"url"
         //工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
         , toolbars: [[
             // "fullscreen",
-            "source", "undo", "redo", "link", "cleardoc", "selectall", "preview",
-            "simpleupload", "bold", "italic", "underline", "forecolor", "backcolor", "justifyleft", "justifycenter", "justifyright", "justifyjustify", "fontfamily", "fontsize", "imagenone", "imageleft", "imageright", "imagecenter"]]
+            "source","undo", "redo", "link", "cleardoc", "selectall", "preview",
+            // "simpleupload",
+            "bold", "italic", "underline", "forecolor", "backcolor", "justifyleft",
+            "justifycenter", "justifyright", "justifyjustify", "fontfamily", "fontsize",
+            // "imagenone", "imageleft", "imageright", "imagecenter"
+        ]]
+        ,elementPathEnabled : false
+        ,wordCount:false          //是否开启字数统计
+        ,maximumWords:100000       //允许的最大字符数
+        ,initialFrameWidth:450  //初始化编辑器宽度,默认1000
+        ,initialFrameHeight:320  //初始化编辑器高度,默认320
+        ,autoHeightEnabled:false
+        ,scaleEnabled:false
+        // ,imageScaleEnabled:false// 图片放缩
         //当鼠标放在工具栏上时显示的tooltip提示,留空支持自动多语言配置，否则以配置值为准
         //,labelMap:{
         //    'anchor':'', 'undo':''
