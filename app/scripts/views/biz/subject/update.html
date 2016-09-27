@@ -18,7 +18,7 @@
         .subject-pro-img > .subject-pro-img-sub {
             display: flex;
             width: 100%;
-            height: 170px;
+            height: 180px;
             border: 1px solid #ddd;
             padding: 10px;
         }
@@ -53,7 +53,7 @@
             float: left;
             background-color: #ddd;
             display: flex;
-            height: 170px;
+            height: 180px;
             width: 100%;
             border: 1px solid #ddd;
             padding-left: 5px;
@@ -87,8 +87,8 @@
                              placeholder="商品ID" ng-disabled="$stateParams.subject_id"></div>
                         <div form-input text="专题名称" ng-model="param.name" placeholder="不超过6个字" minlength="1"
                              maxlength="6" required="true"></div>
-                        <div form-input text="专题简介" ng-model="param.brief" placeholder="不超过8个字" minlength="1"
-                             maxlength="8" required="true"></div>
+                        <div form-input text="专题简介" ng-model="param.brief" placeholder="不超过8个字" minlength="0"
+                             maxlength="8" ></div>
                         <div form-image text="缩略图" ng-model="share_pics" max="1" required="true"></div>
                         <div form-image text="运营专题介绍图" ng-model="intro_pics" max="1" required="true"></div>
                         <div form-input text="分享文案标题" ng-model="param.share_title" placeholder="分享文案标题"
@@ -96,7 +96,7 @@
                         <div form-input text="分享文案描述" ng-model="param.share_desc" placeholder="分享文案描述"
                              required="true"></div>
                         <div form-textarea text="管理备注" ng-model="param.remark"
-                             placeholder="管理备注" required="true"></div>
+                             placeholder="管理备注"></div>
                     </div>
                 </div>
                 <div class="panel panel-primary dndsimpleSubject">

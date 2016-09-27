@@ -1,6 +1,18 @@
 define(['./filters', '../cons/simpleCons'], function (mod, simpleCons) {
     mod
-    // status0or1or2   0 待上线，1 上线，2 下线
+    // subject_groups   >0 上线，=0 下线
+        .filter('subject_groups', [function () {
+            return function (val) {
+                var result = '其他';
+                if (angular.isArray(val) && val.length > 0) {
+                    result = "正在进行";
+                } else if (angular.isArray(val) && val.length == 0) {
+                    result = "已下线";
+                }
+                return result;
+            }
+        }])
+        // status0or1or2   0 待上线，1 上线，2 下线
         .filter('status0or1or2', [function () {
             return function (val) {
                 var result = '其他';
