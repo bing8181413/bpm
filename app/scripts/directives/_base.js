@@ -241,7 +241,7 @@ define([
                                 fileItem.qiniu_url = response.url;
                                 fileItem.width = response.width;
                                 fileItem.height = response.height;
-                                fileItem.size = response.size;
+                                // fileItem.size = response.size;
                                 //console.log(fileItem);
 
                                 //console.log('success', $scope.uploader);
@@ -300,7 +300,7 @@ define([
                         if(!confirm('确定移除?')){
                             return false;
                         }
-                        if (obj.old) {
+                        if (obj.pic_id) {
                             $scope.uploader.queue.splice(key, 1);
                         } else {
                             obj.remove();
@@ -315,21 +315,21 @@ define([
                         init = true;
                         $scope.images = [];
                         angular.forEach($scope.uploader.queue, function (v, k) {
-                            if (v.old) {
+                            if (v.pic_id) {
                                 $scope.images.push({
                                     pic_id: v.pic_id || undefined,
-                                    old: v.old || undefined,
+                                    // old: v.old || undefined,
                                     pic_url: v.url,
                                     pic_width: v.width,
                                     pic_height: v.height,
-                                    pic_size: v.size
+                                    // pic_size: v.size
                                 });
                             } else {
                                 $scope.images.push({
                                     pic_url: v.qiniu_url,
                                     pic_width: v.width,
                                     pic_height: v.height,
-                                    pic_size: v.size
+                                    // pic_size: v.size
                                 });
                             }
                         });

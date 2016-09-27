@@ -10,7 +10,7 @@ define([], function () {
                 {name: '专题活动列表', fieldDirective: '<div subject-product data="item"></div>'},
                 // {name: '展示时间', fieldDIrective: ''},
                 {name: '创建时间', field: 'created_at'},
-                {name: '状态', field: 'visible:',filter:'status0or1or2'},
+                {name: '状态', field: 'groups',filter:'subject_groups'},
                 {
                     name: '操作',
                     fieldDirective: '<div subject-edit data="item"></div>'

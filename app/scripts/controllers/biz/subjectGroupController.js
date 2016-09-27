@@ -29,7 +29,7 @@ define([
             var subject_group_tmp_key = new Date().getTime();
             if ($scope.subjects_group.length == 0) {
                 var subjects_group_tmp = new Object();
-                eval('subjects_group_tmp[\'group_\'' + subject_group_tmp_key + ']=[];');
+                subjects_group_tmp['group_' + subject_group_tmp_key] = [];
                 $scope.subjects_group = subjects_group_tmp;
             } else {
                 $scope.subjects_group['group_' + subject_group_tmp_key] = [];
