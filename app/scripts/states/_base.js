@@ -17,6 +17,7 @@ define([
     'states/hjm/supports',//支持城市
     'states/hjm/web',//网站推广
     'states/hjm/subject',//运营专题
+    'states/hjm/resource',//运营资源库
 
 ], function () {
 

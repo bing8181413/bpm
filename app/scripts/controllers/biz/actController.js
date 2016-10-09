@@ -48,6 +48,13 @@ define([
             console.log('$scope.param', $scope.param);
         }
         $scope.submit = function (status) {
+            if ($scope.param.video_url) {
+                var reg = /^(([hH][tT]{2}[pP][sS]:\/\/)+[^\s]*)$/;
+                if (!reg.test($scope.param.video_url)) {
+                    widget.msgToast('视频网址不是以https://开头，或者不是网址！');
+                    return false;
+                }
+            }
             if (comfunc.isEmptyArray($scope.param.pics)) {
                 widget.msgToast('运营大图没有上传');
                 return false;

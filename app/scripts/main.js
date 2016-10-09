@@ -10,7 +10,7 @@
             "ui.router": '../vendor/angular-ui-router/release/angular-ui-router.min',
             //"ui.select2":'../vendor/angular-ui-select2/src/select2',
             "ng.ueditor": '../vendor/angular-ueditor/dist/angular-ueditor',
-            // "clipboard": '../vendor/zeroclipboard/ZeroClipboard',
+            // "ZeroClipboard": '../vendor/zeroclipboard/ZeroClipboard',
             "angular-file-upload": '../vendor/angular-file-upload/angular-file-upload',
             'bindonce': '../vendor/angular-bindonce/bindonce',
             "ab-base64": '../vendor/angular-utf8-base64/angular-utf8-base64',
@@ -43,6 +43,7 @@
                 exports: 'angular',
                 deps: ['jquery']
             },
+            // 'ZeroClipboard': {deps: ['angular']},
             'dndLists': {deps: ['angular']},
             'angular-animate': {deps: ['angular']},
             'angucomplete-alt': {deps: ['angular']},

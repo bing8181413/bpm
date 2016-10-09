@@ -15,6 +15,7 @@ define([
     './sms',
     './supports',
     './subject',
+    './resource',
     // './subject_group',
 ], function () {
     // console.log(arguments);

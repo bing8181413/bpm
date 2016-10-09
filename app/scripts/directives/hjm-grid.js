@@ -16,15 +16,20 @@ define([
                     this.modsconfs = angular.extend({}, $scope.modsconfs);
                     this.buildSearchBar = function (config, element) {
                         var ext = buildExt(config);
+                        var searchHtml = '';
                         if (config.searchSupport) {
                             var preSelectionSearch = '';
                             if (config.preSelectionSearch) {
                                 preSelectionSearch = ' pre-selection="searchParams"';
                             }
-                            var searchHtml = '<div hjm-search-bar search-items="searchItems" search-text="searchParams"' +
+                            searchHtml = '<div hjm-search-bar search-items="searchItems" search-text="searchParams"' +
                                 preSelectionSearch +
                                 'reset-search="refreshCurrentView" search-action="searchAction(searchParams)"></div>'
+                        }
+                        if (ext) {
                             return searchHtml + ext;
+                        } else {
+                            return searchHtml;
                         }
                         return '';
                     }
