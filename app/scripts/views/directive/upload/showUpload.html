@@ -98,7 +98,7 @@
                                      ng-thumb="{ file: uploader.queue[k]._file, height: 100 , itemobj : uploader.queue[k]}"></div>
                             </div>
                             <div class="col-md-2 text-center">
-                                <div ng-show="!v.pic_id">
+                                <div ng-show="!v.updated_at">
                                     <span ng-show="uploader.queue[k].isSuccess">
                                         <i class="glyphicon glyphicon-ok"></i>
                                     </span>
@@ -111,7 +111,7 @@
                                 </div>
                             </div>
                             <div class="col-md-2 pull-right">
-                                <div class="progress" ng-show="!v.pic_id">
+                                <div class="progress" ng-show="!v.updated_at">
                                     <div class="progress-bar" role="progressbar"
                                          style="width:{{uploader.queue[k].progress}}%;"></div>
                                 </div>
@@ -125,7 +125,7 @@
                                     </button>
                                     <button type="button" class="btn btn-success btn-xs btn-rounded"
                                             ng-click="uploader.queue[k].upload()"
-                                            ng-if="!v.pic_id"
+                                            ng-if="!v.updated_at"
                                             ng-disabled="uploader.queue[k].isReady || uploader.queue[k].isUploading || uploader.queue[k].isSuccess">
                                         <span class="glyphicon glyphicon-upload"></span> 上传
                                     </button>
@@ -155,12 +155,12 @@
     <!--<img class="img-responsive" style="max-height: 200px;max-width: 200px;"-->
     <!--ng-src="{{v.qiniu_url}}" ng-if="v.qiniu_url">-->
     <!--<div ng-show="uploader.isHTML5" ng-thumb="{ file: v._file, height: 100 , itemobj : v}"></div>-->
-    <!--<a class="img_a" ng-if="v.old">-->
+    <!--<a class="img_a" ng-if="v.updated_at">-->
     <!--<img class="img-responsive" style="max-height: 200px;max-width: 200px;" ng-src="{{v.url}}"/>-->
     <!--</a>-->
     <!--</td>-->
     <!--<td ng-show="uploader.isHTML5">-->
-    <!--<span ng-if="!v.old" ng-bind="(v.file.size/1024/1024|number:2)+'MB'"></span>-->
+    <!--<span ng-if="!v.updated_at" ng-bind="(v.file.size/1024/1024|number:2)+'MB'"></span>-->
     <!--</td>-->
     <!--<td ng-show="uploader.isHTML5">-->
     <!--<div class="progress" style="margin-bottom: 0;">-->
@@ -169,7 +169,7 @@
     <!--</div>-->
     <!--</td>-->
     <!--<td class="text-center">-->
-    <!--<div ng-if="!v.old">-->
+    <!--<div ng-if="!v.updated_at">-->
     <!--<span ng-show="v.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>-->
     <!--<span ng-show="v.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>-->
     <!--<span ng-show="v.isError"><i class="glyphicon glyphicon-remove"></i></span>-->
@@ -181,7 +181,7 @@
     <!--&lt;!&ndash;<span class="glyphicon glyphicon-plus"></span> 插入&ndash;&gt;-->
     <!--&lt;!&ndash;</button>&ndash;&gt;-->
     <!--<button type="button" class="btn btn-success btn-xs btn-rounded" ng-click="v.upload()"-->
-    <!--ng-if="!v.old"-->
+    <!--ng-if="!v.updated_at"-->
     <!--ng-disabled="v.isReady || v.isUploading || v.isSuccess">-->
     <!--<span class="glyphicon glyphicon-upload"></span> 上传-->
     <!--</button>-->
@@ -220,8 +220,8 @@
                     <span class="glyphicon"
                           ng-class="{'glyphicon-zoom-in':img_min,'glyphicon-zoom-out':!img_min}"></span>图片缩放
                 </button>
-                <button type="button" class="btn btn-warning btn-rounded" ng-click="log()" show-role="admin">
-                    <span class="glyphicon glyphicon-paperclip"></span> 开发日志
+                <button type="button" class="btn btn-primary btn-rounded" ng-click="log()">
+                    <span class="glyphicon glyphicon-paperclip"></span> 手动排序确认
                 </button>
             </div>
         </div>

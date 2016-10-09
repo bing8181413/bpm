@@ -7,6 +7,7 @@ define(['controllers/controllers'], function (mod) {
     ]);
     mod.config(['$httpProvider', '$compileProvider', 'cfpLoadingBarProvider', '$provide',
         function ($httpProvider, $compileProvider, cfpLoadingBarProvider, $provide) {
+            // ZeroClipboard.setPath("vendor/zeroclipboard/ZeroClipboard.swf");
             // cfpLoadingBarProvider
             // angular-loading-bar  页面头部的loading-bar
             // cfpLoadingBarProvider.includeSpinner = true;
