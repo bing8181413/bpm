@@ -19,7 +19,7 @@ define([
     './common_form',// 公用表单更新,添加  menu 使用
     './common_list',// 公用表单列表
     // './bindHtmlCompile',// 编译带绑定的 bindHtmlCompile
-    // './baidumap',// 百度地图绑定
+    './baidumap',// 百度地图绑定
     './product/list',// 商品规则
     './groupbuy/list',// 拼团规则
     './order/list',// 订单规则

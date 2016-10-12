@@ -52,7 +52,7 @@ define([
                         if (config.route && config.route.length > 0) {
                             angular.forEach(config.route, function (router_val, router_key) {
                                 if (router_val.routeDirective) {
-                                    router = router_val.routeDirective;
+                                    router += router_val.routeDirective;
                                 } else {
                                     router += '<a class="btn btn-success btn-rounded btn-sm pull-right" ' +
                                         'style="margin-top: -5.5px;" ui-sref="' + router_val.value + '" >' + router_val.text + '</a>';

@@ -77,8 +77,10 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                                 angular.forEach(val, function (v, k) {
                                     ajaxConfig.url += (key + '[]=' + v + '&');
                                 });
-                            } else {
+                            } else if (!angular.isUndefined(val)) {
                                 ajaxConfig.url += (key + '=' + val + '&');
+                            } else {
+                                // 是 undefined 什么都不做
                             }
                         });
                         if (ajaxConfig.url.charAt(ajaxConfig.url.length - 1) == '&' ||

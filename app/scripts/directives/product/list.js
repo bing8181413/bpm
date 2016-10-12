@@ -129,7 +129,7 @@ define([
                     $scope.change = function (product_type) {
                         if (confirm('确认修改为' + product_type_title + '数据?')) {
                             widget.ajaxRequest({
-                                url: '/products/' + ($scope.data.product_id || 0 )+ '/prodtype',
+                                url: '/products/' + ($scope.data.product_id || 0 ) + '/prodtype',
                                 method: 'PUT',
                                 scope: $scope,
                                 data: {product_type: product_type},
@@ -158,12 +158,13 @@ define([
                 template: '<p class="product-edit"></p>',
                 link: function ($scope, $element, $attrs) {
                     var content = '';
+                    $scope.isActProduct = $scope.data.sku == 3 ? '.act' : '';
                     if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
                         content = '<a class="btn btn-success btn-rounded btn-sm"' +
-                            'ui-sref="main.product.update({product_id:' + $scope.data.product_id + '})" show-role="\'admin,op\'" >编辑</a>';
+                            'ui-sref="main.product' + $scope.isActProduct + '.update({product_id:' + $scope.data.product_id + '})" show-role="\'admin,op\'" >编辑</a>';
                     } else {
                         content = '<a class="btn btn-info btn-rounded btn-sm"' +
-                            'ui-sref="main.product.update({product_id:' + $scope.data.product_id + '})" show-role="\'!admin,op\'" >详情</a>';
+                            'ui-sref="main.product' + $scope.isActProduct + '.update({product_id:' + $scope.data.product_id + '})" show-role="\'!admin,op\'" >详情</a>';
                     }
                     $element.find('.product-edit').html(content);
                     $compile($element.contents())($scope);
@@ -201,8 +202,22 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-success btn-rounded btn-sm pull-right" style="margin-top: -5.5px;" ' +
+                template: '<a class="btn btn-success btn-rounded btn-sm pull-right" style="margin-top: -5.5px;margin-left: 5px;" ' +
                 'ui-sref="main.product.add" show-role="\'admin,op\'" >新增商品</a>',
+                link: function ($scope, $element, $attrs) {
+                }
+            }
+        })
+        .directive('productActAdd', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-success btn-rounded btn-sm pull-right" style="margin-top: -5.5px;margin-left: 5px;" ' +
+                'ui-sref="main.product.act.add" show-role="\'admin,op\'" >新增活动类商品</a>',
                 link: function ($scope, $element, $attrs) {
                 }
             }

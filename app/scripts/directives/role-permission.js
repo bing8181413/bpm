@@ -36,6 +36,32 @@ define([
                 }
             };
         })
+        .directive('showEnv', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $animate) {
+            return {
+                restrict: 'A',
+                // scope: {},
+                link: function ($scope, $element, $attrs) {
+                    // console.log($attrs);
+                    // $scope.showRole = $attrs.showRole;
+                    $scope.showEnvChange = function (val) {
+                        if (val && val.indexOf(cons.env) > -1) {
+                            $element.addClass((val.indexOf('!') > -1) ? 'hide' : 'hahahahaha');
+                        } else if (val == '' || val == '\'\'') {
+                            $element.removeClass('hide');
+                        } else {
+                            $element.addClass((val.indexOf('!') > -1) ? 'hahahahaha' : 'hide');
+                        }
+                    }
+                    $attrs.$observe('showEnv', function (val) {
+                        $scope.showEnvChange(val);
+                    });
+                    // $scope.$watch('showRole', function (val) {
+                    //     //不包含的角色
+                    //     $scope.showRoleChange(val);
+                    // });
+                }
+            };
+        })
         //  确定某个角色可以编辑此元素
         .directive('disabledRole', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $animate) {
             return {

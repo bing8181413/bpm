@@ -39,7 +39,7 @@ define([], function () {
                 {
                     name: '操作',
                     fieldDirective: '<div product-edit data="item" ></div>' +
-                    '<div change-product-type data="item" ></div>'+
+                    '<div change-product-type data="item" ></div>' +
                     '<div product-change-status data="item" ></div>'
                 },
             ],
@@ -95,7 +95,8 @@ define([], function () {
                 },
                 route: [
                     // {value: 'main.product.add', text: '新增商品'},
-                    {routeDirective: '<div product-add data="">新增商品</div>'}
+                    {routeDirective: '<div product-add data="">新增商品</div>'},
+                    // {routeDirective: '<div product-act-add data="">新增活动类商品</div>'}
                 ]
             },
             act_columns: [
@@ -140,9 +141,11 @@ define([], function () {
                     fieldDirective: '<p>上架时间<br/> <span ng-bind="item.start_time"></span><br/>下架时间<br/><span ng-bind="item.end_time"></span></p>'
                 },
                 {name: '活动<br/>状态', field: 'status', filter: 'product_status'},
-                {name: '众筹<br/>结果',
-                    fieldDirective:'<span ng-bind="item.act_result|act_result" ng-if="item.category==3"></span>' +
-                    '<span ng-if="item.category!==3">——</span>'},
+                {
+                    name: '众筹<br/>结果',
+                    fieldDirective: '<span ng-bind="item.act_result|act_result" ng-if="item.category==3"></span>' +
+                    '<span ng-if="item.category!==3">——</span>'
+                },
                 {
                     name: '管理<br/>备注', field: 'admin_remark',
                     truncateText: true,
@@ -153,11 +156,11 @@ define([], function () {
                 },
                 {
                     name: '操作',
-                    fieldDirective:'<div act-edit data="item" ></div>'
-                    +'<div product-change-status data="item" ></div>'
-                    +'<div change-product-type data="item" ></div>'
-                    +'<div act-crowdfunding data="item" ></div>'
-                    +'<div act-change-notice data="item" ></div>'
+                    fieldDirective: '<div act-edit data="item" ></div>'
+                    + '<div product-change-status data="item" ></div>'
+                    + '<div change-product-type data="item" ></div>'
+                    + '<div act-crowdfunding data="item" ></div>'
+                    + '<div act-change-notice data="item" ></div>'
                     // '<p><a class="btn btn-success btn-rounded btn-sm" data="item" ' +
                     // 'ui-sref="main.act.update({product_id:item.product_id})">编辑</a></p>' +
                     // '<div product-change-status data="item"></div>'
@@ -227,7 +230,7 @@ define([], function () {
                 ]
             },
             columns_by_subject: [
-                {name: '活动类型', field: 'product.category',filter:'product_category'},
+                {name: '活动类型', field: 'product.category', filter: 'product_category'},
                 {name: '活动ID', field: 'product_id', className: 'text-center'},
                 {
                     name: '标题', field: 'product.title',
@@ -249,7 +252,7 @@ define([], function () {
                 {name: '当前<br/>状态', field: 'product.status', filter: 'product_status'},
                 {
                     name: '操作',
-                    fieldDirective:'<div del-subject-products data="item" ></div>'
+                    fieldDirective: '<div del-subject-products data="item" ></div>'
                 },
             ],
             config_by_subject: {
