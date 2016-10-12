@@ -544,7 +544,7 @@ define([
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         // console.log($scope.$parent.FormBody[$scope.ngModelText]);
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        // $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                     }, 0);
 
                     $scope.$watch($scope.ngModelText, function (modelNew) {

@@ -238,6 +238,7 @@ define([
                         // 清空日期动作 执行后
                         if (!val) {
                             $scope.ngModel = undefined;
+                            // $scope.ngModel = '';
                         }
                     });
                     $scope.open = function ($event) {
@@ -322,6 +323,7 @@ define([
                         // 清空日期
                         if (!val) {
                             $scope.ngModel = undefined;
+                            // $scope.ngModel = '';
                         }
                     });
                     $scope.open = function ($event) {

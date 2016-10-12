@@ -3,76 +3,59 @@ define([
     './../controllers'
     , '../../cons/simpleCons'
 ], function (mod, con) {
-    mod.controller('product.act.updateController', updateController)
+    mod.controller('orders.updateController', updateController)
 
     updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
     function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
-        if ($stateParams.product_id) {
-            widget.ajaxRequest({
-                url: '/products/' + $stateParams.product_id,
-                method: 'get',
-                scope: $scope,
-                data: {},
-                success: function (json) {
-                    $scope.param = angular.copy(json.data);
-                    $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600).toFixed(2);
-                }
-            })
-        }
+        $scope.param = {};
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
         }
-        $scope.$watch('hours', function (val) {
-            if (!!val) {
-                $scope.hours = parseFloat(val).toFixed(2);
-                $scope.param.group_seconds = comfunc.numMulti(val, 3600);
-            }
+        $scope.$watch('param.product_id', function (val) {
+            $scope.options = [];
+            $scope.param.option_id = '';
         });
-
-        $scope.$watch('param.delivery_type', function (val) {
-            if (!!val && val == '3') {
-                $scope.param.frequency_num = 0;
-            } else if (!!val && val != '3') { // 有配送 至少为一次
-                $scope.param.frequency_num = (($scope.param.frequency_num > 0) ? $scope.param.frequency_num : 1);
-            }
-        });
-        $scope.$watch('param.frequency_num', function (frequency_num) {
-            if (frequency_num || frequency_num == 0) {
-                var delivery_type = ($scope.param || {}).delivery_type || '3';
-                if (delivery_type == '3') {
-                    $scope.param.frequency_num = 0;
-                } else if (delivery_type != '3') { // 有配送 至少为一次
-                    $scope.param.frequency_num = ((frequency_num > 0) ? frequency_num : 1);
+        $scope.search = function () {
+            widget.ajaxRequest({
+                url: '/products/' + $scope.param.product_id,
+                method: 'GET',
+                scope: $scope,
+                data: {},
+                success: function (json) {
+                    // console.log(json);
+                    $scope.options = [];
+                    angular.forEach(json.data.options, function (val, key) {
+                        $scope.options.push({
+                            text: '类目:' + val.option_name + '    /    价格:' + val.option_price,
+                            value: val.option_id
+                        });
+                    })
+                },
+                failure: function (err) {
+                    widget.msgToast('活动或者商品ID不存在');
                 }
-            }
-        });
-
-        $scope.submit = function (status) {
-            if (comfunc.isEmptyArray($scope.param.pics)) {
-                widget.msgToast('运营大图没有上传');
+            })
+        }
+        $scope.submit = function () {
+            if (!$scope.param.product_id) {
+                widget.msgToast('商品或者活动ID没有');
                 return false;
             }
-            if (comfunc.isEmptyArray($scope.param.thumbnail_pics)) {
-                widget.msgToast('缩略图片没有上传');
+            if (!$scope.param.option_id) {
+                widget.msgToast('类目没有选择');
                 return false;
             }
-            if (comfunc.isEmptyArray($scope.param.contents)) {
-                widget.msgToast('图文详情没有上传');
+            if (!$scope.param.user_ids) {
+                widget.msgToast('类目没有选择');
                 return false;
-            }
-            if (status || status == 0) {
-                $scope.param.status = status;
-            } else {
-                $scope.param.status = 1;
             }
             widget.ajaxRequest({
-                url: '/products' + ($stateParams.product_id ? ('/' + $stateParams.product_id) : ''),
-                method: $stateParams.product_id ? 'PUT' : 'POST',
+                url: '/orders',
+                method: 'POST',
                 scope: $scope,
                 data: $scope.param,
                 success: function (json) {
-                    widget.msgToast('发布成功！');
-                    $state.go(con.state.main + '.product.list');
+                    widget.msgToast('订单数据维护成功！');
                 }
             })
         }

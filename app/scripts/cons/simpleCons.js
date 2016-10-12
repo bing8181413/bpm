@@ -19,6 +19,7 @@ define([
     // './subject_group',
 ], function () {
     // console.log(arguments);
+    var env = '';
     var domain = '';
     var web_domain = '';
     var qiniu_domain = '';
@@ -29,15 +30,18 @@ define([
     var api = {};
     var state = {};
     if (location.href.indexOf('//bpm.huijiame.com') > 0) {
+        env = 'prod';
         domain = 'https://mgrapi.huijiame.com';
         web_domain = 'https://www.huijiame.com';
         qiniu_domain = 'https://bpm.huijiame.com';
     } else if (location.href.indexOf('//testbpm.huijiame.com') > 0 || location.href.indexOf('//bpmsss.hjm.com') > 0) {
+        env = 'test';
         domain = 'https://testmgrapi.huijiame.com';
         web_domain = 'https://testbpm.huijiame.com';
         qiniu_domain = 'https://testbpm.huijiame.com';
     } else {
         // domain = 'https://devapi.huijiame.com';
+        env = 'dev';
         domain = 'https://devmgrapi.huijiame.com';
         web_domain = 'https://devwww.huijiame.com';
         qiniu_domain = 'https://devbpm.huijiame.com';
@@ -63,6 +67,7 @@ define([
         'DIRECTIVE_PATH': 'scripts/views/directive/',
         'DIRECTIVE_LIST_PATH': 'scripts/views/directive/list/',
         'PARTIALS_PATH': 'scripts/partials/',
+        'env': env,
         'domain': domain,
         'web_domain': web_domain,
         'qiniu_domain': qiniu_domain,

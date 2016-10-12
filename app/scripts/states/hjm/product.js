@@ -6,6 +6,7 @@ define([
         '../states'
         , '../../cons/simpleCons'
         , '../../controllers/biz/productController'
+        , '../../controllers/biz/productActController'
         , '../../controllers/biz/actController'
     ],
     function (stateModule, cons) {
@@ -15,6 +16,12 @@ define([
                     $stateProvider
                         .state(cons.state.main + '.product', {
                             url: "/product",
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.main_path + 'container.html');
+                            }
+                        })
+                        .state(cons.state.main + '.product.act', {
+                            url: "/act",
                             templateProvider: function ($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
@@ -48,6 +55,28 @@ define([
                                     controller: 'product.updateController',
                                     templateProvider: function ($templateCache) {
                                         return $templateCache.get('app/' + cons.biz_path + 'product/update.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.product.act.add', {
+                            url: "/add",
+                            views: {
+                                "": {
+                                    controller: 'product.act.updateController',
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'product_act/update.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.product.act.update', {
+                            url: "/update.html/:product_id",
+                            views: {
+                                "": {
+                                    controller: 'product.act.updateController',
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'product_act/update.html');
                                     }
                                 }
                             }
