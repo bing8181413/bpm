@@ -269,13 +269,13 @@ define([
                     }, 0);
 
                     $scope.$watch($scope.ngModelText, function (val, oldVal) {
-                        if (val) {
-                            $scope.ngModel = val;
-                        }
+                        $scope.ngModel = val;
                     });
                     $scope.$watch('ngModel', function (val, oldVal) {
                         if (val) {
                             $scope.$eval($scope.ngModelText + '="' + val + '"');
+                        } else {
+                            $scope.$eval($scope.ngModelText + '=""');
                         }
                     });
                 }

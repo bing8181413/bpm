@@ -67,6 +67,10 @@ define([
                 widget.msgToast('富文本内容未填写');
                 return false;
             }
+            if (comfunc.isEmptyArray($scope.param.visible_cities)) {
+                widget.msgToast('配送城市没有选择');
+                return false;
+            }
             if (status || status == 0) {
                 $scope.param.status = status;
             } else {

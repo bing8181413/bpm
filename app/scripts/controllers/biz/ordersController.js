@@ -8,6 +8,7 @@ define([
     updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
     function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
         $scope.param = {};
+        $scope.user_ids = '';
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
         }
@@ -24,29 +25,37 @@ define([
                 success: function (json) {
                     // console.log(json);
                     $scope.options = [];
-                    angular.forEach(json.data.options, function (val, key) {
-                        $scope.options.push({
-                            text: '类目:' + val.option_name + '    /    价格:' + val.option_price,
-                            value: val.option_id
-                        });
-                    })
+                    if (json.data.category == 3 || json.data.category == 4) {
+                        angular.forEach(json.data.options, function (val, key) {
+                            $scope.options.push({
+                                text: '类目:' + val.option_name + '    /    价格:' + val.option_price,
+                                value: val.option_id
+                            });
+                        })
+                    } else {
+                        widget.msgToast('该ID不是活动');
+                    }
                 },
                 failure: function (err) {
-                    widget.msgToast('活动或者商品ID不存在');
+                    widget.msgToast('活动ID不存在');
                 }
             })
         }
         $scope.submit = function () {
             if (!$scope.param.product_id) {
-                widget.msgToast('商品或者活动ID没有');
+                widget.msgToast('活动ID没有');
                 return false;
             }
             if (!$scope.param.option_id) {
                 widget.msgToast('类目没有选择');
                 return false;
             }
-            if (!$scope.param.user_ids) {
-                widget.msgToast('类目没有选择');
+
+            $scope.param.user_ids = [];
+            $scope.param.user_ids = $scope.user_ids.split(',');
+
+            if (comfunc.isEmptyArray($scope.param.user_ids)) {
+                widget.msgToast('没有填写用户ID');
                 return false;
             }
             widget.ajaxRequest({
@@ -56,6 +65,9 @@ define([
                 data: $scope.param,
                 success: function (json) {
                     widget.msgToast('订单数据维护成功！');
+                    $scope.user_ids = '';
+                    $scope.param.user_ids = [];
+                    //  不跳转就清空user_ids  防止重复提交
                 }
             })
         }
