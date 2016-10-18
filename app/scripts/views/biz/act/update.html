@@ -69,8 +69,38 @@
                              source="[{text:'无需指定',value:'2'}]" source-api=""></div>
 
                         <div form-input text="活动地点" ng-model="param.act_address" placeholder="例如:永达国际大厦"></div>
-                        <div form-input text="详细地址" ng-model="param.act_detailed_address"
-                             placeholder="例如:上海市浦东新区龙阳路2277号"></div>
+                        <!--<div form-input text="详细地址" ng-model="param.act_detailed_address"-->
+                             <!--placeholder="例如:上海市浦东新区龙阳路2277号"></div>-->
+                        <div form-radio text="城市" ng-model="city_name" default="上海"
+                             source="[{text:'上海',value:'上海'}]" show-env="wwwwwwwww"></div>
+                        <div form-input text="经度" ng-model="param.longitude" placeholder="纬度"
+                             ng-disabled="true"></div>
+                        <div form-input text="纬度" ng-model="param.latitude" placeholder="纬度"
+                             ng-disabled="true"></div>
+                        <div class="form-group">
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">活动详情地址</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" ng-model="param.act_detailed_address"
+                                           placeholder="活动详情地址">
+                                </div>
+                                <div class="col-sm-1">
+                                    <a class="btn btn-info btn-rounded" ng-click="getlocation()">经纬度搜索</a>
+                                </div>
+                                <div class="col-sm-1">
+                                    <a class="btn btn-info btn-rounded" ng-click="getlocation();isshowmap=!isshowmap;"
+                                       ng-bind="!isshowmap?'展示地图':'隐藏地图'"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="isshowmap">
+                            <div class="col-sm-8 col-sm-offset-2" style="height: 450px;">
+                                <baidumap lng="param.longitude" lat="param.latitude"
+                                          city="city_name" address="param.act_detailed_address"
+                                          district="param.district" time-stamp="timeStamp"></baidumap>
+                            </div>
+                        </div>
+
                         <div form-date-time text="活动开始时间" ng-model="param.act_start_time" required="true"></div>
                         <div form-date-time text="活动结束时间" ng-model="param.act_end_time" required="true"></div>
                         <div form-date-time text="报名开始时间" ng-model="param.act_apply_start_time" required="true"></div>

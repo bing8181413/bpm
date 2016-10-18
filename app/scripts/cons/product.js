@@ -96,7 +96,7 @@ define([], function () {
                 route: [
                     // {value: 'main.product.add', text: '新增商品'},
                     {routeDirective: '<div product-add data="">新增商品</div>'},
-                    // {routeDirective: '<div product-act-add data="">新增活动类商品</div>'}
+                    {routeDirective: '<div product-act-add data="">新增活动类商品</div>'}
                 ]
             },
             act_columns: [

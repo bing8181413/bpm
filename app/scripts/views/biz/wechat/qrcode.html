@@ -1,0 +1,27 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" show-role="'admin'">获取二维码</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate disabled-role="'admin'">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>获取二维码</h4>
+                        <div form-radio text="是否为临时二维码" ng-model="param.type" default="temp" required="true"
+                             source="[{text:'临时',value:'temp'},{text:'永久',value:'1'}]"></div>
+                        <div form-input text="场景编号" ng-model="param.scene_id" required="true"></div>
+                        <a class="btn btn-success btn-rounded" show-role="'admin'" ng-disabled="FormBody.$invalid"
+                           ng-click="submit()">生成</a>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>二维码地址</h4>
+                        <div form-textarea="" text="二维码" ng-model="qrcode"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -19,6 +19,18 @@ define([
                 }
             })
         }
+        //  获取地理位置信息 传入地址
+        $scope.getlocation = function () {
+            if (angular.isUndefined($scope.city_name)) {
+                widget.msgToast('没有城市');
+                return false;
+            }
+            if (angular.isUndefined($scope.param.act_detailed_address)) {
+                widget.msgToast('没有地址');
+                return false;
+            }
+            $scope.timeStamp = new Date().getTime();// 这个字段 有监听事件
+        }
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
         }
@@ -48,6 +60,10 @@ define([
         });
 
         $scope.submit = function (status) {
+            if (comfunc.isEmptyArray($scope.param.visible_cities)) {
+                widget.msgToast('配送城市没有选择');
+                return false;
+            }
             if (comfunc.isEmptyArray($scope.param.pics)) {
                 widget.msgToast('运营大图没有上传');
                 return false;

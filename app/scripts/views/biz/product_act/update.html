@@ -8,44 +8,11 @@
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
-                <div class="panel panel-primary">
-                    <div class="panel-body">
-                        <h4>地图信息</h4>
-                        <div form-input text="城市" ng-model="param.city_name"
-                             placeholder="例如:城市"></div>
-                        <div form-input text="行政区" ng-model="param.district" placeholder="行政区"></div>
-                        <div form-input text="板块" ng-model="param.area" placeholder="板块"></div>
-                        <div class="form-group">
-                            <div class="form_element">
-                                <label class="col-sm-2 control-label">小区地址<span
-                                        class="form_label_dangus">*</span></label>
-
-                                <div class="col-sm-6">
-                                    <input class="form-control" id="address"
-                                           ng-class="{'form_dangus':community.address}"
-                                           ng-change="community.address = 0" ng-model="param.address"
-                                           placeholder="小区地址">
-                                </div>
-                                <div class="col-sm-1">
-                                    <a class="btn btn-info btn-rounded" ng-click="add()">查询</a>
-                                </div>
-                                <div class="col-sm-1">
-                                    <a class="btn btn-info btn-rounded" ng-click="showmap();isshowmap=!isshowmap;"
-                                       ng-bind="!isshowmap?'展示地图':'隐藏地图'"></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div form-input text="经度" ng-model="param.longitude" placeholder="纬度"></div>
-                        <div form-input text="纬度" ng-model="param.latitude" placeholder="纬度"></div>
-                        <div class="form-group" ng-show="isshowmap">
-                            <div class="col-sm-10 col-sm-offset-2" style="height: 450px;">
-                                <baidumap lng="param.longitude" lat="param.latitude"
-                                          city="param.city_name" address="param.address"
-                                          district="param.district" callback="callback"></baidumap>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <!--<div class="panel panel-primary">-->
+                <!--<div class="panel-body">-->
+                <!--<h4>地图信息</h4>-->
+                <!--</div>-->
+                <!--</div>-->
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>商品信息</h4>
@@ -72,11 +39,40 @@
                         <div form-date-time text="下架时间" ng-model="param.end_time" required="true"></div>
                         <div form-date-time text="活动开始时间" ng-model="param.act_start_time" required="true"></div>
                         <div form-date-time text="活动结束时间" ng-model="param.act_end_time" required="true"></div>
-                        <div form-date-time text="报名开始时间" ng-model="param.act_apply_start_time" required="true"></div>
-                        <div form-date-time text="报名截止时间" ng-model="param.act_apply_end_time" required="true"></div>
+                        <!--<div form-date-time text="报名开始时间" ng-model="param.act_apply_start_time" required="true"></div>-->
+                        <!--<div form-date-time text="报名截止时间" ng-model="param.act_apply_end_time" required="true"></div>-->
                         <div form-input text="活动地点" ng-model="param.act_address" placeholder="例如:永达国际大厦"></div>
-                        <div form-input text="详细地址" ng-model="param.act_detailed_address"
-                             placeholder="例如:上海市浦东新区龙阳路2277号"></div>
+                        <!--<div form-input text="详细地址" ng-model="param.act_detailed_address"-->
+                        <!--placeholder="例如:上海市浦东新区龙阳路2277号"></div>-->
+                        <div form-radio text="城市" ng-model="city_name" default="上海"
+                             source="[{text:'上海',value:'上海'}]" show-env="wwwwwwwww"></div>
+                        <div form-input text="经度" ng-model="param.longitude" placeholder="纬度"
+                             ng-disabled="true"></div>
+                        <div form-input text="纬度" ng-model="param.latitude" placeholder="纬度"
+                             ng-disabled="true"></div>
+                        <div class="form-group">
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">活动详情地址</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" ng-model="param.act_detailed_address"
+                                           placeholder="活动详情地址">
+                                </div>
+                                <div class="col-sm-1">
+                                    <a class="btn btn-info btn-rounded" ng-click="getlocation()">经纬度搜索</a>
+                                </div>
+                                <div class="col-sm-1">
+                                    <a class="btn btn-info btn-rounded" ng-click="getlocation();isshowmap=!isshowmap;"
+                                       ng-bind="!isshowmap?'展示地图':'隐藏地图'"></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-show="isshowmap">
+                            <div class="col-sm-8 col-sm-offset-2" style="height: 450px;">
+                                <baidumap lng="param.longitude" lat="param.latitude"
+                                          city="city_name" address="param.act_detailed_address"
+                                          district="param.district" time-stamp="timeStamp"></baidumap>
+                            </div>
+                        </div>
                         <div form-image text="运营大图" ng-model="param.pics" max="100" required="true"></div>
                         <div form-image text="缩略小图" ng-model="param.thumbnail_pics" max="100" required="true"></div>
                         <div form-image-content text="图文详情" ng-model="param.contents" required="true"></div>

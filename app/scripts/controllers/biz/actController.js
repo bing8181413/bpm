@@ -19,6 +19,18 @@ define([
                 }
             })
         }
+        //  获取地理位置信息 传入地址
+        $scope.getlocation = function () {
+            if (angular.isUndefined($scope.city_name)) {
+                widget.msgToast('没有城市');
+                return false;
+            }
+            if (angular.isUndefined($scope.param.act_detailed_address)) {
+                widget.msgToast('没有地址');
+                return false;
+            }
+            $scope.timeStamp = new Date().getTime();// 这个字段 有监听事件
+        }
         // 目标金额 和option 事件
         var change_options = function () {
             $scope.options_goal_price = 0;
