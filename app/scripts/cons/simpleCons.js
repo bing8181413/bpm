@@ -16,6 +16,7 @@ define([
     './supports',
     './subject',
     './resource',
+    './wechat',
     // './subject_group',
 ], function () {
     // console.log(arguments);
@@ -35,7 +36,7 @@ define([
         web_domain = 'https://www.huijiame.com';
         qiniu_domain = 'https://bpm.huijiame.com';
     } else if (location.href.indexOf('//testbpm.huijiame.com') > 0
-        || location.href.indexOf('//bpmsss.hjm.com') > 0
+        // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
         env = 'test';
         domain = 'https://testmgrapi.huijiame.com';

@@ -42,6 +42,22 @@ define([
                         })
                         .state(cons.state.main + '.wechat.qrcode', {
                             url: "/qrcode",
+                            //     templateProvider: function ($templateCache) {
+                            //         return $templateCache.get('app/' + cons.main_path + 'container.html');
+                            //     }
+                            // })
+                            // .state(cons.state.main + '.wechat.qrcode.list', {
+                            //     url: "/list",
+                            views: {
+                                "": {
+                                    templateProvider: function ($templateCache) {
+                                        return '<div hjm-grid modid="qrcodeList" config="config" columns="columns"></div>';
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.wechat.qrcodeAdd', {
+                            url: "/qrcode/add",
                             views: {
                                 "": {
                                     controller: 'wechat.qrcodeController',

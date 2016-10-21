@@ -60,7 +60,7 @@ define([
                 url: '/wechat/qrcode/',
                 method: 'GET',
                 scope: $scope,
-                data: {type: $scope.param.type, scene_id: $scope.param.scene_id},
+                data: $scope.param,
                 success: function (json) {
                     $scope.qrcode = json.data;
                     widget.msgToast('二维码已生成,可以复制地址了');

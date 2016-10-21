@@ -526,5 +526,21 @@ define([
                 return result;
             }
         }])
+        //  qrcode_type  微信二维码状态 1：成功 2：失败
+        .filter('qrcode_type', [function () {
+            return function (val) {
+                var result = val;
+                val += '';
+                switch (val) {
+                    case "1":
+                        result = "临时";
+                        break;
+                    case "2":
+                        result = "永久";
+                        break;
+                }
+                return result;
+            }
+        }])
     ;
 });
