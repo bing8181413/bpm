@@ -39,6 +39,41 @@ define([], function () {
                 },
                 // route: [{value: 'product.add', text: '新增商品'}]
             }
+        },
+        customersList: {
+            columns: [
+                {name: 'ID', field: 'user_id', className: 'text-center'},
+                {name: '头像', field: 'avatar', filter: 'null2empty'},
+                {name: '微信昵称', field: 'name', filter: 'null2empty'},
+                {name: '性别', field: 'gender', filter: 'gender'},
+                {name: '手机号', field: 'mobile'},
+                {name: '创建时间', field: 'created_at'}
+            ],
+            config: {
+                title: '马甲列表',
+                api: '/users/customers',
+                rowItemName: 'item',
+                searchSupport: false,
+                searchItems: [
+                    // {value: 'mobile', text: '手机号码'},
+                    // {value: 'name', text: '微信昵称'},
+                    // {value: 'openid', text: '微信ID'},
+                    // {value: 'authed_at', text: '登陆日期', type: 'date'},
+                    // {value: 'datetime_min', text: '开始时间', type: 'datetime'},
+                    // {value: 'datetime_max', text: '结束时间', type: 'datetime'},
+                ],
+                preSelectionSearch: {
+                    role_type: 2
+                },
+                paginationSupport: true,
+                pageInfo: {
+                    count: 50,
+                    page: 1,
+                    maxSize: 5, //最大展示页，默认3
+                    // showPageGoto: false //属性为true将显示前往第几页。
+                },
+                route: [{value: 'main.user.customersAdd', text: '新增马甲'}]
+            }
         }
     }
     return rtn;

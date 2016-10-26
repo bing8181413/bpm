@@ -81,7 +81,7 @@ define([
                 },
                 template: '<p class="order-single-refund" ></p>',
                 link: function ($scope, $element, $attrs) {
-                    console.log($scope.data);
+                    // console.log($scope.data);
                     var status_text = '';
                     var click_text = '';
                     var class_text = '';

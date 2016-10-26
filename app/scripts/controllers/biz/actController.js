@@ -32,24 +32,24 @@ define([
             $scope.timeStamp = new Date().getTime();// 这个字段 有监听事件
         }
         // 目标金额 和option 事件
-        var change_options = function () {
-            $scope.options_goal_price = 0;
-            if ($scope.param && $scope.param.options) {
-                angular.forEach($scope.param.options, function (v, k) {
-                    $scope.options_goal_price += comfunc.numMulti(v.option_price, v.option_inventory);
-                });
-                if ($scope.param && $scope.param.act_goal_price && $scope.param.act_goal_price > $scope.options_goal_price) {
-                    $scope.param.act_goal_price = $scope.options_goal_price;
-                }
-            }
-        }
-
-        $scope.$watch('param.options', function (val) {
-            change_options();
-        }, true);
-        $scope.$watch('param.act_goal_price', function (val) {
-            change_options();
-        });
+        // var change_options = function () {
+        //     $scope.options_goal_price = 0;
+        //     if ($scope.param && $scope.param.options) {
+        //         angular.forEach($scope.param.options, function (v, k) {
+        //             $scope.options_goal_price += comfunc.numMulti(v.option_price, v.option_inventory);
+        //         });
+        //         if ($scope.param && $scope.param.act_goal_price && $scope.param.act_goal_price > $scope.options_goal_price) {
+        //             $scope.param.act_goal_price = $scope.options_goal_price;
+        //         }
+        //     }
+        // }
+        //
+        // $scope.$watch('param.options', function (val) {
+        //     change_options();
+        // }, true);
+        // $scope.$watch('param.act_goal_price', function (val) {
+        //     change_options();
+        // });
 
         $scope.$watch('param.delivery_type', function (val) {
             if (!!val && val == '3') {

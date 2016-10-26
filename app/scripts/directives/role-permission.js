@@ -8,7 +8,9 @@ define([
         .directive('showRole', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $animate) {
             return {
                 restrict: 'A',
-                // scope: {},
+                scope: {
+                    showRole: '@'
+                },
                 link: function ($scope, $element, $attrs) {
                     // console.log($attrs);
                     // $scope.showRole = $attrs.showRole;
@@ -27,6 +29,7 @@ define([
                         }
                     }
                     $attrs.$observe('showRole', function (val) {
+                        // console.log('showRole', val);
                         $scope.showRoleChange(val);
                     });
                     // $scope.$watch('showRole', function (val) {

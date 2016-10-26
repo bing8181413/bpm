@@ -5,7 +5,7 @@ define([
     mod
         .filter('gender', [function () {
             return function (val) {
-                return val == '1' ? '男' : '女';
+                return val == '1' ? '男' : (val == '2' ? '女' : '保密');
             }
         }])
         .filter('num2week', [function () {

@@ -21,7 +21,7 @@ define([
                                     $scope.title = '新增资源库';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
-                                        '<div form-image text="资源库图片" ng-model="pics" token="true" max="100"></div>' +
+                                        '<div form-image text="资源库图片" ng-model="pics" token="resource" max="100"></div>' +
                                         // '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
                                         '</form>';
                                     $scope.cancel = function () {

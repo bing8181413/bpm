@@ -53,7 +53,8 @@ define([
                             'disabled-role="' + $scope.disabledRole + '"></show-textarea>' +
                             '</div>' +
                             '<div class="col-sm-12" ng-if="!!item.showImg">' +
-                            '<show-upload images="item.pics" hasimages="" disabled-role="' + $scope.disabledRole + '"></show-upload>' +
+                            // '<show-upload images="item.pics" hasimages="" disabled-role="' + $scope.disabledRole + '"></show-upload>' +
+                            '<show-upload-token images="item.pics" hasimages="" token="activity" disabled-role="' + $scope.disabledRole + '"></show-upload-token>' +
                             '</div>' +
                             '</div>' +
                             '</div>';

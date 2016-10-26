@@ -370,6 +370,7 @@ define([
                 scope: {
                     images: '=',
                     required: '@',
+                    token: '@',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showUpload.html'),
                 controller: function ($scope, $element, $attrs) {
@@ -412,11 +413,11 @@ define([
                         $scope.uploader.queue.splice(key, 1);
                         updateImages();
                     };
-                    // 上传成功
+                    //选择文件之后
                     $scope.uploader.onAfterAddingFile = function (fileItem) {
                         // $scope.uploader.onBeforeUploadItem = function (fileItem) {
                         // console.log('onAfterAddingFile', fileItem);
-                        var fileItemTmpl = {name: fileItem._file.name, type: 'resource'};
+                        var fileItemTmpl = {name: fileItem._file.name, type: $scope.token};
                         widget.ajaxRequest({
                             url: '/supports/uptoken',
                             method: 'get',
@@ -429,6 +430,7 @@ define([
                             }
                         })
                     }
+                    // 上传成功
                     $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
                         // console.log(fileItem, response);
                         if (response) {
@@ -553,8 +555,9 @@ define([
                     }
 
                     $scope.getEle = function (eleKey) {
+                        $scope.eleKey = eleKey;
+                        // console.log($scope.eleKey,$scope.posIndex);
                         if (angular.isNumber($scope.eleKey) && angular.isNumber($scope.posIndex)) {
-                            $scope.eleKey = eleKey;
                             var a = $scope.eleKey < $scope.posIndex ? $scope.eleKey : ($scope.eleKey - 1);
                             var b = $scope.eleKey > $scope.posIndex ? $scope.posIndex : ($scope.posIndex - 1);
                             console.log($scope.eleKey + ' 插入到位置 ' + $scope.posIndex + '  ', a, b, $scope.uploader.queue);

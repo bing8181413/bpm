@@ -61,25 +61,25 @@ define([], function () {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                ext: {
-                    checked: {
-                        text: '',
-                        value: '_checked'
-                    },
-                    showNum: [
-                        {text: '退单数量', type: 'total'},
-                        {text: '退款总金额', field: 'amounts'},
-                        // {text: '已选', type: 'selected'},
-                    ],
-                    eventBtn: [
-                        {text: '全选', event: 'all_select'},
-                        {text: '取消全选', event: 'cancel_all_select'},
-                        {
-                            text: '批量退款',
-                            fieldFirective: '<div order-refunds data="data"></div>',
-                        },
-                    ]
-                }
+                // ext: {
+                    // checked: {
+                    //     text: '',
+                    //     value: '_checked'
+                    // },
+                    // showNum: [
+                    //     {text: '退单数量', type: 'total'},
+                    //     {text: '退款总金额', field: 'amounts'},
+                    //     // {text: '已选', type: 'selected'},
+                    // ],
+                    // eventBtn: [
+                    //     {text: '全选', event: 'all_select'},
+                    //     {text: '取消全选', event: 'cancel_all_select'},
+                    //     {
+                    //         text: '批量退款',
+                    //         fieldFirective: '<div order-refunds data="data"></div>',
+                    //     },
+                    // ]
+                // }
             }
         }
     }

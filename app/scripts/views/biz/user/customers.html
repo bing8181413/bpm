@@ -1,0 +1,31 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!$stateParams.user_id">新增活动</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>马甲信息</h4>
+                        <div form-input text="马甲ID" ng-model="param.user_id"
+                             ng-show="$stateParams.user_id"
+                             placeholder="活动ID" ng-disabled="$stateParams.user_id"></div>
+                        <div form-input text="昵称" ng-model="param.name" placeholder="姓名,昵称,不超过30个字" required="true"
+                             minlength="1" maxlength="30"></div>
+                        <div form-input text="手机号码" ng-model="mobile" placeholder="手机号码" required="true"
+                             type="number"></div>
+                        <div form-radio text="性别" ng-model="param.gender" required="true" default="1"
+                             source="[{text:'男',value:'1'},{text:'女',value:'2'},{text:'保密',value:'3'}]"
+                             source-api=""></div>
+                        <div form-image text="头像" ng-model="avatar" token="avatar" max="1" required="true"></div>
+                    </div>
+                </div>
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                <!--<a class="btn btn-warning btn-rounded" ng-click="aaa()">查看提交数据</a>-->
+                <!--ng-if="'admin,op'.indexOf(hjm.role)>-1"-->
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,18 +1,20 @@
 <div class="dashboard-page ">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title" show-role="'admin'">获取二维码</h3>
+            <a class="btn btn-success btn-rounded btn-sm pull-right"  style="margin-top: -5.5px;"
+               ui-sref="main.wechat.qrcode">二维码列表</a>
+            <h3 class="panel-title">获取二维码</h3>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" name="FormBody" novalidate disabled-role="'admin'">
+            <form class="form-horizontal" name="FormBody" novalidate disabled-role="'admin,op,pm'">
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>获取二维码</h4>
                         <div form-radio text="是否为临时二维码" ng-model="param.type" default="1" required="true"
                              source="[{text:'临时',value:'1'},{text:'永久',value:'2'}]"></div>
-                        <div form-input text="场景编号" ng-model="param.scene_id" required="true"></div>
+                        <!--<div form-input text="场景编号" ng-model="param.scene_id" required="true"></div>-->
                         <div form-input text="场景描述" ng-model="param.desc" required="true"></div>
-                        <a class="btn btn-success btn-rounded" show-role="'admin'" ng-disabled="FormBody.$invalid"
+                        <a class="btn btn-success btn-rounded" show-role="'admin,op,pm'" ng-disabled="FormBody.$invalid"
                            ng-click="submit()">生成</a>
                     </div>
                 </div>
