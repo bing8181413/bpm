@@ -118,6 +118,7 @@ define([
                         var useBindOnce = config.useBindOnce || 'bindonce';
                         var itemList = config.itemList || 'data';
                         var rowItemName = config.rowItemName || 'item';
+                        var rowItemClass = config.rowItemClass || '';
                         var rowItem = '';
                         if (config.ext && config.ext.checked) {
                             rowItem += '<td>' +
@@ -131,6 +132,7 @@ define([
 
                         }
                         angular.forEach(columns, function (col) {
+                            // var rowClass = (rowItemClass[0].product_id == $rootScope[rowItemClass[0].product_id]) ? '' : '';
                             var cellContent = cellRender(col, rowItemName, useBindOnce);
                             var cssProperty = col.className ? ' class="' + col.className + '" ' : "";
                             rowItem += '<td' + cssProperty + '>' + cellContent + '</td>'
@@ -264,6 +266,11 @@ define([
                         // console.log($scope.extSearch);
                         var searchParam = angular.extend({}, configDef.preSelectionSearch, searchItemsParamDefault,
                             $scope.searchParams, pageInfo, $scope.extSearch);
+                        // eval('$rootScope.' + configDef.scopeSearchParam + '=' + JSON.stringify(searchParam));
+
+                        // $rootScope.hjm[configDef.scopeSearchParam] = searchParam;
+                        // console.log($rootScope.hjm.actPageInfo);
+
                         // console.log(configDef.pageInfo);
                         // console.log(configDef.api);
 

@@ -15,10 +15,18 @@ define([
                 scope: $scope,
                 data: {},
                 success: function (json) {
+                    $rootScope.hjm.act = {product_id: $stateParams.product_id};
                     $scope.param = angular.copy(json.data);
+                    $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600).toFixed(2);
                 }
             })
         }
+        $scope.$watch('hours', function (val) {
+            if (!!val) {
+                $scope.hours = parseFloat(val).toFixed(2);
+                $scope.param.group_seconds = comfunc.numMulti(val, 3600);
+            }
+        });
         //  获取地理位置信息 传入地址
         $scope.getlocation = function () {
             if (angular.isUndefined($scope.city_name)) {
@@ -31,25 +39,6 @@ define([
             }
             $scope.timeStamp = new Date().getTime();// 这个字段 有监听事件
         }
-        // 目标金额 和option 事件
-        // var change_options = function () {
-        //     $scope.options_goal_price = 0;
-        //     if ($scope.param && $scope.param.options) {
-        //         angular.forEach($scope.param.options, function (v, k) {
-        //             $scope.options_goal_price += comfunc.numMulti(v.option_price, v.option_inventory);
-        //         });
-        //         if ($scope.param && $scope.param.act_goal_price && $scope.param.act_goal_price > $scope.options_goal_price) {
-        //             $scope.param.act_goal_price = $scope.options_goal_price;
-        //         }
-        //     }
-        // }
-        //
-        // $scope.$watch('param.options', function (val) {
-        //     change_options();
-        // }, true);
-        // $scope.$watch('param.act_goal_price', function (val) {
-        //     change_options();
-        // });
 
         $scope.$watch('param.delivery_type', function (val) {
             if (!!val && val == '3') {
@@ -70,7 +59,19 @@ define([
             if (comfunc.isEmptyArray($scope.param.pics)) {
                 widget.msgToast('运营大图没有上传');
                 return false;
+            } else {
+                var tmp_pics_err = 0;
+                angular.forEach($scope.param.pics, function (val, key) {
+                    if (!val.pic_url) {
+                        tmp_pics_err++;
+                    }
+                })
+                if (tmp_pics_err > 0) {
+                    widget.msgToast('运营大图还没有完成上传');
+                    return false;
+                }
             }
+
             if ($scope.param.content_type == 1 && comfunc.isEmptyArray($scope.param.contents)) {
                 widget.msgToast('图文详情没有上传');
                 return false;

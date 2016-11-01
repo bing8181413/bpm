@@ -17,7 +17,8 @@
                 <div class="row">
                     <span class="col-sm-2" ng-bind="val.text"></span>
                     <span class="col-sm-2" ng-bind="val.$name"></span>
-                    <span class="col-sm-2" ng-repeat="(k,v) in val.$error" ng-bind="($index+1)+':'+(k|form_err)"></span>
+                    <span class="col-sm-2" ng-repeat="(k,v) in val.$error"
+                          ng-bind="($index>0)?';':''+(k|form_err)"></span>
                     <span class="col-sm-2" ng-bind="val|json" show-env="dev,test"></span>
                 </div>
             </li>

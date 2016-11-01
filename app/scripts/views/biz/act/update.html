@@ -1,8 +1,8 @@
 <div class="dashboard-page ">
     <!--<style type="text/css">-->
-        <!--input.ng-dirty.ng-invalid, textarea.ng-dirty.ng-invalid {-->
-            <!--border: 1px solid red;-->
-        <!--}-->
+    <!--input.ng-dirty.ng-invalid, textarea.ng-dirty.ng-invalid {-->
+    <!--border: 1px solid red;-->
+    <!--}-->
     <!--</style>-->
     <div class="panel panel-primary">
         <div class="panel-heading">
@@ -24,10 +24,11 @@
                              minlength="1" maxlength="30"></div>
                         <div form-input text="活动简介" ng-model="param.brief" placeholder="不超过30个字" minlength="1"
                              maxlength="30"></div>
-                        <div form-radio text="活动品类" ng-model="param.act_type" required="true" default="亲子"
+                        <div form-radio text="活动类别" ng-model="param.act_type" required="true" default="亲子"
                              source="[{text:'亲子',value:'亲子'},{text:'DIY',value:'DIY'},{text:'展览',value:'展览'},
                              {text:'运动',value:'运动'},{text:'周边／户外',value:'周边／户外'},{text:'演出／赛事',value:'演出／赛事'},
-                             {text:'多人聚会',value:'多人聚会'},{text:'沙龙讲座',value:'沙龙讲座'},{text:'主题节／市集',value:'主题节／市集'}]"
+                             {text:'多人聚会',value:'多人聚会'},{text:'微课',value:'微课'},{text:'主题节／市集',value:'主题节／市集'}
+                             ,{text:'鲜花',value:'鲜花'}]"
                              source-api=""></div>
                         <div form-input text="单次限购份数" ng-model="param.order_count_max" type="number"
                              min="1" required="true"></div>
@@ -44,39 +45,16 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>活动规则</h4>
-                        <div form-radio text="活动类型" type="radio" ng-model="param.category" required="true" default="3"
-                             source="[{text:'众筹',value:'3'},{text:'一起玩',value:'4'}]" source-api=""></div>
-
                         <div form-table text="活动类目" ng-model="param.options" required="true" max="1"
                              columns="[{'name': 'ID', 'field': 'option_id',disabled:'true'},
                              {'name': '类目', 'field': 'option_name'},
                              {'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2'},
                              {'name': '库存', 'field': 'option_inventory'}]"></div>
-                        <div form-input text="目标金额" ng-model="param.act_goal_price" required="true" min="0"
-                             max="options_goal_price"
-                             type="number" ng-show="param.category==3"></div>
-
-                        <div form-checkbox text="配送城市" ng-model="param.visible_cities" required="true"
-                             source="[{text:'上海市',value:'上海市'},{text:'南京市',value:'南京市'},
-                             {text:'厦门市',value:'厦门市'},{text:'北京市',value:'北京市'}]" source-api=""></div>
-
-                        <div form-radio text="物流" ng-model="param.delivery_type" required="true"
-                             ng-change="delivery_type()" ng-disabled="$stateParams.product_id"
-                             source="[{text:'顺丰配送',value:'1'},{text:'无需配送',value:'3'}]"
-                             default="3"></div>
-                        <div form-radio text="送达时间类型" ng-model="param.arrive_type" default="2"
-                             ng-show="param.delivery_type!=3" ng-disabled="$stateParams.product_id"
-                             source="[{text:'无需指定',value:'2'}]" source-api=""></div>
-
                         <div form-input text="活动地点" ng-model="param.act_address" placeholder="例如:永达国际大厦"></div>
                         <!--<div form-input text="详细地址" ng-model="param.act_detailed_address"-->
-                             <!--placeholder="例如:上海市浦东新区龙阳路2277号"></div>-->
+                        <!--placeholder="例如:上海市浦东新区龙阳路2277号"></div>-->
                         <div form-radio text="城市" ng-model="city_name" default="上海"
                              source="[{text:'上海',value:'上海'}]" show-env="wwwwwwwww"></div>
-                        <div form-input text="经度" ng-model="param.longitude" placeholder="纬度"
-                             ng-disabled="true"></div>
-                        <div form-input text="纬度" ng-model="param.latitude" placeholder="纬度"
-                             ng-disabled="true"></div>
                         <div class="form-group">
                             <div class="form_element">
                                 <label class="col-sm-2 control-label">活动详情地址</label>
@@ -93,6 +71,10 @@
                                 </div>
                             </div>
                         </div>
+                        <div form-input text="经度" ng-model="param.longitude" placeholder="纬度"
+                             ng-disabled="true"></div>
+                        <div form-input text="纬度" ng-model="param.latitude" placeholder="纬度"
+                             ng-disabled="true"></div>
                         <div class="form-group" ng-show="isshowmap">
                             <div class="col-sm-8 col-sm-offset-2" style="height: 450px;">
                                 <baidumap lng="param.longitude" lat="param.latitude"
@@ -105,10 +87,46 @@
                         <div form-date-time text="活动结束时间" ng-model="param.act_end_time" required="true"></div>
                         <div form-date-time text="报名开始时间" ng-model="param.act_apply_start_time" required="true"></div>
                         <div form-date-time text="报名截止时间" ng-model="param.act_apply_end_time" required="true"></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>拼团规则</h4>
+                        <div form-radio text="拼团类型" type="radio" ng-model="param.category" required="true" default="2"
+                             source="[{text:'众筹',value:'3'},{text:'一起玩',value:'4'}]"
+                             source-api=""></div>
+                        <!--<div form-radio text="拼团类型" type="radio" ng-model="param.category" required="true" default="2"-->
+                             <!--source="[{text:'人数团',value:'2'},{text:'众筹',value:'3'},{text:'一起玩',value:'4'}]"-->
+                             <!--source-api=""></div>-->
+
+                        <div form-input text="目标金额" ng-model="param.act_goal_price" required="true" min="0"
+                             max="options_goal_price" type="number"></div>
+
+                        <!--<div form-input text="玩法说明标题" ng-model="param.play_subject" placeholder="玩法说明标题"-->
+                             <!--ng-show="param.category==2"></div>-->
+                        <!--<div form-textarea text="玩法说明内容" ng-model="param.play_introduction"-->
+                             <!--placeholder="玩法说明内容" ng-show="param.category==2"></div>-->
+                        <!--<div form-input text="拼团人数" ng-model="param.group_min_num" min="0"-->
+                             <!--type="number" ng-show="param.category==2"></div>-->
+                        <!--<div form-input text="拼团有效时间(小时)" ng-model="hours" min="0"-->
+                             <!--placeholder="单位:小时" ng-show="param.category==2"></div>-->
+
+                        <div form-checkbox text="覆盖城市" ng-model="param.visible_cities" required="true"
+                             source="[{text:'上海市',value:'上海市'},{text:'南京市',value:'南京市'},
+                             {text:'厦门市',value:'厦门市'},{text:'北京市',value:'北京市'}]" source-api=""></div>
+
+                        <div form-radio text="是否需要配送" ng-model="param.delivery_type" required="true"
+                             ng-change="delivery_type()" ng-disabled="$stateParams.product_id"
+                             source="[{text:'物流配送',value:'1'},{text:'无需配送',value:'3'}]"
+                             default="3"></div>
+                        <div form-radio text="送达时间类型" ng-model="param.arrive_type" default="2"
+                             ng-show="param.delivery_type!=3" ng-disabled="$stateParams.product_id"
+                             source="[{text:'无需指定',value:'2'}]" source-api=""></div>
                         <div form-radio text="是否可选优惠券" ng-model="param.act_coupon" required="true" default="2"
                              source="[{text:'可选',value:1},{text:'不可选',value:2}]" source-api=""></div>
                     </div>
                 </div>
+
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>活动详情</h4>
@@ -121,19 +139,19 @@
                              ng-show="param.content_type==2"></div>
                     </div>
                 </div>
-                <div class="panel panel-primary">
-                    <div class="panel-body">
-                        <h4>注意事项</h4>
-                        <div form-textarea text="注意事项" ng-model="param.act_attention" required="true"></div>
-                    </div>
-                </div>
+                <!--<div class="panel panel-primary">-->
+                <!--<div class="panel-body">-->
+                <!--<h4>注意事项</h4>-->
+                <!--<div form-textarea text="注意事项" ng-model="param.act_attention" required="true"></div>-->
+                <!--</div>-->
+                <!--</div>-->
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>管理</h4>
                         <div form-textarea text="管理备注" ng-model="param.admin_remark" required="true"></div>
-                        <div form-input text="排序" ng-model="param.order_by" required="true" type="number" min="0"></div>
-                        <div form-radio text="显示" ng-model="param.visible" required="true" default="1"
+                        <div form-radio text="是否显示在列表" ng-model="param.visible" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+                        <div form-input text="排序" ng-model="param.order_by" required="true" type="number" min="0"></div>
                     </div>
                 </div>
                 <div form-error-block></div>

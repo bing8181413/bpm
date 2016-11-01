@@ -485,6 +485,7 @@ define([
                     });
 
                     $scope.uploader.onAfterAddingAll = function (fileItems) {
+                        $scope.images = $scope.images || [];
                         angular.forEach(fileItems, function (v, k) {
                             $scope.images.push({});
                         });

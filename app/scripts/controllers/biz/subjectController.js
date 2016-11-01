@@ -20,20 +20,20 @@ define([
                 data: {},
                 success: function (json) {
                     $scope.param = angular.copy(json.data);
-                    json.data.intro_pic ? ($scope.intro_pics.push({
+                    json.data.intro_pic ? ($scope.intro_pics = [{
                         pic_id: json.data.intro_pic.pic_id,
                         pic_url: json.data.intro_pic.pic_url,
                         pic_width: json.data.intro_pic.pic_width || 100,// 为什么要加100默认值呢  不加的话 图片列表不显示
                         pic_height: json.data.intro_pic.pic_height || 100,
                         pic_size: json.data.intro_pic.pic_size || 100,
-                    })) : $scope.intro_pics.length = 0;
-                    json.data.share_pic ? ($scope.share_pics.push({
+                    }]) : $scope.intro_pics.length = 0;
+                    json.data.share_pic ? ($scope.share_pics = [{
                         pic_id: json.data.share_pic.pic_id,
                         pic_url: json.data.share_pic.pic_url,
                         pic_width: json.data.share_pic.pic_width || 100,
                         pic_height: json.data.share_pic.pic_height || 100,
                         pic_size: json.data.share_pic.pic_size || 100,
-                    })) : $scope.share_pics.length = 0;
+                    }]) : $scope.share_pics.length = 0;
                 }
             })
         }
@@ -46,7 +46,7 @@ define([
                 url: '/products/',
                 method: 'get',
                 scope: $scope,
-                data: angular.extend($scope.searchparams, {page: 1, count: 20}),
+                data: angular.extend($scope.searchparams, {page: 1, count: 50}),
                 success: function (json) {
                     // console.log(json);
                     angular.forEach(json.data, function (val, key) {

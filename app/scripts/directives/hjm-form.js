@@ -168,19 +168,19 @@ define([
                     var labelWidth = $scope.labelWidth ? ('col-sm-' + $scope.labelWidth) : ('col-sm-2');
                     var contentWidth = $scope.contentWidth ? ('col-sm-' + $scope.contentWidth) :
                         ($scope.labelWidth ? ('col-sm-' + (10 - $scope.labelWidth)) : ('col-sm-8'));
-                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '" ');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
-                    var type = $scope.type ? (' type="' + $scope.type + '"') : '';
-                    var min = $scope.min ? (' min="' + $scope.min + '"') : '';
-                    var max = $scope.max ? (' max="' + $scope.max + '"') : '';
-                    var placeholder = $scope.placeholder ? (' placeholder="' + $scope.placeholder + '"') : '';
-                    var maxlength = $scope.maxlength ? (' maxlength="' + $scope.maxlength + '"') : '';
-                    var minlength = $scope.minlength ? (' minlength="' + $scope.minlength + '"') : '';
+                    var type = $scope.type ? (' type="' + $scope.type + '" ') : '';
+                    var min = $scope.min ? (' min="' + $scope.min + '" ') : '';
+                    var max = $scope.max ? (' max="' + $scope.max + '" ') : '';
+                    var placeholder = $scope.placeholder ? (' placeholder="' + $scope.placeholder + '" ') : '';
+                    var maxlength = $scope.maxlength ? (' maxlength="' + $scope.maxlength + '" ') : '';
+                    var minlength = $scope.minlength ? (' minlength="' + $scope.minlength + '" ') : '';
                     $timeout(function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
-                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                            (' disabled-role="' + $scope.$parent.disabledRole + '" ') : '';
                         var content = '<label class="' + labelWidth + ' control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="' + contentWidth + '">' +
                             '<input class="form-control" ng-model="ngModel"' + min + max +
@@ -365,6 +365,7 @@ define([
                     // console.log('formElement', $scope, $attrs);
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="radio"';
                     $timeout(function () {
@@ -382,9 +383,11 @@ define([
                             content += '<label class="radio-inline radio1"><input ' + type + ' ng-model="ngModel"' +
                                 name + value + disabledRole + ngDisabled + '><span></span>' + val.text + '</label>';
                         });
-                        content += '</div>';
+                        content += '<input class="hide" ng-model="ngModel" ' + name + required + '>' +
+                            '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
+                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                     }, 0);
                     // $scope.$watch($scope.ngModelText, function (val) {
                     //     if (typeof val == 'number') {
@@ -526,15 +529,15 @@ define([
                         // :'<show-upload images="' + $scope.ngModelText + '" ' + name + max + required + disabledRole + '></show-upload>';
                         // '<show-upload images="image" ' + name + max + required + disabledRole + '></show-upload>';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                            '<div class="col-sm-8" style="border: 1px #ccc dashed;">' + uploadHtml +
-                            // '<input class="hide" ng-model="' + $scope.ngModelText + '" ' + max + name + required + disabledRole + '>' +
-                            // '<input class="" ng-model="' + $scope.ngModelText + '" no-empty-array="" ' + max + name + required + disabledRole + '>' +
-                            '</div>';
+                        '<div class="col-sm-8" style="border: 1px #ccc dashed;">' + uploadHtml +
+                        '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
+                        // '<input class="" ng-model="' + $scope.ngModelText + '" no-empty-array="" ' + max + name + required + disabledRole + '>' +
+                        '</div>';
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         // console.log($scope.$parent.FormBody[$scope.ngModelText]);
-                        // $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                     }, 0);
 
                     // $scope.$watch($scope.ngModelText, function (modelNew) {
@@ -584,7 +587,8 @@ define([
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">' +
-                            '<content_or_img ng-model="' + $scope.ngModelText + '"' + name + required + disabledRole + '></content_or_img>' +
+                            '<content_or_img ng-model="ngModel"' + name + required + disabledRole + '></content_or_img>' +
+                            // '<content_or_img ng-model="' + $scope.ngModelText + '"' + name + required + disabledRole + '></content_or_img>' +
                             '</div>';
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
@@ -592,17 +596,17 @@ define([
                         $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                     }, 0);
 
-                    $scope.$watch($scope.ngModelText, function (modelNew) {
-                        // console.log(modelNew);
-                        $scope.ngModel = modelNew || undefined;
-                    }, true);
-
-                    $scope.$watch('ngModel', function (val) {
-                        // console.log(val);
-                        if (val) {
-                            $scope.$eval($scope.ngModelText + '=' + JSON.stringify(val));
-                        }
-                    }, true);
+                    // $scope.$watch($scope.ngModelText, function (modelNew) {
+                    //     // console.log(modelNew);
+                    //     $scope.ngModel = modelNew || undefined;
+                    // }, true);
+                    //
+                    // $scope.$watch('ngModel', function (val) {
+                    //     // console.log(val);
+                    //     if (val) {
+                    //         $scope.$eval($scope.ngModelText + '=' + JSON.stringify(val));
+                    //     }
+                    // }, true);
 
                 }
             }
