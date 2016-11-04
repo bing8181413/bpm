@@ -405,7 +405,7 @@ define([
                                 'ng-model="' + colField + cellFilter + '"/>';
                         }
                         if (config.readonly || col.readonly) {
-                            cellContent = '<span ng-bind="' + colField + cellFilter + '"><span/>';
+                            cellContent = '<span ng-bind="' + colField + cellFilter + '"></span>';
                         }
                         return cellContent;
                     }
@@ -419,7 +419,6 @@ define([
                             if (!!$attrs.disabled) {
                                 $scope.config = angular.extend($scope.config || {}, {readonly: true});
                             }
-                            // console.log($scope.config);
                             tmpHtml = $ctrl.buildTable($scope.columns, $scope.config);
                             $element.html(tmpHtml);
                             $compile($element.contents())($scope);

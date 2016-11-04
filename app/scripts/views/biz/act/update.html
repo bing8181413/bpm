@@ -92,24 +92,24 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>拼团规则</h4>
-                        <div form-radio text="拼团类型" type="radio" ng-model="param.category" required="true" default="2"
-                             source="[{text:'众筹',value:'3'},{text:'一起玩',value:'4'}]"
-                             source-api=""></div>
                         <!--<div form-radio text="拼团类型" type="radio" ng-model="param.category" required="true" default="2"-->
-                             <!--source="[{text:'人数团',value:'2'},{text:'众筹',value:'3'},{text:'一起玩',value:'4'}]"-->
-                             <!--source-api=""></div>-->
+                        <!--source="[{text:'众筹',value:'3'},{text:'一起玩',value:'4'}]"-->
+                        <!--source-api=""></div>-->
+                        <div form-radio text="拼团类型" type="radio" ng-model="param.category" required="true" default="2"
+                             source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'}]"
+                             source-api=""></div>
 
-                        <div form-input text="目标金额" ng-model="param.act_goal_price" required="true" min="0"
-                             max="options_goal_price" type="number"></div>
+                        <!--<div form-input text="目标金额" ng-model="param.act_goal_price" required="true" min="0"-->
+                        <!--max="options_goal_price" type="number"></div>-->
 
-                        <!--<div form-input text="玩法说明标题" ng-model="param.play_subject" placeholder="玩法说明标题"-->
-                             <!--ng-show="param.category==2"></div>-->
-                        <!--<div form-textarea text="玩法说明内容" ng-model="param.play_introduction"-->
-                             <!--placeholder="玩法说明内容" ng-show="param.category==2"></div>-->
-                        <!--<div form-input text="拼团人数" ng-model="param.group_min_num" min="0"-->
-                             <!--type="number" ng-show="param.category==2"></div>-->
-                        <!--<div form-input text="拼团有效时间(小时)" ng-model="hours" min="0"-->
-                             <!--placeholder="单位:小时" ng-show="param.category==2"></div>-->
+                        <div form-input text="玩法说明标题" ng-model="param.play_subject" placeholder="玩法说明标题"
+                             ng-show="param.category==2"></div>
+                        <div form-textarea text="玩法说明内容" ng-model="param.play_introduction"
+                             placeholder="玩法说明内容" ng-show="param.category==2"></div>
+                        <div form-input text="拼团人数" ng-model="param.group_min_num" min="0"
+                             type="number" ng-show="param.category==2"></div>
+                        <div form-input text="拼团有效时间(小时)" ng-model="hours" min="0" type="number"
+                             placeholder="单位:小时" ng-show="param.category==2"></div>
 
                         <div form-checkbox text="覆盖城市" ng-model="param.visible_cities" required="true"
                              source="[{text:'上海市',value:'上海市'},{text:'南京市',value:'南京市'},
@@ -119,9 +119,12 @@
                              ng-change="delivery_type()" ng-disabled="$stateParams.product_id"
                              source="[{text:'物流配送',value:'1'},{text:'无需配送',value:'3'}]"
                              default="3"></div>
+                        <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
+                             ng-show="param.delivery_type!=3"
+                             ng-disabled="$stateParams.product_id"></div>
                         <div form-radio text="送达时间类型" ng-model="param.arrive_type" default="2"
                              ng-show="param.delivery_type!=3" ng-disabled="$stateParams.product_id"
-                             source="[{text:'无需指定',value:'2'}]" source-api=""></div>
+                             source="[{text:'无需指定',value:'2'},{text:'周六／周一',value:'1'}]" source-api=""></div>
                         <div form-radio text="是否可选优惠券" ng-model="param.act_coupon" required="true" default="2"
                              source="[{text:'可选',value:1},{text:'不可选',value:2}]" source-api=""></div>
                     </div>

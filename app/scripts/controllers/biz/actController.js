@@ -17,13 +17,13 @@ define([
                 success: function (json) {
                     $rootScope.hjm.act = {product_id: $stateParams.product_id};
                     $scope.param = angular.copy(json.data);
-                    $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600).toFixed(2);
+                    $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600);
                 }
             })
         }
         $scope.$watch('hours', function (val) {
             if (!!val) {
-                $scope.hours = parseFloat(val).toFixed(2);
+                $scope.hours = parseFloat(val);
                 $scope.param.group_seconds = comfunc.numMulti(val, 3600);
             }
         });

@@ -286,6 +286,7 @@ define([
                                         '{\'name\': \'类目\', \'field\': \'option_name\',readonly:\'true\'},' +
                                         '{\'name\': \'价格\', \'field\': \'option_price\',readonly:\'true\'},' +
                                         '{\'name\': \'剩余库存\', \'field\': \'left_inventory\',readonly:\'true\'},' +
+                                        '{\'name\': \'已售库存\', \'field\': \'used_count\',readonly:\'true\'},' +
                                         '{\'name\': \'库存\', \'field\': \'option_inventory\',readonly:\'true\'},' +
                                         '{\'name\': \'状态\', \'field\': \'option_status\',filter:\'product_option_status\',readonly:\'true\'}' +
                                         ']"></div>' +

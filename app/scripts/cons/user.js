@@ -43,6 +43,7 @@ define([], function () {
         customersList: {
             columns: [
                 {name: 'ID', field: 'user_id', className: 'text-center'},
+                {name: '头像', fieldDirective: '<show_image url="item.avatar" width="100"></show_image>'},
                 {name: '头像', field: 'avatar', filter: 'null2empty'},
                 {name: '微信昵称', field: 'name', filter: 'null2empty'},
                 {name: '性别', field: 'gender', filter: 'gender'},

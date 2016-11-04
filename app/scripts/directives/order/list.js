@@ -363,7 +363,7 @@ define([
                             size: ''
                         });
                     }
-                    var content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_change_pattern();">修改配送时间</a>';
+                    var content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_change_pattern();" ng-show="data.pattern">修改配送时间</a>';
                     $element.find('.order-change-pattern').html(content);
                     $compile($element.contents())($scope);
                 }

@@ -387,7 +387,9 @@ define([
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     }, 0);
                     // $scope.$watch($scope.ngModelText, function (val) {
                     //     if (typeof val == 'number') {
@@ -529,10 +531,10 @@ define([
                         // :'<show-upload images="' + $scope.ngModelText + '" ' + name + max + required + disabledRole + '></show-upload>';
                         // '<show-upload images="image" ' + name + max + required + disabledRole + '></show-upload>';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                        '<div class="col-sm-8" style="border: 1px #ccc dashed;">' + uploadHtml +
-                        '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
-                        // '<input class="" ng-model="' + $scope.ngModelText + '" no-empty-array="" ' + max + name + required + disabledRole + '>' +
-                        '</div>';
+                            '<div class="col-sm-8" style="border: 1px #ccc dashed;">' + uploadHtml +
+                            '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
+                            // '<input class="" ng-model="' + $scope.ngModelText + '" no-empty-array="" ' + max + name + required + disabledRole + '>' +
+                            '</div>';
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
@@ -780,7 +782,9 @@ define([
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     }, 0);
 
                     // $scope.$watch($scope.ngModelText, function (modelNew) {

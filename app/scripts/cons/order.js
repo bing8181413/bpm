@@ -6,14 +6,14 @@ define([], function () {
                 {name: '母订单号', field: 'order_no'},
                 // {name: '送达时间', fieldDirective: '<div ng-bind="item.pattern.arrive_pm |num2week"></div>'},
                 {
-                    name: '商品信息',
+                    name: '拼团信息',
                     fieldDirective: '<span ng-bind="\'ID:\'+item.product.product_id"></span>' +
                     '<br/>标题:<br/><span ng-bind="item.product.title|characters: 7 : false" ' +
                     'tooltip="{{item.product.title}}" tooltip-placement="bottom"></span>' +
                     '<br/>价格:<span ng-bind="item.product.high_price"></span>'
                 },
                 {
-                    name: '收货信息',
+                    name: '收货地址',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 5 : false" ' +
@@ -21,17 +21,20 @@ define([], function () {
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {
-                    name: '订单详情',
-                    fieldDirective: '<span ng-bind="\'份数:\'+item.order_count"></span>' +
-                    '<br/>金额<br/><span ng-bind="item.order_price"></span>'
+                    name: '购买份数',
+                    field: 'order_count'
+                },
+                {
+                    name: '支付金额',
+                    field: 'order_price'
                 },
                 {name: '使用<br/>优惠券', field: 'coupon_price'},
-                {name: '下单时间', field: 'order_time'},
-                {
-                    name: '返现金额',
-                    fieldDirective: '<span ng-bind="item.rebate.return_amount"></span>' +
-                    '(<span ng-bind="item.rebate.return_status | return_status"></span>)'
-                },
+                {name: '订单时间', field: 'order_time'},
+                // {
+                //     name: '返现金额',
+                //     fieldDirective: '<span ng-bind="item.rebate.return_amount"></span>' +
+                //     '(<span ng-bind="item.rebate.return_status | return_status"></span>)'
+                // },
                 {name: '配送时间', field: 'pattern.arrive_pm', filter: 'num2week'},
                 {name: '子订单', fieldDirective: '<div order-deliveries data="item"></div>'},
                 {name: '母订单<br/>状态', field: 'order_status', filter: 'order_status'},
@@ -61,8 +64,9 @@ define([], function () {
                         default: 0, width: '6',
                         enum_text: 'order_type',//
                         enum: [
-                            {value: [1, 2], text: '全部'},
-                            {value: [1], text: '砍价团'},
+                            // {value: [1, 2], text: '全部'},
+                            {value: [2], text: '全部'},
+                            // {value: [1], text: '砍价团'},
                             {value: [2], text: '人数团'}
                         ]
                     },
@@ -86,7 +90,7 @@ define([], function () {
                     // {value: 'cityname', text: '城市', placeholder: '城市', type: 'date'}
                 ],
                 preSelectionSearch: {
-                    order_type: [1, 2]
+                    // order_type: [1, 2]
                     // key: 'deviceNo',
                     // value: 'testinfo'
                 },
@@ -101,6 +105,7 @@ define([], function () {
             columns_by_act: [
                 {name: 'ID', field: 'order_id', className: 'text-right'},
                 {name: '订单号', field: 'order_no'},
+                {name: '订单类型', field: 'order_type',filter:'product_category'},
                 {
                     name: '活动信息',
                     fieldDirective: '<span ng-bind="\'ID:\'+item.product.product_id"></span>' +
@@ -164,7 +169,7 @@ define([], function () {
                     }
                 ],
                 preSelectionSearch: {
-                    order_type: [3, 4]
+                    // order_type: [3, 4]
                 },
                 paginationSupport: true,
                 pageInfo: {
@@ -190,9 +195,12 @@ define([], function () {
                         default: 0, width: '6',
                         enum_text: 'order_type',//
                         enum: [
-                            {value: [3, 4], text: '全部'},
-                            {value: [3], text: '众筹团'},
-                            {value: [4], text: '活动'}
+                            // {value: [3, 4], text: '全部'},
+                            // {value: [3], text: '众筹团'},
+                            // {value: [4], text: '活动'}
+                            {value: [2, 3], text: '全部'},
+                            {value: [3], text: '直接买'},
+                            {value: [2], text: '人数团'},
                         ]
                     },
                     {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
@@ -215,7 +223,8 @@ define([], function () {
                     {value: 'contact_mobile', text: '手机号'},
                 ],
                 preSelectionSearch: {
-                    order_type: [3, 4]
+                    order_type: [2, 3]
+                    // order_type: [3, 4]
                 },
                 paginationSupport: true,
                 pageInfo: {

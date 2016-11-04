@@ -519,7 +519,7 @@ define([
                         if (!confirm('确定移除?')) {
                             return false;
                         }
-                        if (obj.updated_at) {
+                        if (obj.updated_at || obj.pic_id) {
                             $scope.uploader.queue.splice(key, 1);
                         } else {
                             obj.remove();
@@ -534,22 +534,19 @@ define([
                         init = true;
                         $scope.images = [];
                         angular.forEach($scope.uploader.queue, function (v, k) {
-                            if (v.updated_at) {
+                            if (v.updated_at || v.pic_id) {
                                 $scope.images.push({
-                                    // pic_id: v.pic_id || undefined,
-                                    // old: v.old || undefined,
+                                    pic_id: v.pic_id || undefined,
                                     updated_at: v.updated_at || undefined,
                                     pic_url: v.url,
                                     pic_width: v.width,
                                     pic_height: v.height,
-                                    // pic_size: v.size
                                 });
                             } else {
                                 $scope.images.push({
                                     pic_url: v.qiniu_url,
                                     pic_width: v.width,
                                     pic_height: v.height,
-                                    // pic_size: v.size
                                 });
                             }
                         });
@@ -562,10 +559,15 @@ define([
                             var a = $scope.eleKey < $scope.posIndex ? $scope.eleKey : ($scope.eleKey - 1);
                             var b = $scope.eleKey > $scope.posIndex ? $scope.posIndex : ($scope.posIndex - 1);
                             console.log($scope.eleKey + ' 插入到位置 ' + $scope.posIndex + '  ', a, b, $scope.uploader.queue);
-                            var eleKeyObj = new Object($scope.uploader.queue[a]);
-                            var posIndexObj = new Object($scope.uploader.queue[b]);
-                            $scope.uploader.queue.splice(a, 1, posIndexObj);
-                            $scope.uploader.queue.splice(b, 1, eleKeyObj);
+                            var eleKeyObj = new Object($scope.uploader.queue[a]);//
+                            var posIndexObj = new Object($scope.uploader.queue[b]);//
+                            if ($scope.eleKey > $scope.posIndex) {
+                                $scope.uploader.queue.splice(b, 0, eleKeyObj);
+                                $scope.uploader.queue.splice(a + 1, 1);
+                            } else if ($scope.eleKey < $scope.posIndex) {
+                                $scope.uploader.queue.splice(b + 1, 0, eleKeyObj);
+                                $scope.uploader.queue.splice(a, 1);
+                            }
                             // console.log($scope.uploader.queue);
                         }
                         updateImages();
