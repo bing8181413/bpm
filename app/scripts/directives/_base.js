@@ -534,9 +534,9 @@ define([
                         init = true;
                         $scope.images = [];
                         angular.forEach($scope.uploader.queue, function (v, k) {
-                            if (v.updated_at || v.pic_id) {
+                            if (v.updated_at || v.old) {
                                 $scope.images.push({
-                                    pic_id: v.pic_id || undefined,
+                                    // pic_id: v.pic_id || undefined,
                                     updated_at: v.updated_at || undefined,
                                     pic_url: v.url,
                                     pic_width: v.width,

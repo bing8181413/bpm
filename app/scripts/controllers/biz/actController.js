@@ -45,6 +45,7 @@ define([
                 $scope.param.frequency_num = 0;
             }
         });
+
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
         }
@@ -83,6 +84,17 @@ define([
             if (comfunc.isEmptyArray($scope.param.visible_cities)) {
                 widget.msgToast('配送城市没有选择');
                 return false;
+            }
+            if ($scope.param.category == 2) {
+                // 人数团 要填写 拼团人数 和 拼团时间
+                if (!$scope.param.group_min_num && $scope.param.group_min_num <= 0) {
+                    widget.msgToast('拼团人数要大于零');
+                    return false;
+                }
+                if (!$scope.hours && $scope.hours <= 0) {
+                    widget.msgToast('拼团时间要大于零');
+                    return false;
+                }
             }
             if (status || status == 0) {
                 $scope.param.status = status;

@@ -13,8 +13,7 @@
                              placeholder="活动ID" ng-disabled="$stateParams.user_id"></div>
                         <div form-input text="昵称" ng-model="param.name" placeholder="姓名,昵称,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
-                        <div form-input text="手机号码" ng-model="mobile" placeholder="手机号码" required="true"
-                             type="number"></div>
+                        <div form-input text="手机号码" ng-model="mobile" placeholder="手机号码" type="number"></div>
                         <div form-radio text="性别" ng-model="param.gender" required="true" default="1"
                              source="[{text:'男',value:'1'},{text:'女',value:'2'},{text:'保密',value:'3'}]"
                              source-api=""></div>

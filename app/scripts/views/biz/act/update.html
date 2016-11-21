@@ -97,7 +97,11 @@
                         <!--source-api=""></div>-->
                         <div form-radio text="拼团类型" type="radio" ng-model="param.category" required="true" default="2"
                              source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'}]"
+                             ng-disabled="$stateParams.product_id"
                              source-api=""></div>
+                        <div form-radio text="是否支持陌生人拼团" type="radio" ng-model="param.group_strange" required="true"
+                             default="2" source="[{text:'是',value:'2'},{text:'否',value:'1'}]"
+                             ng-show="param.category==2" source-api=""></div>
 
                         <!--<div form-input text="目标金额" ng-model="param.act_goal_price" required="true" min="0"-->
                         <!--max="options_goal_price" type="number"></div>-->

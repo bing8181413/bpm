@@ -215,6 +215,14 @@ define([], function () {
                             {value: '2', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
                         ]
                     },
+                    {
+                        value: 'group_strange', text: '陌生人拼团', type: 'btnGroup', default: '0', width: '6',
+                        enum: [
+                            {value: '0', text: '全 部'},
+                            {value: '2', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                            {value: '1', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                        ]
+                    },
                     {value: 'product_id', text: '活动ID', placeholder: '活动ID'},
                     {value: 'keyword', text: '关键字', placeholder: '活动标题,管理备注'},
                     // {value: 'date_min', text: '开始日期', type: 'date'},
