@@ -48,6 +48,10 @@ define([
         });
 
         $scope.submit = function (status) {
+            if (comfunc.isEmptyArray($scope.param.visible_cities)) {
+                widget.msgToast('配送城市没有选择');
+                return false;
+            }
             if (comfunc.isEmptyArray($scope.param.pics)) {
                 widget.msgToast('运营大图没有上传');
                 return false;

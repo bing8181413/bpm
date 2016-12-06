@@ -18,7 +18,7 @@ define([
                         var modalInstance = $modal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                             controller: function ($scope, $modalInstance) {
-                                $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
+                                $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea text="取消原因" ng-model="cancel_reason"' +
                                     ' placeholder = "取消原因" required = "true" > </div > ' +
                                     '<div form-radio text="取消来源" ng-model="cancel_from" required="true" default="1"' +
@@ -144,7 +144,7 @@ define([
                                             $scope.address.province = null;
                                         }
                                     }
-                                    $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                         '<div form-input text="联系人" ng-model="address.contact_name"' +
                                         ' placeholder = "联系人" required = "true" > </div > ' +
                                         '<div form-input text="手机号" ng-model="address.contact_mobile"' +
@@ -252,7 +252,7 @@ define([
                                         };
                                     }, 0);
 
-                                    $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                         '<div form-input text="联系人" ng-model="address.contact_name"' +
                                         ' placeholder = "联系人" required = "true" > </div > ' +
                                         '<div form-input text="手机号" ng-model="address.contact_mobile"' +
@@ -335,7 +335,7 @@ define([
                                     return false;
                                 }
                                 source += ']';
-                                $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
+                                $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-radio text="配送时间" type="radio" ng-model="pattern_id" required="true"' +
                                     'source="' + source + '" source-api="" default="' + supscope.data.pattern.pattern_id + '"></div>' +
                                     '<a class="btn btn-primary btn-rounded pull-right" ng-click="change_pattern()">确定</a>' +
@@ -363,7 +363,7 @@ define([
                             size: ''
                         });
                     }
-                    var content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_change_pattern();">修改配送时间</a>';
+                    var content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_change_pattern();" ng-show="data.pattern">修改配送时间</a>';
                     $element.find('.order-change-pattern').html(content);
                     $compile($element.contents())($scope);
                 }
@@ -385,7 +385,7 @@ define([
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                             controller: function ($scope, $modalInstance) {
                                 $scope.title = '修改订单备注';
-                                $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
+                                $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea="" text="订单备注" ng-model="remark" required="true"></div>' +
                                     '<a class="btn btn-primary btn-rounded pull-right" ng-click="change_remark()">确定</a>' +
                                     // '<a class="btn btn-warning btn-rounded " ng-click="cancel()">关闭</a>' +

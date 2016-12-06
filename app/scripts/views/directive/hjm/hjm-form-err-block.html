@@ -4,21 +4,27 @@
         <!--<div ng-repeat="(key,val) in FormBody" ng-if="val.$invalid&&val.$name">-->
         <!--<span ng-bind="val|json"></span><br/>-->
         <!--</div>-->
-        <ul class="list-group">
+        <ul class="list-group col-sm-8 col-sm-offset-2">
             <li class="list-group-item list-group-item-info">
                 <div class="row">
                     <span class="col-sm-2">提示项</span>
-                    <span class="col-sm-2">提交字段名</span>
-                    <span class="col-sm-2">详情</span>
+                    <span class="col-sm-3">提交字段名</span>
+                    <span class="col-sm-3">详情</span>
                 </div>
             </li>
-            <li class="list-group-item" ng-repeat="(key,val) in FormBody"
+            <li class="list-group-item" ng-repeat-start="(key,val) in FormBody"
                 ng-if="val.$invalid&&val.$name">
                 <div class="row">
                     <span class="col-sm-2" ng-bind="val.text"></span>
-                    <span class="col-sm-2" ng-bind="val.$name"></span>
-                    <span class="col-sm-2" ng-repeat="(k,v) in val.$error" ng-bind="($index+1)+':'+(k|form_err)"></span>
-                    <span class="col-sm-2" ng-bind="val|json" show-env="dev,test"></span>
+                    <span class="col-sm-3" ng-bind="val.$name"></span>
+                    <span class="col-sm-3" ng-repeat="(k,v) in val.$error"
+                          ng-bind="($index>0)?';':''+(k|form_err)"></span>
+                    <!--<span class="col-sm-2" ng-bind="val|json" show-env="dev,test"></span>-->
+                </div>
+            </li>
+            <li class="list-group-item" ng-repeat-end ng-if="val.$invalid&&val.$name" show-env="dev,test">
+                <div class="row">
+                    <span class="col-sm-8" ng-bind="val|json" show-env="dev,test"></span>
                 </div>
             </li>
         </ul>

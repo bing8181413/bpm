@@ -98,6 +98,7 @@
                                      ng-thumb="{ file: uploader.queue[k]._file, height: 100 , itemobj : uploader.queue[k]}"></div>
                             </div>
                             <div class="col-md-2 text-center">
+                                <div ng-bind="v.pic_id"></div>
                                 <div ng-show="!v.updated_at">
                                     <span ng-show="uploader.queue[k].isSuccess">
                                         <i class="glyphicon glyphicon-ok"></i>

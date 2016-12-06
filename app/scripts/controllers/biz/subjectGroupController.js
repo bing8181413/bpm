@@ -46,8 +46,8 @@ define([
                     }
                 });
                 if (value) {
-                    if ($scope.tmp_subject_ids.length < 2) {
-                        widget.msgToast('每个专题组至少需要2个专题，否则无法提交，请调整！');
+                    if ($scope.tmp_subject_ids.length < 2 || $scope.tmp_subject_ids.length == 4) {
+                        widget.msgToast('每个专题组至少需要2个专题并且不能是4个专题，否则无法提交，请调整！');
                         return false;
                     }
                     $scope.save_subject_param.subjects = $scope.tmp_subject_ids;

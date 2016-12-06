@@ -286,6 +286,7 @@ define([
                                         '{\'name\': \'类目\', \'field\': \'option_name\',readonly:\'true\'},' +
                                         '{\'name\': \'价格\', \'field\': \'option_price\',readonly:\'true\'},' +
                                         '{\'name\': \'剩余库存\', \'field\': \'left_inventory\',readonly:\'true\'},' +
+                                        '{\'name\': \'已售库存\', \'field\': \'used_count\',readonly:\'true\'},' +
                                         '{\'name\': \'库存\', \'field\': \'option_inventory\',readonly:\'true\'},' +
                                         '{\'name\': \'状态\', \'field\': \'option_status\',filter:\'product_option_status\',readonly:\'true\'}' +
                                         ']"></div>' +
@@ -309,21 +310,20 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-rounded btn-sm btn-warning" ng-click="show_act_change_notice()"' +
-                ' ng-show="data.category==3||data.category==4">活动更改通知</a>',
+                template: '<a class="btn btn-rounded btn-sm btn-warning" ng-click="show_act_change_notice()" >活动开始通知</a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_act_change_notice = function () {
                         var modalInstance = $modal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                                 controller: function ($scope, $modalInstance) {
-                                    $scope.title = '发送活动更改通知';
+                                    $scope.title = '发送活动开始通知';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
-                                        '<h4>修改活动时间、地点，操作“确定”后，报名用户会收到消息提醒，请确认无误后操作！</h4>' +
+                                        '<h4>报名用户会收到活动开始通知（微信／短信），请确认无误后操作。</h4>' +
                                         '<div form-date-time text="活动开始时间" ng-model="param.act_start_time" ng-disabled="true"></div>' +
                                         '<div form-date-time text="活动结束时间" ng-model="param.act_end_time" ng-disabled="true"></div>' +
-                                        '<div form-input text="活动地点" ng-model="param.act_address" ng-disabled="true"></div>' +
+                                        '<div form-input text="活动地址" ng-model="param.act_address" ng-disabled="true"></div>' +
                                         '<div form-input text="详细地址" ng-model="param.act_detailed_address" ng-disabled="true"></div>' +
                                         '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
                                         '</form>';
@@ -335,11 +335,11 @@ define([
                                         // console.log($scope);
                                         widget.ajaxRequest({
                                             url: '/products/' + (supscope.data.product_id || 0) + '/notify',
-                                            method: 'POST',
+                                            method: 'PUT',
                                             scope: $scope,
                                             data: {},
                                             success: function (json) {
-                                                widget.msgToast('发送活动更改通知成功!');
+                                                widget.msgToast('发送活动开始通知成功!');
                                             }
                                         })
                                     }

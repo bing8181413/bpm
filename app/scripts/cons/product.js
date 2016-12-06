@@ -96,21 +96,14 @@ define([], function () {
                 route: [
                     // {value: 'main.product.add', text: '新增商品'},
                     {routeDirective: '<div product-add data="">新增商品</div>'},
-                    // {routeDirective: '<div product-act-add data="">新增活动类商品</div>'}
+                    {routeDirective: '<div product-act-add data="">新增活动类商品</div>'}
                 ]
             },
             act_columns: [
-                {name: '活动ID', field: 'product_id', className: 'text-center'},
+                {name: 'ID', field: 'product_id', className: 'text-center'},
                 {name: '排序', field: 'order_by'},
                 {name: '活动类型', field: 'category', filter: 'product_category'},
-                {
-                    name: '标题', field: 'title',
-                    truncateText: true,
-                    truncateTextLength: 5,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'title',
-                    tooltipPlacement: 'bottom',
-                },
+                {name: '标题', field: 'title'},
                 {
                     name: '报名时间',
                     fieldDirective: '<p>开始时间<br/> <span ng-bind="item.act_apply_start_time"></span>' +
@@ -123,29 +116,38 @@ define([], function () {
                     '<br/>地点:<br/><span ng-bind="item.act_address"></span></p>'
                 },
                 {name: '活动类目', fieldDirective: '<div product-option data="item"></div>'},
-                {name: '覆盖城市', field: 'citys', filter: 'arraySub2String:\'city_name\''},
+                {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
+                {name: '订单数', fieldDirective: '<div act-order-copies data="item"></div>'},
                 {name: '报名人数', field: 'order.order_count'},
                 {name: '已售份数', fieldDirective: '<div product-order-copies data="item"></div>'},
-                {name: '订单数', fieldDirective: '<div act-order-copies data="item"></div>'},
                 {name: '剩余<br/>库存', field: 'options', filter: 'arraySum:\'left_inventory\''},
+                // {
+                //     name: '众筹进度',
+                //     fieldDirective: '<p ng-if="item.category==3">众筹进度<br/>' +
+                //     ' <span ng-bind="((item.order && item.order.amounts)||0)| process:item.act_goal_price"></span><br/>' +
+                //     '已筹金额<br/><span ng-bind="(item.order && item.order.amounts)||0"></span><br/>' +
+                //     '目标金额<br/><span ng-bind="item.act_goal_price"></span></p>' +
+                //     '<p ng-if="item.category!==3">——</p>'
+                // },
                 {
-                    name: '众筹进度',
-                    fieldDirective: '<p ng-if="item.category==3">众筹进度<br/>' +
-                    ' <span ng-bind="((item.order && item.order.amounts)||0)| process:item.act_goal_price"></span><br/>' +
-                    '已筹金额<br/><span ng-bind="(item.order && item.order.amounts)||0"></span><br/>' +
-                    '目标金额<br/><span ng-bind="item.act_goal_price"></span></p>' +
-                    '<p ng-if="item.category!==3">——</p>'
+                    name: '抢购进度',
+                    fieldDirective: '<p>抢购进度<br/>' +
+                    ' <span ng-bind="((item.order && item.order.order_copies)||0)| process:(item.options|arraySum:\'option_inventory\')"></span><br/>' +
+                    '已售份数<br/><span ng-bind="(item.order && item.order.order_copies)||0"></span><br/>' +
+                    '库存<br/><span ng-bind="item.options|arraySum:\'option_inventory\'"></span></p>'
                 },
                 {
                     name: '上下架时间',
                     fieldDirective: '<p>上架时间<br/> <span ng-bind="item.start_time"></span><br/>下架时间<br/><span ng-bind="item.end_time"></span></p>'
                 },
-                {name: '活动<br/>状态', field: 'status', filter: 'product_status'},
-                {
-                    name: '众筹<br/>结果',
-                    fieldDirective: '<span ng-bind="item.act_result|act_result" ng-if="item.category==3"></span>' +
-                    '<span ng-if="item.category!==3">——</span>'
-                },
+                {name: '活动状态', field: 'status', filter: 'product_status'},
+                {name: '配送规则', fieldDirective: '<div product-pattern data="item"></div>'},
+                {name: '覆盖城市', field: 'citys', filter: 'arraySub2String:\'city_name\''},
+                // {
+                //     name: '众筹<br/>结果',
+                //     fieldDirective: '<span ng-bind="item.act_result|act_result" ng-if="item.category==3"></span>' +
+                //     '<span ng-if="item.category!==3">——</span>'
+                // },
                 {
                     name: '管理<br/>备注', field: 'admin_remark',
                     truncateText: true,
@@ -170,21 +172,24 @@ define([], function () {
                 title: '活动列表',
                 api: '/products',
                 rowItemName: 'item',
+                rowItemClass: [
+                    {product_id: 'hjm.act.product_id'}
+                ],
                 searchSupport: true,
                 searchItems: [
-                    {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
-                        type: 'btnGroupArray2',
-                        value: 'flag1',
-                        text: '活动类别',
-                        default: 0, //有enum_text时 enumde index 的值
-                        width: '6',
-                        enum_text: 'category',
-                        enum: [
-                            {value: [3, 4], text: '全部'},
-                            {value: [3], text: '众筹'},
-                            {value: [4], text: '一起玩'},
-                        ]
-                    },
+                    // {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
+                    //     type: 'btnGroupArray2',
+                    //     value: 'flag1',
+                    //     text: '活动类别',
+                    //     default: 0, //有enum_text时 enumde index 的值
+                    //     width: '6',
+                    //     enum_text: 'category',
+                    //     enum: [
+                    //         {value: [2, 3], text: '全部'},
+                    //         {value: [3], text: '直接买'},
+                    //         {value: [2], text: '人数团'},
+                    //     ]
+                    // },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
                         type: 'btnGroupArray',
                         value: 'flag2',
@@ -199,26 +204,35 @@ define([], function () {
                             {value: ['1', '2'], text: '待上线'},
                         ]
                     },
-                    {
-                        value: 'visible', text: '是否显示', type: 'btnGroup', default: '0', width: '12',
-                        enum: [
-                            {value: '0', text: '全部'},
-                            {value: '1', text: '是'},
-                            {value: '2', text: '否'},
-                        ]
-                    },
-                    {value: 'keyword', text: '活动标题'},
+                    // {
+                    //     value: 'visible', text: '是否显示', type: 'btnGroup', default: '0', width: '6',
+                    //     enum: [
+                    //         {value: '0', text: '全部'},
+                    //         {value: '1', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                    //         {value: '2', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                    //     ]
+                    // },
+                    // {
+                    //     value: 'group_strange', text: '陌生人拼团', type: 'btnGroup', default: '0', width: '6',
+                    //     enum: [
+                    //         {value: '0', text: '全 部'},
+                    //         {value: '2', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                    //         {value: '1', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                    //     ]
+                    // },
+                    // {value: 'product_id', text: '活动ID', placeholder: '活动ID', default: ''},
+                    // {value: 'keyword', text: '关键字', placeholder: '活动标题,管理备注', default: ''},
                     // {value: 'date_min', text: '开始日期', type: 'date'},
-                    // {value: 'date_max', text: '结束日期', type: 'date'},
                 ],
                 preSelectionSearch: {
-                    category: [3, 4],
+                    category: [2, 3],
+                    // category: [2, 3, 4],
                     // key: 'deviceNo',
                     // value: 'testinfo'
                 },
                 paginationSupport: true,
                 pageInfo: {
-                    count: 20,
+                    count: 10,
                     page: 1,
                     maxSize: 5, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
@@ -227,7 +241,8 @@ define([], function () {
                 route: [
                     // {value: 'main.act.add', text: '新增商品'},
                     {routeDirective: '<div act-add data="" >新增活动</div>'}
-                ]
+                ],
+                scopeSearchParam: 'actPageInfo'
             },
             columns_by_subject: [
                 {name: '活动类型', field: 'product.category', filter: 'product_category'},

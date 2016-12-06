@@ -118,6 +118,7 @@ define([
                         var useBindOnce = config.useBindOnce || 'bindonce';
                         var itemList = config.itemList || 'data';
                         var rowItemName = config.rowItemName || 'item';
+                        var rowItemClass = config.rowItemClass || '';
                         var rowItem = '';
                         if (config.ext && config.ext.checked) {
                             rowItem += '<td>' +
@@ -131,6 +132,7 @@ define([
 
                         }
                         angular.forEach(columns, function (col) {
+                            // var rowClass = (rowItemClass[0].product_id == $rootScope[rowItemClass[0].product_id]) ? '' : '';
                             var cellContent = cellRender(col, rowItemName, useBindOnce);
                             var cssProperty = col.className ? ' class="' + col.className + '" ' : "";
                             rowItem += '<td' + cssProperty + '>' + cellContent + '</td>'
@@ -264,6 +266,11 @@ define([
                         // console.log($scope.extSearch);
                         var searchParam = angular.extend({}, configDef.preSelectionSearch, searchItemsParamDefault,
                             $scope.searchParams, pageInfo, $scope.extSearch);
+                        // eval('$rootScope.' + configDef.scopeSearchParam + '=' + JSON.stringify(searchParam));
+
+                        // $rootScope.hjm[configDef.scopeSearchParam] = searchParam;
+                        // console.log($rootScope.hjm.actPageInfo);
+
                         // console.log(configDef.pageInfo);
                         // console.log(configDef.api);
 
@@ -275,6 +282,8 @@ define([
                             scope: $scope,
                             data: searchParam,
                             success: function (json) {
+                                // 记录查询条件
+                                $scope.record(searchParam);
                                 $scope._json = json;
                                 $scope.list = json.list;
                                 $scope.data = json.data;
@@ -285,6 +294,35 @@ define([
                                 $scope.pageInfo.totalItems = ((json.total == 0) ? 0 : (json.total || $scope.pageInfo.totalItems));//获取总数
                             }
                         });
+                    }
+                    $scope.record = function (searchParam) {
+                        // console.log(searchParam);
+                        $scope.currentSearchItems = configDef.searchItems;
+                        angular.forEach(searchParam, function (val, key) {
+                            // console.log(val, key);
+                            angular.forEach(configDef.searchItems, function (searchItems_val, searchItems_key) {
+                                // console.log(searchItems_val);
+                                // if (!searchItems_val.type && searchItems_val.value == key) {
+                                //     $scope.currentSearchItems[searchItems_key].default = val;
+                                //
+                                // } else if (searchItems_val.type == 'btnGroup' && searchItems_val.value == key) {
+                                //     $scope.currentSearchItems[searchItems_key].default = val;
+                                // }
+                                // else if (searchItems_val.type == 'btnGroupArray2' && searchItems_val.enum_text == key) {
+                                //     angular.forEach(searchItems_val.enum, function (enum_val, enum_key) {
+                                //         if (angular.isArray(val) && angular.isArray(enum_val.value)
+                                //             && val.sort().toString() == enum_val.value.sort().toString()) {
+                                //             $scope.currentSearchItems[searchItems_key].default = enum_key;
+                                //         }
+                                //     });
+                                // }
+                                // else
+                                if (searchItems_val.type == 'btnGroupArray' && searchItems_val.enum_text == key) {
+                                    $scope.currentSearchItems[searchItems_val.enum_text] = searchItems_val.enum[searchItems_val.default].value;
+                                }
+                            })
+                        })
+                        console.log($scope.currentSearchItems);
                     }
                     $scope.$watchCollection('[columns,config,modid]', function (gridDef) {
                             //这里初始化 执行一次 以后不会执行
@@ -366,6 +404,7 @@ define([
                     $scope.searchParams = {}
                     $scope.autoSearch = false;//是否自动搜索 有监听 autoSearch = !autoSearch 就能够自动搜索了
                     $scope.$watch('searchItems', function (searchItemsVal) {
+                        // console.log(searchItemsVal);
                         if (searchItemsVal) {
                             $scope.searchItems = searchItemsVal;
                             var searchItemsHtml = ''
@@ -379,6 +418,12 @@ define([
                                         '</div>';
                                 } else {
                                     if (val.type == 'datetime' || val.type == 'date') {
+                                        // if ($scope.currentSearchItems[key]) {
+                                        //     $scope.$eval('params.' + val.value + '="' + $scope.currentSearchItems[key].value + '"');
+                                        // }
+                                        // $scope.$eval('params.' + val.value + '="' + new Date() + '"');
+
+
                                         var dateHtml = val.type == "datetime" ?
                                         '<hjm_date_time ng-model="params.' + val.value + '"></hjm_date_time>'
                                             : '<hjm_date ng-model="params.' + val.value + '"></hjm_date>';

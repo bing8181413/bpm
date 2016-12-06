@@ -1,0 +1,20 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" show-role="'admin'">修改微信自动回复</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate disabled-role="'admin'">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>微信自动回复</h4>
+                        <!--<div form-textarea text="自动回复内容" ng-model="auto_reply" required="true"></div>-->
+                        <textarea class="form-control" rows="50" ng-model="auto_reply"></textarea>
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" show-role="'admin'" ng-disabled="FormBody.$invalid"
+                   ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

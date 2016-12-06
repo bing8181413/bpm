@@ -13,10 +13,10 @@ define([
                         result = "必填项未填写";
                         break;
                     case "maxlength":
-                        result = "长度大于要求长度";
+                        result = "超过最大数据限制";
                         break;
                     case "minlength":
-                        result = "长度小于要求长度";
+                        result = "至少要有一个数据";
                         break;
                 }
 

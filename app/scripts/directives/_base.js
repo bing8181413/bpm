@@ -33,6 +33,7 @@ define([
     './refund/list',//财务 规则
     './subject/list',//专题 规则
     './resource/list',//专题 规则
+    './wechat/list',//微信 二维码 规则
     // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,
@@ -370,6 +371,7 @@ define([
                 scope: {
                     images: '=',
                     required: '@',
+                    token: '@',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showUpload.html'),
                 controller: function ($scope, $element, $attrs) {
@@ -412,11 +414,11 @@ define([
                         $scope.uploader.queue.splice(key, 1);
                         updateImages();
                     };
-                    // 上传成功
+                    //选择文件之后
                     $scope.uploader.onAfterAddingFile = function (fileItem) {
                         // $scope.uploader.onBeforeUploadItem = function (fileItem) {
                         // console.log('onAfterAddingFile', fileItem);
-                        var fileItemTmpl = {name: fileItem._file.name, type: 'resource'};
+                        var fileItemTmpl = {name: fileItem._file.name, type: $scope.token};
                         widget.ajaxRequest({
                             url: '/supports/uptoken',
                             method: 'get',
@@ -429,6 +431,7 @@ define([
                             }
                         })
                     }
+                    // 上传成功
                     $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
                         // console.log(fileItem, response);
                         if (response) {
@@ -483,6 +486,7 @@ define([
                     });
 
                     $scope.uploader.onAfterAddingAll = function (fileItems) {
+                        $scope.images = $scope.images || [];
                         angular.forEach(fileItems, function (v, k) {
                             $scope.images.push({});
                         });
@@ -512,11 +516,17 @@ define([
 
 
                     // 移除上传的数据
+                    $scope.confirm_del_image_notice = true;
                     $scope.delImage = function (key, obj) {
-                        if (!confirm('确定移除?')) {
-                            return false;
+                        if ($scope.confirm_del_image_notice) {
+                            if (confirm('确定移除,且本次操作此字段不再有删除提示?')) {
+                                $scope.confirm_del_image_notice = false;
+                            } else {
+                                $scope.confirm_del_image_notice = true;
+                                return false;
+                            }
                         }
-                        if (obj.updated_at) {
+                        if (obj.updated_at || obj.pic_id) {
                             $scope.uploader.queue.splice(key, 1);
                         } else {
                             obj.remove();
@@ -531,37 +541,40 @@ define([
                         init = true;
                         $scope.images = [];
                         angular.forEach($scope.uploader.queue, function (v, k) {
-                            if (v.updated_at) {
+                            if (v.updated_at || v.old) {
                                 $scope.images.push({
                                     // pic_id: v.pic_id || undefined,
-                                    // old: v.old || undefined,
                                     updated_at: v.updated_at || undefined,
                                     pic_url: v.url,
                                     pic_width: v.width,
                                     pic_height: v.height,
-                                    // pic_size: v.size
                                 });
                             } else {
                                 $scope.images.push({
                                     pic_url: v.qiniu_url,
                                     pic_width: v.width,
                                     pic_height: v.height,
-                                    // pic_size: v.size
                                 });
                             }
                         });
                     }
 
                     $scope.getEle = function (eleKey) {
+                        $scope.eleKey = eleKey;
+                        // console.log($scope.eleKey,$scope.posIndex);
                         if (angular.isNumber($scope.eleKey) && angular.isNumber($scope.posIndex)) {
-                            $scope.eleKey = eleKey;
                             var a = $scope.eleKey < $scope.posIndex ? $scope.eleKey : ($scope.eleKey - 1);
                             var b = $scope.eleKey > $scope.posIndex ? $scope.posIndex : ($scope.posIndex - 1);
                             console.log($scope.eleKey + ' 插入到位置 ' + $scope.posIndex + '  ', a, b, $scope.uploader.queue);
-                            var eleKeyObj = new Object($scope.uploader.queue[a]);
-                            var posIndexObj = new Object($scope.uploader.queue[b]);
-                            $scope.uploader.queue.splice(a, 1, posIndexObj);
-                            $scope.uploader.queue.splice(b, 1, eleKeyObj);
+                            var eleKeyObj = new Object($scope.uploader.queue[a]);//
+                            var posIndexObj = new Object($scope.uploader.queue[b]);//
+                            if ($scope.eleKey > $scope.posIndex) {
+                                $scope.uploader.queue.splice(b, 0, eleKeyObj);
+                                $scope.uploader.queue.splice(a + 1, 1);
+                            } else if ($scope.eleKey < $scope.posIndex) {
+                                $scope.uploader.queue.splice(b + 1, 0, eleKeyObj);
+                                $scope.uploader.queue.splice(a, 1);
+                            }
                             // console.log($scope.uploader.queue);
                         }
                         updateImages();

@@ -1,6 +1,6 @@
 {
-    "projectName": "yundun",
-    "gitRepo": "git@gitlab.alibaba-inc.com:aliyun/yundun.git",
+    "projectName": "bpm",
+    "gitRepo": "git@bitbucket.org:rrlt/hjm_bpm.git",
     "branchName":"master",
     "appFolder": "app",
     "activeFolder": ".tmp",

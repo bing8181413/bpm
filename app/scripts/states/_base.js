@@ -19,6 +19,7 @@ define([
     'states/hjm/subject',//运营专题
     'states/hjm/resource',//运营资源库
     'states/hjm/orders',//维护订单数据
+    'states/hjm/wechat',//微信相关数据
 
 ], function () {
 

@@ -28,7 +28,7 @@ define([
                                 });
                                 var source = "[{text:'待发货',value:1},{text:'已发货',value:2},{text:'已签收',value:3}]";
                                 // ,{text:'已取消',value:4}]";
-                                $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
+                                $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-radio text="修改状态为" type="radio" ng-model="delivery_status" required="true"' +
                                     'source="' + source + '" default=""></div>' +
                                     '<a class="btn btn-primary btn-rounded pull-right" ng-click="change_deliveries_status()">确定</a>' +
@@ -54,7 +54,7 @@ define([
                                             },
                                             success: function (json) {
                                                 widget.msgToast('修改成功,请刷新查看');
-                                                supscope.$parent.$parent.searchAction();
+                                                supscope.searchAction();
                                                 $scope.cancel();
                                             }
                                         })

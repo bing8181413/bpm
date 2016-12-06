@@ -43,6 +43,25 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                  *   error: function
                  *   data: object
                  */
+                // 直接地址获取经纬度
+                // get_baidu_location: function (address, city_name, rtn_func) {
+                //     $http.jsonp('http://api.map.baidu.com/geocoder/v2/?address=' + address +
+                //         '&output=json&ak=8wBktwVQM9GWdeP5ldMXogY48glg5sgD&callback=JSON_CALLBACK')
+                //         .success(function (data, status, header, config) {
+                //             if (angular.isFunction(rtn_func)) {
+                //                 rtn_func(data);
+                //             }
+                //         })
+                // },
+
+                /** ajax请求
+                 * @params:
+                 *   scope
+                 *   url
+                 *   success function
+                 *   error: function
+                 *   data: object
+                 */
                 ajaxRequest: function (params) {
                     var self = this;
 

@@ -19,11 +19,13 @@ define([
                 success: function (json) {
                     $scope.param = json.data;
                     if ($scope.param.pic_url) {
-                        $scope._param.pics.push({
-                            pic_url: $scope.param.pic_url,
-                            pic_width: $scope.param.pic_width,
-                            pic_height: $scope.param.pic_height
-                        });
+                        $scope._param = {
+                            pics: [{
+                                pic_url: $scope.param.pic_url,
+                                pic_width: $scope.param.pic_width,
+                                pic_height: $scope.param.pic_height
+                            }]
+                        };
                     }
                     if ($scope.param.url) {
                         $scope.toggle = '2';

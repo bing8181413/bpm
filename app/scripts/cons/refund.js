@@ -18,6 +18,8 @@ define([], function () {
                 {name: '申请时间', field: 'created_at', filter: 'date2break'},
                 {name: '退款时间', field: 'verified_at',filter:'null2empty'},
                 {name: '退款原因', field: 'refund_reason'},
+                {name: '失败原因', field: 'fail_reason'},
+                {name: '更新时间', field: 'updated_at',filter:'null2empty'},
                 {name: '退款来源', field: 'cancel_from', filter: 'refund_cancel_from'},
                 {name: '操作', fieldDirective: '<div order-single-refund data="item"></div>'},
             ],
@@ -59,25 +61,25 @@ define([], function () {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                ext: {
-                    checked: {
-                        text: '',
-                        value: '_checked'
-                    },
-                    showNum: [
-                        {text: '退单数量', type: 'total'},
-                        {text: '退款总金额', field: 'amounts'},
-                        // {text: '已选', type: 'selected'},
-                    ],
-                    eventBtn: [
-                        {text: '全选', event: 'all_select'},
-                        {text: '取消全选', event: 'cancel_all_select'},
-                        {
-                            text: '批量退款',
-                            fieldFirective: '<div order-refunds data="data"></div>',
-                        },
-                    ]
-                }
+                // ext: {
+                    // checked: {
+                    //     text: '',
+                    //     value: '_checked'
+                    // },
+                    // showNum: [
+                    //     {text: '退单数量', type: 'total'},
+                    //     {text: '退款总金额', field: 'amounts'},
+                    //     // {text: '已选', type: 'selected'},
+                    // ],
+                    // eventBtn: [
+                    //     {text: '全选', event: 'all_select'},
+                    //     {text: '取消全选', event: 'cancel_all_select'},
+                    //     {
+                    //         text: '批量退款',
+                    //         fieldFirective: '<div order-refunds data="data"></div>',
+                    //     },
+                    // ]
+                // }
             }
         }
     }

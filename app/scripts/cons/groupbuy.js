@@ -3,19 +3,22 @@ define([], function () {
         groupbuyList: {
             columns: [
                 {name: 'ID', field: 'groupbuy_id', className: 'text-center'},
+                // {
+                //     name: '活动标题', field: 'product.title',
+                //     truncateText: true,
+                //     truncateTextLength: 5,
+                //     truncateTextBreakOnWord: false,
+                //     tooltip: 'product.title',
+                //     tooltipPlacement: 'bottom',
+                // },
                 {
-                    name: '商品信息', field: 'product.title',
-                    truncateText: true,
-                    truncateTextLength: 5,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'product.title',
-                    tooltipPlacement: 'bottom',
+                    name: '活动标题', field: 'product.title'
                 },
                 {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item.product"></div>'},
-                {name: '开团订单', fieldDirective: '<div groupbuy-order data="item"></div>'},
+                {name: '开团用户', fieldDirective: '<div groupbuy-order data="item"></div>'},
                 {name: '团订单数', fieldDirective: '<div groupbuy-order-copies data="item"></div>'},
-                {name: '成功购买份数', field: 'order.copies'},
-                {name: '团支付金额', field: 'order.amounts'},
+                // {name: '成功购买份数', field: 'order.copies'},
+                // {name: '团支付金额', field: 'order.amounts'},
                 {name: '返现金额', field: 'return_amount'},
                 {name: '剩余时间', field: 'group_end_time', filter: 'null2empty|remaining_time'},
                 // {name: '拼团状态', field: 'accomplish_status', filter: 'accomplish_status'},
@@ -23,6 +26,14 @@ define([], function () {
                     name: '拼团状态',
                     fieldDirective: '<div groupbuy-accomplish-status data="item"></div>'
                 },
+                {
+                    name: '管理备注', field: 'product.admin_remark',
+                    truncateText: true,
+                    truncateTextLength: 10,
+                    truncateTextBreakOnWord: false,
+                    tooltip: 'product.admin_remark',
+                    tooltipPlacement: 'bottom'
+                }
             ],
             config: {
                 title: '拼团列表',
@@ -33,7 +44,7 @@ define([], function () {
                 searchItems: [
                     {text: '(开团时间)--开始', value: 'date_min', type: 'datetime'},
                     {text: '(开团时间)--结束', value: 'date_max', type: 'datetime'},
-                    {text: '商品ID', value: 'product_id', placeholder: '商品ID'},
+                    {text: '活动ID', value: 'product_id', placeholder: '商品ID'},
                     {text: '拼团ID', value: 'groupbuy_id', placeholder: '拼团ID'},
                     {text: '开团用户', value: 'contact_name', placeholder: '开团联系人'},
                     {text: '开团手机', value: 'contact_mobile', placeholder: '开团手机号'},

@@ -482,7 +482,7 @@ define([
                         result = "人数团";
                         break;
                     case "3":
-                        result = "众筹";
+                        result = "直接买";
                         break;
                     case "4":
                         result = "一起玩";
@@ -521,6 +521,22 @@ define([
                         break;
                     case "2":
                         result = "失败";
+                        break;
+                }
+                return result;
+            }
+        }])
+        //  qrcode_type  微信二维码状态 1：成功 2：失败
+        .filter('qrcode_type', [function () {
+            return function (val) {
+                var result = val;
+                val += '';
+                switch (val) {
+                    case "1":
+                        result = "临时";
+                        break;
+                    case "2":
+                        result = "永久";
                         break;
                 }
                 return result;

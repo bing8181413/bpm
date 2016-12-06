@@ -5,6 +5,7 @@
 define([
         '../states'
         , '../../cons/simpleCons'
+        , '../../controllers/biz/customersController'
     ],
     function (stateModule, cons) {
         stateModule.config(
@@ -24,6 +25,28 @@ define([
                                     // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
                                         return $templateCache.get('app/' + cons.biz_path + 'user/list.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.user.customers', {
+                            url: "/customers/list",
+                            views: {
+                                "": {
+                                    // controller: 'accountController'
+                                    templateProvider: function ($templateCache) {
+                                        return '<div hjm-grid modid="customersList" config="config" columns="columns"></div>';
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.user.customersAdd', {
+                            url: "/customers/add",
+                            views: {
+                                "": {
+                                    controller: 'user.customersAddController',
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'user/customers.html');
                                     }
                                 }
                             }

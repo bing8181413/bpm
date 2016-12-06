@@ -53,7 +53,8 @@ define([
                             'disabled-role="' + $scope.disabledRole + '"></show-textarea>' +
                             '</div>' +
                             '<div class="col-sm-12" ng-if="!!item.showImg">' +
-                            '<show-upload images="item.pics" hasimages="" disabled-role="' + $scope.disabledRole + '"></show-upload>' +
+                            // '<show-upload images="item.pics" hasimages="" disabled-role="' + $scope.disabledRole + '"></show-upload>' +
+                            '<show-upload-token images="item.pics" hasimages="" token="activity" disabled-role="' + $scope.disabledRole + '"></show-upload-token>' +
                             '</div>' +
                             '</div>' +
                             '</div>';
@@ -404,7 +405,7 @@ define([
                                 'ng-model="' + colField + cellFilter + '"/>';
                         }
                         if (config.readonly || col.readonly) {
-                            cellContent = '<span ng-bind="' + colField + cellFilter + '"><span/>';
+                            cellContent = '<span ng-bind="' + colField + cellFilter + '"></span>';
                         }
                         return cellContent;
                     }
@@ -418,7 +419,6 @@ define([
                             if (!!$attrs.disabled) {
                                 $scope.config = angular.extend($scope.config || {}, {readonly: true});
                             }
-                            // console.log($scope.config);
                             tmpHtml = $ctrl.buildTable($scope.columns, $scope.config);
                             $element.html(tmpHtml);
                             $compile($element.contents())($scope);

@@ -15,35 +15,37 @@ define([
                 scope: $scope,
                 data: {},
                 success: function (json) {
+                    $rootScope.hjm.act = {product_id: $stateParams.product_id};
                     $scope.param = angular.copy(json.data);
+                    $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600);
                 }
             })
         }
-        // 目标金额 和option 事件
-        var change_options = function () {
-            $scope.options_goal_price = 0;
-            if ($scope.param && $scope.param.options) {
-                angular.forEach($scope.param.options, function (v, k) {
-                    $scope.options_goal_price += comfunc.numMulti(v.option_price, v.option_inventory);
-                });
-                if ($scope.param && $scope.param.act_goal_price && $scope.param.act_goal_price > $scope.options_goal_price) {
-                    $scope.param.act_goal_price = $scope.options_goal_price;
-                }
+        $scope.$watch('hours', function (val) {
+            if (!!val) {
+                $scope.hours = parseFloat(val);
+                $scope.param.group_seconds = comfunc.numMulti(val, 3600);
             }
-        }
-
-        $scope.$watch('param.options', function (val) {
-            change_options();
-        }, true);
-        $scope.$watch('param.act_goal_price', function (val) {
-            change_options();
         });
+        //  获取地理位置信息 传入地址
+        $scope.getlocation = function () {
+            if (angular.isUndefined($scope.city_name)) {
+                widget.msgToast('没有城市');
+                return false;
+            }
+            if (angular.isUndefined($scope.param.act_detailed_address)) {
+                widget.msgToast('没有地址');
+                return false;
+            }
+            $scope.timeStamp = new Date().getTime();// 这个字段 有监听事件
+        }
 
         $scope.$watch('param.delivery_type', function (val) {
             if (!!val && val == '3') {
                 $scope.param.frequency_num = 0;
             }
         });
+
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
         }
@@ -58,7 +60,19 @@ define([
             if (comfunc.isEmptyArray($scope.param.pics)) {
                 widget.msgToast('运营大图没有上传');
                 return false;
+            } else {
+                var tmp_pics_err = 0;
+                angular.forEach($scope.param.pics, function (val, key) {
+                    if (!val.pic_url) {
+                        tmp_pics_err++;
+                    }
+                })
+                if (tmp_pics_err > 0) {
+                    widget.msgToast('运营大图还没有完成上传');
+                    return false;
+                }
             }
+
             if ($scope.param.content_type == 1 && comfunc.isEmptyArray($scope.param.contents)) {
                 widget.msgToast('图文详情没有上传');
                 return false;
@@ -70,6 +84,17 @@ define([
             if (comfunc.isEmptyArray($scope.param.visible_cities)) {
                 widget.msgToast('配送城市没有选择');
                 return false;
+            }
+            if ($scope.param.category == 2) {
+                // 人数团 要填写 拼团人数 和 拼团时间
+                if (!$scope.param.group_min_num && $scope.param.group_min_num <= 0) {
+                    widget.msgToast('人数团de拼团人数要大于零');
+                    return false;
+                }
+                if (!$scope.hours && $scope.hours <= 0) {
+                    widget.msgToast('人数团de拼团有效时间要大于零');
+                    return false;
+                }
             }
             if (status || status == 0) {
                 $scope.param.status = status;

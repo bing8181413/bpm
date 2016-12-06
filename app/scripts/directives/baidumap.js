@@ -7,7 +7,7 @@ define([
     //<common_form form_param="" form_init_data="" form_url="" form_title="" ></common_form>
     //form_data = {};
     //form_url:''
-        .directive('baidumap', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
+        .directive('baidumap', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache, $timeout) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -17,23 +17,26 @@ define([
                     city: '=',
                     address: '=',
                     district: '=',
-                    callback: '=',
+                    timeStamp: '=',
                 },
                 //template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'baidu/map.html'),
                 template: '<div id="baidumap" style="width: 100%;height:100%;overflow: hidden;margin:0;"></div>',
                 link: function ($scope, $element, $attrs) {
+                    // console.log(BMap);
                     var map = new BMap.Map("baidumap");
                     var count = 0;
                     var point = null;
                     var marker1 = null;
                     $scope.$watch('city', function (value) {
+                        // console.log(value);
                         if (!$scope.city) {
                             map.centerAndZoom('上海', 12);
-                            return;
+                            // widget.msgToast('没有选择城市')
+                            // return false;
                         }
                         if (count > 0) {
                             count++;
-                            map.centerAndZoom($scope.city, 12);
+                            map.centerAndZoom($scope.city || '上海', 12);
                         }
                         if (count == 0) {
                             // 只执行一次  初始化和绑定事件
@@ -70,30 +73,43 @@ define([
                         }
                     });
                     var myGeo = null;
-                    $scope.$watch('callback', function (newval) {
-                        if (count > 0) {
-                            myGeo = new BMap.Geocoder();
-                            // 将地址解析结果显示在地图上,并调整地图视野
-                            myGeo.getPoint($scope.address, function (point) {
-                                if (point) {
-                                    myGeo.getLocation(point, function (rs) {
+                    $scope.$watch('timeStamp', function (newval) {
+                        if(!newval){
+                            return false;
+                        }
+                        // if (count > 0) {
+                        myGeo = new BMap.Geocoder();
+                        // 将地址解析结果显示在地图上,并调整地图视野
+                        myGeo.getPoint($scope.address, function (point) {
+                            if (point) {
+                                myGeo.getLocation(point, function (rs) {
+                                    // console.log(point, rs);
+                                    $timeout(function () {
                                         $scope.$apply(function () {
-                                            $scope.lng = point.lng;
-                                            $scope.lat = point.lat;
+                                            $scope.lng = rs.point.lng;
+                                            $scope.lat = rs.point.lat;
+                                            // $scope.lng = point.lng;
+                                            // $scope.lat = point.lat;
                                             // $scope.address = rs.address;
                                             $scope.district = rs.addressComponents.district;
                                         })
-                                    });
-                                    map.removeOverlay(marker1);
-                                    map.centerAndZoom(point, 16);
-                                    marker1 = new BMap.Marker(point);
-                                    map.addOverlay(marker1);
-                                    marker1.setAnimation(BMAP_ANIMATION_BOUNCE);
-                                } else {
-                                    widget.msgToast("您选择地址没有解析到结果!");
-                                }
-                            }, $scope.city);
-                        }
+                                    }, 200);
+                                });
+                                map.removeOverlay(marker1);
+                                map.centerAndZoom(point, 16);
+                                marker1 = new BMap.Marker(point);
+                                map.addOverlay(marker1);
+                                marker1.setAnimation(BMAP_ANIMATION_BOUNCE);
+                            } else {
+                                $timeout(function () {
+                                    $scope.$apply(function () {
+                                        $scope.lng = '';
+                                        $scope.lat = '';
+                                    })
+                                }, 200);
+                            }
+                        }, $scope.city || '上海');
+                        // }
                     });
                 }
             };
