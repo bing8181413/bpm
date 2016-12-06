@@ -30,7 +30,9 @@ define([
     };
     var api = {};
     var state = {};
-    if (location.href.indexOf('//bpm.huijiame.com') > 0) {
+    if (location.href.indexOf('//bpm.huijiame.com') > 0
+    // || location.href.indexOf('//bpm.hjm.com') > 0
+    ) {
         env = 'prod';
         domain = 'https://mgrapi.huijiame.com';
         web_domain = 'https://www.huijiame.com';

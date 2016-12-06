@@ -4,8 +4,8 @@ define([], function () {
             columns: [
                 {name: '二维码ID', field: 'qrcode_id', className: 'text-right'},
                 {
-                    name: '场景编号',
-                    fieldDirective: '<div ng-bind="(item.type==1)?item.scene_id:item.scene_str"></div>'
+                    name: '场景编号', field: 'scene_id',
+                    // fieldDirective: '<div ng-bind="(item.type==1)?item.scene_id:item.scene_str"></div>'
                 },
                 {name: '长久or临时', field: 'type', filter: 'qrcode_type'},
                 {name: '描述', field: 'desc'},
@@ -15,6 +15,10 @@ define([], function () {
                     fieldDirective: '<textarea class="form-control" style="height: 100%; " rows="5" ng-bind="item.url"></textarea>'
                 },
                 {name: '创建时间', field: 'created_at'},
+                {
+                    name: '操作',
+                    fieldDirective: '<div qrcode-delete data="item" ></div>'
+                },
             ],
             config: {
                 title: '微信二维码管理',

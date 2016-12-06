@@ -22,8 +22,8 @@
                              placeholder="活动ID" ng-disabled="$stateParams.product_id"></div>
                         <div form-input text="活动标题" ng-model="param.title" placeholder="活动标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
-                        <div form-input text="活动简介" ng-model="param.brief" placeholder="不超过30个字" minlength="1"
-                             maxlength="30"></div>
+                        <div form-input text="活动简介" ng-model="param.brief" placeholder="不超过50个字" minlength="1"
+                             maxlength="50"></div>
                         <div form-radio text="活动类别" ng-model="param.act_type" required="true" default="亲子"
                              source="[{text:'亲子',value:'亲子'},{text:'DIY',value:'DIY'},{text:'展览',value:'展览'},
                              {text:'运动',value:'运动'},{text:'周边／户外',value:'周边／户外'},{text:'演出／赛事',value:'演出／赛事'},
@@ -34,6 +34,8 @@
                              min="1" required="true"></div>
                         <div form-input text="单人限购份数" ng-model="param.per_buy_count" type="number"
                              min="0"></div>
+                        <div form-input text="初始购买份数" ng-model="param.init_buy_count" type="number"
+                             min="1"></div>
                         <!--<div form-input text="已售份数基数" ng-model="param.base_sale_count" type="number"-->
                         <!--min="0"></div>-->
                         <div form-date-time text="上架时间" ng-model="param.start_time" required="true"></div>

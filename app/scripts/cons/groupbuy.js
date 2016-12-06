@@ -3,13 +3,16 @@ define([], function () {
         groupbuyList: {
             columns: [
                 {name: 'ID', field: 'groupbuy_id', className: 'text-center'},
+                // {
+                //     name: '活动标题', field: 'product.title',
+                //     truncateText: true,
+                //     truncateTextLength: 5,
+                //     truncateTextBreakOnWord: false,
+                //     tooltip: 'product.title',
+                //     tooltipPlacement: 'bottom',
+                // },
                 {
-                    name: '活动标题', field: 'product.title',
-                    truncateText: true,
-                    truncateTextLength: 5,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'product.title',
-                    tooltipPlacement: 'bottom',
+                    name: '活动标题', field: 'product.title'
                 },
                 {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item.product"></div>'},
                 {name: '开团用户', fieldDirective: '<div groupbuy-order data="item"></div>'},

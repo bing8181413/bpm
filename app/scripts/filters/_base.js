@@ -482,7 +482,7 @@ define([
                         result = "人数团";
                         break;
                     case "3":
-                        result = "众筹";
+                        result = "直接买";
                         break;
                     case "4":
                         result = "一起玩";

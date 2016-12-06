@@ -189,7 +189,9 @@ define([
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         // $scope.modelVal = $scope.ngModel;
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     }, 0);
                     // $scope.$watch('modelVal', function (val) {
                     //     $scope.ngModel = val;
@@ -251,7 +253,9 @@ define([
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     }, 0);
                     // $scope.modelVal = $scope.ngModel;
                     // $scope.$watch('modelVal', function (val) {
@@ -461,7 +465,9 @@ define([
                         content += '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     }, 0);
                     $scope.$watch($scope.ngModelText, function (val) {
                         // console.log('$scope.ngModelText', val);
@@ -539,7 +545,9 @@ define([
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         // console.log($scope.$parent.FormBody[$scope.ngModelText]);
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     }, 0);
 
                     // $scope.$watch($scope.ngModelText, function (modelNew) {
@@ -595,7 +603,9 @@ define([
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     }, 0);
 
                     // $scope.$watch($scope.ngModelText, function (modelNew) {
@@ -638,7 +648,9 @@ define([
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     });
                 }
             }
@@ -674,7 +686,9 @@ define([
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     }, 0);
                     // $scope.$watch($scope.ngModelText, function (modelNew) {
                     //     $scope.ngModel = modelNew;
@@ -718,7 +732,9 @@ define([
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     }, 0);
 
                     // $scope.$watch($scope.ngModelText, function (modelNew) {

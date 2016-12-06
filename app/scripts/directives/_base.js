@@ -33,6 +33,7 @@ define([
     './refund/list',//财务 规则
     './subject/list',//专题 规则
     './resource/list',//专题 规则
+    './wechat/list',//微信 二维码 规则
     // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,
@@ -515,9 +516,15 @@ define([
 
 
                     // 移除上传的数据
+                    $scope.confirm_del_image_notice = true;
                     $scope.delImage = function (key, obj) {
-                        if (!confirm('确定移除?')) {
-                            return false;
+                        if ($scope.confirm_del_image_notice) {
+                            if (confirm('确定移除,且本次操作此字段不再有删除提示?')) {
+                                $scope.confirm_del_image_notice = false;
+                            } else {
+                                $scope.confirm_del_image_notice = true;
+                                return false;
+                            }
                         }
                         if (obj.updated_at || obj.pic_id) {
                             $scope.uploader.queue.splice(key, 1);
