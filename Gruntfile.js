@@ -63,6 +63,8 @@ module.exports = function (grunt) {
                             '**/main.min.js',
                             '**/main.js',
                             '**/app.js',
+                            '**/require.js',
+                            '**/bootstrap.js',
                             'vendor/**/*.js', //  三方包 一般不用copy
                             '**/bootstrap.js'
                         ],
