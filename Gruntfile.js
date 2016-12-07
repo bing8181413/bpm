@@ -63,7 +63,7 @@ module.exports = function (grunt) {
                             '**/main.min.js',
                             '**/main.js',
                             '**/app.js',
-                            //'vendor/**/*.js', //  三方包 一般不用copy
+                            'vendor/**/*.js', //  三方包 一般不用copy
                             '**/bootstrap.js'
                         ],
                         dest: '../build/bpm'
@@ -206,6 +206,13 @@ module.exports = function (grunt) {
         'html2js:compileTpl',
         //'compass:dev',
         'copy:hbbdist',
+        'requirejs:dist',
+        // 'connect:dist:keepalive'
+    ]);
+    grunt.registerTask('initbuild', [
+        'html2js:compileTpl',
+        //'compass:dev',
+        'copy:dist',
         'requirejs:dist',
         // 'connect:dist:keepalive'
     ]);
