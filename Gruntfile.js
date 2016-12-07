@@ -202,19 +202,12 @@ module.exports = function (grunt) {
         'open:dev',
         'watch'
     ]);
-    // grunt.registerTask('build', [
-    //     'html2js:compileTpl',
-    //     //'compass:dev',
-    //     'copy:dist',
-    //     'requirejs:dist',
-    //     'connect:dist:keepalive'
-    // ]);
-    grunt.registerTask('hbbbuild', [
+    grunt.registerTask('build', [
         'html2js:compileTpl',
         //'compass:dev',
         'copy:hbbdist',
         'requirejs:dist',
-        'connect:dist:keepalive'
+        // 'connect:dist:keepalive'
     ]);
     grunt.registerTask('localhtml2js', [
         'html2js:compileTpl'

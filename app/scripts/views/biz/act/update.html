@@ -161,8 +161,8 @@
                         <div form-radio text="是否显示在列表" ng-model="param.visible" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
                         <div form-input text="排序" ng-model="param.order_by" required="true" type="number" min="0"></div>
-                    </div>
-                </div>
+                    </div></div>
+
                 <div form-error-block></div>
                 <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
                    ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
