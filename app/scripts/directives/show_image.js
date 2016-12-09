@@ -16,7 +16,9 @@ define([
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'show_image.html'),
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
+                    // console.log($scope.url.substring($scope.url.length-4,$scope.url.length));
                     $scope.widthPx = $scope.width + 'px';
+                    // $scope.type = supscope.url.substring(supscope.url.length - 4, supscope.url.length);
                     $scope.show = function () {
                         var modalInstance = $modal.open({
                             templateUrl: 'show.html',

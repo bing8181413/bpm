@@ -177,19 +177,19 @@ define([], function () {
                 ],
                 searchSupport: true,
                 searchItems: [
-                    // {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
-                    //     type: 'btnGroupArray2',
-                    //     value: 'flag1',
-                    //     text: '活动类别',
-                    //     default: 0, //有enum_text时 enumde index 的值
-                    //     width: '6',
-                    //     enum_text: 'category',
-                    //     enum: [
-                    //         {value: [2, 3], text: '全部'},
-                    //         {value: [3], text: '直接买'},
-                    //         {value: [2], text: '人数团'},
-                    //     ]
-                    // },
+                    {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
+                        type: 'btnGroupArray2',
+                        value: 'flag1',
+                        text: '活动类别',
+                        default: 0, //有enum_text时 enumde index 的值
+                        width: '6',
+                        enum_text: 'category',
+                        enum: [
+                            {value: [2, 3], text: '全部'},
+                            {value: [3], text: '直接买'},
+                            {value: [2], text: '人数团'},
+                        ]
+                    },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
                         type: 'btnGroupArray',
                         value: 'flag2',
@@ -204,25 +204,24 @@ define([], function () {
                             {value: ['1', '2'], text: '待上线'},
                         ]
                     },
-                    // {
-                    //     value: 'visible', text: '是否显示', type: 'btnGroup', default: '0', width: '6',
-                    //     enum: [
-                    //         {value: '0', text: '全部'},
-                    //         {value: '1', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
-                    //         {value: '2', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
-                    //     ]
-                    // },
-                    // {
-                    //     value: 'group_strange', text: '陌生人拼团', type: 'btnGroup', default: '0', width: '6',
-                    //     enum: [
-                    //         {value: '0', text: '全 部'},
-                    //         {value: '2', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
-                    //         {value: '1', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
-                    //     ]
-                    // },
-                    // {value: 'product_id', text: '活动ID', placeholder: '活动ID', default: ''},
-                    // {value: 'keyword', text: '关键字', placeholder: '活动标题,管理备注', default: ''},
-                    // {value: 'date_min', text: '开始日期', type: 'date'},
+                    {
+                        value: 'visible', text: '是否显示', type: 'btnGroup', default: '0', width: '6',
+                        enum: [
+                            {value: '0', text: '全部'},
+                            {value: '1', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                            {value: '2', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                        ]
+                    },
+                    {
+                        value: 'group_strange', text: '陌生人拼团', type: 'btnGroup', default: '0', width: '6',
+                        enum: [
+                            {value: '0', text: '全 部'},
+                            {value: '2', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                            {value: '1', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                        ]
+                    },
+                    {value: 'product_id', text: '活动ID', placeholder: '活动ID', default: ''},
+                    {value: 'keyword', text: '关键字', placeholder: '活动标题,管理备注', default: ''},
                 ],
                 preSelectionSearch: {
                     category: [2, 3],

@@ -1,8 +1,13 @@
 <div>
-    <div ng-click="show();" ng-if="url" style="{{widthPx&&('width:'+widthPx) }}">
+    <div ng-click="show();" ng-if="url && url.substring(url.length-4,url.length)!=='.mp3'"
+         style="{{widthPx&&('width:'+widthPx) }}">
         <img class="img-responsive pointer show_image_radius" ng-src="{{url}}" alt="">
     </div>
+    <div ng-if="url && url.substring(url.length-4,url.length)=='.mp3'">
+        <span>MP3文件</span>
+    </div>
     <script type="text/ng-template" id="show.html">
-        <img class="img-responsive center-block show_image_radius" ng-src="{{url}}">
+        <img class="img-responsive center-block show_image_radius" ng-src="{{url}}"
+             ng-if="url.substring(url.length-4,url.length)!=='.mp3'">
     </script>
 </div>

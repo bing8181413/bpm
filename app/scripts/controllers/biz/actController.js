@@ -51,9 +51,10 @@ define([
         }
         $scope.submit = function (status) {
             if ($scope.param.video_url) {
-                var reg = /^(([hH][tT]{2}[pP][sS]:\/\/)+[^\s]*)$/;
-                if (!reg.test($scope.param.video_url)) {
-                    widget.msgToast('视频网址不是以https://开头，或者不是网址！');
+                var reg_https = /^(([hH][tT]{2}[pP][sS]:\/\/)+[^\s]*)$/;
+                var reg_http = /^(([hH][tT]{2}[pP]:\/\/)+[^\s]*)$/;
+                if (!reg_https.test($scope.param.video_url) && !reg_http.test($scope.param.video_url)) {
+                    widget.msgToast('视频或者音频网址不是以https://或者http://开头，或者不是网址！');
                     return false;
                 }
             }

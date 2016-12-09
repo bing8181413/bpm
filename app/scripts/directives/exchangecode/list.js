@@ -24,13 +24,13 @@ define([
                                     '<div form-textarea="" text="兑换码" ng-model="export_data"></div>' +
                                     '</form>';
                                 widget.ajaxRequest({
-                                    url: '/exchangecodes/exports/' + supscope.data.id + '',
+                                    url: '/exchangecodes/' + supscope.data.id + '/exports',
                                     method: 'GET',
                                     scope: $scope,
                                     data: {},
                                     success: function (json) {
                                         $scope.export_list = [];
-                                        angular.forEach(json.list, function (val, key) {
+                                        angular.forEach(json.data, function (val, key) {
                                             $scope.export_list.push(val.code);
                                         });
                                         $scope.export_data = $scope.export_list.join(',');

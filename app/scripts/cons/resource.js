@@ -4,7 +4,7 @@ define([], function () {
             columns: [
                 {name: 'ID', field: 'pic_id', className: 'text-center'},
                 {name: '名称', field: 'name'},
-                {name: '资料图', fieldDirective: '<show_image url="item.pic_url" width="100"></show_image>'},
+                {name: '资源文件', fieldDirective: '<show_image url="item.pic_url" width="100"></show_image>'},
                 {name: 'URL', field: 'pic_url'},
                 {name: '创建时间', field: 'created_at',filter:'null2empty'},
             ],
@@ -32,8 +32,12 @@ define([], function () {
                 ext: {
                     eventBtn: [
                         {
-                            text: '新增资源库',
-                            fieldFirective: '<div add-resource data=""></div>',
+                            text: '新增图片',
+                            fieldFirective: '<div add-resource-image data=""></div>',
+                        },
+                        {
+                            text: '新增音频',
+                            fieldFirective: '<div add-resource-audio data=""></div>',
                         },
                     ]
                 }

@@ -60,16 +60,23 @@
                         <div class="form-group">
                             <div class="form_element">
                                 <label class="col-sm-2 control-label">活动详情地址</label>
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <input class="form-control" ng-model="param.act_detailed_address"
                                            placeholder="活动详情地址">
                                 </div>
-                                <div class="col-sm-1">
-                                    <a class="btn btn-info btn-rounded" ng-click="getlocation()">经纬度搜索</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <div class="col-sm-2">
+                                    <a class="btn btn-info btn-rounded" ng-click="getlocation()">搜索经纬度</a>
                                 </div>
-                                <div class="col-sm-1">
+                                <div class="col-sm-2">
                                     <a class="btn btn-info btn-rounded" ng-click="getlocation();isshowmap=!isshowmap;"
-                                       ng-bind="!isshowmap?'展示地图':'隐藏地图'"></a>
+                                       ng-bind="!isshowmap?'展开地图':'收缩地图'"></a>
+                                </div>
+                                <div class="col-sm-3">
+                                    <a class="btn btn-warning btn-rounded" ng-click="param.longitude=0;param.latitude=0;">隐藏微信页面地图</a>
                                 </div>
                             </div>
                         </div>
@@ -139,7 +146,10 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>活动详情</h4>
-                        <div form-input text="图文详情视频地址" ng-model="param.video_url"></div>
+                        <div form-input text="音频媒体标题" ng-model="param.media_title" placeholder="音频媒体标题,不超过30个字"
+                             minlength="0" maxlength="30"></div>
+                        <div form-input text="视频音频媒体地址" ng-model="param.video_url"
+                             placeholder="音频是http开头;视频是https开头"></div>
                         <div form-radio text="详情类型" ng-model="param.content_type" default="2"
                              source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""></div>
                         <div form-image-content text="图文详情" ng-model="param.contents"
@@ -161,7 +171,8 @@
                         <div form-radio text="是否显示在列表" ng-model="param.visible" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
                         <div form-input text="排序" ng-model="param.order_by" required="true" type="number" min="0"></div>
-                    </div></div>
+                    </div>
+                </div>
 
                 <div form-error-block></div>
                 <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
