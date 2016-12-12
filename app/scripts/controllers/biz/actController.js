@@ -50,6 +50,7 @@ define([
             console.log('$scope.param', $scope.param);
         }
         $scope.submit = function (status) {
+            console.log($scope.param);
             if ($scope.param.video_url) {
                 var reg_https = /^(([hH][tT]{2}[pP][sS]:\/\/)+[^\s]*)$/;
                 var reg_http = /^(([hH][tT]{2}[pP]:\/\/)+[^\s]*)$/;
@@ -78,7 +79,7 @@ define([
                 widget.msgToast('图文详情没有上传');
                 return false;
             }
-            if ($scope.param.content_type == 2 && $scope.param.rich_text == '') {
+            if ($scope.param.content_type == 2 && (!$scope.param.rich_text || $scope.param.rich_text == '')) {
                 widget.msgToast('富文本内容未填写');
                 return false;
             }
