@@ -193,6 +193,11 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
+                    $scope.$watch('ngModel', function (val) {
+                        if ($scope.type == 'number' && $scope.max) {
+                            (val > $scope.max) ? (val = $scope.max) : (angular.noop());
+                        }
+                    });
                     // $scope.$watch('modelVal', function (val) {
                     //     $scope.ngModel = val;
                     // });
@@ -395,29 +400,8 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-                    // $scope.$watch($scope.ngModelText, function (val) {
-                    //     if (typeof val == 'number') {
-                    //         $scope.ngModel = parseFloat(val);
-                    //     } else {
-                    //         $scope.ngModel = val;
-                    //     }
-                    // }, true);
-                    // $scope.$watch('ngModel', function (val) {
-                    //     if (val || val == 0) {
-                    //         if (typeof val == 'number') {
-                    //             $scope.$eval($scope.ngModelText + '=' + parseFloat(val) + '');
-                    //         } else {
-                    //             $scope.$eval($scope.ngModelText + '="' + val + '"');
-                    //         }
-                    //     }
-                    // }, true);
                     $scope.$watch('default', function (val) {
                         $scope.ngModel = val;
-                        // if (typeof val == 'number') {
-                        //     $scope.ngModel = parseFloat(val);
-                        // } else {
-                        //     $scope.ngModel = val;
-                        // }
                     });
                 }
             }
@@ -467,6 +451,7 @@ define([
                         $compile($element.contents())($scope);
                         if ($scope.$parent.FormBody) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                            // console.log($scope.$parent.FormBody);
                         }
                     }, 0);
                     $scope.$watch($scope.ngModelText, function (val) {

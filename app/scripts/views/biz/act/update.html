@@ -1,13 +1,7 @@
 <div class="dashboard-page ">
-    <!--<style type="text/css">-->
-    <!--input.ng-dirty.ng-invalid, textarea.ng-dirty.ng-invalid {-->
-    <!--border: 1px solid red;-->
-    <!--}-->
-    <!--</style>-->
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title" ng-if="!$stateParams.product_id">新增活动</h3>
-            <!--<h3 class="panel-title" ng-if="$stateParams.product_id">修改活动</h3>-->
             <h3 class="panel-title" show-role="'admin,op'" ng-if="$stateParams.product_id">修改活动</h3>
             <h3 class="panel-title" show-role="'!admin,op'" ng-if="$stateParams.product_id">活动详情</h3>
         </div>
@@ -24,12 +18,42 @@
                              minlength="1" maxlength="30"></div>
                         <div form-input text="活动简介" ng-model="param.brief" placeholder="不超过50个字" minlength="1"
                              maxlength="50"></div>
-                        <div form-radio text="活动类别" ng-model="param.act_type" required="true" default="亲子"
-                             source="[{text:'亲子',value:'亲子'},{text:'DIY',value:'DIY'},{text:'展览',value:'展览'},
-                             {text:'运动',value:'运动'},{text:'周边／户外',value:'周边／户外'},{text:'演出／赛事',value:'演出／赛事'},
-                             {text:'多人聚会',value:'多人聚会'},{text:'微课',value:'微课'},{text:'主题节／市集',value:'主题节／市集'}
-                             ,{text:'鲜花',value:'鲜花'}]"
+                        <div form-radio text="活动类别" ng-model="param.act_type" required="true" default="游学"
+                             source="[{text:'游学',value:'游学'},{text:'DIY',value:'DIY'},{text:'外语',value:'外语'},
+                             {text:'才艺',value:'才艺'},{text:'摄影',value:'摄影'},{text:'乐园',value:'乐园'},
+                             {text:'微课',value:'微课'},{text:'运动',value:'运动'},{text:'科技创意',value:'科技创意'}
+                             ,{text:'其他',value:'其他'}]"
                              source-api=""></div>
+                        <div form-checkbox text="课程分类" ng-model="course_category" required="true" default="'德'"
+                             source="[{text:'德',value:'1'},{text:'智',value:'2'},{text:'体',value:'3'},{text:'美',value:'4'},
+                             {text:'劳',value:'5'}]" source-api=""></div>
+
+                        <div form-input text="最小年龄" ng-model="param.act_min_age" type="number" min="0"></div>
+                        <div form-input text="最大年龄" ng-model="param.act_max_age" type="number" min="0"></div>
+                        <!--<div form-input text="活动益处" ng-model="param.act_benefit" placeholder="不超过20个字"-->
+                             <!--minlength="1" maxlength="20"></div>-->
+                        <div form-radio text="会员购买优惠" ng-model="param.vip_promotion_type" default="1"
+                             source="[{text:'打折',value:'1'},{text:'无优惠',value:'3'}]"></div>
+                        <div class="form-group"
+                             ng-show="param.vip_promotion_type == 1 || param.vip_promotion_type == 2">
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">设置折扣或者减额&nbsp;&nbsp;</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control text-right" ng-model="vip_discount"
+                                           ng-blur="reset_vip_discount()"
+                                           placeholder="请填写数字">
+                                </div>
+                                <span class="col-sm-1 control-label" style="text-align: left;"
+                                      ng-show="param.vip_promotion_type == 1">%</span>
+                            </div>
+                        </div>
+                        <!--<div form-input text="设置减额" ng-model="param.per_buy_count"-->
+                        <!--required="true" ng-show="param.vip_promotion_type == 2"></div>-->
+                        <div form-radio text="是否在日历中显示" ng-model="param.show_in_calendar" default="1"
+                             source="[{text:'显示',value:'1'},{text:'不显示',value:'2'}]" required="true"></div>
+                        <div form-radio text="是否限制仅会员可购买" ng-model="param.vip_buy" default="1"
+                             source="[{text:'仅会员',value:'1'},{text:'不限制',value:'2'}]" required="true"></div>
+
                         <div form-input text="单次限购份数" ng-model="param.order_count_max" type="number"
                              min="1" required="true"></div>
                         <div form-input text="单人限购份数" ng-model="param.per_buy_count" type="number"
@@ -53,19 +77,9 @@
                              {'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2'},
                              {'name': '库存', 'field': 'option_inventory'}]"></div>
                         <div form-input text="活动地点" ng-model="param.act_address" placeholder="例如:永达国际大厦"></div>
-                        <!--<div form-input text="详细地址" ng-model="param.act_detailed_address"-->
-                        <!--placeholder="例如:上海市浦东新区龙阳路2277号"></div>-->
                         <div form-radio text="城市" ng-model="city_name" default="上海"
                              source="[{text:'上海',value:'上海'}]" show-env="wwwwwwwww"></div>
-                        <div class="form-group">
-                            <div class="form_element">
-                                <label class="col-sm-2 control-label">活动详情地址</label>
-                                <div class="col-sm-8">
-                                    <input class="form-control" ng-model="param.act_detailed_address"
-                                           placeholder="活动详情地址">
-                                </div>
-                            </div>
-                        </div>
+                        <div form-input text="活动详情地址" ng-model="param.act_detailed_address" placeholder="活动详情地址"></div>
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="col-sm-2">
@@ -76,7 +90,8 @@
                                        ng-bind="!isshowmap?'展开地图':'收缩地图'"></a>
                                 </div>
                                 <div class="col-sm-3">
-                                    <a class="btn btn-warning btn-rounded" ng-click="param.longitude=0;param.latitude=0;">隐藏微信页面地图</a>
+                                    <a class="btn btn-warning btn-rounded"
+                                       ng-click="param.longitude=0;param.latitude=0;">隐藏微信页面地图</a>
                                 </div>
                             </div>
                         </div>
@@ -170,15 +185,13 @@
                         <div form-textarea text="管理备注" ng-model="param.admin_remark" required="true"></div>
                         <div form-radio text="是否显示在列表" ng-model="param.visible" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
-                        <div form-input text="排序" ng-model="param.order_by" required="true" type="number" min="0"></div>
+                        <div form-input text="排序" ng-model="param.order_by" type="number" min="0"></div>
                     </div>
                 </div>
 
                 <div form-error-block></div>
                 <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
                    ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
-                <!--<a class="btn btn-warning btn-rounded" ng-click="aaa()">查看提交数据</a>-->
-                <!--ng-if="'admin,op'.indexOf(hjm.role)>-1"-->
             </form>
         </div>
     </div>

@@ -24,7 +24,26 @@ define([
                                 "": {
                                     // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'user/list.html');
+                                        return '<div hjm-grid modid="userList" config="config" columns="columns"></div>';
+                                        // return $templateCache.get('app/' + cons.biz_path + 'user/list.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.vipuser', {
+                            url: "/vipuser",
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.main_path + 'container.html');
+                            }
+                        })
+                        .state(cons.state.main + '.vipuser.list', {
+                            url: "/list",
+                            views: {
+                                "": {
+                                    // controller: 'accountController'
+                                    templateProvider: function ($templateCache) {
+                                        return '<div hjm-grid modid="vipUserList" config="config" columns="columns"></div>';
+                                        // return $templateCache.get('app/' + cons.biz_path + 'vipuser/list.html');
                                     }
                                 }
                             }

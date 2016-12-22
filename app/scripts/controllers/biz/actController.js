@@ -18,6 +18,12 @@ define([
                     $rootScope.hjm.act = {product_id: $stateParams.product_id};
                     $scope.param = angular.copy(json.data);
                     $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600);
+                    $scope.course_category = $scope.param.course_category.split(',') || [];
+                    if ($scope.param.vip_promotion_type == '1') {
+                        $scope.vip_discount = comfunc.numMulti($scope.param.vip_discount, 100);
+                    } else {
+                        $scope.vip_discount = $scope.param.vip_discount;
+                    }
                 }
             })
         }
@@ -45,12 +51,44 @@ define([
                 $scope.param.frequency_num = 0;
             }
         });
-
-        $scope.aaa = function () {
-            console.log('$scope.param', $scope.param);
+        $scope.reset_vip_discount = function () {
+            val = $scope.vip_discount;
+            if ($scope.param && $scope.param.vip_promotion_type == '1') {
+                val = parseInt(val);
+                $scope.vip_discount = (val >= 100) ? 99 : (val <= 0 ? 1 : val);
+            } else if ($scope.param && $scope.param.vip_promotion_type == '2') {
+                val = parseFloat(val);
+                if (val.toString().split('.').length == 2) {
+                    $scope.vip_discount = val.toFixed(1);
+                } else {
+                    $scope.vip_discount = parseInt(val);
+                }
+            }
         }
+        $scope.$watch('param.vip_promotion_type', function (val) {
+            $scope.reset_vip_discount();
+        });
+        // 只能选择三个
+        $scope.$watch('course_category', function (val, oldVal) {
+            if (val && val.length > 3) {
+                widget.msgToast('Sorry,最多选择三项');
+                $scope.course_category = oldVal;
+            }
+            if (val) {
+                $scope.param.course_category = $scope.course_category.join(',');
+            } else {
+                $scope.param && ($scope.param.course_category = '');
+            }
+        }, true);
+
         $scope.submit = function (status) {
-            console.log($scope.param);
+            // console.log($scope.param);
+            if ($scope.param.vip_promotion_type == '1') {
+                $scope.param.vip_discount = comfunc.numDiv($scope.vip_discount, 100);
+            } else if ($scope.param.vip_promotion_type == '2') {
+                $scope.param.vip_discount = $scope.vip_discount;
+            }
+
             if ($scope.param.video_url) {
                 var reg_https = /^(([hH][tT]{2}[pP][sS]:\/\/)+[^\s]*)$/;
                 var reg_http = /^(([hH][tT]{2}[pP]:\/\/)+[^\s]*)$/;
@@ -102,6 +140,15 @@ define([
                 $scope.param.status = status;
             } else {
                 $scope.param.status = 1;
+            }
+            if (!$scope.param.order_by) {
+                $scope.param.order_by = 0;
+            }
+            if (!$scope.param.act_min_age) {
+                $scope.param.act_min_age = 0;
+            }
+            if (!$scope.param.act_max_age) {
+                $scope.param.act_max_age = 0;
             }
             widget.ajaxRequest({
                 url: '/products' + ($stateParams.product_id ? ('/' + $stateParams.product_id) : ''),

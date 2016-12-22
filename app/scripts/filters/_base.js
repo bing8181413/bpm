@@ -542,5 +542,12 @@ define([
                 return result;
             }
         }])
+        //  course_category  活动的课程分类 course_category eg. "1,2,3"
+        .filter('course_category', [function () {
+            return function (val) {
+                var result = val.replace(/,/g, '').replace('1', '德').replace('2', '智').replace('3', '体').replace('4', '美').replace('5', '劳');
+                return result;
+            }
+        }])
     ;
 });

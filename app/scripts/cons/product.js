@@ -103,6 +103,8 @@ define([], function () {
                 {name: 'ID', field: 'product_id', className: 'text-center'},
                 {name: '排序', field: 'order_by'},
                 {name: '活动类型', field: 'category', filter: 'product_category'},
+                {name: '活动类别', field: 'act_type'},
+                {name: '课程<br/>分类', field: 'course_category', filter: 'course_category'},
                 {name: '标题', field: 'title'},
                 {
                     name: '报名时间',
@@ -177,33 +179,6 @@ define([], function () {
                 ],
                 searchSupport: true,
                 searchItems: [
-                    {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
-                        type: 'btnGroupArray2',
-                        value: 'flag1',
-                        text: '活动类别',
-                        default: 0, //有enum_text时 enumde index 的值
-                        width: '6',
-                        enum_text: 'category',
-                        enum: [
-                            {value: [2, 3], text: '全部'},
-                            {value: [3], text: '直接买'},
-                            {value: [2], text: '人数团'},
-                        ]
-                    },
-                    {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
-                        type: 'btnGroupArray',
-                        value: 'flag2',
-                        text: '活动状态',
-                        default: 1, //有enum_text时 enumde index 的值
-                        width: '6',
-                        enum_text: ['status', 'available_type'],//  有  enum_text 说明是数组
-                        enum: [
-                            {value: ['', ''], text: '全部'},
-                            {value: ['1', '1'], text: '正在进行'},
-                            {value: ['3', ''], text: '已下线'},
-                            {value: ['1', '2'], text: '待上线'},
-                        ]
-                    },
                     {
                         value: 'visible', text: '是否显示', type: 'btnGroup', default: '0', width: '6',
                         enum: [
@@ -218,6 +193,37 @@ define([], function () {
                             {value: '0', text: '全 部'},
                             {value: '2', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
                             {value: '1', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                        ]
+                    },
+                    {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
+                        type: 'btnGroupArray2',
+                        value: 'flag1',
+                        text: '活动类别',
+                        default: 0, //有enum_text时 enumde index 的值
+                        width: '6',
+                        enum_text: 'category',
+                        enum: [
+                            {value: [2, 3], text: '全部'},
+                            {value: [3], text: '直接买'},
+                            {value: [2], text: '人数团'},
+                        ]
+                    },
+                    {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
+                        // process_type  1 即将开始  2 进行中 3 已结束
+                        type: 'btnGroupArray',
+                        value: 'flag2',
+                        text: '活动状态',
+                        default: 1, //有enum_text时 enumde index 的值
+                        width: '12',
+                        enum_text: ['status', 'available_type', 'process_type'],//  有  enum_text 说明是数组
+                        enum: [
+                            {value: ['', '', ''], text: '全部'},
+                            // {value: ['1', '1', '1'], text: '正在进行'},
+                            {value: ['1', '1', '2'], text: '进行中'},
+                            {value: ['1', '1', '1'], text: '即将开始'},
+                            {value: ['1', '1', '3'], text: '已结束'},
+                            {value: ['3', '', ''], text: '已下线'},
+                            {value: ['1', '2', ''], text: '待上线'},
                         ]
                     },
                     {value: 'product_id', text: '活动ID', placeholder: '活动ID', default: ''},
