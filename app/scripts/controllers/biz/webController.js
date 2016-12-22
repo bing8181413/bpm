@@ -5,8 +5,8 @@ define([
 ], function (mod, con) {
     mod.controller('web.updateController', updateController)
 
-    updateController.$injector = ['$scope', '$timeout'];
-    function updateController($scope, $timeout) {
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter','$timeout'];
+    function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter,$timeout) {
         $scope.param = {};
         $timeout(function () {
             // $scope.param = {url: 'https://m.huijiame.com/produnct/detail?product_id=10000'};
@@ -16,15 +16,25 @@ define([
         $scope.$watch('param', function (val) {
             if (!!val.url && !!val.utm_source) {
                 var tmp = val.url.indexOf('?') > 0 ? '&' : '?';
-                $scope.web_url = encodeURI(val.url + tmp +
-                    // 'channel=' + val.utm_source + '_' + val.utm_medium +
-                    // (val.utm_campaign ? ('_' + val.utm_campaign) : '') +
+                $scope.param.full_url = encodeURI(val.url + tmp +
                     'utm_source=' + val.utm_source +
                     '&utm_medium=' + (val.utm_medium || '') +
                     '&utm_campaign=' + (val.utm_campaign || ''));
             } else {
-                $scope.web_url = ' ';
+                $scope.param.full_url = ' ';
             }
         }, true);
+        $scope.submit = function (status) {
+            widget.ajaxRequest({
+                url: '/markets/urls',
+                method: 'POST',
+                scope: $scope,
+                data: $scope.param,
+                success: function (json) {
+                    widget.msgToast('保存成功！');
+                    // $state.go(con.state.main + '.web.list');
+                }
+            })
+        }
     };
 });

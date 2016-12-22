@@ -17,6 +17,7 @@ define([
     './subject',
     './resource',
     './wechat',
+    './web',
     // './subject_group',
 ], function () {
     // console.log(arguments);

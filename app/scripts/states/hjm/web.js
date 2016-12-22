@@ -18,6 +18,16 @@ define([
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
+                        .state(cons.state.main + '.web.list', {
+                            url: "/list",
+                            views: {
+                                "": {
+                                    templateProvider: function ($templateCache) {
+                                        return '<div hjm-grid modid="webList" config="config" columns="columns"></div>';
+                                    }
+                                }
+                            }
+                        })
                         .state(cons.state.main + '.web.add', {
                             url: "/add",
                             views: {
