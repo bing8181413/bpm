@@ -102,9 +102,15 @@ define([], function () {
             act_columns: [
                 {name: 'ID', field: 'product_id', className: 'text-center'},
                 {name: '排序', field: 'order_by'},
-                {name: '活动类型', field: 'category', filter: 'product_category'},
-                {name: '活动类别', field: 'act_type'},
-                {name: '课程<br/>分类', field: 'course_category', filter: 'course_category'},
+                // {name: '活动类型', field: 'category', filter: 'product_category'},
+                // {name: '活动类别', field: 'act_type'},
+                // {name: '课程分类', field: 'course_category', filter: 'course_category'},
+                {
+                    name: '活动信息',
+                    fieldDirective: '<p>活动类型:<br/><span ng-bind="item.category|product_category"></span>' +
+                    '<br/><br/>活动类别:<br/><span ng-bind="item.act_type"></span>' +
+                    '<br/><br/>课程分类:<br/><span ng-bind="item.course_category|course_category"></span></p>'
+                },
                 {name: '标题', field: 'title'},
                 {
                     name: '报名时间',

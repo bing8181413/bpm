@@ -17,7 +17,7 @@ define([
                         var modalInstance = $modal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                             controller: function ($scope, $modalInstance) {
-                                $scope.title = '导出数据';
+                                $scope.title = supscope.data.desc||'导出数据';
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<style type="text/css"> .modal .checkbox-inline{margin-left: 0;}' +
                                     '.modal .checkbox-inline{padding-left: 0;}</style>';
