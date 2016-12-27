@@ -1,6 +1,6 @@
 define(['./services', '../cons/simpleCons'], function (mod, cons) {
     mod
-        .factory('comfunc', function ($q, $state, $compile, $location, $rootScope,$log) {
+        .factory('comfunc', function ($q, $state, $compile, $location, $rootScope, $log) {
             var comfunc = {
                 isEmptyArray: function (arr) {
                     if (angular.isArray(arr)) {
@@ -9,6 +9,18 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                         $log.error(arr + ' 不是一个数组');
                         return true;
                     }
+                },
+                hasEmptyFieldArray: function (_arr) {
+                    var flag = false;
+                    angular.forEach(_arr, function (val, key) {
+                        angular.forEach(val, function (v, k) {
+                            if (v !== 0 && (!v || v == '')) {
+                                console.log(k, v);
+                                flag = true;
+                            }
+                        })
+                    });
+                    return flag;
                 },
                 //  乘法
                 numMulti: function (num1, num2) {

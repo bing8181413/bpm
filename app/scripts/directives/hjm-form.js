@@ -517,7 +517,7 @@ define([
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
                             // $scope.token ?
-                            '<show-upload-token images="ngModel" ' + name + max + required + disabledRole + token + '></show-upload-token>';
+                            '<show-upload-token images="ngModel"   ' + name + max + required + disabledRole + token + '></show-upload-token>';
                         // '<show-upload-token images="' + $scope.ngModelText + '" ' + name + max + required + disabledRole + token + '></show-upload-token>';
                         // :'<show-upload images="' + $scope.ngModelText + '" ' + name + max + required + disabledRole + '></show-upload>';
                         // '<show-upload images="image" ' + name + max + required + disabledRole + '></show-upload>';
@@ -535,25 +535,12 @@ define([
                         }
                     }, 0);
 
-                    // $scope.$watch($scope.ngModelText, function (modelNew) {
-                    //     var err = false;
-                    //     angular.forEach(modelNew, function (val, key) {
-                    //         if (!val.pic_url || !val.pic_width || !val.pic_height) {
-                    //             err = true;
-                    //         }
-                    //     });
-                    //     $scope.ngModel = err ? [] : modelNew;
-                    // }, true);
-                    //
                     // $scope.$watch('ngModel', function (val) {
-                    //     // console.log(val);
-                    //     if (val) {
-                    //         $scope.image = val;
-                    //         $scope.$eval($scope.ngModelText + '=' + JSON.stringify(val));
-                    //     } else {
-                    //         $scope.image = [];
-                    //         $scope.$eval($scope.ngModelText + '=' + JSON.stringify([]));
+                    //     // 简单区分数据是否填写 要是length 为0 就置为undefined 这样require就起作用了
+                    //     if (val && val.length == 0) {
+                    //         $scope.ngModel = undefined;
                     //     }
+                    //     console.log($scope.$parent.FormBody);
                     // }, true);
                 }
             }
@@ -789,7 +776,7 @@ define([
                     config: '=?config',
                     text: '@',
                     name: '@',
-                    required: '@',
+                    required: '=',
                     max: '@',
                     callback: '&',
                     ngDisabled: '='
@@ -821,26 +808,22 @@ define([
                                 required + max + disabledRole + '></json-table>';
 
                         }
+                        // content += '<input class="hide" ng-model="ngModel"' + name + required + '>' ;
                         content += '</div>';
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
+                        // console.log($scope.$parent.FormBody[$scope.ngModelText]);
                         if ($scope.$parent.FormBody) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-
-                    // $scope.$watch($scope.ngModelText, function (modelNew) {
-                    //     // console.log(modelNew);
-                    //     $scope.ngModel = modelNew || undefined;
-                    // }, true);
-                    //
-                    // $scope.$watch('ngModel', function (val) {
-                    //     // console.log(val);
-                    //     if (val) {
-                    //         $scope.$eval($scope.ngModelText + '=' + JSON.stringify(val));
-                    //     }
-                    // }, true);
+                    $scope.$watch('ngModel', function (val) {
+                        // 简单区分数据是否填写 要是length 为0 就置为undefined 这样require就起作用了
+                        if (val && val.length == 0) {
+                            $scope.ngModel = undefined;
+                        }
+                    }, true);
 
                 }
             }

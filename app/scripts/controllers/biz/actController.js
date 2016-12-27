@@ -24,6 +24,14 @@ define([
                     } else {
                         $scope.vip_discount = $scope.param.vip_discount;
                     }
+                    // //  API给的正确就不需要这一段了  暂时的
+                    // var options = [];
+                    // angular.forEach($scope.param.options, function (val, key) {
+                    //     if (val.option_type == 1) {
+                    //         options.push(val);
+                    //     }
+                    // })
+                    // $scope.param.options = options;
                 }
             })
         }
@@ -149,6 +157,31 @@ define([
             }
             if (!$scope.param.act_max_age) {
                 $scope.param.act_max_age = 0;
+            }
+            if ($scope.param.category == '4') {
+                if (!$scope.param.options
+                    || $scope.param.options && $scope.param.options.length == 0
+                    || !$scope.param.groupbuy_options
+                    || $scope.param.groupbuy_options && $scope.param.groupbuy_options.length == 0) {
+                    widget.msgToast('sorry!直接买or人数团de活动类目为空');
+                    return false;
+                } else {
+                    console.log($scope.param.options, $scope.param.groupbuy_options);
+                    if (comfunc.hasEmptyFieldArray($scope.param.options) || comfunc.hasEmptyFieldArray($scope.param.groupbuy_options)) {
+                        widget.msgToast('sorry!直接买or人数团de活动类目有空值');
+                        return false;
+                    }
+                }
+            } else if ($scope.param.category != '4') {
+                if (!$scope.param.options || $scope.param.options && $scope.param.options.length == 0) {
+                    widget.msgToast('sorry!活动类目为空');
+                    return false;
+                } else {
+                    if (comfunc.hasEmptyFieldArray($scope.param.options)) {
+                        widget.msgToast('sorry!活动类目有空值');
+                        return false;
+                    }
+                }
             }
             widget.ajaxRequest({
                 url: '/products' + ($stateParams.product_id ? ('/' + $stateParams.product_id) : ''),

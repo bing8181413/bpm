@@ -30,8 +30,8 @@
 
                         <div form-input text="最小年龄" ng-model="param.act_min_age" type="number" min="0"></div>
                         <div form-input text="最大年龄" ng-model="param.act_max_age" type="number" min="0"></div>
-                        <!--<div form-input text="活动益处" ng-model="param.act_benefit" placeholder="不超过20个字"-->
-                             <!--minlength="1" maxlength="20"></div>-->
+                        <div form-input text="活动益处" ng-model="param.act_benefit" placeholder="不超过20个字"
+                             minlength="1" maxlength="20"></div>
                         <div form-radio text="会员购买优惠" ng-model="param.vip_promotion_type" default="1"
                              source="[{text:'打折',value:'1'},{text:'无优惠',value:'3'}]"></div>
                         <div class="form-group"
@@ -71,11 +71,6 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>活动规则</h4>
-                        <div form-table text="活动类目" ng-model="param.options" required="true" max="1"
-                             columns="[{'name': 'ID', 'field': 'option_id',disabled:'true'},
-                             {'name': '类目', 'field': 'option_name'},
-                             {'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2'},
-                             {'name': '库存', 'field': 'option_inventory'}]"></div>
                         <div form-input text="活动地点" ng-model="param.act_address" placeholder="例如:永达国际大厦"></div>
                         <div form-radio text="城市" ng-model="city_name" default="上海"
                              source="[{text:'上海',value:'上海'}]" show-env="wwwwwwwww"></div>
@@ -120,9 +115,26 @@
                         <!--source="[{text:'众筹',value:'3'},{text:'一起玩',value:'4'}]"-->
                         <!--source-api=""></div>-->
                         <div form-radio text="拼团类型" type="radio" ng-model="param.category" required="true" default="2"
-                             source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'}]"
-                             ng-disabled="$stateParams.product_id"
+                             source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'},{text:'直接买+人数团',value:'4'}]"
                              source-api=""></div>
+                        <div form-table text="活动类目" ng-model="param.options" max="1"
+                             ng-show="param.category!=4"
+                             columns="[{'name': 'ID', 'field': 'option_id',disabled:'true'},
+                             {'name': '类目', 'field': 'option_name'},
+                             {'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2'},
+                             {'name': '库存', 'field': 'option_inventory'}]"></div>
+                        <div form-table text="直接买活动类目" ng-model="param.options" max="1"
+                             ng-show="param.category==4"
+                             columns="[{'name': 'ID', 'field': 'option_id',disabled:'true'},
+                             {'name': '类目', 'field': 'option_name'},
+                             {'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2'},
+                             {'name': '库存', 'field': 'option_inventory'}]"></div>
+                        <div form-table text="人数团活动类目" ng-model="param.groupbuy_options" max="1"
+                             ng-show="param.category==4"
+                             columns="[{'name': 'ID', 'field': 'option_id',disabled:'true'},
+                             {'name': '类目', 'field': 'option_name'},
+                             {'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2'},
+                             {'name': '库存', 'field': 'option_inventory'}]"></div>
                         <div form-radio text="是否支持陌生人拼团" type="radio" ng-model="param.group_strange" required="true"
                              default="2" source="[{text:'是',value:'2'},{text:'否',value:'1'}]"
                              ng-show="param.category==2" source-api=""></div>
