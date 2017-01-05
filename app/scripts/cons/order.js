@@ -29,6 +29,11 @@ define([], function () {
                     field: 'order_price'
                 },
                 {name: '使用<br/>优惠券', field: 'coupon_price'},
+                {
+                    name: '会员<br/>折扣',
+                    fieldDirective: '<span ng-bind="item.vip_discount" ng-show="item.is_vip==1"></span>' +
+                    '<br/><span ng-show="item.is_vip==2">无折扣</span>'
+                },
                 {name: '订单时间', field: 'order_time'},
                 // {
                 //     name: '返现金额',
@@ -102,10 +107,10 @@ define([], function () {
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
             },
-            columns_by_act: [
+            columns_by_act_all: [
                 {name: 'ID', field: 'order_id', className: 'text-right'},
                 {name: '订单号', field: 'order_no'},
-                {name: '订单类型', field: 'order_type',filter:'product_category'},
+                {name: '订单类型', field: 'order_type', filter: 'product_category'},
                 {
                     name: '活动信息',
                     fieldDirective: '<span ng-bind="\'ID:\'+item.product.product_id"></span>' +
@@ -114,6 +119,50 @@ define([], function () {
                     '<br/>活动开始时间:<br/><span ng-bind="item.product.start_time"></span>' +
                     '<br/>报名截止时间:<br/><span ng-bind="item.product.end_time"></span>'
                 },
+                {
+                    name: '活动类目',
+                    fieldDirective: '<span ng-bind="item.option_name +\':\'" ng-if="item.option_name"></span>' +
+                    '<span ng-bind="item.option_price"></span>'
+                },
+                {
+                    name: '用户信息',
+                    fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 7 : false"' +
+                    ' tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
+                    '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
+                    '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 5 : false" ' +
+                    ' tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>'
+                },
+                {
+                    name: '订单详情',
+                    fieldDirective: '<span ng-bind="\'份数:\'+item.order_count"></span>' +
+                    '<br/>金额<br/><span ng-bind="item.order_price"></span>'
+                },
+                {name: '使用<br/>优惠券', field: 'coupon_price'},
+                {
+                    name: '会员<br/>折扣',
+                    fieldDirective: '<span ng-bind="item.vip_discount" ng-show="item.is_vip==1"></span>' +
+                    '<br/><span ng-show="item.is_vip==2">无折扣</span>'
+                },
+                {name: '下单时间', field: 'order_time'},
+                {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
+                {
+                    name: '管理备注', field: 'remark', truncateText: true,
+                    truncateTextLength: 5,
+                    truncateTextBreakOnWord: false,
+                    tooltip: 'remark',
+                    tooltipPlacement: 'bottom',
+                },
+                {
+                    name: '操作',
+                    fieldDirective: '<div order-cancel data="item"></div>' +
+                    '<div order-change-address-of-act data="item"></div>' +
+                    '<div order-change-remark data="item"></div>'
+                },
+            ],
+            columns_by_act: [
+                {name: 'ID', field: 'order_id', className: 'text-right'},
+                {name: '订单号', field: 'order_no'},
+                {name: '订单类型', field: 'order_type', filter: 'product_category'},
                 {
                     name: '活动类目',
                     fieldDirective: '<span ng-bind="item.option_name +\':\'" ng-if="item.option_name"></span>' +

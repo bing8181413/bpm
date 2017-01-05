@@ -31,7 +31,7 @@
                         <div form-input text="最小年龄" ng-model="param.act_min_age" type="number" min="0"></div>
                         <div form-input text="最大年龄" ng-model="param.act_max_age" type="number" min="0"></div>
                         <div form-input text="活动益处" ng-model="param.act_benefit" placeholder="不超过20个字"
-                             minlength="1" maxlength="20"></div>
+                             minlength="1" maxlength="14"></div>
                         <div form-radio text="会员购买优惠" ng-model="param.vip_promotion_type" default="1"
                              source="[{text:'打折',value:'1'},{text:'无优惠',value:'3'}]"></div>
                         <div class="form-group"
@@ -116,7 +116,7 @@
                         <!--source-api=""></div>-->
                         <div form-radio text="拼团类型" type="radio" ng-model="param.category" required="true" default="2"
                              source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'},{text:'直接买+人数团',value:'4'}]"
-                             source-api=""></div>
+                             source-api="" ng-disabled="$stateParams.product_id"></div>
                         <div form-table text="活动类目" ng-model="param.options" max="1"
                              ng-show="param.category!=4"
                              columns="[{'name': 'ID', 'field': 'option_id',disabled:'true'},
@@ -137,19 +137,19 @@
                              {'name': '库存', 'field': 'option_inventory'}]"></div>
                         <div form-radio text="是否支持陌生人拼团" type="radio" ng-model="param.group_strange" required="true"
                              default="2" source="[{text:'是',value:'2'},{text:'否',value:'1'}]"
-                             ng-show="param.category==2" source-api=""></div>
+                             ng-show="param.category!=3" source-api=""></div>
 
                         <!--<div form-input text="目标金额" ng-model="param.act_goal_price" required="true" min="0"-->
                         <!--max="options_goal_price" type="number"></div>-->
 
                         <div form-input text="玩法说明标题" ng-model="param.play_subject" placeholder="玩法说明标题"
-                             ng-show="param.category==2"></div>
+                             ng-show="param.category!=3"></div>
                         <div form-textarea text="玩法说明内容" ng-model="param.play_introduction"
-                             placeholder="玩法说明内容" ng-show="param.category==2"></div>
+                             placeholder="玩法说明内容" ng-show="param.category!=3"></div>
                         <div form-input text="拼团人数" ng-model="param.group_min_num" min="0"
-                             type="number" ng-show="param.category==2"></div>
+                             type="number" ng-show="param.category!=3"></div>
                         <div form-input text="拼团有效时间(小时)" ng-model="hours" min="0" type="number"
-                             placeholder="单位:小时" ng-show="param.category==2"></div>
+                             placeholder="单位:小时" ng-show="param.category!=3"></div>
 
                         <div form-checkbox text="覆盖城市" ng-model="param.visible_cities" required="true"
                              source="[{text:'上海市',value:'上海市'},{text:'南京市',value:'南京市'},

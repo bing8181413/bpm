@@ -322,7 +322,7 @@ define([
                                 }
                             })
                         })
-                        console.log($scope.currentSearchItems);
+                        // console.log($scope.currentSearchItems);
                     }
                     $scope.$watchCollection('[columns,config,modid]', function (gridDef) {
                             //这里初始化 执行一次 以后不会执行

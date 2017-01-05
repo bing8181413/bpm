@@ -81,5 +81,63 @@ define([
                 }
             }
         })
+        .directive('groupbuyChange', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-rounded btn-sm btn-warning" ng-click="show_groupbuy_change()" ng-disabled="data.accomplish_status != 2">修改成团人数结束时间</a>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_groupbuy_change = function () {
+                        var modalInstance = $modal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $modalInstance) {
+                                    $scope.title = '修改成团人数结束时间';
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
+                                        ' disabled-role="\'admin,op\'" >' +
+                                        '<div form-input text="ID" ng-model="param.groupbuy_id" ng-disabled="true"></div>' +
+                                        '<div form-date-time text="拼团结束时间" ng-model="param.group_end_time"></div>' +
+                                        '<div form-input text="拼团人数" ng-model="param.group_min_num"></div>' +
+                                        '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
+                                        '</form>';
+                                    $timeout(function () {
+                                        $scope.param = supscope.data;
+                                        // console.log($scope.param);
+                                    }, 0);
+                                    $scope.submit = function () {
+                                        // console.log($scope);
+                                        if (!confirm('确认要修改成团人数结束时间吗?')) {
+                                            return false;
+                                        }
+                                        var paramJson = {
+                                            "groupbuy_id": $scope.param.groupbuy_id,
+                                            "group_end_time": $scope.param.group_end_time,
+                                            "group_min_num": $scope.param.group_min_num
+                                        };
+                                        widget.ajaxRequest({
+                                            url: '/groupbuys',
+                                            method: 'PUT',
+                                            scope: $scope,
+                                            data: paramJson,
+                                            success: function (json) {
+                                                widget.msgToast('修改成团人数结束时间成功!');
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                    $scope.cancel = function () {
+                                        $modalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'lg'
+                            }
+                        );
+                    }
+                }
+            }
+        })
 
 });

@@ -38,7 +38,7 @@ define([
                             views: {
                                 "": {
                                     templateProvider: function ($templateCache) {
-                                        return '<div hjm-grid modid="orderList" config="config_by_act" columns="columns_by_act"></div>';
+                                        return '<div hjm-grid modid="orderList" config="config_by_act" columns="columns_by_act_all"></div>';
                                     }
                                 }
                             }

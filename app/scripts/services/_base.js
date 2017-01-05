@@ -9,7 +9,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 $document.bind("keyup", function (event) {
                     // console.log(document.activeElement.tagName);
                     var tagName = document.activeElement.tagName == 'BODY' || document.activeElement.tagName == 'A';
-                    if (tagName && $rootScope.hjm.role == 'admin') {
+                    if (tagName && $rootScope.hjm && $rootScope.hjm.role == 'admin') {
                         // console.log(event.keyCode);
                         switch (event.keyCode) {
                             case 84:// t uan

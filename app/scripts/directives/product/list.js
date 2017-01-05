@@ -35,13 +35,13 @@ define([
                     // console.log($scope.data);
                     // console.log(1);
                     if ($scope.data && $scope.data.category == 1) {
-                        $scope.txt = '砍价团';
-                        $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.data.group_seconds) + '小时';
-                        $scope.txt += '<br/>起始价:' + $scope.data.high_price;
-                        $scope.txt += '<br/>底价:' + $scope.data.bottom_price;
-                        $scope.txt += '<br/>单人返现:' + $scope.data.per_cut_amount;
-                    } else if ($scope.data && $scope.data.category == 2) {
-                        $scope.txt = '人数团';
+                        // $scope.txt = '砍价团';
+                        // $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.data.group_seconds) + '小时';
+                        // $scope.txt += '<br/>起始价:' + $scope.data.high_price;
+                        // $scope.txt += '<br/>底价:' + $scope.data.bottom_price;
+                        // $scope.txt += '<br/>单人返现:' + $scope.data.per_cut_amount;
+                    } else if ($scope.data && ($scope.data.category == 2 || $scope.data.category == 4)) {
+                        $scope.txt = ($scope.data.category == 2) ? '人数团' : ($scope.data.category == 4 ? '人数团+直接买' : '');
                         $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.data.group_seconds) + '小时';
                         $scope.txt += '<br/>人数:' + $scope.data.group_min_num;
                         $scope.txt += '<br/>单价:' + $scope.data.price;

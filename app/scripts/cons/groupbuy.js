@@ -19,7 +19,7 @@ define([], function () {
                 {name: '团订单数', fieldDirective: '<div groupbuy-order-copies data="item"></div>'},
                 // {name: '成功购买份数', field: 'order.copies'},
                 // {name: '团支付金额', field: 'order.amounts'},
-                {name: '返现金额', field: 'return_amount'},
+                // {name: '返现金额', field: 'return_amount'},
                 {name: '剩余时间', field: 'group_end_time', filter: 'null2empty|remaining_time'},
                 // {name: '拼团状态', field: 'accomplish_status', filter: 'accomplish_status'},
                 {
@@ -33,6 +33,10 @@ define([], function () {
                     truncateTextBreakOnWord: false,
                     tooltip: 'product.admin_remark',
                     tooltipPlacement: 'bottom'
+                },
+                {
+                    name: '操作',
+                    fieldDirective: '<div groupbuy-change data="item" ></div>'
                 }
             ],
             config: {

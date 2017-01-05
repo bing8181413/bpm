@@ -185,35 +185,6 @@ define([], function () {
                 ],
                 searchSupport: true,
                 searchItems: [
-                    {
-                        value: 'visible', text: '是否显示', type: 'btnGroup', default: '0', width: '6',
-                        enum: [
-                            {value: '0', text: '全部'},
-                            {value: '1', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
-                            {value: '2', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
-                        ]
-                    },
-                    {
-                        value: 'group_strange', text: '陌生人拼团', type: 'btnGroup', default: '0', width: '6',
-                        enum: [
-                            {value: '0', text: '全 部'},
-                            {value: '2', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
-                            {value: '1', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
-                        ]
-                    },
-                    {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
-                        type: 'btnGroupArray2',
-                        value: 'flag1',
-                        text: '活动类别',
-                        default: 0, //有enum_text时 enumde index 的值
-                        width: '6',
-                        enum_text: 'category',
-                        enum: [
-                            {value: [2, 3], text: '全部'},
-                            {value: [3], text: '直接买'},
-                            {value: [2], text: '人数团'},
-                        ]
-                    },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
                         // process_type  1 即将开始  2 进行中 3 已结束
                         type: 'btnGroupArray',
@@ -223,7 +194,7 @@ define([], function () {
                         width: '12',
                         enum_text: ['status', 'available_type', 'process_type'],//  有  enum_text 说明是数组
                         enum: [
-                            {value: ['', '', ''], text: '全部'},
+                            {value: ['', '', ''], text: '全 部'},
                             // {value: ['1', '1', '1'], text: '正在进行'},
                             {value: ['1', '1', '2'], text: '进行中'},
                             {value: ['1', '1', '1'], text: '即将开始'},
@@ -232,11 +203,41 @@ define([], function () {
                             {value: ['1', '2', ''], text: '待上线'},
                         ]
                     },
+                    {
+                        value: 'visible', text: '是否显示', type: 'btnGroup', default: '0', width: '6',
+                        enum: [
+                            {value: '0', text: '全 部'},
+                            {value: '1', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                            {value: '2', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                        ]
+                    },
                     {value: 'product_id', text: '活动ID', placeholder: '活动ID', default: ''},
+                    {
+                        value: 'group_strange', text: '陌生人拼团', type: 'btnGroup', default: '0', width: '6',
+                        enum: [
+                            {value: '0', text: '全 部'},
+                            {value: '2', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                            {value: '1', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                        ]
+                    },
                     {value: 'keyword', text: '关键字', placeholder: '活动标题,管理备注', default: ''},
+                    {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
+                        type: 'btnGroupArray2',
+                        value: 'flag1',
+                        text: '活动类别',
+                        default: 0, //有enum_text时 enumde index 的值
+                        width: '6',
+                        enum_text: 'category',
+                        enum: [
+                            {value: [2, 3, 4], text: '全 部'},
+                            {value: [3], text: '直接买'},
+                            {value: [2], text: '人数团'},
+                            {value: [4], text: '人数团和直接买'},
+                        ]
+                    },
                 ],
                 preSelectionSearch: {
-                    category: [2, 3],
+                    category: [2, 3, 4],
                     // category: [2, 3, 4],
                     // key: 'deviceNo',
                     // value: 'testinfo'

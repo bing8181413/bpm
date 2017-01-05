@@ -135,7 +135,6 @@ define([
                             showImgTitle: '图片模式'
                         }, obj))
                     }
-                    //从搜索的列表中选择小区的ID
                     //删除一条 list.new 的记录
                     $scope.del = function (index) {
                         $scope.list.splice(index, 1);
