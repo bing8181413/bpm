@@ -193,8 +193,7 @@ define([
                     $state.go(con.state.main + '.act.list');
                 },
                 failure: function (err) {
-                    console.log(err);
-                    localStorage.setItem('hjm-act-failure' + new Date().getTime(), JSON.stringify({param: $scope.param}));
+                    localStorage.setItem('hjm-act-failure-' + new Date().getTime(), JSON.stringify({param: $scope.param}));
                     widget.msgToast(err.message)
                 }
             })
