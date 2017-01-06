@@ -226,7 +226,7 @@ define([], function () {
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
                         type: 'btnGroupArray2',
                         value: 'flag1',
-                        text: '活动类别',
+                        text: '活动类型',
                         default: 0, //有enum_text时 enumde index 的值
                         width: '6',
                         enum_text: 'category',

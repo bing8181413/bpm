@@ -485,7 +485,7 @@ define([
                         result = "直接买";
                         break;
                     case "4":
-                        result = "一起玩";
+                        result = "人数团+直接买";
                         break;
                 }
                 return result;
