@@ -100,22 +100,24 @@ define([], function () {
                 ]
             },
             act_columns: [
-                {name: 'ID', field: 'product_id', className: 'text-center'},
-                {name: '排序', field: 'order_by'},
-                // {name: '活动类型', field: 'category', filter: 'product_category'},
-                // {name: '活动类别', field: 'act_type'},
-                // {name: '课程分类', field: 'course_category', filter: 'course_category'},
+                // {name: 'ID', field: 'product_id', className: 'text-center'},
+                // {name: '排序', field: 'order_by'},
+                {
+                    name: 'ID和排序',
+                    fieldDirective: '<p><span ng-bind="\'ID:\'+item.product_id"></span>' +
+                    '<br/><span ng-bind="\'排序:\'+item.order_by"></span></p>'
+                },
                 {
                     name: '活动信息',
-                    fieldDirective: '<p>活动类型:<br/><span ng-bind="item.category|product_category"></span>' +
-                    '<br/><br/>活动类别:<br/><span ng-bind="item.act_type"></span>' +
-                    '<br/><br/>课程分类:<br/><span ng-bind="item.course_category|course_category"></span></p>'
+                    fieldDirective: '<p><span ng-bind="\'标题:\'+item.title"></span>' +
+                    '<br/><span ng-bind="\'活动类型:\'+(item.category|product_category)"></span>' +
+                    '<br/><span ng-bind="\'活动类别:\'+item.act_type"></span>' +
+                    '<br/><span ng-bind="\'课程:\'+(item.course_category|course_category)"></span></p>'
                 },
-                {name: '标题', field: 'title'},
                 {
                     name: '报名时间',
-                    fieldDirective: '<p>开始时间<br/> <span ng-bind="item.act_apply_start_time"></span>' +
-                    '<br/>结束时间<br/><span ng-bind="item.act_apply_end_time"></span></p>'
+                    fieldDirective: '<p>开始时间:<br/> <span ng-bind="item.act_apply_start_time"></span>' +
+                    '<br/>结束时间:<br/><span ng-bind="item.act_apply_end_time"></span></p>'
                 },
                 {
                     name: '活动时间、地点',
