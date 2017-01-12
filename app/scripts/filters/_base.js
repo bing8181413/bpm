@@ -353,7 +353,7 @@ define([
         //  1:砍价团 2: 人数团 3：众筹团 4: 邻里团
         .filter('coupon_category', [function () {
             return function (val) {
-                var result = '其他';
+                var result = '不限';
                 val = val + '';
                 switch (val) {
                     case "1":
@@ -363,7 +363,7 @@ define([
                         result = "人数团";
                         break;
                     case "3":
-                        result = "众筹团";
+                        result = "直接买";
                         break;
                     case "4":
                         result = "邻里团";
