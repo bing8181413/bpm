@@ -426,7 +426,7 @@ define([
                     // console.log($scope.source);
                     // console.log('formElement', $scope, $attrs);
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
-                    // var required = $scope.required ? (' required') : '';
+                    var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="checkbox"';
                     $scope.tmp_source = [];
@@ -444,8 +444,7 @@ define([
                                 ' ng-checked = "source[' + key + '].checked" ' +
                                 '><span></span>' + val.text + '</label>';
                         });
-                        // content += '<input class="" ng-model="' + $scope.ngModelText + '"' + name + required +
-                        //     disabledRole + ngDisabled + '>';
+                        content += '<input class="hide" ng-model="ngModel"' + name + required + disabledRole + '>';
                         content += '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
@@ -456,7 +455,11 @@ define([
                     }, 0);
                     $scope.$watch($scope.ngModelText, function (val) {
                         // console.log('$scope.ngModelText', val);
-                        $scope.ngModel = val || [];
+                        if (val && val.length == 0) {
+                            $scope.ngModel = undefined;
+                        } else {
+                            $scope.ngModel = val || [];
+                        }
                     }, true);
 
                     $scope.$watch('tmp_source', function (val) {
@@ -485,6 +488,10 @@ define([
                                 });
                             });
                             $scope.$eval($scope.ngModelText + '=' + JSON.stringify(mod) + '');
+                        } else {
+                            if (mod && mod.length == 0) {
+                                $scope.ngModel = undefined;
+                            }
                         }
                     }, true);
                 }

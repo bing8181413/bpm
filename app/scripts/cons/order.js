@@ -215,7 +215,15 @@ define([], function () {
                             {value: [5], text: '已完成'},
                             {value: [4, 6], text: '已取消'},
                         ]
-                    }
+                    },
+                    {
+                        value: 'is_majia', text: '马甲状态', type: 'btnGroup', default: '0', width: '6',
+                        enum: [
+                            {value: '0', text: '全 部'},
+                            {value: '1', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                            {value: '2', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                        ]
+                    },
                 ],
                 preSelectionSearch: {
                     // order_type: [3, 4]

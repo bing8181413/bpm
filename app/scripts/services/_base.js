@@ -80,6 +80,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                     //     $state.go('login');
                     // }
                 } else {
+                    localStorage.setItem('lastlogintimestamp', $rootScope.lastlogintimestamp = new Date().getTime());
                     $rootScope.hjm = JSON.parse(localStorage.getItem('hjm'));
                     // $rootScope.selected = angular.copy($rootScope.hjm);
                     // $rootScope.selected.account_id = '';

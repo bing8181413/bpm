@@ -26,6 +26,7 @@ define([
                     // console.log(json);
                     $scope.options = [];
                     if (json.data.category == 3 || json.data.category == 4) {
+                        json.data.options.push(json.data.groupbuy_options);
                         angular.forEach(json.data.options, function (val, key) {
                             $scope.options.push({
                                 text: '类目:' + val.option_name + '    /    价格:' + val.option_price,
