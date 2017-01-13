@@ -18,8 +18,8 @@ define([
                     $rootScope.hjm.act = {product_id: $stateParams.product_id};
                     $scope.param = angular.copy(json.data);
                     $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600);
-                    // $scope.course_category = $scope.param.course_category.split(',') || [];
-                    $scope.ability_label = $scope.param.ability_label.split(',') || [];
+                    $scope.course_category = $scope.param.course_category.split(',') || [];
+                    // $scope.ability_label = $scope.param.ability_label.split(',') || [];
                     if ($scope.param.vip_promotion_type == '1') {
                         $scope.vip_discount = comfunc.numMulti($scope.param.vip_discount, 100);
                     } else {
@@ -78,13 +78,13 @@ define([
             $scope.reset_vip_discount();
         });
 
-        $scope.$watch('ability_label', function (val, oldVal) {
-            if (val) {
-                $scope.param.ability_label = $scope.ability_label.join(',');
-            } else {
-                $scope.param && ($scope.param.ability_label = '');
-            }
-        }, true);
+        // $scope.$watch('ability_label', function (val, oldVal) {
+        //     if (val) {
+        //         $scope.param.ability_label = $scope.ability_label.join(',');
+        //     } else {
+        //         $scope.param && ($scope.param.ability_label = '');
+        //     }
+        // }, true);
 
         // 只能选择三个
         // $scope.$watch('course_category', function (val, oldVal) {
