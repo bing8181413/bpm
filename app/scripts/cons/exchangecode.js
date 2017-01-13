@@ -10,6 +10,7 @@ define([], function () {
                 {name: '金额', field: 'price'},
                 {name: '优惠券名称', field: 'title'},
                 {name: '优惠券领取数', field: 'coupon_receive_num'},
+                {name: '优惠券有效天数', field: 'valid_days'},
                 {
                     name: '生成时间', field: 'created_at', truncateText: true,
                     truncateTextLength: 10,
