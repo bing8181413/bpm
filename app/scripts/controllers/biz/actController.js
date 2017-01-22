@@ -18,8 +18,8 @@ define([
                     $rootScope.hjm.act = {product_id: $stateParams.product_id};
                     $scope.param = angular.copy(json.data);
                     $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600);
-                    $scope.course_category = $scope.param.course_category.split(',') || [];
-                    // $scope.ability_label = $scope.param.ability_label.split(',') || [];
+                    // $scope.course_category = $scope.param.course_category.split(',') || [];
+                    $scope.ability_label = $scope.param.ability_label.split(',') || [];
                     if ($scope.param.vip_promotion_type == '1') {
                         $scope.vip_discount = comfunc.numMulti($scope.param.vip_discount, 100);
                     } else {
@@ -64,7 +64,7 @@ define([
             val = $scope.vip_discount;
             if ($scope.param && $scope.param.vip_promotion_type == '1') {
                 val = parseInt(val);
-                $scope.vip_discount = (val >= 100) ? 99 : (val <= 0 ? 1 : val);
+                $scope.vip_discount = (val >= 100) ? 99 : (val < 0 ? 0 : val);
             } else if ($scope.param && $scope.param.vip_promotion_type == '2') {
                 val = parseFloat(val);
                 if (val.toString().split('.').length == 2) {
@@ -78,26 +78,26 @@ define([
             $scope.reset_vip_discount();
         });
 
-        // $scope.$watch('ability_label', function (val, oldVal) {
-        //     if (val) {
-        //         $scope.param.ability_label = $scope.ability_label.join(',');
-        //     } else {
-        //         $scope.param && ($scope.param.ability_label = '');
-        //     }
-        // }, true);
-
-        // 只能选择三个
-        $scope.$watch('course_category', function (val, oldVal) {
-            if (val && val.length > 3) {
-                widget.msgToast('Sorry,最多选择三项');
-                $scope.course_category = oldVal;
-            }
+        $scope.$watch('ability_label', function (val, oldVal) {
             if (val) {
-                $scope.param.course_category = $scope.course_category.join(',');
+                $scope.param.ability_label = $scope.ability_label.join(',');
             } else {
-                $scope.param && ($scope.param.course_category = '');
+                $scope.param && ($scope.param.ability_label = '');
             }
         }, true);
+
+        // 只能选择三个
+        // $scope.$watch('course_category', function (val, oldVal) {
+        //     if (val && val.length > 3) {
+        //         widget.msgToast('Sorry,最多选择三项');
+        //         $scope.course_category = oldVal;
+        //     }
+        //     if (val) {
+        //         $scope.param.course_category = $scope.course_category.join(',');
+        //     } else {
+        //         $scope.param && ($scope.param.course_category = '');
+        //     }
+        // }, true);
 
         $scope.submit = function (status) {
             // console.log($scope.param);
