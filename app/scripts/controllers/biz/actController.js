@@ -25,14 +25,16 @@ define([
                     } else {
                         $scope.vip_discount = $scope.param.vip_discount;
                     }
-                    // //  API给的正确就不需要这一段了  暂时的
-                    // var options = [];
-                    // angular.forEach($scope.param.options, function (val, key) {
-                    //     if (val.option_type == 1) {
-                    //         options.push(val);
-                    //     }
-                    // })
-                    // $scope.param.options = options;
+                    // console.log(new Date($scope.param.act_start_time).getHours() == 0, new Date($scope.param.act_start_time).getMinutes() == 0);
+                    // console.log(new Date($scope.param.act_end_time).getMinutes() == 0, new Date($scope.param.act_end_time).getMinutes() == 0);
+                    if (new Date($scope.param.act_start_time).getHours() == 0 &&
+                        new Date($scope.param.act_start_time).getMinutes() == 0 &&
+                        new Date($scope.param.act_end_time).getHours() == 0 &&
+                        new Date($scope.param.act_end_time).getMinutes() == 0) {
+                        $scope.showTime = true;
+                    } else {
+                        $scope.showTime = false;
+                    }
                 }
             })
         }
@@ -53,6 +55,21 @@ define([
                 return false;
             }
             $scope.timeStamp = new Date().getTime();// 这个字段 有监听事件
+        }
+        //  日期时间 转 纯日期
+        $scope.datetimeTodate = function (date_time) {
+            $scope.date_time_tmp = date_time ? new Date(date_time) : new Date();
+            return $scope.date_time_tmp.getFullYear() + '-' + ($scope.date_time_tmp.getMonth() + 1)
+                + '-' + $scope.date_time_tmp.getDate() + ' 00:00:00'
+        }
+        // 切换日期时间 和 纯日期
+        $scope.toggleShowTime = function () {
+            $scope.showTime = !$scope.showTime;
+            $scope.param.act_start_time = !$scope.showTime ?
+                ($scope.param.act_start_time) : ($scope.datetimeTodate($scope.param.act_start_time));
+            $scope.param.act_end_time = !$scope.showTime ?
+                ($scope.param.act_end_time) : ($scope.datetimeTodate($scope.param.act_end_time));
+            // console.log($scope.showTime, $scope.param.act_start_time, $scope.param.act_end_time);
         }
 
         $scope.$watch('param.delivery_type', function (val) {
@@ -176,7 +193,7 @@ define([
                     widget.msgToast('sorry!直接买or人数团de活动类目为空');
                     return false;
                 } else {
-                    console.log($scope.param.options, $scope.param.groupbuy_options);
+                    // console.log($scope.param.options, $scope.param.groupbuy_options);
                     if (comfunc.hasEmptyFieldArray($scope.param.options) || comfunc.hasEmptyFieldArray($scope.param.groupbuy_options)) {
                         widget.msgToast('sorry!直接买or人数团de活动类目有空值');
                         return false;
