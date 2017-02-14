@@ -16,7 +16,7 @@ define([], function () {
                     name: '收货地址',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 5 : false" ' +
+                    '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
                     ' tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
@@ -129,7 +129,7 @@ define([], function () {
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 7 : false"' +
                     ' tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
                     '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 5 : false" ' +
+                    '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
                     ' tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>'
                 },
                 {
@@ -173,7 +173,7 @@ define([], function () {
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 7 : false"' +
                     ' tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
                     '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 5 : false" ' +
+                    '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
                     ' tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>'
                 },
                 {
@@ -330,7 +330,7 @@ define([], function () {
                     name: '收货<br/>信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 5 : false" ' +
+                    '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
                     'tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
@@ -367,7 +367,7 @@ define([], function () {
                     name: '收货<br/>信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 5 : false" ' +
+                    '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
                     'tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
