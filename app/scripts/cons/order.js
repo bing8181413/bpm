@@ -109,7 +109,13 @@ define([], function () {
             },
             columns_by_act_all: [
                 {name: 'ID', field: 'order_id', className: 'text-right'},
-                {name: '订单号', field: 'order_no'},
+                // {name: '订单号', field: 'order_no'},
+                {
+                    name: '订单号/推荐人',
+                    fieldDirective: '<span ng-bind="item.order_no"></span>' +
+                    '<br/><span>推荐人:</span>'+
+                    '<span ng-bind="item.referee" ng-if="item.referee"></span>'
+                },
                 {name: '订单类型', field: 'order_type', filter: 'product_category'},
                 {
                     name: '活动信息',
@@ -161,7 +167,13 @@ define([], function () {
             ],
             columns_by_act: [
                 {name: 'ID', field: 'order_id', className: 'text-right'},
-                {name: '订单号', field: 'order_no'},
+                // {name: '订单号', field: 'order_no'},
+                {
+                    name: '订单号/推荐人',
+                    fieldDirective: '<span ng-bind="item.order_no"></span>' +
+                        '<br/><span>推荐人:</span>'+
+                    '<span ng-bind="item.referee" ng-if="item.referee"></span>'
+                },
                 {name: '订单类型', field: 'order_type', filter: 'product_category'},
                 {
                     name: '活动类目',
