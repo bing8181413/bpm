@@ -42,6 +42,7 @@ define([], function () {
         },
         vipUserList: {
             columns: [
+                {name: '编号', fieldDirective: '<span ng-bind="$index+1"></span> '},
                 {name: 'ID', field: 'user_id', className: 'text-center'},
                 {name: '微信昵称', field: 'name'},
                 {name: '性别', field: 'gender', filter: 'gender'},
@@ -53,7 +54,7 @@ define([], function () {
                 {name: '注册时间', field: 'created_at'},
                 {name: '最近一次使用时间', field: 'authed_at'},
                 {name: '模拟登陆', fieldDirective: '<div user-token data="item"></div>'},
-                {name: '注册时间', field: 'created_at'},
+                {name: '会员', field: 'is_vip', filter: 'is_vip'},
             ],
             config: {
                 title: 'VIP用户列表',

@@ -8,6 +8,11 @@ define([
                 return val == '1' ? '男' : (val == '2' ? '女' : '保密');
             }
         }])
+        .filter('is_vip', [function () {
+            return function (val) {
+                return val == '1' ? '会员' : (val == '3' ? '体验会员' : '');
+            }
+        }])
         .filter('num2week', [function () {
             return function (val) {
                 val = val + '';
