@@ -133,4 +133,67 @@ define([
                 }
             }
         })
+        .directive('vipUserInfoUpdate', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-rounded btn-sm btn-warning" ng-click="show_act_change_notice()" >会员信息更新</a>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_act_change_notice = function () {
+                        var modalInstance = $modal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $modalInstance) {
+                                    $scope.title = '会员信息更新';
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
+                                        ' disabled-role="\'admin,op\'" >' +
+                                        '<h4>会员信息更新，请确认无误后操作。</h4>' +
+                                        '<div form-input text="会员编号" ng-model="param.vip_number" required="true"></div>' +
+                                        '<div form-input text="会员名称" ng-model="param.name" required="true"></div>' +
+                                        '<div form-radio text="会员类型" ng-model="param.is_vip" default="1"' +
+                                        'source="[{text:\'仅会员\',value:\'1\'},{text:\'会员+体验会员\',value:\'3\'},{text:\'不限制\',value:\'2\'}]"' +
+                                        ' required="true"></div>' +
+                                        '<div form-input text="手机号码" ng-model="param.mobile" required="true"></div>' +
+                                        '<div form-date-time text="会员开始时间" ng-model="param.vip_start_time" required="true"></div>' +
+                                        '<div form-date-time text="会员结束时间" ng-model="param.vip_end_time" required="true"></div>' +
+                                        '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
+                                        '</form>';
+                                    $timeout(function () {
+                                        $scope.param = {
+                                            vip_number: supscope.data.vip_number,
+                                            name: supscope.data.name,
+                                            is_vip: supscope.data.is_vip,
+                                            mobile: supscope.data.mobile,
+                                            vip_start_time: supscope.data.vip_start_time,
+                                            vip_end_time: supscope.data.vip_end_time,
+                                        };
+                                        // console.log($scope.param);
+                                    }, 0);
+                                    $scope.submit = function () {
+                                        // console.log($scope);
+                                        widget.ajaxRequest({
+                                            url: '/users/' + (supscope.data.user_id || 0),
+                                            method: 'patch',
+                                            scope: $scope,
+                                            data: $scope.param,
+                                            success: function (json) {
+                                                widget.msgToast('会员信息更新成功!');
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                    $scope.cancel = function () {
+                                        $modalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'lg'
+                            }
+                        );
+                    }
+                }
+            }
+        })
 });

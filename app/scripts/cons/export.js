@@ -20,9 +20,9 @@ define([], function () {
                 preSelectionSearch: {
                     // ID: '123',
                 },
-                paginationSupport: false,
+                paginationSupport: true,
                 pageInfo: {
-                    count: 5,
+                    count: 50,
                     page: 1,
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。

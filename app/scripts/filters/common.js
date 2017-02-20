@@ -10,7 +10,7 @@ define([
         }])
         .filter('is_vip', [function () {
             return function (val) {
-                return val == '1' ? '会员' : (val == '3' ? '体验会员' : '');
+                return val == '1' ? '会员' : (val == '3' ? '体验会员' : '非会员');
             }
         }])
         .filter('num2week', [function () {

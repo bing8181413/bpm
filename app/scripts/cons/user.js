@@ -55,6 +55,7 @@ define([], function () {
                 {name: '最近一次使用时间', field: 'authed_at'},
                 {name: '模拟登陆', fieldDirective: '<div user-token data="item"></div>'},
                 {name: '会员', field: 'is_vip', filter: 'is_vip'},
+                {name: '更新会员信息', fieldDirective: '<div vip-user-info-update data="item"></div>'},
             ],
             config: {
                 title: 'VIP用户列表',
@@ -70,7 +71,7 @@ define([], function () {
                     // {value: 'datetime_max', text: '结束时间', type: 'datetime'},
                 ],
                 preSelectionSearch: {
-                    is_vip: 1
+                    is_vip: [1, 3]
                 },
                 paginationSupport: true,
                 pageInfo: {
