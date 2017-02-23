@@ -103,21 +103,18 @@ define([
             }
         }, true);
 
-        // 只能选择三个
-        // $scope.$watch('course_category', function (val, oldVal) {
-        //     if (val && val.length > 3) {
-        //         widget.msgToast('Sorry,最多选择三项');
-        //         $scope.course_category = oldVal;
-        //     }
-        //     if (val) {
-        //         $scope.param.course_category = $scope.course_category.join(',');
-        //     } else {
-        //         $scope.param && ($scope.param.course_category = '');
-        //     }
-        // }, true);
+        // 该商品 是否需要绑定手机号码
+        $scope.$watch('param.enable_bind_mobile', function (val, oldVal) {
+            // console.log(val,oldVal);
+            if (val && val == 2 && oldVal == 1) {
+                widget.msgToast('取消强制绑定手机号');
+            }
+        });
 
         $scope.submit = function (status) {
             // console.log($scope.param);
+            $scope.param.act_start_time = $filter('date')($scope.param.act_start_time, 'yyyy-MM-dd HH:mm:ss');
+            $scope.param.act_end_time = $filter('date')($scope.param.act_end_time, 'yyyy-MM-dd HH:mm:ss');
             if ($scope.param.vip_promotion_type == '1') {
                 $scope.param.vip_discount = comfunc.numDiv($scope.vip_discount, 100);
             } else if ($scope.param.vip_promotion_type == '2') {
