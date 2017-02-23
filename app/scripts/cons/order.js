@@ -132,7 +132,7 @@ define([], function () {
                 },
                 {
                     name: '用户信息',
-                    fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 7 : false"' +
+                    fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 10 : false"' +
                     ' tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
                     '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/><span ng-if="item.address.address">详细地址:</span><br/>' +
@@ -172,7 +172,7 @@ define([], function () {
                 {
                     name: '订单号/推荐人',
                     fieldDirective: '<span ng-bind="item.order_no"></span>' +
-                    '<br/><span>推荐人:</span>' +
+                    '<br/><span  ng-if="item.referee">推荐人:</span>' +
                     '<span ng-bind="item.referee" ng-if="item.referee"></span>'
                 },
                 {name: '订单类型', field: 'order_type', filter: 'product_category'},
@@ -183,10 +183,11 @@ define([], function () {
                 },
                 {
                     name: '用户信息',
-                    fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 7 : false"' +
+                    fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 10 : false"' +
                     ' tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
                     '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
+                    '<br/><span ng-if="item.address.address">详细地址:</span><br/>' +
+                    '<span ng-bind="item.address.address" ng-if="item.address.address"' +
                     ' tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>'
                 },
                 {

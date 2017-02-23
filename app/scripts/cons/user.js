@@ -3,7 +3,7 @@ define([], function () {
         userList: {
             columns: [
                 {name: 'ID', field: 'user_id', className: 'text-center'},
-                {name: '微信昵称', field: 'name'},
+                {name: '微信昵称', field: 'name',filter:'null2empty'},
                 {name: '性别', field: 'gender', filter: 'gender'},
                 {name: '手机号', field: 'mobile'},
                 {name: '关联订单', fieldDirective: '<div user-order data="item"></div>'},
@@ -42,7 +42,7 @@ define([], function () {
         },
         vipUserList: {
             columns: [
-                {name: '编号', fieldDirective: '<span ng-bind="$index+1"></span> '},
+                {name: '会员编号', field: 'vip_number'},
                 {name: 'ID', field: 'user_id', className: 'text-center'},
                 {name: '微信昵称', field: 'name'},
                 {name: '性别', field: 'gender', filter: 'gender'},
@@ -51,8 +51,14 @@ define([], function () {
                 {name: '收货地址', fieldDirective: '<div user-address data="item"></div>'},
                 {name: '优惠券', fieldDirective: '<div user-coupon data="item"></div>'},
                 // {name: '优惠券', field: 'coupon.count'},
-                {name: '注册时间', field: 'created_at'},
-                {name: '最近一次使用时间', field: 'authed_at'},
+                // {name: '注册时间', field: 'created_at'},
+                {
+                    name: '会员期限',
+                    fieldDirective: '开始:<span ng-bind="item.vip_start_time"></span>' +
+                    '<br/>结束:<span ng-bind="item.vip_end_time"></span>'+
+                    '<br/>最近一次登陆:<br/><span ng-bind="item.authed_at"></span>'
+                },
+                // {name: '最近一次使用时间', field: 'authed_at'},
                 {name: '模拟登陆', fieldDirective: '<div user-token data="item"></div>'},
                 {name: '会员', field: 'is_vip', filter: 'is_vip'},
                 {name: '更新会员信息', fieldDirective: '<div vip-user-info-update data="item"></div>'},
@@ -71,7 +77,9 @@ define([], function () {
                     // {value: 'datetime_max', text: '结束时间', type: 'datetime'},
                 ],
                 preSelectionSearch: {
-                    is_vip: [1, 3]
+                    is_vip: [1, 3],
+                    order_by:'vip_start_time',
+                    sort_asc:'1',
                 },
                 paginationSupport: true,
                 pageInfo: {
