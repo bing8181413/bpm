@@ -143,6 +143,34 @@ define([
                     widget.msgToast('运营大图还没有完成上传');
                     return false;
                 }
+
+                var tmp_thumbnail_pics_err = 0;
+                angular.forEach($scope.param.thumbnail_pics, function (val, key) {
+                    if (!val.pic_url) {
+                        tmp_thumbnail_pics_err++;
+                    }
+                })
+                if (tmp_thumbnail_pics_err > 0) {
+                    widget.msgToast('运营缩略图还没有完成上传');
+                    return false;
+                }
+                var tmp_content_err = 0;
+                angular.forEach($scope.param.contents, function (val, key) {
+                    if (!val) {
+                        tmp_content_err++;
+                    } else {
+                        angular.forEach(val.pics, function (v, k) {
+                            if (!v.pic_url) {
+                                tmp_content_err++;
+                            }
+                        })
+                    }
+
+                })
+                if (tmp_content_err > 0) {
+                    widget.msgToast('图文详情中有图片还没有完成上传');
+                    return false;
+                }
             }
 
             if ($scope.param.content_type == 1 && comfunc.isEmptyArray($scope.param.contents)) {
