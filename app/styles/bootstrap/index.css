@@ -5,9 +5,11 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%
 }
-*, .btn:focus{
-    outline:none!important;
+
+*, .btn:focus {
+    outline: none !important;
 }
+
 body {
     margin: 0
 }
@@ -8196,7 +8198,7 @@ pre {
     display: block;
     padding: 8px;
     height: auto;
-    font-size:13px;
+    font-size: 13px;
 }
 
 #sidebar div.side-menu .menu-body ul.sidenav li ul.nested-dropdown li a:hover, #sidebar div.side-menu .menu-body ul.sidenav li ul.nested-dropdown li a:focus, #sidebar div.side-menu .menu-body ul.sidenav li ul.nested-dropdown li a:active {
@@ -10146,3 +10148,11 @@ html, body {
     margin-bottom: 0;
     border: 0;
 }
+
+/*  form 表单验证 start */
+/*   专门为 jsonTable directive 添加的验证样式 */
+[name=FormBody] td > input.ng-invalid-required {
+    background-color: pink;
+}
+
+/*  form 表单验证 end  */

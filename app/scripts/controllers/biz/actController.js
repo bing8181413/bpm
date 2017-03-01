@@ -225,10 +225,12 @@ define([
                     }
                 }
             } else if ($scope.param.category != '4') {
+                delete $scope.param.groupbuy_options; //   防止提交空数组
                 if (!$scope.param.options || $scope.param.options && $scope.param.options.length == 0) {
                     widget.msgToast('sorry!活动类目为空');
                     return false;
                 } else {
+                    console.log(comfunc.isEmptyArray($scope.param.options));
                     if (comfunc.hasEmptyFieldArray($scope.param.options)) {
                         widget.msgToast('sorry!活动类目有空值');
                         return false;

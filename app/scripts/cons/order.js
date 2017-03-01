@@ -91,7 +91,8 @@ define([], function () {
                     {value: 'date_max', text: '(下单时间)--结束', type: 'datetime'},
                     {value: 'order_no', text: '母订单号'},
                     {value: 'contact_name', text: '联系人'},
-                    {value: 'contact_mobile', text: '手机号'},
+                    {value: 'contact_mobile', text: '订单手机号'},
+                    {value: 'user_id', text: '用户ID'},
                     // {value: 'cityname', text: '城市', placeholder: '城市', type: 'date'}
                 ],
                 preSelectionSearch: {
@@ -291,7 +292,8 @@ define([], function () {
                     {value: 'order_no', text: '订单号'},
                     {value: 'product_id', text: '活动ID'},
                     {value: 'contact_name', text: '联系人'},
-                    {value: 'contact_mobile', text: '手机号'},
+                    {value: 'contact_mobile', text: '订单手机号'},
+                    {value: 'user_id', text: '用户ID'},
                 ],
                 preSelectionSearch: {
                     order_type: [2, 3]

@@ -397,14 +397,15 @@ define([
                         var cellFilter = col.filter ? ('|' + col.filter) : '';
                         var colField = 'item.' + col.field;
                         var typeContent = (col.type == 'number') ? 'type="number"' : '';
+                        var requiredContent = (col.required == 'true') ? ' required ' : '';
                         var minContent = (col.min || col.min == 0) ? ('min="' + col.min + '"' ) : '';
                         var maxContent = (col.max || col.max == 0) ? ('max="' + col.max + '"' ) : '';
                         if (!col.disabled) {
-                            cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent +
+                            cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent + requiredContent +
                                 'ng-model="' + colField + cellFilter + '"/>';
                         }
                         if (config.readonly || col.readonly) {
-                            cellContent = '<span ng-bind="' + colField + cellFilter + '"></span>';
+                            cellContent = '<span ng-bind="' + colField + cellFilter + requiredContent + '"></span>';
                         }
                         return cellContent;
                     }
@@ -449,7 +450,8 @@ define([
                     }
 
                 }
-            };
+            }
+                ;
         })
 
 })

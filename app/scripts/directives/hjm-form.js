@@ -525,13 +525,9 @@ define([
                         var uploadHtml =
                             // $scope.token ?
                             '<show-upload-token images="ngModel"   ' + name + max + required + disabledRole + token + '></show-upload-token>';
-                        // '<show-upload-token images="' + $scope.ngModelText + '" ' + name + max + required + disabledRole + token + '></show-upload-token>';
-                        // :'<show-upload images="' + $scope.ngModelText + '" ' + name + max + required + disabledRole + '></show-upload>';
-                        // '<show-upload images="image" ' + name + max + required + disabledRole + '></show-upload>';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8" style="border: 1px #ccc dashed;">' + uploadHtml +
                             '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
-                            // '<input class="" ng-model="' + $scope.ngModelText + '" no-empty-array="" ' + max + name + required + disabledRole + '>' +
                             '</div>';
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
@@ -543,11 +539,15 @@ define([
                     }, 0);
 
                     // $scope.$watch('ngModel', function (val) {
-                    //     // 简单区分数据是否填写 要是length 为0 就置为undefined 这样require就起作用了
-                    //     if (val && val.length == 0) {
-                    //         $scope.ngModel = undefined;
+                    //     var tmp_pics_err = 0;
+                    //     angular.forEach(val, function (v, k) {
+                    //         if (!v.pic_url) {
+                    //             tmp_pics_err++;
+                    //         }
+                    //     })
+                    //     if (tmp_pics_err > 0) {
+                    //         console.log('图片还没有完成上传');
                     //     }
-                    //     console.log($scope.$parent.FormBody);
                     // }, true);
                 }
             }
