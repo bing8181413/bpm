@@ -18,6 +18,7 @@ define([
     './resource',
     './wechat',
     './web',
+    './hotkey',
     // './subject_group',
 ], function () {
     // console.log(arguments);

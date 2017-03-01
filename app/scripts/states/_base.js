@@ -20,6 +20,7 @@ define([
     'states/hjm/resource',//运营资源库
     'states/hjm/orders',//维护订单数据
     'states/hjm/wechat',//微信相关数据
+    'states/hjm/hotkey',//热搜词
 
 ], function () {
 

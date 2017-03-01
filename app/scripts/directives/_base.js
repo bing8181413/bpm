@@ -34,6 +34,7 @@ define([
     './subject/list',//专题 规则
     './resource/list',//专题 规则
     './wechat/list',//微信 二维码 规则
+    './hotkey/list',//热词 搜索
     // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,
