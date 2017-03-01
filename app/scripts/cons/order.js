@@ -13,7 +13,7 @@ define([], function () {
                     '<br/>价格:<span ng-bind="item.product.high_price"></span>'
                 },
                 {
-                    name: '收货地址',
+                    name: '收货人信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
@@ -132,7 +132,7 @@ define([], function () {
                     '<span ng-bind="item.option_price"></span>'
                 },
                 {
-                    name: '用户信息',
+                    name: '收货人信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 10 : false"' +
                     ' tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
                     '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
@@ -183,7 +183,7 @@ define([], function () {
                     '<span ng-bind="item.option_price"></span>'
                 },
                 {
-                    name: '用户信息',
+                    name: '收货人信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 10 : false"' +
                     ' tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
                     '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
