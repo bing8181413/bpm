@@ -78,6 +78,7 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: 'app',
                         src: ['styles/app.css',
+                            'styles/bootstrap/index.css',
                             'index.html',
                             '**/app.js',
                             '**/app-tpl.js',

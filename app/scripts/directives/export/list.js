@@ -17,7 +17,7 @@ define([
                         var modalInstance = $modal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                             controller: function ($scope, $modalInstance) {
-                                $scope.title = supscope.data.desc||'导出数据';
+                                $scope.title = supscope.data.desc || '导出数据';
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<style type="text/css"> .modal .checkbox-inline{margin-left: 0;}' +
                                     '.modal .checkbox-inline{padding-left: 0;}</style>';
@@ -26,6 +26,9 @@ define([
                                 angular.forEach($scope.condition, function (val, key) {
                                     if (val.type == 'checkbox') {
                                         $scope.tmpl += '<div form-checkbox text="' + val.name + '" ng-model="param.' + key + '"' +
+                                            ' source="condition[\'' + key + '\'].options"  ' + (val.required ? ('required=\"true\"') : '') + '></div>';
+                                    } else if (val.type == 'radiobox') {
+                                        $scope.tmpl += '<div form-radio text="' + val.name + '" ng-model="param.' + key + '"' +
                                             ' source="condition[\'' + key + '\'].options"  ' + (val.required ? ('required=\"true\"') : '') + '></div>';
                                     } else if (val.type == 'date') {
                                         $scope.tmpl += '<div form-date="" text="' + val.name + '" ng-model="param.' + key + '"  ' + (val.required ? ('required=\"true\"') : '') + '></div>';
