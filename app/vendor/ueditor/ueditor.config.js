@@ -53,7 +53,7 @@
         ,elementPathEnabled : false
         ,wordCount:false          //是否开启字数统计
         ,maximumWords:100000       //允许的最大字符数
-        ,initialFrameWidth:450  //初始化编辑器宽度,默认1000
+        // ,initialFrameWidth:450  //初始化编辑器宽度,默认1000
         ,initialFrameHeight:320  //初始化编辑器高度,默认320
         ,autoHeightEnabled:false
         ,scaleEnabled:false

@@ -104,15 +104,20 @@ define([
         }, true);
 
         // 该商品 是否需要绑定手机号码
-        $scope.$watch('param.enable_bind_mobile', function (val, oldVal) {
-            // console.log(val,oldVal);
-            if (val && val == 2 && oldVal == 1) {
-                widget.msgToast('取消强制绑定手机号');
-            }
-        });
+        // $scope.$watch('param.enable_bind_mobile', function (val, oldVal) {
+        //     // console.log(val,oldVal);
+        //     if (val && val == 2 && oldVal == 1) {
+        //         widget.msgToast('取消强制绑定手机号');
+        //     }
+        // });
 
         $scope.submit = function (status) {
             // console.log($scope.param);
+            if ($scope.param.enable_bind_mobile && $scope.param.enable_bind_mobile == 2) {
+                if (!confirm('确定该活动取消绑定手机号')) {
+                    return false;
+                }
+            }
             $scope.param.act_start_time = $filter('date')($scope.param.act_start_time, 'yyyy-MM-dd HH:mm:ss');
             $scope.param.act_end_time = $filter('date')($scope.param.act_end_time, 'yyyy-MM-dd HH:mm:ss');
             if ($scope.param.vip_promotion_type == '1') {

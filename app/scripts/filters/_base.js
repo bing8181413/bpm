@@ -81,16 +81,16 @@ define([
             return function (val) {
                 var rtn = '';
                 switch (val) {
+                    case '0':
+                        rtn = '未退款';
+                        break;
                     case '1':
-                        rtn = '申请中';
-                        break;
-                    case '2':
-                        rtn = '已申请';
-                        break;
-                    case '3':
                         rtn = '退款中';
                         break;
-                    case '4':
+                    case '2':
+                        rtn = '退款失败';
+                        break;
+                    case '3':
                         rtn = '退款成功';
                         break;
                     default :

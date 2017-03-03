@@ -6790,6 +6790,13 @@ button.close {
     height: 125px
 }
 
+@media (max-width: 767px) {
+    .user-avatar {
+        width: 50px;
+        height: 50px
+    }
+}
+
 .login-page {
     position: absolute;
     top: 0;
@@ -6803,11 +6810,18 @@ button.close {
     padding: 3em
 }
 
-.login-page h1 {
-    font-weight: 300
+.login-page h2 {
+    font-weight: 300;
 }
 
-.login-page h1 small {
+@media (max-width: 767px) {
+    .login-page h2 {
+        font-size: 16px;
+        font-weight: 200;
+    }
+}
+
+.login-page h2 small {
     color: rgba(255, 255, 255, .7)
 }
 
@@ -6816,7 +6830,13 @@ button.close {
 }
 
 .login-page .form-content {
-    padding: 40px 0
+    padding: 30px 0
+}
+
+@media (min-width: 768px) {
+    .login-page .form-content {
+        padding: 20px 0
+    }
 }
 
 body {
@@ -7092,6 +7112,11 @@ body {
 
     .dashboard-page {
         margin-left: -235px;
+        position: static
+    }
+
+    #body-container .dashboard-page{
+        margin-left: 0;
         position: static
     }
 
@@ -10156,3 +10181,34 @@ html, body {
 }
 
 /*  form 表单验证 end  */
+
+/* hjm-grid search mobile start */
+@media (max-width: 767px) {
+    .searchSection {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .gridSection > table > thead > tr > th,
+    .gridSection > table > tbody > tr > td {
+        display: none;
+    }
+
+    .gridSection > table > thead > tr > th:first-child,
+    .gridSection > table > tbody > tr > td:first-child {
+        display: table-cell;
+    }
+
+    .gridSection > table > thead > tr > th:nth-child(2),
+    .gridSection > table > tbody > tr > td:nth-child(2) {
+        display: table-cell;
+    }
+
+    .gridSection > table > thead > tr > th:last-child,
+    .gridSection > table > tbody > tr > td:last-child {
+        display: table-cell;
+    }
+}
+
+/* hjm-grid search mobile end */

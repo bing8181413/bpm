@@ -21,6 +21,7 @@ define([], function () {
                 {name: '失败原因', field: 'fail_reason'},
                 {name: '更新时间', field: 'updated_at',filter:'null2empty'},
                 {name: '退款来源', field: 'cancel_from', filter: 'refund_cancel_from'},
+                {name: '退款状态', field: 'refund_status', filter: 'refund_status'},
                 {name: '操作', fieldDirective: '<div order-single-refund data="item"></div>'},
             ],
             config: {
