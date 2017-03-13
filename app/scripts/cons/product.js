@@ -168,7 +168,8 @@ define([], function () {
                 },
                 {
                     name: '操作',
-                    fieldDirective: '<div act-edit data="item" ></div>'
+                    fieldDirective: '<div weinxi-view data="item" ></div>'
+                    + '<div act-edit data="item" ></div>'
                     + '<div product-change-status data="item" ></div>'
                     + '<div change-product-type data="item" ></div>'
                     + '<div act-crowdfunding data="item" ></div>'

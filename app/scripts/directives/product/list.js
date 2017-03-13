@@ -463,4 +463,37 @@ define([
                 }
             }
         })
+        .directive('weinxiView', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-rounded btn-link" ng-click="show_weixin_view()" >微信活动链接</a>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_weixin_view = function () {
+                        var modalInstance = $modal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $modalInstance) {
+                                    $scope.title = '微信活动链接';
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
+                                        '<div form-textarea text="链接地址" ng-model="link"></div>' +
+                                        '<a class="btn btn-warning btn-rounded pull-right" ng-click="cancel()">关闭</a>' +
+                                        '</form>';
+                                    $timeout(function () {
+                                        $scope.link = simpleCons.wx_domain + '/product/detail/product_id/' + supscope.data.product_id;
+                                    }, 0);
+                                    $scope.cancel = function () {
+                                        $modalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'lg'
+                            }
+                        );
+                    }
+                }
+            }
+        })
 });

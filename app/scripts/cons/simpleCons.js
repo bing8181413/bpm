@@ -26,6 +26,7 @@ define([
     var domain = '';
     var web_domain = '';
     var qiniu_domain = '';
+    var wx_domain = '';
     var default_param = {
         page: 1,
         count: 20
@@ -39,6 +40,7 @@ define([
         domain = 'https://mgrapi.huijiame.com';
         web_domain = 'https://www.huijiame.com';
         qiniu_domain = 'https://bpm.huijiame.com';
+        wx_domain = 'https://m.huijiame.com';
     } else if (location.href.indexOf('//testbpm.huijiame.com') > 0
         // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
@@ -46,12 +48,14 @@ define([
         domain = 'https://testmgrapi.huijiame.com';
         web_domain = 'https://testbpm.huijiame.com';
         qiniu_domain = 'https://testbpm.huijiame.com';
+        wx_domain = 'https://testm.huijiame.com';
     } else {
         // domain = 'https://devapi.huijiame.com';
         env = 'dev';
         domain = 'https://devmgrapi.huijiame.com';
         web_domain = 'https://devwww.huijiame.com';
         qiniu_domain = 'https://devbpm.huijiame.com';
+        wx_domain = 'https://devm.huijiame.com';
         // qiniu_domain = 'http://qiniu.hjm.com/';
     }
     api = {
@@ -78,6 +82,7 @@ define([
         'domain': domain,
         'web_domain': web_domain,
         'qiniu_domain': qiniu_domain,
+        'wx_domain': wx_domain,
         // 'domain_noauth': 'action_noauth.php?',
         'default_param': default_param,
         'api': api,
