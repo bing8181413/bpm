@@ -5217,7 +5217,7 @@ a.thumbnail:hover, a.thumbnail:focus, a.thumbnail.active {
 .progress {
     overflow: hidden;
     height: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     background-color: #f5f5f5;
     border-radius: 0;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, .1)
@@ -7115,7 +7115,7 @@ body {
         position: static
     }
 
-    #body-container .dashboard-page{
+    #body-container .dashboard-page {
         margin-left: 0;
         position: static
     }
@@ -9834,6 +9834,12 @@ growl-notifications growl-notification.growl-warning {
     content: "\2713"
 }
 
+.checkbox1 input[disabled]:checked + span:before {
+    background: #999;
+    border-color: #3ca2e0;
+    content: "\2713"
+}
+
 .radio1 {
     position: relative;
     padding-right: 15px;
@@ -9882,6 +9888,16 @@ growl-notifications growl-notification.growl-warning {
     border-color: #ddd
 }
 
+/* hbb add */
+
+.radio1 input[disabled]:checked + span:before {
+    height: 20px;
+    width: 20px;
+    background: #999;
+    border-color: #ddd
+}
+
+/* hbb add */
 table.white tbody {
     color: #fff
 }
@@ -10190,6 +10206,19 @@ html, body {
 }
 
 @media (max-width: 767px) {
+    .panel-primary > .panel-heading.routerTitleSection {
+        background-color: #fff;
+        border-color: #fff;
+    }
+}
+
+@media (max-width: 767px) {
+    #sidebar.left_0 {
+        left: 0;
+    }
+}
+
+@media (max-width: 767px) {
     .gridSection > table > thead > tr > th,
     .gridSection > table > tbody > tr > td {
         display: none;
@@ -10212,3 +10241,87 @@ html, body {
 }
 
 /* hjm-grid search mobile end */
+
+/* navbar-brand start */
+@media (max-width: 767px) {
+    .navbar-collapse.collapse {
+        display: block !important;
+        height: auto !important;
+        padding: 0;
+        overflow: visible !important;
+        background-color: #3ca2e0 !important;
+    }
+
+    .navbar-collapse.collapse > ul {
+        /*float: left;*/
+        margin: 0 !important;
+    }
+
+    .navbar-collapse.collapse > ul > li {
+        display: none;
+    }
+
+    .navbar-collapse.collapse > ul > li:last-child {
+        display: inline-block;
+        float: right;
+    }
+
+    .topnav-navbar.navbar-fixed-top > .navbar-header {
+        display: none;
+    }
+}
+
+/* navbar-brand end   */
+
+/* 富文本文字编辑  start */
+
+.simditor .simditor-body p, .simditor .simditor-body div, .editor-style p, .editor-style div {
+    margin: 0 !important;
+}
+
+.simditor .simditor-paste-bin {
+    position: inherit !important;
+}
+
+.simditor .simditor-body h1,
+.simditor .simditor-body h2,
+.simditor .simditor-body h3,
+.simditor .simditor-body h4,
+.simditor .simditor-body h5,
+.simditor .simditor-body h6,
+.editor-style h1, .editor-style h2,
+.editor-style h3, .editor-style h4,
+.editor-style h5, .editor-style h6 {
+    margin: 10px 0 5px!important;
+
+}
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color.font-color-default {
+    background: #424242!important;
+}
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-1 {
+    background: #f70b0b!important;
+}
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-2 {
+    background: #ffe62e!important;
+}
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-3 {
+    background: #4f4f4f!important;
+}
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-4 {
+    background: #424242!important;
+}
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-5 {
+    background: #f70b0b!important;
+}
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-6 {
+    background: #ffe62e!important;
+}
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-7 {
+    background: #4f4f4f!important;
+}
+
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list{
+    height: 20px!important;
+    overflow: hidden!important;
+}
+/* 富文本文字编辑  end   */

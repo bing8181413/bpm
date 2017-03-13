@@ -41,10 +41,28 @@ define([
              simpleCons) {
     mod
 
-    /** 文本编辑器
-     * <show-textarea ng-model="data" placeholder="你需要在文本框里默认显示文字"></show-textarea>
-     * data: ng-model绑定输出的数据格式输出如下：
-     * {
+        .directive('showRichContent', function ($state, $rootScope, $timeout, $compile) {
+            return {
+                restrict: 'E',
+                replace: true,
+                require: '?ngModel',
+                scope: {
+                    ngModel: '='
+                },
+                template: '<div class="panel panel-default">' +
+                '    <div class="panel-body">' +
+                '        <simditor ng-model="ngModel" config="simditorConfig"></simditor>' +
+                '       <p ng-bind="ngModel" class="text-left text-med text-gray" show-role="\'admin\'"></p>' +
+                '    </div>' +
+                '</div>',
+                link: function ($scope, $element, $attrs, ngModel) {
+                }
+            };
+        })
+        /** 文本编辑器
+         * <show-textarea ng-model="data" placeholder="你需要在文本框里默认显示文字"></show-textarea>
+         * data: ng-model绑定输出的数据格式输出如下：
+         * {
     *    'size'   : '', 字体大小
     *    'align'  : '', 字体对齐
     *    'weight' : '', 字体粗细
@@ -52,7 +70,7 @@ define([
     *    'color'  : '', 字体颜色
     *    'content': ''  文本内容
     * }
-     */
+         */
         .directive('showTextarea', function ($state, $rootScope, $timeout, $compile) {
             return {
                 restrict: 'E',

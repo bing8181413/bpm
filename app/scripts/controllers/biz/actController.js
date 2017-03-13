@@ -8,6 +8,9 @@ define([
 
     updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter'];
     function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter) {
+        // $scope.$watch('content',function(val){
+        //     console.log(val);
+        // });
         if ($stateParams.product_id) {
             widget.ajaxRequest({
                 url: '/products/' + $stateParams.product_id,
@@ -112,7 +115,7 @@ define([
         // });
 
         $scope.submit = function (status) {
-            // console.log($scope.param);
+            // console.log($scope.param.contents);
             if ($scope.param.enable_bind_mobile && $scope.param.enable_bind_mobile == 2) {
                 if (!confirm('确定该活动取消绑定手机号')) {
                     return false;
@@ -235,7 +238,6 @@ define([
                     widget.msgToast('sorry!活动类目为空');
                     return false;
                 } else {
-                    console.log(comfunc.isEmptyArray($scope.param.options));
                     if (comfunc.hasEmptyFieldArray($scope.param.options)) {
                         widget.msgToast('sorry!活动类目有空值');
                         return false;

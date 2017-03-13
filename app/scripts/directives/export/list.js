@@ -41,6 +41,7 @@ define([
                                 $scope.tmpl += '<a class="btn btn-primary btn-rounded pull-right" ng-disabled="FormBody.$invalid"  ng-click="exec();">执行</a>'
                                 $scope.tmpl += '</form>';
                                 $scope.exec = function () {
+                                    $scope.param = $scope.param || {};
                                     angular.extend($scope.param, {command: $scope.command});
                                     if (confirm('确认将查询结果导出EXCEL吗?')) {
                                         widget.ajaxRequest({

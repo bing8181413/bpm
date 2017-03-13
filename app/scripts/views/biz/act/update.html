@@ -6,11 +6,13 @@
             <h3 class="panel-title" show-role="'!admin,op'" ng-if="$stateParams.product_id">活动详情</h3>
         </div>
         <div class="panel-body">
+            <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
             <form class="form-horizontal" name="FormBody" novalidate
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>活动信息</h4>
+                        <!--<div form-image-content text="图文详情" ng-model="param.contents" ng-show="param.content_type==1"></div>-->
                         <div form-input text="活动ID" ng-model="param.product_id"
                              ng-show="$stateParams.product_id"
                              placeholder="活动ID" ng-disabled="$stateParams.product_id"></div>

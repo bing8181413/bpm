@@ -11,6 +11,160 @@ define([
     //    old: [],
     //    new: [{}]
     //},
+        .directive('richContentOrImg', function ($state, $rootScope, $timeout, $templateCache, $compile) {
+            return {
+                restrict: 'E',
+                replace: true,
+                // require: '^?showTextarea',
+                scope: {
+                    ngModel: '=',
+                },
+                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_content2img.html'),
+                link: function ($scope, $element, $attrs) {
+                    var init = false;
+                    $timeout(function () {
+                        $scope.disabled = ($attrs.disabled ? true : false);
+                        $scope.disabledRole = $attrs.disabledRole || '';
+                        // console.log($element, $attrs, $scope.disabled);
+                        var conent_tmp = '<div class="form-group " ng-repeat="item in list">' +
+                            '<div class="col-sm-12" ng-class="{contents:onlyContent!=1}">' +
+                            '<div class="col-sm-12 form-group" style="margin-bottom: 5px;" ng-class="{\'hide\':' + $scope.disabled + '}">' +
+                            '<div class="col-sm-12 form-group" style="margin-bottom: 0;">' +
+                            '<a class="btn btn-info btn-rounded" ng-bind="($index+1)"></a>' +
+                            '<a class="btn btn-success btn-rounded" ng-show="onlyContent!=1"' +
+                            'ng-class="{\'btn-success\':!item.showContent,\'btn-danger\':item.showContent}"' +
+                            'ng-click="toggleShow(item,\'showContent\')">' +
+                            '<span class="glyphicon"' +
+                            'ng-class="{\'glyphicon-plus\':!item.showContent,\'glyphicon-trash\':item.showContent}">' +
+                            '</span> {{item.showContentTitle}}' +
+                            '</a>' +
+                            '<a class="btn btn-success btn-rounded" ng-show="onlyContent!=1"' +
+                            'ng-class="{\'btn-success\':!item.showImg,\'btn-danger\':item.showImg}"' +
+                            'ng-click = "toggleShow(item,\'showImg\')" > ' +
+                            '<span class="glyphicon"' +
+                            'ng-class="{\'glyphicon-plus\':!item.showImg,\'glyphicon-trash\':item.showImg}">' +
+                            '</span> {{item.showImgTitle}}' +
+                            '</a>' +
+                            '<a class="btn btn-danger btn-rounded" ng-show="onlyContent!=1" ng-click="del($index);">' +
+                            '<span class="glyphicon glyphicon-trash"></span> 删除这一条图文</a>' +
+                            '<div class="col-sm-12" ng-show="!!item.showContent" style="margin-top: 5px;">' +
+                            '<show-rich-content ng-model="item.content" placeholder="填写你要说的"' +
+                            'disabled-role="' + $scope.disabledRole + '"></show-rich-content>' +
+                            '</div>' +
+                            '<div class="col-sm-12" ng-show="!!item.showImg" style="margin-top: 5px;">' +
+                            // '<show-upload images="item.pics" hasimages="" disabled-role="' + $scope.disabledRole + '"></show-upload>' +
+                            '<div form-radio name="{{\'pic_padding\'+$index}}" text="图片间距" ng-model="item.pic_padding" default="0"' +
+                            ' style="border-top: 1px solid #ccc;" ' +
+                            'source="[{text:\'无\',value:0},{text:\'有\',value:20}]" source-api=""></div>' +
+                            '<show-upload-token images="item.pics" hasimages="" token="activity" disabled-role="' + $scope.disabledRole + '"></show-upload-token>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                        $element.find('.content-and-img').html(conent_tmp);
+                        $compile($element.contents())($scope);
+                    }, 0);
+
+                    $scope.$watch('ngModel', function (defval) {
+                        if (defval && !init) {
+                            init = true;
+                            // console.log(defval);
+                            $scope.list = $scope.list || [];
+                            angular.forEach(defval, function (val, key) {
+                                var obj = {
+                                    pics: val.pics || [],
+                                    pic_padding: val.pic_padding || 0,
+                                    content_id: val.content_id,
+                                    content: $(val.content).text() ? val.content : '',
+                                    category: val.category
+
+                                };
+                                $scope.list.push(angular.extend(obj, {
+                                    showContent: $(obj.content).text() != '',
+                                    showImg: obj.pics.length > 0 ? true : false,
+                                    showContentTitle: $(obj.content).text() != '' ? '取消文字' : '文字模式',
+                                    showImgTitle: obj.pics.length > 0 ? '取消图片' : '图片模式'
+                                }));
+                                // console.log($scope.list);
+                            });
+                        }
+
+                    }, true);
+
+                    $scope.$watch('list', function (defval) {
+                        if (init) {
+                            $scope.ngModel = [];
+                            angular.forEach(defval, function (val, key) {
+                                var obj = {
+                                    pics: val.pics || [],
+                                    pic_padding: val.pic_padding || 0,
+                                    content_id: val.content_id,
+                                    content: $(val.content).text() ? val.content : '',
+                                    category: val.category
+
+                                };
+                                $scope.ngModel.push(obj);
+                            });
+                        }
+                        // console.log(defval && defval[1] && defval[1].contentData);
+                    }, true);
+
+                    $scope.add = function (obj) {
+                        init = true;
+                        obj = obj || {};
+                        $scope.list = $scope.list || [];
+                        $scope.list.push(angular.extend({
+                            // contentData: {},
+                            pics: [],
+                            pic_padding: 0,
+                            content: '',
+                            showContent: false,
+                            showImg: false,
+                            showContentTitle: '文字模式',
+                            showImgTitle: '图片模式'
+                        }, obj))
+                    }
+                    //删除一条 list.new 的记录
+                    $scope.del = function (index) {
+                        $scope.list.splice(index, 1);
+                    }
+                    // 切换新增和删除图文
+                    $scope.toggleShow = function (item, typeTitle) {
+                        // 这一组判断是只准图片和文字选其一 去掉可以选择多种
+                        if (!item.showContent && item.showImg && typeTitle == 'showContent') {
+                            if (!window.confirm('图片和文字只能选其一,确定切换吗')) {
+                                return false;
+                            }
+                            item.showImg = false;
+                            item.showImgTitle = '图片模式';
+                            item.pics = [];
+                        } else if (!item.showImg && item.showContent && typeTitle == 'showImg') {
+                            if (!window.confirm('图片和文字只能选其一,确定切换吗')) {
+                                return false;
+                            }
+                            item.showContent = false;
+                            item.showContentTitle = '文字模式';
+                            item.content = '';
+                        }
+                        if (typeTitle == 'showContent') {
+                            item.showContent = !item.showContent;
+                            item.showContentTitle = item.showContent ? '取消文字' : '文字模式';
+                            item.content = '';
+                            item.category = '';
+                            item.pic_padding = 0;
+                        }
+                        if (typeTitle == 'showImg') {
+                            item.showImg = !item.showImg;
+                            item.showImgTitle = item.showImg ? '取消图片' : '图片模式';
+                            item.pics = [];
+                        }
+                    }
+                    $scope.conslog = function (index) {
+                        console.log($scope.list);
+                    }
+
+                }
+            };
+        })
 
         .directive('contentOrImg', function ($state, $rootScope, $timeout, $templateCache, $compile) {
             return {
@@ -51,6 +205,8 @@ define([
                             '<div class="col-sm-12" ng-if="!!item.showContent">' +
                             '<show-textarea ng-model="item.contentData" placeholder="填写你要说的"' +
                             'disabled-role="' + $scope.disabledRole + '"></show-textarea>' +
+                            // '<show-textarea ng-model="item.contentData" placeholder="填写你要说的"' +
+                            // 'disabled-role="' + $scope.disabledRole + '"></show-textarea>' +
                             '</div>' +
                             '<div class="col-sm-12" ng-if="!!item.showImg">' +
                             // '<show-upload images="item.pics" hasimages="" disabled-role="' + $scope.disabledRole + '"></show-upload>' +
@@ -89,7 +245,7 @@ define([
                                     //images: val.images ||[],
                                     showContent: obj.contentData.content != '',
                                     showImg: obj.pics.length > 0 ? true : false,
-                                    showContentTitle: obj.contentData.content != '' ? '取消文字' : '文字模式',
+                                    showContentTitle: obj.contentData.content != '' ? '取消富文本' : '富文本模式',
                                     showImgTitle: obj.pics.length > 0 ? '取消图片' : '图片模式'
                                 }));
                                 // console.log($scope.list);
@@ -131,7 +287,7 @@ define([
                             pics: [],
                             showContent: false,
                             showImg: false,
-                            showContentTitle: '文字模式',
+                            showContentTitle: '富文本模式',
                             showImgTitle: '图片模式'
                         }, obj))
                     }
@@ -154,12 +310,12 @@ define([
                                 return false;
                             }
                             item.showContent = false;
-                            item.showContentTitle = '文字模式';
+                            item.showContentTitle = '富文本模式';
                             item.contentData.content = null;
                         }
                         if (typeTitle == 'showContent') {
                             item.showContent = !item.showContent;
-                            item.showContentTitle = item.showContent ? '取消文字' : '文字模式';
+                            item.showContentTitle = item.showContent ? '取消富文本' : '富文本模式';
                             item.contentData.content = '';
                             item.contentData.category = '';
                             item.contentData.font_align = '';

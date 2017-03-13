@@ -35,7 +35,8 @@
     "angular-aria": "^1.5.8",
     "angular-drag-and-drop-lists": "^1.4.0",
     "zeroclipboard": "^2.2.0",
-    "ng-clip": "^0.2.6"
+    "ng-clip": "^0.2.6",
+    "ng.simditor": "^0.0.4"
   },
   "devDependencies": {
     "angular-bindonce": "~0.3.1",

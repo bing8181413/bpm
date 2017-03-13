@@ -371,6 +371,9 @@ define([
                     ngDisabled: '='
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
+                    if (!$scope.ngModel) {
+                        $scope.ngModel = $scope.default;
+                    }
                     // console.log('formElement', $scope, $attrs);
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
@@ -400,9 +403,6 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-                    $scope.$watch('default', function (val) {
-                        $scope.ngModel = val;
-                    });
                 }
             }
         })
@@ -618,7 +618,8 @@ define([
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">' +
-                            '<content_or_img ng-model="ngModel"' + name + required + disabledRole + '></content_or_img>' +
+                            // '<content_or_img ng-model="ngModel"' + name + required + disabledRole + '></content_or_img>' +
+                            '<rich-content-or-img ng-model="ngModel"' + name + required + disabledRole + '></rich-content-or-img>' +
                             // '<content_or_img ng-model="' + $scope.ngModelText + '"' + name + required + disabledRole + '></content_or_img>' +
                             '</div>';
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='

@@ -214,7 +214,7 @@ module.exports = function (grunt) {
     ]);
     grunt.registerTask('initbuild', [
         'html2js:compileTpl',
-        'copy:hbbdist',
+        'copy:dist',
         // 'copy:dist',
         'requirejs:dist',
     ]);

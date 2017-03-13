@@ -6,7 +6,7 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                     if (angular.isArray(arr)) {
                         return (arr.length == 0) || false;
                     } else {
-                        $log.error(arr + ' 不是一个数组');
+                        $log.error(arr + ' 不是一个数组:'+arr.toString());
                         return true;
                     }
                 },

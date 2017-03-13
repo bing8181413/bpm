@@ -34,7 +34,12 @@
             'angucomplete-alt': '../vendor/angucomplete-alt/dist/angucomplete-alt.min', // 订单的修改收货地址  使用
             'angular-aria': '../vendor/angular-aria/angular-aria.min', //
             'dndLists': '../vendor/angular-drag-and-drop-lists/angular-drag-and-drop-lists', //
-            'app-tpl': './app-tpl'
+            'app-tpl': './app-tpl',
+            'ng.simditor': '../vendor/ng.simditor/src/ng-simditor',
+            'simple-module': '../vendor/simple-module/lib/module',
+            'hotkeys': '../vendor/simple-hotkeys/lib/hotkeys',
+            'simditor': '../vendor/simditor/lib/simditor',
+            'simple-uploader': '../vendor/simple-uploader/lib/uploader',
         },
         shim: {
             // 'jquery': {exports: 'jquery'},
@@ -51,6 +56,7 @@
             'angular-truncate': {deps: ['angular']},
             'ui.bootstrap': {deps: ['angular']},
             'app-tpl': {deps: ['angular']},
+            'ng.simditor': {deps: ['angular', 'simple-module', 'hotkeys', 'simditor','simple-uploader']},
             // 'perfect-scrollbar': {exports: 'perfect-scrollbar'},
             'perfect_scrollbar': {deps: ['angular', 'perfect-scrollbar']},
             'angular-loading-bar': {deps: ['angular']},
@@ -63,7 +69,7 @@
             'bindonce': {deps: ['angular']},
             'ab-base64': {deps: ['angular']},
             //'ui.select2': { deps: ['angular']},
-            'ng.ueditor': { deps: ['angular']},
+            'ng.ueditor': {deps: ['angular']},
             'ui.router': {deps: ['angular']},
             // 'ngSanitize': {deps: ['angular']},// 使用csv
             // 'ngCsv': {deps: ['angular']}, // 使用csv 到处excle 表格
