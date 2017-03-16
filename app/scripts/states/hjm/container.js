@@ -5,12 +5,16 @@
 define([
         './../states'
         , '../../cons/simpleCons'
+        , '../../services/widget'
         , '../../controllers/loginController'
     ],
-    function (stateModule, cons) {
+    function (stateModule, cons, widget) {
         stateModule.config(
-            ['$stateProvider', '$urlRouterProvider',
-                function ($stateProvider, $urlRouterProvider) {
+            ['$stateProvider', '$urlRouterProvider', '$httpProvider',
+                function ($stateProvider, $urlRouterProvider, $httpProvider) {
+                    // 加入 http 拦截器
+                    $httpProvider.interceptors.push('bpmHttpInterceptor');
+
                     $urlRouterProvider.when("", "login");
                     $stateProvider
                         .state("login", {
@@ -33,7 +37,7 @@ define([
                                     }
                                 }
                             }
-                        })
+                        });
                 }
             ]);
     })

@@ -14,8 +14,8 @@
                              source="[{text:'不限',value:'0'},{text:'人数团',value:'2'},{text:'直接买',value:'3'}]"
                              source-api=""></div>
                         <!--<div form-radio text="适用范围" ng-model="param.category" required="true" default="0"-->
-                             <!--source="[{text:'不限',value:'0'},{text:'砍价团',value:'1'},{text:'人数团',value:'2'},{text:'众筹团',value:'3'},{text:'一起玩',value:'4'}]"-->
-                             <!--source-api=""></div>-->
+                        <!--source="[{text:'不限',value:'0'},{text:'砍价团',value:'1'},{text:'人数团',value:'2'},{text:'众筹团',value:'3'},{text:'一起玩',value:'4'}]"-->
+                        <!--source-api=""></div>-->
 
                         <div form-radio text="活动品类" ng-model="param.sku" required="true" default="0"
                              source="[{text:'不限',value:'0'}]" source-api=""></div>
@@ -39,7 +39,8 @@
                              ng-disabled="param.is_nofity != 1"></div>
                     </div>
                 </div>
-                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid&&submit_disabled"
+                   ng-click="submit()">提交</a>
                 <!--<a class="btn btn-success btn-rounded" ng-click="aaa()">提交</a>-->
             </form>
         </div>

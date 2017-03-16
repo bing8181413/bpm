@@ -10090,7 +10090,7 @@ html, body {
     cursor: pointer
 }
 
-.mod_msg {
+.mod_msg, .mod_http_msg {
     position: fixed;
     top: 0;
     left: 0;
@@ -10107,7 +10107,7 @@ html, body {
     -webkit-box-pack: center;
 }
 
-.mod_msg span {
+.mod_msg span, .mod_http_msg span {
     display: inline-block;
     padding: 10px 20px;
     line-height: 20px;
@@ -10142,7 +10142,7 @@ html, body {
 
 /*表单*/
 /*msgToast*/
-.mod_msg {
+.mod_msg, .mod_http_msg {
     position: fixed;
     top: 0;
     left: 0;
@@ -10159,7 +10159,7 @@ html, body {
     -webkit-box-pack: center;
 }
 
-.mod_msg span {
+.mod_msg span, .mod_http_msg span {
     display: inline-block;
     padding: 10px 20px;
     line-height: 20px;
@@ -10292,36 +10292,45 @@ html, body {
 .editor-style h1, .editor-style h2,
 .editor-style h3, .editor-style h4,
 .editor-style h5, .editor-style h6 {
-    margin: 10px 0 5px!important;
+    margin: 10px 0 5px !important;
 
 }
+
 .simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color.font-color-default {
-    background: #424242!important;
-}
-.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-1 {
-    background: #f70b0b!important;
-}
-.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-2 {
-    background: #ffe62e!important;
-}
-.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-3 {
-    background: #4f4f4f!important;
-}
-.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-4 {
-    background: #424242!important;
-}
-.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-5 {
-    background: #f70b0b!important;
-}
-.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-6 {
-    background: #ffe62e!important;
-}
-.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-7 {
-    background: #4f4f4f!important;
+    background: #424242 !important;
 }
 
-.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list{
-    height: 20px!important;
-    overflow: hidden!important;
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-1 {
+    background: #f70b0b !important;
 }
+
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-2 {
+    background: #ffe62e !important;
+}
+
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-3 {
+    background: #4f4f4f !important;
+}
+
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-4 {
+    background: #424242 !important;
+}
+
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-5 {
+    background: #f70b0b !important;
+}
+
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-6 {
+    background: #ffe62e !important;
+}
+
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-7 {
+    background: #4f4f4f !important;
+}
+
+.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list {
+    height: 20px !important;
+    overflow: hidden !important;
+}
+
 /* 富文本文字编辑  end   */

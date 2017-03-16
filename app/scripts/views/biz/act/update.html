@@ -81,7 +81,7 @@
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="col-sm-2">
                                     <a class="btn btn-info btn-rounded" ng-click="toggleShowTime();"
-                                       ng-bind="showTime?'显示活动时间时分':'不显示活动时间时分'"></a>
+                                       ng-bind="showTime?'微信上活动详情显示活动时间时分':'微信上活动详情不显示活动时间时分'"></a>
                                 </div>
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                              required="true"></div>
                         <div form-date-time text="报名开始时间" ng-model="param.act_apply_start_time" required="true"></div>
                         <div form-date-time text="报名截止时间" ng-model="param.act_apply_end_time" required="true"></div>
-                        <div form-image text="运营大图" ng-model="param.pics" max="100" required="true"></div>
+                        <div form-image text="运营大图" ng-model="param.pics" max="100"></div>
                         <div form-image text="缩略小图" ng-model="param.thumbnail_pics" max="100"></div>
                     </div>
                 </div>

@@ -1,5 +1,34 @@
-define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (mod, cons) {
+define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (mod, cons, widget) {
     mod
+        .factory('bpmHttpInterceptor', ['$log', '$rootScope', function ($log, $rootScope) {
+            $log.debug('$log is here to show you that this is a regular factory with injection');
+            var bpmHttpInterceptor = {
+                'request': function (config) {
+                    if (config.url.indexOf('.html') == -1) {
+                        console.log(config);
+                        // console.log('config.url.indexOf(\'.html\') == -1 : ' + (config.url.indexOf('.html') == -1));
+                        $rootScope.http_notification = '请求等待中...';
+                    } else {
+                        $rootScope.http_notification = '加载模板中...';
+                    }
+                    return config;
+                },
+                'requestError': function (config) {
+                    $rootScope.http_notification = null;
+                    console.log('requestError:  ' + config);
+                },
+                'response': function (response) {
+                    $rootScope.http_notification = null;
+                    // console.log(response);
+                    return response;
+                },
+                'responseError': function (response) {
+                    $rootScope.http_notification = null;
+                    console.log('responseError:  ' + response);
+                }
+            };
+            return bpmHttpInterceptor;
+        }])
         .run(['$rootScope', '$state', '$stateParams', '$http', '$modal', '$location', 'widget', '$document',
             function ($rootScope, $state, $stateParams, $http, $modal, $location, widget, $document) {
                 var arr = [];

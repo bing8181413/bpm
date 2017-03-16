@@ -3,6 +3,7 @@ define(['controllers/controllers'], function (mod) {
         function ($rootScope, $state, $stateParams, $http) {
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
+            $rootScope.http_notification = '';// http ajax 拦截器的gif
         }
     ]);
     mod.config(['$httpProvider', '$compileProvider', 'cfpLoadingBarProvider', '$provide',

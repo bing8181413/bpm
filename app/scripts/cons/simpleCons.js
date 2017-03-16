@@ -34,7 +34,7 @@ define([
     var api = {};
     var state = {};
     if (location.href.indexOf('//bpm.huijiame.com') > 0
-    // || location.href.indexOf('//bpm.hjm.com') > 0 // prod
+        // || location.href.indexOf('//bpm.hjm.com') > 0 // prod
     ) {
         env = 'prod';
         domain = 'https://mgrapi.huijiame.com';
@@ -42,7 +42,7 @@ define([
         qiniu_domain = 'https://bpm.huijiame.com';
         wx_domain = 'https://m.huijiame.com';
     } else if (location.href.indexOf('//testbpm.huijiame.com') > 0
-        // || location.href.indexOf('//bpm.hjm.com') > 0
+    // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
         env = 'test';
         domain = 'https://testmgrapi.huijiame.com';

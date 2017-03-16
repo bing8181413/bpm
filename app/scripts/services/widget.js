@@ -34,6 +34,9 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                     }, time || 2000);
 
                 },
+                // cancelMsgToast: function () {
+                //     $rootScope.notification = null;
+                // },
 
                 /** ajax请求
                  * @params:
@@ -86,7 +89,7 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                         },
                         method: params.method || 'POST',
                         url: params.url.indexOf('http') == 0 ? params.url : (cons.domain + params.url),
-                        timeout: 15000
+                        timeout: 60000,
                     };
                     if ($filter('uppercase')(params.method) == 'GET') {
                         ajaxConfig.url += '?';
