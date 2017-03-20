@@ -1,4 +1,4 @@
-(function () {
+// (function () {
     require.config({
         baseUrl: "scripts/",
         //skipDataMain: true,
@@ -75,5 +75,5 @@
             // 'ngCsv': {deps: ['angular']}, // 使用csv 到处excle 表格
         },
     });
-    //require(['bootstrap']); //  这里不能直接加载 因为要先加载玩main.min.js才能执行 否则会找不到对应的模块文件
-})();
+    // require(['bootstrap']); //  这里不能直接加载 因为要先加载玩main.min.js才能执行 否则会找不到对应的模块文件
+// })();

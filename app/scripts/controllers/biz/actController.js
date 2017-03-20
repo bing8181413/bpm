@@ -46,6 +46,7 @@ define([
                 $scope.hours = parseFloat(val);
                 $scope.param.group_seconds = comfunc.numMulti(val, 3600);
             }
+            console.log(val);
         });
         //  获取地理位置信息 传入地址
         $scope.getlocation = function () {
@@ -137,10 +138,10 @@ define([
                     return false;
                 }
             }
-            if (comfunc.isEmptyArray($scope.param.pics)) {
-                widget.msgToast('运营大图没有上传');
-                return false;
-            } else {
+            if ($scope.param.pics && !comfunc.isEmptyArray($scope.param.pics)) {
+                //     widget.msgToast('运营大图没有上传');
+                //     return false;
+                // } else {
                 var tmp_pics_err = 0;
                 angular.forEach($scope.param.pics, function (val, key) {
                     if (!val.pic_url) {
@@ -193,7 +194,7 @@ define([
                 widget.msgToast('配送城市没有选择');
                 return false;
             }
-            if ($scope.param.category == 2) {
+            if ($scope.param.category == 2 || $scope.param.category == 4) {
                 // 人数团 要填写 拼团人数 和 拼团时间
                 if (!$scope.param.group_min_num && $scope.param.group_min_num <= 0) {
                     widget.msgToast('人数团de拼团人数要大于零');

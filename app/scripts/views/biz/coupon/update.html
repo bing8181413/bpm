@@ -9,6 +9,7 @@
                     <div class="panel-body">
                         <h4>优惠劵</h4>
                         <div form-input text="优惠劵名称" ng-model="param.title" placeholder="优惠劵名称" required="true"></div>
+                        <div form-input text="指定活动ID" ng-model="param.product_id " placeholder="不限定活动ID的不填写"></div>
 
                         <div form-radio text="适用范围" ng-model="param.category" required="true" default="0"
                              source="[{text:'不限',value:'0'},{text:'人数团',value:'2'},{text:'直接买',value:'3'}]"
@@ -17,14 +18,17 @@
                         <!--source="[{text:'不限',value:'0'},{text:'砍价团',value:'1'},{text:'人数团',value:'2'},{text:'众筹团',value:'3'},{text:'一起玩',value:'4'}]"-->
                         <!--source-api=""></div>-->
 
-                        <div form-radio text="活动品类" ng-model="param.sku" required="true" default="0"
-                             source="[{text:'不限',value:'0'}]" source-api=""></div>
+                        <!--<div form-radio text="活动品类" ng-model="param.sku" required="true" default="0"-->
+                             <!--source="[{text:'不限',value:'0'}]" source-api=""></div>-->
 
                         <div form-radio text="商品类型(频率)" ng-model="param.frequency_type" required="true" default="1"
                              source="[{text:'单次',value:'1'},{text:'包月',value:'2'},{text:'不限',value:'0'}]"
                              source-api=""></div>
 
-                        <div form-input text="优惠劵金额" ng-model="param.price" required="true" type="number"></div>
+                        <div form-input text="满(金额)" ng-model="param.over_price" type="number" min="0" max="param.price"
+                             placeholder="不是满减优惠券的不填写"></div>
+
+                        <div form-input text="减(金额)" ng-model="param.price" required="true" type="number" min="0"></div>
 
                         <div form-textarea text="手机号" ng-model="param.mobile_list" required="true"></div>
 
@@ -39,6 +43,7 @@
                              ng-disabled="param.is_nofity != 1"></div>
                     </div>
                 </div>
+                <div form-error-block></div>
                 <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid&&submit_disabled"
                    ng-click="submit()">提交</a>
                 <!--<a class="btn btn-success btn-rounded" ng-click="aaa()">提交</a>-->

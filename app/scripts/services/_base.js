@@ -1,11 +1,11 @@
 define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (mod, cons, widget) {
     mod
         .factory('bpmHttpInterceptor', ['$log', '$rootScope', function ($log, $rootScope) {
-            $log.debug('$log is here to show you that this is a regular factory with injection');
+            // $log.debug('$log is here to show you that this is a regular factory with injection');
             var bpmHttpInterceptor = {
                 'request': function (config) {
                     if (config.url.indexOf('.html') == -1) {
-                        console.log(config);
+                        // console.log(config);
                         // console.log('config.url.indexOf(\'.html\') == -1 : ' + (config.url.indexOf('.html') == -1));
                         $rootScope.http_notification = '请求等待中...';
                     } else {

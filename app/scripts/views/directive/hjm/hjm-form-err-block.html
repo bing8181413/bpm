@@ -1,6 +1,6 @@
 <div class="panel panel-primary" ng-show="FormBody.$invalid">
     <div class="panel-body">
-        <h4>表单验证提示</h4>
+        <h5>表单验证提示</h5>
         <!--<div ng-repeat="(key,val) in FormBody" ng-if="val.$invalid&&val.$name">-->
         <!--<span ng-bind="val|json"></span><br/>-->
         <!--</div>-->
@@ -22,7 +22,7 @@
                     <!--<span class="col-sm-2" ng-bind="val|json" show-env="dev,test"></span>-->
                 </div>
             </li>
-            <li class="list-group-item" ng-repeat-end ng-if="val.$invalid&&val.$name" show-env="dev,test">
+            <li class="list-group-item" ng-repeat-end ng-if="val.$invalid&&val.$name" show-env="dev">
                 <div class="row">
                     <span class="col-sm-8" ng-bind="val|json" show-env="dev,test"></span>
                 </div>

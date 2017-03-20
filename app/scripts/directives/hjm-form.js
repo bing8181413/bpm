@@ -161,6 +161,7 @@ define([
                     ngDisabled: '=',
                     labelWidth: '@',
                     contentWidth: '@',
+                    requiredSpanShow: '=', //  用于展示必填符号 不能实际校验是否必填
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     // console.log('formElement', $scope, $attrs, $element, $ctrl);
@@ -170,7 +171,7 @@ define([
                         ($scope.labelWidth ? ('col-sm-' + (10 - $scope.labelWidth)) : ('col-sm-8'));
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '" ');
                     var required = $scope.required ? (' required') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = ($scope.required || $scope.requiredSpanShow) ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var type = $scope.type ? (' type="' + $scope.type + '" ') : '';
                     var min = $scope.min ? (' min="' + $scope.min + '" ') : '';
