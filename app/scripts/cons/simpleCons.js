@@ -19,6 +19,7 @@ define([
     './wechat',
     './web',
     './hotkey',
+    './captcha',
     // './subject_group',
 ], function () {
     // console.log(arguments);

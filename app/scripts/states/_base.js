@@ -21,6 +21,7 @@ define([
     'states/hjm/orders',//维护订单数据
     'states/hjm/wechat',//微信相关数据
     'states/hjm/hotkey',//热搜词
+    'states/hjm/captcha',//验证码
 
 ], function () {
 

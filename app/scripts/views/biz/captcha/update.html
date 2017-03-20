@@ -1,0 +1,22 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">新增验证码</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate
+                  disabled-role="{{$stateParams.product_id?'admin,op':''}}">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div form-input text="活动标题" ng-model="param.mobile" placeholder="手机号码" required="true"
+                             minlength="1" maxlength="30"></div>
+                        <div form-date-time text="过期时间" ng-model="param.expire_time"></div>
+                        <hr>
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
+                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>
