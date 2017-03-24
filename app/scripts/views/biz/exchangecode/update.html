@@ -16,15 +16,15 @@
                              source="[{text:'不限',value:'0'},{text:'人数团',value:'2'},{text:'直接买',value:'3'}]"
                              source-api=""></div>
 
-                        <div form-radio text="活动品类" ng-model="param.sku" required="true" ng-show="false"
+                        <div form-radio text="活动品类" ng-model="param.sku" required="true" ng-show="false" default="0"
                              source="[{text:'不限',value:'0'}]" source-api=""></div>
 
-                        <div form-radio text="商品类型(频率)" ng-model="param.frequency_type" required="true"
-                             source="[{text:'单次',value:'1'},{text:'包月',value:'2'},{text:'不限',value:'0'}]"
+                        <div form-radio text="商品类型(频率)" ng-model="param.frequency_type" required="true" default="0"
+                             source="[{text:'不限',value:'0'},{text:'单次',value:'1'},{text:'包月',value:'2'}]"
                              source-api=""></div>
 
                         <!--<div form-input text="满(金额)" ng-model="param.over_price" type="number" min="0" max="param.price"-->
-                             <!--placeholder="不是满减优惠券的不填写"></div>-->
+                        <!--placeholder="不是满减优惠券的不填写"></div>-->
 
                         <div form-input text="减(金额)" ng-model="param.price" required="true" type="number" min="0"></div>
 
