@@ -53,7 +53,7 @@ define([
             widget.ajaxRequest({
                 url: con.api.account_mans,
                 method: 'GET',
-                data: {count: 1000, role: 'bd'},
+                data: {count: 1000, role: 'bd,op'},
                 success: function (json) {
                     angular.forEach(json.data, function (val, key) {
                         $scope.account_ids.push({
