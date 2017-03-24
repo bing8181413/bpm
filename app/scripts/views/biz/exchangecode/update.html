@@ -10,11 +10,13 @@
                         <h4>兑换码</h4>
                         <div form-input text="兑换码名称" ng-model="param.title" placeholder="兑换码名称" required="true"></div>
 
+                        <div form-input text="活动ID" ng-model="param.product_id" placeholder="不限制活动ID可不填写"></div>
+
                         <div form-radio text="适用范围" ng-model="param.category" required="true" default="0"
                              source="[{text:'不限',value:'0'},{text:'人数团',value:'2'},{text:'直接买',value:'3'}]"
                              source-api=""></div>
 
-                        <div form-radio text="活动品类" ng-model="param.sku" required="true"
+                        <div form-radio text="活动品类" ng-model="param.sku" required="true" ng-show="false"
                              source="[{text:'不限',value:'0'}]" source-api=""></div>
 
                         <div form-radio text="商品类型(频率)" ng-model="param.frequency_type" required="true"

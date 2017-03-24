@@ -5,8 +5,12 @@
         margin-left: 0.5%;
         /*margin-right: 0.5%;*/
     }
+
+    .panel > .panel-body > accordion {
+        display: inline-block;
+    }
 </style>
-<div class="panel panel-primary">
+<div class="panel panel-primary menu-panel">
     <div class="panel-heading">菜单管理</div>
     <div class="panel-body ">
         <common_form form_param="param" form_init_data="{sort:menus.length+1}" form_url="add_url"
@@ -14,55 +18,55 @@
                      btn-class="btn btn-primary btn-rounded pull-right btn-bordered visible-lg">
             <i class="fa fa-plus"></i>
         </common_form>
-    </div>
-    <accordion>
-        <accordion-group heading="{{menu.sort+'&nbsp;&nbsp;&nbsp;'+menu.name+'( ID:'+menu.id+')'}}"
-                         ng-repeat="menu in menus"
-                         ng-class="{'panel-success':$odd,'panel-info':$even}">
-            <div class="accordion-heading row">
-                <common_form form_param="param" form_init_data="menu" form_url="update_url"
-                             form_title="'更新'" callback="getapi" form_method="PUT" form_param_id="{{menu.id}}"
-                             btn-class="btn btn-info btn-outline btn-rounded pull-right"></common_form>
-                <common_form form_param="param_sub" form_init_data="{pid:menu.id,sort:menu.childs.length+1}"
-                             form_url="add_url" form_method="POST"
-                             form_title="'新增子菜单'" callback="getapi"
-                             btn-class="btn btn-info btn-outline btn-rounded pull-right"></common_form>
-                <div class="pull-right">
-                    <a class="btn btn-info btn-outline btn-rounded pull-right"
-                       ng-click="swap(menu.id,menus[$index-1].id);"
-                       ng-if="!$first">主菜单排序向上一层</a>
+        <accordion>
+            <accordion-group heading="{{menu.sort+'&nbsp;&nbsp;&nbsp;'+menu.name+'( ID:'+menu.id+')'}}"
+                             ng-repeat="menu in menus"
+                             ng-class="{'panel-success':$odd,'panel-info':$even}">
+                <div class="accordion-heading row">
+                    <common_form form_param="param" form_init_data="menu" form_url="update_url"
+                                 form_title="'更新'" callback="getapi" form_method="PUT" form_param_id="{{menu.id}}"
+                                 btn-class="btn btn-info btn-outline btn-rounded pull-right"></common_form>
+                    <common_form form_param="param_sub" form_init_data="{pid:menu.id,sort:menu.childs.length+1}"
+                                 form_url="add_url" form_method="POST"
+                                 form_title="'新增子菜单'" callback="getapi"
+                                 btn-class="btn btn-info btn-outline btn-rounded pull-right"></common_form>
+                    <div class="pull-right">
+                        <a class="btn btn-info btn-outline btn-rounded pull-right"
+                           ng-click="swap(menu.id,menus[$index-1].id);"
+                           ng-if="!$first">主菜单排序向上一层</a>
+                    </div>
                 </div>
-            </div>
-            <br/>
-            <div class="row">
-                <table class="table table-condensed table-bordered table-striped">
-                    <thead>
-                    <tr>
-                        <th class="text-center">排序</th>
-                        <th class="text-center">菜单名称</th>
-                        <th class="text-center">交换</th>
-                        <th class="text-center">更新</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr bindonce ng-repeat="item in menu.childs">
-                        <td class="text-center"><span bo-text="item.sort"></span></td>
-                        <td class="text-center"><span bo-text="item.name"></span></td>
-                        <td class="text-center">
-                            <a class="btn btn-info btn-outline btn-rounded btn-xs text-center"
-                               ng-click="swap(item.id,menu.childs[$index-1].id);" ng-if="!$first">排序向上一层</a>
-                        </td>
-                        <td class="text-center">
-                            <common_form form_param="param_sub" form_init_data="item" form_url="update_url"
-                                         form_extra_data="{pid:menu.id}" class="text-center"
-                                         form_title="'更新'" callback="getapi" form_method="PUT"
-                                         form_param_id="{{item.id}}"
-                                         btn-class="btn btn-info btn-outline btn-rounded btn-xs text-center"></common_form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </accordion-group>
-    </accordion>
+                <br/>
+                <div class="row">
+                    <table class="table table-condensed table-bordered table-striped">
+                        <thead>
+                        <tr>
+                            <th class="text-center">排序</th>
+                            <th class="text-center">菜单名称</th>
+                            <th class="text-center">交换</th>
+                            <th class="text-center">更新</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr bindonce ng-repeat="item in menu.childs">
+                            <td class="text-center"><span bo-text="item.sort"></span></td>
+                            <td class="text-center"><span bo-text="item.name"></span></td>
+                            <td class="text-center">
+                                <a class="btn btn-info btn-outline btn-rounded btn-xs text-center"
+                                   ng-click="swap(item.id,menu.childs[$index-1].id);" ng-if="!$first">排序向上一层</a>
+                            </td>
+                            <td class="text-center">
+                                <common_form form_param="param_sub" form_init_data="item" form_url="update_url"
+                                             form_extra_data="{pid:menu.id}" class="text-center"
+                                             form_title="'更新'" callback="getapi" form_method="PUT"
+                                             form_param_id="{{item.id}}"
+                                             btn-class="btn btn-info btn-outline btn-rounded btn-xs text-center"></common_form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </accordion-group>
+        </accordion>
+    </div>
 </div>

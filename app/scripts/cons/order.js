@@ -107,6 +107,11 @@ define([], function () {
                     maxSize: 5, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
+                ext: {
+                    showNum: [
+                        {text: '总数', type: 'total'},
+                    ],
+                }
             },
             columns_by_act_all: [
                 {name: 'ID', field: 'order_id', className: 'text-right'},
@@ -306,6 +311,11 @@ define([], function () {
                     maxSize: 5, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
+                ext: {
+                    showNum: [
+                        {text: '总数', type: 'total'},
+                    ]
+                }
             },
             config_by_groupbuy: {
                 title: '拼团订单列表',

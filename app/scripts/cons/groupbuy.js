@@ -84,6 +84,12 @@ define([], function () {
                     maxSize: 5, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
+                // 额外的bar  在搜索框下面 可以自定义事件
+                ext: {
+                    showNum: [
+                        {text: '总数', type: 'total'},
+                    ],
+                }
             },
         }
     }

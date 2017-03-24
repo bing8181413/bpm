@@ -7,8 +7,9 @@
     <script type="text/ng-template" id="form_data.html">
         <div class="panel panel-primary bot_margin_20">
             <div class="panel-heading">
-                {{form_title}}
-                <span class="badge pointer pull-right" ng-click="cancel()">X</span>
+                <button type="button" class="close" ng-click="cancel()">×</button>
+                <!--<span class="badge pointer pull-right" ng-click="cancel()">X</span>-->
+                <h3 class="panel-title" ng-bind="form_title"></h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal">

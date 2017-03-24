@@ -470,7 +470,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-rounded btn-link" ng-click="show_weixin_view()" >微信活动链接</a>',
+                template: '<a class="btn btn-rounded btn-link" ng-click="show_weixin_view()" style="padding-left: 0;">微信活动链接</a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_weixin_view = function () {
@@ -492,6 +492,27 @@ define([
                                 size: 'lg'
                             }
                         );
+                    }
+                }
+            }
+        })
+        .directive('accountIdToName', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<span ng-bind="account_name"></span>',
+                link: function ($scope, $element, $attrs) {
+                    angular.forEach($rootScope.account_list, function (val) {
+                        if (val.account_id) {
+                            $scope.account_name = '活动负责人:' + val.username
+                        }
+                    })
+                    if (!$scope.account_name) {
+                        $scope.account_name = '';
                     }
                 }
             }

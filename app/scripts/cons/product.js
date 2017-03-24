@@ -105,7 +105,8 @@ define([], function () {
                 {
                     name: 'ID和排序',
                     fieldDirective: '<p><span ng-bind="\'ID:\'+item.product_id"></span>' +
-                    '<br/><span ng-bind="\'排序:\'+item.order_by"></span></p>'
+                    '<br/><span ng-bind="\'排序:\'+item.order_by"></span>' +
+                    '<br/><div account_id_to_name data="item"></div>   </p>'
                 },
                 {
                     name: '活动信息',
@@ -257,7 +258,12 @@ define([], function () {
                     // {value: 'main.act.add', text: '新增商品'},
                     {routeDirective: '<div act-add data="" >新增活动</div>'}
                 ],
-                scopeSearchParam: 'actPageInfo'
+                scopeSearchParam: 'actPageInfo',
+                ext: {
+                    showNum: [
+                        {text: '总数', type: 'total'},
+                    ],
+                }
             },
             columns_by_subject: [
                 {name: '活动类型', field: 'product.category', filter: 'product_category'},

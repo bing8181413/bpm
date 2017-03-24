@@ -12,12 +12,14 @@ define([
                 restrict: 'E',
                 replace: true,
                 scope: {
-                    lng: '=',
-                    lat: '=',
-                    city: '=',
-                    address: '=',
-                    district: '=',
-                    timeStamp: '=',
+                    // lng: '=',
+                    // lat: '=',
+                    // city: '=',
+                    // address: '=',
+                    // district: '=',
+                    // timeStamp: '=',
+                    mapData: '=',
+                    callback: '&'
                 },
                 //template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'baidu/map.html'),
                 template: '<div id="baidumap" style="width: 100%;height:100%;overflow: hidden;margin:0;"></div>',
@@ -27,6 +29,17 @@ define([
                     var count = 0;
                     var point = null;
                     var marker1 = null;
+                    $scope.$watch('mapData', function (val) {
+                        $scope.lng = val.lng;
+                        $scope.lat = val.lat;
+                        $scope.city = val.city;
+                        $scope.address = val.address;
+                        $scope.district = val.district;
+                        $scope.timeStamp = val.timeStamp;
+                        $scope.index = val.index;
+                        // console.log(val);
+                        $scope.callback($scope.index);
+                    }, true);
                     $scope.$watch('city', function (value) {
                         // console.log(value);
                         if (!$scope.city) {
@@ -59,10 +72,10 @@ define([
                                 geoc.getLocation(e.point, function (rs) {
                                     $scope.$apply(function () {
                                         //console.log(rs);
-                                        $scope.lng = e.point.lng;
-                                        $scope.lat = e.point.lat;
-                                        $scope.address = rs.address;
-                                        $scope.district = rs.addressComponents.district;
+                                        $scope.mapData.lng = e.point.lng;
+                                        $scope.mapData.lat = e.point.lat;
+                                        $scope.mapData.address = rs.address;
+                                        $scope.mapData.district = rs.addressComponents.district;
                                     })
                                 });
                                 map.removeOverlay(marker1);
@@ -74,7 +87,7 @@ define([
                     });
                     var myGeo = null;
                     $scope.$watch('timeStamp', function (newval) {
-                        if(!newval){
+                        if (!newval) {
                             return false;
                         }
                         // if (count > 0) {
@@ -86,12 +99,12 @@ define([
                                     // console.log(point, rs);
                                     $timeout(function () {
                                         $scope.$apply(function () {
-                                            $scope.lng = rs.point.lng;
-                                            $scope.lat = rs.point.lat;
-                                            // $scope.lng = point.lng;
-                                            // $scope.lat = point.lat;
-                                            // $scope.address = rs.address;
-                                            $scope.district = rs.addressComponents.district;
+                                            $scope.mapData.lng = rs.point.lng;
+                                            $scope.mapData.lat = rs.point.lat;
+                                            // $scope.mapData.lng = point.lng;
+                                            // $scope.mapData.lat = point.lat;
+                                            // $scope.mapData.address = rs.address;
+                                            $scope.mapData.district = rs.addressComponents.district;
                                         })
                                     }, 200);
                                 });
@@ -103,8 +116,8 @@ define([
                             } else {
                                 $timeout(function () {
                                     $scope.$apply(function () {
-                                        $scope.lng = '';
-                                        $scope.lat = '';
+                                        $scope.mapData.lng = '';
+                                        $scope.mapData.lat = '';
                                     })
                                 }, 200);
                             }

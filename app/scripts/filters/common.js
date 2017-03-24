@@ -92,7 +92,7 @@ define([
             return function (val, param) {
                 var Sum = 0;
                 angular.forEach(val, function (v, k) {
-                    Sum += eval('v.' + param);
+                    Sum += eval('v.' + param)*1;
                 })
                 return Sum;
             }

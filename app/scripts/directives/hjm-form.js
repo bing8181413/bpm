@@ -317,9 +317,13 @@ define([
                             'ng-options="item.value as item.text for item in source">' +
                             '<option value="">--  请选择  --</option>' +
                             '</select>';
-                        content += '</div>';
+                        content += '<input class="hide" ng-model="ngModel" ' + name + disabledRole + '">'
+                            + '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
                     }, 0);
                     $scope.$watch($scope.ngModelText, function (val) {
                         // console.log('ngModelText ' + $scope.ngModelText, typeof  val, val);
@@ -847,6 +851,46 @@ define([
                 // },
                 link: function ($scope, $element, $attrs, $ctrl) {
 
+
+                }
+            }
+        })
+        .directive('formAddress', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+            return {
+                restrict: 'EA',
+                replace: true,
+                template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
+                scope: {
+                    ngModel: '=ngModel',
+                    ngModelText: '@ngModel',
+                    text: '@',
+                    name: '@',
+                    required: '@',
+                    max: '@',
+                    callback: '&',
+                },
+                link: function ($scope, $element, $attrs, $ctrl) {
+                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var required = $scope.required ? (' required ') : '';
+                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var max = $scope.max ? (' max="' + $scope.max + '"') : '';
+
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                        var uploadHtml =
+                            '<show-addresses addresses="ngModel"   ' + name + max + required + disabledRole + '></show-addresses>';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">' + uploadHtml +
+                            '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
+                            '</div>';
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                        // console.log($scope.$parent.FormBody[$scope.ngModelText]);
+                        if ($scope.$parent.FormBody) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
+                    }, 0);
 
                 }
             }

@@ -46,20 +46,26 @@ define([
                 $scope.hours = parseFloat(val);
                 $scope.param.group_seconds = comfunc.numMulti(val, 3600);
             }
-            console.log(val);
         });
-        //  获取地理位置信息 传入地址
-        $scope.getlocation = function () {
-            if (angular.isUndefined($scope.city_name)) {
-                widget.msgToast('没有城市');
-                return false;
-            }
-            if (angular.isUndefined($scope.param.act_detailed_address)) {
-                widget.msgToast('没有地址');
-                return false;
-            }
-            $scope.timeStamp = new Date().getTime();// 这个字段 有监听事件
+        // 查询op角色的 课程负责人
+        $scope.search = function () {
+            $scope.account_ids = [];
+            widget.ajaxRequest({
+                url: con.api.account_mans,
+                method: 'GET',
+                data: {count: 1000, role: 'bd'},
+                success: function (json) {
+                    angular.forEach(json.data, function (val, key) {
+                        $scope.account_ids.push({
+                            text: val.username,
+                            // text: val.username + (val.account_id !== '' ? (' ( ' + val.account_id + ' )') : ''),
+                            value: val.account_id
+                        });
+                    });
+                }
+            })
         }
+        $scope.search();
         //  日期时间 转 纯日期
         $scope.datetimeTodate = function (date_time) {
             $scope.date_time_tmp = date_time ? new Date(date_time) : new Date();
@@ -137,6 +143,15 @@ define([
                     widget.msgToast('视频或者音频网址不是以https://或者http://开头，或者不是网址！');
                     return false;
                 }
+            }
+            if ($scope.param.addresses && !comfunc.isEmptyArray($scope.param.addresses)) {
+                angular.forEach($scope.param.addresses, function (val, key) {
+                    delete val.timeStamp;
+                    if (!val.detail_address) {
+                        widget.msgToast('详细地址没有填写');
+                        return false;
+                    }
+                });
             }
             if ($scope.param.pics && !comfunc.isEmptyArray($scope.param.pics)) {
                 //     widget.msgToast('运营大图没有上传');

@@ -118,12 +118,13 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 }
                 $rootScope.getaccount_times = 0;
                 // 获取account_list
+                $rootScope.account_list = []
                 $rootScope.get_account_list = function () {
                     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
                         widget.ajaxRequest({
                             url: cons.api.account_mans,
                             method: 'GET',
-                            data: {count: 1000, role: 'op,majia'},
+                            data: {count: 1000, role: 'op,majia,bd'},
                             success: function (json) {
                                 json.data.unshift({
                                     account_id: "",
@@ -137,6 +138,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 angular.forEach($rootScope.account_list, function (val, key) {
                                     $rootScope.account_list[key].account_id += '';
                                 });
+
                             },
                             failure: function () {
                                 widget.msgToast('没有获取到公共数据');
@@ -144,7 +146,9 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                         })
                     }
                 }
-                // $rootScope.get_account_list();
+                if ($rootScope.account_list.length == 0) {
+                    $rootScope.get_account_list();
+                }
             }
         ])
 

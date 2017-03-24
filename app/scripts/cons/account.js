@@ -53,9 +53,10 @@ define([], function () {
                     {
                         value: 'role', text: '角色', type: 'btnGroup', default: '',
                         enum: [
-                            {value: 'admin', text: 'admin'},
-                            {value: 'pm', text: 'pm'},
-                            {value: 'op', text: 'op'},
+                            {value: 'admin', text: '超级管理'},
+                            {value: 'pm', text: '产品管理'},
+                            {value: 'op', text: '运营'},
+                            {value: 'bd', text: '商务'},
                             {value: '', text: '所有角色'},
                         ]
                     },

@@ -37,9 +37,13 @@ define([
                     this.buildTable = function (columns, config) {
                         var header = buildHeader(columns, config);
                         var rowDef = buildRows(columns, config);
+                        // var tpigination = buildTfoot(columns, config);
+                        return '<table class="table table-bordered table-striped table-hover">' + header + rowDef + '</table>';
+                        // tpigination;
+                    }
+                    this.buildPagination = function (columns, config) {
                         var tpigination = buildTfoot(columns, config);
-                        return '<table class="table table-bordered table-striped table-hover">' + header + rowDef + '</table>' +
-                            tpigination;
+                        return tpigination;
                     }
 
 
@@ -94,7 +98,7 @@ define([
                                 });
                             }
                             return '<div class="row"><div class="col-sm-12"><div class="panel panel-default"><div class="panel-body">' +
-                                '<div class="form-group col-sm-12">' + eventBtn + '&nbsp;' + showNum +
+                                '<div class="form-group form-control-static col-sm-12">' + eventBtn + '&nbsp;' + showNum +
                                 '</div></div></div></div></div>';
                         }
                         return '';
@@ -144,7 +148,7 @@ define([
 
                     function buildTfoot(columns, config) {
                         if (config.paginationSupport)
-                            return '<div hjm-pigination-bar page-info="pageInfo"><div>';
+                            return '<div hjm-pagination-bar page-info="pageInfo"><div>';
                         return '';
                     }
 
@@ -359,10 +363,12 @@ define([
                                 var routerTitleBar = $ctrl.buildRouter(configDef);
                                 var searchBar = $ctrl.buildSearchBar(configDef, $element);
                                 var tableContent = $ctrl.buildTable(columnsDef, configDef);
+                                var paginationContent = $ctrl.buildPagination(columnsDef, configDef);
                                 // console.log(searchBar);
                                 $element.find('.routerTitleSection').html(routerTitleBar);
                                 $element.find('.searchSection').html(searchBar);
                                 $element.find(".gridSection").html(tableContent);
+                                $element.find(".paginationSection").html(paginationContent);
                                 $compile($element.contents())($scope);
                                 $scope.updateList();
                             }
@@ -635,7 +641,7 @@ define([
                 }
             }
         })
-        .directive('hjmPiginationBar', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache, $compile) {
+        .directive('hjmPaginationBar', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache, $compile) {
             return {
                 restrict: 'EA',
                 replace: true,

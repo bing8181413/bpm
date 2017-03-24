@@ -803,4 +803,73 @@ define([
                 }
             };
         })
+        .directive('showAddresses', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget) {
+            return {
+                restrict: 'E',
+                replace: true,
+                scope: {
+                    addresses: '=',
+                    required: '@',
+                },
+                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showAddresses.html'),
+                controller: function ($scope, $element, $attrs) {
+                    $timeout(function () {
+                        $scope.disabled = ($attrs.disabled ? true : false);
+                        $scope.disabledRole = $attrs.disabledRole || '';
+                        // console.log($scope, $attrs.disabledRole);
+                        // console.log($scope, $attrs, $scope.disabled);
+                    }, 0);
+                    $scope.mapData = {isshowmap: false};
+
+                    $scope.log = function () {
+                        console.log($scope.addresses);
+                    }
+                    // 删除一部分 或者 全部删除
+                    $scope.delAddress = function (index) {
+                        if (!index && index != 0) {
+                            if (confirm('确定全部移除吗?')) {
+                                $scope.addresses = [];
+                            }
+                        }
+                        else if (index || index == 0) {
+                            $scope.addresses.splice(index, 1);
+                        }
+                    }
+                    $scope.addAddress = function () {
+                        if ($scope.addresses && $scope.addresses.length > 0) {
+                            $scope.addresses.push({city_name: '上海'});
+                        } else {
+                            $scope.addresses = [{city_name: '上海'}];
+                        }
+                    }
+                    //  获取地理位置信息 传入地址
+                    $scope.getlocation = function (index) {
+                        if (angular.isUndefined($scope.addresses[index].city_name)) {
+                            widget.msgToast('没有城市');
+                            return false;
+                        }
+                        if (angular.isUndefined($scope.addresses[index].detail_address)) {
+                            widget.msgToast('没有地址');
+                            return false;
+                        }
+
+                        // $scope.mapData = {
+                        $scope.mapData.lng = $scope.addresses[index].longitude;
+                        $scope.mapData.lat = $scope.addresses[index].latitude;
+                        $scope.mapData.city = $scope.addresses[index].city_name;
+                        $scope.mapData.address = $scope.addresses[index].detail_address;
+                        $scope.mapData.district = $scope.addresses[index].district;
+                        $scope.mapData.timeStamp = new Date().getTime(); //  作为监听事件的出发使用  必传项
+                        $scope.mapData.index = index;//  为了 callback 找到 是第几个地址
+                        // };
+                    }
+                    $scope.callback = function () {
+                        if ($scope.mapData.index || $scope.mapData.index == 0) {
+                            $scope.addresses[$scope.mapData.index].longitude = $scope.mapData.lng;
+                            $scope.addresses[$scope.mapData.index].latitude = $scope.mapData.lat;
+                        }
+                    }
+                }
+            };
+        })
 });

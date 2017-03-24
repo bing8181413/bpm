@@ -4802,8 +4802,9 @@ textarea.input-group-sm > .form-control, textarea.input-group-sm > .input-group-
 .pagination {
     display: inline-block;
     padding-left: 0;
-    margin: 20px 0;
-    border-radius: 0
+    margin: 0px;
+    border-radius: 0;
+    padding-bottom: 50px;
 }
 
 .pagination > li {
@@ -5851,11 +5852,11 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 
 .close {
     float: right;
-    font-size: 21px;
-    font-weight: 700;
+    /*font-size: 21px;*/
+    /*font-weight: 700;*/
     line-height: 1;
     color: #000;
-    text-shadow: 0 1px 0 #fff;
+    /*text-shadow: 0 1px 0 #fff;*/
     opacity: .2;
     filter: alpha(opacity=20)
 }
@@ -5869,8 +5870,10 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 }
 
 button.close {
-    width: 21px;
-    line-height: 21px;
+    width: 40px;
+    /*width: 0;*/
+    /*height: 0;*/
+    line-height: 0px;
     background: #fff;
     opacity: 1;
     border-radius: 50%;
@@ -5878,7 +5881,9 @@ button.close {
     padding: 0;
     padding: 0;
     cursor: pointer;
-    font-size: small;
+    font-size: 50px;
+    margin-right: -15px;
+    margin-top: 0;
 }
 
 .modal-open, .modal {
@@ -6975,7 +6980,8 @@ body {
     margin-left: 45px;
     padding: 10px;
     margin-top: 50px;
-    overflow: auto;
+    /*overflow: auto;*/
+    overflow: hidden;
     transition: all .2s ease-in-out
 }
 
@@ -10308,3 +10314,32 @@ html, body {
 }
 
 /* 富文本文字编辑  end   */
+
+/*  附加的 start  */
+
+.height100 {
+    height: 100%;
+}
+
+.overflowAuto {
+    overflow: auto;
+}
+
+#body-container div.ng-scope > .panel,
+#body-container .dashboard-page > .panel {
+    height: 100%;
+}
+
+#body-container div.ng-scope > .panel.menu-panel > .panel-body {
+    height: 100%;
+    overflow: scroll;
+    padding-bottom: 60px;
+}
+
+#body-container .dashboard-page > .panel > .panel-body {
+    height: 100%;
+    overflow: auto;
+    padding-bottom: 60px;
+}
+
+/*  附加的 end    */
