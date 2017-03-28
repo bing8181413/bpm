@@ -20,8 +20,7 @@
         </common_form>
         <accordion>
             <accordion-group heading="{{menu.sort+'&nbsp;&nbsp;&nbsp;'+menu.name+'( ID:'+menu.id+')'}}"
-                             ng-repeat="menu in menus"
-                             ng-class="{'panel-success':$odd,'panel-info':$even}">
+                             ng-repeat="menu in menus" class="panel panel-default panel-info">
                 <div class="accordion-heading row">
                     <common_form form_param="param" form_init_data="menu" form_url="update_url"
                                  form_title="'更新'" callback="getapi" form_method="PUT" form_param_id="{{menu.id}}"

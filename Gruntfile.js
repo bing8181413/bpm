@@ -118,6 +118,26 @@ module.exports = function (grunt) {
             }
         },
 
+        replace: {
+            dist: {
+                options: {
+                    patterns: [
+                        {
+                            match: 'timestamp',
+                            // replacement: new Date().getTime()
+                            replacement: function () {
+                                var bar = new Date().getTime();
+                                console.log(bar);
+                                return bar; // replaces "foo" to "bar"
+                            }
+                        }
+                    ]
+                },
+                files: [
+                    {expand: true, flatten: true, src: ['app/index.html'], dest: '../build/bpm/'}
+                ]
+            }
+        },
         watch: {
             options: {
                 livereload: true
@@ -200,6 +220,7 @@ module.exports = function (grunt) {
         'connect:dev',
         'html2js:compileTpl',
         'copy:debug',
+        'replace:dist',
         //'compass:dev',
         'requirejs:debug',
         'open:dev',
@@ -209,12 +230,14 @@ module.exports = function (grunt) {
         'html2js:compileTpl',
         //'compass:dev',
         'copy:hbbdist',
+        'replace:dist',
         'requirejs:dist',
         // 'connect:dist:keepalive'
     ]);
     grunt.registerTask('initbuild', [
         'html2js:compileTpl',
         'copy:dist',
+        'replace:dist',
         // 'copy:dist',
         'requirejs:dist',
     ]);
