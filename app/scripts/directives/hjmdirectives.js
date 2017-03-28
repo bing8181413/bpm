@@ -557,11 +557,17 @@ define([
                         var minContent = (col.min || col.min == 0) ? ('min="' + col.min + '"' ) : '';
                         var maxContent = (col.max || col.max == 0) ? ('max="' + col.max + '"' ) : '';
                         if (!col.disabled) {
-                            cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent + requiredContent +
-                                'ng-model="' + colField + cellFilter + '"/>';
+                            if (col.textarea) {
+                                var rows = col.rows ? ('rows = "+col.rows +"') : ('rows = 5');
+                                cellContent = '<textarea class="form-control" ' + rows + minContent + maxContent + typeContent + requiredContent +
+                                    'ng-model="' + colField + cellFilter + '"></textarea>';
+                            } else {
+                                cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent + requiredContent +
+                                    'ng-model="' + colField + cellFilter + '"/>';
+                            }
                         }
                         if (config.readonly || col.readonly) {
-                            cellContent = '<span ng-bind="' + colField + cellFilter + requiredContent + '"></span>';
+                            cellContent = '<span ng-bind="' + colField + cellFilter + '" ' + requiredContent + ' ></span>';
                         }
                         return cellContent;
                     }
@@ -595,6 +601,13 @@ define([
 
                     $scope.add = function (obj) {
                         var obj = obj || {};
+                        if ($scope.columns) {
+                            angular.forEach($scope.columns, function (val, key) {
+                                if (val.default) {
+                                    obj[val.field] = val.default;
+                                }
+                            })
+                        }
                         $scope.data = $scope.data || [];
                         $scope.data.push(obj);
                     }

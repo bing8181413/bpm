@@ -7,11 +7,74 @@
             <form class="form-horizontal" name="FormBody" novalidate disabled-role="'admin'">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h4>微信自动回复</h4>
-                        <!--<div form-textarea text="自动回复内容" ng-model="auto_reply" required="true"></div>-->
-                        <textarea class="form-control" rows="50" ng-model="auto_reply"></textarea>
+                        <div form-radio text="自动回复" type="radio" ng-model="category"
+                             source="[{text:'关键词自动回复',value:'3'},{text:'被添加自动回复',value:'1'},{text:'消息自动回复',value:'2'}]"
+                             default="3" source-api=""></div>
                     </div>
                 </div>
+                <div class="panel panel-primary" ng-show="category==1">
+                    <div class="panel-body">
+                        <!--<h4>被添加自动回复</h4>-->
+                        <div form-textarea text="被添加自动回复" ng-model="add_friend_autoreply_info.content" rows="20"></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary" ng-show="category==2">
+                    <div class="panel-body">
+                        <!--<h4>消息自动回复</h4>-->
+                        <div form-textarea text="消息自动回复" rows="20"
+                             ng-model="message_default_autoreply_info.content"></div>
+                    </div>
+                </div>
+                <div class="panel-primary" ng-show="category==3"
+                     ng-init="title_info = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]">
+                    <div class="panel panel-body">
+                        <!--<h5 class="col-sm-8">关键词自动回复</h5>-->
+                        <div class="col-sm-8">
+                            <a class="btn btn-primary btn-rounded" ng-click="add()">
+                                <i class="fa fa-plus"></i>添加规则
+                            </a>
+                        </div>
+                        <div class="col-sm-4">
+                            <a href="javascript:void(0)" class="btn btn-success btn-rounded"
+                               ng-click="title_info = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]">展开自动回复</a>&nbsp;&nbsp;
+                            <a href="javascript:void(0)" class="btn btn-success btn-rounded"
+                               ng-click="title_info = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]">合并自动回复</a>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-body">
+                        <div class="panel panel-default" ng-repeat="val in keyword_autoreply_info_list">
+                            <div class="panel-heading" ng-click="title_info[$index] = title_info[$index]+1; ">
+                                <h5 style="margin: 0; padding: 5px 0;">
+                                    {{' 规则'+($index+1)+': '+val.rule_name}}
+                                    <i class="animate-switch fa pull-right"
+                                       ng-class="{'fa-caret-up':title_info[$index]%2==1,'fa-caret-down':title_info[$index]%2==0}"></i>
+                                </h5>
+                            </div>
+                            <div class="panel-body" ng-show="title_info[$index]%2==1">
+                                <div form-input text="规则名称" ng-model="val.rule_name" placeholder="规则名称"
+                                     required="true"></div>
+                                <div form-radio text="回复模式" ng-model="val.reply_mode" default="reply_all"
+                                     source="[{text:'回复全部',value:'reply_all'},{text:'随机回复',value:'random_one'}]"></div>
+                                <div form-input text="创建时间" ng-model="val.create_time" placeholder="创建时间"
+                                     ng-show="false"></div>
+                                <div form-table text="关键字列表" ng-model="val.keyword_list_info" max="1" required="true"
+                                     columns="[{'name': '关键字类型', 'field': 'type',default:'text',disabled:true},
+                             {'name': '匹配模式', 'field': 'match_mode',required:'true',default:'equal',disabled:true},
+                             {'name': '关键字', 'field': 'content',required:'true'}]"></div>
+
+                                <div form-table text="回复列表" ng-model="val.reply_list_info" max="1" required="true"
+                                     columns="[{'name': '回复类型', 'field': 'type',default:'text',disabled:true},
+                             {'name': '回复内容', 'field': 'content',required:'true',textarea:'true'}]"></div>
+                                <div class="col-sm-12">
+                                    <a class="btn btn-danger btn-rounded pull-right" show-role="'admin'"
+                                       ng-click="del($index)">删除</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--<textarea class="form-control" rows="50" ng-model="auto_reply"></textarea>-->
                 <a class="btn btn-success btn-rounded" show-role="'admin'" ng-disabled="FormBody.$invalid"
                    ng-click="submit()">提交</a>
             </form>

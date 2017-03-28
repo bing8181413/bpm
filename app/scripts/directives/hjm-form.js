@@ -237,6 +237,7 @@ define([
                     ngMaxlength: '@max',
                     ngMinlength: '@min',
                     ngDisabled: '=',
+                    rows: '=',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     // console.log('formElement', $scope, $attrs);
@@ -248,13 +249,14 @@ define([
                     var placeholder = $scope.placeholder ? (' placeholder="' + $scope.placeholder + '"') : '';
                     var ngMaxlength = $scope.ngMaxlength ? (' ng-maxlength="' + $scope.ngMaxlength + '"') : '';
                     var ngMinlength = $scope.ngMinlength ? (' ng-minlength="' + $scope.ngMinlength + '"') : '';
+                    var rows = $scope.rows ? (' rows="' + $scope.rows + '"') : 'rows="5"';
                     var ngDisabled = $scope.ngDisabled && (' ng-disabled="ngDisabled"');
                     $timeout(function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">' +
-                            '<textarea class="form-control" rows="5" ng-model="ngModel"' +
+                            '<textarea class="form-control" ' + rows + ' ng-model="ngModel"' +
                             name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + disabledRole + '>' +
                             '</div>';
                         $element.find('.form_element').html(content);
@@ -381,7 +383,8 @@ define([
                     }
                     // console.log('formElement', $scope, $attrs);
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
-                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var date = new Date().getTime();
+                    var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + date + '"');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="radio"';
@@ -395,7 +398,7 @@ define([
                             if (typeof val.value == 'number') {
                                 value = ' value = "' + parseFloat(val.value) + '"';
                             } else {
-                                value = ' value = \"' + val.value + '\"';
+                                value = ' value = "' + val.value + '"';
                             }
                             content += '<label class="radio-inline radio1"><input ' + type + ' ng-model="ngModel"' +
                                 name + value + disabledRole + ngDisabled + '><span></span>' + val.text + '</label>';
@@ -404,7 +407,7 @@ define([
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);

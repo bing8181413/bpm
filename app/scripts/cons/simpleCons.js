@@ -24,6 +24,7 @@ define([
 ], function () {
     // console.log(arguments);
     var env = '';
+    var env_name = '';
     var domain = '';
     var web_domain = '';
     var qiniu_domain = '';
@@ -35,17 +36,19 @@ define([
     var api = {};
     var state = {};
     if (location.href.indexOf('//bpm.huijiame.com') > 0
-        // || location.href.indexOf('//bpm.hjm.com') > 0 // prod
+    // || location.href.indexOf('//bpm.hjm.com') > 0 // prod
     ) {
         env = 'prod';
+        env_name = '线上系统';
         domain = 'https://mgrapi.huijiame.com';
         web_domain = 'https://www.huijiame.com';
         qiniu_domain = 'https://bpm.huijiame.com';
         wx_domain = 'https://m.huijiame.com';
     } else if (location.href.indexOf('//testbpm.huijiame.com') > 0
-    // || location.href.indexOf('//bpm.hjm.com') > 0
+        // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
         env = 'test';
+        env_name = '测试系统';
         domain = 'https://testmgrapi.huijiame.com';
         web_domain = 'https://testbpm.huijiame.com';
         qiniu_domain = 'https://testbpm.huijiame.com';
@@ -53,6 +56,7 @@ define([
     } else {
         // domain = 'https://devapi.huijiame.com';
         env = 'dev';
+        env_name = '开发系统';
         domain = 'https://devmgrapi.huijiame.com';
         web_domain = 'https://devwww.huijiame.com';
         qiniu_domain = 'https://devbpm.huijiame.com';
@@ -80,6 +84,7 @@ define([
         'DIRECTIVE_LIST_PATH': 'scripts/views/directive/list/',
         'PARTIALS_PATH': 'scripts/partials/',
         'env': env,
+        'env_name': env_name,
         'domain': domain,
         'web_domain': web_domain,
         'qiniu_domain': qiniu_domain,

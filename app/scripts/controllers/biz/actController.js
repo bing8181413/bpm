@@ -152,11 +152,10 @@ define([
                         return false;
                     }
                 });
+            } else {
+                $scope.param.addresses = [];
             }
             if ($scope.param.pics && !comfunc.isEmptyArray($scope.param.pics)) {
-                //     widget.msgToast('运营大图没有上传');
-                //     return false;
-                // } else {
                 var tmp_pics_err = 0;
                 angular.forEach($scope.param.pics, function (val, key) {
                     if (!val.pic_url) {
@@ -167,7 +166,8 @@ define([
                     widget.msgToast('运营大图还没有完成上传');
                     return false;
                 }
-
+            }
+            if ($scope.param.thumbnail_pics && !comfunc.isEmptyArray($scope.param.thumbnail_pics)) {
                 var tmp_thumbnail_pics_err = 0;
                 angular.forEach($scope.param.thumbnail_pics, function (val, key) {
                     if (!val.pic_url) {
@@ -178,6 +178,8 @@ define([
                     widget.msgToast('运营缩略图还没有完成上传');
                     return false;
                 }
+            }
+            if ($scope.param.contents && !comfunc.isEmptyArray($scope.param.contents)) {
                 var tmp_content_err = 0;
                 angular.forEach($scope.param.contents, function (val, key) {
                     if (!val) {
@@ -266,12 +268,16 @@ define([
                 scope: $scope,
                 data: $scope.param,
                 success: function (json) {
-                    widget.msgToast('发布成功！');
+                    widget.msgToast('发布成功！', 500);
                     $state.go(con.state.main + '.act.list');
                 },
                 failure: function (err) {
                     localStorage.setItem('hjm-act-failure-' + new Date().getTime(), JSON.stringify({param: $scope.param}));
-                    widget.msgToast(err.message)
+                    console.log($scope.param.addresses, JSON.stringify($scope.param.addresses),
+                        $scope.param.pics, JSON.stringify($scope.param.pics),
+                        $scope.param.thumbnail_pics, JSON.stringify($scope.param.thumbnail_pics),
+                        $scope.param.contents, JSON.stringify($scope.param.contents));
+                    widget.msgToast(err.message + '\n点击取消', 2000);
                 }
             })
         }

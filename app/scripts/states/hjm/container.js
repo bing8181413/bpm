@@ -12,7 +12,7 @@ define([
         stateModule.config(
             ['$stateProvider', '$urlRouterProvider', '$httpProvider',
                 function ($stateProvider, $urlRouterProvider, $httpProvider) {
-                    // 加入 http ajax 拦截器
+                    // 加入 http ajax 拦截器 拦截
                     $httpProvider.interceptors.push('bpmHttpInterceptor');
 
                     $urlRouterProvider.when("", "login");

@@ -1,6 +1,9 @@
 <ul class="nav navbar-nav pull-right navbar-right">
+    <li class="admin-dropdown" ng-show="env_name">
+        <a ng-bind="env_name"></a>
+    </li>
     <li class="admin-dropdown">
-        <a class="" ng-click="logout()">退出账户</a>
+        <a ng-click="logout()">退出账户</a>
     </li>
     <li class="admin-dropdown" ng-if="hjm.city_name">
         <a ng-bind="hjm.city_name"></a>

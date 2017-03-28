@@ -19,7 +19,14 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 },
                 'response': function (response) {
                     $rootScope.http_notification = null;
-                    // console.log(response);
+                    if (response && response.data.code == 1000) {
+                        delete $rootScope.hjm;
+                        delete $rootScope.selected;
+                        delete $rootScope.login_account;
+                        localStorage.clear();
+                        $rootScope.$state.go('login');
+                        response.data.message = '账号认证失败,重新登陆';
+                    }
                     return response;
                 },
                 'responseError': function (response) {

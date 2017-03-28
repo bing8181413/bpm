@@ -22,6 +22,8 @@ define([
                 scope: {},
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'nav-top/nav-account.html'),
                 link: function ($scope, $element, $attrs) {
+                    $scope.env_name = simpleCons.env_name;
+
                     $scope.logout = function () {
                         $http.defaults.headers.common.Authorization = '';
                         delete $rootScope.hjm;

@@ -5688,8 +5688,10 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
 
 .panel-default > .panel-heading {
     color: #333;
-    background-color: #fff;
-    border-color: #ddd
+    /*background-color: #fff;*/
+    background-color: #f5f5f5;
+    border-color: #ddd;
+    background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%);
 }
 
 .panel-default > .panel-heading + .panel-collapse > .panel-body {
