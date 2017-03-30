@@ -4,7 +4,7 @@
             <h3 class="panel-title" show-role="'admin'">修改微信自动回复</h3>
         </div>
         <div class="panel-body">
-            <form class="form-horizontal" name="FormBody" novalidate disabled-role="'admin'">
+            <form class="form-horizontal" name="FormBody" novalidate>
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div form-radio text="自动回复" type="radio" ng-model="category"
@@ -67,7 +67,7 @@
                                      columns="[{'name': '回复类型', 'field': 'type',default:'text',disabled:true},
                              {'name': '回复内容', 'field': 'content',required:'true',textarea:'true'}]"></div>
                                 <div class="col-sm-12">
-                                    <a class="btn btn-danger btn-rounded pull-right" show-role="'admin'"
+                                    <a class="btn btn-danger btn-rounded pull-right"
                                        ng-click="del($index)">删除</a>
                                 </div>
                             </div>
@@ -75,7 +75,7 @@
                     </div>
                 </div>
                 <!--<textarea class="form-control" rows="50" ng-model="auto_reply"></textarea>-->
-                <a class="btn btn-success btn-rounded" show-role="'admin'" ng-disabled="FormBody.$invalid"
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid"
                    ng-click="submit()">提交</a>
             </form>
         </div>

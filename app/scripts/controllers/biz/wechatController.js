@@ -104,15 +104,28 @@ define([
                 $scope.edit_menu($scope.menus.length - 1);
             }
         }
+        $scope.show_tmp_msg = function (msg, flag) {
+            if (flag) {
+                widget.msgToast(msg);
+            }
+            return flag;
+        }
         $scope.verify = function () {
             var flag = true;
-            // angular.forEach($scope.menus, function (val, key) {
-            //     if (!val.sub_button || val.sub_button.length == 0) {
-            //         if () {
-            //             flag = false;
-            //         }
-            //     }
-            // });
+            angular.forEach($scope.menus, function (val, key) {
+                if (!val.name) {
+                    flag = $scope.show_tmp_msg(val.name + ' 未添加URL地址', flag);
+                }
+                if (!val.sub_button || val.sub_button.length == 0) {
+                    if (val.type == 'view' && !val.url) {
+                        flag = $scope.show_tmp_msg(val.name + ' 未添加URL地址', flag);
+                    } else if (val.type == 'click' && (!val.reply_info.type || !val.reply_info.key || !val.reply_info.content)) {
+                        flag = $scope.show_tmp_msg(val.name + ' 有选项未添加完整', flag);
+                    } else {
+                        flag = $scope.show_tmp_msg(val.name + ' 有选项未添加完整', flag)
+                    }
+                }
+            });
             return flag;
         }
         $scope.submit = function () {
