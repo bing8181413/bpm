@@ -169,7 +169,9 @@ define([], function () {
                     name: '操作',
                     fieldDirective: '<div order-cancel data="item"></div>' +
                     '<div order-change-address-of-act data="item"></div>' +
-                    '<div order-change-remark data="item"></div>'
+                    '<div order-change-remark data="item"></div>' +
+                    '<div order-self-introduction data="item"></div>' +
+                    '<div order-value-explain data="item"></div>'
                 },
             ],
             columns_by_act: [

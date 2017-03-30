@@ -418,5 +418,76 @@ define([
                 }
             }
         })
+        // 订单个人介绍
+        .directive('orderSelfIntroduction', function ($templateCache, $filter, $compile, widget, $modal) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="order-self-introduction" ></p>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_order_self_introduction = function () {
+                        var modalInstance = $modal.open({
+                            template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                            controller: function ($scope, $modalInstance) {
+                                $scope.title = '个人介绍';
+                                $scope.form1 = supscope.data.form1;
+                                $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
+                                    '<div form-textarea="" text="个人介绍" ng-model="form1"></div>' +
+                                    '</form>';
+                                $scope.cancel = function () {
+                                    $modalInstance.dismiss('cancel');
+                                };
+                            },
+                            size: ''
+                        });
+                    }
+                    if (supscope.data.form1) {
+                        var content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_self_introduction();">个人介绍</a>';
+                        $element.find('.order-self-introduction').html(content);
+                        $compile($element.contents())($scope);
+                    }
+                }
+            }
+        })
+        // 订单价值说明
+        .directive('orderValueExplain', function ($templateCache, $filter, $compile, widget, $modal) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="order-value-explain" ></p>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_order_value_explain = function () {
+                        var modalInstance = $modal.open({
+                            template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                            controller: function ($scope, $modalInstance) {
+                                $scope.title = '价值说明';
+                                $scope.form2 = supscope.data.form2;
+                                $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
+                                    '<div form-textarea="" text="价值说明" ng-model="form2"></div>' +
+                                    '</form>';
+                                $scope.cancel = function () {
+                                    $modalInstance.dismiss('cancel');
+                                };
+                            },
+                            size: ''
+                        });
+                    }
+                    if (supscope.data.form2) {
+                        var content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_order_value_explain();">价值说明</a>';
+                        $element.find('.order-value-explain').html(content);
+                        $compile($element.contents())($scope);
+                    }
+
+                }
+            }
+        })
 })
 ;

@@ -1,4 +1,15 @@
 <div class="dashboard-page ">
+    <style type="text/css">
+        .dropdown-menu.wechat-menus, .dropdown.wechat-menus {
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .panel-body {
+            min-height: 300px;
+        }
+
+    </style>
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title" show-role="'admin'">修改微信菜单</h3>
@@ -7,21 +18,75 @@
             <form class="form-horizontal" name="FormBody" novalidate disabled-role="'admin'">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h4>微信菜单</h4>
-                        <!--<nav class="navbar navbar-default">-->
-                            <!--<div class="container-fluid">-->
-                                <!--<div class="collapse navbar-collapse">-->
-                                    <!--<ul class="nav navbar-nav">-->
-                                        <!--<li class="active"><a href="">菜单1</a></li>-->
-                                        <!--<li class=""><a href="">菜单2</a></li>-->
-                                        <!--<li class=""><a href="">菜单3</a></li>-->
-                                    <!--</ul>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        <!--</nav>-->
+                        <div class="col-sm-4">
+                            <nav class="navbar navbar-default display-default">
+                                <div class="container-fluid">
+                                    <div class="collapse navbar-collapse">
+                                        <ul class="nav navbar-nav" ng-init="menus_title=[1,1,1]">
+                                            <li class="dropdown wechat-menus" ng-repeat="menu in menus"
+                                                ng-init="sup_index = $index"
+                                                ng-class="{'open':menus_title[$index]%2==0}">
+                                                <a class="dropdown-toggle" ng-click="edit_menu($index);">
+                                                    <span class="fa fa-bars" ng-show="menu.sub_button"></span>
+                                                    {{menu.name}}
+                                                </a>
+                                                <ul class="dropdown-menu wechat-menus" ng-show="menu.sub_button">
+                                                    <li ng-repeat-start="sub in menu.sub_button"
+                                                        ng-click="edit_menu_sub($index,sup_index,sub,$event);">
+                                                        <a class="text-center" ng-bind="sub.name"></a>
+                                                    </li>
+                                                    <li class="divider" ng-repeat-end ng-show="!$last"></li>
+                                                    <li class="divider" ng-show="menu.sub_button.length<5"></li>
+                                                    <li ng-show="menu.sub_button.length<5">
+                                                        <a class="text-center"
+                                                           ng-click="add_sub_button($index);">
+                                                            <span class="fa fa-plus"></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                                <ul class="dropdown-menu wechat-menus" ng-show="!menu.sub_button">
+                                                    <li>
+                                                        <a class="text-center"
+                                                           ng-click="add_sub_button($index);">
+                                                            <span class="fa fa-plus"></span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </li>
+                                            <li class="active" ng-show="menus.length<3">
+                                                <a class="text-center" ng-click="add_sup_menu();">
+                                                    <span class="fa fa-plus"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+                        <div class="col-sm-8">
+                            <div form-input text="菜单名称" ng-model="edit_obj.name" placeholder="字数不超过4个汉字或8个字母"
+                                 minlength="1" maxlength="4" required="true" ng-if="edit_obj.sub_button"></div>
+
+                            <div form-input text="菜单名称" ng-model="edit_obj.name" placeholder="字数不超过8个汉字"
+                                 minlength="1" maxlength="8" required="true" ng-if="!edit_obj.sub_button"></div>
+
+                            <div form-radio text="消息类型" ng-model="edit_obj.type" required="true"
+                                 ng-if="!edit_obj.sub_button"
+                                 source="[{text:'网页',value:'view'},{text:'消息',value:'click'}]"></div>
+                            <div form-input text="URL" ng-model="edit_obj.url" ng-if="edit_obj.type == 'view'"
+                                 required="true"></div>
+                            <div form-radio text="消息类型" ng-model="edit_obj.reply_info.type" required="true"
+                                 ng-if="edit_obj.type == 'click'" default="text"
+                                 source="[{text:'文本',value:'text'}]"></div>
+                            <div form-input text="key" ng-model="edit_obj.key" required="true"
+                                 ng-if="edit_obj.type == 'click'" placeholder="消息标示,例如:contact_service"></div>
+                            <div form-textarea text="内容" ng-model="edit_obj.reply_info.content" rows="10"
+                                 required="true" ng-if="edit_obj.type == 'click'"></div>
+                            <a class="btn btn-danger btn-rounded pull-right" ng-click="del_menu()">删除</a>
+                        </div>
                     </div>
                 </div>
-                <textarea class="form-control" rows="50" ng-model="menu"></textarea>
+                <!--<textarea class="form-control" rows="50" ng-model="menu"></textarea>-->
                 <a class="btn btn-success btn-rounded" show-role="'admin'" ng-disabled="FormBody.$invalid"
                    ng-click="submit()">提交</a>
             </form>

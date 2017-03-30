@@ -9,8 +9,12 @@ define([
 
     autoreplyController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
     qrcodeController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
-    menuController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
-    function menuController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
+    menuController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout', 'comfunc'];
+    function menuController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, $timeout, comfunc) {
+        //  父菜单  编辑删除时使用 定位菜单位置
+        //  子菜单
+        //  $scope.index = [sup_index,sub_index]
+        $scope.index = [undefined, undefined];
         widget.ajaxRequest({
             url: '/wechat/menu/',
             method: 'GET',
@@ -18,14 +22,109 @@ define([
             data: {},
             success: function (json) {
                 $scope.menu = angular.toJson(json.data, true);
+                $scope.menus = json.data.button;
+                $scope.edit_menu(0);//初始化点击一个
             }
-        })
+        });
+
+        $scope.edit_menu = function (sup_index, sub_index) {
+            $scope.index = [sup_index, sub_index];
+            $scope.menus_title = [1, 1, 1];
+            $scope.menus_title[sup_index]++;
+            if (sup_index != undefined && sub_index != undefined) {
+                $scope.edit_obj = $scope.menus[sup_index].sub_button[sub_index];
+            } else if (sup_index != undefined && sub_index == undefined) {
+                $scope.edit_obj = $scope.menus[sup_index];
+            }
+            // console.log($scope.edit_obj, 1);
+            // console.log($scope.index);
+        }
+
+        $scope.edit_menu_sub = function (index, sup_index, sub_obj, $event) {
+            if (sub_obj) {
+                $scope.index = [sup_index, index];
+                $scope.edit_obj = sub_obj;
+                // console.log($scope.edit_obj, 2);
+                $event.stopPropagation();
+            }
+            // console.log($scope.index);
+        }
+        $scope.del_menu = function () {
+            // console.log($scope.index);
+            var sup_index = $scope.index[0];
+            var sub_index = $scope.index[1];
+            if (sup_index != undefined && sub_index != undefined) {
+                if (confirm('确认删除子菜单吗?')) {
+                    // console.log($scope.menus[sup_index]);
+                    var sub_menu = $scope.menus[sup_index].sub_button;
+                    if (sub_menu.length == 1) {
+                        delete $scope.menus[sup_index].sub_button;
+                    } else if (sub_menu.length > 1) {
+                        sub_menu.splice(sub_index, 1);
+                    }
+                    $scope.edit_menu(sup_index);
+                    // console.log(sub_menu);
+                }
+            } else if (sup_index != undefined && sub_index == undefined) {
+                if (confirm('确认删除主菜单吗?')) {
+                    if ($scope.menus && $scope.menus.length == 1) {
+                        widget.msgToast('不能把菜单全部删除');
+                        return false;
+                    } else if ($scope.menus && $scope.menus.length > 1) {
+                        $scope.menus.splice(sup_index, 1);
+                    }
+                    $scope.edit_menu(0);
+                }
+            } else {
+                widget.msgToast('请选择一个菜单再删除');
+            }
+
+        }
+        $scope.add_sub_button = function (index) {
+            if (!$scope.menus[index].sub_button) {
+                if (confirm('添加子菜单后，一级菜单的内容将被清除。确定添加子菜单？')) {
+                    $scope.menus[index] = {
+                        name: $scope.menus[index].name,
+                        sub_button: [{name: '子菜单名称'}]
+                    };
+                    console.log($scope.menus[index]);
+                    $scope.edit_menu(index, 0);
+                }
+            } else {
+                $scope.menus[index].sub_button.push({name: '子菜单名称'});
+                $scope.edit_menu(index, $scope.menus[index].sub_button.length - 1);
+            }
+        }
+        $scope.add_sup_menu = function () {
+            if (!$scope.menus) {
+                $scope.menus = [{name: '菜单名称'}];
+                $scope.edit_menu(0);
+            } else {
+                $scope.menus.push({name: '菜单名称'});
+                $scope.edit_menu($scope.menus.length - 1);
+            }
+        }
+        $scope.verify = function () {
+            var flag = true;
+            // angular.forEach($scope.menus, function (val, key) {
+            //     if (!val.sub_button || val.sub_button.length == 0) {
+            //         if () {
+            //             flag = false;
+            //         }
+            //     }
+            // });
+            return flag;
+        }
         $scope.submit = function () {
+            if (!$scope.verify()) {
+                return false;
+            }
             widget.ajaxRequest({
                 url: '/wechat/menu/',
                 method: 'POST',
                 scope: $scope,
-                data: {menu: $scope.menu},
+                // data: {menu: $scope.menu},
+                data: {menu: angular.toJson({button: $scope.menus}, true)},
                 success: function (json) {
                     widget.msgToast('微信菜单维护成功！');
                 }
@@ -70,7 +169,7 @@ define([
             $scope.auto_reply.add_friend_autoreply_info.content = $scope.add_friend_autoreply_info.content;
             $scope.auto_reply.message_default_autoreply_info.content = $scope.message_default_autoreply_info.content;
             $scope.auto_reply.keyword_autoreply_info.list = $scope.keyword_autoreply_info_list;
-            console.log($scope.auto_reply.keyword_autoreply_info);
+            // console.log($scope.auto_reply.keyword_autoreply_info);
             // 这里提交的是 字符串 所以要转化一下
             widget.ajaxRequest({
                 url: '/wechat/autoreply/',

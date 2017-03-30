@@ -118,6 +118,26 @@ module.exports = function (grunt) {
             }
         },
 
+        filerev: {
+            options: {
+                algorithm: 'md5',
+                length: 8
+            },
+            js: {
+                src: 'app/scripts/main.min.js',
+                dest: '../build/bpm/scripts'
+            }
+        },
+        filerev_replace: {
+            options: {
+                assets_root: '../build/bpm/index.html',
+                views_root: '../build/bpm/index.html'
+            },
+            js: {
+                src: '../build/bpm/index.html'
+            }
+        },
+
         replace: {
             dist: {
                 options: {
@@ -127,7 +147,7 @@ module.exports = function (grunt) {
                             // replacement: new Date().getTime()
                             replacement: function () {
                                 var bar = new Date().getTime();
-                                console.log(bar);
+                                console.log('当前版本时间戳: ' + bar);
                                 return bar; // replaces "foo" to "bar"
                             }
                         }
@@ -238,6 +258,8 @@ module.exports = function (grunt) {
         'html2js:compileTpl',
         'copy:dist',
         'replace:dist',
+        // 'filerev',
+        // 'filerev_replace',
         // 'copy:dist',
         'requirejs:dist',
     ]);
