@@ -9,8 +9,8 @@ define([
 
     autoreplyController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
     qrcodeController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
-    menuController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout', 'comfunc'];
-    function menuController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, $timeout, comfunc) {
+    menuController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
+    function menuController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
         //  父菜单  编辑删除时使用 定位菜单位置
         //  子菜单
         //  $scope.index = [sup_index,sub_index]
@@ -87,7 +87,7 @@ define([
                         name: $scope.menus[index].name,
                         sub_button: [{name: '子菜单名称'}]
                     };
-                    console.log($scope.menus[index]);
+                    // console.log($scope.menus[index]);
                     $scope.edit_menu(index, 0);
                 }
             } else {
@@ -106,24 +106,42 @@ define([
         }
         $scope.show_tmp_msg = function (msg, flag) {
             if (flag) {
+                // console.log(msg);
                 widget.msgToast(msg);
             }
-            return flag;
+            return false;
         }
         $scope.verify = function () {
             var flag = true;
             angular.forEach($scope.menus, function (val, key) {
                 if (!val.name) {
-                    flag = $scope.show_tmp_msg(val.name + ' 未添加URL地址', flag);
-                }
-                if (!val.sub_button || val.sub_button.length == 0) {
+                    flag = $scope.show_tmp_msg('第' + (key + 1) + ' 个菜单没有名称', flag);
+                } else if (!val.sub_button || val.sub_button.length == 0) {
+                    // console.log(val.name, val.type);
                     if (val.type == 'view' && !val.url) {
                         flag = $scope.show_tmp_msg(val.name + ' 未添加URL地址', flag);
-                    } else if (val.type == 'click' && (!val.reply_info.type || !val.reply_info.key || !val.reply_info.content)) {
+                    } else if (val.type == 'click' && (!val.key || !val.reply_info.type || !val.reply_info.content)) {
+                        console.log(val);
                         flag = $scope.show_tmp_msg(val.name + ' 有选项未添加完整', flag);
-                    } else {
-                        flag = $scope.show_tmp_msg(val.name + ' 有选项未添加完整', flag)
                     }
+                    else if (!val.type) {
+                        flag = $scope.show_tmp_msg(val.name + ' 没有选择类型', flag)
+                    }
+                } else if (val.sub_button && val.sub_button.length > 0) {
+                    angular.forEach(val.sub_button, function (v, k) {
+                        if (!v.name) {
+                            flag = $scope.show_tmp_msg(val.name + ' 的第' + (k + 1) + ' 个子菜单的没有名称', flag);
+                        } else if (!v.sub_button || v.sub_button.length == 0) {
+                            if (v.type == 'view' && !v.url) {
+                                flag = $scope.show_tmp_msg(val.name + ' 的子菜单 ' + v.name + ' 未添加URL地址', flag);
+                            } else if (v.type == 'click' && (!v.key || !v.reply_info.type || !v.reply_info.content)) {
+                                flag = $scope.show_tmp_msg(val.name + ' 的子菜单 ' + v.name + ' 有选项未添加完整', flag);
+                            } else if (!v.type) {
+                                flag = $scope.show_tmp_msg(val.name + ' 的子菜单 ' + v.name + ' 没有选择类型', flag)
+                            }
+                        }
+                    });
+
                 }
             });
             return flag;
@@ -132,6 +150,7 @@ define([
             if (!$scope.verify()) {
                 return false;
             }
+
             widget.ajaxRequest({
                 url: '/wechat/menu/',
                 method: 'POST',
