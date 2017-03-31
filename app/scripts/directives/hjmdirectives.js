@@ -535,6 +535,7 @@ define([
 
                     function buildRows(columns, config) {
                         var rowItem = '';
+                        var orderBy = '';
                         angular.forEach(columns, function (col) {
                             if (!col.disabled) {
                                 var cellContent = cellRender(col, config);
@@ -545,7 +546,10 @@ define([
                             rowItem += '<th class="text-center">' +
                                 '<a class="btn btn-danger btn-sm btn-bordered" ng-click="del($index)">删除</a></th>';
                         }
-                        return '<tbody><tr ' + ' ng-repeat="item in data">' + rowItem + '</tr></tbody>'
+                        if (config.orderBy) {
+                            orderBy += ' | orderBy:\'' + config.orderBy + '\'';
+                        }
+                        return '<tbody><tr ' + ' ng-repeat="item in data ' + orderBy + '">' + rowItem + '</tr></tbody>'
                     }
 
                     function cellRender(col, config) {

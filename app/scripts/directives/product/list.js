@@ -282,8 +282,10 @@ define([
                                     })
 
                                     $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
-                                        ' <div form-table ng-model="rtn_json" config="{readonly:\'true\'}"' +
+                                        ' <div form-table ng-model="rtn_json" config="{readonly:\'true\',orderBy:\'[option_type,order_by]\'}"' +
                                         'columns="[{\'name\': \'ID\', \'field\': \'option_id\',\'disabled\':\'true\'},' +
+                                        '{\'name\': \'活动类型\', \'field\': \'option_type\',\'filter\':\'product_category\',readonly:\'true\'},' +
+                                        '{\'name\': \'排序\', \'field\': \'order_by\',readonly:\'true\'},' +
                                         '{\'name\': \'类目ID\', \'field\': \'option_id\',readonly:\'true\'},' +
                                         '{\'name\': \'类目\', \'field\': \'option_name\',readonly:\'true\'},' +
                                         '{\'name\': \'价格\', \'field\': \'option_price\',readonly:\'true\'},' +
