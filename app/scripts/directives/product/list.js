@@ -273,7 +273,9 @@ define([
                                         url: '/products/' + (supscope.data.product_id || 0) + '/options',
                                         method: 'get',
                                         scope: $scope,
-                                        data: {},
+                                        data: {
+                                            count: 200
+                                        },
                                         success: function (json) {
                                             $scope.rtn_json = json.data;
                                         }
