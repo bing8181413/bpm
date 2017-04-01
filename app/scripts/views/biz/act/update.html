@@ -4,13 +4,16 @@
             display: inline-block;
         }
 
-        /*div.form-group {*/
+        /*.panel-body {*/
             /*transition: all linear 0.5s;*/
-            /*height: 100px;*/
+            /*!*height: 50px;*!*/
             /*height: auto;*/
         /*}*/
 
-        /*div.form-group.ng-hide {*/
+        /*.panel-body.ng-hide-add, .panel-body.ng-hide-remove {*/
+            /*display: block !important;*/
+
+        /*.panel-body.ng-hide {*/
             /*height: 0;*/
         /*}*/
     </style>
@@ -35,6 +38,7 @@
                                ng-class="{'fa-angle-double-up':title_info[0]%2==1,'fa-angle-double-down':title_info[0]%2==0}"></i>
                         </h5>
                     </div>
+                    <div class="panel-body" ng-show="title_info[0]%2==1">11111111111111111</div>
                     <div class="panel-body" ng-show="title_info[0]%2==1">
 
                         <div form-select text="课程负责人" ng-model="param.account_id"

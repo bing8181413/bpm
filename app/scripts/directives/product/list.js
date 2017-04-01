@@ -511,7 +511,7 @@ define([
                 template: '<span ng-bind="account_name"></span>',
                 link: function ($scope, $element, $attrs) {
                     angular.forEach($rootScope.account_list, function (val) {
-                        if (val.account_id) {
+                        if (val.account_id == val.account_id) {
                             $scope.account_name = '活动负责人:' + val.username
                         }
                     })
