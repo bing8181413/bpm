@@ -395,8 +395,8 @@ define([
                             '<div class="col-sm-8">';
                         angular.forEach($scope.source, function (val, key) {
                             var value = '';
-                            if (parseFloat(val.value) == val.value) {
-                                value = ' ng-value = "' + val.value + '"';
+                            if (typeof val.value == 'number') {
+                                value = ' value = "' + parseFloat(val.value) + '"';
                             } else {
                                 value = ' value = "' + val.value + '"';
                             }
@@ -678,7 +678,7 @@ define([
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
+                        if ($scope.$parent.FormBody) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     });
