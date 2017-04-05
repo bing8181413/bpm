@@ -70,7 +70,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 $rootScope.$state.go(cons.state.main + '.coupon.list');
                                 break;
                         }
-                    } else if (tagName && $rootScope.hjm.role == 'op') {
+                    } else if (tagName && $rootScope.hjm && $rootScope.hjm.role == 'op') {
                         // console.log(event.keyCode);
                         switch (event.keyCode) {
                             case 84:// t uan
