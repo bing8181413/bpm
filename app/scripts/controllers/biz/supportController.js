@@ -5,8 +5,8 @@ define([
 ], function (mod, simpleCons) {
     mod.controller('supports.opencitiesController', opencitiesController);
 
-    opencitiesController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
-    function opencitiesController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, $filter, $timeout) {
+    opencitiesController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    function opencitiesController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
         $scope.param = {city_name: null};
         $scope.conDomain = simpleCons.domain;
         $scope.remoteUrlRequestFn = function (str) {

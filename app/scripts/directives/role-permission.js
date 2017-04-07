@@ -15,7 +15,7 @@ define([
                     // console.log($attrs);
                     // $scope.showRole = $attrs.showRole;
                     $scope.showRoleChange = function (val) {
-                        if (val && val.indexOf($rootScope.hjm.role) > -1) {
+                        if (val && $rootScope.hjm && val.indexOf($rootScope.hjm.role) > -1) {
                             $element.addClass((val.indexOf('!') > -1) ? 'hide' : 'hahahahaha');
                             // console.log('showRole', 111111111, val, val.indexOf('!'));
                             // console.log($attrs);

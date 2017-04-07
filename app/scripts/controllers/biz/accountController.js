@@ -6,9 +6,9 @@ define([
     mod.controller('account.updateController', updateController);
     mod.controller('account.profileController', profileController);
 
-    updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
-    profileController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout', 'base64'];
-    function profileController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, $filter, $timeout, base64) {
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    profileController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout', 'base64'];
+    function profileController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout, base64) {
         $scope.param = {};
         $scope.openCitys = [];
         // if ($rootScope.hjm.pubData.open_citys) {
@@ -63,7 +63,7 @@ define([
         }
     };
 
-    function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, $filter, $timeout) {
+    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
         $scope.param = {};
         $scope.openCitys = [];
         $scope.roles = [];

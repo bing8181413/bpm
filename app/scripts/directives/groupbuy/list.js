@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-        .directive('groupbuyOrderCopies', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('groupbuyOrderCopies', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -16,12 +16,12 @@ define([
                     $scope.ext = {groupbuy_id: $scope.data.groupbuy_id};
                     var supscope = $scope;
                     $scope.show = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div hjm-grid modid="orderList" config="config_by_groupbuy" columns="columns_by_groupbuy" ext-search="ext"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.ext = supscope.ext;
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: 'lg'
@@ -81,7 +81,7 @@ define([
                 }
             }
         })
-        .directive('groupbuyChange', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+        .directive('groupbuyChange', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -92,9 +92,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_groupbuy_change = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '修改成团人数结束时间';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
@@ -129,7 +129,7 @@ define([
                                         })
                                     }
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: 'lg'

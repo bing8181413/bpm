@@ -428,17 +428,6 @@ define([
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_date_time.html'),
                 link: function ($scope, $element, $attrs) {
-                    $timeout(function () {
-                        $scope.disabled = ($attrs.disabled ? true : false);
-                        $scope.timepicker = '<timepicker class="" ng-model="tp" show-meridian="false" show-spinners="false"' +
-                            'mousewheel="true" readonly-input="' + $scope.disabled + '"' +
-                            'arrowkeys="true" style="margin-left: 3px;"' +
-                            'ng-change="changed();">' +
-                            '</timepicker>';
-                        $element.find('.appendTimepicker').append($scope.timepicker);
-                        $compile($element.contents())($scope);
-                        // console.log($scope, $attrs, $scope.disabled);
-                    }, 0);
                     $scope.init = false;
                     $scope.strToDateTime = function (str) {
                         str = str.toString();
@@ -452,20 +441,6 @@ define([
                             $scope.dt = '';
                             // 把时间制为 00:00:00
                             $scope.tp = $scope.strToDateTime(new Date('2000-01-01 00:00:00'));
-                            // if (!$scope.init) {
-                            //     // console.log('初始化 赋值');
-                            //     $scope.init = true;
-                            //     $scope.dateTime = new Date();
-                            //     $scope.dt = $scope.strToDateTime($scope.dateTime);
-                            //     $scope.tp = $scope.strToDateTime($scope.dateTime);
-                            //     $scope.changed();
-                            // } else {
-                            //     // console.log('已初始化 赋值');
-                            //     $scope.dateTime = null;
-                            //     $scope.dt = '';
-                            //     // 把时间制为 00:00:00
-                            //     $scope.tp = $scope.strToDateTime(new Date('2000-01-01 00:00:00'));
-                            // }
                         } else { //  初始化过了
                             if (!$scope.init) {
                                 $scope.init = true;
@@ -483,6 +458,7 @@ define([
                         }
                     });
                     $scope.open = function ($event) {
+                        // console.log($event);
                         $event.preventDefault();
                         $event.stopPropagation();
                         $scope.isopen = true;

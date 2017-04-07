@@ -5,8 +5,8 @@ define([
 ], function (mod, con) {
     mod.controller('orders.updateController', updateController)
 
-    updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
-    function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
+    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
         $scope.param = {};
         $scope.user_ids = '';
         $scope.aaa = function () {

@@ -5,8 +5,8 @@ define([
 ], function (mod, con) {
     mod.controller('coupon.addController', addController)
 
-    addController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
-    function addController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
+    addController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    function addController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
         }

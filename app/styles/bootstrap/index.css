@@ -10226,6 +10226,9 @@ html, body {
 
 /* navbar-brand start */
 @media (max-width: 767px) {
+    [ui-view] {
+        overflow: scroll;
+    }
     .navbar-collapse.collapse {
         display: block !important;
         height: auto !important;

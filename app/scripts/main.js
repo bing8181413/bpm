@@ -16,7 +16,7 @@
             "ab-base64": '../vendor/angular-utf8-base64/angular-utf8-base64',
             //'snap':  '../vendor/Snap.svg/dist/snap.svg-min',
             //'me-pageloading':  '../vendor/me-pageloading/me-pageloading',
-            "ui.bootstrap": "../vendor/angular-bootstrap/ui-bootstrap-tpls.min",
+            "ui.bootstrap": "../vendor/angular-bootstrap/ui-bootstrap-tpls",
             // "angular-async-loader": "../vendor/angular-async-loader/src/angular-async-loader",
             //"ui.bootstrap":"../vendor/bootstrap/ui-bootstrap-tpls.min",
             // "twitter": "../vendor/bootstrap/bootstrap.min",

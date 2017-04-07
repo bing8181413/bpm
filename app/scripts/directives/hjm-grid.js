@@ -389,7 +389,7 @@ define([
                 }
             };
         })
-        .directive('hjmSearchBar', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache, $compile, $log) {
+        .directive('hjmSearchBar', function ($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache, $compile, $log) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -641,7 +641,7 @@ define([
                 }
             }
         })
-        .directive('hjmPaginationBar', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache, $compile) {
+        .directive('hjmPaginationBar', function ($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache, $compile) {
             return {
                 restrict: 'EA',
                 replace: true,

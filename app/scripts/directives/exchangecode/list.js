@@ -4,7 +4,7 @@ define([
 ], function (mod, simpleCons) {
     mod
     // 修改配送模式时间类型
-        .directive('exchangecodeExport', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('exchangecodeExport', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: true,
@@ -15,9 +15,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_exchangecode_export = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.title = '兑换码';
                                 $scope.list = supscope.data.list;
                                 $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
@@ -37,7 +37,7 @@ define([
                                     }
                                 })
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: 'lg'

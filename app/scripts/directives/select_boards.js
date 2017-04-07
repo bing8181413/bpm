@@ -10,7 +10,7 @@ define([
         //        count: 0,//  错误数量
         //        cursor: 0 // 错误的位置
         //    };
-        .directive('selectBoards', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
+        .directive('selectBoards', function ($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -27,9 +27,9 @@ define([
                     //console.log($scope.areas);
                     var sup_scope = $scope;
                     $scope.community_boards = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             templateUrl: 'community_boards.html',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 // 赋 默认值
                                 $scope.reset = function () {
                                     //$scope.areas = areas;
@@ -151,7 +151,7 @@ define([
                                         });
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: 'lg'

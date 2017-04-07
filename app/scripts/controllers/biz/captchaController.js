@@ -6,8 +6,8 @@ define([
     mod
         .controller('captcha.updateController', updateController)
 
-    updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter'];
-    function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter) {
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter'];
+    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter) {
 
         $scope.submit = function (status) {
             $scope.param.expire_time = $filter('date')($scope.param.expire_time, 'yyyy-MM-dd HH:mm:ss');

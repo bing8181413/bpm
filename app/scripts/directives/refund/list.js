@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-        .directive('orderRefunds', function ($templateCache, $filter, $compile, widget, $modal, $timeout, comfunc) {
+        .directive('orderRefunds', function ($templateCache, $filter, $compile, widget, $uibModal, $timeout, comfunc) {
                 return {
                     restrict: 'AE',
                     replace: true,
@@ -15,9 +15,9 @@ define([
                         var supscope = $scope;
                         $scope.show_order_refunds = function () {
                             // console.log($scope);
-                            var modalInstance = $modal.open({
+                            var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '批量退款';
                                     $timeout(function () {
                                         $scope.data = supscope.data;
@@ -62,7 +62,7 @@ define([
                                         }
                                     }
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: ''

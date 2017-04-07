@@ -7,10 +7,10 @@ define([
         .controller('wechat.autoreplyController', autoreplyController)
         .controller('wechat.qrcodeController', qrcodeController)
 
-    autoreplyController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
-    qrcodeController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
-    menuController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
-    function menuController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
+    autoreplyController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
+    qrcodeController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
+    menuController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
+    function menuController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
         //  父菜单  编辑删除时使用 定位菜单位置
         //  子菜单
         //  $scope.index = [sup_index,sub_index]
@@ -163,7 +163,7 @@ define([
             })
         }
     };
-    function autoreplyController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
+    function autoreplyController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
         widget.ajaxRequest({
             url: '/wechat/autoreply/',
             method: 'GET',
@@ -214,7 +214,7 @@ define([
             })
         }
     };
-    function qrcodeController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
+    function qrcodeController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
         $scope.submit = function () {
             widget.ajaxRequest({
                 url: '/wechat/qrcode/',

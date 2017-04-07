@@ -1,19 +1,22 @@
-<div class="datepicker_class">
-    <p class="input-group appendTimepicker">
-        <input type="date" class="form-control" datepicker-popup ng-model="dt" is-open="isopen" min-date="minDate"
-               date-disabled="disabled(date, mode)" ng-change="changed();" close-text="关闭" clear-text="清空"
-               ng-disabled="disabled" current-text="今天" style="width: 160px;"/>
-        <span class="input-group-btn" style="width: 40px;">
+<div class="datepicker_class row">
+    <div class="col-md-12 pull-left">
+        <p class="input-group appendTimepicker" style="float: left;width: 200px;">
+            <input type="text" class="form-control" uib-datepicker-popup ng-model="dt" is-open="isopen"
+                   min-date="minDate"
+                   date-disabled="disabled(date, mode)" ng-change="changed();" close-text="关闭" clear-text="清空"
+                   ng-disabled="disabled" current-text="今天" style="width: 160px;"/>
+            <span class="input-group-btn" style="width: 40px;display: block;">
             <button type="button" class="btn btn-default" ng-click="open($event)" ng-disabled="disabled"
                     style="margin-left: -1px;"><i class="glyphicon glyphicon-calendar"></i>
             </button>
         </span>
-        <!--<timepicker class="" ng-model="tp" show-meridian="false" show-spinners="false"-->
-        <!--mousewheel="true" readonly-input="{{disabled}}"-->
-        <!--arrowkeys="true" style="margin-left: 3px;"-->
-        <!--ng-change="changed();">-->
-        <!--</timepicker>-->
-        <!--<div class="timepickeTmp"></div>-->
-    </p>
-    <p class="bg-info text-center" ng-if="showtip">上下方向键调时间</p>
+        </p>
+        <div uib-timepicker class="inline" ng-model="tp" show-meridian="false" show-spinners="false"
+             mousewheel="false" readonly-input="disabled" arrowkeys="true" style="margin-left: 3px;float: left;"
+             ng-change="changed();">
+        </div>
+        <p class="bg-info text-center" ng-if="showtip">上下方向键调时间</p>
+    </div>
+    <!--<div class="col-md-6 pull-left">-->
+    <!--</div>-->
 </div>

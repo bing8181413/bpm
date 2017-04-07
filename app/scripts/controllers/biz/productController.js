@@ -5,8 +5,8 @@ define([
 ], function (mod, con) {
     mod.controller('product.updateController', updateController)
 
-    updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
-    function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
+    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
         if ($stateParams.product_id) {
             widget.ajaxRequest({
                 url: '/products/' + $stateParams.product_id,

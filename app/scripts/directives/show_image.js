@@ -4,7 +4,7 @@ define([
 ], function (mod, simpleCons) {
     mod
     // <show_image url="item.pic_url" width="100"></show_image>
-        .directive('showImage', function ($state, $rootScope, $templateCache, $modal) {
+        .directive('showImage', function ($state, $rootScope, $templateCache, $uibModal) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -20,12 +20,12 @@ define([
                     $scope.widthPx = $scope.width + 'px';
                     // $scope.type = supscope.url.substring(supscope.url.length - 4, supscope.url.length);
                     $scope.show = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             templateUrl: 'show.html',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.url = supscope.url;
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''

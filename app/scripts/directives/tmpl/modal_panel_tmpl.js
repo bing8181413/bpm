@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-        .directive('modalPanel', function ($state, $rootScope, $templateCache, $modal, $compile) {
+        .directive('modalPanel', function ($state, $rootScope, $templateCache, $uibModal, $compile) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -40,7 +40,7 @@ define([
                 }
             };
         })
-        .directive('modalTextarea', function ($state, $rootScope, $templateCache, $modal, $compile, $timeout) {
+        .directive('modalTextarea', function ($state, $rootScope, $templateCache, $uibModal, $compile, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -59,9 +59,9 @@ define([
                     $element.find('.show_textarea').html(content);
                     $compile($element.contents())($scope)
                     $scope.show_modal = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.title = supscope.title;
                                 // console.log(supscope);
                                 $timeout(function () {
@@ -71,7 +71,7 @@ define([
                                     '<div form-textarea text="{{title}}" ng-model="content"> </div > ' +
                                     '</form>';
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''

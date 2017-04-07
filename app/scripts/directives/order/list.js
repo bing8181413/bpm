@@ -4,7 +4,7 @@ define([
 ], function (mod, simpleCons) {
     mod
     // 取消订单
-        .directive('orderCancel', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('orderCancel', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -15,9 +15,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_cancel_order = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea text="取消原因" ng-model="cancel_reason"' +
                                     ' placeholder = "取消原因" required = "true" > </div > ' +
@@ -46,7 +46,7 @@ define([
                                     }
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''
@@ -60,7 +60,7 @@ define([
             }
         })
         // 子订单
-        .directive('orderDeliveries', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('orderDeliveries', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -75,9 +75,9 @@ define([
                             widget.msgToast('没有子订单');
                             return false;
                         }
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div hjm-grid modid="deliveryList" config="configByOrder" columns="columnsByOrder" ext-api="extApi"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.extApi = '/orders/' + supscope.data.order_id + '/deliveries'
                             },
                             size: 'lg'
@@ -90,7 +90,7 @@ define([
             }
         })
         // 修改收货地址 拼团
-        .directive('orderChangeAddress', function ($templateCache, $filter, $compile, widget, $modal, $timeout) {
+        .directive('orderChangeAddress', function ($templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -101,9 +101,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_order_change_address = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     // console.log(supscope.data.address);
                                     $timeout(function () {
                                         $scope.address = {
@@ -210,7 +210,7 @@ define([
                                         }
                                     }
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: 'lg'
@@ -224,7 +224,7 @@ define([
             }
         })
         // 修改收货地址 拼团
-        .directive('orderChangeAddressOfAct', function ($templateCache, $filter, $compile, widget, $modal, $timeout) {
+        .directive('orderChangeAddressOfAct', function ($templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -235,9 +235,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_order_change_address = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     $timeout(function () {
                                         $scope.address = {
                                             contact_name: supscope.data.address.contact_name,
@@ -287,7 +287,7 @@ define([
                                         }
                                     }
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: 'lg'
@@ -309,7 +309,7 @@ define([
             }
         })
         // 修改配送模式时间类型
-        .directive('orderChangePattern', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('orderChangePattern', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -320,9 +320,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_order_change_pattern = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.title = '修改配送时间类型';
                                 $scope.pattern_id = supscope.data.pattern.pattern_id;
                                 var source = '[';
@@ -357,7 +357,7 @@ define([
                                     }
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''
@@ -370,7 +370,7 @@ define([
             }
         })
         // 修改订单备注
-        .directive('orderChangeRemark', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('orderChangeRemark', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -381,9 +381,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_order_change_remark = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.title = '修改订单备注';
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea="" text="订单备注" ng-model="remark" required="true"></div>' +
@@ -406,7 +406,7 @@ define([
                                     }
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''
@@ -419,7 +419,7 @@ define([
             }
         })
         // 订单个人介绍
-        .directive('orderSelfIntroduction', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('orderSelfIntroduction', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -430,16 +430,16 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_order_self_introduction = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.title = '个人介绍';
                                 $scope.form1 = supscope.data.form1;
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea="" text="个人介绍" ng-model="form1"></div>' +
                                     '</form>';
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''
@@ -454,7 +454,7 @@ define([
             }
         })
         // 订单价值说明
-        .directive('orderValueExplain', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('orderValueExplain', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -465,16 +465,16 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_order_value_explain = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.title = '价值说明';
                                 $scope.form2 = supscope.data.form2;
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea="" text="价值说明" ng-model="form2"></div>' +
                                     '</form>';
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''

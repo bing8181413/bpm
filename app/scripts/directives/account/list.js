@@ -4,7 +4,7 @@ define([
 ], function (mod, con) {
     // <div product-pattern="patterns"></div>
     mod
-        .directive('changeRole', function ($templateCache, $compile, widget, $state, $modal, $rootScope, $timeout, $q) {
+        .directive('changeRole', function ($templateCache, $compile, widget, $state, $uibModal, $rootScope, $timeout, $q) {
             return {
                 restrict: 'AE',
                 replace: true,
@@ -48,9 +48,9 @@ define([
                             }
                         );
                         function callback(source) {
-                            var modalInstance = $modal.open({
+                            var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl" callback="callback"></div>',
-                                controller: function ($scope, $modalInstance, $timeout) {
+                                controller: function ($scope, $uibModalInstance, $timeout) {
                                     $scope.tmpl = '<style type="text/css">.checkbox-inline{margin-left: 0px;}</style>' +
                                         '<form class="form-horizontal" name="FormBody" novalidate>' +
                                         '<div form-checkbox text="角色菜单" ng-model="menuIds" ' + ' source="' + source + '"> </div> ' +
@@ -79,7 +79,7 @@ define([
                                         })
                                     }
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: 'lg'

@@ -7,7 +7,7 @@ define([
     //<common_form form_param="" form_init_data="" form_url="" form_title="" ></common_form>
     //form_data = {};
     //form_url:''
-        .directive('commonForm', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
+        .directive('commonForm', function ($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache) {
             return {
                 restrict: 'E',
                 // replace: true,
@@ -47,9 +47,9 @@ define([
                         }
                     });
                     $scope.open = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             templateUrl: 'form_data.html',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.form_data = sup_scope.form_data;
                                 $scope.form_url = sup_scope.form_url;
                                 $scope.form_title = sup_scope.form_title;
@@ -88,7 +88,7 @@ define([
                                     });
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''

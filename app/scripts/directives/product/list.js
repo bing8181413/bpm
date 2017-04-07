@@ -249,7 +249,7 @@ define([
                 }
             };
         })
-        .directive('productOrderCopies', function ($rootScope, $templateCache, $filter, $compile, widget, $modal) {
+        .directive('productOrderCopies', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -266,9 +266,9 @@ define([
                         //     return false;
                         // }
 
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     widget.ajaxRequest({
                                         url: '/products/' + (supscope.data.product_id || 0) + '/options',
                                         method: 'get',
@@ -297,7 +297,7 @@ define([
                                         '</div>';
                                     $scope.title = '类目详情';
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: 'lg'
@@ -307,7 +307,7 @@ define([
                 }
             }
         })
-        .directive('actChangeNotice', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+        .directive('actChangeNotice', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -318,9 +318,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_act_change_notice = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '发送活动开始通知';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
@@ -348,7 +348,7 @@ define([
                                         })
                                     }
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: 'lg'
@@ -358,7 +358,7 @@ define([
                 }
             }
         })
-        .directive('actCrowdfunding', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+        .directive('actCrowdfunding', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -381,9 +381,9 @@ define([
                         //     widget.msgToast('众筹报名结束，或库存已售完，才能发送众筹结果通知');
                         //     return false;
                         // }
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '发送众筹结果通知';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
                                         '<h4>请选择该众筹结果，操作完成后，报名用户会收到消息提醒；若众筹失败，则该活动订单会全部自动取消！请确认无误后再操作。</h4>' +
@@ -430,7 +430,7 @@ define([
                                         })
                                     }
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: ''
@@ -440,7 +440,7 @@ define([
                 }
             }
         })
-        .directive('actOrderCopies', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('actOrderCopies', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -453,12 +453,12 @@ define([
                     $scope.ext = {product_id: $scope.data.product_id};
                     var supscope = $scope;
                     $scope.show = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div hjm-grid modid="orderList" config="config_by_act_2" columns="columns_by_act" ext-search="ext"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.ext = supscope.ext;
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: 'lg'
@@ -467,7 +467,7 @@ define([
                 }
             }
         })
-        .directive('weinxiView', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+        .directive('weinxiView', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -478,9 +478,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_weixin_view = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '微信活动链接';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                         '<div form-textarea text="链接地址" ng-model="link"></div>' +
@@ -490,7 +490,7 @@ define([
                                         $scope.link = simpleCons.wx_domain + '/product/detail/product_id/' + supscope.data.product_id;
                                     }, 0);
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: 'lg'

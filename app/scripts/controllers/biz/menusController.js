@@ -5,8 +5,8 @@ define([
 ], function (mod, simpleCons) {
     mod.controller('menusController', menusController);
 
-    menusController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget'];
-    function menusController($scope, $http, $rootScope, $modal, $state, $stateParams, widget) {
+    menusController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget'];
+    function menusController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget) {
         $scope.init_url = simpleCons.domain + '/accounts/menus/tree';
         $scope.update_url = simpleCons.domain + '/accounts/menus/';
         $scope.add_url = simpleCons.domain + '/accounts/menus';

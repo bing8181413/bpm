@@ -25,9 +25,11 @@
             background: #eee;
             border-radius: 5px;
         }
-        .upload-image-bar{
+
+        .upload-image-bar {
             margin-bottom: 0px;
         }
+
         .img_min {
             max-height: 100px;
             max-width: 100px;
@@ -67,7 +69,7 @@
             display: block;
             padding: 10px 0px;
             margin-bottom: -1px;
-            margin-left:0;
+            margin-left: 0;
         }
 
         .dndsimpleDemo ul[dnd-list] li.selected {
@@ -78,7 +80,7 @@
     <div class="row">
         <div class="panel panel-info" style="border: 0">
             <!--<div class="panel-heading"></div>-->
-            <div class="panel-body dndsimpleDemo">
+            <div class="panel-body dndsimpleDemo" ng-show="images&&images.length>0">
                 <!--<pre ng-bind="uploader.queue | json">  这个不能json 这个自定义的对象里面有循环嵌套 </pre>-->
                 <!--<pre ng-bind="images | json"></pre>-->
                 <ul dnd-list="images" ng-init="img_min = true;"
@@ -225,7 +227,7 @@
                           ng-class="{'glyphicon-zoom-in':img_min,'glyphicon-zoom-out':!img_min}"></span>图片缩放
                 </button>
                 <button type="button" class="btn btn-primary btn-rounded" ng-click="log()">
-                    <span class="glyphicon glyphicon-paperclip"></span> 手动排序确认
+                    <span class="glyphicon glyphicon-paperclip"></span> 拖动排序后点我
                 </button>
             </div>
         </div>

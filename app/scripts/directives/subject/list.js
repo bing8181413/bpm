@@ -88,7 +88,7 @@ define([
                 }
             }
         })
-        .directive('subjectProduct', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('subjectProduct', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -101,12 +101,12 @@ define([
                     $scope.ext = {subject_id: $scope.data.subject_id};
                     var supscope = $scope;
                     $scope.show = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div hjm-grid modid="productList" config="config_by_subject" columns="columns_by_subject" ext-search="ext"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.ext = supscope.ext;
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: 'lg'
@@ -115,7 +115,7 @@ define([
                 }
             }
         })
-        .directive('delSubjectProducts', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('delSubjectProducts', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,

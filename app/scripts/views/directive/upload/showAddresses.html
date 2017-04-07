@@ -1,5 +1,5 @@
 <div>
-    <div class="row">
+    <div class="row" ng-show="addresses&&addresses.length>0">
         <div class="panel panel-info" style="border: 0">
             <!--<div class="panel-heading"></div>-->
             <div class="panel-body">
@@ -49,7 +49,7 @@
                                         <div class="col-sm-3">
                                             <a class="btn btn-info btn-rounded"
                                                ng-click="getlocation(k);mapData.isshowmap=!mapData.isshowmap;"
-                                               ng-bind="!mapData.isshowmap?'展开地图':'收缩地图'"></a>
+                                               ng-bind="!mapData.isshowmap?'展开地图':'收起地图'"></a>
                                         </div>
                                         <div class="col-sm-3">
                                             <div ng-class="{'hide':disabled}">
@@ -91,7 +91,7 @@
                     <span class="glyphicon glyphicon-trash"></span> 全部移除
                 </button>
                 <!--<button type="button" class="btn btn-primary btn-rounded" ng-click="log()">-->
-                    <!--<span class="glyphicon glyphicon-paperclip"></span> console-->
+                <!--<span class="glyphicon glyphicon-paperclip"></span> console-->
                 <!--</button>-->
             </div>
         </div>

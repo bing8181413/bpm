@@ -4,7 +4,7 @@ define([
 ], function (mod, simpleCons) {
     mod
     // 添加热词
-        .directive('hotkeyAdd', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('hotkeyAdd', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -15,9 +15,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_hotkey_add = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-input text="热词" ng-model="keyword"  placeholder = "热词" required = "true"> </div > ' +
                                     '<a class="btn btn-primary btn-rounded pull-right " ng-click="hotkey_add()">确定</a>' +
@@ -39,7 +39,7 @@ define([
                                     })
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''
@@ -49,7 +49,7 @@ define([
             }
         })
         // 删除热词
-        .directive('hotkeyDel', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('hotkeyDel', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -60,9 +60,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_hotkey_del = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.keyword = supscope.data.keyword;
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-input text="热词" ng-model="keyword" ng-disabled="true" required="true"></div>' +
@@ -86,7 +86,7 @@ define([
                                     })
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''

@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, cons) {
     mod
-        .directive('exportRun', function ($templateCache, $modal, $timeout, widget) {
+        .directive('exportRun', function ($templateCache, $uibModal, $timeout, widget) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -14,9 +14,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_export = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.title = supscope.data.desc || '导出数据';
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<style type="text/css"> .modal .checkbox-inline{margin-left: 0;}' +
@@ -56,7 +56,7 @@ define([
                                     }
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 }
                             },
                             size: 'lg'

@@ -32,12 +32,13 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 'responseError': function (response) {
                     $rootScope.http_notification = null;
                     console.log('responseError:  ' + response);
+                    return null;
                 }
             };
             return bpmHttpInterceptor;
         }])
-        .run(['$rootScope', '$state', '$stateParams', '$http', '$modal', '$location', 'widget', '$document',
-            function ($rootScope, $state, $stateParams, $http, $modal, $location, widget, $document) {
+        .run(['$rootScope', '$state', '$stateParams', '$http', '$uibModal', '$location', 'widget', '$document',
+            function ($rootScope, $state, $stateParams, $http, $uibModal, $location, widget, $document) {
                 var arr = [];
                 $document.bind("keydown", function (event) {
 
@@ -70,7 +71,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 $rootScope.$state.go(cons.state.main + '.coupon.list');
                                 break;
                         }
-                    } else if (tagName && $rootScope.hjm.role == 'op') {
+                    } else if (tagName && $rootScope.hjm && $rootScope.hjm.role == 'op') {
                         // console.log(event.keyCode);
                         switch (event.keyCode) {
                             case 84:// t uan

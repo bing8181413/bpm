@@ -8,7 +8,7 @@ define([
     // <select_city city_list="" city_name=""></select_city>
     // city_list 保存的是  '上海,北京,厦门' 或者'' 这种格式的 需要转化为 array 再处理
     // city_name 保存的是  '上海' 或者''
-        .directive('selectCity', function ($state, $rootScope, $templateCache, $modal) {
+        .directive('selectCity', function ($state, $rootScope, $templateCache, $uibModal) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -61,7 +61,7 @@ define([
         // <select_current_city current_city_list="" current_city_name=""></select_current_city>
         // current_city_list 保存的是  '上海,北京,厦门' 或者'' 这种格式的 需要转化为 array 再处理
         // current_city_name 保存的是  '上海' 或者''
-        .directive('selectCurrentCity', function ($state, $rootScope, $templateCache, $modal) {
+        .directive('selectCurrentCity', function ($state, $rootScope, $templateCache, $uibModal) {
             return {
                 restrict: 'E',
                 replace: true,

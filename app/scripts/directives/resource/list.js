@@ -4,7 +4,7 @@ define([
 ], function (mod, simpleCons) {
     // <div product-pattern="patterns"></div>
     mod
-        .directive('addResourceImage', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+        .directive('addResourceImage', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -15,9 +15,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_add_resource = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '新增资源库';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
@@ -25,7 +25,7 @@ define([
                                         // '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
                                         '</form>';
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: 'lg'
@@ -35,7 +35,7 @@ define([
                 }
             }
         })
-        .directive('addResourceAudio', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+        .directive('addResourceAudio', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -46,9 +46,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_add_resource = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '新增资源库';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
@@ -56,7 +56,7 @@ define([
                                         // '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
                                         '</form>';
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: 'lg'

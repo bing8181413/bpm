@@ -7,7 +7,7 @@ define([
     //<common_form form_param="" form_init_data="" form_url="" form_title="" ></common_form>
     //form_data = {};
     //form_url:''
-        .directive('baidumap', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache, $timeout) {
+        .directive('baidumap', function ($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache, $timeout) {
             return {
                 restrict: 'E',
                 replace: true,

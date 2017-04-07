@@ -4,7 +4,7 @@ define([
 ], function (mod, cons) {
 
     mod
-        .directive('sideMenu', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
+        .directive('sideMenu', function ($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -28,7 +28,7 @@ define([
                 }
             };
         })
-        .directive('sideWidgets', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
+        .directive('sideWidgets', function ($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache) {
             return {
                 restrict: 'EA',
                 // replace: true,

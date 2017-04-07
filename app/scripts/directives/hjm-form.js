@@ -169,7 +169,7 @@ define([
                     var labelWidth = $scope.labelWidth ? ('col-sm-' + $scope.labelWidth) : ('col-sm-2');
                     var contentWidth = $scope.contentWidth ? ('col-sm-' + $scope.contentWidth) :
                         ($scope.labelWidth ? ('col-sm-' + (10 - $scope.labelWidth)) : ('col-sm-8'));
-                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '" ');
+                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '' + '" ');
                     var required = $scope.required ? (' required') : '';
                     var required_span = ($scope.required || $scope.requiredSpanShow) ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
@@ -190,7 +190,7 @@ define([
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         // $scope.modelVal = $scope.ngModel;
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
@@ -261,24 +261,10 @@ define([
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-                    // $scope.modelVal = $scope.ngModel;
-                    // $scope.$watch('modelVal', function (val) {
-                    //     $scope.ngModel = val;
-                    // });
-                    // $scope.$watch($scope.ngModelText, function (val, oldVal) {
-                    //     $scope.ngModel = val;
-                    // });
-                    // $scope.$watch('ngModel', function (val, oldVal) {
-                    //     if (val) {
-                    //         $scope.$eval($scope.ngModelText + '="' + val + '"');
-                    //     } else {
-                    //         $scope.$eval($scope.ngModelText + '=""');
-                    //     }
-                    // });
                 }
             }
         })
@@ -323,7 +309,7 @@ define([
                             + '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
@@ -384,7 +370,7 @@ define([
                     // console.log('formElement', $scope, $attrs);
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var date = new Date().getTime();
-                    var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + date + '"');
+                    var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="radio"';
@@ -431,9 +417,9 @@ define([
                     callback: '&',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
-                    // console.log($scope.source);
-                    // console.log('formElement', $scope, $attrs);
-                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var date = new Date().getTime();
+                    var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + date + '"');
+                    var nickname = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="checkbox"';
@@ -444,67 +430,164 @@ define([
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">';
                         angular.forEach($scope.source, function (val, key) {
-                            $scope.source[key].checked = false;
-                            content += '<label class="checkbox-inline checkbox1"><input ' + type + disabledRole +
-                                ' ng-model="tmp_source[' + key + ']"' + name +
-                                ' ng-true-value="\'' + val.value + '\'" ' +
-                                ' ng-false-value="false" ' +
-                                ' ng-checked = "source[' + key + '].checked" ' +
+                            content += '<label class="checkbox-inline checkbox1"><input ' + type + disabledRole + name +
+                                ' ng-checked="isChecked(\'' + val.value + '\')"' +
+                                ' ng-click="updateSelection($event,\'' + val.value + '\')"  ' +
                                 '><span></span>' + val.text + '</label>';
                         });
-                        content += '<input class="hide" ng-model="ngModel"' + name + required + disabledRole + '>';
+                        content += '<div><input class="hide" ng-model="tmp_field" ' + nickname + required + disabledRole + '" /></div>';
+                        // content += '<div form-input text="' + $scope.text + '" ng-model="tmp_field" ' + nickname + required + disabledRole + '"/></div>';
+                        // content += '<div class="hide1" ng-bind="ngModel|json"></div>';
                         content += '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                             // console.log($scope.$parent.FormBody);
                         }
                     }, 0);
-                    $scope.$watch($scope.ngModelText, function (val) {
-                        // console.log('$scope.ngModelText', val);
-                        if (val && val.length == 0) {
-                            $scope.ngModel = undefined;
+                    $scope.$watch('ngModel', function (val) {
+                        // console.log('ngModel  ===', $scope.ngModel);
+                        if (val && val.length > 0) {
+                            $scope.tmp_field = true;
                         } else {
-                            $scope.ngModel = val || [];
+                            $scope.tmp_field = undefined;
                         }
+                        // console.log($scope.$parent.FormBody);
                     }, true);
+                    $scope.isChecked = function (value) {
+                        if ($scope.ngModel && $scope.ngModel.length > 0) {
+                            // console.log(44444444, $scope.ngModel);
+                            return $scope.ngModel && $scope.ngModel.indexOf(value) >= 0;
+                        } else {
+                            return false;
+                        }
+                    };
 
-                    $scope.$watch('tmp_source', function (val) {
-                        // console.log(val);
-                        if (val) {
-                            var mod_arr = [];
-                            angular.forEach(val, function (v, k) {
-                                if (v) mod_arr.push(v);
-                            });
-                            $scope.$eval($scope.ngModelText + '=' + JSON.stringify(mod_arr) + '');
+                    $scope.updateSelection = function ($event, value) {
+                        var checkbox = $event.target;
+                        var checked = checkbox.checked;
+                        if (checked) {
+                            if ($scope.ngModel && $scope.ngModel.indexOf(value) == -1) {//不存在就添加
+                                $scope.ngModel.push(value);
+                            } else if (!$scope.ngModel) {
+                                $scope.ngModel = [value];
+                            }
                         } else {
-                            $scope.$eval($scope.ngModelText + '=[]');
-                        }
-                    }, true);
-                    $scope.$watch('ngModel', function (mod) {
-                        // console.log('ngModel', mod);
-                        if (mod) {
-                            angular.forEach($scope.source, function (source, key) {
-                                $scope.source[key].checked = false;
-                                $scope.tmp_source[key] = false;
-                                angular.forEach(mod, function (mod_v, mod_k) {
-                                    if (source.value == mod_v) {
-                                        $scope.source[key].checked = true;
-                                        $scope.tmp_source[key] = source.value + '';
-                                    }
-                                });
-                            });
-                            $scope.$eval($scope.ngModelText + '=' + JSON.stringify(mod) + '');
-                        } else {
-                            if (mod && mod.length == 0) {
-                                $scope.ngModel = undefined;
+                            var idx = $scope.ngModel.indexOf(value);
+                            if (idx != -1) {//不存在就添加
+                                $scope.ngModel.splice(idx, 1);
                             }
                         }
-                    }, true);
+                    };
+
+
                 }
             }
         })
+        // .directive('formCheckbox', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        //     return {
+        //         restrict: 'EA',
+        //         replace: true,
+        //         template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
+        //         scope: {
+        //             ngModel: '=ngModel',
+        //             ngModelText: '@ngModel',
+        //             default: '=',
+        //             text: '@',
+        //             name: '@',
+        //             required: '@',
+        //             source: '=',
+        //             // sourceApi: '=',
+        //             callback: '&',
+        //         },
+        //         link: function ($scope, $element, $attrs, $ctrl) {
+        //             // console.log($scope.ngModel);
+        //             // console.log($scope.source);
+        //             // console.log('formElement', $scope, $attrs);
+        //             // if (!$scope.ngModelText) {
+        //             //     return false;
+        //             // }
+        //             // var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+        //             var date = new Date().getTime();
+        //             var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + date + '"');
+        //             var required = $scope.required ? (' required') : '';
+        //             var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+        //             var type = ' type="checkbox"';
+        //             $scope.tmp_source = [];
+        //             $timeout(function () {
+        //                 var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+        //                     (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+        //                 var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+        //                     '<div class="col-sm-8">';
+        //                 angular.forEach($scope.source, function (val, key) {
+        //                     $scope.source[key].checked = false;
+        //                     content += '<label class="checkbox-inline checkbox1"><input ' + type + disabledRole +
+        //                         ' ng-model="tmp_source[' + key + ']"' + name +
+        //                         ' ng-true-value="\'' + val.value + '\'" ' +
+        //                         ' ng-false-value="false" ' +
+        //                         ' ng-checked = "source[' + key + '].checked" ' +
+        //                         '><span></span>' + val.text + '</label>';
+        //                 });
+        //                 content += '<input class="hide" ng-model="ngModel"' + name + required + disabledRole + '>';
+        //                 content += ' {{ngModel}}  </div>';
+        //                 $element.find('.form_element').html(content);
+        //                 $compile($element.contents())($scope);
+        //                 if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
+        //                     $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+        //                     // console.log($scope.$parent.FormBody);
+        //                 }
+        //                 console.log($scope.tmp_source, $scope.source, $scope.ngModelText, $scope.ngModel);
+        //             }, 0);
+        //             $scope.$watch($scope.ngModelText, function (val) {
+        //                 // console.log('ngModelText', val);
+        //                 console.log(1);
+        //                 if (val && val.length == 0) {
+        //                     $scope.ngModel = undefined;
+        //                 } else {
+        //                     $scope.ngModel = val || [];
+        //                 }
+        //             }, true);
+        //
+        //             $scope.$watch('tmp_source', function (val) {
+        //                 // console.log('tmp_source',val);
+        //                 console.log(2);
+        //                 if (val) {
+        //                     var mod_arr = [];
+        //                     angular.forEach(val, function (v, k) {
+        //                         if (v) mod_arr.push(v);
+        //                     });
+        //                     $scope.$eval($scope.ngModelText + '=' + JSON.stringify(mod_arr) + '');
+        //                 } else {
+        //                     $scope.$eval($scope.ngModelText + '=[]');
+        //                 }
+        //             }, true);
+        //             $scope.$watch('ngModel', function (mod) {
+        //                 // console.log('ngModel', mod);
+        //                 console.log(3);
+        //                 if (mod) {
+        //                     angular.forEach($scope.source, function (source, key) {
+        //                         $scope.source[key].checked = false;
+        //                         $scope.tmp_source[key] = false;
+        //                         angular.forEach(mod, function (mod_v, mod_k) {
+        //                             if (source.value == mod_v) {
+        //                                 // console.log(source.value,mod_v);
+        //                                 $scope.source[key].checked = true;
+        //                                 $scope.tmp_source[key] = source.value + '';
+        //                             }
+        //                         });
+        //                     });
+        //                     console.log(JSON.stringify(mod));
+        //                     $scope.$eval($scope.ngModelText + '=' + JSON.stringify(mod) + '');
+        //                 } else {
+        //                     if (mod && mod.length == 0) {
+        //                         $scope.ngModel = undefined;
+        //                     }
+        //                 }
+        //             }, true);
+        //         }
+        //     }
+        // })
         .directive('formImage', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
@@ -541,7 +624,7 @@ define([
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         // console.log($scope.$parent.FormBody[$scope.ngModelText]);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
@@ -594,7 +677,7 @@ define([
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         // console.log($scope.$parent.FormBody[$scope.ngModelText]);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
@@ -633,7 +716,7 @@ define([
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
@@ -667,7 +750,7 @@ define([
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     $scope.editorConfig = {
-                        focus: true, //自动把光标放到UEditor中。测试config配置
+                        // focus: true, //自动把光标放到UEditor中。测试config配置。 实际情况要删掉 容易误操作填入文本内容
                         allowDivTransToP: false, //DIV 自动替换 为其他标签
                     }
                     $timeout(function () {
@@ -678,7 +761,7 @@ define([
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     });
@@ -716,7 +799,7 @@ define([
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
@@ -762,7 +845,7 @@ define([
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
@@ -830,7 +913,7 @@ define([
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         // console.log($scope.$parent.FormBody[$scope.ngModelText]);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
@@ -890,7 +973,7 @@ define([
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         // console.log($scope.$parent.FormBody[$scope.ngModelText]);
-                        if ($scope.$parent.FormBody) {
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);

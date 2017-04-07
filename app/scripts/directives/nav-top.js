@@ -4,7 +4,7 @@ define([
 ], function (mod, simpleCons) {
 
     mod
-        .directive('navMessage', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
+        .directive('navMessage', function ($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -15,7 +15,7 @@ define([
                 }
             };
         })
-        .directive('navAccount', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
+        .directive('navAccount', function ($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -25,6 +25,9 @@ define([
                     $scope.env_name = simpleCons.env_name;
 
                     $scope.logout = function () {
+                        // if (!confirm('确定退出系统,重新登录?')) {
+                        //     return false;
+                        // }
                         $http.defaults.headers.common.Authorization = '';
                         delete $rootScope.hjm;
                         delete $rootScope.selected;
@@ -34,9 +37,9 @@ define([
                         $rootScope.$state.go('login');
                     }
                     $scope.change_city = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl" callback="callback"></div>',
-                            controller: function ($scope, $modalInstance, $timeout) {
+                            controller: function ($scope, $uibModalInstance, $timeout) {
                                 $scope.title = '切换城市';
                                 $scope.open_citys = '[';
                                 angular.forEach($rootScope.hjm.pubData.open_citys, function (val, key) {
@@ -65,7 +68,7 @@ define([
                                     })
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: 'lg'

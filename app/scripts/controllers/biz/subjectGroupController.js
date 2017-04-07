@@ -6,8 +6,8 @@ define([
     mod
         .controller('subjectGroup.updateController', updateController)
 
-    updateController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
-    function updateController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.param = {};
         $scope.subjects_group = [];
         var sup_scope = $scope;
@@ -69,9 +69,9 @@ define([
                 })
             }
             if (!value) {
-                var model = $modal.open({
+                var model = $uibModal.open({
                         template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                        controller: function ($scope, $modalInstance) {
+                        controller: function ($scope, $uibModalInstance) {
                             $scope.title = '删除专题组';
                             $scope.save_subject_group_delete_confirm = function () {
                                 sup_scope.save_subject_group_confirm();
@@ -82,7 +82,7 @@ define([
                                 '<a class="btn btn-danger btn-rounded col-sm-2 pull-right" ng-click="save_subject_group_delete_confirm()">移除</a>' +
                                 '</div>';
                             $scope.cancel = function () {
-                                $modalInstance.dismiss('cancel');
+                                $uibModalInstance.dismiss('cancel');
                             };
                         },
                         size: ''
@@ -94,9 +94,9 @@ define([
         }
         $scope.add_update_subject = function (key, value, index) {
             // index : update 时候的顺序  没有index 是添加
-            var model = $modal.open({
+            var model = $uibModal.open({
                     template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                    controller: function ($scope, $modalInstance) {
+                    controller: function ($scope, $uibModalInstance) {
                         $scope.title = '运营专题';
                         $scope.search_subject = function () {
                             if (!$scope.subject_id) {
@@ -153,7 +153,7 @@ define([
                             '<a class="btn btn-primary btn-sm btn-rounded col-sm-2" ng-click="search_subject()">添加</a>' +
                             '</div>';
                         $scope.cancel = function () {
-                            $modalInstance.dismiss('cancel');
+                            $uibModalInstance.dismiss('cancel');
                         };
                     },
                     size: ''
@@ -162,9 +162,9 @@ define([
         }
         // 删除专题
         $scope.sub_subject = function (key, value, index) {
-            var model = $modal.open({
+            var model = $uibModal.open({
                     template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                    controller: function ($scope, $modalInstance) {
+                    controller: function ($scope, $uibModalInstance) {
                         $scope.title = '移除专题';
                         $scope.sub_subject_confirm = function () {
                             sup_scope.subjects_group[key].splice(index, 1);
@@ -177,7 +177,7 @@ define([
                             '<a class="btn btn-danger btn-rounded col-sm-2 pull-right" ng-click="sub_subject_confirm()">移除</a>' +
                             '</div>';
                         $scope.cancel = function () {
-                            $modalInstance.dismiss('cancel');
+                            $uibModalInstance.dismiss('cancel');
                         };
                     },
                     size: ''

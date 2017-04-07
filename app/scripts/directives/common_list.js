@@ -5,7 +5,7 @@ define([
 
     mod
     //<common_list res_head="" res_data=""></common_list>
-        .directive('commonList', function ($rootScope, $state, $http, $modal, $filter, widget, $templateCache) {
+        .directive('commonList', function ($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache) {
             return {
                 restrict: 'E',
                 replace: true,

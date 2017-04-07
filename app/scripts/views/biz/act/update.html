@@ -5,16 +5,16 @@
         }
 
         /*.panel-body {*/
-            /*transition: all linear 0.5s;*/
-            /*!*height: 50px;*!*/
-            /*height: auto;*/
+        /*transition: all linear 0.5s;*/
+        /*!*height: 50px;*!*/
+        /*height: auto;*/
         /*}*/
 
         /*.panel-body.ng-hide-add, .panel-body.ng-hide-remove {*/
-            /*display: block !important;*/
+        /*display: block !important;*/
 
         /*.panel-body.ng-hide {*/
-            /*height: 0;*/
+        /*height: 0;*/
         /*}*/
     </style>
     <div class="panel panel-primary">
@@ -22,9 +22,9 @@
             <h3 class="panel-title inlineBlock" ng-if="!$stateParams.product_id">新增活动</h3>
             <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.product_id">修改活动</h3>
             <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.product_id">活动详情</h3>
-            <a href="javascript:void(0)" class="btn btn-success btn-rounded pull-right"
-               ng-click="title_info = [1,1,1,1,1,1]">展开模块</a>&nbsp;&nbsp;
-            <a href="javascript:void(0)" class="btn btn-success btn-rounded pull-right"
+            <a href="javascript:void(0)" class="btn btn-success btn-rounded pull-right btn-xs"
+               ng-click="title_info = [1,1,1,1,1,1]">展开模块</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="javascript:void(0)" class="btn btn-success btn-rounded pull-right btn-xs"
                ng-click="title_info = [0,0,0,0,0,0]">合并模块</a>
         </div>
         <div class="panel-body">
@@ -34,7 +34,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
                         <h5 style="margin: 0; padding: 10px 0;">活动信息
-                            <i class="animate-switch fa"
+                            <i class="animate-switch fa pull-right"
                                ng-class="{'fa-angle-double-up':title_info[0]%2==1,'fa-angle-double-down':title_info[0]%2==0}"></i>
                         </h5>
                     </div>
@@ -70,6 +70,7 @@
                         <div form-checkbox text="覆盖城市" ng-model="param.visible_cities" required="true"
                              source="[{text:'上海市',value:'上海市'},{text:'南京市',value:'南京市'},
                              {text:'厦门市',value:'厦门市'},{text:'北京市',value:'北京市'}]" source-api=""></div>
+
                         <div form-input text="活动简介" ng-model="param.brief" placeholder="不超过50个字" minlength="1"
                              maxlength="50"></div>
                         <div form-input text="活动益处" ng-model="param.act_benefit" placeholder="不超过20个字"
@@ -107,7 +108,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[1] = title_info[1]+1; ">活动地址
-                            <i class="animate-switch fa"
+                            <i class="animate-switch fa pull-right"
                                ng-class="{'fa-angle-double-up':title_info[1]%2==1,'fa-angle-double-down':title_info[1]%2==0}"></i>
                         </h5>
                     </div>
@@ -118,7 +119,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[2] = title_info[2]+1; ">活动规则
-                            <i class="animate-switch fa"
+                            <i class="animate-switch fa pull-right"
                                ng-class="{'fa-angle-double-up':title_info[2]%2==1,'fa-angle-double-down':title_info[2]%2==0}"></i>
                         </h5>
                     </div>
@@ -187,7 +188,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[3] = title_info[3]+1; ">优惠规则
-                            <i class="animate-switch fa"
+                            <i class="animate-switch fa pull-right"
                                ng-class="{'fa-angle-double-up':title_info[3]%2==1,'fa-angle-double-down':title_info[3]%2==0}"></i>
                         </h5>
                     </div>
@@ -228,7 +229,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[4] = title_info[4]+1; ">活动详情
-                            <i class="animate-switch fa"
+                            <i class="animate-switch fa pull-right"
                                ng-class="{'fa-angle-double-up':title_info[4]%2==1,'fa-angle-double-down':title_info[4]%2==0}"></i>
                         </h5>
                     </div>
@@ -248,7 +249,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[5] = title_info[5]+1; ">显示管理
-                            <i class="animate-switch fa"
+                            <i class="animate-switch fa pull-right"
                                ng-class="{'fa-angle-double-up':title_info[5]%2==1,'fa-angle-double-down':title_info[5]%2==0}"></i>
                         </h5>
                     </div>

@@ -5,8 +5,8 @@ define([
 ], function (mod, cons) {
     mod.controller('loginController', loginController);
 
-    loginController.$injector = ['$scope', '$http', '$rootScope', '$modal', 'ab-base64', 'widget', '$interval', '$timeout'];
-    function loginController($scope, $http, $rootScope, $modal, base64, widget, $interval, $timeout) {
+    loginController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', 'ab-base64', 'widget', '$interval', '$timeout'];
+    function loginController($scope, $http, $rootScope, $uibModal, base64, widget, $interval, $timeout) {
         $scope.loading = 0;
         if (localStorage.getItem('login_account')) {
             $rootScope.login_account = JSON.parse(base64.decode(localStorage.getItem('login_account')));

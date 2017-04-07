@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-        .directive('showSms', function ($templateCache, $modal, $timeout, widget) {
+        .directive('showSms', function ($templateCache, $uibModal, $timeout, widget) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -15,9 +15,9 @@ define([
                     var supscope = $scope;
                     $scope.show_sms = function () {
                         // console.log($scope);
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 widget.ajaxRequest({
                                     url: '/markets/sms/' + (supscope.data.id || 0),
                                     method: 'get',
@@ -32,7 +32,7 @@ define([
                                     '<div form-textarea text="手机号码" ng-model="mobiles"></div>' +
                                     '</form>';
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 }
                             },
                             size: ''

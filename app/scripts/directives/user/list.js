@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-        .directive('userAddress', function (widget, $modal) {
+        .directive('userAddress', function (widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -14,15 +14,15 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supScope = $scope;
                     $scope.show_user_address = function (status) {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div hjm-grid modid="addressList" config="config" columns="columns" ext-api="extApi"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.extApi = '';
                                 if (supScope.data.user_id) {
                                     $scope.extApi = '/users/' + supScope.data.user_id + '/addresses';
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 }
                             },
                             size: 'lg'
@@ -31,7 +31,7 @@ define([
                 }
             }
         })
-        .directive('userOrder', function (widget, $modal) {
+        .directive('userOrder', function (widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -42,15 +42,15 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supScope = $scope;
                     $scope.show_user_order = function (status) {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div hjm-grid modid="orderList" config="config_by_user" columns="columns_by_user" ext-search="extSearch"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.extApi = '';
                                 if (supScope.data.user_id) {
                                     $scope.extSearch = {user_id: supScope.data.user_id};
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 }
                             },
                             size: 'lg'
@@ -59,7 +59,7 @@ define([
                 }
             }
         })
-        .directive('userCoupon', function (widget, $modal) {
+        .directive('userCoupon', function (widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -70,16 +70,16 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supScope = $scope;
                     $scope.show_user_coupon = function (status) {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div hjm-grid modid="couponList" config="config_by_user" columns="columns_by_user" ext-api="extApi" ext-search="extSearch"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.extApi = '';
                                 if (supScope.data.user_id) {
                                     $scope.extApi = '/users/' + supScope.data.user_id + '/coupons';
                                     $scope.extSearch = {user_id: supScope.data.user_id};
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 }
                             },
                             size: 'lg'
@@ -88,7 +88,7 @@ define([
                 }
             }
         })
-        .directive('userToken', function ($rootScope, $templateCache, $filter, $compile, widget, $modal) {
+        .directive('userToken', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -103,9 +103,9 @@ define([
                             widget.msgToast('权限不够');
                             return false;
                         }
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea text="模拟登陆的URL" ng-model="rtn_url"' +
                                     ' placeholder = "URL" > </div > ' +
@@ -121,7 +121,7 @@ define([
                                     }
                                 })
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: 'lg'
@@ -133,7 +133,7 @@ define([
                 }
             }
         })
-        .directive('vipUserInfoUpdate', function ($rootScope, $templateCache, $filter, $compile, widget, $modal, $timeout) {
+        .directive('vipUserInfoUpdate', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -144,9 +144,9 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_act_change_notice = function () {
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $modalInstance) {
+                                controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '会员信息更新';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
@@ -186,7 +186,7 @@ define([
                                         })
                                     }
                                     $scope.cancel = function () {
-                                        $modalInstance.dismiss('cancel');
+                                        $uibModalInstance.dismiss('cancel');
                                     };
                                 },
                                 size: 'lg'

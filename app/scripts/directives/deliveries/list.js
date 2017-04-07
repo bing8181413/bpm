@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-        .directive('changeDeliveriesStatus', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('changeDeliveriesStatus', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: true,
@@ -15,9 +15,9 @@ define([
                     var supscope = $scope;
                     $scope.show_deliveries_change_status = function () {
                         // console.log($scope);
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.title = '修改子订单状态';
                                 $scope.data = supscope.data;
                                 $scope.delivery_ids = [];
@@ -61,7 +61,7 @@ define([
                                     }
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: 'lg'
@@ -71,7 +71,7 @@ define([
             }
         })
         // 修改配送模式时间类型
-        .directive('deliverDelay', function ($templateCache, $filter, $compile, widget, $modal) {
+        .directive('deliverDelay', function ($templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
                 replace: true,
@@ -88,9 +88,9 @@ define([
                     }
                     $scope.show_deliver_delay = function () {
                         // console.log($scope.data);
-                        var modalInstance = $modal.open({
+                        var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                            controller: function ($scope, $modalInstance) {
+                            controller: function ($scope, $uibModalInstance) {
                                 $scope.title = '延迟一周配送';
                                 $scope.data = supscope.data;
                                 $scope.expect_date = $scope.data.expect_date;
@@ -119,7 +119,7 @@ define([
                                     })
                                 }
                                 $scope.cancel = function () {
-                                    $modalInstance.dismiss('cancel');
+                                    $uibModalInstance.dismiss('cancel');
                                 };
                             },
                             size: ''

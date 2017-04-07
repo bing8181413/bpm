@@ -5,8 +5,8 @@ define([
 ], function (mod, con) {
     mod.controller('user.customersAddController', customersAddController)
 
-    customersAddController.$injector = ['$scope', '$http', '$rootScope', '$modal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
-    function customersAddController($scope, $http, $rootScope, $modal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
+    customersAddController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', 'comfunc'];
+    function customersAddController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, comfunc) {
         $scope.submit = function () {
             if (comfunc.isEmptyArray($scope.avatar)) {
                 widget.msgToast('头像没有上传');
