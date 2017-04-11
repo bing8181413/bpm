@@ -8,6 +8,9 @@
     <li class="admin-dropdown" ng-if="hjm.city_name">
         <a ng-bind="hjm.city_name" ng-click="change_city()"></a>
     </li>
+    <li class="admin-dropdown" ng-if="!hjm.city_name">
+        <a ng-click="change_city()">城市</a>
+    </li>
     <!--<li class="dropdown" dropdown="" on-toggle="toggled(open)">-->
     <!--<a class="dropdown-toggle notoggle"-->
     <!--dropdown-toggle="" aria-haspopup="true"-->
