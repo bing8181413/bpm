@@ -6,7 +6,7 @@
         /*margin-right: 0.5%;*/
     }
 
-    .panel > .panel-body > accordion {
+    .panel > .panel-body > uib-accordion {
         display: inline-block;
     }
 </style>
@@ -18,9 +18,9 @@
                      btn-class="btn btn-primary btn-rounded pull-right btn-bordered visible-lg">
             <i class="fa fa-plus"></i>
         </common_form>
-        <accordion>
-            <accordion-group heading="{{menu.sort+'&nbsp;&nbsp;&nbsp;'+menu.name+'( ID:'+menu.id+')'}}"
-                             ng-repeat="menu in menus" class="panel panel-default panel-info">
+        <uib-accordion>
+            <div uib-accordion-group heading="{{menu.sort+'&nbsp;&nbsp;&nbsp;'+menu.name+'( ID:'+menu.id+')'}}"
+                 ng-repeat="menu in menus" class="panel panel-default panel-info">
                 <div class="accordion-heading row">
                     <common_form form_param="param" form_init_data="menu" form_url="update_url"
                                  form_title="'更新'" callback="getapi" form_method="PUT" form_param_id="{{menu.id}}"
@@ -65,7 +65,7 @@
                         </tbody>
                     </table>
                 </div>
-            </accordion-group>
-        </accordion>
+            </div>
+        </uib-accordion>
     </div>
 </div>

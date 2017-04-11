@@ -14,7 +14,7 @@ define([], function () {
                 {
                     name: '活动标题', field: 'product.title'
                 },
-                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item.product"></div>'},
+                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item"></div>'},
                 {name: '开团用户', fieldDirective: '<div groupbuy-order data="item"></div>'},
                 {name: '团订单数', fieldDirective: '<div groupbuy-order-copies data="item"></div>'},
                 // {name: '成功购买份数', field: 'order.copies'},

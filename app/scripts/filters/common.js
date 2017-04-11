@@ -92,7 +92,7 @@ define([
             return function (val, param) {
                 var Sum = 0;
                 angular.forEach(val, function (v, k) {
-                    Sum += eval('v.' + param)*1;
+                    Sum += eval('v.' + param) * 1;
                 })
                 return Sum;
             }
@@ -144,9 +144,9 @@ define([
         }])
         // 剩余时间  跟当前时间比较 当前时间-结束时间
         .filter('remaining_time', [function () {
-            return function (end_time) {
+            return function (end_time, start_time) {
                 if (end_time) {
-                    var rtn_now = new Date().getTime();
+                    var rtn_now = start_time ? new Date(start_time).getTime() : new Date().getTime();
                     var rtn_end_time = new Date(end_time.replace(/-/g, "/")).getTime();
                     var remaining_time = (rtn_end_time - rtn_now);
                     if (remaining_time <= 0) {
