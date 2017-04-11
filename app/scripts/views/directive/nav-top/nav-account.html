@@ -8,30 +8,26 @@
     <li class="admin-dropdown" ng-if="hjm.city_name">
         <a ng-bind="hjm.city_name" ng-click="change_city()"></a>
     </li>
-    <li class="admin-dropdown" ng-if="!hjm.city_name">
-        <a ng-click="change_city()">城市</a>
-    </li>
-    <!--<li class="dropdown" dropdown="" on-toggle="toggled(open)">-->
-    <!--<a class="dropdown-toggle notoggle"-->
-    <!--dropdown-toggle="" aria-haspopup="true"-->
-    <!--aria-expanded="false">-->
-    <!--<span ng-bind="hjm.current_city_name"></span> </a>-->
-    <!--<ul class="dropdown-menu lang pull-right animated fadeIn">-->
-    <!--<li><a ng-click="changeLanguage('en')">English</a></li>-->
-    <!--<li><a ng-click="changeLanguage('de')">Dutch</a></li>-->
-    <!--<li><a ng-click="changeLanguage('ur')">اردو</a></li>-->
-    <!--<li><a ng-click="changeLanguage('hn')">हिन्दी</a></li>-->
-    <!--</ul>-->
+    <!--<li class="dropdown" uib-dropdown="" on-toggle="toggled(open)">-->
+        <!--<a class="dropdown-toggle notoggle"-->
+           <!--uib-dropdown-toggle="" aria-haspopup="true"-->
+           <!--aria-expanded="false">-->
+            <!--<span ng-bind="hjm.current_city_name"></span> </a>-->
+        <!--<ul class="dropdown-menu lang pull-right animated fadeIn" uib-dropdown-menu>-->
+            <!--<li><a ng-click="changeLanguage('en')">English</a></li>-->
+            <!--<li><a ng-click="changeLanguage('de')">Dutch</a></li>-->
+            <!--<li><a ng-click="changeLanguage('ur')">اردو</a></li>-->
+            <!--<li><a ng-click="changeLanguage('hn')">हिन्दी</a></li>-->
+        <!--</ul>-->
     <!--</li>-->
-    <li class="dropdown admin-dropdown" dropdown="" on-toggle="toggled(open)">
-        <a class="dropdown-toggle" dropdown-toggle="" aria-haspopup="true" aria-expanded="false"
-           ui-sref="main.account.profile">
+    <li class="dropdown admin-dropdown" uib-dropdown on-toggle="toggled(open)">
+        <a class="dropdown-toggle" uib-dropdown-toggle aria-haspopup="true" aria-expanded="false">
             <img src="styles/images/flat-avatar.png" class="topnav-img">
             <span class="hidden-sm" ng-bind="hjm.username"></span></a>
-        <!--<ul class="dropdown-menu pull-right animated fadeIn">-->
-        <!--<li><a ui-sref="main.account.profile">修改个人信息</a></li>-->
-        <!--<li><a class="ng-binding" ng-click="change_city()">切换定位城市</a></li>-->
-        <!--<li><a class="ng-binding" ng-click="logout()">退出</a></li>-->
-        <!--</ul>-->
+        <ul class="dropdown-menu pull-right animated fadeIn" uib-dropdown-menu>
+            <li><a ui-sref="main.account.profile">修改个人信息</a></li>
+            <li><a class="ng-binding" ng-click="change_city()">切换定位城市</a></li>
+            <li><a class="ng-binding" ng-click="logout()">退出</a></li>
+        </ul>
     </li>
 </ul>

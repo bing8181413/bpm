@@ -19,7 +19,7 @@ define([
                 widget.msgToast('优惠劵金额不能小于等于0');
                 return false;
             }
-            if (!$scope.param.over_price || $scope.param.over_price <= 0) {
+            if ($scope.param.over_price && $scope.param.over_price <= 0) {
                 widget.msgToast('满减优惠条件的金额不能小于等于0');
                 return false;
             }

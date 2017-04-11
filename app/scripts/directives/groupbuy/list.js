@@ -61,18 +61,18 @@ define([
                 link: function ($scope, $element, $attrs) {
                     $scope.txt = '';
                     if ($scope.data) {
-                        switch ($scope.data.accomplish_status) {
+                        switch (Number($scope.data.accomplish_status)) {
                             case 1 :
-                                $scope.txt = '<progressbar class="active" value="warning" type="warning">开团</progressbar>';
+                                $scope.txt = '<uib-progressbar class="active" value="warning" type="warning">开团</uib-progressbar>';
                                 break;
                             case 2 :
-                                $scope.txt = '<progressbar class="progress-striped active" value="90" type="primary">进行中</progressbar>';
+                                $scope.txt = '<uib-progressbar class="progress-striped active" value="90" type="primary">进行中</uib-progressbar>';
                                 break;
                             case 3 :
-                                $scope.txt = '<progressbar class="active" value="success" type="success">已完成</progressbar>';
+                                $scope.txt = '<uib-progressbar class="active" value="success" type="success">已完成</uib-progressbar>';
                                 break;
                             case 4 :
-                                $scope.txt = '<progressbar class="active" value="warning" type="danger">已取消</progressbar>';
+                                $scope.txt = '<uib-progressbar class="active" value="warning" type="danger">已取消</uib-progressbar>';
                                 break;
                         }
                         $element.find(".txt").html($scope.txt);
