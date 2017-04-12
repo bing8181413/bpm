@@ -11,7 +11,7 @@ define([], function () {
                     fieldDirective: '联系人:<span ng-bind="item.order.address.contact_name"></span>' +
                     '<br/>手机号:<br/><span ng-bind="item.order.address.contact_mobile"></span>' +
                     '<br/>详细地址:<br/><span ng-bind="item.order.address.address|characters: 10 : false"' +
-                    'tooltip="详细地址:{{item.order.address.address}}" tooltip-placement="bottom"></span>'
+                    'uib-tooltip="详细地址:{{item.order.address.address}}" tooltip-placement="bottom"></span>'
                 },
                 {name: '退款金额', field: 'refund_price'},
                 {name: '支付方式', field: 'refund_channel', filter: 'refund_channel'},

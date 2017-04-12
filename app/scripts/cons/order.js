@@ -9,7 +9,7 @@ define([], function () {
                     name: '拼团信息',
                     fieldDirective: '<span ng-bind="\'ID:\'+item.product.product_id"></span>' +
                     '<br/>标题:<br/><span ng-bind="item.product.title|characters: 7 : false" ' +
-                    'tooltip="{{item.product.title}}" tooltip-placement="bottom"></span>' +
+                    'uib-tooltip="{{item.product.title}}" tooltip-placement="bottom"></span>' +
                     '<br/>价格:<span ng-bind="item.product.high_price"></span>'
                 },
                 {
@@ -17,7 +17,7 @@ define([], function () {
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
-                    ' tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {
@@ -127,7 +127,7 @@ define([], function () {
                     name: '活动信息',
                     fieldDirective: '<span ng-bind="\'ID:\'+item.product.product_id"></span>' +
                     '<br/>标题:<br/><span ng-bind="item.product.title|characters: 7 : false" ' +
-                    'tooltip="{{item.product.title}}" tooltip-placement="bottom"></span>' +
+                    'uib-tooltip="{{item.product.title}}" tooltip-placement="bottom"></span>' +
                     '<br/>活动开始时间:<br/><span ng-bind="item.product.start_time"></span>' +
                     '<br/>报名截止时间:<br/><span ng-bind="item.product.end_time"></span>'
                 },
@@ -139,11 +139,11 @@ define([], function () {
                 {
                     name: '收货人信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 10 : false"' +
-                    ' tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
+                    ' uib-tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
                     '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/><span ng-if="item.address.address">详细地址:</span><br/>' +
                     '<span ng-bind="item.address.address" ng-if="item.address.address"' +
-                    ' tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>'
+                    ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>'
                 },
                 {
                     name: '订单详情',
@@ -192,11 +192,11 @@ define([], function () {
                 {
                     name: '收货人信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 10 : false"' +
-                    ' tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
+                    ' uib-tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
                     '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/><span ng-if="item.address.address">详细地址:</span><br/>' +
                     '<span ng-bind="item.address.address" ng-if="item.address.address"' +
-                    ' tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>'
+                    ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>'
                 },
                 {
                     name: '订单详情',
@@ -359,7 +359,7 @@ define([], function () {
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
-                    'tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    'uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {name: '购买<br/>份数', field: 'order_count',},
@@ -396,7 +396,7 @@ define([], function () {
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
-                    'tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    'uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {name: '购买<br/>份数', field: 'order_count',},

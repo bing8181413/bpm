@@ -174,7 +174,7 @@ define([
                                 var textBreakOnWord = colDef.truncateTextBreakOnWord;
                                 itemString += '|' + ('characters: ' + textLength || 10) + ' : ' + textBreakOnWord;
                                 if (!!colDef.tooltip) {
-                                    cellContent = '<span ng-bind="' + itemString + '" tooltip="{{' + rowItemName + '.' +
+                                    cellContent = '<span ng-bind="' + itemString + '" uib-tooltip="{{' + rowItemName + '.' +
                                         colDef.tooltip + '}}"' +
                                         ' tooltip-placement="' + (colDef.tooltipPlacement || 'bottom') + '" ></span>';
                                 } else {

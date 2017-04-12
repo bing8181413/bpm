@@ -99,7 +99,7 @@ define([
                 template: '<p class="show_menu"></p>',
                 link: function ($scope, $element, $attrs) {
                     $scope.menu = $filter('arraySub2String')($scope.data, 'name');
-                    var content = '<span ng-bind="menu | characters :20" tooltip="' + $scope.menu + '" tooltip-placement="bottom"></span>';
+                    var content = '<span ng-bind="menu | characters :20" uib-tooltip="' + $scope.menu + '" tooltip-placement="bottom"></span>';
                     $element.find(".show_menu").html(content);
                     $compile($element.contents())($scope);
                 }

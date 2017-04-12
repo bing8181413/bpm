@@ -2,9 +2,9 @@
     <span>{{'配送次数:'+data.frequency_num}}</span>
     <div ng-repeat="item in data.patterns">
         <span ng-if="item.brief" ng-bind="item.brief |characters:6:true" tooltip-placement="bottom"
-              tooltip="{{item.brief}}"></span>
+              uib-tooltip="{{item.brief}}"></span>
     </div>
     <span>配送城市:</span>
     <span ng-bind="cities.join(',') |characters:3:true" tooltip-placement="bottom"
-          tooltip="{{cities.join(',')}}"></span>
+          uib-tooltip="{{cities.join(',')}}"></span>
 </div>

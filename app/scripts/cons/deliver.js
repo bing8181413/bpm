@@ -13,7 +13,7 @@ define([], function () {
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/>详细地址:<br/><span ng-bind="item.address.address|characters: 10 : false" ' +
-                    'tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    'uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {name: '预计配送时间', field: 'expect_date',filter:'null2empty:\'无配送时间\''},
@@ -21,7 +21,7 @@ define([], function () {
                 {
                     name: '管理备注',
                     fieldDirective: '<span ng-bind="item.order.remark|characters: 5 : false" ' +
-                    'tooltip="{{item.order.remark}}" tooltip-placement="bottom"></span>'
+                    'uib-tooltip="{{item.order.remark}}" tooltip-placement="bottom"></span>'
                 },
                 // {
                 //     name: '操作',

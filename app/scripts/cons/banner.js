@@ -32,7 +32,7 @@ define([], function () {
                 {
                     name: '展示时间',
                     fieldDirective: '<p ng-bind="((item.start_time || \'\')+(item.end_time || \'\')) |characters:6:true" ' +
-                    'tooltip-placement="bottom" tooltip="上线时间: {{item.start_time}} 下线时间: {{item.end_time}}">'
+                    'tooltip-placement="bottom" uib-tooltip="上线时间: {{item.start_time}} 下线时间: {{item.end_time}}">'
                 },
                 {
                     name: '创建时间', field: 'created_at', truncateText: true,
