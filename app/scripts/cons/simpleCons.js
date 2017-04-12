@@ -35,32 +35,33 @@ define([
     };
     var api = {};
     var state = {};
-    if (location.href.indexOf('//bpm.huijiame.com') > 0
+    if (location.href.indexOf('//bpm.ahaschool.com') > 0 // prod
+        || location.href.indexOf('//bpm.huijiame.com') > 0 // prod
     // || location.href.indexOf('//bpm.hjm.com') > 0 // prod
     ) {
         env = 'prod';
         env_name = '线上系统';
-        domain = 'https://mgrapi.huijiame.com';
-        web_domain = 'https://www.huijiame.com';
-        qiniu_domain = 'https://bpm.huijiame.com';
+        domain = 'https://mgrapi.ahaschool.com';
+        web_domain = 'https://www.ahaschool.com';
+        qiniu_domain = 'https://bpm.ahaschool.com';
         wx_domain = 'https://m.huijiame.com';
-    } else if (location.href.indexOf('//testbpm.huijiame.com') > 0
+    } else if (location.href.indexOf('//testbpm.ahaschool.com') > 0
         || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
         env = 'test';
         env_name = '测试系统';
-        domain = 'https://testmgrapi.huijiame.com';
-        web_domain = 'https://testbpm.huijiame.com';
-        qiniu_domain = 'https://testbpm.huijiame.com';
-        wx_domain = 'https://testm.huijiame.com';
+        domain = 'https://testmgrapi.ahaschool.com';
+        web_domain = 'https://testbpm.ahaschool.com';
+        qiniu_domain = 'https://testbpm.ahaschool.com';
+        wx_domain = 'https://testm.ahaschool.com';
     } else {
         // domain = 'https://devapi.huijiame.com';
         env = 'dev';
         env_name = '开发系统';
-        domain = 'https://devmgrapi.huijiame.com';
-        web_domain = 'https://devwww.huijiame.com';
-        qiniu_domain = 'https://devbpm.huijiame.com';
-        wx_domain = 'https://devm.huijiame.com';
+        domain = 'https://devmgrapi.ahaschool.com';
+        web_domain = 'https://devwww.ahaschool.com';
+        qiniu_domain = 'https://devbpm.ahaschool.com';
+        wx_domain = 'https://devm.ahaschool.com';
         // qiniu_domain = 'http://qiniu.hjm.com/';
     }
     api = {
