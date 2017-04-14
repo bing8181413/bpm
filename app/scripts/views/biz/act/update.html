@@ -50,6 +50,10 @@
                              placeholder="活动ID" ng-disabled="$stateParams.product_id"></div>
                         <div form-input text="活动标题" ng-model="param.title" placeholder="活动标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
+                        <div form-radio text="SKU" type="radio" ng-model="param.sku" required="true" default="1"
+                             source="[{text:'活动',value:'1'},{text:'测评',value:'2'},{text:'众筹',value:'3'},{text:'年卡',value:'4'},
+                             {text:'会员',value:'5'},{text:'测试',value:'6'},{text:'其他',value:'7'}]"
+                             source-api=""></div>
                         <div form-radio text="活动类别" ng-model="param.act_type" required="true" default=""
                              source="[{text:'游学',value:'游学'},{text:'DIY',value:'DIY'},{text:'外语',value:'外语'},
                              {text:'才艺',value:'才艺'},{text:'摄影',value:'摄影'},{text:'乐园',value:'乐园'},
@@ -199,7 +203,7 @@
                         <div form-radio text="是否可选优惠券" ng-model="param.act_coupon" required="true" default="1"
                              source="[{text:'可选',value:1},{text:'不可选',value:2}]" source-api=""></div>
 
-                        <div form-radio text="优惠券类型" ng-model="param.coupon_category" required="true" default="1"
+                        <div form-radio text="年卡优惠券类型" ng-model="param.coupon_category" required="true" default="1"
                              source="[{text:'不可用年卡',value:'1'},{text:'年卡通用券',value:'2'},
                              {text:'定向券100',value:'3'},{text:'定向券500',value:'4'}]" ng-show="param.act_coupon==1"></div>
 

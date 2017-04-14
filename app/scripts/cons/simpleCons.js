@@ -44,7 +44,7 @@ define([
         domain = 'https://mgrapi.ahaschool.com';
         web_domain = 'https://www.ahaschool.com';
         qiniu_domain = 'https://bpm.ahaschool.com';
-        wx_domain = 'https://m.huijiame.com';
+        wx_domain = 'https://m.ahaschool.com';
     } else if (location.href.indexOf('//testbpm.ahaschool.com') > 0
         || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
