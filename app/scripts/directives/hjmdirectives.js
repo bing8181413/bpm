@@ -444,10 +444,11 @@ define([
                         } else { //  初始化过了
                             if (!$scope.init) {
                                 $scope.init = true;
+                                $scope.dateTime = new Date($scope.ngModel);
+                                $scope.dt = $scope.strToDateTime($scope.dateTime);
+                                $scope.tp = $scope.strToDateTime($scope.dateTime);
                             }
-                            $scope.dateTime = new Date($scope.ngModel);
-                            $scope.dt = $scope.strToDateTime($scope.dateTime);
-                            $scope.tp = $scope.strToDateTime($scope.dateTime);
+                            console.log('ngModel', $scope.ngModel);
                         }
                     });
                     $scope.$watch('dt', function (val) {
@@ -470,6 +471,7 @@ define([
                         $scope.ngModel = ($scope.dt.getFullYear() + '-' + ($scope.dt.getMonth() + 1)
                         + '-' + $scope.dt.getDate() + ' ' + $scope.tp.getHours() + ':' + $scope.tp.getMinutes() + ':00')
                             .replace(/([\-\: ])(\d{1})(?!\d)/g, '$10$2');
+                        console.log('changed', $scope.ngModel);
                     }
                 }
 
