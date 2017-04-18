@@ -88,7 +88,7 @@
                         <div form-input text="专题名称" ng-model="param.name" placeholder="不超过6个字" minlength="1"
                              maxlength="6" required="true"></div>
                         <div form-input text="专题简介" ng-model="param.brief" placeholder="不超过8个字" minlength="0"
-                             maxlength="8" ></div>
+                             maxlength="8"></div>
                         <div form-image text="缩略图" ng-model="share_pics" max="1" required="true"></div>
                         <div form-image text="运营专题介绍图" ng-model="intro_pics" max="1" required="true"></div>
                         <div form-input text="分享文案标题" ng-model="param.share_title" placeholder="分享文案标题"
@@ -194,14 +194,14 @@
                                                     <ul class="subject-pro-ul">
                                                         <li>活动ID：<span ng-bind="item.product_id"></span></li>
                                                         <li>标题：
-                                                                <span ng-bind="item.title |characters:12:true"
-                                                                      tooltip-placement="bottom"
-                                                                      uib-tooltip="{{item.title}}"></span>
+                                                            <span ng-bind="item.title |characters:12:true"
+                                                                  tooltip-placement="bottom"
+                                                                  uib-tooltip="{{item.title}}"></span>
                                                         </li>
                                                         <li>简介：
-                                                                <span ng-bind="item.brief|characters: 12:true"
-                                                                      tooltip-placement="bottom"
-                                                                      uib-tooltip="{{item.brief}}"></span>
+                                                            <span ng-bind="item.brief|characters: 12:true"
+                                                                  tooltip-placement="bottom"
+                                                                  uib-tooltip="{{item.brief}}"></span>
                                                         </li>
                                                         <li>已售：<span ng-bind="item.order.order_copies"></span></li>
                                                         <li>状态：<span ng-bind="item.status|product_status"></span>
@@ -225,9 +225,10 @@
                         </div>
                     </div>
                 </div>
+                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.subject_id?'admin,op':''}}'"
+                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
         </div>
-        <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.subject_id?'admin,op':''}}'"
-           ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+
         <!--<a class="btn btn-success btn-rounded" ng-click="aaa()">浏览器控制台查看提交数据</a>-->
         </form>
     </div>
