@@ -70,7 +70,7 @@
                                 <div class="panel-body">
                                     <ul class="row subject-pro">
                                         <li class="subject-pro-img"
-                                            ng-repeat="(key,value) in subjects_group|orderBy:'key'"
+                                            ng-repeat="(key,value) in subjects_group"
                                             ng-init="value.empty = [1,2,3,4,5];value.empty.length = (5-value.length);value.sub_index = $index">
                                             <div class="subject-pro-img-sub col-sm-2 " ng-repeat="item in value">
                                                 <div class="subject-pro-img-sub-up">
