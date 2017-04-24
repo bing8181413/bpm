@@ -22,6 +22,10 @@ define([
     'states/hjm/wechat',//微信相关数据
     'states/hjm/hotkey',//热搜词
     'states/hjm/captcha',//验证码
+    'states/hjm/survey_category',//测评维度
+    'states/hjm/survey_question',//测评题库
+    'states/hjm/survey_plan',//测评管理
+    'states/hjm/survey_list',//测评入口
 
 ], function () {
 

@@ -63,6 +63,11 @@ define([
                 return parseInt((val * 1) / (60 * 60 * 1000));
             }
         }])
+        .filter('zero2empty', [function () {
+            return function (val, rtn_str) {
+                return (!val || val == 0) ? (rtn_str || '') : val;
+            }
+        }])
         .filter('null2empty', [function () {
             return function (val, rtn_str) {
                 return (!val || val == null || val == 'null') ? (rtn_str || '') : val;

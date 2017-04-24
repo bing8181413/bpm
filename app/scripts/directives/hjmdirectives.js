@@ -477,7 +477,7 @@ define([
 
             };
         })
-        .directive('jsonTable', function ($state, $rootScope, $timeout, $templateCache, $compile, $timeout) {
+        .directive('jsonTable', function ($state, $rootScope, $timeout, $templateCache, $compile, $timeout, widget) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -486,6 +486,7 @@ define([
                     columns: '=',
                     max: '@',
                     config: '=?',
+                    callback: '&',
                 },
                 controller: ['$scope', function ($scope) {
                     this.buildTable = function (columns, config) {
@@ -497,7 +498,7 @@ define([
                     function buildHeader(columns, config) {
                         var headerContent = '';
                         angular.forEach(columns, function (col) {
-                            if (!col.disabled) {
+                            if (!col.hide) {
                                 headerContent += '<th class="text-center">' + col.name + '</th>';
                             }
                         });
@@ -515,7 +516,7 @@ define([
                         var rowItem = '';
                         var orderBy = '';
                         angular.forEach(columns, function (col) {
-                            if (!col.disabled) {
+                            if (!col.hide) {
                                 var cellContent = cellRender(col, config);
                                 rowItem += '<td>' + cellContent + '</td>'
                             }
@@ -536,19 +537,47 @@ define([
                         var colField = 'item.' + col.field;
                         var typeContent = (col.type == 'number') ? 'type="number"' : '';
                         var requiredContent = (col.required == 'true') ? ' required ' : '';
+                        var disabled = (col.disabled) ? ' disabled ' : '';
                         var minContent = (col.min || col.min == 0) ? ('min="' + col.min + '"' ) : '';
                         var maxContent = (col.max || col.max == 0) ? ('max="' + col.max + '"' ) : '';
-                        if (!col.disabled) {
+                        if (!col.readonly) {
                             if (col.textarea) {
                                 var rows = col.rows ? ('rows = "+col.rows +"') : ('rows = 5');
-                                cellContent = '<textarea class="form-control" ' + rows + minContent + maxContent + typeContent + requiredContent +
+                                cellContent = '<textarea class="form-control" ' + rows + minContent + maxContent + disabled + typeContent + requiredContent +
                                     'ng-model="' + colField + cellFilter + '"></textarea>';
+                            } else if (col.radioBox) {
+                                var date = new Date().getTime() + '{{$index}}';
+                                var name = ' name="' + col.field + date + '"';
+                                var type = ' type="radio"';
+                                // console.log(col.source);
+                                col.source_eval = eval('(' + col.source + ')');
+                                angular.forEach(col.source_eval, function (val, key) {
+                                    var value = '';
+                                    if (typeof val.value == 'number') {
+                                        value = ' value = "' + parseFloat(val.value) + '"';
+                                    } else {
+                                        value = ' value = "' + val.value + '"';
+                                    }
+                                    cellContent += '<label class="radio-inline radio1"><input ' + type + ' ng-model="' + colField + '"' +
+                                        name + value + '><span></span>' + val.text + '</label>';
+                                });
+                            } else if (col.type == 'search') {
+                                var search_param = '$index,item, \'' + col.search_api + '\',\'' + col.search_field + '\',\'' + col.result_field + '\'';
+                                cellContent = '<a class="btn btn-success btn-rounded" ' +
+                                    'ng-click="search(' + search_param + ')">' + col.name + '</a>';
+                            } else if (col.select) {
+                                // eval('var source = $rootScope.' + col.source);
+                                // console.log(source);
+                                var search_param = '<select class="form-control"' + name + ' ng-model="' + colField + '" ' +
+                                    'ng-options="item.value as item.text for item in ' + col.source + '">' +
+                                    '<option value="">--  请选择  --</option>' +
+                                    '</select>';
+                                cellContent = search_param;
                             } else {
-                                cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent + requiredContent +
+                                cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent + disabled + requiredContent +
                                     'ng-model="' + colField + cellFilter + '"/>';
                             }
-                        }
-                        if (config.readonly || col.readonly) {
+                        } else if (config.readonly || col.readonly) {
                             cellContent = '<span ng-bind="' + colField + cellFilter + '" ' + requiredContent + ' ></span>';
                         }
                         return cellContent;
@@ -560,6 +589,14 @@ define([
                     $timeout(function () {
                         if (angular.isArray($scope.columns)) {
                             // console.log($attrs.disabled);
+
+                            // 为select 补充 一个 非固定的 source
+                            //{'name': '设置维度', 'field': 'category_id',required:'true',select:'true',source:'survey_question_category_list2'},
+                            angular.forEach($scope.columns, function (val, key) {
+                                if (val.select) {
+                                    eval('$scope.' + val.source + ' = $rootScope.' + val.source);
+                                }
+                            })
                             if (!!$attrs.disabled) {
                                 $scope.config = angular.extend($scope.config || {}, {readonly: true});
                             }
@@ -568,25 +605,49 @@ define([
                             $compile($element.contents())($scope);
                         }
                     }, 0);
-
+                    $scope.search = function (index, item, search_api, search_field, result_field) {
+                        eval(' var search_field_val = ' + 'item.' + search_field + ';');
+                        // console.log(search_field,search_field_val);
+                        if (!search_field_val) {
+                            widget.msgToast('缺少查询条件:' + search_field);
+                            return false;
+                        }
+                        var url = search_api.replace(/\(\([^\)]*\)\)/g, search_field_val);
+                        widget.ajaxRequest({
+                            url: url,
+                            method: 'GET',
+                            data: {},
+                            success: function (json) {
+                                $scope.product_id = json.data.product_id;
+                                $scope.title = json.data.title;
+                                eval('(' + 'item.' + result_field + ' = json.data.' + result_field + ')');
+                            },
+                            failure: function (err) {
+                                widget.msgToast('ID不存在或' + err.message);
+                                eval('(' + 'item.' + result_field + ' = "")');
+                            }
+                        })
+                    }
 
                     $scope.$watch('ngModel', function (defval) {
-                        // console.log(defval);
                         if (defval && angular.isArray(defval)) {
                             $scope.data = defval || [];
                         }
                     }, true);
                     $scope.$watch('data', function (defval) {
-                        // console.log(defval);
                         $scope.ngModel = defval;
                     }, true);
 
                     $scope.add = function (obj) {
+                        $scope.random_date = new Date().getTime(); // radio 等组件 name 使用
                         var obj = obj || {};
                         if ($scope.columns) {
                             angular.forEach($scope.columns, function (val, key) {
                                 if (val.default) {
                                     obj[val.field] = val.default;
+                                }
+                                if (val.select) {
+                                    eval('$scope.' + val.source + ' = $rootScope.' + val.source);
                                 }
                             })
                         }

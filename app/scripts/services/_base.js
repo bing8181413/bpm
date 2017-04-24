@@ -32,7 +32,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 'responseError': function (response) {
                     $rootScope.http_notification = null;
                     console.log('responseError:  ' + response);
-                    return null;
+                    return response;
                 }
             };
             return bpmHttpInterceptor;
@@ -126,7 +126,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 }
                 $rootScope.getaccount_times = 0;
                 // 获取account_list
-                $rootScope.account_list = []
+                $rootScope.account_list = [];
                 $rootScope.get_account_list = function () {
                     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
                         widget.ajaxRequest({
@@ -156,6 +156,40 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 }
                 if ($rootScope.account_list.length == 0) {
                     $rootScope.get_account_list();
+                }
+                // 获取 survey_question_category_list
+                $rootScope.survey_question_category_list = [];
+                $rootScope.survey_question_category_list2 = [];//适用于form—table 里的 select
+                $rootScope.get_survey_question_category_list = function () {
+                    if ($rootScope.hjm && $rootScope.hjm.Authorization) {
+                        widget.ajaxRequest({
+                            url: '/surveys/categories',
+                            method: 'GET',
+                            data: {count: 1000, status: 1},
+                            success: function (json) {
+                                angular.forEach(json.data, function (val, key) {
+                                    $rootScope.survey_question_category_list[key] = {
+                                        value: val.id + '',
+                                        text: val.name
+                                    };
+                                });
+                                json.data.unshift({
+                                    id: "0",
+                                    name: "无维度",
+                                })
+                                angular.forEach(json.data, function (val, key) {
+                                    $rootScope.survey_question_category_list[key] = {id: val.id + '', name: val.name};
+                                });
+
+                            },
+                            failure: function () {
+                                widget.msgToast('没有获取到公共数据');
+                            }
+                        })
+                    }
+                }
+                if ($rootScope.survey_question_category_list.length == 0) {
+                    $rootScope.get_survey_question_category_list();
                 }
             }
         ])

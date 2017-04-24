@@ -173,28 +173,28 @@ define([
             }
         })
         .directive('actEdit', function ($rootScope, $templateCache, $filter, $compile, widget) {
-            return {
-                multiElement: true,
-                restrict: 'AE',
-                replace: false,
-                scope: {
-                    data: '=',
-                },
-                template: '<p class="act-edit"></p>',
-                link: function ($scope, $element, $attrs) {
-                    var content = '';
-                    if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
-                        content = '<a class="btn btn-success btn-rounded btn-sm"' +
-                            'ui-sref="main.act.update({product_id:' + $scope.data.product_id + '})" show-role="\'admin,op\'" >编辑</a>';
-                    } else {
-                        content = '<a class="btn btn-info btn-rounded btn-sm"' +
-                            'ui-sref="main.act.update({product_id:' + $scope.data.product_id + '})" show-role="\'!admin,op\'" >详情</a>';
-                    }
-                    $element.find('.act-edit').html(content);
-                    $compile($element.contents())($scope);
+        return {
+            multiElement: true,
+            restrict: 'AE',
+            replace: false,
+            scope: {
+                data: '=',
+            },
+            template: '<p class="act-edit"></p>',
+            link: function ($scope, $element, $attrs) {
+                var content = '';
+                if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
+                    content = '<a class="btn btn-success btn-rounded btn-sm"' +
+                        'ui-sref="main.act.update({product_id:' + $scope.data.product_id + '})" show-role="\'admin,op\'" >编辑</a>';
+                } else {
+                    content = '<a class="btn btn-info btn-rounded btn-sm"' +
+                        'ui-sref="main.act.update({product_id:' + $scope.data.product_id + '})" show-role="\'!admin,op\'" >详情</a>';
                 }
+                $element.find('.act-edit').html(content);
+                $compile($element.contents())($scope);
             }
-        })
+        }
+    })
         .directive('productAdd', function ($rootScope, $templateCache, $filter, $compile, widget) {
             return {
                 multiElement: true,
@@ -284,7 +284,7 @@ define([
 
                                     $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
                                         ' <div form-table ng-model="rtn_json" config="{readonly:\'true\',orderBy:\'[option_type,order_by]\'}"' +
-                                        'columns="[{\'name\': \'ID\', \'field\': \'option_id\',\'disabled\':\'true\'},' +
+                                        'columns="[{\'name\': \'ID\', \'field\': \'option_id\',\'hide\':\'true\'},' +
                                         '{\'name\': \'活动类型\', \'field\': \'option_type\',\'filter\':\'product_category\',readonly:\'true\'},' +
                                         '{\'name\': \'排序\', \'field\': \'order_by\',readonly:\'true\'},' +
                                         '{\'name\': \'类目ID\', \'field\': \'option_id\',readonly:\'true\'},' +
