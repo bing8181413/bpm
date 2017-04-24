@@ -1,0 +1,97 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .dndsimpleSubject tbody[dnd-list],
+        .dndsimpleSubject tbody[dnd-list] > tr {
+            /*position: relative;*/
+        }
+
+        .dndsimpleSubject tbody[dnd-list]  .dndDragging {
+            opacity: 0.7;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] .dndDraggingSource {
+            display: none;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] .dndPlaceholder {
+            /*display: block;*/
+            /*float: left;*/
+            background-color: #ddd;
+            /*display: flex;*/
+            height: 100px;
+            /*width: 100px;*/
+            /*width: 100%;*/
+            border: 1px solid #ddd;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] > tr {
+            /*background-color: #fff;*/
+            /*display: block;*/
+            /*width: 100%;*/
+        }
+
+        .dndsimpleSubject tbody[dnd-list] > tr.selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+            width: 1000px;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock">测评入口</h3>
+        </div>
+        <div class="panel-body dndsimpleSubject">
+            <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="row"><h3 class="col-sm-offset-2 text-danger">鼠标点击每一行数据,可以拖动调整排序,记得提交保存</h3></div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">排序</th>
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">测评</th>
+                                        <th class="text-center"><a class="btn btn-primary btn-rounded" ng-click="add()">添加</a>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody dnd-list="param">
+                                    <tr ng-repeat="item in param " dnd-draggable="item"
+                                        dnd-moved="param.splice($index, 1);" dnd-effect-allowed="copyMove">
+                                        <td class="text-center">
+                                            <span ng-bind="item.order_by"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.plan_id"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.plan.name"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-primary btn-sm btn-bordered"
+                                               ng-click="update($index)">修改</a>
+                                            <a class="btn btn-danger btn-sm btn-bordered" ng-click="del($index)">删除</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="dndPlaceholder">
+                                        <td class="text-center" colspan="4"><h3 class="red">拖拽到这里</h3></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

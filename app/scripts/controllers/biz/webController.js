@@ -5,12 +5,12 @@ define([
 ], function (mod, con) {
     mod.controller('web.updateController', updateController)
 
-    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
-    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter','$timeout'];
+    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter,$timeout) {
         $scope.param = {};
         $timeout(function () {
-            // $scope.param = {url: con.wx_domain+'/produnct/detail?product_id=10000'};
-            $scope.param = {url: con.wx_domain};
+            // $scope.param = {url: 'https://m.ahaschool.com/produnct/detail?product_id=10000'};
+            $scope.param = {url: 'https://m.ahaschool.com/'};
         }, 0);
 
         $scope.$watch('param', function (val) {

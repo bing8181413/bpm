@@ -549,5 +549,37 @@ define([
                 return result;
             }
         }])
+        //  survey_category_type  类型，1系统保留，2可编辑
+        .filter('survey_category_type', [function () {
+            return function (val) {
+                var result = val;
+                val += '';
+                switch (val) {
+                    case "1":
+                        result = "系统保留";
+                        break;
+                    case "2":
+                        result = "可编辑";
+                        break;
+                }
+                return result;
+            }
+        }])
+        //  survey_question_type  题库的类型，1 单选，2 多选
+        .filter('survey_question_type', [function () {
+            return function (val) {
+                var result = val;
+                val += '';
+                switch (val) {
+                    case "1":
+                        result = "单选";
+                        break;
+                    case "2":
+                        result = "多选";
+                        break;
+                }
+                return result;
+            }
+        }])
     ;
 });

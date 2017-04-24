@@ -158,6 +158,7 @@ define([
                         ($scope.labelWidth ? ('col-sm-' + (10 - $scope.labelWidth)) : ('col-sm-8'));
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var required = $scope.required ? (' required ') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="radio"';
                     $timeout(function () {
@@ -169,7 +170,7 @@ define([
                             'ng-options="item.value as item.text for item in source">' +
                             '<option value="">--  请选择  --</option>' +
                             '</select>';
-                        content += '<input class="hide" ng-model="ngModel" ' + name + disabledRole + '">'
+                        content += '<input class="hide" ng-model="ngModel" ' + name + disabledRole + required + '">'
                             + '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
@@ -741,7 +742,7 @@ define([
                     name: '@',
                     required: '=',
                     max: '@',
-                    callback: '&',
+                    callBack: '&',
                     ngDisabled: '='
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
@@ -800,7 +801,6 @@ define([
                 //     ngModel: '=ngModel'
                 // },
                 link: function ($scope, $element, $attrs, $ctrl) {
-
 
                 }
             }

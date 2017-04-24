@@ -59,12 +59,12 @@
                                 <div form-input text="创建时间" ng-model="val.create_time" placeholder="创建时间"
                                      ng-show="false"></div>
                                 <div form-table text="关键字列表" ng-model="val.keyword_list_info" max="1" required="true"
-                                     columns="[{'name': '关键字类型', 'field': 'type',default:'text',disabled:true},
-                             {'name': '匹配模式', 'field': 'match_mode',required:'true',default:'equal',disabled:true},
+                                     columns="[{'name': '关键字类型', 'field': 'type',default:'text',hide:true},
+                             {'name': '匹配模式', 'field': 'match_mode',required:'true',default:'equal',hide:true},
                              {'name': '关键字', 'field': 'content',required:'true'}]"></div>
 
                                 <div form-table text="回复列表" ng-model="val.reply_list_info" max="1" required="true"
-                                     columns="[{'name': '回复类型', 'field': 'type',default:'text',disabled:true},
+                                     columns="[{'name': '回复类型', 'field': 'type',default:'text',hide:true},
                              {'name': '回复内容', 'field': 'content',required:'true',textarea:'true'}]"></div>
                                 <div class="col-sm-12">
                                     <a class="btn btn-danger btn-rounded pull-right"

@@ -38,7 +38,7 @@ define([
                         $scope.timeStamp = val.timeStamp;
                         $scope.index = val.index;
                         // console.log(val);
-                        $scope.callback($scope.index);
+                        $scope.callback();
                     }, true);
                     $scope.$watch('city', function (value) {
                         // console.log(value);

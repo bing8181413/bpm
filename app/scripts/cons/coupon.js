@@ -3,13 +3,18 @@ define([], function () {
         couponList: {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-right'},
-                {name: '适用范围', field: 'coupon.category', filter: 'coupon_category'},
-                {name: '商品品类', field: 'coupon.sku', filter: 'coupon_sku'},
-                {name: '商品类型(频率)', field: 'coupon.frequency_type', filter: 'coupon_frequency_type'},
-                {name: '金额', field: 'coupon.price'},
+                {
+                    name: '优惠券属性',
+                    fieldDirective: '适用范围:<span ng-bind="item.coupon.category|coupon_category"></span>' +
+                    '<br/>商品品类:<span ng-bind="item.coupon.sku|coupon_sku"></span>' +
+                    '<br/>商品类型(频率):<span ng-bind="item.coupon.frequency_type |coupon_frequency_type"></span>'
+                },
+                {name: '满(金额)', field: 'coupon.over_price'},
+                {name: '减(金额)', field: 'coupon.price'},
                 {name: '优惠券名称', field: 'coupon.title'},
                 {name: '生成时间', field: 'coupon.created_at'},
                 {name: '发送数量', field: 'send_count'},
+                {name: '指定ID', field: 'coupon.product_id', filter: 'zero2empty'},
                 {
                     name: '有效期',
                     fieldDirective: '<span ng-bind="item.coupon.start_time+\'-\'+item.coupon.expire_time"></span>'
