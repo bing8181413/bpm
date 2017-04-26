@@ -573,7 +573,7 @@ define([
                                     '<option value="">--  请选择  --</option>' +
                                     '</select>';
                                 cellContent = search_param;
-                            } else if (col.type = 'right_or_error') {
+                            } else if (col.type == 'right_or_error') {
                                 //example: '{\'name\': \'正确选项(之一)\', \'field\': \'selected\',type:\'right_or_error\',right:\'1\',error:\'0\'},'
                                 col.right = col.right || '';
                                 cellContent = '<p class="text-center">' +
