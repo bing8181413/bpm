@@ -47,25 +47,7 @@ define([
                 $scope.param.group_seconds = comfunc.numMulti(val, 3600);
             }
         });
-        // 查询op角色的 课程负责人
-        $scope.search = function () {
-            $scope.account_ids = [];
-            widget.ajaxRequest({
-                url: con.api.account_mans,
-                method: 'GET',
-                data: {count: 1000, role: 'bd,op'},
-                success: function (json) {
-                    angular.forEach(json.data, function (val, key) {
-                        $scope.account_ids.push({
-                            text: val.username,
-                            // text: val.username + (val.account_id !== '' ? (' ( ' + val.account_id + ' )') : ''),
-                            value: val.account_id
-                        });
-                    });
-                }
-            })
-        }
-        $scope.search();
+
         //  日期时间 转 纯日期
         $scope.datetimeTodate = function (date_time) {
             $scope.date_time_tmp = date_time ? new Date(date_time) : new Date();

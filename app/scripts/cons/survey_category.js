@@ -3,7 +3,7 @@ define([], function () {
         surveyCategoryList: {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-center'},
-                {name: '类型', field: 'type', filter: 'survey_category_type'},
+                // {name: '类型', field: 'type', filter: 'survey_category_type'},
                 {name: '维度', field: 'name'},
                 {
                     name: '操作',
@@ -19,7 +19,8 @@ define([], function () {
                 searchSupport: false,
                 searchItems: [],
                 preSelectionSearch: {
-                    status: 1
+                    status: 1,
+                    type: 2
                 },
                 paginationSupport: true,
                 pageInfo: {

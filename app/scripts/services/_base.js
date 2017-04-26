@@ -127,6 +127,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 $rootScope.getaccount_times = 0;
                 // 获取account_list
                 $rootScope.account_list = [];
+                $rootScope.account_list_bd_op = [];
                 $rootScope.get_account_list = function () {
                     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
                         widget.ajaxRequest({
@@ -134,6 +135,14 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                             method: 'GET',
                             data: {count: 1000, role: 'op,majia,bd'},
                             success: function (json) {
+                                angular.forEach(json.data, function (val, key) {
+                                    if (val.role == 'bd' || val.role == 'op') {
+                                        $rootScope.account_list_bd_op.push({
+                                            text: val.username,
+                                            value: val.account_id
+                                        });
+                                    }
+                                });
                                 json.data.unshift({
                                     account_id: "",
                                     city_name: "",
@@ -157,9 +166,10 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 if ($rootScope.account_list.length == 0) {
                     $rootScope.get_account_list();
                 }
-                // 获取 survey_question_category_list
+                // 获取 survey_question_category_list  维度列表
                 $rootScope.survey_question_category_list = [];
-                $rootScope.survey_question_category_list2 = [];//适用于form—table 里的 select
+                $rootScope.survey_question_category_list_attachments = [];//适用于form—table 里的 select  附加信息
+                $rootScope.survey_question_category_list_general = [];//适用于form—table 里的 select  普通信息
                 $rootScope.get_survey_question_category_list = function () {
                     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
                         widget.ajaxRequest({
@@ -168,17 +178,28 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                             data: {count: 1000, status: 1},
                             success: function (json) {
                                 angular.forEach(json.data, function (val, key) {
-                                    $rootScope.survey_question_category_list[key] = {
-                                        value: val.id + '',
-                                        text: val.name
-                                    };
+                                    if (val.type == 1) {
+                                        $rootScope.survey_question_category_list_attachments.push({
+                                            value: val.id + '',
+                                            text: val.name
+                                        });
+                                    }
+                                });
+                                angular.forEach(json.data, function (val, key) {
+                                    if (val.type == 2) {
+                                        $rootScope.survey_question_category_list_general.push({
+                                            value: val.id + '',
+                                            text: val.name
+                                        });
+                                    }
+
                                 });
                                 json.data.unshift({
                                     id: "0",
                                     name: "无维度",
                                 })
                                 angular.forEach(json.data, function (val, key) {
-                                    $rootScope.survey_question_category_list[key] = {id: val.id + '', name: val.name};
+                                    $rootScope.survey_question_category_list.push({id: val.id + '', name: val.name});
                                 });
 
                             },
@@ -190,6 +211,31 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 }
                 if ($rootScope.survey_question_category_list.length == 0) {
                     $rootScope.get_survey_question_category_list();
+                }
+                // 获取 survey_question_list_attachments
+                $rootScope.survey_question_list_attachments = [];//适用于form—table 里的 select  附加信息 题目
+                $rootScope.get_survey_question_list = function () {
+                    if ($rootScope.hjm && $rootScope.hjm.Authorization) {
+                        widget.ajaxRequest({
+                            url: '/surveys/questions',
+                            method: 'GET',
+                            data: {count: 1000, status: 1, category_type: 1},
+                            success: function (json) {
+                                angular.forEach(json.data, function (val, key) {
+                                    $rootScope.survey_question_list_attachments[key] = {
+                                        value: val.id + '',
+                                        text: val.title
+                                    };
+                                });
+                            },
+                            failure: function () {
+                                widget.msgToast('没有获取到公共数据');
+                            }
+                        })
+                    }
+                }
+                if ($rootScope.survey_question_list_attachments.length == 0) {
+                    $rootScope.get_survey_question_list();
                 }
             }
         ])

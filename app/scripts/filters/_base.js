@@ -565,17 +565,42 @@ define([
                 return result;
             }
         }])
+        //  survey_question_status  类型，1 进行中 2 暂停 3 删除 4 草稿
+        .filter('survey_question_status', [function () {
+            return function (val) {
+                var result = val;
+                val += '';
+                switch (val) {
+                    case "1":
+                        result = "进行中";
+                        break;
+                    case "2":
+                        result = "暂停";
+                        break;
+                    case "3":
+                        result = "删除";
+                        break;
+                    case "4":
+                        result = "草稿";
+                        break;
+                }
+                return result;
+            }
+        }])
         //  survey_question_type  题库的类型，1 单选，2 多选
         .filter('survey_question_type', [function () {
             return function (val) {
                 var result = val;
                 val += '';
                 switch (val) {
-                    case "1":
+                    case "3":
                         result = "单选";
                         break;
                     case "2":
                         result = "多选";
+                        break;
+                    case "1":
+                        result = "下拉列表";
                         break;
                 }
                 return result;

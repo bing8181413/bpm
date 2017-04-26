@@ -31,6 +31,14 @@ define([], function () {
                 searchSupport: true,
                 searchItems: [
                     {
+                        // $root 在 html 里面是用 直接拿到 $rootScope里的值
+                        text: '维度',
+                        paramDirective: '<select class="form-control" ng-model="params.category" ' +
+                        'ng-options="item.value as item.text for item in $root.survey_question_category_list_general">' +
+                        '<option value="">--  请选择  --</option>' +
+                        '</select>'
+                    },
+                    {
                         value: 'status', text: '状态', type: 'btnGroup', default: '',
                         enum: [
                             {value: '', text: '全部'},

@@ -20,8 +20,8 @@ define([
                                     $scope.title = '新增测评维度';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
                                         '<div form-input text="维度" ng-model="param.name"></div>' +
-                                        '<div form-radio text="类型" ng-model="param.type" ng-disabled="true" default="2"' +
-                                        ' source="[{text:\'系统保留\',value:\'1\'},{text:\'可编辑\',value:\'2\'}]" ></div>' +
+                                        // '<div form-radio text="类型" ng-model="param.type" ng-disabled="true" default="2"' +
+                                        // ' source="[{text:\'系统保留\',value:\'1\'},{text:\'可编辑\',value:\'2\'}]" ></div>' +
                                         '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
                                         '</form>';
                                     $scope.submit = function () {
@@ -74,8 +74,8 @@ define([
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
                                         '<div form-input text="ID" ng-model="param.id" ng-disabled="true"></div>' +
                                         '<div form-input text="维度" ng-model="param.name"></div>' +
-                                        '<div form-radio text="类型" ng-model="param.type" ng-disabled="true" default="2"' +
-                                        ' source="[{text:\'系统保留\',value:\'1\'},{text:\'可编辑\',value:\'2\'}]" ></div>' +
+                                        // '<div form-radio text="类型" ng-model="param.type" ng-disabled="true" default="2"' +
+                                        // ' source="[{text:\'系统保留\',value:\'1\'},{text:\'可编辑\',value:\'2\'}]" ></div>' +
                                         '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
                                         '</form>';
                                     $timeout(function () {
@@ -182,14 +182,14 @@ define([
                 },
                 template: '<span ng-bind="name"></span>',
                 link: function ($scope, $element, $attrs) {
-                    angular.forEach($rootScope.survey_question_category_list, function (val) {
-                        if (val.id == $scope.data.category_id) {
-                            $scope.name = val.name
-                        }
-                    })
                     if (!$scope.name) {
                         $scope.name = '';
                     }
+                    angular.forEach($rootScope.survey_question_category_list, function (val) {
+                        if (val.id == $scope.data.category_id) {
+                            $scope.name = val.name;
+                        }
+                    })
                 }
             }
         })
@@ -200,16 +200,18 @@ define([
                 replace: false,
                 scope: {
                     data: '=',
+                    attachment: '='
                 },
                 template: '<p class="survey-question-edit"></p>',
                 link: function ($scope, $element, $attrs) {
                     var content = '';
-                    if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
+                    var serf = ($scope.attachment == 1) ? 'survey_question_attachment' : 'survey_question';
+                    if ($scope.data.status == 4 || $scope.attachment == 1) {
                         content = '<a class="btn btn-success btn-rounded btn-sm"' +
-                            'ui-sref="main.survey_question.update({id:' + $scope.data.id + '})" show-role="\'admin,op\'" >编辑</a>';
+                            'ui-sref="main.' + serf + '.update({id:' + $scope.data.id + '})" show-role="\'admin,op\'" >编辑</a>';
                     } else {
                         content = '<a class="btn btn-info btn-rounded btn-sm"' +
-                            'ui-sref="main.survey_question.update({id:' + $scope.data.id + '})" show-role="\'!admin,op\'" >详情</a>';
+                            'ui-sref="main.' + serf + '.update({id:' + $scope.data.id + '})" show-role="\'!admin,op\'" >详情</a>';
                     }
                     $element.find('.survey-question-edit').html(content);
                     $compile($element.contents())($scope);
@@ -254,7 +256,7 @@ define([
                 }
             }
         })
-        .directive('surveyQuestionChangeStatus', function ($templateCache, $filter, $compile, widget) {
+        .directive('surveyQuestionChangeStatus', function ($templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 multiElement: true,
                 restrict: 'AE',
@@ -263,6 +265,145 @@ define([
                     data: '=',
                 },
                 template: '<p class="survey-question-change-status"></p>',
+                link: function ($scope, $element, $attrs) {
+                    var status_text = '';
+                    var click_text = '';
+                    var class_text = '';
+                    var status_title = '';
+                    if ($scope.data.status == 1) {
+                        status_title = '暂停';
+                        status_text = 'ng-bind="\'暂停\'"';
+                        class_text = 'ng-class={\"btn-warning\":true} ';
+                        click_text = 'ng-click="change(2);"';
+                        $scope.show_text = true;
+                    } else if ($scope.data.status == 2 || $scope.data.status == 3 || $scope.data.status == 4) {
+                        status_title = '上线';
+                        status_text = 'ng-bind="\'上线\'"';
+                        class_text = 'ng-class={\"btn-primary\":true} ';
+                        click_text = 'ng-click="change(1);"';
+                        $scope.show_text = true;
+                    }
+                    $scope.change = function (status) {
+                        var supscope = $scope;
+                        var modalInstance = $uibModal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $uibModalInstance) {
+                                    $scope.title = '上线';
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
+                                        '<div form-radio text="题型" ng-model="param.type" ng-disabled="true" default="2"' +
+                                        ' source="[{text:\'单选\',value:\'3\'},{text:\'多选\',value:\'2\'}]" ></div>' +
+                                        '<div form-select text="维度" ng-model="param.category_id" ' +
+                                        'source="$root.survey_question_category_list_general" ng-disabled="true"></div>' +
+                                        '<div form-textarea text="文字描述" ng-model="param.title" ng-disabled="true"></div>' +
+                                        '<div form-table text="选项" ng-model="param.options" max="1000" config="{readonly:\'true\'}" ' +
+                                        'columns="[{\'name\': \'选项\', \'field\': \'name\',\'readonly\':\'true\',\'disabled\':\'true\'},' +
+                                        '{\'name\': \'正确选项(之一)\', \'field\': \'selected\',type:\'right_or_error\',right:\'1\',error:\'0\'},' +
+                                        ']"></div>' +
+                                        '<div form-input text="最小年龄" ng-model="param.age_min" ng-disabled="true"></div>' +
+                                        '<div form-input text="最大年龄" ng-model="param.age_max" ng-disabled="true"></div>' +
+                                        '<a class="btn btn-rounded pull-right" ' + class_text + ' ng-click="submit()">' + status_title + '</a>' +
+                                        '</form>';
+                                    $timeout(function () {
+                                        $scope.param = supscope.data;
+                                    }, 0);
+                                    $scope.submit = function () {
+                                        if (!confirm('确认修改为' + status_title + '状态?')) {
+                                            return false;
+                                        }
+                                        widget.ajaxRequest({
+                                            url: '/surveys/questions/' + supscope.data.id,
+                                            method: 'patch',
+                                            scope: $scope,
+                                            data: {status: status},
+                                            success: function (json) {
+                                                widget.msgToast('修改成功,请刷新查看');
+                                                $scope.$$prevSibling.$$childHead.$$nextSibling.$$nextSibling.$$nextSibling.$$childHead.$$childHead.searchAction()
+                                                $scope.cancel();
+                                            },
+                                            failure: function (json) {
+                                                widget.msgToast(json.message);
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                    $scope.cancel = function () {
+                                        $uibModalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: ''
+                            }
+                        );
+                    }
+                    var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text +
+                        ' ng-show="show_text" show-role="\'admin,op\'"></a>';
+                    $element.find('.survey-question-change-status').html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
+        .directive('surveyPlanEdit', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="survey-plan-edit"></p>',
+                link: function ($scope, $element, $attrs) {
+                    var content = '';
+                    if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
+                        content = '<a class="btn btn-success btn-rounded btn-sm"' +
+                            'ui-sref="main.survey_plan.update({id:' + $scope.data.id + '})" show-role="\'admin,op\'" >编辑</a>';
+                    } else {
+                        content = '<a class="btn btn-info btn-rounded btn-sm"' +
+                            'ui-sref="main.survey_plan.update({id:' + $scope.data.id + '})" show-role="\'!admin,op\'" >详情</a>';
+                    }
+                    $element.find('.survey-plan-edit').html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
+        .directive('surveyPlanDel', function ($templateCache, $filter, $compile, widget) {
+            return {
+                restrict: 'AE',
+                replace: true,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-danger btn-rounded btn-sm" ng-click="show_survey_plan_del()" >删除</a>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_survey_plan_del = function () {
+                        if (!confirm('删除之后不可恢复,确认删除?')) {
+                            return false;
+                        }
+                        widget.ajaxRequest({
+                            url: '/surveys/plans/' + supscope.data.id,
+                            method: 'DELETE',
+                            scope: $scope,
+                            data: $scope.param,
+                            success: function (json) {
+                                widget.msgToast('删除测评成功');
+                                $scope.$parent.$parent.searchAction();
+                            },
+                            failure: function (json) {
+                                widget.msgToast(json.message);
+                            }
+                        })
+                    }
+                }
+            }
+        })
+        .directive('surveyPlanChangeStatus', function ($templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="survey-plan-change-status"></p>',
                 link: function ($scope, $element, $attrs) {
                     var status_text = '';
                     var click_text = '';
@@ -298,29 +439,6 @@ define([
                     var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text +
                         ' ng-show="show_text" show-role="\'admin,op\'"></a>';
                     $element.find('.survey-question-change-status').html(content);
-                    $compile($element.contents())($scope);
-                }
-            }
-        })
-        .directive('surveyPlanEdit', function ($rootScope, $templateCache, $filter, $compile, widget) {
-            return {
-                multiElement: true,
-                restrict: 'AE',
-                replace: false,
-                scope: {
-                    data: '=',
-                },
-                template: '<p class="survey-plan-edit"></p>',
-                link: function ($scope, $element, $attrs) {
-                    var content = '';
-                    if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
-                        content = '<a class="btn btn-success btn-rounded btn-sm"' +
-                            'ui-sref="main.survey_plan.update({id:' + $scope.data.id + '})" show-role="\'admin,op\'" >编辑</a>';
-                    } else {
-                        content = '<a class="btn btn-info btn-rounded btn-sm"' +
-                            'ui-sref="main.survey_plan.update({id:' + $scope.data.id + '})" show-role="\'!admin,op\'" >详情</a>';
-                    }
-                    $element.find('.survey-plan-edit').html(content);
                     $compile($element.contents())($scope);
                 }
             }

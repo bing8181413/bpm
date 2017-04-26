@@ -16,6 +16,7 @@ define([
                 data: {},
                 success: function (json) {
                     $scope.param = angular.copy(json.data);
+                    $scope.banner = $scope.param.banner ? [{pic_url: $scope.param.banner}] : [];
                     $scope.search_product_id();
                     var age_min = $scope.param.age_min + '';
                     switch (age_min) {
@@ -91,6 +92,9 @@ define([
         });
         $scope.submit = function (status) {
             // console.log($scope.param.contents);
+            if ($scope.banner && $scope.banner.length == 1) {
+                $scope.param.banner = $scope.banner[0].pic_url;
+            }
             var tmp_categories_err = 0;
             var hash_categories = {};
             angular.forEach($scope.param.categories, function (val, key) {

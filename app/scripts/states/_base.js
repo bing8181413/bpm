@@ -24,6 +24,7 @@ define([
     'states/hjm/captcha',//验证码
     'states/hjm/survey_category',//测评维度
     'states/hjm/survey_question',//测评题库
+    'states/hjm/survey_question_attachment',//测评附加问题题库
     'states/hjm/survey_plan',//测评管理
     'states/hjm/survey_list',//测评入口
 

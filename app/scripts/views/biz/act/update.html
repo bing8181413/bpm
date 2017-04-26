@@ -42,7 +42,7 @@
                     <div class="panel-body" ng-show="title_info[0]%2==1">
 
                         <div form-select text="课程负责人" ng-model="param.account_id"
-                             source="account_ids" source-api=""></div>
+                             source="$root.account_list_bd_op" source-api=""></div>
 
                         <!--<div form-image-content text="图文详情" ng-model="param.contents" ng-show="param.content_type==1"></div>-->
                         <div form-input text="活动ID" ng-model="param.product_id"
