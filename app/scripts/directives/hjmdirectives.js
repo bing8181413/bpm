@@ -558,7 +558,7 @@ define([
                                     } else {
                                         value = ' value = "' + val.value + '"';
                                     }
-                                    cellContent += '<label class="radio-inline radio1"><input ' + type + ' ng-model="' + colField + '"' +
+                                    cellContent += '<label class="radio-inline radio1"><input ' + type + disabled + ' ng-model="' + colField + '"' +
                                         name + value + '><span></span>' + val.text + '</label>';
                                 });
                             } else if (col.type == 'search') {
@@ -573,6 +573,13 @@ define([
                                     '<option value="">--  请选择  --</option>' +
                                     '</select>';
                                 cellContent = search_param;
+                            } else if (col.type = 'right_or_error') {
+                                //example: '{\'name\': \'正确选项(之一)\', \'field\': \'selected\',type:\'right_or_error\',right:\'1\',error:\'0\'},'
+                                col.right = col.right || '';
+                                cellContent = '<p class="text-center">' +
+                                    '<span ng-show="' + colField + '==' + col.right + ' " class="label label-danger fa fa-check"> </span>' +
+                                    // '<span ng-show="' + colField + '==' + col.error + ' " class="label label-primary fa fa-times"> </span>' +
+                                    '</p>';
                             } else {
                                 cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent + disabled + requiredContent +
                                     'ng-model="' + colField + cellFilter + '"/>';

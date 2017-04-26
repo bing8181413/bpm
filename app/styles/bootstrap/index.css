@@ -10362,3 +10362,14 @@ html, body {
 }
 
 /*  附加的 end    */
+
+/* searchSection   搜索 查询 的bar  start */
+.searchSection select.form-control {
+    height: 32px;
+}
+
+.searchSection .form-group > div > input.form-control {
+    height: 32px;
+}
+
+/* searchSection   搜索 查询 的bar  end */

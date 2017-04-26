@@ -1,0 +1,31 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.product_id">新增附加信息</h3>
+            <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.product_id">修改附加信息</h3>
+            <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.product_id">附加信息详情</h3>
+        </div>
+        <div class="panel-body">
+            <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
+            <form class="form-horizontal" name="FormBody" novalidate
+                  disabled-role="{{$stateParams.product_id?'admin,op':''}}">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div form-radio text="类型" type="radio" ng-model="param.type" required="true" default="1"
+                             source="[{text:'下拉列表',value:'1'}]" source-api=""></div>
+                        <div form-select text="维度" ng-model="param.category_id" ng-show="false" default=""
+                             source="survey_question_category_list_attachments" source-api=""></div>
+                        <div form-textarea text="文字描述" ng-model="param.title" placeholder="文字描述" required="true"
+                             ng-disabled="$stateParams.product_id"></div>
+                        <div form-table text="选项" ng-model="param.options" required="true"
+                             columns="[{'name': 'ID', 'field': 'id',hide:'true'},
+                             {'name': '名称', 'field': 'name',required:'true'}]"></div>
+                    </div>
+                </div>
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
+                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -166,7 +166,7 @@ define([
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label class="' + labelWidth + ' control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="' + contentWidth + '">';
-                        content += '<select class="form-control"' + name + ' ng-model="' + $scope.ngModelText + '" ' +
+                        content += '<select class="form-control"' + name + ngDisabled + ' ng-model="' + $scope.ngModelText + '" ' +
                             'ng-options="item.value as item.text for item in source">' +
                             '<option value="">--  请选择  --</option>' +
                             '</select>';
@@ -466,7 +466,8 @@ define([
                     required: '@',
                     max: '@',
                     callback: '&',
-                    token: '@'
+                    token: '@',
+                    hideBar: '=',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
@@ -480,7 +481,7 @@ define([
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
                             // $scope.token ?
-                            '<show-upload-token images="ngModel"   ' + name + max + required + disabledRole + token + '></show-upload-token>';
+                            '<show-upload-token images="ngModel" hide-bar="hideBar"   ' + name + max + required + disabledRole + token + '></show-upload-token>';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8" style="border: 1px #ccc dashed;">' + uploadHtml +
                             '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +

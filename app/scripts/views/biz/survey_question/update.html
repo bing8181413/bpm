@@ -11,13 +11,13 @@
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <div form-radio text="题型" type="radio" ng-model="param.type" required="true" default="1"
-                             source="[{text:'单选',value:'1'},{text:'多选',value:'2'}]" source-api=""></div>
+                        <div form-radio text="题型" type="radio" ng-model="param.type" required="true" default="3"
+                             source="[{text:'单选',value:'3'},{text:'多选',value:'2'}]" source-api=""></div>
                         <div form-select text="维度" ng-model="param.category_id" required="true"
-                             source="category_ids" source-api=""></div>
+                             source="$root.survey_question_category_list_general" source-api=""></div>
                         <div form-textarea text="文字描述" ng-model="param.title" placeholder="文字描述"
-                             ng-disabled="$stateParams.product_id"></div>
-                        <div form-image text="题图" ng-model="param.image" max="100"></div>
+                             ng-disabled="$stateParams.product_id" required="true"></div>
+                        <div form-image text="题图" ng-model="image" max="1" hide-bar="[1,1,1,1]"></div>
                         <div form-table text="选项" ng-model="param.options" required="true"
                              columns="[{'name': 'ID', 'field': 'id',hide:'true'},
                              {'name': '名称', 'field': 'name',required:'true'},

@@ -8,6 +8,9 @@ define([
 
     updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter'];
     function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter) {
+        if ($state.current.name.indexOf('survey_question_attachment') > -1) {
+            var survey_question_attachment = 1;
+        }
         if ($stateParams.id) {
             widget.ajaxRequest({
                 url: '/surveys/questions/' + $stateParams.id,
@@ -16,7 +19,7 @@ define([
                 data: {},
                 success: function (json) {
                     $scope.param = angular.copy(json.data);
-                    console.log($scope.param.category_id);
+                    $scope.image = $scope.param.image ? [{pic_url: $scope.param.image}] : [];
                     var age_min = $scope.param.age_min + '';
                     switch (age_min) {
                         case "0":
@@ -36,24 +39,6 @@ define([
             })
         }
 
-        // 查询课程维度
-        $scope.search = function () {
-            $scope.category_ids = [];
-            widget.ajaxRequest({
-                url: '/surveys/categories/',
-                method: 'GET',
-                data: {count: 1000, status: 1, page: 1},
-                success: function (json) {
-                    angular.forEach(json.data, function (val, key) {
-                        $scope.category_ids.push({
-                            text: val.name,
-                            value: val.id + ''
-                        });
-                    });
-                }
-            })
-        }
-        $scope.search();
         $scope.$watch('age', function (val) {
             switch (val) {
                 case "1":
@@ -74,8 +59,36 @@ define([
                     break;
             }
         });
+
+        // $scope.$watch('survey_question_category_list_attachments', function (val, prev_val) {
+        //     console.log(val.toString(), val.length > 0, prev_val);
+        // });
+
         $scope.submit = function (status) {
             // console.log($scope.param.contents);
+            if ($scope.image && $scope.image.length == 1) {
+                $scope.param.image = $scope.image[0].pic_url;
+            }
+            // 查询课程维度 和 非默认草稿装填
+            if (survey_question_attachment && !$stateParams.id) {
+                angular.extend($scope.param, {status: '1'});
+                $scope.param.category_id = $rootScope.survey_question_category_list_attachments[0].value;
+            }
+            // 题型判定 正确选项判定 start
+            var options_correct_count = 0;
+            angular.forEach($scope.param.options, function (val, key) {
+                if (val.selected == 1) {
+                    options_correct_count++;
+                }
+            })
+            if ($scope.param.type == 3 && options_correct_count != 1) {
+                widget.msgToast('单选题型的正确选项只能是一个');
+                return false;
+            } else if ($scope.param.type == 2 && options_correct_count < 1) {
+                widget.msgToast('多选题型的正确选项至少是一个');
+                return false;
+            }
+            // 题型判定 正确选项判定 end
             widget.ajaxRequest({
                 url: '/surveys/questions' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
                 method: $stateParams.id ? 'PUT' : 'POST',
@@ -83,7 +96,7 @@ define([
                 data: $scope.param,
                 success: function (json) {
                     widget.msgToast('发布成功！', 500);
-                    $state.go(con.state.main + '.survey_question.list');
+                    $state.go(con.state.main + '.' + (survey_question_attachment ? 'survey_question_attachment' : 'survey_question') + '.list');
                 },
                 failure: function (err) {
                     widget.msgToast(err.message + '\n点击取消', 2000);

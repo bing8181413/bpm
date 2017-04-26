@@ -215,18 +215,20 @@
             </div>
             <div class="col-sm-10">
                 <button type="button" class="btn btn-success btn-rounded" ng-click="uploader.uploadAll()"
+                        ng-hide="hideBar[0] == 1"
                         ng-disabled="!uploader.getNotUploadedItems().length">
                     <span class="glyphicon glyphicon-upload"></span> 全部上传
                 </button>
                 <button type="button" class="btn btn-danger btn-rounded" ng-click="removeAll()"
-                        ng-disabled="!uploader.queue.length">
+                        ng-hide="hideBar[1] == 1" ng-disabled="!uploader.queue.length">
                     <span class="glyphicon glyphicon-trash"></span> 全部移除
                 </button>
-                <button type="button" class="btn btn-primary btn-rounded" ng-click="img_min = !img_min">
+                <button type="button" class="btn btn-primary btn-rounded" ng-click="img_min = !img_min"
+                        ng-hide="hideBar[2] == 1">
                     <span class="glyphicon"
                           ng-class="{'glyphicon-zoom-in':img_min,'glyphicon-zoom-out':!img_min}"></span>图片缩放
                 </button>
-                <button type="button" class="btn btn-primary btn-rounded" ng-click="log()">
+                <button type="button" class="btn btn-primary btn-rounded" ng-click="log()" ng-hide="hideBar[3] == 1">
                     <span class="glyphicon glyphicon-paperclip"></span> 拖动排序后点我
                 </button>
             </div>

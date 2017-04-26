@@ -1,0 +1,99 @@
+<div>
+    <style type="text/css">
+        .upload-image {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #eee;
+            -webkit-border-radius: 0;
+            position: relative;
+            border-radius: 5px;
+        }
+
+        .upload-image:before {
+            content: "+";
+            line-height: 50%;
+            cursor: pointer;
+            color: #000;
+            font-size: 45px;
+            text-align: center;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: #eee;
+            border-radius: 5px;
+        }
+
+        .upload-image-bar {
+            margin-bottom: 0px;
+        }
+    </style>
+    <div class="row">
+        <div class="panel panel-info" style="border: 0">
+            <div class="panel-body" ng-show="images">
+                <ul class="list-group">
+                    <li class="list-group-item row" ng-required="required">
+                        <div>
+                            <div class="col-md-6">
+                                <img class="img-responsive" ng-src="{{images|| uploader.queue[0].qiniu_url}}"
+                                     ng-if="images || uploader.queue[0].qiniu_url">
+                                <div ng-show="uploader.isHTML5 && !images"
+                                     ng-thumb="{ file: uploader.queue[0]._file, height: 100 , itemobj : uploader.queue[0]}"></div>
+                            </div>
+                            <div class="col-md-2 text-center">
+                                <div ng-bind="images"></div>
+                                <div ng-show="!images">
+                                    <span ng-show="uploader.queue[0].isSuccess">
+                                        <i class="glyphicon glyphicon-ok"></i>
+                                    </span>
+                                    <span ng-show="uploader.queue[0].isCancel">
+                                        <i class="glyphicon glyphicon-ban-circle"></i>
+                                    </span>
+                                    <span ng-show="uploader.queue[0].isError">
+                                        <i class="glyphicon glyphicon-remove"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 pull-right">
+                                <div class="progress" ng-show="!images">
+                                    <div class="progress-bar" role="progressbar"
+                                         style="width:{{uploader.queue[0].progress}}%;"></div>
+                                </div>
+                            </div>
+                            <div class="handle col-md-2 pull-right">
+                                <div ng-class="{'hide':disabled}">
+                                    <button type="button" class="btn btn-danger btn-xs btn-rounded"
+                                            ng-click="delImage(0,uploader.queue[0])"
+                                            show-role="'{{disabledRole}}'">
+                                        <span class="glyphicon glyphicon-trash"></span> 移除
+                                    </button>
+                                    <button type="button" class="btn btn-success btn-xs btn-rounded"
+                                            ng-click="uploader.queue[0].upload()"
+                                            ng-if="!images"
+                                            ng-disabled="uploader.queue[0].isReady || uploader.queue[0].isUploading || uploader.queue[0].isSuccess">
+                                        <span class="glyphicon glyphicon-upload"></span> 上传
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div ng-class="{'hide':disabled}">
+        <div class="form-group upload-image-bar" style="margin-bottom: 5px;">
+            <div class="col-sm-2">
+                <input class="form-control upload-image" type="file" nv-file-select uploader="uploader" autoUpload="true" multiple/>
+            </div>
+            <div class="col-sm-2">
+                <input class="form-control upload-image" type="file" nv-file-over uploader="uploader" multiple/>
+            </div>
+        </div>
+    </div>
+    <!--<div class="col-sm-12 form-group">-->
+    <!--<input class="form-control upload-image" type="file" nv-file-select uploader="uploader" multiple/>-->
+    <!--</div>-->
+</div>
