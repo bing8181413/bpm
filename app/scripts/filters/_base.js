@@ -388,6 +388,40 @@ define([
                 return result;
             }
         }])
+        // product_sku 商品品类，0 不限，1 鲜花
+        .filter('product_sku', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "活动";
+                        break;
+                    case "2":
+                        result = "测评";
+                        break;
+                    case "3":
+                        result = "众筹";
+                        break;
+                    case "4":
+                        result = "年卡";
+                        break;
+                    case "5":
+                        result = "会员";
+                        break;
+                    case "6":
+                        result = "测试";
+                        break;
+                    case "7":
+                        result = "其他";
+                        break;
+                    case "8":
+                        result = "霸王团";
+                        break;
+                }
+                return result;
+            }
+        }])
         // coupon_frequency_type  商品类型，0 单次，1 包月
         .filter('coupon_frequency_type', [function () {
             return function (val) {

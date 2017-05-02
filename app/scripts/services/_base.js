@@ -185,6 +185,10 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                         });
                                     }
                                 });
+                                $rootScope.survey_question_category_list_general.push({
+                                    value: undefined,
+                                    text: '-- 请选择 --'
+                                });
                                 angular.forEach(json.data, function (val, key) {
                                     if (val.type == 2) {
                                         $rootScope.survey_question_category_list_general.push({
@@ -204,7 +208,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
 
                             },
                             failure: function () {
-                                widget.msgToast('没有获取到公共数据');
+                                widget.msgToast('没有获取到测评维度数据');
                             }
                         })
                     }
@@ -229,12 +233,17 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 });
                             },
                             failure: function () {
-                                widget.msgToast('没有获取到公共数据');
+                                widget.msgToast('没有获取到附加问题数据');
                             }
                         })
                     }
                 }
                 if ($rootScope.survey_question_list_attachments.length == 0) {
+                    $rootScope.get_survey_question_list();
+                }
+                $rootScope.login_init = function () {
+                    $rootScope.get_account_list();
+                    $rootScope.get_survey_question_category_list();
                     $rootScope.get_survey_question_list();
                 }
             }

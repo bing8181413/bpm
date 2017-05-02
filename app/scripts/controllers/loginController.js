@@ -90,7 +90,7 @@ define([
                     $rootScope.nowlogintimestamp = new Date().getTime();
                     $rootScope.lastlogintimestamp = JSON.parse($rootScope.nowlogintimestamp);
 
-                    $rootScope.get_account_list();
+                    $rootScope.login_init();//登陆是更新或者添加必要的初始化数据
                     $rootScope.login_account = {
                         uname: $scope.uname,
                         pwd: $scope.pwd

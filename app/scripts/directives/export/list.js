@@ -17,6 +17,7 @@ define([
                         var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                             controller: function ($scope, $uibModalInstance) {
+                                $scope.param = $scope.param || {};
                                 $scope.title = supscope.data.desc || '导出数据';
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<style type="text/css"> .modal .checkbox-inline{margin-left: 0;}' +
@@ -37,11 +38,13 @@ define([
                                     } else if (val.type == 'text') {
                                         $scope.tmpl += '<div form-input text="' + val.name + '" ng-model="param.' + key + '"  ' + (val.required ? ('required=\"true\"') : '') + '></div>';
                                     }
+                                    if (val.default_val) {
+                                        eval('$scope.param.' + key + ' = ' + val.default_val);
+                                    }
                                 });
                                 $scope.tmpl += '<a class="btn btn-primary btn-rounded pull-right" ng-disabled="FormBody.$invalid"  ng-click="exec();">执行</a>'
                                 $scope.tmpl += '</form>';
                                 $scope.exec = function () {
-                                    $scope.param = $scope.param || {};
                                     angular.extend($scope.param, {command: $scope.command});
                                     if (confirm('确认将查询结果导出EXCEL吗?')) {
                                         widget.ajaxRequest({

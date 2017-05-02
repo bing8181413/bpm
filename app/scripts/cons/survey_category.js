@@ -7,9 +7,9 @@ define([], function () {
                 {name: '维度', field: 'name'},
                 {
                     name: '操作',
-                    fieldDirective: '<div survey-category-edit data="item" ></div>' +
-                    '<div survey-category-del data="item" ></div>' +
-                    '<div survey-category-download data="item" ></div>'
+                    fieldDirective: '<div survey-category-edit data="item" ></div>&nbsp;&nbsp;&nbsp;' +
+                    '<div survey-category-del data="item" ></div>&nbsp;&nbsp;&nbsp;' +
+                    '<div survey-category-download data="item" style="display:inline-block"></div>'
                 },
             ],
             config: {

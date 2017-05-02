@@ -10204,6 +10204,13 @@ html, body {
     .panel-primary > .panel-heading.routerTitleSection {
         background-color: #fff;
         border-color: #fff;
+        display: none;
+    }
+    .modal-dialog .panel-primary > .panel-heading.routerTitleSection {
+        color: #fff;
+        background-color: #3ca2e0;
+        border-color: #3ca2e0;
+        display: block;
     }
 }
 
@@ -10214,25 +10221,32 @@ html, body {
 }
 
 @media (max-width: 767px) {
+    .modal-dialog .gridSection > table > thead > tr > th,
+    .modal-dialog .gridSection > table > tbody > tr > td {
+        display: table-cell;
+    }
     .gridSection > table > thead > tr > th,
     .gridSection > table > tbody > tr > td {
         display: none;
     }
 
-    .gridSection > table > thead > tr > th:first-child,
-    .gridSection > table > tbody > tr > td:first-child {
+    .gridSection > table > thead > tr > th.mobile_show,
+    .gridSection > table > tbody > tr > td.mobile_show {
         display: table-cell;
     }
 
-    .gridSection > table > thead > tr > th:nth-child(2),
-    .gridSection > table > tbody > tr > td:nth-child(2) {
-        display: table-cell;
-    }
-
-    .gridSection > table > thead > tr > th:last-child,
-    .gridSection > table > tbody > tr > td:last-child {
-        display: table-cell;
-    }
+    /*.gridSection > table > thead > tr > th:first-child,*/
+    /*.gridSection > table > tbody > tr > td:first-child {*/
+    /*display: table-cell;*/
+    /*}*/
+    /*.gridSection > table > thead > tr > th:nth-child(2),*/
+    /*.gridSection > table > tbody > tr > td:nth-child(2) {*/
+    /*display: table-cell;*/
+    /*}*/
+    /*.gridSection > table > thead > tr > th:last-child,*/
+    /*.gridSection > table > tbody > tr > td:last-child {*/
+    /*display: table-cell;*/
+    /*}*/
 }
 
 /* hjm-grid search mobile end */

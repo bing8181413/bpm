@@ -37,6 +37,7 @@ define([
                                             success: function (json) {
                                                 widget.msgToast('维度维护成功,请刷新查看');
                                                 $scope.$$prevSibling.$$childHead.$$nextSibling.$$nextSibling.$$nextSibling.$$childHead.$$childHead.searchAction()
+                                                $rootScope.get_survey_question_category_list();
                                                 $scope.cancel();
                                             },
                                             failure: function (json) {
@@ -95,6 +96,7 @@ define([
                                             success: function (json) {
                                                 widget.msgToast('维度维护成功,请刷新查看');
                                                 $scope.$$prevSibling.$$childHead.$$nextSibling.$$nextSibling.$$nextSibling.$$childHead.$$childHead.searchAction()
+                                                $rootScope.get_survey_question_category_list();
                                                 $scope.cancel();
                                             },
                                             failure: function (json) {
@@ -153,6 +155,7 @@ define([
                                             success: function (json) {
                                                 widget.msgToast('删除维度成功,请刷新查看');
                                                 $scope.$$prevSibling.$$childHead.$$nextSibling.$$nextSibling.$$nextSibling.$$childHead.$$childHead.searchAction()
+                                                $rootScope.get_survey_question_category_list();
                                                 $scope.cancel();
                                             },
                                             failure: function (json) {
@@ -169,6 +172,66 @@ define([
                             }
                         );
                     }
+                }
+            }
+        })
+        .directive('surveyCategoryDownload', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<div export-run data="item"></div>',
+                // template: '<p class="survey-category-download-html"></p>',
+                link: function ($scope, $element, $attrs) {
+                    // console.log($scope.data.id);
+                    $scope.item = {
+                        command: "export:surveyquestion",
+                        condition: {
+                            category_id: {
+                                name: "维度编号",
+                                type: "text",
+                                required: true,
+                                options: [],
+                                defaultValue: [],
+                                default_val: $scope.data.id,
+                            }
+                        },
+                        desc: "测评题库",
+                    };
+                    // var content = '<div export-run data="item"></div>';
+                    // $element.find('.survey-category-download-html').html(content);
+                    // $compile($element.contents())($scope);
+                }
+            }
+        })
+        .directive('surveyPlanDownload', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p><div export-run data="item"></div></p>',
+                // template: '<p class="survey-category-download-html"></p>',
+                link: function ($scope, $element, $attrs) {
+                    // console.log($scope.data.id);
+                    $scope.item = {
+                        command: "export:testing",
+                        condition: {
+                            end_time: {
+                                name: "结束时间", type: "date", options: [], defaultValue: []
+                            },
+                            start_time: {
+                                name: "开始时间", type: "date", options: [], defaultValue: []
+                            },
+                            plan_id: {
+                                name: "测评ID", type: "text", options: [], defaultValue: [], default_val: $scope.data.id,
+                            }
+                        },
+                        desc: "导出测评数据"
+                    };
                 }
             }
         })
@@ -218,7 +281,7 @@ define([
                 }
             }
         })
-        .directive('surveyQuestionDel', function ($templateCache, $filter, $compile, widget) {
+        .directive('surveyQuestionDel', function ($templateCache, $filter, $compile, widget, $rootScope) {
             return {
                 multiElement: true,
                 restrict: 'AE',
@@ -244,6 +307,7 @@ define([
                                 data: {status: status},
                                 success: function (json) {
                                     widget.msgToast('删除成功,请刷新查看');
+                                    $rootScope.get_survey_question_list();
                                     $scope.$parent.$parent.searchAction();
                                 }
                             })
@@ -256,7 +320,7 @@ define([
                 }
             }
         })
-        .directive('surveyQuestionChangeStatus', function ($templateCache, $filter, $compile, widget, $uibModal, $timeout) {
+        .directive('surveyQuestionChangeStatus', function ($templateCache, $filter, $compile, widget, $uibModal, $timeout, $rootScope) {
             return {
                 multiElement: true,
                 restrict: 'AE',
@@ -297,7 +361,7 @@ define([
                                         '<div form-textarea text="文字描述" ng-model="param.title" ng-disabled="true"></div>' +
                                         '<div form-table text="选项" ng-model="param.options" max="1000" config="{readonly:\'true\'}" ' +
                                         'columns="[{\'name\': \'选项\', \'field\': \'name\',\'readonly\':\'true\',\'disabled\':\'true\'},' +
-                                        '{\'name\': \'正确选项(之一)\', \'field\': \'selected\',type:\'right_or_error\',right:\'1\',error:\'0\'},' +
+                                        '{\'name\': \'正确选项\', \'field\': \'selected\',type:\'right_or_error\',right:\'1\',error:\'0\'},' +
                                         ']"></div>' +
                                         '<div form-input text="最小年龄" ng-model="param.age_min" ng-disabled="true"></div>' +
                                         '<div form-input text="最大年龄" ng-model="param.age_max" ng-disabled="true"></div>' +
@@ -318,6 +382,7 @@ define([
                                             success: function (json) {
                                                 widget.msgToast('修改成功,请刷新查看');
                                                 $scope.$$prevSibling.$$childHead.$$nextSibling.$$nextSibling.$$nextSibling.$$childHead.$$childHead.searchAction()
+                                                $rootScope.get_survey_question_list();
                                                 $scope.cancel();
                                             },
                                             failure: function (json) {

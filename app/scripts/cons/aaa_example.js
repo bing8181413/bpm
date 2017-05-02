@@ -11,6 +11,10 @@ define([], function () {
                 {name: '订单数', field: 'order.order_count'},
                 {name: '已售份数', field: 'order.order_copies'},
                 {name: '配送规则', fieldDirective: '<div product-pattern="item.patterns"></div>'},
+                {
+                    name: '文字描述',
+                    fieldDirective: '<p style="width:300px;" ng-bind="item.title"></p>'
+                },
                 {name: '商品状态', field: 'status'},
                 // {name: '操作', field: 'product_id'},
                 // {

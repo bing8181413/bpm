@@ -103,14 +103,15 @@ define([], function () {
                 // {name: 'ID', field: 'product_id', className: 'text-center'},
                 // {name: '排序', field: 'order_by'},
                 {
-                    name: 'ID和排序',
+                    name: 'ID和排序', className: 'mobile_show',
                     fieldDirective: '<p><span ng-bind="\'ID:\'+item.product_id"></span>' +
                     '<br/><span ng-bind="\'排序:\'+item.order_by"></span>' +
                     '<br/><div account_id_to_name data="item"></div>   </p>'
                 },
                 {
-                    name: '活动信息',
+                    name: '活动信息', className: 'mobile_show',
                     fieldDirective: '<p><span ng-bind="\'标题:\'+item.title"></span>' +
+                    '<br/><span ng-bind="\'SKU:\'+(item.sku|product_sku)"></span>' +
                     '<br/><span ng-bind="\'活动类型:\'+(item.category|product_category)"></span>' +
                     '<br/><span ng-bind="\'活动类别:\'+item.act_type"></span>' +
                     '<br/><span ng-bind="\'课程:\'+(item.course_category|course_category)"></span></p>'
@@ -126,11 +127,15 @@ define([], function () {
                     '<br/>结束时间:<br/><span ng-bind="item.act_end_time"></span>' +
                     '<br/>地点:<br/><span ng-bind="item.act_address"></span></p>'
                 },
-                {name: '活动类目', fieldDirective: '<div product-option data="item"></div>'},
+                {name: '活动类目', className: 'mobile_show', fieldDirective: '<div product-option data="item"></div>'},
                 {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
-                {name: '订单数', fieldDirective: '<div act-order-copies data="item"></div>'},
-                {name: '报名人数', field: 'order.order_count'},
-                {name: '已售份数', fieldDirective: '<div product-order-copies data="item"></div>'},
+                {name: '订单数', className: 'mobile_show', fieldDirective: '<div act-order-copies data="item"></div>'},
+                {name: '报名人数', className: 'mobile_show', field: 'order.order_count'},
+                {
+                    name: '已售份数',
+                    className: 'mobile_show',
+                    fieldDirective: '<div product-order-copies data="item"></div>'
+                },
                 {name: '剩余<br/>库存', field: 'options', filter: 'arraySum:\'left_inventory\''},
                 // {
                 //     name: '众筹进度',
@@ -168,7 +173,7 @@ define([], function () {
                     tooltipPlacement: 'bottom',
                 },
                 {
-                    name: '操作',
+                    name: '操作', className: 'mobile_show',
                     fieldDirective: '<div weinxi-view data="item" ></div>'
                     + '<div act-edit data="item" ></div>'
                     + '<div product-change-status data="item" ></div>'
@@ -189,6 +194,20 @@ define([], function () {
                 ],
                 searchSupport: true,
                 searchItems: [
+                    {
+                        value: 'sku', text: 'SKU', type: 'btnGroup', default: '', width: '12',
+                        enum: [
+                            {value: '', text: '全 部'},
+                            {text: '活动', value: '1'},
+                            {text: '测评', value: '2'},
+                            {text: '众筹', value: '3'},
+                            {text: '年卡', value: '4'},
+                            {text: '会员', value: '5'},
+                            {text: '测试', value: '6'},
+                            {text: '其他', value: '7'},
+                            {text: '霸王团', value: '8'}
+                        ]
+                    },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
                         // process_type  1 即将开始  2 进行中 3 已结束
                         type: 'btnGroupArray',
@@ -241,6 +260,7 @@ define([], function () {
                     },
                 ],
                 preSelectionSearch: {
+                    sku: '',
                     category: [2, 3, 4],
                     // category: [2, 3, 4],
                     // key: 'deviceNo',

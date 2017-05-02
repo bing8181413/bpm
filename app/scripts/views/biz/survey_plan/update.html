@@ -25,10 +25,11 @@
                                        placeholder="点击查询确认商品存在" required>
                             </div>
                         </div>
+                        <div class="row"><h3 class="col-sm-offset-2 text-danger">广告位图片要求: 宽 >= 960px, 高 >= 360px</h3></div>
+                        <div form-image text="广告位" ng-model="banner" max="1" hide-bar="[1,1,1,1]"></div>
 
-                        <div form-image text="广告位" ng-model="banner" max="100"></div>
-
-                        <div form-textarea="" text="文字描述" ng-model="param.brief" placeholder="文字描述" required="true"></div>
+                        <div form-textarea="" text="文字描述" ng-model="param.brief" placeholder="文字描述"
+                             required="true"></div>
 
                         <div form-table text="附加信息" ng-model="param.attachments"
                              columns="[
