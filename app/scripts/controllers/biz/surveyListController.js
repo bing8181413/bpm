@@ -28,6 +28,9 @@ define([
         }, true);
 
         $scope.del = function (index) {
+            if (!confirm('确认要删除吗?')) {
+                return false;
+            }
             $scope.param.splice(index, 1);
         }
         $scope.update = function (update_index) {
@@ -109,6 +112,9 @@ define([
             });
         }
         $scope.submit = function (status) {
+            if (!confirm('确认要提交此次更新吗?')) {
+                return false;
+            }
             widget.ajaxRequest({
                 url: '/surveys/lists',
                 method: 'PUT',

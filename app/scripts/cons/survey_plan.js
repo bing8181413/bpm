@@ -3,13 +3,19 @@ define([], function () {
         surveyPlanList: {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-center'},
+                {name: '商品ID', field: 'product_id', filter: 'zero2empty'},
+                {name: '年龄段', fieldDirective: '<span ng-bind="item.age_min+\'-\'+item.age_max"></span>'},
+                {name: '维度', field: 'categories', filter: 'arraySub2String:\'name\''},
                 {name: '测评名称', field: 'name'},
-                {name: '文字描述', field: 'brief', width: '200'},
+                {
+                    name: '文字描述',
+                    fieldDirective: '<p style="width:700px;" ng-bind="item.brief"></p>'
+                },
                 {
                     name: '操作',
                     fieldDirective: '<div survey-plan-edit data="item" ></div>' +
-                    '<div survey-plan-del data="item" ></div>',
-                    // '<div survey-plan-change-status data="item" ></div>',
+                    '<div survey-plan-del data="item" ></div>' +
+                    '<div survey-plan-download data="item"></div>',
                 },
             ],
             config: {

@@ -53,15 +53,16 @@ define([
                 return false;
             }
             widget.ajaxRequest({
-                url: '/products/' + $scope.param.product_id,
+                url: '/products',
                 method: 'GET',
-                data: {count: 1000, page: 1},
+                data: {product_id: $scope.param.product_id, sku: '2', page: 1, count: 1},
                 success: function (json) {
-                    $scope.product_id = json.data.product_id;
-                    $scope.product_title = json.data.title;
-                },
-                failure: function (err) {
-                    widget.msgToast('活动ID不存在或者' + err.message);
+                    if (json.data[0]) {
+                        $scope.product_id = json.data[0].product_id;
+                        $scope.product_title = json.data[0].title;
+                    } else {
+                        widget.msgToast('未找到测评的活动ID');
+                    }
                 }
             })
         }

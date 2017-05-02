@@ -96,6 +96,7 @@ define([
                 data: $scope.param,
                 success: function (json) {
                     widget.msgToast('发布成功！', 500);
+                    $rootScope.get_survey_question_list();
                     $state.go(con.state.main + '.' + (survey_question_attachment ? 'survey_question_attachment' : 'survey_question') + '.list');
                 },
                 failure: function (err) {

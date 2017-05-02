@@ -448,7 +448,6 @@ define([
                                 $scope.dt = $scope.strToDateTime($scope.dateTime);
                                 $scope.tp = $scope.strToDateTime($scope.dateTime);
                             }
-                            console.log('ngModel', $scope.ngModel);
                         }
                     });
                     $scope.$watch('dt', function (val) {

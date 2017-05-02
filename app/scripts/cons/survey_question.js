@@ -5,9 +5,13 @@ define([], function () {
                 {name: 'ID', field: 'id', className: 'text-center'},
                 {name: '维度类别', fieldDirective: '<div survey-question-category data="item"></div>'},
                 {name: '题型', field: 'type', filter: 'survey_question_type'},
-                {name: '文字描述', field: 'title'},
-                {name: '答题人次', field: 'title'},
-                {name: '做对人次', field: 'title'},
+                {name: '年龄段', fieldDirective: '<span ng-bind="item.age_min+\'-\'+item.age_max"></span>'},
+                {
+                    name: '文字描述',
+                    fieldDirective: '<p style="width:300px;" ng-bind="item.title"></p>'
+                },
+                {name: '答题人次', field: 'problem.count'},
+                {name: '做对人次', field: 'problem.right_count'},
                 {name: '上线时间', field: 'created_at'},
                 {name: '状态', field: 'status', filter: 'survey_question_status'},
                 {
@@ -23,12 +27,11 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
-                    {text: '关键字', value: 'keyWord'},
+                    {text: '关键字', value: 'keyword'},
                     {
                         text: '维度',
-                        paramDirective: '<select class="form-control" ng-model="params.category" ' +
+                        paramDirective: '<select class="form-control" ng-model="params.category_id" ' +
                         'ng-options="item.value as item.text for item in $root.survey_question_category_list_general">' +
-                        '<option value="">--  请选择  --</option>' +
                         '</select>'
                     },
                     {
@@ -44,7 +47,7 @@ define([], function () {
                     {
                         type: 'btnGroupArray',
                         value: 'flag',
-                        text: '状态',
+                        text: '年龄段',
                         default: 0, //有enum_text 时 enumde index 的值
                         width: '6',
                         enum_text: ['age_min', 'age_max'],//  有  enum_text 说明是数组
@@ -73,7 +76,12 @@ define([], function () {
                 route: [
                     {value: 'main.survey_question.add', text: '新增题库'},
                     // {routeDirective: '<div survey-question-add data="">新增题库</div>'},
-                ]
+                ],
+                ext: {
+                    showNum: [
+                        {text: '总数', type: 'total'},
+                    ]
+                }
             },
         },
         surveyQuestionAttachmentList: {
