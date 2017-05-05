@@ -206,12 +206,12 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 })
                                 $rootScope.survey_question_category_list = [];
                                 angular.forEach(json.data, function (val, key) {
-                                    $rootScope.survey_question_category_list.push({id: val.id + '', name: val.name});
+                                    $rootScope.survey_question_category_list.push({id: val.id, name: val.name});
                                 });
 
                             },
                             failure: function () {
-                                widget.msgToast('没有获取到测评维度数据');
+                                widget.msgToast('没有获取到测评维度');
                             }
                         })
                     }
@@ -220,7 +220,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                     $rootScope.get_survey_question_category_list();
                 }
                 // 获取 survey_question_list_attachments
-                $rootScope.survey_question_list_attachments = [];//适用于form—table 里的 select  附加信息 题目
+                $rootScope.survey_question_list_attachments = [];//适用于form—table 里的 select  附加信息的题目
                 $rootScope.get_survey_question_list = function () {
                     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
                         widget.ajaxRequest({
@@ -229,11 +229,15 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                             data: {count: 1000, status: 1, category_type: 1},
                             success: function (json) {
                                 $rootScope.survey_question_list_attachments = [];
+                                $rootScope.survey_question_list_attachments.push({
+                                    value: undefined,
+                                    text: '-- 请选择 --'
+                                });
                                 angular.forEach(json.data, function (val, key) {
-                                    $rootScope.survey_question_list_attachments[key] = {
+                                    $rootScope.survey_question_list_attachments.push({
                                         value: val.id,
                                         text: val.title
-                                    };
+                                    });
                                 });
                             },
                             failure: function () {

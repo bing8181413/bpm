@@ -569,7 +569,7 @@ define([
                                 // console.log(source);
                                 var search_param = '<select class="form-control"' + name + ' ng-model="' + colField + '" ' +
                                     'ng-options="item.value as item.text for item in ' + col.source + '">' +
-                                    '<option value="">--  请选择  --</option>' +
+                                    // '<option value="">--  请选择  --</option>' +
                                     '</select>';
                                 cellContent = search_param;
                             } else if (col.type == 'right_or_error') {
