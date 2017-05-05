@@ -5,7 +5,10 @@ define([], function () {
                 {name: 'ID', field: 'id', className: 'text-center'},
                 {name: '维度类别', fieldDirective: '<div survey-question-category data="item"></div>'},
                 {name: '题型', field: 'type', filter: 'survey_question_type'},
-                {name: '年龄段', fieldDirective: '<span ng-bind="item.age_min+\'-\'+item.age_max"></span>'},
+                {
+                    name: '年龄段',
+                    fieldDirective: '<span ng-bind="item.age_min+(item.age_min==10?\'以上\':(\'-\'+item.age_max))"></span>'
+                },
                 {
                     name: '文字描述',
                     fieldDirective: '<p style="width:300px;" ng-bind="item.title"></p>'
