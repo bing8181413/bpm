@@ -55,7 +55,7 @@ define([
                     break;
                 case "4":
                     $scope.param.age_min = 10;
-                    $scope.param.age_max = undefined;
+                    $scope.param.age_max = 100;
                     break;
             }
         });
