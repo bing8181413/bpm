@@ -20,6 +20,7 @@ define([
                 success: function (json) {
                     $rootScope.hjm.act = {product_id: $stateParams.product_id};
                     $scope.param = angular.copy(json.data);
+                    $scope.is_default_category = $scope.param.category;
                     $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600);
                     // $scope.course_category = $scope.param.course_category.split(',') || [];
                     $scope.ability_label = $scope.param.ability_label.split(',') || [];
@@ -104,6 +105,11 @@ define([
         // });
 
         $scope.submit = function (status) {
+            var supscope = $scope;
+            $scope.goon = true;
+            console.log($scope.is_default_category, $scope.param.category);
+
+
             // console.log($scope.param.contents);
             if ($scope.param.enable_bind_mobile && $scope.param.enable_bind_mobile == 2) {
                 if (!confirm('确定该活动取消绑定手机号')) {
@@ -232,18 +238,61 @@ define([
                         return false;
                     }
                 }
-            } else if ($scope.param.category != '4') {
+            } else if ($scope.param.category == '2') {
+                delete $scope.param.options; //   防止提交空数组
+                if (!$scope.param.groupbuy_options || $scope.param.groupbuy_options && $scope.param.groupbuy_options.length == 0) {
+                    widget.msgToast('sorry!人数团类目为空');
+                    return false;
+                } else {
+                    if (comfunc.hasEmptyFieldArray($scope.param.groupbuy_options)) {
+                        widget.msgToast('sorry!人数团类目有空值');
+                        return false;
+                    }
+                }
+            } else if ($scope.param.category == '3') {
                 delete $scope.param.groupbuy_options; //   防止提交空数组
                 if (!$scope.param.options || $scope.param.options && $scope.param.options.length == 0) {
-                    widget.msgToast('sorry!活动类目为空');
+                    widget.msgToast('sorry!直接买类目为空');
                     return false;
                 } else {
                     if (comfunc.hasEmptyFieldArray($scope.param.options)) {
-                        widget.msgToast('sorry!活动类目有空值');
+                        widget.msgToast('sorry!直接买类目有空值');
                         return false;
                     }
                 }
             }
+            if ($stateParams.product_id && $scope.is_default_category != $scope.param.category) {
+                var modalInstance = $uibModal.open({
+                        template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                        controller: function ($scope, $uibModalInstance) {
+                            $scope.title = '切换活动类型警告';
+                            $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
+                                ' disabled-role="\'admin,op\'" >' +
+                                '<h4 class="text-muted">确认前，请注意一下几点：</h4>' +
+                                '<h5 class="text-danger">1.原未支付订单（直接买订单，开团用户订单，参团用户订单）仍可以支付成功;</h5>' +
+                                '<h5 class="text-danger">2.人数团切直接买，原开团用户或者参团用户支付成功后，再次进到拼团详情会报错;</h5>' +
+                                '<h5 class="text-danger">3.人数团切直接买，用户不可以再开团或者参团，即下订单</h5>' +
+                                '<h4 class="text-muted">建议:</h4>' +
+                                '<h5 class="text-danger">切换活动类型前，最好不要有未支付订单，或者正在进行中的拼团</h5>' +
+                                '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
+                                '<a class="btn btn-warning btn-rounded pull-right" ng-click="cancel()">取消</a> &nbsp;&nbsp;&nbsp;' +
+                                '</form>';
+                            $scope.submit = function () {
+                                supscope.onsubmit();
+                                $scope.cancel();
+                            }
+                            $scope.cancel = function () {
+                                $uibModalInstance.dismiss('cancel');
+                            };
+                        },
+                        size: 'lg'
+                    }
+                );
+            } else {
+                $scope.onsubmit();
+            }
+        }
+        $scope.onsubmit = function () {
             widget.ajaxRequest({
                 url: '/products' + ($stateParams.product_id ? ('/' + $stateParams.product_id) : ''),
                 method: $stateParams.product_id ? 'PUT' : 'POST',

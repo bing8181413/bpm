@@ -131,23 +131,23 @@
                         <div form-radio text="活动类型" type="radio" ng-model="param.category" required="true"
                              default="2"
                              source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'},{text:'直接买+人数团',value:'4'}]"
-                             source-api="" ng-disabled="$stateParams.product_id"></div>
-                        <div form-table text="活动类目" ng-model="param.options" max="1"
-                             ng-show="param.category!=4" required="true"
-                             columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
-                             {'name': '类目', 'field': 'option_name',required:'true'},
-                             {'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2',required:'true'},
-                             {'name': '库存', 'field': 'option_inventory',required:'true'},
-                             {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
+                             source-api=""></div>
+                        <!--<div form-table text="活动类目" ng-model="param.options" max="1"-->
+                             <!--ng-show="param.category!=4" required="true"-->
+                             <!--columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},-->
+                             <!--{'name': '类目', 'field': 'option_name',required:'true'},-->
+                             <!--{'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2',required:'true'},-->
+                             <!--{'name': '库存', 'field': 'option_inventory',required:'true'},-->
+                             <!--{'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>-->
                         <div form-table text="直接买活动类目" ng-model="param.options" max="1"
-                             ng-show="param.category==4"
+                             ng-show="param.category!=2"
                              columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
                              {'name': '类目', 'field': 'option_name',required:'true'},
                              {'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2',required:'true'},
                              {'name': '库存', 'field': 'option_inventory',required:'true'},
                              {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
                         <div form-table text="人数团活动类目" ng-model="param.groupbuy_options" max="1"
-                             ng-show="param.category==4"
+                             ng-show="param.category!=3"
                              columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
                              {'name': '类目', 'field': 'option_name',required:'true'},
                              {'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2',required:'true'},
