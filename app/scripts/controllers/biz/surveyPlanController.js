@@ -15,6 +15,15 @@ define([
                 scope: $scope,
                 data: {},
                 success: function (json) {
+                    // 为了后台api 线上和测试环境不统一  做的补丁  start
+                    // selected
+                    angular.forEach(json.data.attachments, function (attachments_val, attachments_key) {
+                        attachments_val.pivot.question_id += '';
+                    });
+                    angular.forEach(json.data.categories, function (categories_val, categories_key) {
+                        categories_val.pivot.category_id += '';
+                    });
+                    // 为了后台api 线上和测试环境不统一  做的补丁  end
                     $scope.param = angular.copy(json.data);
                     $scope.banner = $scope.param.banner ? [{pic_url: $scope.param.banner}] : [];
                     $scope.search_product_id();
