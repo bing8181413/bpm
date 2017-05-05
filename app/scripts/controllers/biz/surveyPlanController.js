@@ -120,7 +120,15 @@ define([
                     $state.go(con.state.main + '.survey_plan.list');
                 },
                 failure: function (err) {
-                    widget.msgToast(err.message + '\n点击取消', 2000);
+                    // console.log(err.code, Object.keys(err.validates), Object.keys(err.validates).length);
+                    if ((err.code == 1202 || err.code == 1303) && err.validates && Object.keys(err.validates).length > 0) {
+                        console.log(err.code, Object.keys(err.validates),
+                            err.validates[Object.keys(err.validates)[0]],
+                            Object.keys(err.validates).length);
+                        widget.msgToast(err.validates[Object.keys(err.validates)[0]] + '\n点击取消', 5000);
+                    } else {
+                        widget.msgToast(err.message + '\n点击取消', 2000);
+                    }
                 }
             })
         }
