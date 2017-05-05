@@ -568,7 +568,7 @@ define([
                                 // eval('var source = $rootScope.' + col.source);
                                 // console.log(source);
                                 var search_param = '<select class="form-control"' + name + ' ng-model="' + colField + '" ' +
-                                    'ng-options="item.value as item.text for item in ' + col.source + '">' +
+                                    'ng-options="item.value  as item.text for item in ' + col.source + '">' +
                                     // '<option value="">--  请选择  --</option>' +
                                     '</select>';
                                 cellContent = search_param;

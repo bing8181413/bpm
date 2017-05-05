@@ -182,7 +182,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 angular.forEach(json.data, function (val, key) {
                                     if (val.type == 1) {
                                         $rootScope.survey_question_category_list_attachments.push({
-                                            value: val.id,
+                                            value: val.id + '',
                                             text: val.name
                                         });
                                     }
@@ -194,7 +194,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 angular.forEach(json.data, function (val, key) {
                                     if (val.type == 2) {
                                         $rootScope.survey_question_category_list_general.push({
-                                            value: val.id,
+                                            value: val.id + '',
                                             text: val.name
                                         });
                                     }
@@ -235,7 +235,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 });
                                 angular.forEach(json.data, function (val, key) {
                                     $rootScope.survey_question_list_attachments.push({
-                                        value: val.id,
+                                        value: val.id + '',
                                         text: val.title
                                     });
                                 });
