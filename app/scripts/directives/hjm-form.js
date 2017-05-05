@@ -168,7 +168,7 @@ define([
                             '<div class="' + contentWidth + '">';
                         content += '<select class="form-control"' + name + ngDisabled + ' ng-model="' + $scope.ngModelText + '" ' +
                             'ng-options="item.value as item.text for item in source">' +
-                            '<option value="">--  请选择  --</option>' +
+                            // '<option value="">--  请选择  --</option>' +
                             '</select>';
                         content += '<input class="hide" ng-model="ngModel" ' + name + disabledRole + required + '">'
                             + '</div>';

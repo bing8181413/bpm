@@ -177,10 +177,12 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                             method: 'GET',
                             data: {count: 1000, status: 1},
                             success: function (json) {
+                                $rootScope.survey_question_category_list_attachments = [];
+                                $rootScope.survey_question_category_list_general = [];
                                 angular.forEach(json.data, function (val, key) {
                                     if (val.type == 1) {
                                         $rootScope.survey_question_category_list_attachments.push({
-                                            value: val.id + '',
+                                            value: val.id,
                                             text: val.name
                                         });
                                     }
@@ -192,7 +194,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 angular.forEach(json.data, function (val, key) {
                                     if (val.type == 2) {
                                         $rootScope.survey_question_category_list_general.push({
-                                            value: val.id + '',
+                                            value: val.id,
                                             text: val.name
                                         });
                                     }
@@ -202,6 +204,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                     id: "0",
                                     name: "无维度",
                                 })
+                                $rootScope.survey_question_category_list = [];
                                 angular.forEach(json.data, function (val, key) {
                                     $rootScope.survey_question_category_list.push({id: val.id + '', name: val.name});
                                 });
@@ -225,9 +228,10 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                             method: 'GET',
                             data: {count: 1000, status: 1, category_type: 1},
                             success: function (json) {
+                                $rootScope.survey_question_list_attachments = [];
                                 angular.forEach(json.data, function (val, key) {
                                     $rootScope.survey_question_list_attachments[key] = {
-                                        value: val.id + '',
+                                        value: val.id,
                                         text: val.title
                                     };
                                 });
