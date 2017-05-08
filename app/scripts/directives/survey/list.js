@@ -436,11 +436,11 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-danger btn-rounded btn-sm" ng-click="show_survey_plan_del()" >删除</a>',
+                template: '<a class="btn btn-danger btn-rounded btn-sm" ng-click="show_survey_plan_del()" >一键下线</a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_survey_plan_del = function () {
-                        if (!confirm('删除之后不可恢复,确认删除?')) {
+                        if (!confirm('一键下线之后不可恢复,请确认?')) {
                             return false;
                         }
                         widget.ajaxRequest({
@@ -449,7 +449,7 @@ define([
                             scope: $scope,
                             data: $scope.param,
                             success: function (json) {
-                                widget.msgToast('删除测评成功');
+                                widget.msgToast('一键下线成功');
                                 $scope.$parent.$parent.searchAction();
                             },
                             failure: function (json) {
