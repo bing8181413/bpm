@@ -20,12 +20,13 @@
                              required="true"></div>
                         <div form-radio text="角色" ng-model="param.role" required="true" default="param.role"
                              source="roles"></div>
-                             <!--source="[{text:'op',value:'op'},{text:'pm',value:'pm'},{text:'admin',value:'admin'},{text:'cw',value:'cw'}]"-->
-                        <div form-checkbox text="所属城市列表" ng-model="param.city_list" required="true"
-                             source="openCitys"></div>
-                        <!--<div form-radio text="定位城市" ng-model="param.city_name" required="true"-->
-                        <!--source="[{text:'上海市',value:'上海市'},{text:'南京市',value:'南京市'},{text:'厦门市',value:'厦门市'}]"-->
-                        <!--source-api=""></div>-->
+                        <!--source="[{text:'op',value:'op'},{text:'pm',value:'pm'},{text:'admin',value:'admin'},{text:'cw',value:'cw'}]"-->
+                        <!--<div form-checkbox text="所属城市列表" ng-model="param.city_list" required="true"-->
+                        <!--source="openCitys"></div>-->
+                        <div form-radio text="定位城市" ng-model="param.city_name" required="true" default="上海市"
+                             source="[{text:'上海市',value:'上海市'}]" source-api=""></div>
+                        <div form-radio text="使用状态" ng-model="param.status" required="true" default="1"
+                             source="[{text:'启用',value:'1'},{text:'禁用',value:'2'}]" source-api=""></div>
                         <div form-textarea="" text="备注" ng-model="param.remark"></div>
                     </div>
                 </div>

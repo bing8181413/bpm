@@ -10,7 +10,7 @@ define([
     profileController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout', 'base64'];
     function profileController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout, base64) {
         $scope.param = {};
-        $scope.openCitys = [];
+        // $scope.openCitys = [];
         // if ($rootScope.hjm.pubData.open_citys) {
         //     angular.forEach($rootScope.hjm.pubData.open_citys, function (val, key) {
         //         $scope.openCitys.push({text: val, value: val});
@@ -23,6 +23,7 @@ define([
                 mobile: $rootScope.hjm.mobile,
                 remark: $rootScope.hjm.remark,
                 userpass: $rootScope.hjm.pwd,
+                city_name: '上海市',
             }
             // console.log($scope.param);
         }, 0);
@@ -65,13 +66,13 @@ define([
 
     function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
         $scope.param = {};
-        $scope.openCitys = [];
+        // $scope.openCitys = [];
         $scope.roles = [];
-        if ($rootScope.hjm.pubData.open_citys) {
-            angular.forEach($rootScope.hjm.pubData.open_citys, function (val, key) {
-                $scope.openCitys.push({text: val, value: val});
-            });
-        }
+        // if ($rootScope.hjm.pubData.open_citys) {
+        //     angular.forEach($rootScope.hjm.pubData.open_citys, function (val, key) {
+        //         $scope.openCitys.push({text: val, value: val});
+        //     });
+        // }
         if ($rootScope.hjm.pubData.roles) {
             angular.forEach($rootScope.hjm.pubData.roles, function (val, key) {
                 $scope.roles.push({text: val, value: key});
@@ -83,7 +84,7 @@ define([
             if ($stateParams.account_id && $rootScope.account_obj) {
                 if ($stateParams.account_id == $rootScope.account_obj.account_id) {
                     $scope.param = $rootScope.account_obj;
-                    $scope.param.city_list = $scope.param.city_list.split(',');
+                    // $scope.param.city_list = $scope.param.city_list.split(',');
                     // console.log($scope.param);
                 }
             } else if ($stateParams.account_id) {
@@ -95,7 +96,8 @@ define([
             console.log('$scope.param', $scope.param);
         }
         $scope.submit = function (status) {
-            $scope.param.city_list = $scope.param.city_list.join(',');
+            // $scope.param.city_list = $scope.param.city_list.join(',');
+            $scope.param.city_name = '上海市';
             if ($stateParams.account_id && $rootScope.account_obj) {
                 $scope.param.userpass = $scope.userpass;
                 $scope.param.password = $scope.userpass;
