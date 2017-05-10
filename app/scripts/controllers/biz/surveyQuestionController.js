@@ -20,46 +20,16 @@ define([
                 success: function (json) {
                     $scope.param = angular.copy(json.data);
                     $scope.image = $scope.param.image ? [{pic_url: $scope.param.image}] : [];
-                    var age_min = $scope.param.age_min + '';
-                    switch (age_min) {
-                        case "0":
-                            $scope.age = '1';
-                            break;
-                        case "4":
-                            $scope.age = '2';
-                            break;
-                        case "7":
-                            $scope.age = '3';
-                            break;
-                        case "10":
-                            $scope.age = '4';
-                            break;
-                    }
                 }
             })
         }
 
-        $scope.$watch('age', function (val) {
-            switch (val) {
-                case "1":
-                    $scope.param.age_min = 0;
-                    $scope.param.age_max = 3;
-                    break;
-                case "2":
-                    $scope.param.age_min = 4;
-                    $scope.param.age_max = 6;
-                    break;
-                case "3":
-                    $scope.param.age_min = 7;
-                    $scope.param.age_max = 9;
-                    break;
-                case "4":
-                    $scope.param.age_min = 10;
-                    $scope.param.age_max = 18;
-                    break;
+        $scope.$watch('param.need_score', function (val, defval) {
+            if (val == 1 && defval != val && $scope.param.type == 2) {
+                widget.msgToast('选项计分题只能为单选题,已切换为单选题。');
+                $scope.param.type = 3;
             }
         });
-
         // $scope.$watch('survey_question_category_list_attachments', function (val, prev_val) {
         //     console.log(val.toString(), val.length > 0, prev_val);
         // });
@@ -76,17 +46,23 @@ define([
             }
             // 题型判定 正确选项判定 start
             var options_correct_count = 0;
+            if (!$scope.param.options || $scope.param.options.length == 0) {
+                widget.msgToast('选项未填写,请添加');
+                return false;
+            }
             angular.forEach($scope.param.options, function (val, key) {
                 if (val.selected == 1) {
                     options_correct_count++;
                 }
             })
-            if ($scope.param.type == 3 && options_correct_count != 1) {
-                widget.msgToast('单选题型的正确选项只能是一个');
-                return false;
-            } else if ($scope.param.type == 2 && options_correct_count < 1) {
-                widget.msgToast('多选题型的正确选项至少是一个');
-                return false;
+            if ($scope.param.need_score == 2) {
+                if ($scope.param.type == 3 && options_correct_count != 1) {
+                    widget.msgToast('单选题型的正确选项只能是一个');
+                    return false;
+                } else if ($scope.param.type == 2 && options_correct_count < 1) {
+                    widget.msgToast('多选题型的正确选项至少是一个');
+                    return false;
+                }
             }
             // 题型判定 正确选项判定 end
             widget.ajaxRequest({
@@ -100,7 +76,15 @@ define([
                     $state.go(con.state.main + '.' + (survey_question_attachment ? 'survey_question_attachment' : 'survey_question') + '.list');
                 },
                 failure: function (err) {
-                    widget.msgToast(err.message + '\n点击取消', 2000);
+                    // console.log(err.code, Object.keys(err.validates), Object.keys(err.validates).length);
+                    if ((err.code == 1202 || err.code == 1303) && err.validates && Object.keys(err.validates).length > 0) {
+                        console.log(err.code, Object.keys(err.validates),
+                            err.validates[Object.keys(err.validates)[0]],
+                            Object.keys(err.validates).length);
+                        widget.msgToast(err.validates[Object.keys(err.validates)[0]] + '\n点击取消', 5000);
+                    } else {
+                        widget.msgToast(err.message + '\n点击取消', 2000);
+                    }
                 }
             })
         }

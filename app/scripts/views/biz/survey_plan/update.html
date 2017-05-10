@@ -1,15 +1,55 @@
 <div class="dashboard-page ">
+    <style type="text/css">
+        .dndsimpleSubject tbody[dnd-list],
+        .dndsimpleSubject tbody[dnd-list] > tr {
+            /*position: relative;*/
+        }
+
+        .dndsimpleSubject tbody[dnd-list]  .dndDragging {
+            opacity: 0.7;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] .dndDraggingSource {
+            display: none;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] .dndPlaceholder {
+            /*display: block;*/
+            /*float: left;*/
+            background-color: #ddd;
+            /*display: flex;*/
+            height: 100px;
+            /*width: 100px;*/
+            /*width: 100%;*/
+            border: 1px solid #ddd;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] > tr {
+            /*background-color: #fff;*/
+            /*display: block;*/
+            /*width: 100%;*/
+        }
+
+        .dndsimpleSubject tbody[dnd-list] > tr.selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+            width: 1000px;
+        }
+    </style>
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title inlineBlock" ng-if="!$stateParams.id">新增测评</h3>
             <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.id">修改测评</h3>
             <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.id">测评详情</h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body dndsimpleSubject">
             <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
             <form class="form-horizontal" name="FormBody" novalidate>
                 <div class="panel panel-primary">
                     <div class="panel-body">
+
                         <div form-input text="测评名称" ng-model="param.name" placeholder="名称" required="true"></div>
                         <div class="form-group">
                             <label class="col-sm-2 control-label">对应商品号
@@ -25,7 +65,8 @@
                                        placeholder="点击查询确认商品存在" required>
                             </div>
                         </div>
-                        <div class="row"><h3 class="col-sm-offset-2 text-danger">广告位图片要求: 宽 >= 960px, 高 >= 360px</h3></div>
+                        <div class="row"><h3 class="col-sm-offset-2 text-danger">广告位图片要求: 宽 >= 960px, 高 >= 360px</h3>
+                        </div>
                         <div form-image text="广告位" ng-model="banner" max="1" hide-bar="[1,1,1,1]"></div>
 
                         <div form-textarea="" text="文字描述" ng-model="param.brief" placeholder="文字描述"
@@ -36,40 +77,84 @@
                              {'name': '文字描述', 'field': 'pivot.question_id',required:'true',select:'true',source:'survey_question_list_attachments'},
                              {'name': '排序', 'field': 'pivot.order_by',required:'true'}]"></div>
 
-                        <div form-radio text="年龄" type="radio" ng-model="age" required="true" default="1"
-                             source="[{text:'0-3',value:'1'},{text:'4-6',value:'2'},{text:'7-9',value:'3'},{text:'10岁以上',value:'4'}]"
-                             source-api=""></div>
+                        <!--<div form-radio text="年龄" type="radio" ng-model="age" required="true" default="1"-->
+                             <!--source="[{text:'0-3',value:'1'},{text:'4-6',value:'2'},{text:'7-9',value:'3'},{text:'10岁以上',value:'4'}]"-->
+                             <!--source-api=""></div>-->
 
-                        <div form-table text="涉及维度" ng-model="param.categories" required="true"
+                        <div form-input text="最小年龄" ng-model="param.age_min" placeholder="最小年龄" required="true"></div>
+                        <div form-input text="最大年龄" ng-model="param.age_max" placeholder="最大年龄" required="true"></div>
+
+                        <div form-radio text="题型" type="radio" ng-model="param.type" required="true" default="1"
+                             ng-click="toggle_type()"
+                             source="[{text:'原题型',value:'1'},{text:'财商题型',value:'2'}]" source-api=""></div>
+
+                        <!--<div form-radio text="题序选项" type="radio" ng-model="param.type" required="true" default="1"-->
+                        <!--source="[{text:'随机',value:'1'},{text:'固定',value:'2'}]" source-api=""></div>-->
+
+                        <div form-table text="涉及维度" ng-model="param.categories" ng-show="param.type==1"
                              columns="[{'name': '设置维度', 'field': 'pivot.category_id',required:'true',select:'true',source:'survey_question_category_list_general'},
                              {'name': '数量', 'field': 'pivot.count',required:'true'}]"></div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">成长建议<span
+                        <div class="form-group" ng-show="param.type==2">
+                            <label class="col-sm-2 control-label">测评题目<span
                                     class="form_label_dangus">*</span></label>
-                            <div class="col-sm-8">
+                            <div class="col-sm-8 form-group">
+                                <div class="col-sm-2">
+                                    <input class="form-control" ng-model="question_id" placeholder="问题ID">
+                                </div>
+                                <div class="col-sm-1">
+                                    <a class="btn btn-primary btn-rounded" ng-click="search_question_id()">查询</a>
+                                </div>
+                                <div class="col-sm-5">
+                                    <input class="form-control" ng-model="question_title" placeholder="点击查询显示题目详情"
+                                           disabled="disabled">
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-primary btn-rounded" ng-click="add_question()">添加到测评题目</a>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-sm-offset-2">
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <th class="text-center">得分区间</th>
-                                        <th class="text-center">建议内容</th>
+                                        <th class="text-center" style="width: 150px;">排序</th>
+                                        <th class="text-center" style="width: 150px;">题目ID</th>
+                                        <th class="text-center">题目描述</th>
+                                        <th class="text-center" style="width: 150px;">操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr ng-repeat="item in param.suggestions ">
+                                    <tbody dnd-list="param.questions">
+                                    <tr ng-repeat="(key,item) in param.questions" dnd-draggable="item"
+                                        dnd-moved="param.questions.splice(key, 1);" dnd-effect-allowed="copyMove">
                                         <td class="text-center">
-                                            <span ng-bind="item.score_min"></span>-
-                                            <span ng-bind="item.score_max"></span>
+                                            <span ng-bind="item.pivot.order_by"></span>
                                         </td>
-                                        <td>
-                                            <textarea class="form-control" required="true" col="5"
-                                                      ng-model="item.result"></textarea>
+                                        <td class="text-center">
+                                            <span ng-bind="item.pivot.question_id"></span>
                                         </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.title"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-danger btn-sm btn-bordered"
+                                               ng-click="param.questions.splice(key,1)">删除</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="dndPlaceholder">
+                                        <td class="text-center" colspan="4"><h3 class="red">拖拽到这里</h3></td>
                                     </tr>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+
+                        <div form-table text="成长建议" ng-model="param.suggestions" required="true"
+                             columns="[{'name': '得分区间-开始', 'field': 'score_min',width:'150',min:'0',required:'true'},
+                             {'name': '得分区间-结束', 'field': 'score_max',width:'150',min:'0',required:'true'},
+                             {'name': '建议内容', 'field': 'result',textarea:'true',required:'true'}]"></div>
+
+                        <div form-radio text="是否显示报表页面" type="radio" ng-model="param.show_result" required="true"
+                             default="2" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
 
                         <div form-table text="推荐活动" ng-model="param.products"
                              columns="[{'name': 'ID', 'field': 'pivot.id',hide:'true'},

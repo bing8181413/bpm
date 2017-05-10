@@ -27,34 +27,17 @@ define([
                     $scope.param = angular.copy(json.data);
                     $scope.banner = $scope.param.banner ? [{pic_url: $scope.param.banner}] : [];
                     $scope.search_product_id();
-                    var age_min = $scope.param.age_min + '';
-                    switch (age_min) {
-                        case "0":
-                            $scope.age = '1';
-                            break;
-                        case "4":
-                            $scope.age = '2';
-                            break;
-                        case "7":
-                            $scope.age = '3';
-                            break;
-                        case "10":
-                            $scope.age = '4';
-                            break;
-                    }
                 }
             })
-        } else {
-            // 新增的分数段成长建议
-            $scope.param = {
-                suggestions: [
-                    {score_min: 0, score_max: 33},
-                    {score_min: 34, score_max: 67},
-                    {score_min: 68, score_max: 100}
-                ]
-            }
         }
 
+        $scope.toggle_type = function () {
+            if ($scope.param.type == 1) {
+                $scope.param.questions = [];
+            } else if ($scope.param.type == 2) {
+                $scope.param.categories = [];
+            }
+        }
         // 查询活动ID
         $scope.search_product_id = function () {
             if (!$scope.param.product_id) {
@@ -75,49 +58,102 @@ define([
                 }
             })
         }
+        // 查询问题ID
+        $scope.search_question_id = function () {
+            if (!$scope.question_id) {
+                widget.msgToast('没有输入问题ID,点击取消');
+                return false;
+            }
+            widget.ajaxRequest({
+                url: '/surveys/questions',
+                method: 'GET',
+                data: {question_id: $scope.question_id, page: 1, count: 1, category_type: 2},
+                success: function (json) {
+                    if (json.data[0]) {
+                        $scope.question_title = json.data[0].title;
+                    } else {
+                        $scope.question_title = '';
+                        widget.msgToast('未查询到问题ID,点击取消');
+                    }
+                }
+            })
+        }
+        // 添加 问题
+        $scope.add_question = function () {
+            if (!$scope.question_id || !$scope.question_title) {
+                widget.msgToast('问题ID未填写或者题目不存在,点击取消');
+                return false;
+            }
+            var is_question_repeat = false;
+            angular.forEach($scope.param.questions, function (v, k) {
+                if (v.pivot && v.pivot.question_id == $scope.question_id) {
+                    is_question_repeat = true;
+                }
+            })
+            if (is_question_repeat) {
+                widget.msgToast('题目已存在,点击取消');
+                return false;
+            } else {
+                $scope.param.questions.push({
+                    pivot: {
+                        order_by: '0',
+                        question_id: $scope.question_id
+                    },
+                    title: $scope.question_title
+                });
+                $scope.question_id = '';
+                $scope.question_title = '';
+            }
 
+        }
+        // 排序字段 赋值
+        $scope.$watch('param.questions', function (val) {
+            angular.forEach(val, function (v, k) {
+                v.pivot.order_by = k + 1;
+            })
+        }, true);
+
+        $scope.$watch('question_id', function (val) {
+            $scope.question_title = '';
+        });
         $scope.$watch('param.product_id', function (val) {
             $scope.product_title = '';
         });
-        $scope.$watch('age', function (val) {
-            $scope.param = $scope.param || {};
-            switch (val) {
-                case "1":
-                    $scope.param.age_min = 0;
-                    $scope.param.age_max = 3;
-                    break;
-                case "2":
-                    $scope.param.age_min = 4;
-                    $scope.param.age_max = 6;
-                    break;
-                case "3":
-                    $scope.param.age_min = 7;
-                    $scope.param.age_max = 9;
-                    break;
-                case "4":
-                    $scope.param.age_min = 10;
-                    $scope.param.age_max = 18;
-                    break;
-            }
-        });
+
         $scope.submit = function (status) {
             // console.log($scope.param.contents);
             if ($scope.banner && $scope.banner.length == 1) {
                 $scope.param.banner = $scope.banner[0].pic_url;
             }
-            var tmp_categories_err = 0;
-            var hash_categories = {};
-            angular.forEach($scope.param.categories, function (val, key) {
-                if (hash_categories[val.pivot.category_id]) {
-                    tmp_categories_err++;
-                    return true;
+            if ($scope.param.type == 1) {
+                $scope.param.need_score = 2;
+                $scope.param.questions = [];
+                if (!$scope.param.categories || $scope.param.categories.length == 0) {
+                    widget.msgToast('未添加维度,不能提交');
+                    return false;
                 }
-                hash_categories[val.pivot.category_id] = true;
-            });
-            if (tmp_categories_err > 0) {
-                console.log(hash_categories);
-                widget.msgToast('涉及维度有重复');
-                return false;
+                var tmp_categories_err = 0;
+                var hash_categories = {};
+                angular.forEach($scope.param.categories, function (val, key) {
+                    if (hash_categories[val.pivot.category_id]) {
+                        tmp_categories_err++;
+                        return true;
+                    }
+                    hash_categories[val.pivot.category_id] = true;
+                });
+                if (tmp_categories_err > 0) {
+                    console.log(hash_categories);
+                    widget.msgToast('涉及维度有重复');
+                    ``
+                    return false;
+                }
+            } else if ($scope.param.type == 2) {
+                $scope.param.need_score = 1;
+                $scope.param.categories = [];
+                if ($scope.param.questions.length == 0) {
+                    widget.msgToast('未添加题目,不能提交');
+                    return false;
+                }
             }
             widget.ajaxRequest({
                 url: '/surveys/plans' + ($stateParams.id ? ('/' + $stateParams.id) : ''),

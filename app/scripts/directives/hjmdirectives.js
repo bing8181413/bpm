@@ -497,8 +497,9 @@ define([
                     function buildHeader(columns, config) {
                         var headerContent = '';
                         angular.forEach(columns, function (col) {
+                            var width = col.width ? ('width = "' + col.width + 'px"') : '';
                             if (!col.hide) {
-                                headerContent += '<th class="text-center">' + col.name + '</th>';
+                                headerContent += '<th class="text-center" ' + width + '>' + col.name + '</th>';
                             }
                         });
                         if (!config.readonly) {
@@ -537,8 +538,8 @@ define([
                         var typeContent = (col.type == 'number') ? 'type="number"' : '';
                         var requiredContent = (col.required == 'true') ? ' required ' : '';
                         var disabled = (col.disabled) ? ' disabled ' : '';
-                        var minContent = (col.min || col.min == 0) ? ('min="' + col.min + '"' ) : '';
-                        var maxContent = (col.max || col.max == 0) ? ('max="' + col.max + '"' ) : '';
+                        var minContent = (col.min || col.min == 0) ? ('ng-min="' + col.min + '" ' + 'min="' + col.min + '"' ) : '';
+                        var maxContent = (col.max || col.max == 0) ? ('ng-max="' + col.max + '" ' + 'max="' + col.max + '"') : '';
                         if (!col.readonly) {
                             if (col.textarea) {
                                 var rows = col.rows ? ('rows = "+col.rows +"') : ('rows = 5');
@@ -567,7 +568,7 @@ define([
                             } else if (col.select) {
                                 // eval('var source = $rootScope.' + col.source);
                                 // console.log(source);
-                                var search_param = '<select class="form-control"' + name + ' ng-model="' + colField + '" ' +
+                                var search_param = '<select class="form-control"' + name + ' ng-model="' + colField + '" ' + requiredContent +
                                     'ng-options="item.value  as item.text for item in ' + col.source + '">' +
                                     // '<option value="">--  请选择  --</option>' +
                                     '</select>';
@@ -638,10 +639,12 @@ define([
                     $scope.$watch('ngModel', function (defval) {
                         if (defval && angular.isArray(defval)) {
                             $scope.data = defval || [];
+                        } else {
+                            $scope.data = [];
                         }
                     }, true);
                     $scope.$watch('data', function (defval) {
-                        $scope.ngModel = defval;
+                        $scope.ngModel = defval || [];
                     }, true);
 
                     $scope.add = function (obj) {
