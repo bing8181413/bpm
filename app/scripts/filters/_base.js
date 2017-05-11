@@ -640,5 +640,21 @@ define([
                 return result;
             }
         }])
+        //  survey_plan_type  题库的类型，1 单选，2 多选
+        .filter('survey_plan_type', [function () {
+            return function (val) {
+                var result = val;
+                val += '';
+                switch (val) {
+                    case "1":
+                        result = "原题型";
+                        break;
+                    case "2":
+                        result = "财商题型";
+                        break;
+                }
+                return result;
+            }
+        }])
     ;
 });

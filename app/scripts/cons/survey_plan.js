@@ -4,6 +4,7 @@ define([], function () {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-center'},
                 {name: '商品ID', field: 'product_id', filter: 'zero2empty'},
+                {name: '题型', field: 'type', filter: 'survey_plan_type'},
                 {name: '年龄段', fieldDirective: '<span ng-bind="item.age_min+\'-\'+item.age_max"></span>'},
                 {name: '维度', field: 'categories', filter: 'arraySub2String:\'name\''},
                 {name: '测评名称', field: 'name'},

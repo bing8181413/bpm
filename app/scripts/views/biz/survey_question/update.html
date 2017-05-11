@@ -11,7 +11,10 @@
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <div form-radio text="选项带分数的单选题" type="radio" ng-model="param.need_score" required="true"
+                        <div form-radio text="选项带分数" type="radio" ng-model="param.need_score" required="true"
+                             default="0" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+
+                        <div form-radio text="是否为必答题" type="radio" ng-model="param.required" required="true"
                              default="0" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
 
                         <div form-radio text="题型" type="radio" ng-model="param.type" required="true" default="3"

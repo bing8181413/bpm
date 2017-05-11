@@ -3,6 +3,11 @@ define([
     '../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
+        .filter('yes1no2', [function () {
+            return function (val) {
+                return val == '1' ? '是' : (val == '2' ? '否' : val);
+            }
+        }])
         .filter('gender', [function () {
             return function (val) {
                 return val == '1' ? '男' : (val == '2' ? '女' : '保密');

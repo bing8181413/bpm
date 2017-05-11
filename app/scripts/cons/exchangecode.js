@@ -20,8 +20,8 @@ define([], function () {
                 },
                 {
                     name: '有效期',
-                    fieldDirective: '<p ng-bind="((item.start_time || \'\')+(item.expire_time || \'\')) |characters:6:true" ' +
-                    'tooltip-placement="bottom" tooltip="上线时间: {{item.start_time}} 过期时间: {{item.expire_time}}">'
+                    fieldDirective: '<span ng-bind="((item.start_time || \'\')+(item.expire_time || \'\')) |characters:6:true" ' +
+                    'tooltip-placement="bottom" uib-tooltip="上线时间: {{item.start_time}} 过期时间: {{item.expire_time}}"></span>'
                 },
                 {
                     name: '导出兑换码',

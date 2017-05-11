@@ -8329,6 +8329,11 @@ pre {
     color: #ecf6fc
 }
 
+.topnav-navbar ul.navbar-nav li.profile > a {
+    background: #3ca2e0;
+    color: #ecf6fc
+}
+
 .topnav-navbar ul.navbar-nav li a:focus .hidden-message, .topnav-navbar ul.navbar-nav li a:hover .hidden-message, .topnav-navbar ul.navbar-nav li a:active .hidden-message, .topnav-navbar ul.navbar-nav li a.active .hidden-message {
     display: inline-block
 }
@@ -8337,7 +8342,12 @@ pre {
     padding: 0;
     border: none;
     border-top: 1px solid #eee;
-    transition: all .1s linear
+    transition: all .1s linear;
+    border-radius: 7px;
+}
+
+.topnav-navbar ul.navbar-nav li.profile ul.dropdown-menu {
+    width: 250px;
 }
 
 .topnav-navbar ul.navbar-nav li ul.dropdown-menu li.messages-top {
@@ -8408,7 +8418,13 @@ pre {
 
 .topnav-navbar ul.navbar-nav li.open a:focus, .topnav-navbar ul.navbar-nav li.open a:hover, .topnav-navbar ul.navbar-nav li.open a:active, .topnav-navbar ul.navbar-nav li.open a.active {
     background: #3ca2e0;
-    color: #ecf6fc
+    color: #ecf6fc;
+}
+
+.topnav-navbar ul.navbar-nav li.open li.title a, .topnav-navbar ul.navbar-nav li.open li.title a:focus, .topnav-navbar ul.navbar-nav li.open li.title a:hover, .topnav-navbar ul.navbar-nav li.open li.title a:active, .topnav-navbar ul.navbar-nav li.open li.title a.active {
+    background: #fff;
+    color: #8c8c8c;
+    text-align: center;
 }
 
 .topnav-navbar ul.navbar-nav li.open a:focus .hidden-message, .topnav-navbar ul.navbar-nav li.open a:hover .hidden-message, .topnav-navbar ul.navbar-nav li.open a:active .hidden-message, .topnav-navbar ul.navbar-nav li.open a.active .hidden-message {
@@ -8452,7 +8468,17 @@ pre {
 
 .topnav-navbar ul.pull-right li.dropdown.admin-dropdown a, .topnav-navbar ul.pull-right li.dropdown.color-picker a {
     padding-top: 10px;
-    padding-bottom: 10px
+    padding-bottom: 10px;
+}
+
+.topnav-navbar ul.pull-right li.dropdown.admin-dropdown.profile ul.dropdown-menu > li > a {
+    margin: 0 -10px;
+    width: 246px;
+}
+
+.topnav-navbar li.profile ul.pull-right.dropdown-menu li
+.topnav-navbar li.profile ul.pull-right.dropdown-menu li a {
+    width: 246px;
 }
 
 .topnav-navbar ul.pull-right li.dropdown.admin-dropdown a img.topnav-img, .topnav-navbar ul.pull-right li.dropdown.color-picker a img.topnav-img {
@@ -8460,13 +8486,34 @@ pre {
     margin-right: 5px
 }
 
+.topnav-navbar li.profile ul.pull-right.dropdown-menu li {
+    width: 230px;
+    padding: 3px 10px;
+}
+
+.topnav-navbar li.profile ul.pull-right.dropdown-menu li:last-child {
+    border-bottom: 0;
+}
+
 .topnav-navbar ul.pull-right ul.dropdown-menu li {
     border: 1px solid #eee;
-    border-top: none
+    border-top: none;
+    margin: 0 2px;
+    border-width: 0 0 1px;
+}
+
+.topnav-navbar ul.pull-right ul.dropdown-menu li:first-child > a {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.topnav-navbar ul.pull-right ul.dropdown-menu li:last-child > a {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
 }
 
 .topnav-navbar ul.pull-right.navbar-nav {
-    margin-right: 10px
+    margin-right: 8px
 }
 
 .topnav-navbar li.color-picker i {
@@ -10206,6 +10253,7 @@ html, body {
         border-color: #fff;
         display: none;
     }
+
     .modal-dialog .panel-primary > .panel-heading.routerTitleSection {
         color: #fff;
         background-color: #3ca2e0;
@@ -10225,6 +10273,7 @@ html, body {
     .modal-dialog .gridSection > table > tbody > tr > td {
         display: table-cell;
     }
+
     .gridSection > table > thead > tr > th,
     .gridSection > table > tbody > tr > td {
         display: none;
