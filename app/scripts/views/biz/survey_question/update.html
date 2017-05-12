@@ -34,7 +34,7 @@
                         <div form-select text="维度" ng-model="param.category_id" required="true"
                              source="$root.survey_question_category_list_general" source-api=""></div>
 
-                        <div form-textarea text="文字描述" ng-model="param.title" placeholder="文字描述"
+                        <div form-textarea text="题目" ng-model="param.title" placeholder="文字描述"
                              ng-disabled="$stateParams.product_id" required="true"></div>
 
                         <div form-image text="题图" ng-model="image" max="1" hide-bar="[1,1,1,1]"></div>
@@ -55,25 +55,25 @@
                                 <table class="table table-bordered table-striped">
                                     <thead>
                                     <tr>
-                                        <!--<th class="text-center" style="width: 150px;">ID</th>-->
-                                        <!--<th class="text-center" style="width: 150px;">选项序号</th>-->
                                         <th class="text-center">选项内容</th>
                                         <th class="text-center" style="width: 150px;">计录值(运营请忽略)</th>
+                                        <th class="text-center" style="width: 150px;">
+                                            <a class="btn btn-sm btn-bordered btn-primary"
+                                               ng-click="add_option_type3_options();">添加</a>
+                                        </th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr ng-repeat="item in option_type3_options">
-                                        <!--<td class="text-center">-->
-                                        <!--<span ng-bind="item.id"></span>-->
-                                        <!--</td>-->
-                                        <!--<td class="text-center">-->
-                                        <!--<span ng-bind="item.score | num2abc"></span>-->
-                                        <!--</td>-->
+                                    <tr ng-repeat=" item in option_type3_options">
                                         <td class="text-center">
                                             <input class="form-control" ng-model="item.name"></input>
                                         </td>
                                         <td class="text-center">
                                             <span ng-bind="item.score"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-sm btn-bordered btn-danger"
+                                               ng-click="del_option_type3_options(key);">删除</a>
                                         </td>
                                     </tr>
                                     </tbody>

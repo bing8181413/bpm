@@ -54,6 +54,31 @@ define([
             }
         }
 
+        $scope.add_option_type3_options = function () {
+            if ($scope.option_type3_options && $scope.option_type3_options.length < 3) {
+                $scope.option_type3_options.push({
+                    name: '',
+                    score: $scope.option_type3_options.length + 1
+                });
+                angular.forEach($scope.option_type3_options, function (val, key) {
+                    val.score = key + 1;
+                })
+            } else {
+                widget.msgToast('不能添加超过3个选项');
+            }
+        }
+        $scope.del_option_type3_options = function (index) {
+            // console.log($scope.option_type3_options);
+            if ($scope.option_type3_options && $scope.option_type3_options.length == 3) {
+                $scope.option_type3_options.splice(index, 1);
+            } else {
+                widget.msgToast('不能删除,至少2个选项');
+            }
+            angular.forEach($scope.option_type3_options, function (val, key) {
+                val.score = key + 1;
+            })
+        }
+
 
         $scope.$watch('param.type', function (val, defval) {
             if (val == 2 && ( $scope.param.option_type == 2 || $scope.param.option_type == 3)) {
