@@ -27,15 +27,71 @@ define([
                     $scope.param = angular.copy(json.data);
                     $scope.banner = $scope.param.banner ? [{pic_url: $scope.param.banner}] : [];
                     $scope.search_product_id();
+                    if ($scope.param.categories && $scope.param.categories.length > 0) {
+                        $scope.question_source = 1;
+                    } else {
+                        $scope.question_source = 2;
+                    }
+
+                    if ($scope.param.type == 3) {
+                        $scope.type3_suggestions = angular.copy($scope.param.suggestions);
+                        // console.log(JSON.stringify($scope.type3_suggestions));
+                    }
                 }
             })
         }
+        //切换类型后 删除 固定问题
+        // $scope.$watch('param.type', function (val, defval) {
+        //     if (val == defval && defval) {
+        //         $scope.param.questions = [];
+        //     }
+        //     if (val == 3 && val != defval) {// 选项分类计分
+        //         $scope.type3_suggestions = [];
+        //     }
+        // });
 
-        $scope.toggle_type = function () {
-            if ($scope.param.type == 1) {
-                $scope.param.questions = [];
-            } else if ($scope.param.type == 2) {
-                $scope.param.categories = [];
+        // $scope.$watch('param.type', function (val, defval) {
+        //     if (val != defval && defval) {
+        //         console.log(val, defval, 1);
+        //         // $scope.param.questions = [];
+        //         $scope.add_type_3();
+        //     }
+        // });
+        // $scope.toggle_question_option_count = function () {
+        //     $scope.add_type_3();
+        // }
+        $scope.$watch('question_option_count', function (val, defval) {
+            if (val != defval && defval) {
+                console.log(val, defval, 2);
+                $scope.add_type_3();
+            } else if (!defval) {
+                $scope.add_type_3();
+            }
+        });
+        //  选择计分类型为3的九宫格题目 要增加新的 options
+        $scope.add_type_3 = function () {
+            // console.log($scope.question_option_count, $scope.type3_suggestions, ($scope.type3_suggestions && $scope.type3_suggestions.length != 3));
+            if ($scope.question_option_count == 2 && ($scope.param.type == 3)
+                && (!$scope.type3_suggestions || $scope.type3_suggestions && $scope.type3_suggestions.length != 3)) {
+                $scope.type3_suggestions = [
+                    {result: '', score_min: 1, score_max: 1},
+                    {result: '', score_min: 2, score_max: 2},
+                    {result: '', score_min: 12, score_max: 12}
+                ]
+                // console.log($scope.type3_suggestions);
+            } else if ($scope.question_option_count == 3 && ($scope.param.type == 3)
+                && (!$scope.type3_suggestions || $scope.type3_suggestions && $scope.type3_suggestions.length != 6)) {
+                console.log($scope.type3_suggestions, ($scope.type3_suggestions && $scope.type3_suggestions.length));
+                $scope.type3_suggestions = [
+                    {result: '', score_min: 1, score_max: 1},
+                    {result: '', score_min: 2, score_max: 2},
+                    {result: '', score_min: 3, score_max: 3},
+                    {result: '', score_min: 12, score_max: 12},
+                    {result: '', score_min: 23, score_max: 23},
+                    {result: '', score_min: 13, score_max: 13},
+                    {result: '', score_min: 123, score_max: 123},
+                ]
+                // console.log($scope.type3_suggestions);
             }
         }
         // 查询活动ID
@@ -67,7 +123,13 @@ define([
             widget.ajaxRequest({
                 url: '/surveys/questions',
                 method: 'GET',
-                data: {question_id: $scope.question_id, page: 1, count: 1, category_type: 2},
+                data: {
+                    question_id: $scope.question_id,
+                    page: 1,
+                    count: 1,
+                    category_type: 2,
+                    // option_type: $scope.param.type
+                },
                 success: function (json) {
                     if (json.data[0]) {
                         $scope.question_title = json.data[0].title;
@@ -94,6 +156,9 @@ define([
                 widget.msgToast('题目已存在,点击取消');
                 return false;
             } else {
+                if (!$scope.param.questions) {
+                    $scope.param.questions = [];
+                }
                 $scope.param.questions.push({
                     pivot: {
                         order_by: '0',
@@ -125,7 +190,10 @@ define([
             if ($scope.banner && $scope.banner.length == 1) {
                 $scope.param.banner = $scope.banner[0].pic_url;
             }
-            if ($scope.param.type == 1) {
+            if ($scope.param.type == 3) {
+                $scope.param.suggestions = angular.copy($scope.type3_suggestions);
+            }
+            if ($scope.question_source == 1) {
                 $scope.param.need_score = 2;
                 $scope.param.questions = [];
                 if (!$scope.param.categories || $scope.param.categories.length == 0) {
@@ -144,14 +212,13 @@ define([
                 if (tmp_categories_err > 0) {
                     console.log(hash_categories);
                     widget.msgToast('涉及维度有重复');
-                    ``
                     return false;
                 }
-            } else if ($scope.param.type == 2) {
+            } else if ($scope.question_source == 2) {
                 $scope.param.need_score = 1;
                 $scope.param.categories = [];
                 if ($scope.param.questions.length == 0) {
-                    widget.msgToast('未添加题目,不能提交');
+                    widget.msgToast('未添加一道题目,不能提交(查询出题目后,要点击添加到测评题目)');
                     return false;
                 }
             }

@@ -11,34 +11,79 @@
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <div form-radio text="选项带分数" type="radio" ng-model="param.need_score" required="true"
-                             default="0" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
-
                         <div form-radio text="是否为必答题" type="radio" ng-model="param.required" required="true"
-                             default="0" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+                             default="1" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
 
-                        <div form-radio text="题型" type="radio" ng-model="param.type" required="true" default="3"
-                             ng-show="param.need_score==2"
+                        <div form-radio text="题目类型" type="radio" ng-model="param.option_type" required="true"
+                             default="1"
+                             source="[{text:'普通题',value:'1'},{text:'选项计分题',value:'2'},{text:'选项汇总题',value:'3'}]"
+                             source-api=""></div>
+
+                        <div form-radio text="选项带分数" type="radio" ng-model="param.need_score" required="true"
+                             ng-disabled="true" default="2"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+
+                        <div form-radio text="选项个数" type="radio" ng-model="option_count" required="true" default="3"
+                             ng-show="false"
+                             ng-show="param.option_type==3" source="[{text:'三个选项',value:'3'}]" source-api=""></div>
+
+                        <div form-radio text="选项题型" type="radio" ng-model="param.type" required="true" default="3"
                              source="[{text:'单选',value:'3'},{text:'多选',value:'2'}]" source-api=""></div>
+                        <!--ng-show="param.need_score==2"-->
 
                         <div form-select text="维度" ng-model="param.category_id" required="true"
                              source="$root.survey_question_category_list_general" source-api=""></div>
+
                         <div form-textarea text="文字描述" ng-model="param.title" placeholder="文字描述"
                              ng-disabled="$stateParams.product_id" required="true"></div>
+
                         <div form-image text="题图" ng-model="image" max="1" hide-bar="[1,1,1,1]"></div>
-                        <div form-table text="选项" ng-model="param.options" ng-if="param.need_score==2"
+                        <div form-table text="普通题选项" ng-model="param.options" ng-if="param.option_type==1"
                              columns="[{'name': 'ID', 'field': 'id',hide:'true'},
                              {'name': '名称', 'field': 'name',required:'true'},
                              {'name': '正确选项', 'field': 'selected',required:'true',radioBox:'true',default:'0',source:'[{text:\'是\',value:\'1\'},{text:\'否\',value:\'0\'}]'}]"></div>
 
-                        <div form-table text="选项" ng-model="param.options" ng-if="param.need_score==1"
+                        <div form-table text="选项" ng-model="param.options" ng-if="param.option_type==2"
                              columns="[{'name': 'ID', 'field': 'id',hide:'true'},
                              {'name': '名称', 'field': 'name',required:'true'},
                              {'name': '该选项得分', 'field': 'score',required:'true',type:'number'}]"></div>
 
+                        <div class="form-group" ng-if="param.option_type == 3">
+                            <label class="col-sm-2 control-label">答案选项<span
+                                    class="form_label_dangus">*</span></label>
+                            <div class="col-sm-8">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <!--<th class="text-center" style="width: 150px;">ID</th>-->
+                                        <!--<th class="text-center" style="width: 150px;">选项序号</th>-->
+                                        <th class="text-center">选项内容</th>
+                                        <th class="text-center" style="width: 150px;">计录值(运营请忽略)</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in option_type3_options">
+                                        <!--<td class="text-center">-->
+                                        <!--<span ng-bind="item.id"></span>-->
+                                        <!--</td>-->
+                                        <!--<td class="text-center">-->
+                                        <!--<span ng-bind="item.score | num2abc"></span>-->
+                                        <!--</td>-->
+                                        <td class="text-center">
+                                            <input class="form-control" ng-model="item.name"></input>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.score"></span>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
                         <!--<div form-radio text="年龄" type="radio" ng-model="age" required="true" default="1"-->
-                             <!--source="[{text:'0-3',value:'1'},{text:'4-6',value:'2'},{text:'7-9',value:'3'},{text:'10岁以上',value:'4'}]"-->
-                             <!--source-api=""></div>-->
+                        <!--source="[{text:'0-3',value:'1'},{text:'4-6',value:'2'},{text:'7-9',value:'3'},{text:'10岁以上',value:'4'}]"-->
+                        <!--source-api=""></div>-->
 
                         <div form-input text="最小年龄" ng-model="param.age_min" placeholder="最小年龄" required="true"></div>
                         <div form-input text="最大年龄" ng-model="param.age_max" placeholder="最大年龄" required="true"></div>

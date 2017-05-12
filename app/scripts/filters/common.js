@@ -18,6 +18,38 @@ define([
                 return val == '1' ? '会员' : (val == '3' ? '体验会员' : '非会员');
             }
         }])
+        .filter('num2abc', [function () {
+            return function (val) {
+                val = val + '';
+                var rtn = '';
+                switch (val) {
+                    case '1':
+                        rtn = 'A';
+                        break;
+                    case '2':
+                        rtn = 'B';
+                        break;
+                    case '3':
+                        rtn = 'C';
+                        break;
+                    case '12':
+                        rtn = 'AB';
+                        break;
+                    case '23':
+                        rtn = 'BC';
+                        break;
+                    case '13':
+                        rtn = 'AC';
+                        break;
+                    case '123':
+                        rtn = 'ABC';
+                        break;
+                    default :
+                        rtn = '';
+                }
+                return rtn;
+            }
+        }])
         .filter('num2week', [function () {
             return function (val) {
                 val = val + '';

@@ -20,19 +20,47 @@ define([
                 success: function (json) {
                     $scope.param = angular.copy(json.data);
                     $scope.image = $scope.param.image ? [{pic_url: $scope.param.image}] : [];
+                    if ($scope.param.option_type == 3) {
+                        $scope.option_type3_options = angular.copy($scope.param.options);
+                        console.log(JSON.stringify($scope.option_type3_options));
+                    }
                 }
             })
         }
+        // 选择是9宫格类型  必须是单选题
+        $scope.$watch('param.option_type', function (val, defval) {
+            if (val == 3 || val == 2) {// 九宫格题目 或 财商题目 1: 需要计分; 2: 单选
+                $scope.param.type = 3; //  3 : 单选;  2 : 多选
+                $scope.param.need_score = 1; // 1 : 计分 , 2 : 不计分
+                $scope.add_option_type_3();
+            } else if (val == 1) { //  普通题目 1: 不需要计分, 2: 单选或多选
+                $scope.param.need_score = 2;
+            }
+        });
 
-        $scope.$watch('param.need_score', function (val, defval) {
-            if (val == 1 && defval != val && $scope.param.type == 2) {
+        $scope.$watch('option_count', function (val) {
+            $scope.add_option_type_3();
+        });
+        //  选择计分类型为3的九宫格题目 要增加新的options
+        $scope.add_option_type_3 = function () {
+            if ($scope.option_count == 3 && ($scope.param.option_type == 3)
+                && (!$scope.option_type3_options || $scope.option_type3_options && $scope.option_type3_options.length != 3)) {
+                $scope.option_type3_options = [
+                    {name: '', score: 1},
+                    {name: '', score: 2},
+                    {name: '', score: 3}
+                ]
+                console.log($scope.option_type3_options);
+            }
+        }
+
+
+        $scope.$watch('param.type', function (val, defval) {
+            if (val == 2 && ( $scope.param.option_type == 2 || $scope.param.option_type == 3)) {
                 widget.msgToast('选项计分题只能为单选题,已切换为单选题。');
                 $scope.param.type = 3;
             }
         });
-        // $scope.$watch('survey_question_category_list_attachments', function (val, prev_val) {
-        //     console.log(val.toString(), val.length > 0, prev_val);
-        // });
 
         $scope.submit = function (status) {
             // console.log($scope.param.contents);
@@ -45,25 +73,49 @@ define([
                 $scope.param.category_id = $rootScope.survey_question_category_list_attachments[0].value;
             }
             // 题型判定 正确选项判定 start
-            var options_correct_count = 0;
-            if (!$scope.param.options || $scope.param.options.length == 0) {
-                widget.msgToast('选项未填写,请添加');
-                return false;
-            }
-            angular.forEach($scope.param.options, function (val, key) {
-                if (val.selected == 1) {
-                    options_correct_count++;
-                }
-            })
-            if ($scope.param.need_score == 2) {
-                if ($scope.param.type == 3 && options_correct_count != 1) {
-                    widget.msgToast('单选题型的正确选项只能是一个');
-                    return false;
-                } else if ($scope.param.type == 2 && options_correct_count < 1) {
-                    widget.msgToast('多选题型的正确选项至少是一个');
+            if ($scope.param.option_type == 1 || $scope.param.option_type == 2) {
+                var options_correct_count = 0;
+                if (!$scope.param.options || $scope.param.options.length == 0) {
+                    widget.msgToast('选项未填写,请添加');
                     return false;
                 }
+
+                angular.forEach($scope.param.options, function (val, key) {
+                    if (val.selected == 1) {
+                        options_correct_count++;
+                    }
+                });
+
+                if ($scope.param.need_score == 2) {
+                    if ($scope.param.type == 3 && options_correct_count != 1) {
+                        widget.msgToast('单选题型的正确选项只能是一个');
+                        return false;
+                    } else if ($scope.param.type == 2 && options_correct_count < 1) {
+                        widget.msgToast('多选题型的正确选项至少是一个');
+                        return false;
+                    }
+                }
+            } else if ($scope.param.option_type == 3) {
+                $scope.param.options = [];
+                angular.forEach($scope.option_type3_options, function (val, key) {
+                    if (val.id) {
+                        $scope.param.options.push({
+                            id: val.id || '',
+                            name: val.name,
+                            score: val.score
+                        });
+                    } else {
+                        $scope.param.options.push({
+                            name: val.name,
+                            score: val.score
+                        });
+                    }
+
+                })
             }
+            console.log($scope.param);
+            // return false;
+
             // 题型判定 正确选项判定 end
             widget.ajaxRequest({
                 url: '/surveys/questions' + ($stateParams.id ? ('/' + $stateParams.id) : ''),

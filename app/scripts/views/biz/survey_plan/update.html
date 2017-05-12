@@ -49,13 +49,12 @@
             <form class="form-horizontal" name="FormBody" novalidate>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-
-                        <div form-input text="测评名称" ng-model="param.name" placeholder="名称" required="true"></div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">对应商品号
+                            <label class="col-sm-2 control-label">对应商品ID
                                 <span class="form_label_dangus">*</span></label>
                             <div class="col-sm-2">
-                                <input class="form-control" ng-model="param.product_id" required="true">
+                                <input class="form-control" ng-model="param.product_id" placeholder="商品ID"
+                                       required="true">
                             </div>
                             <div class="col-sm-1">
                                 <a class="btn btn-primary btn-rounded" ng-click="search_product_id()">查询</a>
@@ -65,6 +64,8 @@
                                        placeholder="点击查询确认商品存在" required>
                             </div>
                         </div>
+                        <div form-input text="测评名称" ng-model="param.name" placeholder="名称" required="true"></div>
+
                         <div class="row"><h3 class="col-sm-offset-2 text-danger">广告位图片要求: 宽 >= 960px, 高 >= 360px</h3>
                         </div>
                         <div form-image text="广告位" ng-model="banner" max="1" hide-bar="[1,1,1,1]"></div>
@@ -84,18 +85,19 @@
                         <div form-input text="最小年龄" ng-model="param.age_min" placeholder="最小年龄" required="true"></div>
                         <div form-input text="最大年龄" ng-model="param.age_max" placeholder="最大年龄" required="true"></div>
 
-                        <div form-radio text="题型" type="radio" ng-model="param.type" required="true" default="1"
-                             ng-click="toggle_type()"
-                             source="[{text:'原题型',value:'1'},{text:'财商题型',value:'2'}]" source-api=""></div>
-
                         <!--<div form-radio text="题序选项" type="radio" ng-model="param.type" required="true" default="1"-->
                         <!--source="[{text:'随机',value:'1'},{text:'固定',value:'2'}]" source-api=""></div>-->
 
-                        <div form-table text="涉及维度" ng-model="param.categories" ng-show="param.type==1"
+                        <div form-radio text="题目来源" type="radio" ng-model="question_source" required="true" default="1"
+                             source="[{text:'从维度随机选择',value:'1'},{text:'固定题目',value:'2'}]"
+                             source-api=""></div>
+                        <!--ng-click="toggle_type()"-->
+
+                        <div form-table text="涉及维度" ng-model="param.categories" ng-show="question_source==1"
                              columns="[{'name': '设置维度', 'field': 'pivot.category_id',required:'true',select:'true',source:'survey_question_category_list_general'},
                              {'name': '数量', 'field': 'pivot.count',required:'true'}]"></div>
 
-                        <div class="form-group" ng-show="param.type==2">
+                        <div class="form-group" ng-show="question_source==2">
                             <label class="col-sm-2 control-label">测评题目<span
                                     class="form_label_dangus">*</span></label>
                             <div class="col-sm-8 form-group">
@@ -148,16 +150,58 @@
                             </div>
                         </div>
 
+                        <div form-radio text="计分类型" type="radio" ng-model="param.type" required="true"
+                             source="[{text:'累计计分(根据答案正确个数计分)',value:'1'},{text:'累计计分(根据选项分数汇总计分)',value:'2'},
+                             {text:'选项分类计分(根据选项中最多序号作为得分)',value:'3'}]"
+                             source-api=""></div>
+
+                        <div form-radio text="题目选项个数" type="radio" ng-model="question_option_count"
+                             ng-show="param.type==3 && !$stateParams.id" source-api=""
+                             source="[{text:'二个选项',value:'2'},{text:'三个选项',value:'3'}]"></div>
+
                         <div form-table text="成长建议" ng-model="param.suggestions" required="true"
+                             ng-if="param.type == 1 || param.type == 2"
                              columns="[{'name': '得分区间-开始', 'field': 'score_min',width:'150',min:'0',required:'true'},
                              {'name': '得分区间-结束', 'field': 'score_max',width:'150',min:'0',required:'true'},
                              {'name': '建议内容', 'field': 'result',textarea:'true',required:'true'}]"></div>
+                        <div class="form-group" ng-if="param.type == 3">
+                            <label class="col-sm-2 control-label">成长建议<span
+                                    class="form_label_dangus">*</span></label>
+                            <div class="col-sm-8">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <!--<th class="text-center" style="width: 150px;">ID</th>-->
+                                        <th class="text-center" style="width: 150px;">结果</th>
+                                        <!--<th class="text-center" style="width: 150px;">最小分数</th>-->
+                                        <th class="text-center">选项内容</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in type3_suggestions">
+                                        <!--<td class="text-center">-->
+                                        <!--<span ng-bind="item.id"></span>-->
+                                        <!--</td>-->
+                                        <td class="text-center">
+                                            <span ng-bind="item.score_min | num2abc"></span>
+                                        </td>
+                                        <!--<td class="text-center">-->
+                                        <!--<span ng-bind="item.score_min"></span>-->
+                                        <!--</td>-->
+                                        <td class="text-center">
+                                            <textarea class="form-control" ng-model="item.result"></textarea>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
                         <div form-radio text="是否显示报表页面" type="radio" ng-model="param.show_result" required="true"
                              default="2" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
 
                         <div form-table text="推荐活动" ng-model="param.products"
-                             columns="[{'name': 'ID', 'field': 'pivot.id',hide:'true'},
+                             columns="[{'name': 'ID', 'field': 'pivot.id',hide:'true',width:'150'},
                              {'name': '活动ID', 'field': 'pivot.product_id',required:'true'},
                              {'name': '推荐语', 'field': 'pivot.recommend',textarea:'true',required:'true'}]"></div>
 
