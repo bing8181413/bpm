@@ -166,9 +166,9 @@ define([
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label class="' + labelWidth + ' control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="' + contentWidth + '">';
-                        content += '<select class="form-control"' + name + ngDisabled + ' ng-model="' + $scope.ngModelText + '" ' +
+                        content += '<select class="form-control"' + name + ngDisabled + ' ng-model="ngModel" ' +
                             'ng-options="item.value as item.text for item in source">' +
-                            // '<option value="">--  请选择  --</option>' +
+                            // '<option value=undefined>--  请选择  --</option>' +
                             '</select>';
                         content += '<input class="hide" ng-model="ngModel" ' + name + disabledRole + required + '">'
                             + '</div>';
@@ -178,36 +178,6 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-                    $scope.$watch($scope.ngModelText, function (val) {
-                        // console.log('ngModelText ' + $scope.ngModelText, typeof  val, val);
-                        if (typeof val == 'number') {
-                            $scope.ngModel = parseFloat(val);
-                        } else {
-                            $scope.ngModel = val;
-                        }
-                    }, true);
-                    $scope.$watch('ngModel', function (val) {
-                        // console.log('ngModel ' + $scope.ngModelText, typeof  val, val);
-                        if (val || val == 0 || val == null || val == undefined) {
-                            if (typeof val == 'number') {
-                                $scope.$eval($scope.ngModelText + '=' + parseFloat(val) + '');
-                            } else if (val == null) {
-                                $scope.$eval($scope.ngModelText + '=""');
-                            } else {
-                                $scope.$eval($scope.ngModelText + '="' + val + '"');
-                            }
-                        }
-                    }, true);
-                    $scope.$watch('default', function (val) {
-                        // console.log('default ' + $scope.default, typeof  val, val);
-                        if (typeof val == 'number') {
-                            $scope.ngModel = parseFloat(val);
-                        } else if (val == undefined) {
-                            $scope.ngModel = undefined;
-                        } else {
-                            $scope.ngModel = val;
-                        }
-                    }, true);
                 }
             }
         })

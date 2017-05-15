@@ -135,6 +135,10 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                             method: 'GET',
                             data: {count: 1000, role: 'op,majia,bd'},
                             success: function (json) {
+                                $rootScope.account_list_bd_op.push({
+                                    text: '--请选择--',
+                                    value: undefined
+                                });
                                 angular.forEach(json.data, function (val, key) {
                                     if (val.role == 'bd' || val.role == 'op') {
                                         $rootScope.account_list_bd_op.push({
