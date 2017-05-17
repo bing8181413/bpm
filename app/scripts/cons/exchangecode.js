@@ -3,6 +3,7 @@ define([], function () {
         exchangecodeList: {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-right'},
+                {name: '活动ID', field: 'product_id', filter: 'zero2empty'},
                 {name: '总量', field: 'total'},
                 {name: '适用范围', field: 'category', filter: 'coupon_category'},
                 {name: '商品品类', field: 'sku', filter: 'coupon_sku'},
