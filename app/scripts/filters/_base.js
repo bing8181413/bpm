@@ -656,5 +656,24 @@ define([
                 return result;
             }
         }])
+        //  mission_status  任务类型，1 上线，2 下线 3:草稿
+        .filter('mission_status', [function () {
+            return function (val) {
+                var result = val;
+                val += '';
+                switch (val) {
+                    case "1":
+                        result = "上线";
+                        break;
+                    case "2":
+                        result = "下线";
+                        break;
+                    case "3":
+                        result = "草稿";
+                        break;
+                }
+                return result;
+            }
+        }])
     ;
 });

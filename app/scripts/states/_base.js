@@ -27,6 +27,11 @@ define([
     'states/hjm/survey_question_attachment',//测评附加问题题库
     'states/hjm/survey_plan',//测评管理
     'states/hjm/survey_list',//测评入口
+    'states/hjm/lessons',//课程
+    'states/hjm/mission',//课程任务
+    'states/hjm/teacher',//老师
+    'states/hjm/student',//学生
+    'states/hjm/work',//作业管理
 
 ], function () {
 

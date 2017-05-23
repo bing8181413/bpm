@@ -1,0 +1,159 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.lesson_id">新增课程</h3>
+            <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.lesson_id">修改课程</h3>
+            <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.lesson_id">课程详情</h3>
+            <!--<a href="javascript:void(0)" class="btn btn-success btn-rounded pull-right btn-xs"-->
+               <!--ng-click="title_info = [1,1,1,1,1,1]">展开模块</a>&nbsp;&nbsp;&nbsp;&nbsp;-->
+            <!--<a href="javascript:void(0)" class="btn btn-success btn-rounded pull-right btn-xs"-->
+               <!--ng-click="title_info = [0,0,0,0,0,0]">合并模块</a>-->
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [1,1,1,1,1,1]"
+                  disabled-role="{{$stateParams.lesson_id?'admin,op':''}}">
+                <div class="panel panel-primary">
+                    <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
+                        <h5 style="margin: 0; padding: 10px 0;">课程编辑
+                            <i class="animate-switch fa pull-right"
+                               ng-class="{'fa-angle-double-up':title_info[0]%2==1,'fa-angle-double-down':title_info[0]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[0]%2==1">
+                        <div form-input text="课程ID" ng-model="param.lesson_id"
+                             ng-show="$stateParams.lesson_id"
+                             placeholder="课程ID" ng-disabled="$stateParams.lesson_id"></div>
+
+                        <div form-input text="课程名称" ng-model="param.name" placeholder="不超过25个字" required="true"
+                             minlength="1" maxlength="25"></div>
+
+                        <div form-input text="总课时" ng-model="param.mission_num" type="number" min="0" required="true"></div>
+
+                        <div form-select text="负责教师" ng-model="param.teacher_id" required="true"
+                             source="$root.teacher_list" source-api=""></div>
+
+                        <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过200个字" minlength="1"
+                             maxlength="200"></div>
+
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[1] = title_info[1]+1; ">课程发布管理
+                            <i class="animate-switch fa pull-right"
+                               ng-class="{'fa-angle-double-up':title_info[1]%2==1,'fa-angle-double-down':title_info[1]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[1]%2==1">
+                        <div form-date-time text="课程开始时间" ng-model="param.pubtime_at" required="true"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">每周任务发布时间<span
+                                    class="form_label_dangus">*</span></label>
+                            <div class="col-sm-8">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">每周几的时刻</th>
+                                        <th class="text-center">已选时间</th>
+                                        <th class="text-center" style="width: 150px;">
+                                            <a class="btn btn-sm btn-bordered btn-primary"
+                                               ng-click="add_schedule();">添加</a>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in param.schedules">
+                                        <td class="text-center">
+                                            <select class="form-control inlineBlock" ng-model="item.week"
+                                                    style="width:150px;"
+                                                    ng-options="week.value as week.text for week in $root.common.week"></select>
+                                            <select class="form-control inlineBlock" ng-model="item.hour"
+                                                    style="width: 100px;"
+                                                    ng-options="hour.value as hour.text for hour in $root.common.hour"></select>
+                                            <span>时</span>
+                                            <select class="form-control inlineBlock" ng-model="item.minute"
+                                                    style="width: 100px;"
+                                                    ng-options="minute.value as minute.text for minute in $root.common.minute"></select>
+                                            <span>分</span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.week|common:'week'"></span>
+                                            <span ng-bind="(item.hour|common:'hour')+(item.hour?'点':'')"></span>
+                                            <span ng-bind="(item.minute|common:'minute')+(item.minute?'分':'')"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-sm btn-bordered btn-danger"
+                                               ng-click="del_schedule($index);">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">关联活动
+                                <span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-2">
+                                <input class="form-control" ng-model="product_id" placeholder="活动ID"
+                                       required="true">
+                            </div>
+                            <div class="col-sm-2">
+                                <a class="btn btn-primary btn-rounded" ng-click="search_product_id()">查询</a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">ID</th>
+                                        <th class="text-center">类型</th>
+                                        <th class="text-center">类目</th>
+                                        <th class="text-center">价格</th>
+                                        <th class="text-center" style="width: 250px;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in products">
+                                        <td class="text-center">
+                                            <span ng-bind="item.option_id"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.option_type|product_category"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.option_name"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.option_price"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="checkbox-inline checkbox1">
+                                                <input type="checkbox" ng-model="item.selected"
+                                                       name="{{item.option_id}}"
+                                                       ng-checked="item.selected"
+                                                       ng-click="updateSelection($event,$index)">
+                                                <span></span>选择
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.lesson_id?'admin,op':''}}'"
+                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

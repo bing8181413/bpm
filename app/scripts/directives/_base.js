@@ -5,6 +5,8 @@ define([
     './hjm-form',// form
     './hjm-form-valid',// form-valid 表单验证
     './hjm-ueditor',// ueditor
+    './hjm-upload-sources',// 上传资源
+    './hjm-img-text',// 上传资源
     './nav-top',// 上边内容
     './side-left',// 左边菜单
     './hjmdirectives',
@@ -36,6 +38,9 @@ define([
     './wechat/list',//微信 二维码 规则
     './hotkey/list',//热词 搜索
     './survey/list',// 测评
+    './lessons/list',// 课程
+    './student/list',// 学生
+    './teacher/list',// 学生
     // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,
@@ -415,7 +420,7 @@ define([
                             if ($scope.images && $scope.images.length > 0) {
                                 angular.forEach($scope.images, function (v, k) {
                                     $scope.uploader.queue.push({
-                                        pic_id: v.pic_id || undefined,
+                                        pic_id: v.pic_id || v.id || undefined,
                                         url: v.pic_url || v.url || '',
                                         width: v.pic_width || v.width || 100,
                                         height: v.pic_height || v.height || 100,
@@ -480,7 +485,7 @@ define([
                                 fileItem.qiniu_url = response.url;
                                 fileItem.width = response.width;
                                 fileItem.height = response.height;
-                                // fileItem.size = response.size;
+                                fileItem.size = response.size;
                                 //console.log(fileItem);
 
                                 //console.log('success', $scope.uploader);
@@ -569,12 +574,14 @@ define([
                                     pic_url: v.url,
                                     pic_width: v.width,
                                     pic_height: v.height,
+                                    size: v.size,
                                 });
                             } else {
                                 $scope.images.push({
                                     pic_url: v.qiniu_url,
                                     pic_width: v.width,
                                     pic_height: v.height,
+                                    size: v.size,
                                 });
                             }
                         });

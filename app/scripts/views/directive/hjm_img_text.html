@@ -1,0 +1,29 @@
+<div class="contentimg">
+    <style type="text/css">
+        .contents {
+            /*border-top: 1px #ccc solid;*/
+            border: 1px #ccc dashed;
+            padding-top: 10px;
+            margin-bottom: 15px;
+        }
+
+        .contentimg .btn {
+            margin-right: 10px;
+        }
+
+        .contentimg .panel-body {
+            padding: 0;
+        }
+
+        .contentimg .panel-body textarea {
+            border: 0;
+        }
+    </style>
+    <div class="img-or-text"></div>
+    <div class="form-group" ng-class="{'hide':disabled}">
+        <a class="btn btn-success btn-rounded" ng-click="add();" ng-if="onlyContent!=1">
+            <span class="glyphicon glyphicon-plus"></span> 新增一条
+        </a>
+        <a class="btn btn-primary btn-rounded" ng-click="conslog()" show-role="admin">打印日志</a>
+    </div>
+</div>

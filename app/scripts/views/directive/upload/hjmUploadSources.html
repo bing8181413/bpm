@@ -1,6 +1,6 @@
 <div>
     <style type="text/css">
-        .upload-image {
+        .upload-source {
             width: 100%;
             height: 100%;
             overflow: hidden;
@@ -10,8 +10,7 @@
             border-radius: 5px;
         }
 
-
-        .upload-image:before {
+        .upload-source:before {
             content: "+";
             line-height: 50%;
             cursor: pointer;
@@ -27,7 +26,7 @@
             border-radius: 5px;
         }
 
-        .upload-image-bar {
+        .upload-source-bar {
             margin-bottom: 0px;
         }
 
@@ -81,44 +80,44 @@
     <div class="row">
         <div class="panel panel-info" style="border: 0">
             <!--<div class="panel-heading"></div>-->
-            <div class="panel-body dndsimpleDemo" ng-show="images&&images.length>0">
+            <div class="panel-body dndsimpleDemo" ng-show="sources&&sources.length>0">
                 <!--<pre ng-bind="uploader.queue | json">  这个不能json 这个自定义的对象里面有循环嵌套 </pre>-->
-                <!--<pre ng-bind="images | json"></pre>-->
-                <ul dnd-list="images" ng-init="img_min = true;"
+                <!--<pre ng-bind="sources | json"></pre>-->
+                <ul dnd-list="sources" ng-init="img_min = true;"
                     dnd-inserted="getPos(index)"
                     class="list-group">
-                    <li ng-repeat="(k,v) in images"
+                    <li ng-repeat="(k,v) in sources"
                         class="list-group-item row"
                         dnd-draggable="v"
-                        dnd-moved="images.splice(k, 1);getEle(k);"
+                        dnd-moved="sources.splice(k, 1);getEle(k);"
                         dnd-effect-allowed="move"
                         ng-required="required">
                         <div dnd-nodrag>
-                            <div class="col-md-6" ng-class="{'img_min':img_min,'img_max':!img_min}">
-                                <!--<strong class="ng-binding" ng-bind="uploader.queue[k].file.name"-->
-                                <!--ng-if="!uploader.queue[k].qiniu_url"></strong>-->
+                            <div class="col-md-4" ng-class="{'img_min':img_min,'img_max':!img_min}" ng-show="type==1">
                                 <img class="img-responsive" ng-class="{'img_min':img_min,'img_max':!img_min}"
-                                     ng-src="{{v.pic_url|| uploader.queue[k].qiniu_url}}"
-                                     ng-if="v.pic_url || uploader.queue[k].qiniu_url">
-                                <div ng-show="uploader.isHTML5 && !v.pic_url"
+                                     ng-src="{{v.url|| uploader.queue[k].url}}"
+                                     ng-if="type==1&&(v.url)">
+                                <div ng-show="uploader.isHTML5 &&type==1&&(!v.url)"
                                      ng-thumb="{ file: uploader.queue[k]._file, height: 100 , itemobj : uploader.queue[k]}"></div>
+
                             </div>
-                            <div class="col-md-2 text-center">
-                                <div ng-bind="v.pic_id"></div>
-                                <div ng-show="!v.updated_at">
-                                    <span ng-show="uploader.queue[k].isSuccess">
-                                        <i class="glyphicon glyphicon-ok"></i>
-                                    </span>
-                                    <span ng-show="uploader.queue[k].isCancel">
-                                        <i class="glyphicon glyphicon-ban-circle"></i>
-                                    </span>
-                                    <span ng-show="uploader.queue[k].isError">
-                                        <i class="glyphicon glyphicon-remove"></i>
-                                    </span>
-                                </div>
+                            <div class="col-md-4 text-center">
+                                <input ng-model="v.name" ng-show="type!=1" class="form-control">
+                                <!--<div ng-bind="v.id"></div>-->
+                                <!--<div ng-show="!v.id">-->
+                                    <!--<span ng-show="uploader.queue[k].isSuccess">-->
+                                        <!--<i class="glyphicon glyphicon-ok"></i>-->
+                                    <!--</span>-->
+                                    <!--<span ng-show="uploader.queue[k].isCancel">-->
+                                        <!--<i class="glyphicon glyphicon-ban-circle"></i>-->
+                                    <!--</span>-->
+                                    <!--<span ng-show="uploader.queue[k].isError">-->
+                                        <!--<i class="glyphicon glyphicon-remove"></i>-->
+                                    <!--</span>-->
+                                <!--</div>-->
                             </div>
                             <div class="col-md-2 pull-right">
-                                <div class="progress" ng-show="!v.updated_at">
+                                <div class="progress" ng-show="!v.url||(v.url&&!v.id)">
                                     <div class="progress-bar" role="progressbar"
                                          style="width:{{uploader.queue[k].progress}}%;"></div>
                                 </div>
@@ -126,13 +125,13 @@
                             <div class="handle col-md-2 pull-right">
                                 <div ng-class="{'hide':disabled}">
                                     <button type="button" class="btn btn-danger btn-xs btn-rounded"
-                                            ng-click="delImage(k,uploader.queue[k])"
+                                            ng-click="delSource(k,uploader.queue[k])"
                                             show-role="'{{disabledRole}}'">
                                         <span class="glyphicon glyphicon-trash"></span> 移除
                                     </button>
                                     <button type="button" class="btn btn-success btn-xs btn-rounded"
                                             ng-click="uploader.queue[k].upload()"
-                                            ng-if="!v.updated_at"
+                                            ng-if="!v.url"
                                             ng-disabled="uploader.queue[k].isReady || uploader.queue[k].isUploading || uploader.queue[k].isSuccess">
                                         <span class="glyphicon glyphicon-upload"></span> 上传
                                     </button>
@@ -145,62 +144,6 @@
             </div>
         </div>
     </div>
-    <!--<table class="table table-hover table-bordered table-condensed">-->
-    <!--<thead>-->
-    <!--<tr>-->
-    <!--<th width="50%">图片</th>-->
-    <!--<th width="10%" ng-show="uploader.isHTML5">大小</th>-->
-    <!--<th width="20%" ng-show="uploader.isHTML5">上传进度</th>-->
-    <!--<th width="10%">状态</th>-->
-    <!--<th width="10%">操作</th>-->
-    <!--</tr>-->
-    <!--</thead>-->
-    <!--<tbody>-->
-    <!--<tr ng-repeat="(k,v) in uploader.queue track by $index" ng-required="required">-->
-    <!--<td width="50%">-->
-    <!--<strong class="ng-binding" ng-bind="v.file.name" ng-if="!v.qiniu_url"></strong>-->
-    <!--<img class="img-responsive" style="max-height: 200px;max-width: 200px;"-->
-    <!--ng-src="{{v.qiniu_url}}" ng-if="v.qiniu_url">-->
-    <!--<div ng-show="uploader.isHTML5" ng-thumb="{ file: v._file, height: 100 , itemobj : v}"></div>-->
-    <!--<a class="img_a" ng-if="v.updated_at">-->
-    <!--<img class="img-responsive" style="max-height: 200px;max-width: 200px;" ng-src="{{v.url}}"/>-->
-    <!--</a>-->
-    <!--</td>-->
-    <!--<td ng-show="uploader.isHTML5">-->
-    <!--<span ng-if="!v.updated_at" ng-bind="(v.file.size/1024/1024|number:2)+'MB'"></span>-->
-    <!--</td>-->
-    <!--<td ng-show="uploader.isHTML5">-->
-    <!--<div class="progress" style="margin-bottom: 0;">-->
-    <!--<div class="progress-bar" role="progressbar" style="width:{{v.progress}}%;"-->
-    <!--style="width: 0%;"></div>-->
-    <!--</div>-->
-    <!--</td>-->
-    <!--<td class="text-center">-->
-    <!--<div ng-if="!v.updated_at">-->
-    <!--<span ng-show="v.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>-->
-    <!--<span ng-show="v.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>-->
-    <!--<span ng-show="v.isError"><i class="glyphicon glyphicon-remove"></i></span>-->
-    <!--</div>-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<div ng-class="{'hide':disabled}">-->
-    <!--&lt;!&ndash;<button type="button" class="btn btn-primary btn-xs btn-rounded" ng-click="addImage($index)">&ndash;&gt;-->
-    <!--&lt;!&ndash;<span class="glyphicon glyphicon-plus"></span> 插入&ndash;&gt;-->
-    <!--&lt;!&ndash;</button>&ndash;&gt;-->
-    <!--<button type="button" class="btn btn-success btn-xs btn-rounded" ng-click="v.upload()"-->
-    <!--ng-if="!v.updated_at"-->
-    <!--ng-disabled="v.isReady || v.isUploading || v.isSuccess">-->
-    <!--<span class="glyphicon glyphicon-upload"></span> 上传-->
-    <!--</button>-->
-    <!--<button type="button" class="btn btn-danger btn-xs btn-rounded" ng-click="delImage(k,v)"-->
-    <!--show-role="'{{disabledRole}}'">-->
-    <!--<span class="glyphicon glyphicon-trash"></span> 移除-->
-    <!--</button>-->
-    <!--</div>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--</tbody>-->
-    <!--</table>-->
     <div ng-class="{'hide':disabled}">
         <div class="form-group" style="margin-bottom: 5px;">
             <!--上传过程:-->
@@ -210,9 +153,9 @@
                 </div>
             </div>
         </div>
-        <div class="form-group upload-image-bar" style="margin-bottom: 5px;">
+        <div class="form-group upload-source-bar" style="margin-bottom: 5px;">
             <div class="col-sm-2">
-                <input class="form-control upload-image" type="file" nv-file-select uploader="uploader" multiple/>
+                <input class="form-control upload-source" type="file" nv-file-select uploader="uploader" multiple/>
             </div>
             <div class="col-sm-10">
                 <button type="button" class="btn btn-success btn-rounded" ng-click="uploader.uploadAll()"
@@ -236,6 +179,6 @@
         </div>
     </div>
     <!--<div class="col-sm-12 form-group">-->
-    <!--<input class="form-control upload-image" type="file" nv-file-select uploader="uploader" multiple/>-->
+    <!--<input class="form-control upload-source" type="file" nv-file-select uploader="uploader" multiple/>-->
     <!--</div>-->
 </div>

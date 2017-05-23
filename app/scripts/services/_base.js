@@ -67,29 +67,28 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                             case 79:// o p
                                 $rootScope.$state.go(cons.state.main + '.banner.list');
                                 break;
-                            case 72://h and
-                                $rootScope.$state.go(cons.state.main + '.coupon.list');
+                            case 76://h and
+                                $rootScope.$state.go(cons.state.main + '.lessons.list');
                                 break;
+                            // case 72://l esson 课程
+                            //     $rootScope.$state.go(cons.state.main + '.coupon.list');
+                            //     break;
                         }
                     } else if (tagName && $rootScope.hjm && $rootScope.hjm.role == 'op') {
                         // console.log(event.keyCode);
                         switch (event.keyCode) {
-                            case 84:// t uan
-                                $rootScope.$state.go(cons.state.main + '.groupbuy.list');
-                                break;
-                            case 80:// p roduct
-                                $rootScope.$state.go(cons.state.main + '.product.list');
-                                break;
                             case 65: // a ct
                                 $rootScope.$state.go(cons.state.main + '.act.list');
                                 break;
-                            case 68://d elivery
-                                $rootScope.$state.go(cons.state.main + '.delivery.list');
+                            case 76://h and
+                                $rootScope.$state.go(cons.state.main + '.lessons.list');
                                 break;
                         }
                     }
                 });
 
+                // 获取simpleCons.js 里的common 数据
+                $rootScope.common = cons.common;
                 // $compileProvider.debugInfoEnabled(true);
                 // 监听路由事件
                 // $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
@@ -129,6 +128,8 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 $rootScope.account_list = [];
                 $rootScope.account_list_bd_op = [];
                 $rootScope.get_account_list = function () {
+                    $rootScope.account_list = [];
+                    $rootScope.account_list_bd_op = [];
                     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
                         widget.ajaxRequest({
                             url: cons.api.account_mans,
@@ -169,6 +170,35 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 }
                 if ($rootScope.account_list.length == 0) {
                     $rootScope.get_account_list();
+                }
+                $rootScope.teacher_list = [];
+                $rootScope.get_teacher_list = function () {
+                    $rootScope.teacher_list = [];
+                    if ($rootScope.hjm && $rootScope.hjm.Authorization) {
+                        widget.ajaxRequest({
+                            url: '/teachers',
+                            method: 'GET',
+                            data: {count: 1000, page: 1},
+                            success: function (json) {
+                                $rootScope.teacher_list.push({
+                                    text: '--请选择--',
+                                    value: undefined
+                                });
+                                angular.forEach(json.data, function (val, key) {
+                                    $rootScope.teacher_list.push({
+                                        text: val.name,
+                                        value: val.teacher_id + ''
+                                    });
+                                });
+                            },
+                            failure: function () {
+                                widget.msgToast('没有获取到老师信息');
+                            }
+                        })
+                    }
+                }
+                if ($rootScope.teacher_list.length == 0) {
+                    $rootScope.get_teacher_list();
                 }
                 // 获取 survey_question_category_list  维度列表
                 $rootScope.survey_question_category_list = [];
@@ -255,6 +285,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 }
                 $rootScope.login_init = function () {
                     $rootScope.get_account_list();
+                    $rootScope.get_teacher_list();
                     $rootScope.get_survey_question_category_list();
                     $rootScope.get_survey_question_list();
                 }

@@ -1,0 +1,38 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.mission_id">新增课程任务</h3>
+            <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.mission_id">修改课程任务</h3>
+            <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.mission_id">课程任务详情</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate
+                  disabled-role="{{$stateParams.mission_id?'admin,op':''}}">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div form-input text="任务ID" ng-model="param.mission_id"
+                             ng-show="$stateParams.mission_id"
+                             placeholder="任务ID" ng-disabled="$stateParams.mission_id"></div>
+
+                        <div form-input text="任务名称" ng-model="param.title" placeholder="不超过25个字" required="true"
+                             minlength="1" maxlength="25"></div>
+
+                        <div form-textarea text="任务描述" ng-model="param.description" required="true"></div>
+
+                        <div form-sources text="任务图片" ng-model="param.sources" max="100" type="1"></div>
+
+                        <div form-textarea text="任务备注" ng-model="param.remark" placeholder="不超过100个字"></div>
+
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.mission_id?'admin,op':''}}'"
+                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>
