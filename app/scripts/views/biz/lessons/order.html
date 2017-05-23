@@ -1,0 +1,152 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+
+        .dndsimpleSubject tbody[dnd-list],
+        .dndsimpleSubject tbody[dnd-list] > tr {
+            /*position: relative;*/
+        }
+
+        .dndsimpleSubject tbody[dnd-list]  .dndDragging {
+            opacity: 0.7;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] .dndDraggingSource {
+            display: none;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] .dndPlaceholder {
+            /*display: block;*/
+            /*float: left;*/
+            background-color: #ddd;
+            /*display: flex;*/
+            height: 100px;
+            /*width: 100px;*/
+            /*width: 100%;*/
+            border: 1px solid #ddd;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] > tr {
+            /*background-color: #fff;*/
+            /*display: block;*/
+            /*width: 100%;*/
+        }
+
+        .dndsimpleSubject tbody[dnd-list] > tr.selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+            width: 1000px;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock" ng-if="$stateParams.status==1">课程上线任务</h3>
+            <h3 class="panel-title inlineBlock" ng-if="$stateParams.status!=1">课程草稿任务</h3>
+        </div>
+        <div class="panel-body dndsimpleSubject">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <div class="col-sm-12 form-group">
+                                <a class="btn btn-success btn-rounded btn-sm"
+                                   ui-sref="main.mission.add({lesson_id:$stateParams.lesson_id })">新增任务</a>
+                            </div>
+                            <div class="col-sm-12 form-group">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 150px;">排序</th>
+                                        <th class="text-center" style="width: 150px;">任务ID</th>
+                                        <th class="text-center" style="width: 250px;">任务名称</th>
+                                        <th class="text-center" style="width: 100px;">任务状态</th>
+                                        <th class="text-center" style="width: 150px;">知识点</th>
+                                        <th class="text-center">备注</th>
+                                        <th class="text-center" style="width: 150px;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody ng-if="$stateParams.status==1">
+                                    <tr ng-repeat="(key,item) in mission_online_status">
+                                        <td class="text-center">
+                                            <span ng-bind="item.order_by"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.mission_id"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.title"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.status|mission_status"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div knowledge-edit data="item"></div>
+                                            <!--<span ng-bind="item.stat_knowledge.knowledge_count"></span>-->
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.remark"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-primary btn-sm btn-bordered"
+                                               ui-sref="main.mission.update({lesson_id:item.lesson_id,mission_id:item.mission_id})">编辑任务</a>
+                                            <a class="btn btn-warning btn-sm btn-bordered"
+                                               ng-click="notify(item.mission_id)">任务修改通知</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody dnd-list="mission_edit_status" ng-if="$stateParams.status!=1">
+                                    <tr ng-repeat="(key,item) in mission_edit_status" dnd-draggable="item"
+                                        dnd-moved="mission_edit_status.splice(key, 1);" dnd-effect-allowed="copyMove">
+                                        <td class="text-center">
+                                            <span ng-bind="item.order_by"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.mission_id"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.title"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.status|mission_status"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div knowledge-edit data="item"></div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.remark"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <a class="btn btn-primary btn-sm btn-bordered"
+                                               ui-sref="main.mission.update({lesson_id:item.lesson_id,mission_id:item.mission_id})">编辑</a>
+                                            <a class="btn btn-warning btn-sm btn-bordered"
+                                               ng-click="del($index,item.mission_id)">删除任务</a>
+                                        </td>
+                                    </tr>
+                                    <tr class="dndPlaceholder">
+                                        <td class="text-center" colspan="7"><h3 class="red">拖拽到这里</h3></td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody ng-if="$stateParams.status!=1">
+                                    <tr>
+                                        <td class="text-center" colspan="7">
+                                            <h3 class="text-primary">草稿可拖动排序,记得保存草稿或上线任务来确认新的排序</h3>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-primary btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit(3)"
+                   ng-show="$stateParams.status!=1">保存草稿</a>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit(1)"
+                   ng-show="$stateParams.status!=1">上线任务</a>
+            </form>
+        </div>
+    </div>
+</div>

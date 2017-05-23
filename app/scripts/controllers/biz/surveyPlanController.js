@@ -62,7 +62,7 @@ define([
         // }
         $scope.$watch('question_option_count', function (val, defval) {
             if (val != defval && defval) {
-                console.log(val, defval, 2);
+                // console.log(val, defval, 2);
                 $scope.add_type_3();
             } else if (!defval) {
                 $scope.add_type_3();

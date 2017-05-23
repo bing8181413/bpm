@@ -180,6 +180,7 @@ define([
                 replace: false,
                 scope: {
                     data: '=',
+                    noState: '=',
                 },
                 template: '<p class="reset-pwd"></p>',
                 link: function ($scope, $element, $attrs) {
@@ -197,7 +198,8 @@ define([
                                 data: {account_id: $scope.data.account_id, password: pwd, userpass: pwd},
                                 success: function (json) {
                                     widget.msgToast('更新密码成功！');
-                                    $state.go(con.state.main + '.account.list');
+                                    if (!$scope.noState)
+                                        $state.go(con.state.main + '.account.list');
                                 }
                             })
                         } else {

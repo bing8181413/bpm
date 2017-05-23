@@ -205,7 +205,8 @@ define([], function () {
                             {text: '会员', value: '5'},
                             {text: '测试', value: '6'},
                             {text: '其他', value: '7'},
-                            {text: '霸王团', value: '8'}
+                            {text: '霸王团', value: '8'},
+                            {text: '课程', value: '9'}
                         ]
                     },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外

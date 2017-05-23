@@ -1,0 +1,53 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock">知识点</h3>
+            <a class="inlineBlock btn btn-success btn-sm pull-right" ng-click="go_lesson_order();">回到草稿任务管理</a>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate
+                  disabled-role="{{$stateParams.mission_id?'admin,op':''}}">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <!--<div form-radio text="知识点" ng-model="title" default="" source="knowledge_title"></div>-->
+                        <div class="form-group">
+                            <div class="col-sm-2">
+                                <a class="btn btn-default" ng-class="{'btn-success':title == '1111111111'}"
+                                   ng-click="selected();"> 新增知识点 </a>
+                            </div>
+                            <div class="col-sm-8">
+                                <a class="btn btn-default" ng-class="{'btn-primary':title==item.value}"
+                                   ng-click="selected(item);" style="margin-right:5px; "
+                                   ng-repeat="item in knowledge_title" ng-bind="item.text"></a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="panel-body">
+
+                        <div form-input text="知识点ID" ng-model="param.knowledge_id"
+                             placeholder="知识点ID" ng-show="title!=='1111111111'" ng-disabled="true"></div>
+
+                        <div form-input text="知识点标题" ng-model="param.title" placeholder="知识点标题" required="true"
+                             minlength="1" maxlength="25"></div>
+
+                        <div form-sources text="音频文件" ng-model="param.audios" max="100" type="3"></div>
+
+                        <div form-sources text="视频文件" ng-model="param.videos" max="100" type="2"></div>
+
+                        <div form-image-text text="图文详情" ng-model="param.imagetexts"></div>
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.mission_id?'admin,op':''}}'"
+                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                <a class="btn btn-danger btn-rounded" show-role="'{{$stateParams.mission_id?'admin,op':''}}'"
+                   ng-disabled="!param.knowledge_id" ng-click="submit(2)" ng-show="param.knowledge_id">删除知识点</a>
+            </form>
+        </div>
+    </div>
+</div>

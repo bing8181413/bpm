@@ -1,0 +1,43 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!$stateParams.teacher_id">新增老师</h3>
+            <h3 class="panel-title" ng-if="$stateParams.teacher_id">编辑账户</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>账户信息</h4>
+                        <div form-input text="教师姓名" ng-model="param.name" placeholder="教师姓名" required="true"></div>
+
+                        <div form-input text="初始化密码" ng-model="param.password" placeholder="初始化密码" required="true"
+                             ng-if="!$stateParams.teacher_id"></div>
+
+                        <div form-input text="密码" ng-model="param.password" placeholder="不修改密码就不填写"
+                             ng-if="$stateParams.teacher_id"></div>
+
+                        <div form-input text="手机号码/账号" ng-model="param.mobile" min="11" max="11" placeholder="11位数字"
+                             required="true"></div>
+
+                        <div form-input text="邮箱" ng-model="param.email" required="true"></div>
+
+                        <div form-radio text="活动类别" ng-model="param.lesson_type" required="true" default=""
+                             source="[{text:'父母学堂',value:'父母学堂'},{text:'艺术',value:'艺术'},{text:'微课',value:'微课'},
+                             {text:'游学',value:'游学'},{text:'运动',value:'运动'},{text:'天赋测评',value:'天赋测评'},
+                             {text:'儿童剧',value:'儿童剧'},{text:'夏令营',value:'夏令营'},{text:'STEM',value:'STEM'},
+                             {text:'DIY',value:'DIY'},{text:'乐园',value:'乐园'},{text:'其他',value:'其他'}]"
+                             source-api=""></div>
+
+                        <div form-textarea="" text="备注" ng-model="param.remark" placeholder="描述老师背景、能力范围"></div>
+
+                        <div form-input text="对接负责人" ng-model="param.responsible_person" required="true"></div>
+
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                <!--<a class="btn btn-warning btn-rounded" ng-click="aaa()">查看提交的数据</a>-->
+            </form>
+        </div>
+    </div>
+</div>

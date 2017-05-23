@@ -1,8 +1,21 @@
 define([
     './filters',
     '../cons/simpleCons'
-], function (mod, simpleCons) {
+], function (mod, cons) {
     mod
+        .filter('common', [function () {
+            return function (val, which_common) {
+                var rtn = '';
+                if (!val) return '';
+                var loop_obj = eval('cons.common.' + which_common);
+                angular.forEach(loop_obj, function (v) {
+                    if (v.value == val) {
+                        rtn = v.text;
+                    }
+                });
+                return rtn;
+            }
+        }])
         .filter('yes1no2', [function () {
             return function (val) {
                 return val == '1' ? '是' : (val == '2' ? '否' : val);

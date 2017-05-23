@@ -1,4 +1,5 @@
 define([
+    './common',
     './groupbuy',
     './account',
     './product',
@@ -23,9 +24,16 @@ define([
     './survey_category',
     './survey_question',
     './survey_plan',
+    './lessons',
+    './mission',
+    './teacher',
+    './student',
+    './work',
     // './subject_group',
-], function () {
+], function (common) {
     // console.log(arguments);
+    // console.log(common);
+    var common = common;
     var env = '';
     var env_name = '';
     var domain = '';
@@ -49,7 +57,7 @@ define([
         qiniu_domain = 'https://bpm.ahaschool.com';
         wx_domain = 'https://m.ahaschool.com';
     } else if (location.href.indexOf('//testbpm.ahaschool.com') > 0
-        // || location.href.indexOf('//bpm.hjm.com') > 0
+    // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
         env = 'test';
         env_name = '测试系统';
@@ -98,6 +106,7 @@ define([
         'api': api,
         'state': state,
         'modsconfs': arguments,
+        'common': common,
         'last': 'ooo:)'
     };
 });
