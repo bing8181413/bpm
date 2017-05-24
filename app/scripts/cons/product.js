@@ -125,7 +125,10 @@ define([], function () {
                     name: '活动时间、地点',
                     fieldDirective: '<p>开始时间:<br/> <span ng-bind="item.act_start_time"></span>' +
                     '<br/>结束时间:<br/><span ng-bind="item.act_end_time"></span>' +
-                    '<br/>地点:<br/><span ng-bind="item.act_address"></span></p>'
+                    '<br/><span ng-show="item.addresses.length>0">地点:</span>' +
+                    '<p ng-repeat=" obj in item.addresses " ng-show="item.addresses.length>0">' +
+                    '<span ng-bind="($index+1)+\':\'+obj.detail_address"></span>' +
+                    '</p></p>'
                 },
                 {name: '活动类目', className: 'mobile_show', fieldDirective: '<div product-option data="item"></div>'},
                 {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},

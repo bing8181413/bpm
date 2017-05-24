@@ -67,7 +67,7 @@ define([
 
         $scope.$watch('param.delivery_type', function (val) {
             if (!!val && val == '3') {
-                $scope.param.frequency_num = 0;
+                $scope.param.frequency_num = 1;
             }
         });
         $scope.reset_vip_discount = function () {

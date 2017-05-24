@@ -9897,7 +9897,7 @@ growl-notifications growl-notification.growl-warning {
 
 .checkbox1 input[disabled]:checked + span:before {
     background: #999;
-    border-color: #3ca2e0;
+    border-color: #ddd;
     content: "\2713"
 }
 

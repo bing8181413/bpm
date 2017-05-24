@@ -12,7 +12,7 @@ define([
                 },
                 template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show();" ng-bind="text" ></a>',
                 link: function ($scope, $element, $attrs) {
-                    $scope.text = ($scope.data.task[0] && $scope.data.task[0].lesson_count || 0);
+                    $scope.text = ($scope.data.stat_lesson && $scope.data.stat_lesson.lesson_count || 0);
                     // $scope.ext = {};
                     $scope.extApi = '/students/' + $scope.data.user_id + '/lessons';
                     var supscope = $scope;
@@ -42,7 +42,7 @@ define([
                 },
                 template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show();" ng-bind="text" ></a>',
                 link: function ($scope, $element, $attrs) {
-                    $scope.text = ($scope.data.task[0] && $scope.data.task[0].plan_count || 0);
+                    $scope.text = ($scope.data.stat_plan && $scope.data.stat_plan.plan_count || 0);
                     $scope.ext = {user_id: $scope.data.user_id};
                     $scope.extApi = '/students/' + $scope.data.user_id + '/plans';
                     var supscope = $scope;
@@ -155,7 +155,7 @@ define([
                     $scope.work_id = $scope.data.work_id ? $scope.data.work_id : (supscope.data.works[0] && supscope.data.works[0].work_id || 0);
                     $scope.hasappraise = null;
                     if (($scope.data.appraise_at)
-                        || ($scope.data.works && $scope.data.works[0] && $scope.data.works[0].appraise && $scope.data.works[0].appraise_at)) {
+                        || ($scope.data.works && $scope.data.works[0] && $scope.data.works[0].appraise_at)) {
                         status_title = '作业详情';
                         status_text = 'ng-bind="\'作业详情\'"';
                         class_text = 'ng-class={\"btn-warning\":true} ';

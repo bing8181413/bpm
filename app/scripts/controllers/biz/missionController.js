@@ -35,11 +35,9 @@ define([
         }
 
         $scope.go_lesson_order = function () {
-            $state.go(con.state.main + '.lessons.order', {
-                lesson_id: $stateParams.mission_id,
-                status: 3
-            });
+            history.back();
         }
+
         $scope.selected = function (item) {
             $scope.param = {};//保证重新添加图文详情的数据
             if (!item) {

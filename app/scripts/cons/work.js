@@ -2,8 +2,8 @@ define([], function () {
     var rtn = {
         workList: {
             columns: [
-                {name: 'ID', field: 'work_id', className: 'text-right'},
-                {name: '作业ID', field: 'plan_id'},
+                {name: '作业ID', field: 'work_id', className: 'text-right'},
+                {name: '任务编号', field: 'plan_id', className: 'text-right'},
                 {name: '用户', field: 'user_name'},
                 {name: '课程', field: 'lesson_name'},
                 {name: '任务', field: 'title'},
@@ -14,7 +14,7 @@ define([], function () {
                 },
                 {
                     name: '是否有提问',
-                    fieldDirective: '<span class="label label-danger fa fa-check" ng-show="item.ask">&nbsp;</span>'
+                    fieldDirective: '<span class="label label-danger fa fa-check" ng-show="item.ask&&!item.appraise_at">&nbsp;</span>'
                 },
                 {
                     name: '操作',
