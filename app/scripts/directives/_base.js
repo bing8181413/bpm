@@ -424,7 +424,7 @@ define([
                                         url: v.pic_url || v.url || '',
                                         width: v.pic_width || v.width || 100,
                                         height: v.pic_height || v.height || 100,
-                                        size: v.pic_size || v.size || 1,
+                                        // size: v.pic_size || v.size || 1,
                                         updated_at: v.updated_at || undefined,
                                         old: true,
                                         progress: 100,
@@ -485,7 +485,7 @@ define([
                                 fileItem.qiniu_url = response.url;
                                 fileItem.width = response.width;
                                 fileItem.height = response.height;
-                                fileItem.size = response.size;
+                                // fileItem.size = 1;
                                 //console.log(fileItem);
 
                                 //console.log('success', $scope.uploader);
@@ -574,14 +574,14 @@ define([
                                     pic_url: v.url,
                                     pic_width: v.width,
                                     pic_height: v.height,
-                                    size: v.size,
+                                    // size: v.size,
                                 });
                             } else {
                                 $scope.images.push({
                                     pic_url: v.qiniu_url,
                                     pic_width: v.width,
                                     pic_height: v.height,
-                                    size: v.size,
+                                    // size: v.size,
                                 });
                             }
                         });
@@ -876,6 +876,7 @@ define([
                         if ($scope.mapData.index || $scope.mapData.index == 0) {
                             $scope.addresses[$scope.mapData.index].longitude = $scope.mapData.lng;
                             $scope.addresses[$scope.mapData.index].latitude = $scope.mapData.lat;
+                            $scope.addresses[$scope.mapData.index].district = $scope.mapData.district;
                         }
                     }
                 }

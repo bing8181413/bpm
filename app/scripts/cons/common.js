@@ -53,6 +53,10 @@ define([], function () {
             {text: '55', value: '55'},
             // {text: '60', value: '60'},
         ],
+        district: [
+            // {text: '--选择--', value: undefined},
+            // {text: '00', value: '0'},
+        ]
     }
     return rtn;
 });

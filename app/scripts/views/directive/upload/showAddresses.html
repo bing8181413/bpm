@@ -42,6 +42,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">区县</label>
+                                    <div class="col-sm-4">
+                                        <!--<select class="form-control inlineBlock" ng-model="item.district"-->
+                                                <!--ng-options="district.value as district.text for week in $root.common.district"></select>-->
+                                        <input class="form-control" type="text" ng-model="v.district"
+                                               placeholder="区域" ng-disabled="true">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
                                             <a class="btn btn-info btn-rounded" ng-click="getlocation(k)">定位经纬</a>

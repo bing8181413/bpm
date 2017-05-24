@@ -418,6 +418,9 @@ define([
                     case "8":
                         result = "霸王团";
                         break;
+                    case "9":
+                        result = "课程";
+                        break;
                 }
                 return result;
             }

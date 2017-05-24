@@ -22,14 +22,17 @@ define([], function () {
                     '<span ng-bind="(obj.minute|common:\'minute\')+\'分\'"></span>' +
                     '</p></div>'
                 },
-                {name: '已上线任务', fieldDirective: '<div mission-online data="item"></div>'},
                 {name: '报名人数', field: 'stat_student.user_count'},
                 {name: '备注', field: 'remark|null2empty'},
                 {
+                    name: '已上线任务',
+                    fieldDirective: '<div mission-online data="item"></div>' +
+                    '<div lessons-mission-order data="item" ></div>'
+                },
+                {
                     name: '操作',
-                    fieldDirective: '<div lessons-edit data="item" ></div>' +
-                    '<div lessons-mission-add data="item" ></div>' +
-                    '<div lessons-mission-order data="item" ></div>' +
+                    fieldDirective: '<div lessons-mission-add data="item" ></div>' +
+                    '<div lessons-edit data="item" ></div>' +
                     '<div lessons-change-status data="item" ></div>'
                 },
             ],
@@ -40,7 +43,7 @@ define([], function () {
                 searchSupport: true,
                 searchItems: [
                     {
-                        value: 'status', text: '状态', type: 'btnGroup', default: '1', width: '6',
+                        value: 'status', text: '状态', type: 'btnGroup', default: '', width: '6',
                         enum: [
                             {value: '', text: '全部'},
                             {value: '1', text: '进行中'},
@@ -50,7 +53,7 @@ define([], function () {
                     },
                 ],
                 preSelectionSearch: {
-                    status: '1',
+                    status: '',
                 },
                 paginationSupport: true,
                 pageInfo: {

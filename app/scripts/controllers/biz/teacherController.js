@@ -32,6 +32,7 @@ define([
                 success: function (json) {
                     widget.msgToast('发布成功！', 500);
                     $state.go(con.state.main + '.teacher.list');
+                    $rootScope.get_teacher_list();
                 },
             })
         }

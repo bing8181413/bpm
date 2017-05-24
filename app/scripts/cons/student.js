@@ -32,7 +32,7 @@ define([], function () {
                 {name: 'ID', field: 'id', className: 'text-right'},
                 {name: '课程ID', field: 'lesson_id', className: 'text-right'},
                 {name: '课程名称', field: 'lesson.name'},
-                {name: '已完成任务', field: 'current_mission'},
+                {name: '已下发任务', field: 'current_mission'},
                 {name: '总课时', field: 'lesson.mission_num'},
                 {name: '第一次收到任务时间', field: 'current_mission_at|null2empty'},
                 {name: '购买课程时间', field: 'created_at|null2empty'},
@@ -58,7 +58,8 @@ define([], function () {
                 // route: [{value: 'main.student.add', text: '新增课程'}]
             },
             columns_by_plan: [
-                {name: 'ID', field: 'plan_id', className: 'text-right'},
+                {name: '课程ID', field: 'lesson_id', className: 'text-right'},
+                {name: '任务编号', field: 'plan_id', className: 'text-right'},
                 {name: '上交时间', field: 'works[0].created_at'},
                 {
                     name: '作业状态',
@@ -66,7 +67,7 @@ define([], function () {
                 },
                 {
                     name: '是否有提问',
-                    fieldDirective: '<span class="label label-danger fa fa-check" ng-show="(item.works[0]&&item.works[0].ask)">&nbsp;</span>'
+                    fieldDirective: '<span class="label label-danger fa fa-check" ng-show="(item.works[0]&&item.works[0].ask&&!item.appraise_at)">&nbsp;</span>'
                 },
                 {
                     name: '操作',

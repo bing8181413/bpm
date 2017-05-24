@@ -10,9 +10,9 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show();" ng-bind="text" ></a>',
+                template: '<p><a class="btn btn-info btn-rounded btn-sm" ng-click="show();" ng-bind="text" ></a></p>',
                 link: function ($scope, $element, $attrs) {
-                    $scope.text = ($scope.data.stat_mission && $scope.data.stat_mission.mission_count || 0);
+                    $scope.text = '已上线 : ' + ($scope.data.stat_mission && $scope.data.stat_mission.mission_count || 0);
                     $scope.ext = {status: 1};
                     $scope.extApi = '/lessons/' + $scope.data.lesson_id + '/missions';
                     var supscope = $scope;
@@ -45,7 +45,7 @@ define([
                 }
             }
         })
-        .directive('lessonsChangeStatus', function ($templateCache, $filter, $compile, widget, $uibModal, $timeout, $rootScope) {
+        .directive('lessonsChangeStatus', function ($templateCache, $filter, $compile, widget, $uibModal, $timeout, $rootScope, $state) {
             return {
                 multiElement: true,
                 restrict: 'AE',
@@ -56,6 +56,8 @@ define([
                 template: '<p class="lessons-change-status"></p>',
                 link: function ($scope, $element, $attrs) {
                     $scope.mission_count = ($scope.data.stat_mission && $scope.data.stat_mission.mission_count || 0);
+                    $scope.pubtime_at = $scope.data.pubtime_at;
+                    $scope.lesson_id = $scope.data.lesson_id || '';
                     var status_text = '';
                     var click_text = '';
                     var class_text = '';
@@ -79,10 +81,13 @@ define([
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                                 controller: function ($scope, $uibModalInstance) {
                                     $scope.title = status_title;
+                                    $scope.lesson_id = supscope.lesson_id;
                                     $scope.mission_count = supscope.mission_count;
+                                    $scope.pubtime_at = supscope.pubtime_at;
                                     $scope.status = supscope.data.status;
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
                                         '<h3 ng-bind="\'当前已上线课程数: \'+mission_count"></h3>' +
+                                        '<h3 ng-bind="\'课程任务发布时间: \'+ (pubtime_at|null2empty:\'待定\')"></h3>' +
                                         '<h3 class="text-danger" ng-show="status == 3">上线前该课程需要有已上线的任务</h3>' +
                                         '<h3 class="text-danger" ng-show="status == 1">下线课程后,不可恢复,谨慎操作</h3>' +
                                         '<a class="btn btn-rounded pull-right" ' + class_text + ' ng-click="submit()">' + status_title + '</a>' +
@@ -91,6 +96,14 @@ define([
                                         if (!$scope.mission_count && status == 1) {
                                             widget.msgToast('没有任务,不能上线');
                                             return false;
+                                        }
+                                        if (!$scope.pubtime_at) {
+                                            if (confirm('没有课程任务发布时间,是否跳转到课程编辑界面?')) {
+                                                $scope.cancel();
+                                                $state.go('main.lessons.update', {lesson_id: $scope.lesson_id});
+                                            } else {
+                                                return false;
+                                            }
                                         }
                                         widget.ajaxRequest({
                                             url: '/lessons/' + supscope.data.lesson_id,

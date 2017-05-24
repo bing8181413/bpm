@@ -200,29 +200,42 @@ define([
             }
         }
         // 查询活动ID
+        var search_product_time = 0;
         $scope.search_product_id = function () {
+            search_product_time++;
             if (!$scope.product_id) {
-                widget.msgToast('没有活动ID');
+                if (search_product_time > 1) {
+                    widget.msgToast('没有活动ID');
+                }
                 return false;
             }
             widget.ajaxRequest({
-                url: '/products',
+                url: '/lessons_options',
                 method: 'GET',
-                data: {product_id: $scope.product_id, page: 1, count: 1, sku: '9'},
+                data: {product_id: $scope.product_id},
                 success: function (json) {
-                    if (json.data[0]) {
+                    if (json.data.length > 0) {
                         if ($stateParams.lesson_id) {
-                            angular.forEach(json.data[0].options, function (val, key) {
-                                angular.forEach($scope.param.products, function (v, k) {
-                                    if (val.option_id == v.option_id) {
-                                        val.selected = true;
-                                    }
-                                });
+                            angular.forEach(json.data, function (val, key) {
+                                if (val.lesson_id != 0 && val.lesson_id != $stateParams.lesson_id) {
+                                    val.disabled = true;
+                                    val.selected = true;
+                                } else {
+                                    angular.forEach($scope.param.products, function (v, k) {
+                                        if (val.option_id == v.option_id) {
+                                            val.selected = true;
+                                            val.id = v.id;
+                                        } else {
+                                            val.selected = false;
+                                        }
+                                    });
+                                }
                             });
+
                         }
-                        $scope.products = json.data[0].options;
+                        $scope.products = json.data;
                     } else {
-                        widget.msgToast('未找到活动ID');
+                        widget.msgToast('未找到符合要求的活动');
                     }
                 }
             })
@@ -243,7 +256,7 @@ define([
             //组装 param.options start
             $scope.param.products = [];
             angular.forEach($scope.products, function (val, key) {
-                if (val.selected) {
+                if (val.selected && !val.disabled) {
                     $scope.param.products.push({
                         id: val.id || undefined,
                         product_id: val.product_id,

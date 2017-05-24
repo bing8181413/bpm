@@ -134,12 +134,12 @@
                              source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'},{text:'直接买+人数团',value:'4'}]"
                              source-api=""></div>
                         <!--<div form-table text="活动类目" ng-model="param.options" max="1"-->
-                             <!--ng-show="param.category!=4" required="true"-->
-                             <!--columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},-->
-                             <!--{'name': '类目', 'field': 'option_name',required:'true'},-->
-                             <!--{'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2',required:'true'},-->
-                             <!--{'name': '库存', 'field': 'option_inventory',required:'true'},-->
-                             <!--{'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>-->
+                        <!--ng-show="param.category!=4" required="true"-->
+                        <!--columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},-->
+                        <!--{'name': '类目', 'field': 'option_name',required:'true'},-->
+                        <!--{'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2',required:'true'},-->
+                        <!--{'name': '库存', 'field': 'option_inventory',required:'true'},-->
+                        <!--{'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>-->
                         <div form-table text="直接买活动类目" ng-model="param.options" max="1"
                              ng-show="param.category!=2"
                              columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
@@ -166,11 +166,11 @@
                              required="true"></div>
 
                         <div form-radio text="是否需要配送" ng-model="param.delivery_type" required="true"
-                             ng-change="delivery_type()" ng-disabled="$stateParams.product_id"
+                             ng-disabled="$stateParams.product_id"
                              source="[{text:'物流配送',value:'1'},{text:'无需配送',value:'3'}]"
                              default="3"></div>
-                        <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
-                             ng-show="param.delivery_type!=3" ng-disabled="$stateParams.product_id"></div>
+                        <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="1"
+                             ng-show="param.delivery_type!=3" ng-disabled="true"></div>
                         <div form-radio text="送达时间类型" ng-model="param.arrive_type" default="2"
                              ng-show="param.delivery_type!=3" ng-disabled="$stateParams.product_id"
                              source="[{text:'无需指定',value:'2'},{text:'周六／周一',value:'1'}]" source-api=""></div>
@@ -268,7 +268,7 @@
                         <div form-radio text="显示用户购买记录" ng-model="param.show_user_list" default="2"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
                         <!--<div form-radio text="绑定手机号" ng-model="param.enable_bind_mobile" default="1"-->
-                             <!--source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>-->
+                        <!--source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>-->
                         <div form-input text="排序" ng-model="param.order_by" type="number" min="0"></div>
                         <div form-textarea text="管理备注" ng-model="param.admin_remark"></div>
                     </div>
