@@ -67,6 +67,8 @@ define([
 
         $scope.$watch('param.delivery_type', function (val) {
             if (!!val && val == '3') {
+                $scope.param.frequency_num = 0;
+            } else if (!!val && val == '1') {
                 $scope.param.frequency_num = 1;
             }
         });

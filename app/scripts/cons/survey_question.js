@@ -22,6 +22,7 @@ define([], function () {
                 {
                     name: '操作',
                     fieldDirective: '<div survey-question-edit data="item" ></div>' +
+                    '<div survey-question-copy data="item" ></div>' +
                     '<div survey-question-del data="item" ></div>' +
                     '<div survey-question-change-status data="item" ></div>'
                 },
@@ -40,7 +41,7 @@ define([], function () {
                         '</select>'
                     },
                     {
-                        value: 'status', text: '状态', type: 'btnGroup', default: '1', width: '6',
+                        value: 'status', text: '状态', type: 'btnGroup', default: '', width: '6',
                         enum: [
                             {value: '', text: '全部'},
                             {value: '1', text: '正在进行'},
@@ -68,7 +69,7 @@ define([], function () {
                 preSelectionSearch: {
                     age_min: '',
                     age_max: '',
-                    status: '1',
+                    status: '',
                     category_type: '2'
                 },
                 paginationSupport: true,

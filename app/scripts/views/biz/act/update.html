@@ -165,14 +165,14 @@
                              source="[{text:'仅会员',value:'1'},{text:'不限制',value:'2'}]"
                              required="true"></div>
 
-                        <div form-radio text="是否需要配送" ng-model="param.delivery_type" required="true"
+                        <div form-radio text="是否需填收货地址" ng-model="param.delivery_type" required="true"
                              ng-disabled="$stateParams.product_id"
-                             source="[{text:'物流配送',value:'1'},{text:'无需配送',value:'3'}]"
+                             source="[{text:'需要',value:'1'},{text:'不需要',value:'3'}]"
                              default="3"></div>
                         <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="1"
-                             ng-show="param.delivery_type!=3" ng-disabled="true"></div>
+                             ng-show="false" ng-disabled="true"></div>
                         <div form-radio text="送达时间类型" ng-model="param.arrive_type" default="2"
-                             ng-show="param.delivery_type!=3" ng-disabled="$stateParams.product_id"
+                             ng-show="false" ng-disabled="$stateParams.product_id"
                              source="[{text:'无需指定',value:'2'},{text:'周六／周一',value:'1'}]" source-api=""></div>
                         <div form-radio text="是否支持陌生人拼团" type="radio" ng-model="param.group_strange" required="true"
                              default="2" source="[{text:'是',value:'2'},{text:'否',value:'1'}]"

@@ -18,12 +18,16 @@ define([
                 scope: $scope,
                 data: {},
                 success: function (json) {
+                    if ($state.current.name.indexOf('survey_question.add') > -1) {
+                        delete json.data.id;
+                    }
                     $scope.param = angular.copy(json.data);
                     $scope.image = $scope.param.image ? [{pic_url: $scope.param.image}] : [];
                     if ($scope.param.option_type == 3) {
                         $scope.option_type3_options = angular.copy($scope.param.options);
-                        console.log(JSON.stringify($scope.option_type3_options));
+                        // console.log(JSON.stringify($scope.option_type3_options));
                     }
+                    console.log($scope.param);
                 }
             })
         }
@@ -138,13 +142,13 @@ define([
 
                 })
             }
-            console.log($scope.param);
+            // console.log($scope.param);
             // return false;
 
             // 题型判定 正确选项判定 end
             widget.ajaxRequest({
-                url: '/surveys/questions' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
-                method: $stateParams.id ? 'PUT' : 'POST',
+                url: '/surveys/questions' + ($scope.param.id ? ('/' + $scope.param.id) : ''),
+                method: $scope.param.id ? 'PUT' : 'POST',
                 scope: $scope,
                 data: $scope.param,
                 success: function (json) {
