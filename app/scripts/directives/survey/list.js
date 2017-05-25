@@ -281,6 +281,25 @@ define([
                 }
             }
         })
+        .directive('surveyQuestionCopy', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                    attachment: '='
+                },
+                template: '<p class="survey-question-edit"></p>',
+                link: function ($scope, $element, $attrs) {
+                    var content = '';
+                    var serf = ($scope.attachment == 1) ? 'survey_question_attachment' : 'survey_question';
+                    content = '<a class="btn btn-success btn-rounded btn-sm" ui-sref="main.survey_question.add({id:' + $scope.data.id + '})">复制</a>';
+                    $element.find('.survey-question-edit').html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
         .directive('surveyQuestionDel', function ($templateCache, $filter, $compile, widget, $rootScope) {
             return {
                 multiElement: true,

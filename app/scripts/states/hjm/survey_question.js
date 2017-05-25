@@ -29,7 +29,7 @@ define([
                             }
                         })
                         .state(cons.state.main + '.survey_question.add', {
-                            url: "/add.html",
+                            url: "/add.html/:id",
                             views: {
                                 "": {
                                     controller: 'surveyQuestion.updateController',

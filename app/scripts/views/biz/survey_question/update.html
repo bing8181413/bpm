@@ -1,14 +1,14 @@
 <div class="dashboard-page ">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.product_id">新增题库</h3>
-            <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.product_id">修改题库</h3>
-            <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.product_id">题库详情</h3>
+            <h3 class="panel-title inlineBlock" ng-if="!param.id">新增题库</h3>
+            <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="param.id">修改题库</h3>
+            <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="param.id">题库详情</h3>
         </div>
         <div class="panel-body">
             <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
             <form class="form-horizontal" name="FormBody" novalidate
-                  disabled-role="{{$stateParams.product_id?'admin,op':''}}">
+                  disabled-role="{{param.id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div form-radio text="是否为必答题" type="radio" ng-model="param.required" required="true"
@@ -35,7 +35,7 @@
                              source="$root.survey_question_category_list_general" source-api=""></div>
 
                         <div form-textarea text="题目" ng-model="param.title" placeholder="文字描述"
-                             ng-disabled="$stateParams.product_id" required="true"></div>
+                             ng-disabled="param.id" required="true"></div>
 
                         <div form-image text="题图" ng-model="image" max="1" hide-bar="[1,1,1,1]"></div>
                         <div form-table text="普通题选项" ng-model="param.options" ng-if="param.option_type==1"
@@ -91,7 +91,7 @@
                     </div>
                 </div>
                 <div form-error-block></div>
-                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
+                <a class="btn btn-success btn-rounded" show-role="'{{param.id?'admin,op':''}}'"
                    ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
             </form>
         </div>
