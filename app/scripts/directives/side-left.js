@@ -16,6 +16,11 @@ define([
                     // console.log($rootScope.hjm.menus);
                     $rootScope.current_state = $state.current.name;
                     $scope.menus = ($rootScope.hjm || {}).menus;
+
+                    $rootScope.$watch('hjm.menus', function (val) {
+                        $scope.menus = ($rootScope.hjm || {}).menus;
+                    }, true);
+
                     $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {
                         if ($rootScope.hjm && $rootScope.hjm.menus) {
                             angular.forEach($rootScope.hjm.menus, function (menuval, key) {

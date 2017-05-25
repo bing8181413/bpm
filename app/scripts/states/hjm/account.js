@@ -42,7 +42,7 @@ define([
                             }
                         })
                         .state(cons.state.main + '.account.menus', {
-                            url: "/menu.html",
+                            url: "/menus.html",
                             views: {
                                 "": {
                                     controller: 'menusController',

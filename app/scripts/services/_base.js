@@ -37,8 +37,8 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
             };
             return bpmHttpInterceptor;
         }])
-        .run(['$rootScope', '$state', '$stateParams', '$http', '$uibModal', '$location', 'widget', '$document',
-            function ($rootScope, $state, $stateParams, $http, $uibModal, $location, widget, $document) {
+        .run(['$rootScope', '$state', '$stateParams', '$http', '$uibModal', '$location', 'widget', '$document', 'base64',
+            function ($rootScope, $state, $stateParams, $http, $uibModal, $location, widget, $document, base64) {
                 var arr = [];
                 $document.bind("keydown", function (event) {
 
@@ -123,6 +123,25 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                     $rootScope.current_city_name = $rootScope.hjm.current_city_name == '' ? '' : $rootScope.hjm.current_city_name;
                     $http.defaults.headers.common.Authorization = $rootScope.hjm.Authorization || '';
                 }
+                $rootScope.update_menus = function () {
+                    if (localStorage.getItem('login_account')) {
+                        var login_account = JSON.parse(base64.decode(localStorage.getItem('login_account')));
+                        widget.ajaxRequest({
+                            method: 'POST',
+                            url: '/account/menus',
+                            scope: {$rootScope},
+                            data: {username: login_account.username, password: login_account.password},
+                            success: function (json) {
+                                if ($rootScope.hjm) {
+                                    $rootScope.hjm.menus = json.data;
+                                }
+                            },
+                            failure: function (err) {
+                                // widget.msgToast(err.message);
+                            }
+                        });
+                    }
+                }
                 $rootScope.getaccount_times = 0;
                 // 获取account_list
                 $rootScope.account_list = [];
@@ -131,6 +150,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                     $rootScope.account_list = [];
                     $rootScope.account_list_bd_op = [];
                     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
+                        $rootScope.update_menus();
                         widget.ajaxRequest({
                             url: cons.api.account_mans,
                             method: 'GET',

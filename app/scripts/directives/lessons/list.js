@@ -101,6 +101,7 @@ define([
                                             if (confirm('没有课程任务发布时间,是否跳转到课程编辑界面?')) {
                                                 $scope.cancel();
                                                 $state.go('main.lessons.update', {lesson_id: $scope.lesson_id});
+                                                return false;
                                             } else {
                                                 return false;
                                             }

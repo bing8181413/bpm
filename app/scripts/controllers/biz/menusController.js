@@ -20,6 +20,7 @@ define([
                 data: {},
                 success: function (json) {
                     $scope.menus = json.data;
+                    $rootScope.update_menus();//  获取最新的菜单
                     $scope.param = [];
                     $scope.param.push(
                         {key: 'id', val: '', name: 'id', isprimary: true},

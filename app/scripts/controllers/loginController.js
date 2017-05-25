@@ -93,7 +93,9 @@ define([
                     $rootScope.login_init();//登陆是更新或者添加必要的初始化数据
                     $rootScope.login_account = {
                         uname: $scope.uname,
-                        pwd: $scope.pwd
+                        pwd: $scope.pwd,
+                        username: json.username,
+                        password: json.password
                     }
                     localStorage.setItem('login_account', base64.encode(JSON.stringify($rootScope.login_account)));
                     localStorage.setItem('hjm', JSON.stringify($rootScope.hjm));
