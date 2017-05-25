@@ -359,12 +359,14 @@ define([
                         class_text = 'ng-class={\"btn-warning\":true} ';
                         click_text = 'ng-click="change(2);"';
                         $scope.show_text = true;
-                    } else if ($scope.data.status == 2 || $scope.data.status == 3 || $scope.data.status == 4) {
+                    } else if ($scope.data.status == 2 || $scope.data.status == 4) {
                         status_title = '上线';
                         status_text = 'ng-bind="\'上线\'"';
                         class_text = 'ng-class={\"btn-primary\":true} ';
                         click_text = 'ng-click="change(1);"';
                         $scope.show_text = true;
+                    } else if ($scope.data.status == 3) {
+                        $scope.show_text = false;
                     }
                     $scope.change = function (status) {
                         var supscope = $scope;

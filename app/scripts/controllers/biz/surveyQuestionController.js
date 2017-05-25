@@ -18,8 +18,18 @@ define([
                 scope: $scope,
                 data: {},
                 success: function (json) {
-                    if ($state.current.name.indexOf('survey_question.add') > -1) {
+                    if ($state.current.name.indexOf('survey_question.add') > -1) { // 复制用的
                         delete json.data.id;
+                        delete json.data.status;
+                        delete json.data.created_at;
+                        delete json.data.updated_at;
+                        angular.forEach(json.data.options, function (val, key) {
+                            delete val.id;
+                            delete val.question_id;
+                            delete val.status;
+                            delete val.created_at;
+                            delete val.updated_at;
+                        });
                     }
                     $scope.param = angular.copy(json.data);
                     $scope.image = $scope.param.image ? [{pic_url: $scope.param.image}] : [];

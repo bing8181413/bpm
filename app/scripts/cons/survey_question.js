@@ -4,7 +4,8 @@ define([], function () {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-center'},
                 {name: '维度类别', fieldDirective: '<div survey-question-category data="item"></div>'},
-                {name: '选项带分', field: 'need_score', filter: 'yes1no2'},
+                // {name: '选项带分', field: 'need_score', filter: 'yes1no2'},
+                {name: '选项带分', field: 'option_type', filter: 'question_option_type'},
                 {name: '是否必答', field: 'required', filter: 'yes1no2'},
                 {name: '题型', field: 'type', filter: 'survey_question_type'},
                 {

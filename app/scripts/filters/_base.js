@@ -643,6 +643,25 @@ define([
                 return result;
             }
         }])
+        //  option_type  题库的类型，1 普通题，2 选项计分题 3 选项汇总题
+        .filter('question_option_type', [function () {
+            return function (val) {
+                var result = val;
+                val += '';
+                switch (val) {
+                    case "1":
+                        result = "普通题";
+                        break;
+                    case "2":
+                        result = "选项计分题";
+                        break;
+                    case "3":
+                        result = "选项汇总题";
+                        break;
+                }
+                return result;
+            }
+        }])
         //  survey_plan_type  题库的类型，1 单选，2 多选
         .filter('survey_plan_type', [function () {
             return function (val) {
