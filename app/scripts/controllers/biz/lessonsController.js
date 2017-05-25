@@ -225,13 +225,10 @@ define([
                                         if (val.option_id == v.option_id) {
                                             val.selected = true;
                                             val.id = v.id;
-                                        } else {
-                                            val.selected = false;
                                         }
                                     });
                                 }
                             });
-
                         }
                         $scope.products = json.data;
                     } else {
@@ -272,7 +269,7 @@ define([
                 return false;
             }
             angular.forEach($scope.param.schedules, function (val, key) {
-                if (!val.week || !val.hour || !val.minute) {
+                if (!val.week && val.week !== 0 || !val.hour && val.hour !== 0 || !val.minute && val.minute !== 0) {
                     widget.msgToast('每周任务发布时间的第' + (key + 1) + '行没有完成添加,赶紧添加一下吧。');
                     err_schedules = true;
                 }
