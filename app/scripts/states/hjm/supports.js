@@ -31,6 +31,13 @@ define([
                                 return $templateCache.get('app/' + cons.biz_path + 'support/opencities.html');
                             }
                         })
+                        .state(cons.state.main + '.support.version', {
+                            url: "/version.html",
+                            controller: 'supports.versionController',
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.biz_path + 'support/version.html');
+                            }
+                        })
                 }
             ])
         ;

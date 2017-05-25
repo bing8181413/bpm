@@ -169,7 +169,7 @@
                              ng-disabled="$stateParams.product_id"
                              source="[{text:'需要',value:'1'},{text:'不需要',value:'3'}]"
                              default="3"></div>
-                        <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="1"
+                        <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
                              ng-show="false" ng-disabled="true"></div>
                         <div form-radio text="送达时间类型" ng-model="param.arrive_type" default="2"
                              ng-show="false" ng-disabled="$stateParams.product_id"

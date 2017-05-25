@@ -37,7 +37,7 @@ define([
                         $scope.option_type3_options = angular.copy($scope.param.options);
                         // console.log(JSON.stringify($scope.option_type3_options));
                     }
-                    console.log($scope.param);
+                    // console.log($scope.param);
                 }
             })
         }

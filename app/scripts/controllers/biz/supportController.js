@@ -4,8 +4,41 @@ define([
     , '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod.controller('supports.opencitiesController', opencitiesController);
+    mod.controller('supports.versionController', versionController);
 
     opencitiesController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    versionController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    function versionController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
+        $scope.init = function () {
+            widget.ajaxRequest({
+                url: '/supports/version',
+                method: 'post',
+                scope: $scope,
+                data: {city_name: $scope.param.city_name},
+                success: function (json) {
+                    $scope.param = angular.copy(json.data);
+                }
+            })
+        }
+        $scope.init();
+
+        $scope.submit = function () {
+            if (!$scope.param.city_name) {
+                widget.msgToast('未输入城市');
+                return false;
+            }
+            widget.ajaxRequest({
+                url: '/supports/version',
+                method: 'post',
+                scope: $scope,
+                data: {city_name: $scope.param.city_name},
+                success: function (json) {
+                    widget.msgToast('提交成功');
+                    $state.go(simpleCons.state.main + '.support.opencities');
+                }
+            })
+        }
+    };
     function opencitiesController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
         $scope.param = {city_name: null};
         $scope.conDomain = simpleCons.domain;
