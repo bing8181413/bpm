@@ -12,29 +12,29 @@ define([
         $scope.init = function () {
             widget.ajaxRequest({
                 url: '/supports/version',
-                method: 'post',
+                method: 'get',
                 scope: $scope,
-                data: {city_name: $scope.param.city_name},
+                data: {},
                 success: function (json) {
-                    $scope.param = angular.copy(json.data);
+                    $scope.version = json.data.version;
+                    $scope.param = {version: null};
                 }
             })
         }
         $scope.init();
-
         $scope.submit = function () {
-            if (!$scope.param.city_name) {
-                widget.msgToast('未输入城市');
+            if (!$scope.param || !$scope.param.version) {
+                widget.msgToast('未输入新版本的日期');
                 return false;
             }
             widget.ajaxRequest({
                 url: '/supports/version',
-                method: 'post',
+                method: 'put',
                 scope: $scope,
-                data: {city_name: $scope.param.city_name},
+                data: {version: $scope.param.version},
                 success: function (json) {
-                    widget.msgToast('提交成功');
-                    $state.go(simpleCons.state.main + '.support.opencities');
+                    widget.msgToast('更新成功');
+                    $scope.init();
                 }
             })
         }

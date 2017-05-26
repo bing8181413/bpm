@@ -16,8 +16,10 @@ define([], function () {
                 title: '学生列表',
                 api: '/students',
                 rowItemName: 'item',
-                searchSupport: false,
-                searchItems: [],
+                searchSupport: true,
+                searchItems: [
+                    {value: 'keyword', text: '昵称', placeholder: '昵称', default: ''},
+                ],
                 preSelectionSearch: {},
                 paginationSupport: true,
                 pageInfo: {
@@ -34,7 +36,10 @@ define([], function () {
                 {name: '课程名称', field: 'lesson.name'},
                 {name: '已下发任务', field: 'current_mission'},
                 {name: '总课时', field: 'lesson.mission_num'},
-                {name: '第一次收到任务时间', field: 'current_mission_at|null2empty'},
+                {
+                    name: '第一次收到任务时间',
+                    fieldDirective: '<span ng-show="item.plans.length>0" bo-text="item.plans[0].created_at"></span>'
+                },
                 {name: '购买课程时间', field: 'created_at|null2empty'},
                 {
                     name: '操作',

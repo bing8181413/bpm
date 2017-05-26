@@ -25,8 +25,10 @@ define([], function () {
                 title: '作业列表',
                 api: '/planworks',
                 rowItemName: 'item',
-                searchSupport: false,
-                searchItems: [],
+                searchSupport: true,
+                searchItems: [
+                    {value: 'keyword', text: '昵称', placeholder: '昵称', default: ''},
+                ],
                 preSelectionSearch: {
                     // status: '1',
                 },

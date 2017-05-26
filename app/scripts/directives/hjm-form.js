@@ -685,16 +685,6 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-                    // $scope.$watch($scope.ngModelText, function (modelNew) {
-                    //     $scope.ngModel = modelNew;
-                    // });
-                    // $scope.$watch('ngModel', function (val) {
-                    //     if (val) {
-                    //         $scope.$eval($scope.ngModelText + '="' + val + '"');
-                    //     } else {
-                    //         $scope.$eval($scope.ngModelText + '=' + undefined + '');
-                    //     }
-                    // });
                 }
             }
         })

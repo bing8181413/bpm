@@ -16,7 +16,7 @@ define([], function () {
                 },
             ],
             config: {
-                title: '课程列表',
+                title: '教师列表',
                 api: '/teachers',
                 rowItemName: 'item',
                 searchSupport: false,

@@ -1,5 +1,14 @@
 define([], function () {
     var rtn = {
+        act_checkbox_week: [
+            {text: '周一', value: '0'},
+            {text: '周二', value: '1'},
+            {text: '周三', value: '2'},
+            {text: '周四', value: '3'},
+            {text: '周五', value: '4'},
+            {text: '周六', value: '5'},
+            {text: '周日', value: '6'},
+        ],
         week: [
             {text: '选择', value: undefined},
             {text: '周日', value: '1'},

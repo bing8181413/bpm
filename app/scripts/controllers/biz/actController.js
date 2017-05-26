@@ -39,6 +39,11 @@ define([
                     } else {
                         $scope.showTime = false;
                     }
+
+                    if ($scope.param.act_week) {
+                        $scope.act_week = $scope.param.act_week.split(',');
+                    }
+
                 }
             })
         }
@@ -98,10 +103,22 @@ define([
             }
         }, true);
 
+        $scope.$watch('param.act_time_type', function (val) {
+            if (!!val && val == '1') {
+                $scope.act_week = [];
+            } else if (!!val && val == '2') {
+            }
+        });
+        $scope.$watch('act_week', function (val) {
+            if (val) {
+                $scope.param.act_week = val.join(',');
+            }
+        });
+
         $scope.submit = function (status) {
             var supscope = $scope;
             $scope.goon = true;
-            console.log($scope.is_default_category, $scope.param.category);
+            // console.log($scope.is_default_category, $scope.param.category);
 
             $scope.param.enable_bind_mobile = 1; // 强制绑定手机号码
             // console.log($scope.param.contents);

@@ -29,7 +29,7 @@
         </div>
         <div class="panel-body">
             <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
-            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [1,1,1,1,1,1]"
+            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [0,0,1,1,1,1]"
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
@@ -188,6 +188,16 @@
                              ng-show="param.category!=3"></div>
                         <div form-textarea text="玩法说明内容" ng-model="param.play_introduction"
                              placeholder="玩法说明内容" ng-show="param.category!=3"></div>
+
+                        <!--<div form-radio text="是否需填写Email" type="radio" ng-model="param.show_email" required="true"-->
+                             <!--default="2" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>-->
+
+                        <!--<div form-radio text="活动时间类型" type="radio" ng-model="param.act_time_type" required="true"-->
+                             <!--default="2" source="[{text:'每天连续',value:'1'},{text:'每周固定天数',value:'2'}]"-->
+                             <!--source-api=""></div>-->
+
+                        <!--<div form-checkbox text="选择每周时间" ng-model="act_week" ng-show="param.act_time_type == 2"-->
+                             <!--source="$root.common.act_checkbox_week" source-api=""></div>-->
                     </div>
                 </div>
                 <div class="panel panel-primary">
