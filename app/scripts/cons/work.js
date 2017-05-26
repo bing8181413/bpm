@@ -27,6 +27,8 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
+                    {value: 'date_min', text: '交作业时间-开始', type: 'datetime'},
+                    {value: 'date_max', text: '结束', type: 'datetime'},
                     {value: 'keyword', text: '昵称', placeholder: '昵称', default: ''},
                 ],
                 preSelectionSearch: {
