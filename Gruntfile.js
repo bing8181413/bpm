@@ -143,10 +143,13 @@ module.exports = function (grunt) {
                 options: {
                     patterns: [
                         {
-                            match: 'timestamp',
+                            match: /timestamp/g,
+                            // match: 'timestamp',
                             // replacement: new Date().getTime()
                             replacement: function () {
-                                var bar = new Date().getTime();
+                                var now_time = new Date();
+                                var bar = (now_time.getFullYear() + '-' + (now_time.getMonth() + 1) + '-' + now_time.getDate() + ' ' + now_time.getHours() + ':' + now_time.getMinutes() + ':00')
+                                    .replace(/([\-\: ])(\d{1})(?!\d)/g, '$10$2');
                                 console.log('当前版本时间戳: ' + bar);
                                 return bar; // replaces "foo" to "bar"
                             }

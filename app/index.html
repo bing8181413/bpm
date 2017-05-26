@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="favicon1.ico" type="image/x-icon"/>
     <!--<link href="styles/bootstrap/bootstrap.min.css" rel="stylesheet">-->
     <link rel="stylesheet" href="styles/animate/animate.min.css"/>
-    <link rel="stylesheet" href="styles/bootstrap/index.css?v=@@timestamp">
+    <link rel="stylesheet" href="styles/bootstrap/index.css?v=timestamp">
     <link rel="stylesheet" href="styles/bootstrap/vendor.css">
     <link rel="stylesheet" href="vendor/angular-progress-button/dist/progress-button.min.css">
     <link rel="stylesheet" href="vendor/angucomplete-alt/angucomplete-alt.css">
@@ -31,9 +31,10 @@
 <div ui-view></div>
 </div>
 <script src="scripts/require.js" data-main="scripts/main.js"></script>
-<script src="scripts/main.min.js?v=@@timestamp"></script>
+<script src="scripts/main.min.js?v=timestamp"></script>
 <script>
     require(['./bootstrap']);
+    var version = 'timestamp';
 </script>
 
 <!--loading gif http-->

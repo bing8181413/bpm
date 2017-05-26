@@ -34,9 +34,10 @@
                         <div form-select text="维度" ng-model="param.category_id" required="true"
                              source="$root.survey_question_category_list_general" source-api=""></div>
 
-                        <div form-textarea text="题目" ng-model="param.title" placeholder="文字描述"
-                             ng-disabled="param.id" required="true"></div>
+                        <h3 class="text-danger col-sm-offset-2">题目,题图必须有其一才能提交</h3>
 
+                        <div form-textarea text="题目" ng-model="param.title" placeholder="文字描述"
+                             ng-disabled="param.id"></div>
                         <div form-image text="题图" ng-model="image" max="1" hide-bar="[1,1,1,1]"></div>
                         <div form-table text="普通题选项" ng-model="param.options" ng-if="param.option_type==1"
                              columns="[{'name': 'ID', 'field': 'id',hide:'true'},

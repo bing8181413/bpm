@@ -105,6 +105,12 @@ define([
             // console.log($scope.param.contents);
             if ($scope.image && $scope.image.length == 1) {
                 $scope.param.image = $scope.image[0].pic_url;
+            } else {
+                $scope.param.image = '';
+            }
+            if (!$scope.param.title && !$scope.param.image) {
+                widget.msgToast('题目,题图必须有其一才能提交');
+                return false;
             }
             // 查询课程维度 和 非默认草稿装填
             if (survey_question_attachment && !$stateParams.id) {
