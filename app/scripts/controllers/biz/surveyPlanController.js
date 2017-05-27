@@ -107,7 +107,7 @@ define([
                 success: function (json) {
                     if (json.data[0]) {
                         $scope.product_id = json.data[0].product_id;
-                        $scope.product_title = json.data[0].title;
+                        $scope.product_title = json.data[0].title||'无题目描述';
                     } else {
                         widget.msgToast('未找到测评的活动ID');
                     }
@@ -132,7 +132,7 @@ define([
                 },
                 success: function (json) {
                     if (json.data[0]) {
-                        $scope.question_title = json.data[0].title;
+                        $scope.question_title = json.data[0].title||'无题目描述';
                     } else {
                         $scope.question_title = '';
                         widget.msgToast('未查询到问题ID,点击取消');
