@@ -424,7 +424,7 @@ define([
                 scope: {
                     ngModel: '=ngModel',
                     ngModelTxt: '@ngModel',
-                    showtip: '=showtip',
+                    showtip: '@',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_date_time.html'),
                 link: function ($scope, $element, $attrs) {

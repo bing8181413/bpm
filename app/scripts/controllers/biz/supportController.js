@@ -17,7 +17,7 @@ define([
                 data: {},
                 success: function (json) {
                     $scope.version = json.data.version;
-                    $scope.param = {version: null};
+                    $scope.param = {version: new Date()};
                 }
             })
         }

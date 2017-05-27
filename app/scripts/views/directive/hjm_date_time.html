@@ -15,7 +15,8 @@
              mousewheel="false" readonly-input="disabled" arrowkeys="true" style="margin-left: 3px;float: left;"
              ng-change="changed();">
         </div>
-        <p class="bg-info text-center" ng-if="showtip">上下方向键调时间</p>
+        <p class="bg-info text-center " ng-if="showtip" ng-bind="(showtip=='')?'上下方向键调时间':showtip"
+           style="float: left;width: 200px;margin-left: 10px;line-height: 34px;"></p>
     </div>
     <!--<div class="col-md-6 pull-left">-->
     <!--</div>-->
