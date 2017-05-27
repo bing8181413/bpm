@@ -385,6 +385,7 @@ define([
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                             controller: function ($scope, $uibModalInstance) {
                                 $scope.title = '修改订单备注';
+                                $scope.remark = supscope.data && supscope.data.remark || '';
                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea="" text="订单备注" ng-model="remark" required="true"></div>' +
                                     '<a class="btn btn-primary btn-rounded pull-right" ng-click="change_remark()">确定</a>' +

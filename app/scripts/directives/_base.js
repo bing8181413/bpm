@@ -846,17 +846,17 @@ define([
                     }
                     $scope.addAddress = function () {
                         if ($scope.addresses && $scope.addresses.length > 0) {
-                            $scope.addresses.push({city_name: '上海'});
+                            $scope.addresses.push({});
                         } else {
-                            $scope.addresses = [{city_name: '上海'}];
+                            $scope.addresses = [{}];
                         }
                     }
                     //  获取地理位置信息 传入地址
                     $scope.getlocation = function (index) {
-                        if (angular.isUndefined($scope.addresses[index].city_name)) {
-                            widget.msgToast('没有城市');
-                            return false;
-                        }
+                        // if (angular.isUndefined($scope.addresses[index].city_name)) {
+                        //     widget.msgToast('没有城市');
+                        //     return false;
+                        // }
                         if (angular.isUndefined($scope.addresses[index].detail_address)) {
                             widget.msgToast('没有地址');
                             return false;
@@ -865,18 +865,32 @@ define([
                         // $scope.mapData = {
                         $scope.mapData.lng = $scope.addresses[index].longitude;
                         $scope.mapData.lat = $scope.addresses[index].latitude;
-                        $scope.mapData.city = $scope.addresses[index].city_name;
                         $scope.mapData.address = $scope.addresses[index].detail_address;
-                        $scope.mapData.district = $scope.addresses[index].district;
-                        $scope.mapData.timeStamp = new Date().getTime(); //  作为监听事件的出发使用  必传项
+
+                        $scope.mapData.timeStamp = new Date().getTime(); //  作为监听事件的触发 使用  必传项
                         $scope.mapData.index = index;//  为了 callback 找到 是第几个地址
+
+                        $scope.mapData.city = $scope.addresses[index].city_name;
+                        $scope.mapData.district = $scope.addresses[index].district;
+
+                        if ($scope.mapData.city.indexOf('上海') == -1) {
+                            $scope.mapData.city = '';
+                            $scope.mapData.district = '';
+                        }
                         // };
                     }
                     $scope.callback = function () {
                         if ($scope.mapData.index || $scope.mapData.index == 0) {
                             $scope.addresses[$scope.mapData.index].longitude = $scope.mapData.lng;
                             $scope.addresses[$scope.mapData.index].latitude = $scope.mapData.lat;
+
                             $scope.addresses[$scope.mapData.index].district = $scope.mapData.district;
+                            $scope.addresses[$scope.mapData.index].city_name = $scope.mapData.city;
+                            if ($scope.mapData.city.indexOf('上海') == -1) {
+                                $scope.addresses[$scope.mapData.index].district = '';
+                                $scope.addresses[$scope.mapData.index].city_name = '';
+                            }
+                            // console.log($scope.mapData);
                         }
                     }
                 }

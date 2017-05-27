@@ -16,6 +16,7 @@ define([
                     name: '@',
                     required: '@',
                     max: '@',
+                    token: '@',
                     callback: '&',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
@@ -23,13 +24,14 @@ define([
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
+                    var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="activity"');
                     $timeout(function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">' +
                             // '<content_or_img ng-model="ngModel"' + name + required + disabledRole + '></content_or_img>' +
-                            '<img-or-rich-text ng-model="ngModel"' + name + required + disabledRole + '></img-or-rich-text>' +
+                            '<img-or-rich-text ng-model="ngModel"' + name + required + disabledRole + token + '></img-or-rich-text>' +
                             // '<content_or_img ng-model="' + $scope.ngModelText + '"' + name + required + disabledRole + '></content_or_img>' +
                             '</div>';
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
@@ -50,6 +52,7 @@ define([
                 // require: '^?showTextarea',
                 scope: {
                     ngModel: '=',
+                    token: '@',
                 },
                 template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm_img_text.html'),
                 link: function ($scope, $element, $attrs) {
@@ -57,6 +60,7 @@ define([
                     $timeout(function () {
                         $scope.disabled = ($attrs.disabled ? true : false);
                         $scope.disabledRole = $attrs.disabledRole || '';
+                        var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="activity"');
                         // console.log($element, $attrs, $scope.disabled);
                         var conent_tmp = '<div class="form-group " ng-repeat="item in list">' +
                             '<div class="col-sm-12" ng-class="{contents:onlyContent!=1}">' +
@@ -88,7 +92,7 @@ define([
                             '<div form-radio name="{{\'pic_padding\'+$index}}" text="图片间距" ng-model="item.pic_padding" default="0"' +
                             ' style="border-top: 1px solid #ccc;" ' +
                             'source="[{text:\'无\',value:0},{text:\'有\',value:20}]" source-api=""></div>' +
-                            '<hjm-upload-source sources="item.sources" token="activity" type="1" disabled-role="' + $scope.disabledRole + '"></hjm-upload-source>' +
+                            '<hjm-upload-source sources="item.sources" ' + token + ' type="1" disabled-role="' + $scope.disabledRole + '"></hjm-upload-source>' +
                             '</div>' +
                             '</div>' +
                             '</div>';

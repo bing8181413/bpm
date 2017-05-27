@@ -29,7 +29,7 @@
         </div>
         <div class="panel-body">
             <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
-            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [0,0,1,1,1,1]"
+            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [1,1,1,1,1,1]"
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
@@ -87,7 +87,12 @@
                         <div form-input text="最大年龄" ng-model="param.act_max_age" type="number" min="0"></div>
                         <div form-date-time text="上架时间" ng-model="param.start_time" required="true"></div>
                         <div form-date-time text="下架时间" ng-model="param.end_time" required="true"></div>
+
                         <hr>
+                        <div form-radio text="活动时间类型" type="radio" ng-model="param.act_time_type" required="true"
+                             default="2" source="[{text:'每天连续',value:'1'},{text:'每周固定天数',value:'2'}]"
+                             source-api=""></div>
+
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="col-sm-2">
@@ -96,14 +101,19 @@
                                 </div>
                             </div>
                         </div>
+
                         <div form-date ng-show="showTime" text="活动开始时间" ng-model="param.act_start_time"
                              required="true"></div>
                         <div form-date ng-show="showTime" text="活动结束时间" ng-model="param.act_end_time"
                              required="true"></div>
+
                         <div form-date-time ng-show="!showTime" text="活动开始时间" ng-model="param.act_start_time"
                              required="true"></div>
                         <div form-date-time ng-show="!showTime" text="活动结束时间" ng-model="param.act_end_time"
                              required="true"></div>
+                        <div form-checkbox text="选择每周时间" ng-model="act_week" ng-show="param.act_time_type == 2"
+                             source="$root.common.act_checkbox_week" source-api=""></div>
+                        <hr>
                         <div form-date-time text="报名开始时间" ng-model="param.act_apply_start_time" required="true"></div>
                         <div form-date-time text="报名截止时间" ng-model="param.act_apply_end_time" required="true"></div>
                         <div form-image text="运营大图" ng-model="param.pics" max="100"></div>
@@ -190,15 +200,8 @@
                              placeholder="玩法说明内容" ng-show="param.category!=3"></div>
 
 
-                        <!--<div form-radio text="是否需填写Email" type="radio" ng-model="param.show_email" required="true"-->
-                             <!--default="2" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>-->
-
-                        <!--<div form-radio text="活动时间类型" type="radio" ng-model="param.act_time_type" required="true"-->
-                             <!--default="2" source="[{text:'每天连续',value:'1'},{text:'每周固定天数',value:'2'}]"-->
-                             <!--source-api=""></div>-->
-
-                        <!--<div form-checkbox text="选择每周时间" ng-model="act_week" ng-show="param.act_time_type == 2"-->
-                             <!--source="$root.common.act_checkbox_week" source-api=""></div>-->
+                        <div form-radio text="是否需填写Email" type="radio" ng-model="param.show_email" required="true"
+                             default="2" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
 
                     </div>
                 </div>

@@ -697,5 +697,21 @@ define([
                 return result;
             }
         }])
+        //  act_time_type  任务类型，1 上线，2 下线 3:草稿
+        .filter('act_time_type', [function () {
+            return function (val) {
+                var result = val;
+                val += '';
+                switch (val) {
+                    case "1":
+                        result = "每天连续";
+                        break;
+                    case "2":
+                        result = "每周固定天数";
+                        break;
+                }
+                return result;
+            }
+        }])
     ;
 });

@@ -36,11 +36,13 @@
                         <div form-input text="知识点标题" ng-model="param.title" placeholder="知识点标题" required="true"
                              minlength="1" maxlength="25"></div>
 
-                        <div form-sources text="音频文件" ng-model="param.audios" max="100" type="3"></div>
+                        <div form-sources text="音频文件" ng-model="param.audios" max="100" type="3"
+                             token="taskstudy"></div>
 
-                        <div form-sources text="视频文件" ng-model="param.videos" max="100" type="2"></div>
+                        <div form-sources text="视频文件" ng-model="param.videos" max="100" type="2"
+                             token="taskstudy"></div>
 
-                        <div form-image-text text="图文详情" ng-model="param.imagetexts"></div>
+                        <div form-image-text text="图文详情" ng-model="param.imagetexts" token="taskstudy"></div>
                     </div>
                 </div>
                 <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.mission_id?'admin,op':''}}'"

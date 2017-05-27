@@ -267,7 +267,7 @@ define([
                         angular.forEach($scope.source, function (val, key) {
                             content += '<label class="checkbox-inline checkbox1"><input ' + type + disabledRole + name +
                                 ' ng-checked="isChecked(\'' + val.value + '\')"' +
-                                ' ng-click="updateSelection($event,\'' + val.value + '\')"  ' +
+                                ' ng-click="updateSelection($event,\'' + val.value + '\',' + key + ')"  ' +
                                 '><span></span>' + val.text + '</label>';
                         });
                         content += '<div><input class="hide" ng-model="tmp_field" ' + nickname + required + disabledRole + '" /></div>';
@@ -292,28 +292,20 @@ define([
                     }, true);
                     $scope.isChecked = function (value) {
                         if ($scope.ngModel && $scope.ngModel.length > 0) {
-                            // console.log(44444444, $scope.ngModel);
                             return $scope.ngModel && $scope.ngModel.indexOf(value) >= 0;
                         } else {
                             return false;
                         }
                     };
 
-                    $scope.updateSelection = function ($event, value) {
-                        var checkbox = $event.target;
-                        var checked = checkbox.checked;
-                        if (checked) {
-                            if ($scope.ngModel && $scope.ngModel.indexOf(value) == -1) {//不存在就添加
-                                $scope.ngModel.push(value);
-                            } else if (!$scope.ngModel) {
-                                $scope.ngModel = [value];
+                    $scope.updateSelection = function ($event, value, key) {
+                        $scope.ngModel = [];
+                        var source_html = $('[' + name + ']');
+                        angular.forEach(source_html, function (val, key) {
+                            if (val.checked) {
+                                $scope.ngModel.push($scope.source[key].value);
                             }
-                        } else {
-                            var idx = $scope.ngModel.indexOf(value);
-                            if (idx != -1) {//不存在就添加
-                                $scope.ngModel.splice(idx, 1);
-                            }
-                        }
+                        });
                     };
 
 

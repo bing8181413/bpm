@@ -43,13 +43,13 @@ define([
                     $scope.$watch('city', function (value) {
                         // console.log(value);
                         if (!$scope.city) {
-                            map.centerAndZoom('上海', 12);
+                            map.centerAndZoom('上海市', 12);
                             // widget.msgToast('没有选择城市')
                             // return false;
                         }
                         if (count > 0) {
                             count++;
-                            map.centerAndZoom($scope.city || '上海', 12);
+                            map.centerAndZoom($scope.city || '上海市', 12);
                         }
                         if (count == 0) {
                             // 只执行一次  初始化和绑定事件
@@ -76,6 +76,7 @@ define([
                                         $scope.mapData.lat = e.point.lat;
                                         $scope.mapData.address = rs.address;
                                         $scope.mapData.district = rs.addressComponents.district;
+                                        $scope.mapData.city = rs.addressComponents.city;
                                     })
                                 });
                                 map.removeOverlay(marker1);
@@ -101,10 +102,10 @@ define([
                                         $scope.$apply(function () {
                                             $scope.mapData.lng = rs.point.lng;
                                             $scope.mapData.lat = rs.point.lat;
-                                            // $scope.mapData.lng = point.lng;
-                                            // $scope.mapData.lat = point.lat;
                                             // $scope.mapData.address = rs.address;
                                             $scope.mapData.district = rs.addressComponents.district;
+                                            $scope.mapData.city = rs.addressComponents.city;
+                                            // console.log(rs);
                                         })
                                     }, 200);
                                 });
@@ -118,10 +119,12 @@ define([
                                     $scope.$apply(function () {
                                         $scope.mapData.lng = '';
                                         $scope.mapData.lat = '';
+                                        $scope.mapData.district = '';
+                                        $scope.mapData.city = '';
                                     })
                                 }, 200);
                             }
-                        }, $scope.city || '上海');
+                        }, $scope.city || '');
                         // }
                     });
                 }

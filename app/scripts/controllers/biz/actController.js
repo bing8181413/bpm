@@ -52,7 +52,7 @@ define([
                 $scope.hours = parseFloat(val);
                 $scope.param.group_seconds = comfunc.numMulti(val, 3600);
             }
-        });
+        }, true);
 
         //  日期时间 转 纯日期
         $scope.datetimeTodate = function (date_time) {
@@ -76,7 +76,7 @@ define([
             } else if (!!val && val == '1') {
                 $scope.param.frequency_num = 1;
             }
-        });
+        }, true);
         $scope.reset_vip_discount = function () {
             val = $scope.vip_discount;
             if ($scope.param && $scope.param.vip_promotion_type == '1') {
@@ -93,7 +93,7 @@ define([
         }
         $scope.$watch('param.vip_promotion_type', function (val) {
             $scope.reset_vip_discount();
-        });
+        }, true);
 
         $scope.$watch('ability_label', function (val, oldVal) {
             if (val) {
@@ -103,17 +103,11 @@ define([
             }
         }, true);
 
-        $scope.$watch('param.act_time_type', function (val) {
-            if (!!val && val == '1') {
-                $scope.act_week = [];
-            } else if (!!val && val == '2') {
-            }
-        });
-        $scope.$watch('act_week', function (val) {
-            if (val) {
-                $scope.param.act_week = val.join(',');
-            }
-        });
+        // $scope.$watch('act_week', function (val) {
+        //     if (val) {
+        //         $scope.param.act_week = val.join(',');
+        //     }
+        // }, true);
 
         $scope.submit = function (status) {
             var supscope = $scope;
@@ -121,12 +115,14 @@ define([
             // console.log($scope.is_default_category, $scope.param.category);
 
             $scope.param.enable_bind_mobile = 1; // 强制绑定手机号码
-            // console.log($scope.param.contents);
-            // if ($scope.param.enable_bind_mobile && $scope.param.enable_bind_mobile == 2) {
-            //     if (!confirm('确定该活动取消绑定手机号')) {
-            //         return false;
-            //     }
-            // }
+
+            if ($scope.param.act_time_type && $scope.param.act_time_type == '1') {
+                $scope.act_week = [];
+                $scope.param.act_week = '';
+            } else if ($scope.param.act_time_type && $scope.param.act_time_type == '2') {
+                $scope.param.act_week = $scope.act_week.join(',');
+            }
+
             $scope.param.act_start_time = $filter('date')($scope.param.act_start_time, 'yyyy-MM-dd HH:mm:ss');
             $scope.param.act_end_time = $filter('date')($scope.param.act_end_time, 'yyyy-MM-dd HH:mm:ss');
             if ($scope.param.vip_promotion_type == '1') {

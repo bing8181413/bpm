@@ -104,31 +104,33 @@ define([], function () {
                 // {name: '排序', field: 'order_by'},
                 {
                     name: 'ID和排序', className: 'mobile_show',
-                    fieldDirective: '<p><span ng-bind="\'ID:\'+item.product_id"></span>' +
-                    '<br/><span ng-bind="\'排序:\'+item.order_by"></span>' +
-                    '<br/><div account_id_to_name data="item"></div>   </p>'
+                    fieldDirective: '<div><p><span ng-bind="\'ID:\'+item.product_id"></span></p>' +
+                    '<p><span ng-bind="\'排序:\'+item.order_by"></span></p>' +
+                    '<p><div account_id_to_name data="item"></div></p></div>'
                 },
                 {
                     name: '活动信息', className: 'mobile_show',
-                    fieldDirective: '<p><span ng-bind="\'标题:\'+item.title"></span>' +
-                    '<br/><span ng-bind="\'SKU:\'+(item.sku|product_sku)"></span>' +
-                    '<br/><span ng-bind="\'活动类型:\'+(item.category|product_category)"></span>' +
-                    '<br/><span ng-bind="\'活动类别:\'+item.act_type"></span>' +
-                    '<br/><span ng-bind="\'课程:\'+(item.course_category|course_category)"></span></p>'
+                    fieldDirective: '<div><p><span ng-bind="\'标题:\'+item.title"></span></p>' +
+                    '<p><span ng-bind="\'SKU:\'+(item.sku|product_sku)"></span></p>' +
+                    '<p><span ng-bind="\'活动类型:\'+(item.category|product_category)"></span></p>' +
+                    '<p><span ng-bind="\'活动类别:\'+item.act_type"></span></p>' +
+                    '<p><span ng-bind="\'课程:\'+(item.course_category|course_category)"></span></p></div>'
                 },
                 {
                     name: '报名时间',
-                    fieldDirective: '<p>开始时间:<br/> <span ng-bind="item.act_apply_start_time"></span>' +
-                    '<br/>结束时间:<br/><span ng-bind="item.act_apply_end_time"></span></p>'
+                    fieldDirective: '<div><p>开始时间:<br/> <span ng-bind="item.act_apply_start_time"></span></p>' +
+                    '<p>结束时间:<br/><span ng-bind="item.act_apply_end_time"></span></p></div>'
                 },
                 {
                     name: '活动时间、地点',
-                    fieldDirective: '<p>开始时间:<br/> <span ng-bind="item.act_start_time"></span>' +
-                    '<br/>结束时间:<br/><span ng-bind="item.act_end_time"></span>' +
+                    fieldDirective: '<div><p>开始时间:<br/> <span ng-bind="item.act_start_time"></span></p>' +
+                    '<p>结束时间:<br/><span ng-bind="item.act_end_time"></span></p>' +
+                    '<p>活动时间类型:<br/> <span ng-bind="item.act_time_type|act_time_type"></span></p>' +
+                    '<p ng-show="item.act_time_type==2"><span ng-bind="item.act_week_desc"></span></p>' +
                     '<br/><span ng-show="item.addresses.length>0">地点:</span>' +
                     '<p ng-repeat=" obj in item.addresses " ng-show="item.addresses.length>0">' +
                     '<span ng-bind="($index+1)+\':\'+obj.detail_address"></span>' +
-                    '</p></p>'
+                    '</p></div>'
                 },
                 {name: '活动类目', className: 'mobile_show', fieldDirective: '<div product-option data="item"></div>'},
                 {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
@@ -150,14 +152,14 @@ define([], function () {
                 // },
                 {
                     name: '抢购进度',
-                    fieldDirective: '<p>抢购进度<br/>' +
-                    ' <span ng-bind="((item.order && item.order.order_copies)||0)| process:(item.options|arraySum:\'option_inventory\')"></span><br/>' +
-                    '已售份数<br/><span ng-bind="(item.order && item.order.order_copies)||0"></span><br/>' +
-                    '库存<br/><span ng-bind="item.options|arraySum:\'option_inventory\'"></span></p>'
+                    fieldDirective: '<div><p>抢购进度<br/>' +
+                    ' <span ng-bind="((item.order && item.order.order_copies)||0)| process:(item.options|arraySum:\'option_inventory\')"></span></p>' +
+                    '<p>已售份数<br/><span ng-bind="(item.order && item.order.order_copies)||0"></span></p>' +
+                    '<p>库存<br/><span ng-bind="item.options|arraySum:\'option_inventory\'"></span></p></div>'
                 },
                 {
                     name: '上下架时间',
-                    fieldDirective: '<p>上架时间<br/> <span ng-bind="item.start_time"></span><br/>下架时间<br/><span ng-bind="item.end_time"></span></p>'
+                    fieldDirective: '<div><p>上架时间<br/> <span ng-bind="item.start_time"></span></p><p>下架时间<br/><span ng-bind="item.end_time"></span></p></div>'
                 },
                 {name: '活动状态', field: 'status', filter: 'product_status'},
                 {name: '配送规则', fieldDirective: '<div product-pattern data="item"></div>'},

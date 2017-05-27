@@ -16,8 +16,12 @@ define([], function () {
                     name: '收货人信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
+                    '<span ng-if="item.address.address"><br/>详细地址:</span>' +
+                    '<span ng-bind="item.address.address" ' +
                     ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.email"><br/>邮件:</span>' +
+                    '<span ng-bind="item.address.email" ' +
+                    ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {
@@ -43,13 +47,7 @@ define([], function () {
                 {name: '配送时间', field: 'pattern.arrive_pm', filter: 'num2week'},
                 {name: '子订单', fieldDirective: '<div order-deliveries data="item"></div>'},
                 {name: '母订单<br/>状态', field: 'order_status', filter: 'order_status'},
-                {
-                    name: '管理备注', field: 'remark', truncateText: true,
-                    truncateTextLength: 5,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'remark',
-                    tooltipPlacement: 'bottom',
-                },
+                {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},
                 {
                     name: '操作',
                     fieldDirective: '<div order-cancel data="item"></div>' +
@@ -141,9 +139,12 @@ define([], function () {
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 10 : false"' +
                     ' uib-tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
                     '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/><span ng-if="item.address.address">详细地址:</span><br/>' +
-                    '<span ng-bind="item.address.address" ng-if="item.address.address"' +
-                    ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>'
+                    '<span ng-if="item.address.address"><br/>详细地址:</span>' +
+                    '<span ng-bind="item.address.address" ' +
+                    ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.email"><br/>邮件:</span>' +
+                    '<span ng-bind="item.address.email" ' +
+                    ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>'
                 },
                 {
                     name: '订单详情',
@@ -158,13 +159,7 @@ define([], function () {
                 },
                 {name: '下单时间', field: 'order_time'},
                 {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
-                {
-                    name: '管理备注', field: 'remark', truncateText: true,
-                    truncateTextLength: 5,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'remark',
-                    tooltipPlacement: 'bottom',
-                },
+                {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},
                 {
                     name: '操作',
                     fieldDirective: '<div order-cancel data="item"></div>' +
@@ -194,9 +189,12 @@ define([], function () {
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 10 : false"' +
                     ' uib-tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
                     '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/><span ng-if="item.address.address">详细地址:</span><br/>' +
-                    '<span ng-bind="item.address.address" ng-if="item.address.address"' +
-                    ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>'
+                    '<span ng-if="item.address.address"><br/>详细地址:</span>' +
+                    '<span ng-bind="item.address.address" ' +
+                    ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.email"><br/>邮件:</span>' +
+                    '<span ng-bind="item.address.email" ' +
+                    ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>'
                 },
                 {
                     name: '订单详情',
@@ -206,13 +204,7 @@ define([], function () {
                 {name: '使用<br/>优惠券', field: 'coupon_price'},
                 {name: '下单时间', field: 'order_time'},
                 {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
-                {
-                    name: '管理备注', field: 'remark', truncateText: true,
-                    truncateTextLength: 5,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'remark',
-                    tooltipPlacement: 'bottom',
-                },
+                {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},
                 {
                     name: '操作',
                     fieldDirective: '<div order-cancel data="item"></div>' +
@@ -358,8 +350,12 @@ define([], function () {
                     name: '收货<br/>信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
-                    'uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.address"><br/>详细地址:</span>' +
+                    '<span ng-bind="item.address.address" ' +
+                    ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.email"><br/>邮件:</span>' +
+                    '<span ng-bind="item.address.email" ' +
+                    ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {name: '购买<br/>份数', field: 'order_count',},
@@ -367,13 +363,7 @@ define([], function () {
                 {name: '配送<br/>时间', field: 'pattern.arrive_pm', filter: 'num2week'},
                 {name: '下单时间', field: 'order_time',},
                 {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
-                {
-                    name: '用户订单备注', field: 'remark', truncateText: true,
-                    truncateTextLength: 10,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'remark',
-                    tooltipPlacement: 'bottom',
-                },
+                {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},
                 {
                     name: '操作',
                     fieldDirective: '<div order-cancel data="item"></div>' +
@@ -393,24 +383,18 @@ define([], function () {
                 {name: '母订单号', field: 'order_no',},
                 {
                     name: '收货<br/>信息',
-                    fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
+                    fieldDirective: '<p><span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
                     'uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
-                    '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
+                    '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span></p>'
                 },
                 {name: '购买<br/>份数', field: 'order_count',},
                 {name: '支付<br/>金额', field: 'order_price',},
                 {name: '配送<br/>时间', field: 'pattern.arrive_pm', filter: 'num2week'},
                 {name: '下单时间', field: 'order_time',},
                 {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
-                {
-                    name: '备注', field: 'remark', truncateText: true,
-                    truncateTextLength: 10,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'remark',
-                    tooltipPlacement: 'bottom',
-                },
+                {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},
             ],
             config_by_user: {
                 title: '用户的订单列表',

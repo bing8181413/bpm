@@ -178,7 +178,7 @@ define([
                                         colDef.tooltip + '}}"' +
                                         ' tooltip-placement="' + (colDef.tooltipPlacement || 'bottom') + '" ></span>';
                                 } else {
-                                    cellContent = '<span ng-bind="' + itemString + '" ></span>';
+                                    cellContent = '<span  a ng-bind="' + itemString + '" ></span>';
 
                                 }
                             } else {

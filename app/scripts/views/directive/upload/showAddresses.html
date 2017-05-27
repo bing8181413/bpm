@@ -7,12 +7,12 @@
                     <li ng-repeat="(k,v) in addresses" class="list-group-item row">
                         <div>
                             <div class="col-md-10">
-                                <div class="form-group" ng-show="false">
-                                    <label class="col-sm-2 control-label">城市</label>
-                                    <div class="col-sm-10">
-                                        <input class="form-control" type="text" ng-model="v.city_name">
-                                    </div>
-                                </div>
+                                <!--<div class="form-group" ng-show="false">-->
+                                <!--<label class="col-sm-2 control-label">城市</label>-->
+                                <!--<div class="col-sm-10">-->
+                                <!--<input class="form-control" type="text" ng-model="v.city_name">-->
+                                <!--</div>-->
+                                <!--</div>-->
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">活动地点</label>
                                     <div class="col-sm-10">
@@ -24,9 +24,12 @@
                                     <label class="col-sm-2 control-label">地址详情
                                         <span class="form_label_dangus">*</span>
                                     </label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-8">
                                         <input class="form-control" type="text" ng-model="v.detail_address"
                                                placeholder="地址详情">
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <a class="btn btn-info btn-rounded" ng-click="getlocation(k)">定位经纬</a>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -42,10 +45,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label class="col-sm-2 control-label">城市</label>
+                                    <div class="col-sm-4">
+                                        <input class="form-control" type="text" ng-model="v.city_name" placeholder="城市"
+                                               ng-disabled="true">
+                                    </div>
                                     <label class="col-sm-2 control-label">区县</label>
                                     <div class="col-sm-4">
                                         <!--<select class="form-control inlineBlock" ng-model="item.district"-->
-                                                <!--ng-options="district.value as district.text for week in $root.common.district"></select>-->
+                                        <!--ng-options="district.value as district.text for week in $root.common.district"></select>-->
                                         <input class="form-control" type="text" ng-model="v.district"
                                                placeholder="区域" ng-disabled="true">
                                     </div>
@@ -53,7 +61,7 @@
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <div class="col-sm-3">
-                                            <a class="btn btn-info btn-rounded" ng-click="getlocation(k)">定位经纬</a>
+
                                         </div>
                                         <div class="col-sm-3">
                                             <a class="btn btn-info btn-rounded"
