@@ -225,7 +225,7 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    optimize: 'none',  // 这里是一个坑  默认没有使用这个选项 不加这个选项会重置为最优方式 就会找不到很多依赖注入的文件 （但是呢 文件会很小 小有个毛用）
+                    optimize: 'none',  // 这里是一个坑  默认没有使用这个选项时值为uglify  不加这个选项会重置为最优方式 就会找不到很多依赖注入的文件 （但是呢 文件会很小 小有个毛用）
                     baseUrl: "app/scripts",
                     mainConfigFile: "app/scripts/main.js",
                     name: "bootstrap", // assumes a production build using almond
