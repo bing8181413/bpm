@@ -22,6 +22,12 @@ define([], function () {
                     '<span ng-if="item.address.email"><br/>邮件:</span>' +
                     '<span ng-bind="item.address.email" ' +
                     ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.baby_name"><br/>孩子姓名:</span>' +
+                    '<span ng-bind="item.address.baby_name" ' +
+                    ' uib-tooltip="{{item.address.baby_name}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.baby_id_card"><br/>孩子身份证:</span>' +
+                    '<span ng-bind="item.address.baby_id_card" ' +
+                    ' uib-tooltip="{{item.address.baby_id_card}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {
@@ -144,7 +150,13 @@ define([], function () {
                     ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<span ng-if="item.address.email"><br/>邮件:</span>' +
                     '<span ng-bind="item.address.email" ' +
-                    ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>'
+                    ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.baby_name"><br/>孩子姓名:</span>' +
+                    '<span ng-bind="item.address.baby_name" ' +
+                    ' uib-tooltip="{{item.address.baby_name}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.baby_id_card"><br/>孩子身份证:</span>' +
+                    '<span ng-bind="item.address.baby_id_card" ' +
+                    ' uib-tooltip="{{item.address.baby_id_card}}" tooltip-placement="bottom"></span>'
                 },
                 {
                     name: '订单详情',
@@ -194,7 +206,13 @@ define([], function () {
                     ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
                     '<span ng-if="item.address.email"><br/>邮件:</span>' +
                     '<span ng-bind="item.address.email" ' +
-                    ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>'
+                    ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.baby_name"><br/>孩子姓名:</span>' +
+                    '<span ng-bind="item.address.baby_name" ' +
+                    ' uib-tooltip="{{item.address.baby_name}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.baby_id_card"><br/>孩子身份证:</span>' +
+                    '<span ng-bind="item.address.baby_id_card" ' +
+                    ' uib-tooltip="{{item.address.baby_id_card}}" tooltip-placement="bottom"></span>'
                 },
                 {
                     name: '订单详情',
@@ -356,6 +374,12 @@ define([], function () {
                     '<span ng-if="item.address.email"><br/>邮件:</span>' +
                     '<span ng-bind="item.address.email" ' +
                     ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.baby_name"><br/>孩子姓名:</span>' +
+                    '<span ng-bind="item.address.baby_name" ' +
+                    ' uib-tooltip="{{item.address.baby_name}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.baby_id_card"><br/>孩子身份证:</span>' +
+                    '<span ng-bind="item.address.baby_id_card" ' +
+                    ' uib-tooltip="{{item.address.baby_id_card}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span>'
                 },
                 {name: '购买<br/>份数', field: 'order_count',},
@@ -387,6 +411,15 @@ define([], function () {
                     '<br/>手机<br/><span ng-bind="item.address.contact_mobile"></span>' +
                     '<br/>详细地址:<br/><span ng-bind="item.address.address" ' +
                     'uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.email"><br/>邮件:</span>' +
+                    '<span ng-bind="item.address.email" ' +
+                    ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.baby_name"><br/>孩子姓名:</span>' +
+                    '<span ng-bind="item.address.baby_name" ' +
+                    ' uib-tooltip="{{item.address.baby_name}}" tooltip-placement="bottom"></span>' +
+                    '<span ng-if="item.address.baby_id_card"><br/>孩子身份证:</span>' +
+                    '<span ng-bind="item.address.baby_id_card" ' +
+                    ' uib-tooltip="{{item.address.baby_id_card}}" tooltip-placement="bottom"></span>' +
                     '<br/>标签:<span ng-bind="item.address.poi_type |poi_type"></span></p>'
                 },
                 {name: '购买<br/>份数', field: 'order_count',},

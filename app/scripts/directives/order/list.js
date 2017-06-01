@@ -116,6 +116,8 @@ define([
                                             district: supscope.data.address.district,
                                             poi_type: supscope.data.address.poi_type,
                                             province: supscope.data.address.province,
+                                            baby_name: supscope.data.address.baby_name,
+                                            baby_id_card: supscope.data.address.baby_id_card,
                                         };
                                     }, 0);
 
@@ -149,6 +151,10 @@ define([
                                         ' placeholder = "联系人" required = "true" > </div > ' +
                                         '<div form-input text="手机号" ng-model="address.contact_mobile"' +
                                         ' placeholder = "手机号" required = "true" > </div > ' +
+                                        '<div form-input text="孩子姓名" ng-model="address.baby_name"' +
+                                        ' placeholder = "孩子姓名" required = "true" > </div > ' +
+                                        '<div form-input text="孩子身份证" ng-model="address.baby_id_card"' +
+                                        ' placeholder = "孩子身份证" required = "true" > </div > ' +
                                         '<div form-input text="城市" ng-model="address.city_name"' +
                                         ' placeholder = "城市" required = "true" > </div > ' +
                                         '<div class="form-group">' +
