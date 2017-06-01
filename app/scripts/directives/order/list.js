@@ -151,6 +151,8 @@ define([
                                         ' placeholder = "联系人" required = "true" > </div > ' +
                                         '<div form-input text="手机号" ng-model="address.contact_mobile"' +
                                         ' placeholder = "手机号" required = "true" > </div > ' +
+                                        '<div form-input text="邮箱" ng-model="address.email"' +
+                                        ' placeholder = "邮箱"> </div > ' +
                                         '<div form-input text="孩子姓名" ng-model="address.baby_name"' +
                                         ' placeholder = "孩子姓名" required = "true" > </div > ' +
                                         '<div form-input text="孩子身份证" ng-model="address.baby_id_card"' +
