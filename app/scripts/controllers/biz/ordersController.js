@@ -18,30 +18,56 @@ define([
         });
         $scope.search = function () {
             widget.ajaxRequest({
-                url: '/products/' + $scope.param.product_id,
+                url: '/products/' + $scope.param.product_id + '/options',
                 method: 'GET',
                 scope: $scope,
-                data: {},
+                data: {count: 200},
                 success: function (json) {
-                    // console.log(json);
-                    $scope.options = [];
-                    if (json.data.category == 3 || json.data.category == 4) {
-                        json.data.options.push(json.data.groupbuy_options);
-                        angular.forEach(json.data.options, function (val, key) {
+                    $scope.options = [{text: '-请选择-', value: ''}];
+                    angular.forEach(json.data, function (val, key) {
+                        if (val.option_status == 1) {
                             $scope.options.push({
-                                text: '类目:' + val.option_name + '    /    价格:' + val.option_price,
-                                value: val.option_id
+                                text: $filter('product_category')(val.option_type) + '  |  类目:' + val.option_name + '    /    价格:' + val.option_price,
+                                value: val.option_id + '',
+                                option_type: val.option_type
                             });
-                        })
-                    } else {
-                        widget.msgToast('该ID不是活动');
-                    }
+                        }
+                    });
+                    $scope.options = $filter('orderBy')($scope.options, 'option_type', 'desc');
                 },
                 failure: function (err) {
                     widget.msgToast('活动ID不存在');
                 }
             })
         }
+
+        $scope.$watch('param.option_id', function (val) {
+            angular.forEach($scope.options, function (v, k) {
+                if (val == v.value) {
+                    if (v.option_type == 2) {
+                        $scope.param.apply_mode = $scope.param.apply_mode == 3 ? 1 : $scope.param.apply_mode;
+                    } else if (v.option_type == 3) {
+                        $scope.param.apply_mode = 3;
+
+                    }
+                }
+            });
+        });
+
+        $scope.$watch('param.apply_mode', function (val) {
+            var option_type = '';
+            angular.forEach($scope.options, function (v, k) {
+                if ($scope.param.option_id == v.value) {
+                    option_type = v.option_type;
+                }
+            });
+            if (val == 3 && option_type != 3) {
+                $scope.param.option_id = '';
+            } else if (val != 3 && option_type == 3) {
+                $scope.param.option_id = '';
+            }
+        });
+
         $scope.submit = function () {
             if (!$scope.param.product_id) {
                 widget.msgToast('活动ID没有');

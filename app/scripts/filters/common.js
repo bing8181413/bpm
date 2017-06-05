@@ -16,6 +16,29 @@ define([
                 return rtn;
             }
         }])
+        .filter('keyVal', [function () {
+            return function (val, key1, val1, key2, val2, key3, val3, key4, val4) {
+                var rtn = val;
+                val += '';
+                switch (val) {
+                    case key1:
+                        rtn = val1;
+                        break;
+                    case key2:
+                        rtn = val2;
+                        break;
+                    case key3:
+                        rtn = val3;
+                        break;
+                    case key4:
+                        rtn = val4;
+                        break;
+                    default :
+                        rtn = val;
+                }
+                return rtn;
+            }
+        }])
         .filter('yes1no2', [function () {
             return function (val) {
                 return val == '1' ? '是' : (val == '2' ? '否' : val);

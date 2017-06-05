@@ -14,15 +14,29 @@
                         <label class="col-sm-2 control-label">活动ID<span
                                 class="form_label_dangus">*</span></label>
                         <div class="col-sm-6">
-                            <input class="form-control" ng-model="param.product_id" required>
+                            <input class="form-control" ng-model="param.product_id"
+                                   placeholder="填写活动ID后点击查询" required>
                         </div>
                         <a class="btn btn-primary btn-rounded" ng-click="search()">查询</a>
-                        <div class="col-sm-12" form-select text="活动类目" ng-model="param.option_id"
+                        <hr>
+                        <div class="row">
+                            <h4 class="col-sm-offset-2 text-danger">1:活动类目中若选择人数团,报名模式会自动对应开团或参团;&nbsp;&nbsp;&nbsp;2:选择直接买会自动对应直接买,注意互相影响</h4>
+                        </div>
+                        <div form-select class="col-sm-12" text="活动类目" ng-model="param.option_id"
                              source="options" source-api=""></div>
+
+                        <div form-radio text="报名模式" type="radio" ng-model="param.apply_mode" required="true"
+                             source="[{text:'开团',value:'1'},{text:'参团',value:'2'},{text:'直接买',value:'3'}]"
+                             default="1" source-api=""></div>
+
+                        <div form-input text="参团ID" ng-model="param.groupbuy_id" required="true"
+                             ng-if="param.apply_mode==2"></div>
+
                         <div form-textarea text="用户ID" ng-model="user_ids" required="true"
-                        data-placeholder="用户ID,英文逗号隔开填写多个"></div>
+                             data-placeholder="用户ID,英文逗号隔开填写多个"></div>
                     </div>
                 </div>
+                <div form-error-block></div>
                 <!--<a class="btn btn-info btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit(0)">保存草稿</a>-->
                 <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
                    ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>

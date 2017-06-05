@@ -97,6 +97,14 @@ define([], function () {
                     {value: 'contact_name', text: '联系人'},
                     {value: 'contact_mobile', text: '订单手机号'},
                     {value: 'user_id', text: '用户ID'},
+                    {
+                        value: 'is_mj', text: '马甲状态', type: 'btnGroup', default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全 部'},
+                            {value: '1', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                            {value: '0', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                        ]
+                    },
                     // {value: 'cityname', text: '城市', placeholder: '城市', type: 'date'}
                 ],
                 preSelectionSearch: {
@@ -171,6 +179,7 @@ define([], function () {
                 },
                 {name: '下单时间', field: 'order_time'},
                 {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
+                {name: '马甲<br/>状态', field: 'is_mj', filter: 'keyVal:\'1\':\'马甲\':\'0\':\'\''},
                 {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},
                 {
                     name: '操作',
@@ -222,6 +231,7 @@ define([], function () {
                 {name: '使用<br/>优惠券', field: 'coupon_price'},
                 {name: '下单时间', field: 'order_time'},
                 {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
+                {name: '马甲<br/>状态', field: 'is_mj', filter: 'keyVal:\'1\':\'马甲\':\'0\':\'\''},
                 {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},
                 {
                     name: '操作',
@@ -249,11 +259,11 @@ define([], function () {
                         ]
                     },
                     {
-                        value: 'is_majia', text: '马甲状态', type: 'btnGroup', default: '0', width: '6',
+                        value: 'is_mj', text: '马甲状态', type: 'btnGroup', default: '', width: '6',
                         enum: [
-                            {value: '0', text: '全 部'},
+                            {value: '', text: '全 部'},
                             {value: '1', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
-                            {value: '2', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                            {value: '0', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
                         ]
                     },
                 ],
@@ -311,6 +321,14 @@ define([], function () {
                     {value: 'contact_name', text: '联系人'},
                     {value: 'contact_mobile', text: '订单手机号'},
                     {value: 'user_id', text: '用户ID'},
+                    {
+                        value: 'is_mj', text: '马甲状态', type: 'btnGroup', default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全 部'},
+                            {value: '1', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                            {value: '0', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                        ]
+                    },
                 ],
                 preSelectionSearch: {
                     order_type: [2, 3]
@@ -330,7 +348,7 @@ define([], function () {
                 }
             },
             config_by_groupbuy: {
-                title: '拼团订单列表',
+                title: '当前拼团订单列表',
                 api: '/orders',
                 rowItemName: 'item',
                 searchSupport: true,
@@ -347,6 +365,14 @@ define([], function () {
                             {value: [4, 6], text: '已取消'},
                         ]
                     },
+                    {
+                        value: 'is_mj', text: '马甲状态', type: 'btnGroup', default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全 部'},
+                            {value: '1', text: '&nbsp;&nbsp;&nbsp;是&nbsp;&nbsp;&nbsp;'},
+                            {value: '0', text: '&nbsp;&nbsp;&nbsp;否&nbsp;&nbsp;&nbsp;'},
+                        ]
+                    },
                     // {value: 'date_min', text: '开始时间',type:'datetime'},
                 ],
                 preSelectionSearch: {
@@ -360,6 +386,11 @@ define([], function () {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
+                ext: {
+                    showNum: [
+                        {text: '总数', type: 'total'},
+                    ]
+                }
             },
             columns_by_groupbuy: [
                 {name: 'ID', field: 'order_id', className: 'text-right'},
@@ -387,6 +418,7 @@ define([], function () {
                 {name: '配送<br/>时间', field: 'pattern.arrive_pm', filter: 'num2week'},
                 {name: '下单时间', field: 'order_time',},
                 {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
+                {name: '马甲<br/>状态', field: 'is_mj', filter: 'keyVal:\'1\':\'马甲\':\'0\':\'\''},
                 {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},
                 {
                     name: '操作',
@@ -427,6 +459,7 @@ define([], function () {
                 {name: '配送<br/>时间', field: 'pattern.arrive_pm', filter: 'num2week'},
                 {name: '下单时间', field: 'order_time',},
                 {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
+                {name: '马甲<br/>状态', field: 'is_mj', filter: 'keyVal:\'1\':\'马甲\':\'0\':\'\''},
                 {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},
             ],
             config_by_user: {
