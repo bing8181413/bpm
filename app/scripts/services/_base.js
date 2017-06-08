@@ -89,6 +89,8 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
 
                 // 获取simpleCons.js 里的common 数据
                 $rootScope.common = cons.common;
+                $rootScope.env_name = cons.env_name;
+
                 // $compileProvider.debugInfoEnabled(true);
                 // 监听路由事件
                 // $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

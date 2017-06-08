@@ -285,8 +285,10 @@ define([
                         // console.log('ngModel  ===', $scope.ngModel);
                         if (val && val.length > 0) {
                             $scope.tmp_field = true;
-                        } else {
+                        } else if (val) {
                             $scope.tmp_field = undefined;
+                        } else if (!val) {
+                            $scope.ngModel = $scope.default || [];
                         }
                         // console.log($scope.$parent.FormBody);
                     }, true);

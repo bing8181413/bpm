@@ -10,7 +10,6 @@
             border-radius: 5px;
         }
 
-
         .upload-image:before {
             content: "+";
             line-height: 50%;
@@ -86,9 +85,11 @@
                 <!--<pre ng-bind="images | json"></pre>-->
                 <ul dnd-list="images" ng-init="img_min = true;"
                     dnd-inserted="getPos(index)"
+                    dnd-allowed-types="allowedType"
                     class="list-group">
                     <li ng-repeat="(k,v) in images"
                         class="list-group-item row"
+                        dnd-type="dndAllowType"
                         dnd-draggable="v"
                         dnd-moved="images.splice(k, 1);getEle(k);"
                         dnd-effect-allowed="move"

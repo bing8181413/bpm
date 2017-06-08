@@ -3,6 +3,7 @@ define([
     '../cons/simpleCons',
     './hjm-grid',// grid
     './hjm-form',// form
+    './hjm-form-date',// form date
     './hjm-form-valid',// form-valid 表单验证
     './hjm-ueditor',// ueditor
     './hjm-upload-sources',// 上传资源
@@ -389,7 +390,7 @@ define([
                 }
             };
         })
-        .directive('showUploadToken', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget) {
+        .directive('showUploadToken', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget, comfunc) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -401,6 +402,9 @@ define([
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showUpload.html'),
                 controller: function ($scope, $element, $attrs) {
+                    $scope.dndAllowType = 'dnd' + Math.ceil(Math.random(10000) * 10000);
+                    $scope.allowedType = [$scope.dndAllowType];
+
                     $timeout(function () {
                         $scope.disabled = ($attrs.disabled ? true : false);
                         $scope.disabledRole = $attrs.disabledRole || '';
