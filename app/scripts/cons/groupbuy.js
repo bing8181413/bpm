@@ -2,7 +2,7 @@ define([], function () {
     var rtn = {
         groupbuyList: {
             columns: [
-                {name: 'ID', field: 'groupbuy_id', className: 'text-center'},
+                {name: '拼团ID', field: 'groupbuy_id', className: 'text-center'},
                 // {
                 //     name: '活动标题', field: 'product.title',
                 //     truncateText: true,
@@ -12,8 +12,14 @@ define([], function () {
                 //     tooltipPlacement: 'bottom',
                 // },
                 {
-                    name: '活动标题', field: 'product.title'
+                    name: '活动',
+                    fieldDirective: '<p>活动ID:  <span ng-bind="item.product_id"></span>' +
+                    '<br/>活动标题: <span ng-bind="item.product.title"></span></p>'
                 },
+                // {name: '活动ID', field: 'product_id', className: 'text-center'},
+                // {
+                //     name: '活动标题', field: 'product.title'
+                // },
                 {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item"></div>'},
                 {name: '开团用户', fieldDirective: '<div groupbuy-order data="item"></div>'},
                 {name: '团订单数', fieldDirective: '<div groupbuy-order-copies data="item"></div>'},

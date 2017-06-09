@@ -79,7 +79,7 @@ define([
             }
 
             $scope.param.user_ids = [];
-            $scope.param.user_ids = $scope.user_ids.split(',');
+            $scope.param.user_ids = $scope.user_ids.replace(/\n/g,',').split(',');
 
             if (comfunc.isEmptyArray($scope.param.user_ids)) {
                 widget.msgToast('没有填写用户ID');

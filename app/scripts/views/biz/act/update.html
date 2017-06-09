@@ -80,7 +80,7 @@
                              maxlength="50"></div>
 
                         <!--<div form-textarea text="搜索关键字" ng-model="param.act_tags" placeholder="不超过100个字"-->
-                             <!--minlength="0" maxlength="100"></div>-->
+                        <!--minlength="0" maxlength="100"></div>-->
 
                         <div form-input text="活动益处" ng-model="param.act_benefit" placeholder="不超过20个字"
                              minlength="1" maxlength="14"></div>
@@ -131,11 +131,10 @@
 
                         <div form-checkbox text="选择每周时间" ng-model="act_week" ng-show="param.act_time_type == 2"
                              source="$root.common.act_checkbox_week" source-api=""></div>
-                        <hr>
 
                         <div form-double-date-time text-start="报名开始时间" text-end="报名截止时间" required="true"
                              ng-model-start="param.act_apply_start_time" ng-model-end="param.act_apply_end_time"></div>
-
+                        <hr>
                         <!--<div form-date-time text="报名开始时间" ng-model="param.act_apply_start_time" required="true"></div>-->
                         <!--<div form-date-time text="报名截止时间" ng-model="param.act_apply_end_time" required="true"></div>-->
 
@@ -167,9 +166,10 @@
                              source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'},{text:'直接买+人数团',value:'4'}]"
                              source-api=""></div>
 
+
                         <div form-radio text="拼团结束类型" type="radio" ng-model="param.groupbuy_end_type" required="true"
-                             source="[{text:'无',value:'0'},{text:'人数类型',value:'1'},{text:'拼团时间',value:'2'}]"
-                             default="0" ng-if="param.category!=3" source-api=""></div>
+                             source="[{text:'人数类型  (注:成团后不能再报名)',value:'1'},{text:'拼团时间  (注:成团后仍可报名，直到拼团时间截止)',value:'2'}]"
+                             default="1" ng-if="param.category!=3" source-api=""></div>
                         <!--<div form-table text="活动类目" ng-model="param.options" max="1"-->
                         <!--ng-show="param.category!=4" required="true"-->
                         <!--columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},-->
@@ -283,15 +283,15 @@
 
                         <!--<hr>-->
                         <!--<div form-radio text="特价优惠类型" type="radio" ng-model="param.special_type" required="true"-->
-                             <!--source="[{text:'无',value:'0'},{text:'限时特价',value:'1'},{text:'限额特价',value:'2'}]"-->
-                             <!--default="0" source-api=""></div>-->
+                        <!--source="[{text:'无',value:'0'},{text:'限时特价',value:'1'},{text:'限额特价',value:'2'}]"-->
+                        <!--default="0" source-api=""></div>-->
 
                         <!--<div form-input text="特价总份额" ng-model="param.special_num" placeholder="特价总份额"-->
-                             <!--min="0" ng-if="param.special_type==2" type="number" required="true"></div>-->
+                        <!--min="0" ng-if="param.special_type==2" type="number" required="true"></div>-->
 
                         <!--<div form-double-date-time text-start="优惠开始时间" text-end="优惠结束时间" required="true"-->
-                             <!--ng-model-start="param.special_start_time" ng-model-end="param.special_end_time"-->
-                             <!--ng-if="param.special_type!=0"></div>-->
+                        <!--ng-model-start="param.special_start_time" ng-model-end="param.special_end_time"-->
+                        <!--ng-if="param.special_type!=0"></div>-->
 
                         <!--<div form-date-time text="优惠开始时间" ng-model="param.special_start_time"-->
                         <!--ng-if="param.special_type!=0" required="true"></div>-->
