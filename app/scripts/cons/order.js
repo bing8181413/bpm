@@ -94,6 +94,7 @@ define([], function () {
                     {value: 'date_min', text: '(下单时间)--开始', type: 'datetime'},
                     {value: 'date_max', text: '(下单时间)--结束', type: 'datetime'},
                     {value: 'order_no', text: '母订单号'},
+                    {value: 'product_id', text: '活动ID'},
                     {value: 'contact_name', text: '联系人'},
                     {value: 'contact_mobile', text: '订单手机号'},
                     {value: 'user_id', text: '用户ID'},
