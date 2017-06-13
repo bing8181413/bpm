@@ -211,6 +211,10 @@
                              type="number" ng-show="param.category!=3"></div>
                         <div form-input text="拼团有效时间(小时)" ng-model="hours" min="0" type="number"
                              placeholder="单位:小时" ng-show="param.category!=3" required_span_show="true"></div>
+
+                        <div form-input text="自动成团剩余时间(小时)" ng-model="groupbuy_auto_hours" min="0" type="number"
+                             placeholder="单位:小时" ng-show="param.category!=3"></div>
+
                         <div form-input text="玩法说明标题" ng-model="param.play_subject" placeholder="玩法说明标题"
                              ng-show="param.category!=3"></div>
                         <div form-textarea text="玩法说明内容" ng-model="param.play_introduction"

@@ -22,6 +22,7 @@ define([
                     $scope.param = angular.copy(json.data);
                     $scope.is_default_category = $scope.param.category;
                     $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600);
+                    $scope.groupbuy_auto_hours = comfunc.numDiv($scope.param.groupbuy_auto_seconds || 0, 3600);
                     // $scope.course_category = $scope.param.course_category.split(',') || [];
                     $scope.ability_label = $scope.param.ability_label.split(',') || [];
                     if ($scope.param.vip_promotion_type == '1') {
@@ -51,6 +52,14 @@ define([
             if (!!val) {
                 $scope.hours = parseFloat(val);
                 $scope.param.group_seconds = comfunc.numMulti(val, 3600);
+            }
+        }, true);
+        $scope.$watch('groupbuy_auto_hours', function (val) {
+            if (!!val) {
+                $scope.groupbuy_auto_hours = parseFloat(val);
+                $scope.param.groupbuy_auto_seconds = comfunc.numMulti(val, 3600);
+            } else {
+                $scope.param && ($scope.param.groupbuy_auto_seconds = 0);
             }
         }, true);
 
