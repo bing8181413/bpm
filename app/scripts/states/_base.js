@@ -32,6 +32,7 @@ define([
     'states/hjm/teacher',//老师
     'states/hjm/student',//学生
     'states/hjm/work',//作业管理
+    'states/hjm/redpacketcoupons',//购买成功后的 分享红包
 
 ], function () {
 
