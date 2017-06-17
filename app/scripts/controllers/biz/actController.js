@@ -123,7 +123,7 @@ define([
             $scope.goon = true;
             // console.log($scope.is_default_category, $scope.param.category);
 
-            $scope.param.enable_bind_mobile = 1; // 强制绑定手机号码
+            // $scope.param.enable_bind_mobile = 1; // 强制绑定手机号码
 
             if ($scope.param.act_time_type && $scope.param.act_time_type == '1') {
                 $scope.act_week = [];
