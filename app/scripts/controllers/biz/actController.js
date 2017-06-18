@@ -48,6 +48,7 @@ define([
                 }
             })
         }
+
         $scope.$watch('hours', function (val) {
             if (!!val) {
                 $scope.hours = parseFloat(val);
@@ -118,12 +119,24 @@ define([
         //     }
         // }, true);
 
+        $scope.compare_hours = function () {
+            if ($scope.hours <= $scope.groupbuy_auto_hours) {
+                widget.msgToast('拼团有效时间不能小于等于自动成团剩余时间', 500);
+                return false;
+            }
+            return true;
+        }
+
         $scope.submit = function (status) {
             var supscope = $scope;
             $scope.goon = true;
             // console.log($scope.is_default_category, $scope.param.category);
 
             // $scope.param.enable_bind_mobile = 1; // 强制绑定手机号码
+
+            if (!$scope.compare_hours()) {//  比较拼团时间和剩余凑团时间
+                return false;
+            }
 
             if ($scope.param.act_time_type && $scope.param.act_time_type == '1') {
                 $scope.act_week = [];
