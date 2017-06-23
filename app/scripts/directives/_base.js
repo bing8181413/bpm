@@ -413,7 +413,7 @@ define([
                     }, 0);
                     $scope.uploader = new FileUploader({
                         // url: simpleCons.qiniu_domain + '/qiniu/controller.php?action=uploadimage'
-                        url: 'https://up.qbox.me/'
+                        url: 'https://up.qbox.me/' // 七牛上传文件的地址
                     });
                     var init = false;
                     $scope.$watch('images', function (imagesVal) {

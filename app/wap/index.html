@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <title ng-bind="'Ahaschool '"></title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link rel="icon" href="../favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon"/>
+    <!--<link href="styles/bootstrap/bootstrap.min.css" rel="stylesheet">-->
+    <link rel="stylesheet" href="../styles/animate/animate.min.css"/>
+    <link rel="stylesheet" href="../styles/bootstrap/index.css">
+    <link rel="stylesheet" href="../styles/bootstrap/vendor.css">
+
+</head>
+<body ng-app="wap.demo">
+<div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
+    <script type="text/ng-template" id="bindMobile.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">绑定手机账户信息</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">手机号码</div>
+                                <input type="text" class="form-control" id="exampleInputAmount" placeholder="手机号码"
+                                       ng-model="$ctrl.param.mobile" maxlength="11">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">&nbsp;&nbsp;&nbsp;验证码</div>
+                                <input type="text" class="form-control" id="exampleInputAmount" placeholder="验证码"
+                                       ng-model="$ctrl.param.code" maxlength="6">
+                                <div class="input-group-addon btn" ng-click="$ctrl.getCaptcha()">获取验证码</div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--Selected: <b>{{ $ctrl.selected.item }}</b>-->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">绑定账户</button>
+            <!--<button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>-->
+        </div>
+    </script>
+    <!--<script type="text/ng-template" id="stackedModal.html">-->
+    <!--<div class="modal-header">-->
+    <!--<h3 class="modal-title" id="modal-title-{{name}}">The {{name}} modal!</h3>-->
+    <!--</div>-->
+    <!--<div class="modal-body" id="modal-body-{{name}}">-->
+    <!--Having multiple modals open at once is probably bad UX but it's technically possible.-->
+    <!--</div>-->
+    <!--</script>-->
+    <script type="text/ng-template" id="getSignature.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">获取订单凭证</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">商品ID</div>
+                                <input type="text" class="form-control" placeholder="商品ID"
+                                       ng-model="product_id">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!--Selected: <b>{{ $ctrl.selected.item }}</b>-->
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">获取凭证</button>
+            <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
+        </div>
+    </script>
+    <script type="text/ng-template" id="getUser.html">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">个人信息</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <form class="form-horizontal">
+                        <div class="form-group" ng-repeat="(key, val) in user">
+                            <label>{{key}}</label> :{{val}}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="ok()">确认支付</button>
+        </div>
+    </script>
+    <div class="container">
+        <div class="panel panel-primary">
+            <div class="panel-heading">支付DEMO
+            </div>
+            <div class="panel-body">
+                <div class="btn-toolbar">
+                    <a class="btn btn-default" ng-click="$ctrl.open('lg', '.modal-parent')">
+                        绑定手机账户
+                    </a>
+                    <a class="btn btn-primary" ng-click="$ctrl.getUser('', '.modal-parent')">
+                        个人信息
+                    </a>
+                    <a class="btn btn-warning" ng-click="$ctrl.getSignature('lg', '.modal-parent')">
+                        获取购买商品签名
+                    </a>
+                    <!--<button type="button" class="btn btn-primary" ng-click="$ctrl.openComponentModal()">Open a component-->
+                    <!--modal!-->
+                    <!--</button>-->
+                    <a class="btn btn-default" ng-click="alipay()">确认支付</a>
+                    <hr>
+                </div>
+                <div ng-show="$ctrl.selected">Selection from a modal: {{ $ctrl.selected }}</div>
+                <div class="modal-parent">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="../vendor/angular/angular.min.js"></script>
+<script type="text/javascript" src="../vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script type="text/javascript" src="../vendor/angular-utf8-base64/angular-utf8-base64.js"></script>
+<script type="text/javascript" src="../vendor/angular-cookie/angular-cookie.js"></script>
+<!--<script type="text/javascript" src="vendor/angular-ui-router/release/angular-ui-router.js"></script>-->
+<script type="text/javascript" src="../vendor/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="ap.js"></script>
+<script type="text/javascript" src="ctrl/widget.js"></script>
+<div name="importjs"></div>
+<script>
+    function include(objPaths) {
+        angular.forEach(objPaths, function (val, key) {
+            angular.forEach(val.paths, function (v, k) {
+                var a = document.createElement("script");
+                a.type = "text/javascript";
+                a.src = val.baseUrl + v;
+                var head = document.getElementsByName("importjs")[0];
+                head.appendChild(a);
+            });
+        });
+    }
+</script>
+<!--<script type="text/javascript" src="ctrl/demo.js"></script>-->
+<script type="text/javascript" src="ctrl/ModalDemoCtrl.js"></script>
+<script type="text/javascript" src="ctrl/bindMobileCtrl.js"></script>
+<script type="text/javascript" src="ctrl/getSgnatureCtrl.js"></script>
+<script type="text/javascript" src="ctrl/getUserCtrl.js"></script>
+<!--<script type="text/javascript" src="ctrl/main.js"></script>-->
+
+</html>

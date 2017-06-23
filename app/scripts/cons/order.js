@@ -89,6 +89,8 @@ define([], function () {
                             {value: [3], text: '已支付'},
                             {value: [5], text: '已完成'},
                             {value: [4, 6], text: '已取消'},
+                            {value: [3, 5], text: '已支付和已完成'},
+
                         ]
                     },
                     {value: 'date_min', text: '(下单时间)--开始', type: 'datetime'},
@@ -257,6 +259,7 @@ define([], function () {
                             {value: [3], text: '已支付'},
                             {value: [5], text: '已完成'},
                             {value: [4, 6], text: '已取消'},
+                            {value: [3, 5], text: '已支付和已完成'},
                         ]
                     },
                     {
@@ -313,6 +316,7 @@ define([], function () {
                             {value: [3], text: '已支付'},
                             {value: [5], text: '已完成'},
                             {value: [4, 6], text: '已取消'},
+                            {value: [3, 5], text: '已支付和已完成'},
                         ]
                     },
                     {value: 'date_min', text: '(下单时间)--开始', type: 'datetime'},
@@ -479,6 +483,7 @@ define([], function () {
                             {value: [3], text: '已支付'},
                             {value: [5], text: '已完成'},
                             {value: [4, 6], text: '已取消'},
+                            {value: [3, 5], text: '已支付和已完成'},
                         ]
                     },
                 ],

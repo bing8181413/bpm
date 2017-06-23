@@ -30,6 +30,13 @@ define([
                     } else {
                         $scope.vip_discount = $scope.param.vip_discount;
                     }
+
+                    //礼包初始化 start
+
+                    $scope.gift_discount = comfunc.numMulti($scope.param.gift_discount, 100);
+
+                    //礼包初始化 end
+
                     // console.log(new Date($scope.param.act_start_time).getHours() == 0, new Date($scope.param.act_start_time).getMinutes() == 0);
                     // console.log(new Date($scope.param.act_end_time).getMinutes() == 0, new Date($scope.param.act_end_time).getMinutes() == 0);
                     if (new Date($scope.param.act_start_time).getHours() == 0 &&
@@ -56,9 +63,14 @@ define([
             }
         }, true);
         $scope.$watch('groupbuy_auto_hours', function (val) {
-            if (!!val) {
-                $scope.groupbuy_auto_hours = parseFloat(val);
-                $scope.param.groupbuy_auto_seconds = comfunc.numMulti(val, 3600);
+            if (!!val || val == 0) {
+                if (val == 0) {
+                    $scope.groupbuy_auto_hours = 0;
+                    $scope.param.groupbuy_auto_seconds = 0;
+                } else if (val > 1) {
+                    $scope.groupbuy_auto_hours = parseFloat(val);
+                    $scope.param.groupbuy_auto_seconds = comfunc.numMulti(val, 3600);
+                }
             } else {
                 $scope.param && ($scope.param.groupbuy_auto_seconds = 0);
             }
@@ -87,8 +99,9 @@ define([
                 $scope.param.frequency_num = 1;
             }
         }, true);
+
         $scope.reset_vip_discount = function () {
-            val = $scope.vip_discount;
+            var val = $scope.vip_discount;
             if ($scope.param && $scope.param.vip_promotion_type == '1') {
                 val = parseInt(val);
                 $scope.vip_discount = (val >= 100) ? 99 : (val < 0 ? 0 : val);
@@ -101,6 +114,12 @@ define([
                 }
             }
         }
+
+        $scope.reset_gift_discount = function () {
+            var tmp_gift = parseInt($scope.gift_discount);
+            $scope.gift_discount = (tmp_gift >= 100) ? 99 : (tmp_gift < 0 ? 0 : tmp_gift);
+        }
+
         $scope.$watch('param.vip_promotion_type', function (val) {
             $scope.reset_vip_discount();
         }, true);
@@ -121,7 +140,11 @@ define([
 
         $scope.compare_hours = function () {
             if ($scope.hours <= $scope.groupbuy_auto_hours) {
-                widget.msgToast('拼团有效时间不能小于等于自动成团剩余时间', 500);
+                widget.msgToast('拼团有效时间 > 自动成团剩余时间  点击取消', 5000);
+                return false;
+            }
+            if ($scope.groupbuy_auto_hours <= 1 && $scope.groupbuy_auto_hours > 0) {
+                widget.msgToast('自动成团剩余时间 > 1小时,或 = 0 小时  点击取消', 5000000);
                 return false;
             }
             return true;
@@ -152,6 +175,23 @@ define([
             } else if ($scope.param.vip_promotion_type == '2') {
                 $scope.param.vip_discount = $scope.vip_discount;
             }
+
+            // 礼包验证  start
+
+            $scope.param.gift_discount = comfunc.numDiv($scope.gift_discount, 100);
+            if ($scope.param.gift_buy == 2) {
+                // 没有选择礼包 不做处理
+            } else if (!$scope.param.gift_options || $scope.param.gift_options && $scope.param.gift_options.length == 0) {
+                widget.msgToast('sorry!礼包类目不能为空');
+                return false;
+            } else {
+                if (comfunc.hasEmptyFieldArray($scope.param.gift_options)) {
+                    widget.msgToast('sorry!礼包类目有空值');
+                    return false;
+                }
+            }
+
+            // 礼包验证  end
 
             if ($scope.param.video_url) {
                 var reg_https = /^(([hH][tT]{2}[pP][sS]:\/\/)+[^\s]*)$/;

@@ -313,12 +313,84 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[5] = title_info[5]+1; ">显示管理
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[5] = title_info[5]+1; ">礼包详情
                             <i class="animate-switch fa pull-right"
                                ng-class="{'fa-angle-double-up':title_info[5]%2==1,'fa-angle-double-down':title_info[5]%2==0}"></i>
                         </h5>
                     </div>
                     <div class="panel-body" ng-show="title_info[5]%2==1">
+                        <div form-radio text="是否可买礼包" ng-model="param.gift_buy" default="1" required="true"
+                             source="[{text:'是',value:1},{text:'否',value:2}]" source-api=""></div>
+
+                        <div form-input text="礼包名称" ng-model="param.gift_name" placeholder="不超过30个字" required="true"
+                             ng-if="param.gift_buy==1" minlength="0" maxlength="30"></div>
+
+                        <div form-input text="礼包描述" ng-model="param.gift_desc" placeholder="不超过30个字" required="true"
+                             ng-if="param.gift_buy==1" minlength="0" maxlength="30"></div>
+
+                        <div form-input text="单人最大购买份数" ng-model="param.gift_max_num" type="number"
+                             min="1" required="true" ng-if="param.gift_buy==1"></div>
+
+                        <div form-image text="礼包图片" ng-model="param.gift_pics" max="1" ng-if="param.gift_buy==1"></div>
+
+                        <div form-table text="礼包类目" ng-model="param.gift_options" max="1" ng-show="param.gift_buy==1"
+                             columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
+                             {'name': '类目', 'field': 'option_name',required:'true'},
+                             {'name': '价格', 'field': 'option_price',type:'number',min:'0',required:'true'},
+                             {'name': '库存', 'field': 'option_inventory',required:'true'},
+                             {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
+
+                        <div form-radio text="礼包的优惠券与折扣是否可同享" ng-model="param.gift_coupon_share" required="true"
+                             default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" ng-if="param.gift_buy==1"></div>
+
+                        <div form-radio text="礼包是否可选优惠券" ng-model="param.gift_coupon" required="true" default="1"
+                             source="[{text:'是',value:1},{text:'否',value:2}]" source-api=""
+                             ng-if="param.gift_buy==1"></div>
+
+                        <div form-radio text="礼包是否打折" ng-model="param.gift_promotion_type" required="true" default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" ng-if="param.gift_buy==1"></div>
+
+                        <div class="form-group" ng-show="param.gift_buy==1&&param.gift_promotion_type==1">
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">设置折扣</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control text-right" ng-model="gift_discount"
+                                           ng-blur="reset_gift_discount()"
+                                           placeholder="请填写数字">
+                                </div>
+                                <span class="col-sm-1 control-label" style="text-align: left;">%</span>
+                            </div>
+                        </div>
+
+                        <div form-radio text="购买礼包是否验证手机号" ng-model="param.gift_buy_verify_mobile" default="1"
+                             required="true" source="[{text:'是',value:1},{text:'否',value:2}]" source-api=""
+                             ng-if="param.gift_buy==1"></div>
+
+                        <div form-radio text="领取礼包是否验证手机号" ng-model="param.gift_receive_verify_mobile" default="1"
+                             required="true" source="[{text:'是',value:1},{text:'否',value:2}]" source-api=""
+                             ng-if="param.gift_buy==1"></div>
+
+                        <div form-radio text="礼包详情类型" ng-model="param.gift_content_type" default="2"
+                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""
+                             ng-if="param.gift_buy==1"></div>
+
+                        <div form-image-content text="图文详情" ng-model="param.gift_contents"
+                             ng-show="param.gift_content_type==1" ng-if="param.gift_buy==1"></div>
+
+                        <div form-rich-content text="富文本" ng-model="param.gift_rich_text"
+                             ng-show="param.gift_content_type==2&&param.gift_buy==1"></div>
+
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[6] = title_info[6]+1; ">显示管理
+                            <i class="animate-switch fa pull-right"
+                               ng-class="{'fa-angle-double-up':title_info[6]%2==1,'fa-angle-double-down':title_info[6]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[6]%2==1">
                         <div form-radio text="显示在商城" ng-model="param.visible" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
                         <div form-radio text="显示在首页" ng-model="param.show_in_index" required="true" default="1"
