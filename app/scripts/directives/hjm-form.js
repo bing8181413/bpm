@@ -25,6 +25,7 @@ define([
                     ngDisabled: '=',
                     labelWidth: '@',
                     contentWidth: '@',
+                    formShowRole: '@',
                     requiredSpanShow: '=', //  用于展示必填符号 不能实际校验是否必填
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
@@ -43,11 +44,12 @@ define([
                     var placeholder = $scope.placeholder ? (' placeholder="' + $scope.placeholder + '" ') : '';
                     var maxlength = $scope.maxlength ? (' maxlength="' + $scope.maxlength + '" ') : '';
                     var minlength = $scope.minlength ? (' minlength="' + $scope.minlength + '" ') : '';
+                    var formShowRole = $scope.formShowRole ? (' show-role="' + $scope.formShowRole + '" ') : '';
                     $timeout(function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '" ') : '';
-                        var content = '<label class="' + labelWidth + ' control-label">' + $scope.text + required_span + '</label>' +
-                            '<div class="' + contentWidth + '">' +
+                        var content = '<label class="' + labelWidth + ' control-label" ' + formShowRole + '>' + $scope.text + required_span + '</label>' +
+                            '<div class="' + contentWidth + ' " ' + formShowRole + '>' +
                             '<input class="form-control" ng-model="ngModel"' + min + max +
                             type + name + placeholder + maxlength + minlength + required + disabledRole + ngDisabled + '>' +
                             '</div>';
