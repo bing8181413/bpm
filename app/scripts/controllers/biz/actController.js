@@ -157,10 +157,6 @@ define([
 
             // $scope.param.enable_bind_mobile = 1; // 强制绑定手机号码
 
-            if (!$scope.compare_hours()) {//  比较拼团时间和剩余凑团时间
-                return false;
-            }
-
             if ($scope.param.act_time_type && $scope.param.act_time_type == '1') {
                 $scope.act_week = [];
                 $scope.param.act_week = '';
@@ -278,6 +274,10 @@ define([
                     widget.msgToast('人数团de拼团有效时间要大于零');
                     return false;
                 }
+                if (!$scope.compare_hours()) {//  比较拼团时间和剩余凑团时间
+                    return false;
+                }
+
             }
             if (status || status == 0) {
                 $scope.param.status = status;

@@ -12,6 +12,7 @@ define([
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
         }
+        $scope.count = 200;
         $scope.$watch('param.product_id', function (val) {
             $scope.options = [];
             $scope.param.option_id = '';
@@ -79,8 +80,12 @@ define([
             }
 
             $scope.param.user_ids = [];
-            $scope.param.user_ids = $scope.user_ids.replace(/\n/g,',').split(',');
+            $scope.param.user_ids = $scope.user_ids.replace(/\n/g, ',').split(',');
 
+            if ($scope.param.user_ids && $scope.param.user_ids.length > ($scope.count || 200)) {
+                widget.msgToast('马甲数不能超过' + ($scope.count || 200) + '个!');
+                return false;
+            }
             if (comfunc.isEmptyArray($scope.param.user_ids)) {
                 widget.msgToast('没有填写用户ID');
                 return false;

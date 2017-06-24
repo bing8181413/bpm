@@ -95,8 +95,11 @@
 
                         <hr>
                         <div form-radio text="活动时间类型" type="radio" ng-model="param.act_time_type" required="true"
-                             default="2" source="[{text:'每天连续',value:'1'},{text:'每周固定天数',value:'2'}]"
+                             default="1" source="[{text:'每天连续',value:'1'},{text:'每周固定天数',value:'2'}]"
                              source-api=""></div>
+
+                        <div form-checkbox text="选择每周时间" ng-model="act_week" ng-show="param.act_time_type == 2"
+                             source="$root.common.act_checkbox_week" source-api=""></div>
 
                         <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
@@ -116,9 +119,6 @@
                              ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"
                              ng-show="!showTime"></div>
 
-
-                        <div form-checkbox text="选择每周时间" ng-model="act_week" ng-show="param.act_time_type == 2"
-                             source="$root.common.act_checkbox_week" source-api=""></div>
 
                         <div form-double-date-time text-start="报名开始时间" text-end="报名截止时间" required="true"
                              ng-model-start="param.act_apply_start_time" ng-model-end="param.act_apply_end_time"></div>
