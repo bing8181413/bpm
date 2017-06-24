@@ -66,7 +66,8 @@ module.exports = function (grunt) {
                             '**/require.js',
                             '**/bootstrap.js',
                             'vendor/**/*.js', //  三方包 一般不用copy
-                            '**/bootstrap.js'
+                            '**/bootstrap.js',
+                            'wap/**/*',
                         ],
                         dest: '../build/bpm'
                     }
@@ -85,7 +86,8 @@ module.exports = function (grunt) {
                             '**/main.min.js',
                             '**/main.js',
                             '!vendor/**/*.js', //  三方包 一般不用copy
-                            '**/bootstrap.js'
+                            '**/bootstrap.js',
+                            'wap/**/*',
                         ],
                         dest: '../build/bpm'
                     }
