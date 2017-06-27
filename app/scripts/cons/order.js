@@ -137,7 +137,7 @@ define([], function () {
                     '<br/><span  ng-if="item.referee">推荐人:</span>' +
                     '<span ng-bind="item.referee" ng-if="item.referee"></span>'
                 },
-                {name: '订单类型', field: 'order_type', filter: 'product_category'},
+                {name: '订单类型', field: 'order_type', filter: 'order_type'},
                 {
                     name: '活动信息',
                     fieldDirective: '<span ng-bind="\'ID:\'+item.product.product_id"></span>' +
@@ -202,7 +202,7 @@ define([], function () {
                     '<br/><span  ng-if="item.referee">推荐人:</span>' +
                     '<span ng-bind="item.referee" ng-if="item.referee"></span>'
                 },
-                {name: '订单类型', field: 'order_type', filter: 'product_category'},
+                {name: '订单类型', field: 'order_type', filter: 'order_type'},
                 {
                     name: '活动类目',
                     fieldDirective: '<span ng-bind="item.option_name +\':\'" ng-if="item.option_name"></span>' +

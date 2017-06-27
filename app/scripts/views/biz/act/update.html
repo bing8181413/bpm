@@ -329,7 +329,7 @@
                              ng-if="param.gift_buy==1" minlength="0" maxlength="30"></div>
 
                         <div form-input text="单人最大购买份数" ng-model="param.gift_max_num" type="number"
-                             min="1" required="true" ng-if="param.gift_buy==1"></div>
+                             min="0" ng-if="param.gift_buy==1"></div>
 
                         <div form-image text="礼包图片" ng-model="param.gift_pics" max="1" ng-if="param.gift_buy==1"></div>
 
@@ -341,11 +341,11 @@
                              {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
 
                         <div form-radio text="礼包的优惠券与折扣是否可同享" ng-model="param.gift_coupon_share" required="true"
-                             default="1"
+                             default="1" ng-disabled="true"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" ng-if="param.gift_buy==1"></div>
 
-                        <div form-radio text="礼包是否可选优惠券" ng-model="param.gift_coupon" required="true" default="1"
-                             source="[{text:'是',value:1},{text:'否',value:2}]" source-api=""
+                        <div form-radio text="礼包是否可选优惠券" ng-model="param.gift_coupon" required="true" default="2"
+                             source="[{text:'是',value:1},{text:'否',value:2}]" source-api="" ng-disabled="true"
                              ng-if="param.gift_buy==1"></div>
 
                         <div form-radio text="礼包是否打折" ng-model="param.gift_promotion_type" required="true" default="1"

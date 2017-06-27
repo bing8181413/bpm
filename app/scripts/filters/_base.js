@@ -350,7 +350,7 @@ define([
             }
         }])
         // coupon_category 适用范围，0 不限，1 活动、2 直接买、3 拼团
-        //  1:砍价团 2: 人数团 3：众筹团 4: 邻里团
+        //  1:砍价团 2: 人数团 3：众筹团
         .filter('coupon_category', [function () {
             return function (val) {
                 var result = '不限';
@@ -365,8 +365,30 @@ define([
                     case "3":
                         result = "直接买";
                         break;
+                }
+                return result;
+            }
+        }])
+        //  1:砍价团 2: 人数团 3：众筹团 4: 购买礼包 5:领取礼包
+        .filter('order_type', [function () {
+            return function (val) {
+                var result = '不限';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "砍价团";
+                        break;
+                    case "2":
+                        result = "人数团";
+                        break;
+                    case "3":
+                        result = "直接买";
+                        break;
                     case "4":
-                        result = "邻里团";
+                        result = "购买礼包";
+                        break;
+                    case "5":
+                        result = "领取礼包";
                         break;
                 }
                 return result;
@@ -506,7 +528,7 @@ define([
                 return result;
             }
         }])
-        //  category 类型 1:砍价团 2: 人数团 3：众筹团 4: 邻里团
+        //  category 类型 1:砍价团 2: 人数团 3：直接买 4: 人数团+直接买
         .filter('product_category', [function () {
             return function (val) {
                 var result = '其他';

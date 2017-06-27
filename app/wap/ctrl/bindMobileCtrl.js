@@ -1,7 +1,7 @@
 angular.module('wap.demo').controller('bindMobileCtrl', bindMobileCtrl);
 
-bindMobileCtrl.$injector = ['$http', '$scope', 'widget', 'base64', '$uibModalInstance', 'items'];
-function bindMobileCtrl($http, $scope, widget, base64, $uibModalInstance, items) {
+bindMobileCtrl.$injector = ['$http', '$scope', 'widget', 'base64', '$uibModalInstance', 'items', 'ipCookie'];
+function bindMobileCtrl($http, $scope, widget, base64, $uibModalInstance, items, ipCookie) {
     var $ctrl = this;
     $ctrl.items = items;
     $ctrl.selected = {
@@ -15,7 +15,7 @@ function bindMobileCtrl($http, $scope, widget, base64, $uibModalInstance, items)
             return false;
         }
         widget.ajaxRequest({
-            url: 'https://devopenapi.ahaschool.com/v1/visitor/captcha',
+            url: '/v1/visitor/captcha',
             method: 'POST',
             scope: $scope,
             data: {
@@ -34,9 +34,8 @@ function bindMobileCtrl($http, $scope, widget, base64, $uibModalInstance, items)
 
     $ctrl.ok = function () {
         widget.ajaxRequest({
-            url: 'https://devopenapi.ahaschool.com/v1/visitor/login',
+            url: '/v1/visitor/login',
             method: 'POST',
-            scope: $scope,
             data: {
                 mobile: $ctrl.param.mobile,
                 code: $ctrl.param.code
@@ -45,8 +44,10 @@ function bindMobileCtrl($http, $scope, widget, base64, $uibModalInstance, items)
                 if (json.code == 0) {
                     widget.msgToast('绑定成功');
                     angular.forEach(json.data, function (val, key) {
-                        document.cookie = (key + ' = ' + val);
+                        ipCookie(key, val, {path: '/'});
+                        // document.cookie = (key + ' = ' + val + ';path=/');
                     })
+                    $ctrl.cancel();
                 } else {
                     widget.msgToast(json.message);
                 }

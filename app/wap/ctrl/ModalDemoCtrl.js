@@ -1,13 +1,65 @@
-angular.module('wap.demo', ['ui.bootstrap', 'demoServices', 'ab-base64', 'ipCookie']);
-angular.module('wap.demo').controller('ModalDemoCtrl', function ($scope, widget, $uibModal, $log, $document, $filter) {
+angular.module('wap.demo', ['ui.bootstrap', 'demoServices', 'ab-base64', 'ipCookie', 'envServices']);
+angular.module('wap.demo').controller('ModalDemoCtrl', function ($scope, widget, $uibModal, $log, $document, $filter, ipCookie, $compile) {
     var $ctrl = this;
     $ctrl.items = ['item1', 'item2', 'item3'];
 
     $ctrl.animationsEnabled = true;
-    // $scope.pay_href = 'https://mapi.alipay.com/gateway.do?sign=IvjVp0%2FXaRmVmE8Csio%2BTpbjuTzAzd4Pr QLMUR8V82OcGhrjy%2BWLtaDD7KFn0tnMXfpLIJyKRjmxNulXNTMVWknKB4S77TRiBVHVOzeEC Kfh4BUY%2BUyesw6vXjtbIq2cL6GUI1A8OHu2HCjlNJK1Ks3VQqMTY7cowe8DX8PETq0%3D&_inp ut_charset=utf-8&subject=test&total_fee=0.01&sign_type=RSA&service=alipay.wap.create.dire ct.pay.by.user&notify_url=http%3A%2F%2Fwww.testalipay.com%2Falipay.wap.create.direct.pay. by.user-JAVA-UTF-8%2Fnotify_url.jsp&partner=2088501624560335&seller_id=20885016245603 35&out_trade_no=2016330134443814&payment_type=1&return_url=http%3A%2F%2Fwww.tes talipay.com%2Falipay.wap.create.direct.pay.by.user-JAVA-UTF-8%2Freturn_url.jsp';
-    $scope.pay_href = 'https://mapi.alipay.com/gateway.do?app_id=&method=alipay.trade.wap.pay&format=JSON&return_url=https://m.alipay.com/Gk8NF23&charset=utf-8&sign_type=RSA2&sign=NSmtqnf3x7qzAT6y1ZrQm8y8jCW5mRj3bVGEhY%2BglZa6Ps%2F9I8nwO4K0B%2F1qveyIUaOXb5oG68JzMa6h0CQliTm9phxPf6ZlWCt%2FZNYL6f37GhFBK2%2FRfW87AybJb0C1OSzkMW6G3OGLMb8xyKuI1JE7LFx607P6qVm4uQflits%3D&timestamp=2014-07-24%2003:07:50&timesversiontamp=1.0&biz_content=';
-    $scope.alipay = function () {
-        _AP.pay($scope.pay_href);
+    // 获取未支付订单
+    $scope.getorders = function () {
+        $scope.order_ids = [];
+        widget.ajaxRequest({
+            url: '/v1/orders',
+            method: 'get',
+            scope: $scope,
+            data: {
+                limit: 15,
+                order_status: [1, 2]
+            },
+            success: function (json) {
+                if (json.code == 0 && json.data && json.data.length > 0) {
+                    angular.forEach(json.data, function (val, key) {
+                        $scope.order_ids.push({
+                            order_id: val.order_id,
+                            order_status: val.order_status,
+                        });
+                    })
+                } else {
+                    widget.msgToast('没有未支付订单!')
+                }
+
+            }
+        });
+    }
+    $scope.getpayForm = function () {
+        // $scope.order = {};
+        if (!$scope.order || !$scope.order.order_id) {
+            widget.msgToast('没有订单ID!');
+            return false;
+        }
+        widget.ajaxRequest({
+            // url: 'http://192.168.100.207:10001/pay_admin/aliWapPay',
+            url: '/v1/orders/' + $scope.order.order_id + '/paycert',
+            method: 'get',
+            scope: $scope,
+            data: {pay_type: 6, return_url: $scope.order.return_url},
+            success: function (json) {
+                // document.getElementById('form_str').value = json.result;
+                // document.getElementById('form1').submit();
+                if (json.paycert && json.paycert.data && json.paycert.data.result) {
+                    var template = angular.element(json.paycert.data.result);
+                    // console.log(json.paycert.data.result);
+                    // console.log(template);
+                    var mobileDialogElement = $compile(template)($scope);
+                    angular.element(document.getElementById('form_str')).append(mobileDialogElement);
+                    // document.getElementsByName('punchout_form')[0].submit();
+                } else {
+                    widget.msgToast('没有获取支付凭证!');
+                }
+            },
+            failure: function (err) {
+                widget.msgToast(err.error.msg);
+            }
+        });
     }
     $ctrl.open = function (size, parentSelector) {
 //            console.log(size);
@@ -35,6 +87,19 @@ angular.module('wap.demo').controller('ModalDemoCtrl', function ($scope, widget,
             $log.info('Modal dismissed at: ' + $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss'));
         });
     };
+
+    $ctrl.removeCookie = function (size, parentSelector) {
+        if (!confirm('要清空cookie中的认证信息吗?')) {
+            return false;
+        }
+        var cookieArr = ipCookie();
+        angular.forEach(cookieArr, function (val, key) {
+            ipCookie.remove(key);
+        })
+        $log.info(cookieArr);
+        widget.msgToast('已清空Cookie!');
+    };
+
     $ctrl.getSignature = function (size, parentSelector) {
         var parentElem = parentSelector ?
             angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;

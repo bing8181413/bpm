@@ -174,7 +174,7 @@ define([
 
             // 礼包验证  start
 
-            $scope.param.gift_discount = comfunc.numDiv($scope.gift_discount, 100);
+            $scope.param.gift_discount = comfunc.numDiv($scope.gift_discount || 0, 100);
             if ($scope.param.gift_buy == 2) {
                 // 没有选择礼包 不做处理
             } else if (!$scope.param.gift_options || $scope.param.gift_options && $scope.param.gift_options.length == 0) {

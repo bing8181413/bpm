@@ -21,23 +21,42 @@ angular.module('wap.demo').controller('getUserCtrl', function ($scope, widget, $
     });
     $scope.ok = function () {
         // $scope.pay_href = 'https://mapi.alipay.com/gateway.do?sign=IvjVp0%2FXaRmVmE8Csio%2BTpbjuTzAzd4PrQLMUR8V82OcGhrjy%2BWLtaDD7KFn0tnMXfpLIJyKRjmxNulXNTMVWknKB4S77TRiBVHVOzeECKfh4BUY%2BUyesw6vXjtbIq2cL6GUI1A8OHu2HCjlNJK1Ks3VQqMTY7cowe8DX8PETq0%3D&_input_charset=utf-8&subject=test&total_fee=0.01&sign_type=RSA&service=alipay.wap.create.direct.pay.by.user&notify_url=http%3A%2F%2Fwww.testalipay.com%2Falipay.wap.create.direct.pay.by.user-JAVA-UTF-8%2Fnotify_url.jsp&partner=2088501624560335&seller_id=2088501624560335&out_trade_no=2016330134443814&payment_type=1&return_url=http%3A%2F%2Fwww.testalipay.com%2Falipay.wap.create.direct.pay.by.user-JAVA-UTF-8%2Freturn_url.jsp';
-        // $scope.pay_href = 'https://openapi.alipay.com/gateway.do'
-        $scope.pay_href = 'https://mapi.alipay.com/gateway.do'
+        // $scope.pay_href = 'https://mapi.alipay.com/gateway.do?
+        // sign=IvjVp0%2FXaRmVmE8Csio%2BTpbjuTzAzd4PrQLMUR8V82OcGhrjy%2BWLtaDD7KFn0tnMXfpLIJyKRjmxNulXNTMVWknKB4S77TRiBVHVOzeECKfh4BUY%2BUyesw6vXjtbIq2cL6GUI1A8OHu2HCjlNJK1Ks3VQqMTY7cowe8DX8PETq0%3D
+        // &_input_charset=utf-8
+        // &subject=test
+        // &total_fee=0.01
+        // &sign_type=RSA
+        // &service=alipay.wap.create.direct.pay.by.user
+        // &notify_url=http%3A%2F%2Fwww.testalipay.com%2Falipay.wap.create.direct.pay.by.user-JAVA-UTF-8%2Fnotify_url.jsp
+        // &partner=2088501624560335
+        // &seller_id=2088501624560335
+        // &out_trade_no=2016330134443814
+        // &payment_type=1
+        // &return_url=http%3A%2F%2Fwww.testalipay.com%2Falipay.wap.create.direct.pay.by.user-JAVA-UTF-8%2Freturn_url.jsp';
+        // $scope.pay_href = 'https://openapi.alipay.com/gateway.do';
+        // $scope.pay_href = 'https://mapi.alipay.com/gateway.do';
+        $scope.pay_href = 'https://openapi.alipaydev.com/gateway.do';
         widget.ajaxRequest({
             url: $scope.pay_href,
             method: 'get',
             scope: $scope,
-            data: {
-                app_id:'',
-                method:'alipay.trade.wap.pay',
-                format:'JSON',
-                return_url:'https://m.alipay.com/Gk8NF23',
-                charset:'utf-8',
-                sign_type:'RSA2',
-                sign:'NSmtqnf3x7qzAT6y1ZrQm8y8jCW5mRj3bVGEhY%2BglZa6Ps%2F9I8nwO4K0B%2F1qveyIUaOXb5oG68JzMa6h0CQliTm9phxPf6ZlWCt%2FZNYL6f37GhFBK2%2FRfW87AybJb0C1OSzkMW6G3OGLMb8xyKuI1JE7LFx607P6qVm4uQflits%3D',
-                timestamp:'2014-07-24 03:07:50',
-                timesversiontamp:'1.0',
-                biz_content:'',
+            data:{
+                "_input_charset": "utf-8",
+                "subject": "虞美人节•创新与美论坛暨混沌研习社上海分社成立大会",
+                "sign": "Zw25Kh7YwFPzcrMSuZMFTFzFE1HSs977f1cTkum1AZLaakNi%2BieGjlwcmC%2FAa6M7EpEMpCCW66aafSJy94YGLwKYS8QJVliv8RsNwW6sLBXXBNxV5CflnB%2B0Rmc7%2BcAD1VKuN3cmr8c0ynOponbsfrASKzduFOC1AjPHvTv8NiA%3D",
+                "it_b_pay": "30m",
+                "notify_url": "https://testpay.huijiame.com/pay_result/notify/2",
+                "body": "虞美人节•创新与美论坛暨混沌研习社上海分社成立大会",
+                "payment_type": "1",
+                "out_trade_no": "TA1JE13SC0400",
+                "partner": "2088021101527281",
+                "service": "alipay.wap.create.direct.pay.by.user",
+                "total_fee": "0.02",
+                // "order_string": "partner=\"2088021101527281\"&seller_id=\"2088021101527281\"&out_trade_no=\"TA1JE13SC0400\"&subject=\"虞美人节•创新与美论坛暨混沌研习社上海分社成立大会\"&body=\"虞美人节•创新与美论坛暨混沌研习社上海分社成立大会\"&total_fee=\"0.02\"&notify_url=\"https://testpay.huijiame.com/pay_result/notify/2\"&service=\"alipay.wap.create.direct.pay.by.user\"&payment_type=\"1\"&_input_charset=\"utf-8\"&it_b_pay=\"30m\"&show_url=\"m.alipay.com\"&sign=\"Zw25Kh7YwFPzcrMSuZMFTFzFE1HSs977f1cTkum1AZLaakNi%2BieGjlwcmC%2FAa6M7EpEMpCCW66aafSJy94YGLwKYS8QJVliv8RsNwW6sLBXXBNxV5CflnB%2B0Rmc7%2BcAD1VKuN3cmr8c0ynOponbsfrASKzduFOC1AjPHvTv8NiA%3D\"&sign_type=\"RSA\"",
+                "sign_type": "RSA",
+                "seller_id": "2088021101527281",
+                "show_url": "m.alipay.com"
             },
             success: function (json) {
                 console.log(json);

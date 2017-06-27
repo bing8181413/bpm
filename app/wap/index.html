@@ -13,10 +13,14 @@
     <link rel="stylesheet" href="../styles/animate/animate.min.css"/>
     <link rel="stylesheet" href="../styles/bootstrap/index.css">
     <link rel="stylesheet" href="../styles/bootstrap/vendor.css">
-
+    <style>
+        html, body {
+            overflow: auto
+        }
+    </style>
 </head>
 <body ng-app="wap.demo">
-<div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo">
+<div ng-controller="ModalDemoCtrl as $ctrl" class="modal-demo container-fluid">
     <script type="text/ng-template" id="bindMobile.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">绑定手机账户信息</h3>
@@ -58,31 +62,6 @@
     <!--Having multiple modals open at once is probably bad UX but it's technically possible.-->
     <!--</div>-->
     <!--</script>-->
-    <script type="text/ng-template" id="getSignature.html">
-        <div class="modal-header">
-            <h3 class="modal-title" id="modal-title">获取订单凭证</h3>
-        </div>
-        <div class="modal-body" id="modal-body">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <form class="form-horizontal">
-                        <div class="form-group">
-                            <div class="input-group">
-                                <div class="input-group-addon">商品ID</div>
-                                <input type="text" class="form-control" placeholder="商品ID"
-                                       ng-model="product_id">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-            <!--Selected: <b>{{ $ctrl.selected.item }}</b>-->
-        </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">获取凭证</button>
-            <!--<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>-->
-        </div>
-    </script>
     <script type="text/ng-template" id="getUser.html">
         <div class="modal-header">
             <h3 class="modal-title" id="modal-title">个人信息</h3>
@@ -98,35 +77,116 @@
                 </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button class="btn btn-primary" type="button" ng-click="ok()">确认支付</button>
-        </div>
+        <!--<div class="modal-footer">-->
+        <!--<button class="btn btn-primary" type="button" ng-click="ok()">确认支付</button>-->
+        <!--</div>-->
     </script>
-    <div class="container">
-        <div class="panel panel-primary">
-            <div class="panel-heading">支付DEMO
-            </div>
-            <div class="panel-body">
-                <div class="btn-toolbar">
-                    <a class="btn btn-default" ng-click="$ctrl.open('lg', '.modal-parent')">
-                        绑定手机账户
-                    </a>
-                    <a class="btn btn-primary" ng-click="$ctrl.getUser('', '.modal-parent')">
-                        个人信息
-                    </a>
-                    <a class="btn btn-warning" ng-click="$ctrl.getSignature('lg', '.modal-parent')">
-                        获取购买商品签名
-                    </a>
-                    <!--<button type="button" class="btn btn-primary" ng-click="$ctrl.openComponentModal()">Open a component-->
-                    <!--modal!-->
-                    <!--</button>-->
-                    <a class="btn btn-default" ng-click="alipay()">确认支付</a>
-                    <hr>
+    <div class="container-fluid">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading" ng-bind="$root.env.env_name+'支付DEMO'"></div>
+                <div class="panel-body">
+                    <div class="btn-toolbar">
+                        <a class="btn btn-primary" ng-click="$ctrl.open('lg', '.modal-parent')">
+                            手机绑定账户
+                        </a>
+                        <hr>
+                    </div>
+                    <div class="btn-toolbar">
+                        <a class="btn btn-danger" ng-click="$ctrl.removeCookie('lg', '.modal-parent')">
+                            解绑账户
+                        </a>
+                        <hr>
+                    </div>
+                    <div class="btn-toolbar">
+                        <a class="btn btn-primary" ng-click="$ctrl.getUser('', '.modal-parent')">
+                            查看个人信息
+                        </a>
+                        <hr>
+                    </div>
+                    <!--<div class="btn-toolbar">-->
+                    <!--</div>-->
+                    <!--<div class="btn-toolbar">-->
+                    <!--&lt;!&ndash;<button type="button" class="btn btn-primary" ng-click="$ctrl.openComponentModal()">Open a component&ndash;&gt;-->
+                    <!--<a class="btn btn-default" ng-click="alipay()">确认支付</a>-->
+                    <!--<hr>-->
+                    <!--</div>-->
+                    <!--<div ng-show="$ctrl.selected" ng-cloak>Selection from a modal: {{ $ctrl.selected }}</div>-->
                 </div>
-                <div ng-show="$ctrl.selected">Selection from a modal: {{ $ctrl.selected }}</div>
-                <div class="modal-parent">
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">确认支付</div>
+                <div class="panel-body">
+                    <div id="form_str"></div>
+                    <form class="form-horizontal" ng-init="order.order_id = '';order.return_url='https://www.baidu.com'">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">未支付订单ID</div>
+                                <input type="text" class="form-control" placeholder="订单ID" ng-model="order.order_id">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">支付成功后跳转</div>
+                                <input type="text" class="form-control" placeholder="return_url" ng-model="order.return_url">
+                            </div>
+                        </div>
+                    </form>
+                    <form name="myForm">
+                        <ul class="list-group">
+                            <li class="list-group-item" ng-repeat="item in order_ids">
+                                <label>
+                                    <input type="radio" ng-model="order.order_id" value="{{item.order_id}}">
+                                    <span ng-bind="'订单ID'+item.order_id+' / 订单状态:'+item.order_status"></span>
+                                </label>
+                            </li>
+                        </ul>
+                        <!--<div class="radio" ng-repeat="item in order_ids">-->
+                        <!--<label>-->
+                        <!--<input type="radio" ng-model="order.order_id" value="{{item.order_id}}">-->
+                        <!--<span>&nbsp;&nbsp;&nbsp;订单ID:-->
+                        <!--<span ng-bind="item.order_id"></span>-->
+                        <!--</span>-->
+                        <!--<span>-->
+                        <!--&nbsp;&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;订单状态:<span-->
+                        <!--ng-bind="item.order_status"></span></span>-->
+                        <!--</label>-->
+                        <!--</div>-->
+                        <h4>
+                            <span class="text-success">点击<span class="text-danger">获取订单信息</span>
+                                按钮,选择一个未支付订单的ID,然后
+                                <span class="text-danger">马上支付</span></span>
+                        </h4>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary" type="button" ng-click="getorders()">获取订单信息</button>
+                    <button class="btn btn-primary" type="button" ng-click="getpayForm()">马上支付</button>
                 </div>
             </div>
+        </div>
+        <!--<div class="col-sm-4">-->
+        <!--<div class="panel panel-primary">-->
+        <!--<div class="panel-heading">订单信息填写</div>-->
+        <!--<div class="panel-body">-->
+        <!--<form class="form-horizontal">-->
+        <!--<div class="form-group">-->
+        <!--<div class="input-group">-->
+        <!--<div class="input-group-addon">商品ID</div>-->
+        <!--<input type="text" class="form-control" placeholder="商品ID"-->
+        <!--ng-model="order.product_id">-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</form>-->
+        <!--</div>-->
+        <!--<div class="modal-footer">-->
+        <!--<button class="btn btn-primary" type="button" ng-click="getorders()">获取订单信息</button>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+        <div class="modal-parent" title="不能删,弹出框的父级菜单">
         </div>
     </div>
 </div>
@@ -138,6 +198,7 @@
 <script type="text/javascript" src="../vendor/jquery/jquery.min.js"></script>
 <script type="text/javascript" src="ap.js"></script>
 <script type="text/javascript" src="ctrl/widget.js"></script>
+<script type="text/javascript" src="ctrl/env.js"></script>
 <div name="importjs"></div>
 <script>
     function include(objPaths) {
@@ -155,7 +216,6 @@
 <!--<script type="text/javascript" src="ctrl/demo.js"></script>-->
 <script type="text/javascript" src="ctrl/ModalDemoCtrl.js"></script>
 <script type="text/javascript" src="ctrl/bindMobileCtrl.js"></script>
-<script type="text/javascript" src="ctrl/getSgnatureCtrl.js"></script>
 <script type="text/javascript" src="ctrl/getUserCtrl.js"></script>
 <!--<script type="text/javascript" src="ctrl/main.js"></script>-->
 

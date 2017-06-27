@@ -1,4 +1,4 @@
-angular.module('demoServices', []).factory('widget', function ($q, $http, $compile, $timeout, $location, $rootScope, $filter, ipCookie, base64) {
+angular.module('demoServices', []).factory('widget', function ($q, $http, $compile, $timeout, $location, $rootScope, $filter, ipCookie, base64, env) {
     var toastTimer = null;
     var widget = {
         /**
@@ -34,8 +34,9 @@ angular.module('demoServices', []).factory('widget', function ($q, $http, $compi
          *   data: object
          */
         ajaxRequest: function (params) {
-            if (ipCookie('visitor_id') && ipCookie('token')) {
-                var baseAuth = 'Basic :' + base64.encode(ipCookie('visitor_id') + ':' + ipCookie('token'));
+            // 认证 header auth
+            if (ipCookie('visitor_id') && ipCookie('auth_token')) {
+                var baseAuth = 'Basic :' + base64.encode(ipCookie('visitor_id') + ':' + ipCookie('auth_token'));
                 $http.defaults.headers.common.Authorization = baseAuth;
             }
             var self = this;
@@ -60,7 +61,7 @@ angular.module('demoServices', []).factory('widget', function ($q, $http, $compi
                     'Content-Type': 'application/json;charset=UTF-8'
                 },
                 method: params.method || 'POST',
-                url: params.url.indexOf('http') == 0 ? params.url : (cons.domain + params.url),
+                url: params.url.indexOf('http') == 0 ? params.url : (env.api_domain + params.url),
                 timeout: 60000,
             };
             if ($filter('uppercase')(params.method) == 'GET') {
@@ -90,7 +91,7 @@ angular.module('demoServices', []).factory('widget', function ($q, $http, $compi
             $http(ajaxConfig).then(
                 function (res) {
                     if (res.status == 200) {
-                        if (res.data.code == 0) {
+                        if (res.data.code == 0 || res.data.statusCode == 200) {
                             if (options.success && typeof options.success === 'function') {
                                 options.success(res.data);
                             }
