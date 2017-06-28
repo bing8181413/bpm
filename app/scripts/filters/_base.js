@@ -410,6 +410,22 @@ define([
                 return result;
             }
         }])
+        // groupbuy_end_type 拼团结束类型，0 人数类型 (注:成团后不能再报名)，1 拼团时间 (注:成团后仍可报名，直到拼团时间截止)
+        .filter('groupbuy_end_type', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "人数类型(成团后不能再报名)";
+                        break;
+                    case "2":
+                        result = "拼团时间(成团后仍可报名)";
+                        break;
+                }
+                return result;
+            }
+        }])
         // product_sku 商品品类，0 不限，1 鲜花
         .filter('product_sku', [function () {
             return function (val) {

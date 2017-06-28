@@ -44,6 +44,7 @@ define([
                         $scope.txt = ($scope.data.category == 2) ? '人数团' : ($scope.data.category == 4 ? '人数团+直接买' : '');
                         $scope.txt += $scope.data.group_seconds ? ('<br/>拼团有效时间:' + $filter('second2hour')($scope.data.group_seconds) + '小时') : '';
                         $scope.txt += $scope.data.group_end_time ? ('<br/>拼团时长:' + $filter('remaining_time')($scope.data.group_end_time, $scope.data.created_at)) : '';
+                        $scope.txt += $scope.data.groupbuy_end_type ? ('<br/>结束类型:' + $filter('groupbuy_end_type')($scope.data.groupbuy_end_type)) : '';
                         $scope.txt += '<br/>人数:' + $scope.data.group_min_num;
                         $scope.txt += '<br/>单价:' + $scope.data.price;
                     }

@@ -26,8 +26,14 @@ define([], function () {
                 // {name: '成功购买份数', field: 'order.copies'},
                 // {name: '团支付金额', field: 'order.amounts'},
                 // {name: '返现金额', field: 'return_amount'},
-                {name: '剩余时间', field: 'group_end_time', filter: 'null2empty|remaining_time'},
-                // {name: '拼团状态', field: 'accomplish_status', filter: 'accomplish_status'},
+                {
+                    name: '剩余时间',
+                    fieldDirective: '<span ng-show="item.groupbuy_end_type==1&&item.accomplish_status==3">已结束</span>' +
+                    '<span ng-bind="item.group_end_time|null2empty|remaining_time" ng-show="item.groupbuy_end_type==2&&item.accomplish_status==3"></span>' +
+                    '<span ng-bind="item.group_end_time|null2empty|remaining_time" ng-show="item.accomplish_status!=3"></span>'
+                    // field: 'group_end_time', filter: 'null2empty|remaining_time'},
+                    // {name: '拼团状态', field: 'accomplish_status', filter: 'accomplish_status'
+                },
                 {
                     name: '拼团状态',
                     fieldDirective: '<div groupbuy-accomplish-status data="item"></div>'
