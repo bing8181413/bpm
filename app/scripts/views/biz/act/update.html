@@ -188,6 +188,10 @@
                              min="0"></div>
                         <div form-input text="初始购买份数" ng-model="param.init_buy_count" type="number"
                              min="1"></div>
+
+                        <div form-input text="已售份数基数" ng-model="param.base_sale_count" type="number"
+                             min="0"></div>
+
                         <div form-radio text="是否限制仅会员可购买" ng-model="param.vip_buy" default="1"
                              source="[{text:'仅会员',value:'1'},{text:'不限制',value:'2'}]"
                              required="true"></div>
@@ -267,8 +271,6 @@
                         </div>
                         <!--<div form-input text="设置减额" ng-model="param.per_buy_count"-->
                         <!--required="true" ng-show="param.vip_promotion_type == 2"></div>-->
-                        <!--<div form-input text="已售份数基数" ng-model="param.base_sale_count" type="number"-->
-                        <!--min="0"></div>-->
 
 
                         <hr>

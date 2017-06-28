@@ -37,21 +37,15 @@ angular.module('wap.demo').controller('ModalDemoCtrl', function ($scope, widget,
             return false;
         }
         widget.ajaxRequest({
-            // url: 'http://192.168.100.207:10001/pay_admin/aliWapPay',
             url: '/v1/orders/' + $scope.order.order_id + '/paycert',
             method: 'get',
             scope: $scope,
             data: {pay_type: 6, return_url: $scope.order.return_url},
             success: function (json) {
-                // document.getElementById('form_str').value = json.result;
-                // document.getElementById('form1').submit();
                 if (json.paycert && json.paycert.data && json.paycert.data.result) {
                     var template = angular.element(json.paycert.data.result);
-                    // console.log(json.paycert.data.result);
-                    // console.log(template);
                     var mobileDialogElement = $compile(template)($scope);
                     angular.element(document.getElementById('form_str')).append(mobileDialogElement);
-                    // document.getElementsByName('punchout_form')[0].submit();
                 } else {
                     widget.msgToast('没有获取支付凭证!');
                 }
