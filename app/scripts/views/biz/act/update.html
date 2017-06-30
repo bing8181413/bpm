@@ -29,7 +29,7 @@
         </div>
         <div class="panel-body">
             <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
-            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [1,1,1,1,1,1]"
+            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [0,0,0,0,0,1]"
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
@@ -329,6 +329,34 @@
 
                         <div form-input text="礼包描述" ng-model="param.gift_desc" placeholder="不超过30个字" required="true"
                              ng-if="param.gift_buy==1" minlength="0" maxlength="30"></div>
+
+                        <div class="form-group" ng-if="param.gift_buy == 1">
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">礼包分享标题</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" ng-model="param.gift_share_title">
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-primary"
+                                       ng-click="param.gift_share_title='手慢无！{{title}}{{nickname}}发礼物啦！'">点击获取默认文案再修改</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="param.gift_buy == 1">
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">例:</label>
+                                <div class="col-sm-10">
+                                    <label  class="control-label" ng-bind="'\{\{title\}\} : \''+title+'\' , \{\{nickname\}\} : \''+nickname+'\''"></label>
+                                </div>
+                            </div>
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">最终分享标题</label>
+                                <div class="col-sm-10">
+                                    <label class="control-label text-primary" compile="param.gift_share_title"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
 
                         <div form-input text="单人最大购买份数" ng-model="param.gift_max_num" type="number"
                              min="0" ng-if="param.gift_buy==1"></div>

@@ -2,12 +2,13 @@ define([], function () {
     var rtn = {
         orderList: {
             columns: [
-                {name: 'ID', field: 'order_id', className: 'text-right'},
+                {name: '订单ID', field: 'order_id', className: 'text-right'},
+                {name: '拼团ID', field: 'groupbuy_id', className: 'text-right'},
                 {name: '母订单号', field: 'order_no'},
                 // {name: '送达时间', fieldDirective: '<div ng-bind="item.pattern.arrive_pm |num2week"></div>'},
                 {
                     name: '拼团信息',
-                    fieldDirective: '<span ng-bind="\'ID:\'+item.product.product_id"></span>' +
+                    fieldDirective: '<span ng-bind="\'活动ID:\'+item.product.product_id"></span>' +
                     '<br/>标题:<br/><span ng-bind="item.product.title|characters: 7 : false" ' +
                     'uib-tooltip="{{item.product.title}}" tooltip-placement="bottom"></span>' +
                     '<br/>价格:<span ng-bind="item.product.high_price"></span>'
@@ -129,7 +130,8 @@ define([], function () {
                 }
             },
             columns_by_act_all: [
-                {name: 'ID', field: 'order_id', className: 'text-right'},
+                {name: '订单ID', field: 'order_id', className: 'text-right'},
+                {name: '拼团ID', field: 'groupbuy_id', className: 'text-right'},
                 // {name: '订单号', field: 'order_no'},
                 {
                     name: '订单号/推荐人',
@@ -140,7 +142,7 @@ define([], function () {
                 {name: '订单类型', field: 'order_type', filter: 'order_type'},
                 {
                     name: '活动信息',
-                    fieldDirective: '<span ng-bind="\'ID:\'+item.product.product_id"></span>' +
+                    fieldDirective: '<span ng-bind="\'活动ID:\'+item.product.product_id"></span>' +
                     '<br/>标题:<br/><span ng-bind="item.product.title|characters: 7 : false" ' +
                     'uib-tooltip="{{item.product.title}}" tooltip-placement="bottom"></span>' +
                     '<br/>活动开始时间:<br/><span ng-bind="item.product.start_time"></span>' +
@@ -194,7 +196,8 @@ define([], function () {
                 },
             ],
             columns_by_act: [
-                {name: 'ID', field: 'order_id', className: 'text-right'},
+                {name: '订单ID', field: 'order_id', className: 'text-right'},
+                {name: '拼团ID', field: 'groupbuy_id', className: 'text-right'},
                 // {name: '订单号', field: 'order_no'},
                 {
                     name: '订单号/推荐人',
@@ -398,7 +401,8 @@ define([], function () {
                 }
             },
             columns_by_groupbuy: [
-                {name: 'ID', field: 'order_id', className: 'text-right'},
+                {name: '订单ID', field: 'order_id', className: 'text-right'},
+                {name: '拼团ID', field: 'groupbuy_id', className: 'text-right'},
                 {name: '母订单号', field: 'order_no',},
                 {
                     name: '收货<br/>信息',
@@ -440,7 +444,8 @@ define([], function () {
                 // },
             ],
             columns_by_user: [
-                {name: 'ID', field: 'order_id', className: 'text-right'},
+                {name: '订单ID', field: 'order_id', className: 'text-right'},
+                {name: '拼团ID', field: 'groupbuy_id', className: 'text-right'},
                 {name: '母订单号', field: 'order_no',},
                 {
                     name: '收货<br/>信息',

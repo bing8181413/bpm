@@ -3,6 +3,7 @@ define([], function () {
         groupbuyList: {
             columns: [
                 {name: '拼团ID', field: 'groupbuy_id', className: 'text-center'},
+                {name: '订单ID', field: 'order_id', className: 'text-center'},
                 // {
                 //     name: '活动标题', field: 'product.title',
                 //     truncateText: true,

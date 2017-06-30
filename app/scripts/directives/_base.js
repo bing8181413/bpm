@@ -2,6 +2,7 @@ define([
     './directives',
     '../cons/simpleCons',
     './hjm-grid',// grid
+    './hjm-compile',// grid
     './hjm-form',// form
     './hjm-form-date',// form date
     './hjm-form-valid',// form-valid 表单验证

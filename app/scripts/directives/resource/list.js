@@ -4,7 +4,7 @@ define([
 ], function (mod, simpleCons) {
     // <div product-pattern="patterns"></div>
     mod
-        .directive('addResourceImage', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
+        .directive('addResourceImage', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout, comfunc) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -22,8 +22,24 @@ define([
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
                                         '<div form-image text="资源库图片" ng-model="pics" token="resource" max="100"></div>' +
-                                        // '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
+                                        '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
                                         '</form>';
+                                    $scope.submit = function () {
+                                        if ($scope.pics && !comfunc.isEmptyArray($scope.pics)) {
+                                            var tmp_pics_err = 0;
+                                            angular.forEach($scope.pics, function (val, key) {
+                                                if (!val.pic_url) {
+                                                    tmp_pics_err++;
+                                                }
+                                            })
+                                            if (tmp_pics_err > 0) {
+                                                widget.msgToast('还没有完成上传');
+                                                return false;
+                                            }
+                                        }
+                                        $scope.$parent.$$childHead.$$childTail.$$childHead.$$childHead.searchAction();
+                                        $scope.cancel();
+                                    }
                                     $scope.cancel = function () {
                                         $uibModalInstance.dismiss('cancel');
                                     };
@@ -35,7 +51,7 @@ define([
                 }
             }
         })
-        .directive('addResourceAudio', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
+        .directive('addResourceAudio', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout,comfunc) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -53,8 +69,25 @@ define([
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
                                         '<div form-audio text="资源库音频" ng-model="pics" token="resource" max="1" min="1"></div>' +
-                                        // '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
+                                        '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
                                         '</form>';
+                                    $scope.submit = function () {
+                                        console.log($scope.pics);
+                                        if ($scope.pics && !comfunc.isEmptyArray($scope.pics)) {
+                                            var tmp_pics_err = 0;
+                                            angular.forEach($scope.pics, function (val, key) {
+                                                if (!val.pic_url) {
+                                                    tmp_pics_err++;
+                                                }
+                                            })
+                                            if (tmp_pics_err > 0) {
+                                                widget.msgToast('还没有完成上传');
+                                                return false;
+                                            }
+                                        }
+                                        $scope.$parent.$$childHead.$$childTail.$$childHead.$$childHead.searchAction();
+                                        $scope.cancel();
+                                    }
                                     $scope.cancel = function () {
                                         $uibModalInstance.dismiss('cancel');
                                     };

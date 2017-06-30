@@ -138,6 +138,11 @@ define([
         //     }
         // }, true);
 
+        $scope.$watch('param.gift_share_title', function (val) {
+            $scope.title = '土豪';
+            $scope.nickname = '张三';
+        }, true);
+
         $scope.compare_hours = function () {
             if ($scope.hours <= $scope.groupbuy_auto_hours) {
                 widget.msgToast('拼团有效时间 > 自动成团剩余时间  点击取消', 5000);

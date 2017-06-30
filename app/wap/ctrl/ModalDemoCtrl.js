@@ -46,6 +46,8 @@ angular.module('wap.demo').controller('ModalDemoCtrl', function ($scope, widget,
                     var template = angular.element(json.paycert.data.result);
                     var mobileDialogElement = $compile(template)($scope);
                     angular.element(document.getElementById('form_str')).append(mobileDialogElement);
+                    console.log(mobileDialogElement);
+                    // document.getElementsByName('punchout_form')[0].submit();
                 } else {
                     widget.msgToast('没有获取支付凭证!');
                 }
