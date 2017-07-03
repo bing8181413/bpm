@@ -834,10 +834,28 @@ define([
                         // console.log($scope, $attrs, $scope.disabled);
                     }, 0);
                     $scope.mapData = {isshowmap: false};
-
+                    $scope.show_tip = [];
                     $scope.log = function () {
                         console.log($scope.addresses);
                     }
+                    // 删除地址和经纬度的信息
+                    $scope.del_info = function (index) {
+                        if (!$scope.addresses[index]) return;
+                        $scope.addresses[index].longitude = 0;
+                        $scope.addresses[index].latitude = 0;
+                        $scope.addresses[index].city_name = '';
+                        $scope.addresses[index].district = '';
+
+                    }
+                    $scope.$watch('addresses', function (val) {
+                        $scope.show_tip.length = val && val.length || 0;
+                        angular.forEach(val, function (v, k) {
+                            $scope.show_tip[k] = 0;
+                            if (!v.city_name) {
+                                $scope.show_tip[k] = 1;
+                            }
+                        })
+                    }, true);
                     // 删除一部分 或者 全部删除
                     $scope.delAddress = function (index) {
                         if (!index && index != 0) {
@@ -858,30 +876,39 @@ define([
                     }
                     //  获取地理位置信息 传入地址
                     $scope.getlocation = function (index) {
+                        $scope.del_info();
                         // if (angular.isUndefined($scope.addresses[index].city_name)) {
                         //     widget.msgToast('没有城市');
                         //     return false;
                         // }
-                        if (angular.isUndefined($scope.addresses[index].detail_address)) {
-                            widget.msgToast('没有地址');
+                        // 地址不能为空
+                        if (angular.isUndefined($scope.addresses[index].detail_address)
+                            || !$scope.addresses[index].detail_address) {
+                            widget.msgToast('请填写地址详情来定位经纬度');
                             return false;
                         }
 
                         // $scope.mapData = {
-                        $scope.mapData.lng = $scope.addresses[index].longitude;
-                        $scope.mapData.lat = $scope.addresses[index].latitude;
+                        // $scope.mapData.lng = $scope.addresses[index].longitude;
+                        // $scope.mapData.lat = $scope.addresses[index].latitude;
+                        // var is_first_SH = $scope.addresses[index].detail_address.indexOf('上海');// 首字符是上海吗?
+                        // console.log(is_first_SH);
+                        // if ($scope.addresses[index].isSH == 1 && is_first_SH == -1) {
+                        //     $scope.addresses[index].detail_address = '上海市' + $scope.addresses[index].detail_address;
+                        // } else if ($scope.addresses[index].isSH == 2 && is_first_SH > -1) {
+                        //     $scope.addresses[index].detail_address = $scope.addresses[index].detail_address.replace(/上海市/, '').replace(/上海/, '');
+                        // }
                         $scope.mapData.address = $scope.addresses[index].detail_address;
-
                         $scope.mapData.timeStamp = new Date().getTime(); //  作为监听事件的触发 使用  必传项
                         $scope.mapData.index = index;//  为了 callback 找到 是第几个地址
-
-                        $scope.mapData.city = $scope.addresses[index].city_name;
-                        $scope.mapData.district = $scope.addresses[index].district;
-
-                        if ($scope.mapData.city.indexOf('上海') == -1) {
-                            $scope.mapData.city = '';
-                            $scope.mapData.district = '';
-                        }
+                        //
+                        // $scope.mapData.city = $scope.addresses[index].city_name;
+                        // $scope.mapData.district = $scope.addresses[index].district;
+                        // console.log($scope.addresses[index].city_name);
+                        // if ($scope.mapData.city && $scope.mapData.city.indexOf('上海') == -1) {
+                        //     $scope.mapData.city = '';
+                        //     $scope.mapData.district = '';
+                        // }
                         // };
                     }
                     $scope.callback = function () {
@@ -891,7 +918,11 @@ define([
 
                             $scope.addresses[$scope.mapData.index].district = $scope.mapData.district;
                             $scope.addresses[$scope.mapData.index].city_name = $scope.mapData.city;
-                            if ($scope.mapData.city.indexOf('上海') == -1) {
+                            // console.log(($scope.mapData.city));
+                            $scope.show_tip[$scope.mapData.index] = false;
+                            if ($scope.mapData.city && $scope.mapData.city.indexOf('上海') == -1) {
+                                widget.msgToast('定位了非上海市,不展示城市和区县',3000);
+                                $scope.show_tip[$scope.mapData.index] = true;
                                 $scope.addresses[$scope.mapData.index].district = '';
                                 $scope.addresses[$scope.mapData.index].city_name = '';
                             }

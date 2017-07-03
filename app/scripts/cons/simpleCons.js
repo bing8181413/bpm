@@ -85,13 +85,15 @@ define([
     ;
     state = {
         main: 'main',
-        biz: 'biz'
+        biz: 'biz',
+        demo: 'demo',
     }
     return {
         'VIEW_PATH': 'scripts/views/',
         'view_path': 'scripts/views/',
         'main_path': 'scripts/views/' + state.main + '/',
         'biz_path': 'scripts/views/' + state.biz + '/',
+        'demo_path': 'scripts/views/' + state.demo + '/',
         'DIRECTIVE_PATH': 'scripts/views/directive/',
         'DIRECTIVE_LIST_PATH': 'scripts/views/directive/list/',
         'PARTIALS_PATH': 'scripts/partials/',

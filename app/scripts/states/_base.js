@@ -34,6 +34,10 @@ define([
     'states/hjm/work',//作业管理
     'states/hjm/redpacketcoupons',//购买成功后的 分享红包
 
+
+
+    'states/demo/baidumap',//购买成功后的 分享红包
+
 ], function () {
 
 });

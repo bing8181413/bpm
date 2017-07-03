@@ -13,6 +13,8 @@
                                 <!--<input class="form-control" type="text" ng-model="v.city_name">-->
                                 <!--</div>-->
                                 <!--</div>-->
+                                <!--<div form-radio type="radio" text="是否为上海市" ng-model="v.isSH" required="true" default="1"-->
+                                     <!--source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>-->
                                 <div class="form-group">
                                     <label class="col-sm-2 control-label">活动地点</label>
                                     <div class="col-sm-10">
@@ -56,11 +58,16 @@
                                         <!--ng-options="district.value as district.text for week in $root.common.district"></select>-->
                                         <input class="form-control" type="text" ng-model="v.district"
                                                placeholder="区域" ng-disabled="true">
+                                </div>
+                                </div>
+                                <div class="form-group" ng-show="show_tip[k]">
+                                    <div class="col-sm-10 col-sm-offset-2">
+                                        <h5 class="text-danger">只允许上海市,若城市、区县显示有疑问,试试把详情地址中包含城市区县</h5>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-2">
 
                                         </div>
                                         <div class="col-sm-3">
@@ -78,7 +85,7 @@
                                         </div>
                                         <div class="col-sm-3">
                                             <a class="btn btn-warning btn-rounded"
-                                               ng-click="v.longitude=0;v.latitude=0;">隐藏微信页面地图</a>
+                                               ng-click="del_info(k)">隐藏微信页面地图</a>
                                         </div>
                                     </div>
                                 </div>

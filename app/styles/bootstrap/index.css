@@ -6022,6 +6022,41 @@ button.close {
     .modal-lg {
         width: 900px
     }
+    .modal-sm {
+        width: 450px
+    }
+}
+@media (min-width: 1200px) {
+    .modal-lg {
+        width: 1000px
+    }
+    .modal-sm {
+        width: 500px
+    }
+}
+@media (min-width: 1400px) {
+    .modal-lg {
+        width: 1200px
+    }
+    .modal-sm {
+        width: 600px
+    }
+}
+@media (min-width: 1600px) {
+    .modal-lg {
+        width: 1300px
+    }
+    .modal-sm {
+        width: 600px
+    }
+}
+@media (min-width: 1800px) {
+    .modal-lg {
+        width: 1500px
+    }
+    .modal-sm {
+        width: 700px
+    }
 }
 
 .tooltip {
