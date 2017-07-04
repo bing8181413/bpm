@@ -425,6 +425,8 @@ define([
                     ngModel: '=ngModel',
                     ngModelTxt: '@ngModel',
                     showtip: '@',
+                    text: '=',
+                    name: '=',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'hjm_date_time.html'),
                 link: function ($scope, $element, $attrs) {

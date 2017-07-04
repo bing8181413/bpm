@@ -23,13 +23,13 @@
             <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.product_id">修改活动</h3>
             <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.product_id">活动详情</h3>
             <a href="javascript:void(0)" class="btn btn-success btn-rounded pull-right btn-xs"
-               ng-click="title_info = [1,1,1,1,1,1]">展开模块</a>&nbsp;&nbsp;&nbsp;&nbsp;
+               ng-click="title_info = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]">展开模块</a>&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="javascript:void(0)" class="btn btn-success btn-rounded pull-right btn-xs"
-               ng-click="title_info = [0,0,0,0,0,0]">合并模块</a>
+               ng-click="title_info = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]">合并模块</a>
         </div>
         <div class="panel-body">
             <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
-            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [1,1,1,1,1,1]"
+            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">

@@ -11,14 +11,10 @@ define([
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.demo.baidumap', {
-                            url: "/baidumap.html",
-                            views: {
-                                "": {
-                                    templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.demo_path + 'baidumap.html');
-                                    }
-                                }
+                        .state(cons.state.main + '.demo', {
+                            url: "/demo",
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
                 }

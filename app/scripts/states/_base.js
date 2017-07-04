@@ -36,7 +36,9 @@ define([
 
 
 
-    'states/demo/baidumap',//购买成功后的 分享红包
+    'states/demo/demo',//百度地图
+    'states/demo/baidumap',//百度地图
+    'states/demo/datetime',//时间 日期插件
 
 ], function () {
 
