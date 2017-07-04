@@ -89,7 +89,7 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                         },
                         method: params.method || 'POST',
                         url: params.url.indexOf('http') == 0 ? params.url : (cons.domain + params.url),
-                        timeout: 60000,
+                        timeout: params.timeout||60000,
                     };
                     if ($filter('uppercase')(params.method) == 'GET') {
                         ajaxConfig.url += '?';
