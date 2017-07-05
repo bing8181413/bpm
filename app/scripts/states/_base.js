@@ -36,9 +36,10 @@ define([
 
 
 
-    'states/demo/demo',//百度地图
+    'states/demo/demo',//demo index
     'states/demo/baidumap',//百度地图
     'states/demo/datetime',//时间 日期插件
+    'states/demo/richcontent',// 富文本
 
 ], function () {
 

@@ -1,0 +1,24 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock">时间日期</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div form-rich-content text="富文本" ng-model="rich_text"></div>
+                    </div>
+                </div>
+                <div form-error-block></div>
+                <!--<div ng-bind="FormBody|json"></div>-->
+                <!--<a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>-->
+            </form>
+        </div>
+    </div>
+</div>
