@@ -60,6 +60,7 @@ define([
                         var fileItemTmpl = {
                             name: fileItem._file.name,
                             // type: $scope.token,
+                            type:'resource',
                             skey: 'uxThINf7Ns9Qy8tGQXm3'
                         };
                         widget.ajaxRequest({

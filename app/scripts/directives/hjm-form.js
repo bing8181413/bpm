@@ -575,6 +575,48 @@ define([
                 }
             }
         })
+        .directive('formApk', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+            return {
+                restrict: 'EA',
+                replace: true,
+                template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
+                scope: {
+                    ngModel: '=ngModel',
+                    ngModelText: '@ngModel',
+                    text: '@',
+                    name: '@',
+                    required: '@',
+                    max: '@',
+                    callback: '&',
+                    token: '@'
+                },
+                link: function ($scope, $element, $attrs, $ctrl) {
+                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var required = $scope.required ? (' required ') : '';
+                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var max = $scope.max ? (' max="' + $scope.max + '"') : '';
+                    var token = $scope.token ? (' token="' + $scope.token + '"') : (' token=""');
+
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                        var uploadHtml =
+                            '<show-upload-apk-token apk="ngModel" ' + name + max + required + disabledRole + token + '></show-upload-apk-token>';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8" style="border: 1px #ccc dashed;">' + uploadHtml +
+                            '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
+                            '</div>';
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                        // console.log($scope.$parent.FormBody[$scope.ngModelText]);
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
+                    }, 0);
+
+                }
+            }
+        })
         .directive('formImageContent', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',

@@ -5,83 +5,58 @@
 define([
         '../states'
         , '../../cons/simpleCons'
-        , '../../controllers/biz/menusController'
-        , '../../controllers/biz/accountController'
+        , '../../controllers/biz/liveRoomsController'
     ],
     function (stateModule, cons) {
         stateModule.config(
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.account', {
-                            url: "/account",
+                        .state(cons.state.main + '.live_rooms', {
+                            url: "/live_rooms",
                             templateProvider: function ($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
-                        .state(cons.state.main + '.account.list', {
+                        .state(cons.state.main + '.live_rooms.list', {
                             url: "/list",
                             views: {
                                 "": {
-                                    // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'account/list.html');
+                                        return '<div hjm-grid modid="liveRoomsList" config="config" columns="columns"></div>';
                                     }
                                 }
                             }
                         })
-                        .state(cons.state.main + '.account.roles', {
-                            url: "/role.html",
+                        .state(cons.state.main + '.live_rooms.update', {
+                            url: "/update.html/:id",
                             views: {
                                 "": {
-                                    // controller: 'accountController'
+                                    controller: "liveRooms.updateController",
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'role/list.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'live_rooms/update.html');
                                     }
                                 }
                             }
                         })
-                        .state(cons.state.main + '.account.menus', {
-                            url: "/menus.html",
-                            views: {
-                                "": {
-                                    controller: 'menusController',
-                                    templateProvider: function ($templateCache) {
-                                        // return $templateCache.get('app/' + cons.biz_path + 'menu/list.html');
-                                        return $templateCache.get('app/' + cons.biz_path + 'menu/menus.html');
-                                    }
-                                }
-                            }
-                        })
-                        .state(cons.state.main + '.account.update', {
-                            url: "/update.html/:account_id",
-                            views: {
-                                "": {
-                                    controller: "account.updateController",
-                                    templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'account/update.html');
-                                    }
-                                }
-                            }
-                        })
-                        .state(cons.state.main + '.account.add', {
+                        .state(cons.state.main + '.live_rooms.add', {
                             url: "/add.html",
                             views: {
                                 "": {
-                                    controller: "account.updateController",
+                                    controller: "liveRooms.updateController",
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'account/update.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'live_rooms/update.html');
                                     }
                                 }
                             }
                         })
-                        .state(cons.state.main + '.account.profile', {
-                            url: "/profile.html",
+                        .state(cons.state.main + '.live_rooms.plan', {
+                            url: "/plan.html/:id",
                             views: {
                                 "": {
-                                    controller: "account.profileController",
+                                    controller: "liveRooms.planController",
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'account/profile.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'live_rooms/plan.html');
                                     }
                                 }
                             }

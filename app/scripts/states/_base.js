@@ -33,6 +33,8 @@ define([
     'states/hjm/student',//学生
     'states/hjm/work',//作业管理
     'states/hjm/redpacketcoupons',//购买成功后的 分享红包
+    'states/hjm/live_rooms',//直播房间
+    'states/hjm/record_rooms',//点播房间
 
 
 

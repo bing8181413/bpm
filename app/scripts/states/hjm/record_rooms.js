@@ -5,58 +5,70 @@
 define([
         '../states'
         , '../../cons/simpleCons'
-        , '../../controllers/biz/liveRoomsController'
+        , '../../controllers/biz/recordRoomsController'
     ],
     function (stateModule, cons) {
         stateModule.config(
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.live_rooms', {
-                            url: "/live_rooms",
+                        .state(cons.state.main + '.record_rooms', {
+                            url: "/record_rooms",
                             templateProvider: function ($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
-                        .state(cons.state.main + '.live_rooms.list', {
+                        .state(cons.state.main + '.record_rooms.list', {
                             url: "/list",
                             views: {
                                 "": {
                                     templateProvider: function ($templateCache) {
-                                        return '<div hjm-grid modid="liveRoomsList" config="config" columns="columns"></div>';
+                                        return '<div hjm-grid modid="recordRoomsList" config="config" columns="columns"></div>';
                                     }
                                 }
                             }
                         })
-                        .state(cons.state.main + '.live_rooms.update', {
+                        .state(cons.state.main + '.record_rooms.update', {
                             url: "/update.html/:id",
                             views: {
                                 "": {
-                                    controller: "liveRooms.updateController",
+                                    controller: "recordRooms.updateController",
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'live_rooms/update.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'record_rooms/update.html');
                                     }
                                 }
                             }
                         })
-                        .state(cons.state.main + '.live_rooms.add', {
+                        .state(cons.state.main + '.record_rooms.add', {
                             url: "/add.html",
                             views: {
                                 "": {
-                                    controller: "liveRooms.updateController",
+                                    controller: "recordRooms.updateController",
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'live_rooms/update.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'record_rooms/update.html');
                                     }
                                 }
                             }
                         })
-                        .state(cons.state.main + '.live_rooms.plan', {
-                            url: "/plan.html/:id",
+                        //  评论列表
+                        .state(cons.state.main + '.record_comment', {
+                            url: "/record_room_comments",
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.main_path + 'container.html');
+                            }
+                        })
+                        .state(cons.state.main + '.record_comment.list', {
+                            url: "/list.html/:id",
                             views: {
                                 "": {
-                                    controller: "liveRooms.planController",
+                                    controller: function ($stateParams, $scope) {
+                                        $scope.ext = {
+                                            object_id: $stateParams.id,
+                                            object_type: 1,//点播评论
+                                        }
+                                    },
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'live_rooms/plan.html');
+                                        return '<div hjm-grid modid="recordCommentsList" config="config" columns="columns" ext-search="ext"></div>';
                                     }
                                 }
                             }

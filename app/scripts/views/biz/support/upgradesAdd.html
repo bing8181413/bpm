@@ -1,23 +1,30 @@
 <div class="dashboard-page ">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title">后台更新版本</h3>
+            <h3 class="panel-title">上传新版本</h3>
         </div>
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate>
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div class="form-group">
-                            <h1 class="text-danger col-sm-offset-2">版本更新,非管理员勿操作</h1>
+                            <h1 class="text-danger col-sm-offset-2">直播APP版本更新</h1>
                         </div>
                         <div class="form-group">
-                            <div form-date-time ng-model="version" text="上次版本日期"></div>
-                            <div form-date-time ng-model="param.version" text="新的版本日期" required="true"
-                                 showtip="默认今天"></div>
+                            <div form-apk text="Apk安装包" ng-model="apk" max="1" required="true"></div>
+                            <div form-radio text="版本环境" type="radio" ng-model="param.environment" required="true"
+                                 default="test" source="[{text:'测试',value:'test'},{text:'正式',value:'product'}]"
+                                 source-api=""></div>
+                            <div form-textarea text="更新说明" ng-model="param.content" required="true" col="5"></div>
+                            <div form-input text="版本号" ng-model="param.version" required="true"></div>
+                            <div form-radio text="是否强制更新" type="radio" ng-model="param.force_update" required="true"
+                            default="1" source="[{text:'是',value:'1'},{text:'否',value:'0'}]" source-api=""></div>
+                            <a class="btn btn-success btn-rounded pull-right" ng-disabled="FormBody.$invalid"
+                               ng-click="submit()">提交</a>
                         </div>
                     </div>
                 </div>
-                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">更新版本</a>
+                <!--<a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">更新版本</a>-->
             </form>
         </div>
     </div>

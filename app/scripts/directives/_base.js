@@ -42,7 +42,15 @@ define([
     './survey/list',// 测评
     './lessons/list',// 课程
     './student/list',// 学生
-    './teacher/list',// 学生
+    './teacher/list',// 教师
+    './live_rooms/list',// 直播
+    './record_comments/list',// 点播
+    './support/list',// 点播
+
+
+    './upload/upload-apk-token',//  直播APK
+
+
     // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,

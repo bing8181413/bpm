@@ -582,6 +582,9 @@ define([
                                     '<span ng-show="' + colField + '==' + col.right + ' " class="label label-danger fa fa-check"> </span>' +
                                     // '<span ng-show="' + colField + '==' + col.error + ' " class="label label-primary fa fa-times"> </span>' +
                                     '</p>';
+                            } else if (col.type == 'datetime') {
+                                col.right = col.right || '';
+                                cellContent = '<hjm_date_time ng-model="' + colField + '"' + requiredContent + disabled + '></hjm_date_time>';
                             } else {
                                 cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent + disabled + requiredContent +
                                     'ng-model="' + colField + cellFilter + '"/>';

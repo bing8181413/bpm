@@ -6022,38 +6022,47 @@ button.close {
     .modal-lg {
         width: 900px
     }
+
     .modal-sm {
         width: 450px
     }
 }
+
 @media (min-width: 1200px) {
     .modal-lg {
         width: 1000px
     }
+
     .modal-sm {
         width: 500px
     }
 }
+
 @media (min-width: 1400px) {
     .modal-lg {
         width: 1200px
     }
+
     .modal-sm {
         width: 600px
     }
 }
+
 @media (min-width: 1600px) {
     .modal-lg {
         width: 1300px
     }
+
     .modal-sm {
         width: 600px
     }
 }
+
 @media (min-width: 1800px) {
     .modal-lg {
         width: 1500px
     }
+
     .modal-sm {
         width: 700px
     }
@@ -8457,7 +8466,7 @@ pre {
 }
 
 .topnav-navbar ul.navbar-nav li.open li.title a {
-    padding: 0 5px!important;
+    padding: 0 5px !important;
 }
 
 .topnav-navbar ul.navbar-nav li.open li.title a, .topnav-navbar ul.navbar-nav li.open li.title a:focus, .topnav-navbar ul.navbar-nav li.open li.title a:hover, .topnav-navbar ul.navbar-nav li.open li.title a:active, .topnav-navbar ul.navbar-nav li.open li.title a.active {
@@ -8517,8 +8526,8 @@ pre {
 
 /*.topnav-navbar li.profile ul.pull-right.dropdown-menu li*/
 /*.topnav-navbar li.profile ul.pull-right.dropdown-menu li a {*/
-    /*width: 246px;*/
-    /*margin: 0 10px;*/
+/*width: 246px;*/
+/*margin: 0 10px;*/
 /*}*/
 
 .topnav-navbar ul.pull-right li.dropdown.admin-dropdown a img.topnav-img, .topnav-navbar ul.pull-right li.dropdown.color-picker a img.topnav-img {
@@ -10441,6 +10450,22 @@ html, body {
 
 .height100 {
     height: 100%;
+}
+
+.width100 {
+    width: 100px;
+}
+
+.width150 {
+    width: 150px;
+}
+
+.width200 {
+    width: 200px;
+}
+
+.width250 {
+    width: 250px;
 }
 
 .overflowAuto {

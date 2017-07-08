@@ -1,5 +1,57 @@
 define([], function () {
+
+    var api = {};
+    var env = '';
+    var env_name = '';
+    var domain = '';
+    var web_domain = '';
+    var qiniu_domain = '';
+    var wx_domain = '';
+    if (location.href.indexOf('//bpm.ahaschool.com') > 0 // prod
+        || location.href.indexOf('//bpm.huijiame.com') > 0 // prod
+    // || location.href.indexOf('//bpm.hjm.com') > 0 // prod
+    ) {
+        env = 'prod';
+        env_name = '线上系统';
+        domain = 'https://mgrapi.ahaschool.com';
+        web_domain = 'https://www.ahaschool.com';
+        qiniu_domain = 'https://bpm.ahaschool.com';
+        wx_domain = 'https://m.ahaschool.com';
+    } else if (location.href.indexOf('//testbpm.ahaschool.com') > 0
+    // || location.href.indexOf('//bpm.hjm.com') > 0
+    ) {
+        env = 'test';
+        env_name = '测试系统';
+        domain = 'https://testmgrapi.ahaschool.com';
+        web_domain = 'https://testbpm.ahaschool.com';
+        qiniu_domain = 'https://testbpm.ahaschool.com';
+        wx_domain = 'https://testm.ahaschool.com';
+    } else {
+        // domain = 'https://devapi.huijiame.com';
+        env = 'dev';
+        env_name = '开发系统';
+        domain = 'https://devmgrapi.ahaschool.com';
+        web_domain = 'https://devwww.ahaschool.com';
+        qiniu_domain = 'https://devbpm.ahaschool.com';
+        wx_domain = 'https://devm.ahaschool.com';
+        // qiniu_domain = 'http://qiniu.hjm.com/';
+    }
+    api = {
+        'account_check': domain + '/account/check',//登陆获取手机验证码
+        'account_login': domain + '/account/login',//登陆
+        'account_mans': domain + '/account/mans',
+    }
+
+
     var rtn = {
+        api: api,
+        env: env,
+        env_name: env_name,
+        domain: domain,
+        live_domain: domain + '/mobile',
+        web_domain: web_domain,
+        qiniu_domain: qiniu_domain,
+        wx_domain: wx_domain,
         act_checkbox_week: [
             {text: '周一', value: '0'},
             {text: '周二', value: '1'},
@@ -66,6 +118,7 @@ define([], function () {
             // {text: '--选择--', value: undefined},
             // {text: '00', value: '0'},
         ]
+        ,
     }
     return rtn;
 });
