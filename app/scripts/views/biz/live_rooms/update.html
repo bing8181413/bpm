@@ -1,0 +1,445 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+
+        /*.panel-body {*/
+        /*transition: all linear 0.5s;*/
+        /*!*height: 50px;*!*/
+        /*height: auto;*/
+        /*}*/
+
+        /*.panel-body.ng-hide-add, .panel-body.ng-hide-remove {*/
+        /*display: block !important;*/
+
+        /*.panel-body.ng-hide {*/
+        /*height: 0;*/
+        /*}*/
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.product_id">新增活动</h3>
+            <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.product_id">修改活动</h3>
+            <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.product_id">活动详情</h3>
+            <a href="javascript:void(0)" class="btn btn-success btn-rounded pull-right btn-xs"
+               ng-click="title_info = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]">展开模块</a>&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="javascript:void(0)" class="btn btn-success btn-rounded pull-right btn-xs"
+               ng-click="title_info = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]">合并模块</a>
+        </div>
+        <div class="panel-body">
+            <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
+            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"
+                  disabled-role="{{$stateParams.product_id?'admin,op':''}}">
+                <div class="panel panel-primary">
+                    <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
+                        <h5 style="margin: 0; padding: 10px 0;">活动信息
+                            <i class="animate-switch fa pull-right text-primary"
+                               ng-class="{'fa-angle-double-up':title_info[0]%2==1,'fa-angle-double-down':title_info[0]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <!--<div class="panel-body" ng-show="title_info[0]%2==1">11111111111111111</div>-->
+                    <div class="panel-body" ng-show="title_info[0]%2==1">
+
+                        <div form-select text="课程负责人" ng-model="param.account_id"
+                             source="$root.account_list_bd_op" source-api=""></div>
+
+                        <!--<div form-image-content text="图文详情" ng-model="param.contents" ng-show="param.content_type==1"></div>-->
+                        <div form-input text="活动ID" ng-model="param.product_id"
+                             ng-show="$stateParams.product_id"
+                             placeholder="活动ID" ng-disabled="$stateParams.product_id"></div>
+                        <div form-input text="活动标题" ng-model="param.title" placeholder="活动标题,不超过30个字" required="true"
+                             minlength="1" maxlength="30"></div>
+                        <div form-radio text="SKU" type="radio" ng-model="param.sku" required="true" default="1"
+                             source="[{text:'活动',value:'1'},{text:'测评',value:'2'},{text:'众筹',value:'3'},{text:'年卡',value:'4'},
+                             {text:'会员',value:'5'},{text:'测试',value:'6'},{text:'其他',value:'7'},{text:'霸王团',value:'8'}
+                             ,{text:'课程',value:'9'},{text:'其他',value:'0'}]"
+                             source-api=""></div>
+                        <div form-radio text="活动类别" ng-model="param.act_type" required="true" default=""
+                             source="[{text:'父母学堂',value:'父母学堂'},{text:'艺术',value:'艺术'},{text:'微课',value:'微课'},
+                             {text:'游学',value:'游学'},{text:'运动',value:'运动'},{text:'天赋测评',value:'天赋测评'},
+                             {text:'儿童剧',value:'儿童剧'},{text:'夏令营',value:'夏令营'},{text:'STEM',value:'STEM'},
+                             {text:'DIY',value:'DIY'},{text:'乐园',value:'乐园'},{text:'其他',value:'其他'}]"
+                             source-api=""></div>
+                        <div form-checkbox text="能力标签" ng-model="ability_label" required="true" default=""
+                             source="[{text:'音乐感知',value:'音乐感知'},{text:'语言能力',value:'语言能力'},
+                        {text:'想象力',value:'想象力'},{text:'动手能力',value:'动手能力'},{text:'观察力',value:'观察力'},
+                        {text:'专注力',value:'专注力'},{text:'表达沟通',value:'表达沟通'},{text:'运动能力',value:'运动能力'},
+                        {text:'逻辑思维',value:'逻辑思维'},{text:'记忆力',value:'记忆力'},{text:'理解能力',value:'理解能力'},
+                        {text:'自我管理',value:'自我管理'},{text:'团队协作',value:'团队协作'},{text:'社交能力',value:'社交能力'}
+                        ]" source-api=""></div>
+                        <!--<div form-checkbox text="课程分类" ng-model="course_category" required="true" default="'德'"-->
+                        <!--source="[{text:'德',value:'1'},{text:'智',value:'2'},{text:'体',value:'3'},{text:'美',value:'4'},-->
+                        <!--{text:'劳',value:'5'}]" source-api=""></div>-->
+
+                        <div form-checkbox text="覆盖城市" ng-model="param.visible_cities" required="true" default="['上海市']"
+                             source="[{text:'上海市',value:'上海市'},{text:'南京市',value:'南京市'},
+                             {text:'厦门市',value:'厦门市'},{text:'北京市',value:'北京市'}]" source-api=""></div>
+
+                        <div form-input text="活动简介" ng-model="param.brief" placeholder="不超过50个字" minlength="1"
+                             maxlength="50"></div>
+
+                        <div form-textarea text="搜索关键字" ng-model="param.act_tags" placeholder="不超过100个字"
+                             minlength="0" maxlength="100"></div>
+
+                        <div form-input text="活动益处" ng-model="param.act_benefit" placeholder="不超过20个字"
+                             minlength="1" maxlength="14"></div>
+                        <div form-input text="分享标题" ng-model="param.share_title" placeholder="不超过40个字" minlength="1"
+                             maxlength="40"></div>
+
+                        <div form-input text="最小年龄" ng-model="param.act_min_age" type="number" min="0"></div>
+                        <div form-input text="最大年龄" ng-model="param.act_max_age" type="number" min="0"></div>
+
+                        <div form-double-date-time text-start="上架时间" text-end="下架时间" required="true"
+                             ng-model-start="param.start_time" ng-model-end="param.end_time"></div>
+
+                        <hr>
+                        <div form-radio text="活动时间类型" type="radio" ng-model="param.act_time_type" required="true"
+                             default="1" source="[{text:'每天连续',value:'1'},{text:'每周固定天数',value:'2'}]"
+                             source-api=""></div>
+
+                        <div form-checkbox text="选择每周时间" ng-model="act_week" ng-show="param.act_time_type == 2"
+                             source="$root.common.act_checkbox_week" source-api=""></div>
+
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <div class="col-sm-2">
+                                    <a class="btn btn-info btn-rounded" ng-click="toggleShowTime();"
+                                       ng-bind="showTime?'微信上活动详情显示活动时间时分':'微信上活动详情不显示活动时间时分'"></a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div form-double-date text-start="活动开始时间" text-end="活动结束时间" required="true"
+                             ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"
+                             ng-show="showTime"></div>
+
+
+                        <div form-double-date-time text-start="活动开始时间" text-end="活动结束时间" required="true"
+                             ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"
+                             ng-show="!showTime"></div>
+
+
+                        <div form-double-date-time text-start="报名开始时间" text-end="报名截止时间" required="true"
+                             ng-model-start="param.act_apply_start_time" ng-model-end="param.act_apply_end_time"></div>
+                        <hr>
+
+                        <div form-image text="运营大图" ng-model="param.pics" max="100"></div>
+                        <div form-image text="缩略小图" ng-model="param.thumbnail_pics" max="100"></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[1] = title_info[1]+1; ">活动地址
+                            <i class="animate-switch fa pull-right text-primary"
+                               ng-class="{'fa-angle-double-up':title_info[1]%2==1,'fa-angle-double-down':title_info[1]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[1]%2==1">
+                        <div form-address text="活动地点" ng-model="param.addresses" max="100"></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[2] = title_info[2]+1; ">活动规则
+                            <i class="animate-switch fa pull-right text-primary"
+                               ng-class="{'fa-angle-double-up':title_info[2]%2==1,'fa-angle-double-down':title_info[2]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[2]%2==1">
+                        <div form-radio text="活动类型" type="radio" ng-model="param.category" required="true"
+                             default="2"
+                             source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'},{text:'直接买+人数团',value:'4'}]"
+                             source-api=""></div>
+
+
+                        <div form-radio text="拼团结束类型" type="radio" ng-model="param.groupbuy_end_type" required="true"
+                             source="[{text:'人数类型  (注:成团后不能再报名)',value:'1'},{text:'拼团时间  (注:成团后仍可报名，直到拼团时间截止)',value:'2'}]"
+                             default="1" ng-if="param.category!=3" source-api=""></div>
+                        <!--<div form-table text="活动类目" ng-model="param.options" max="1"-->
+                        <!--ng-show="param.category!=4" required="true"-->
+                        <!--columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},-->
+                        <!--{'name': '类目', 'field': 'option_name',required:'true'},-->
+                        <!--{'name': '价格', 'field': 'option_price',type:'number',min:'0',minLength:'2',required:'true'},-->
+                        <!--{'name': '库存', 'field': 'option_inventory',required:'true'},-->
+                        <!--{'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>-->
+
+                        <div form-table text="直接买活动类目" ng-model="param.options" max="1"
+                             ng-show="param.category!=2"
+                             columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
+                             {'name': '类目', 'field': 'option_name',required:'true'},
+                             {'name': '价格', 'field': 'option_price',type:'number',min:'0',required:'true'},
+                             {'name': '特价', 'field': 'special_price',type:'number',min:'0',required:'true'},
+                             {'name': '库存', 'field': 'option_inventory',required:'true'},
+                             {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
+
+                        <div form-table text="人数团活动类目" ng-model="param.groupbuy_options" max="1"
+                             ng-show="param.category!=3"
+                             columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
+                             {'name': '类目', 'field': 'option_name',required:'true'},
+                             {'name': '价格', 'field': 'option_price',type:'number',min:'0',required:'true'},
+                             {'name': '特价', 'field': 'special_price',type:'number',min:'0',required:'true'},
+                             {'name': '库存', 'field': 'option_inventory',required:'true'},
+                             {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
+
+                        <div form-input text="单次限购份数" ng-model="param.order_count_max" type="number"
+                             min="1" required="true"></div>
+                        <div form-input text="单人限购份数" ng-model="param.per_buy_count" type="number"
+                             min="0"></div>
+                        <div form-input text="初始购买份数" ng-model="param.init_buy_count" type="number"
+                             min="1"></div>
+
+                        <div form-input text="已售份数基数" ng-model="param.base_sale_count" type="number"
+                             min="0"></div>
+
+                        <div form-radio text="是否限制仅会员可购买" ng-model="param.vip_buy" default="1"
+                             source="[{text:'仅会员',value:'1'},{text:'不限制',value:'2'}]"
+                             required="true"></div>
+
+                        <div form-radio text="是否需填收货地址" ng-model="param.delivery_type" required="true"
+                             ng-disabled="$stateParams.product_id"
+                             source="[{text:'需要',value:'1'},{text:'不需要',value:'3'}]"
+                             default="3"></div>
+                        <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
+                             ng-show="false" ng-disabled="true"></div>
+                        <div form-radio text="送达时间类型" ng-model="param.arrive_type" default="2"
+                             ng-show="false" ng-disabled="$stateParams.product_id"
+                             source="[{text:'无需指定',value:'2'},{text:'周六／周一',value:'1'}]" source-api=""></div>
+                        <div form-radio text="是否支持陌生人拼团" type="radio" ng-model="param.group_strange" required="true"
+                             default="2" source="[{text:'是',value:'2'},{text:'否',value:'1'}]"
+                             ng-show="param.category!=3" source-api=""></div>
+
+                        <!--<div form-input text="目标金额" ng-model="param.act_goal_price" required="true" min="0"-->
+                        <!--max="options_goal_price" type="number"></div>-->
+                        <div form-input text="拼团人数" ng-model="param.group_min_num" min="0" required_span_show="true"
+                             type="number" ng-show="param.category!=3"></div>
+                        <div form-input text="拼团有效时间(小时)" ng-model="hours" min="0" type="number"
+                             placeholder="单位:小时" ng-show="param.category!=3" required_span_show="true"></div>
+
+                        <div form-input text="自动成团剩余时间(小时)" ng-model="groupbuy_auto_hours" min="0" type="number"
+                             placeholder="单位:小时" ng-show="param.category!=3"></div>
+
+                        <div form-input text="玩法说明标题" ng-model="param.play_subject" placeholder="玩法说明标题"
+                             ng-show="param.category!=3"></div>
+                        <div form-textarea text="玩法说明内容" ng-model="param.play_introduction"
+                             placeholder="玩法说明内容" ng-show="param.category!=3"></div>
+
+
+                        <div form-radio text="是否需填写Email" type="radio" ng-model="param.show_email" required="true"
+                             default="2" source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+
+                        <div form-radio text="是否需要购买保险" ng-model="param.baby_insure" default="2"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]"
+                             required="true"></div>
+
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[3] = title_info[3]+1; ">优惠规则
+                            <i class="animate-switch fa pull-right text-primary"
+                               ng-class="{'fa-angle-double-up':title_info[3]%2==1,'fa-angle-double-down':title_info[3]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[3]%2==1">
+                        <div form-radio text="会员、优惠券是否可同享" ng-model="param.coupon_share" required="true" default="1"
+                             source="[{text:'同享',value:'1'},{text:'不可同享',value:'2'}]"></div>
+
+                        <div form-radio text="是否可选优惠券" ng-model="param.act_coupon" required="true" default="1"
+                             source="[{text:'可选',value:1},{text:'不可选',value:2}]" source-api=""></div>
+
+                        <div form-radio text="年卡优惠券类型" ng-model="param.coupon_category" required="true" default="1"
+                             source="[{text:'不可用年卡',value:'1'},{text:'年卡通用券',value:'2'},
+                             {text:'定向券100',value:'3'},{text:'定向券500',value:'4'}]" ng-show="param.act_coupon==1"></div>
+
+                        <div form-radio text="会员购买优惠" ng-model="param.vip_promotion_type" required="true" default="1"
+                             source="[{text:'打折',value:'1'},{text:'无优惠',value:'3'}]"></div>
+
+
+                        <div class="form-group"
+                             ng-show="param.vip_promotion_type == 1 || param.vip_promotion_type == 2">
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">设置折扣</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control text-right" ng-model="vip_discount"
+                                           ng-blur="reset_vip_discount()"
+                                           placeholder="请填写数字">
+                                </div>
+                                <span class="col-sm-1 control-label" style="text-align: left;"
+                                      ng-show="param.vip_promotion_type == 1">%</span>
+                            </div>
+                        </div>
+                        <!--<div form-input text="设置减额" ng-model="param.per_buy_count"-->
+                        <!--required="true" ng-show="param.vip_promotion_type == 2"></div>-->
+
+
+                        <hr>
+                        <div form-radio text="特价优惠类型" type="radio" ng-model="param.special_type" required="true"
+                             source="[{text:'无',value:'0'},{text:'限时特价',value:'1'},{text:'限额特价',value:'2'}]"
+                             default="0" source-api=""></div>
+
+                        <div form-input text="特价总份额" ng-model="param.special_num" placeholder="特价总份额"
+                             min="0" ng-if="param.special_type==2" type="number" required="true"></div>
+
+                        <div form-double-date-time text-start="优惠开始时间" text-end="优惠结束时间" required="true"
+                             ng-model-start="param.special_start_time" ng-model-end="param.special_end_time"
+                             ng-if="param.special_type==1"></div>
+
+                        <!--<div form-date-time text="优惠开始时间" ng-model="param.special_start_time"-->
+                        <!--ng-if="param.special_type!=0" required="true"></div>-->
+                        <!--<div form-date-time text="优惠结束时间" ng-model="param.special_end_time"-->
+                        <!--ng-if="param.special_type!=0" required="true"></div>-->
+
+
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[4] = title_info[4]+1; ">活动详情
+                            <i class="animate-switch fa pull-right text-primary"
+                               ng-class="{'fa-angle-double-up':title_info[4]%2==1,'fa-angle-double-down':title_info[4]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[4]%2==1">
+                        <div form-input text="音频媒体标题" ng-model="param.media_title" placeholder="音频媒体标题,不超过30个字"
+                             minlength="0" maxlength="30"></div>
+                        <div form-input text="视频音频媒体地址" ng-model="param.video_url"
+                             placeholder="音频是http开头;视频是https开头"></div>
+                        <div form-radio text="详情类型" ng-model="param.content_type" default="2"
+                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""></div>
+                        <div form-image-content text="图文详情" ng-model="param.contents"
+                             ng-show="param.content_type==1"></div>
+                        <div form-rich-content text="富文本" ng-model="param.rich_text"
+                             ng-show="param.content_type==2"></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[5] = title_info[5]+1; ">礼包详情
+                            <i class="animate-switch fa pull-right text-primary"
+                               ng-class="{'fa-angle-double-up':title_info[5]%2==1,'fa-angle-double-down':title_info[5]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[5]%2==1">
+                        <div form-radio text="是否可买礼包" ng-model="param.gift_buy" default="1" required="true"
+                             source="[{text:'是',value:1},{text:'否',value:2}]" source-api=""></div>
+
+                        <div form-input text="礼包名称" ng-model="param.gift_name" placeholder="不超过30个字" required="true"
+                             ng-if="param.gift_buy==1" minlength="0" maxlength="30"></div>
+
+                        <div form-input text="礼包描述" ng-model="param.gift_desc" placeholder="不超过30个字" required="true"
+                             ng-if="param.gift_buy==1" minlength="0" maxlength="30"></div>
+
+                        <div class="form-group" ng-if="param.gift_buy == 1">
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">礼包分享标题</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" ng-model="param.gift_share_title">
+                                </div>
+                                <div class="col-sm-2">
+                                    <a class="btn btn-primary"
+                                       ng-click="param.gift_share_title='手慢无！{{title}}{{nickname}}发礼物啦！'">点击获取默认文案再修改</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group" ng-if="param.gift_buy == 1">
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">例:</label>
+                                <div class="col-sm-10">
+                                    <label  class="control-label" ng-bind="'\{\{title\}\} : \''+title+'\' , \{\{nickname\}\} : \''+nickname+'\''"></label>
+                                </div>
+                            </div>
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">最终分享标题</label>
+                                <div class="col-sm-10">
+                                    <label class="control-label text-primary" compile="param.gift_share_title"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+
+                        <div form-input text="单人最大购买份数" ng-model="param.gift_max_num" type="number"
+                             min="0" ng-if="param.gift_buy==1"></div>
+
+                        <div form-image text="礼包图片" ng-model="param.gift_pics" max="1" ng-if="param.gift_buy==1"></div>
+
+                        <div form-table text="礼包类目" ng-model="param.gift_options" max="1" ng-show="param.gift_buy==1"
+                             columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
+                             {'name': '类目', 'field': 'option_name',required:'true'},
+                             {'name': '价格', 'field': 'option_price',type:'number',min:'0',required:'true'},
+                             {'name': '库存', 'field': 'option_inventory',required:'true'},
+                             {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
+
+                        <div form-radio text="礼包的优惠券与折扣是否可同享" ng-model="param.gift_coupon_share" required="true"
+                             default="1" ng-disabled="true"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" ng-if="param.gift_buy==1"></div>
+
+                        <div form-radio text="礼包是否可选优惠券" ng-model="param.gift_coupon" required="true" default="2"
+                             source="[{text:'是',value:1},{text:'否',value:2}]" source-api="" ng-disabled="true"
+                             ng-if="param.gift_buy==1"></div>
+
+                        <div form-radio text="礼包是否打折" ng-model="param.gift_promotion_type" required="true" default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" ng-if="param.gift_buy==1"></div>
+
+                        <div class="form-group" ng-show="param.gift_buy==1&&param.gift_promotion_type==1">
+                            <div class="form_element">
+                                <label class="col-sm-2 control-label">设置折扣</label>
+                                <div class="col-sm-2">
+                                    <input class="form-control text-right" ng-model="gift_discount"
+                                           ng-blur="reset_gift_discount()"
+                                           placeholder="请填写数字">
+                                </div>
+                                <span class="col-sm-1 control-label" style="text-align: left;">%</span>
+                            </div>
+                        </div>
+
+                        <div form-radio text="购买礼包是否验证手机号" ng-model="param.gift_buy_verify_mobile" default="1"
+                             required="true" source="[{text:'是',value:1},{text:'否',value:2}]" source-api=""
+                             ng-if="param.gift_buy==1"></div>
+
+                        <div form-radio text="领取礼包是否验证手机号" ng-model="param.gift_receive_verify_mobile" default="1"
+                             required="true" source="[{text:'是',value:1},{text:'否',value:2}]" source-api=""
+                             ng-if="param.gift_buy==1"></div>
+
+                        <div form-radio text="礼包详情类型" ng-model="param.gift_content_type" default="2"
+                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""
+                             ng-if="param.gift_buy==1"></div>
+
+                        <div form-image-content text="图文详情" ng-model="param.gift_contents"
+                             ng-show="param.gift_content_type==1" ng-if="param.gift_buy==1"></div>
+
+                        <div form-rich-content text="富文本" ng-model="param.gift_rich_text"
+                             ng-show="param.gift_content_type==2&&param.gift_buy==1"></div>
+
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[6] = title_info[6]+1; ">显示管理
+                            <i class="animate-switch fa pull-right text-primary"
+                               ng-class="{'fa-angle-double-up':title_info[6]%2==1,'fa-angle-double-down':title_info[6]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[6]%2==1">
+                        <div form-radio text="显示在商城" ng-model="param.visible" required="true" default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+                        <div form-radio text="显示在首页" ng-model="param.show_in_index" required="true" default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+                        <div form-radio text="显示在日历" ng-model="param.show_in_calendar" default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
+                        <div form-radio text="显示用户购买记录" ng-model="param.show_user_list" default="2"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
+                        <div form-radio text="绑定手机号" ng-model="param.enable_bind_mobile" default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
+                        <div form-input text="排序" ng-model="param.order_by" type="number" min="0"></div>
+                        <div form-textarea text="管理备注" ng-model="param.admin_remark"></div>
+                    </div>
+                </div>
+
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
+                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

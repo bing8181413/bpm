@@ -1,0 +1,39 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.id">新增直播</h3>
+            <h3 class="panel-title inlineBlock" ng-if="$stateParams.id">修改直播/h3>
+        </div>
+        <div class="panel-body">
+            <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
+            <form class="form-horizontal" name="FormBody" novalidate
+                  disabled-role="{{$stateParams.product_id?'admin,op':''}}">
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;">直播信息</h5>
+                    </div>
+                    <div class="panel-body">
+
+                        <div form-input text="直播ID" ng-model="param.id" ng-show="$stateParams.id"
+                             placeholder="直播ID" ng-disabled="$stateParams.id"></div>
+
+                        <div form-input text="直播标题" ng-model="param.title" placeholder="直播标题,不超过30个字" required="true"
+                             minlength="1" maxlength="30"></div>
+
+
+                        <div form-image text="直播图片" ng-model="pic" max="1"></div>
+                    </div>
+                </div>
+
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
+                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>
