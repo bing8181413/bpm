@@ -25,8 +25,22 @@
                         <div form-input text="直播标题" ng-model="param.title" placeholder="直播标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
 
-
                         <div form-image text="直播图片" ng-model="pic" max="1"></div>
+
+                        <div form-radio text="订单类型" type="radio" ng-model="param.sku" required="true" default="10"
+                             source="[{text:'博物馆',value:'10'},{text:'免费',value:'0'}]" source-api=""></div>
+
+                        <div form-input text="排序" ng-model="param.order_by" placeholder="排序" type="number" min="0"
+                             required="true"></div>
+                        <hr>
+                        <h5>播放地址</h5>
+                        <div form-input text="RTMP" ng-model="param.cloud.rtmp_url" placeholder="RTMP"
+                             required="true"></div>
+                        <div form-input text="HLS" ng-model="param.cloud.mu_url" placeholder="HLS(m3u8)"
+                             required="true"></div>
+                        <div form-input text="FLV" ng-model="param.cloud.flv_url" placeholder="FLV"
+                             required="true"></div>
+
                     </div>
                 </div>
 

@@ -9,6 +9,7 @@ define([
     updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
     planController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
 
+    // 直播预告 设置详情
     function planController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
         if ($stateParams.id) {
             widget.ajaxRequest({
@@ -44,6 +45,7 @@ define([
                 scope: $scope,
                 data: {},
                 success: function (json) {
+                    json.data.order_by = Number(json.data.order_by);
                     $scope.param = angular.copy(json.data);
                     $scope.pic = !$scope.param.pic_url ? '' : ([{
                         pic_url: $scope.param.pic_url,

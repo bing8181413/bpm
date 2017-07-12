@@ -129,4 +129,94 @@ define([
                 }
             }
         })
+        .directive('changeSupportBannerStatus', function ($templateCache, $rootScope, $compile, widget, $state) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '',
+                link: function ($scope, $element, $attrs) {
+                    var status_text = '';
+                    var click_text = '';
+                    var class_text = '';
+                    var status_title = '';
+                    if ($scope.data.status == 1) {
+                        status_title = '下线';
+                        status_text = 'ng-bind="\'下线\'"';
+                        class_text = 'ng-class={\"btn-warning\":true} ';
+                        click_text = 'ng-click="change(3);"';
+                        $scope.show_text = true;
+                    } else if ($scope.data.status != 1) {
+                        status_title = '上线';
+                        status_text = 'ng-bind="\'上线\'"';
+                        class_text = 'ng-class={\"btn-success\":true} ';
+                        click_text = 'ng-click="change(1);"';
+                        $scope.show_text = true;
+                    }
+                    var content = ' <a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text + ' ng-show="show_text"></a>';
+                    $element.html(content);
+                    $compile($element.contents())($scope);
+
+                    $scope.change = function (status) {
+                        // if (confirm('确认修改为' + status_title + '状态?')) {
+                        if (1 == 1) {
+                            widget.ajaxRequest({
+                                url: simpleCons.live_domain + '/supports/banners/' + $scope.data.id,
+                                method: 'put',
+                                scope: $scope,
+                                data: {status: status},
+                                success: function (json) {
+                                    widget.msgToast('修改成功,请刷新查看');
+                                    $scope.$parent.$parent.searchAction();
+                                }
+                            })
+                        }
+
+                    }
+                }
+            }
+        })
+        .directive('delSupportBanner', function ($templateCache, $rootScope, $compile, widget, $state) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '',
+                link: function ($scope, $element, $attrs) {
+                    var status_text = '';
+                    var click_text = '';
+                    var class_text = '';
+                    var status_title = '';
+                    if (1 == 1) {
+                        status_title = '删除';
+                        status_text = 'ng-bind="\'删除\'"';
+                        class_text = 'ng-class={\"btn-warning\":true} ';
+                        click_text = 'ng-click="change(2);"';
+                    }
+                    var content = ' <a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text + '></a>';
+                    $element.html(content);
+                    $compile($element.contents())($scope);
+
+                    $scope.change = function (status) {
+                        if (confirm('确认修改为' + status_title + '状态?')) {
+                            widget.ajaxRequest({
+                                url: simpleCons.live_domain + '/supports/banners/' + $scope.data.id,
+                                method: 'put',
+                                scope: $scope,
+                                data: {status: status},
+                                success: function (json) {
+                                    widget.msgToast('修改成功,请刷新查看');
+                                    $scope.$parent.$parent.searchAction();
+                                }
+                            })
+                        }
+
+                    }
+                }
+            }
+        })
 });

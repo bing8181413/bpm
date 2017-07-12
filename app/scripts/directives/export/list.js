@@ -63,7 +63,7 @@ define([
                                     $uibModalInstance.dismiss('cancel');
                                 }
                             },
-                            size: 'lg'
+                            size: ''
                         });
                     }
                 }

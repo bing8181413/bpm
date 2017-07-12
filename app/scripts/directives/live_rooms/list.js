@@ -4,6 +4,35 @@ define([
 ], function (mod, con) {
     // <div product-pattern="patterns"></div>
     mod
+        .directive('liveRoomDownload', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<span export-run data="item"></span>',
+                // template: '<p class="survey-category-download-html"></p>',
+                link: function ($scope, $element, $attrs) {
+                    // console.log($scope.data.id);
+                    $scope.item = {
+                        command: "export:livestream",
+                        condition: {
+                            room_id: {
+                                name: "房间ID", type: "text", options: [], defaultValue: [], default_val: $scope.data.id,
+                            },
+                            start_time: {
+                                name: "开始时间", type: "datetime", options: [], defaultValue: []
+                            },
+                            end_time: {
+                                name: "结束时间", type: "datetime", options: [], defaultValue: []
+                            },
+                        },
+                        desc: "导出直播数据"
+                    };
+                }
+            }
+        })
         .directive('liveRoomAdd', function ($rootScope, $templateCache, $filter, $compile, widget) {
             return {
                 multiElement: true,
@@ -26,7 +55,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<p class="live-room-edit"></p>',
+                template: '<span class="live-room-edit"></span>',
                 link: function ($scope, $element, $attrs) {
                     var content = '';
                     if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {

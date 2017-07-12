@@ -3,6 +3,7 @@ define(['./common'], function (common) {
         liveRoomsList: {
             columns: [
                 {name: '房间ID', field: 'id', className: 'text-center'},
+                {name: '房间号', field: 'room_no'},
                 {name: '排序', field: 'order_by'},
                 {name: '标题', field: 'title'},
                 {
@@ -11,16 +12,15 @@ define(['./common'], function (common) {
                 },
                 {
                     name: '直播流状态/开关',
-                    fieldDirective: '<h5><span ng-bind="item.live_status|keyVal:\'1\':\'直播中\':\'2\':\'——\'"></span>&nbsp;&nbsp;&nbsp;<span change-live-room-live-status data="item"></span></h5>'
+                    fieldDirective: '<h5><span ng-bind="item.live_status|keyVal:\'1\':\'直播中\':\'2\':\'———\'"></span>&nbsp;&nbsp;&nbsp;<span change-live-room-live-status data="item"></span></h5>'
                 },
                 {
                     name: '直播预告',
-                    fieldDirective: '<h5><span ng-bind="item.plans[0].start_time||\'无\'"></span>&nbsp;&nbsp;&nbsp;<span live-roplan_statusom-plan data="item" ></span></h5>'
+                    fieldDirective: '<h5><span ng-bind="item.plans[0].start_time||\'无\'"></span>&nbsp;&nbsp;&nbsp;<span live-room-plan data="item" ></span></h5>'
                 },
                 {
                     name: '操作',
-                    fieldDirective: '<h5> <div live-room-edit data="item" ></div>' +
-                    '<div live-room-data data="item" ></div></h5>'
+                    fieldDirective: '<h5> <span live-room-edit data="item" ></span>&nbsp;&nbsp;&nbsp;<span live-room-download data="item"></span>'
                 },
             ],
             config: {

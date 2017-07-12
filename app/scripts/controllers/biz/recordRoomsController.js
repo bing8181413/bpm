@@ -15,6 +15,7 @@ define([
                 scope: $scope,
                 data: {},
                 success: function (json) {
+                    json.data.order_by = Number(json.data.order_by);
                     $scope.param = angular.copy(json.data);
                     $scope.pic = !$scope.param.pic_url ? [] : ([{
                         pic_url: $scope.param.pic_url,

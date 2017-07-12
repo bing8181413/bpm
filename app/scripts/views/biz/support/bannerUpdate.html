@@ -1,0 +1,25 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!$stateParams.id">新增运营位</h3>
+            <h3 class="panel-title" ng-if="$stateParams.id">修改运营位</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>运营位</h4>
+                        <div form-input text="ID" ng-model="param.id" ng-show="$stateParams.id"
+                             placeholder="ID" ng-disabled="$stateParams.id == param.id"></div>
+                        <div form-radio text="广告位置" ng-model="param.category" required="true" default="1"
+                             source="[{text:'首页',value:'1'}]" source-api=""></div>
+                        <div form-image text="广告图片" ng-model="_param.pics" max="1" required="true"></div>
+                        <div form-input text="广告链接" ng-model="param.url" placeholder="url" required="true"></div>
+                        <div form-input text="排序" ng-model="param.sort_num" placeholder="排序" type="number" min="0" required="true"></div>
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -6,11 +6,66 @@ define([
     mod.controller('supports.opencitiesController', opencitiesController);
     mod.controller('supports.versionController', versionController);
     mod.controller('supports.upgradesUpdateController', upgradesUpdateController);
+    mod.controller('supports.bannerUpdateController', bannerUpdateController);
 
     opencitiesController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
     upgradesUpdateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
     versionController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    bannerUpdateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
 
+
+    function bannerUpdateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter) {
+        $scope._param = {pics: []};
+        $scope.param = {};
+        $scope.toggle = '1';
+        if ($stateParams.id) {
+            widget.ajaxRequest({
+                url: simpleCons.live_domain + '/supports/banners/' + $stateParams.id,
+                method: 'GET',
+                scope: $scope,
+                success: function (json) {
+                    $scope.param = json.data;
+                    $scope.param.sort_num = Number($scope.param.sort_num);
+                    if ($scope.param.pic_url) {
+                        $scope._param = {
+                            pics: [{
+                                pic_url: $scope.param.pic_url,
+                                pic_width: $scope.param.pic_width || 100,
+                                pic_height: $scope.param.pic_height || 100,
+                                updated_at: $scope.param.updated_at || '',
+                            }]
+                        };
+                    }
+                }
+            })
+        }
+
+        $scope.submit = function (status) {
+            $scope.param.category = '1';
+            if (comfunc.isEmptyArray($scope._param.pics)) {
+                widget.msgToast('运营位图片没有上传');
+                return false;
+            } else {
+                if ($scope._param.pics && $scope._param.pics[0].pic_url) {
+                    $scope.param.pic_url = $scope._param.pics[0].pic_url;
+                } else {
+                    widget.msgToast('运营位图片没有上传.');
+                    return false;
+                }
+            }
+
+            widget.ajaxRequest({
+                url: simpleCons.live_domain + '/supports/banners' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
+                method: $stateParams.id ? 'PUT' : 'POST',
+                scope: $scope,
+                data: $scope.param,
+                success: function (json) {
+                    widget.msgToast('发布成功！');
+                    $state.go(simpleCons.state.main + '.support.banner');
+                }
+            })
+        }
+    };
     function upgradesUpdateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
         if ($stateParams.id) {
             widget.ajaxRequest({
