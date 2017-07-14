@@ -18,10 +18,10 @@
                              placeholder="直播ID" ng-disabled="$stateParams.id"></div>
 
                         <div form-table text="直播预告" ng-model="param.plans"
-                             columns="[{'name': '序列', 'field': 'room_no'},
+                             columns="[
+                             {'name': 'ID', 'field': 'id',readonly:'true'},
                              {'name': '开始时间', 'field': 'start_time',type:'datetime',required:'true'},
-                             {'name': '结束时间', 'field': 'end_time',type:'datetime',min:'0',required:'true'},
-                             {'name': '计划情况', 'field': 'plan_status'}]"></div>
+                             {'name': '结束时间', 'field': 'end_time',type:'datetime',min:'0',required:'true'}]"></div>
                     </div>
                 </div>
 

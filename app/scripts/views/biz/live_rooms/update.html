@@ -30,6 +30,9 @@
                         <div form-radio text="订单类型" type="radio" ng-model="param.sku" required="true" default="10"
                              source="[{text:'博物馆',value:'10'},{text:'免费',value:'0'}]" source-api=""></div>
 
+                        <div form-input text="分享URL" ng-model="param.share_url" placeholder="分享URL"
+                             required="true"></div>
+
                         <div form-input text="排序" ng-model="param.order_by" placeholder="排序" type="number" min="0"
                              required="true"></div>
                         <hr>

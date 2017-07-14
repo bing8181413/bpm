@@ -110,7 +110,7 @@ define([
                         status_title = '关闭';
                         status_text = 'ng-bind="\'关闭\'"';
                         class_text = 'ng-class={\"btn-warning\":true} ';
-                        click_text = 'ng-click="change(2,2);"';
+                        click_text = 'ng-click="change(2);"';
                         $scope.show_text = true;
                     } else if ($scope.data.status == 2) {
                         status_title = '开启';
@@ -126,10 +126,11 @@ define([
                     $scope.change = function (status, live_status) {
                         if (confirm('确认修改为' + status_title + '状态?')) {
                             widget.ajaxRequest({
-                                url: con.live_domain + '/live/rooms/' + $scope.data.id,
+                                // url: con.live_domain + '/live/rooms/' + $scope.data.id,
+                                url: con.live_domain + '/live/rooms/' + $scope.data.id+'/status',
                                 method: 'put',
                                 scope: $scope,
-                                data: {status: status, live_status: live_status},
+                                data: {status: status},
                                 success: function (json) {
                                     widget.msgToast('修改成功,请刷新查看');
                                     $scope.$parent.$parent.searchAction();
@@ -155,17 +156,17 @@ define([
                     var class_text = '';
                     var status_title = '';
                     var status_disabled = '';
-                    if ($scope.data.live_status == 1) {
-                        status_title = '关闭';
-                        status_text = 'ng-bind="\'关闭\'"';
+                    if ($scope.data.live_status == 2) {
+                        status_title = '关闭直播流';
+                        status_text = 'ng-bind="\'关闭直播流\'"';
                         class_text = 'ng-class={\"btn-warning\":true} ';
-                        click_text = 'ng-click="change(2);"';
+                        click_text = 'ng-click="change(3);"';
                         $scope.show_text = true;
-                    } else if ($scope.data.live_status == 2) {
-                        status_title = '开启';
-                        status_text = 'ng-bind="\'开启\'"';
+                    } else if ($scope.data.live_status == 1) {
+                        status_title = '开启直播流';
+                        status_text = 'ng-bind="\'开启直播流\'"';
                         class_text = 'ng-class={\"btn-success\":true} ';
-                        click_text = 'ng-click="change(1);"';
+                        click_text = 'ng-click="change(2);"';
                         $scope.show_text = true;
                         if ($scope.data.status == 2) {//  房间关闭 也不能开启直播流
                             status_disabled = 'ng-disabled="true"';
@@ -178,7 +179,8 @@ define([
                     $scope.change = function (status) {
                         if (confirm('确认修改为' + status_title + '状态?')) {
                             widget.ajaxRequest({
-                                url: con.live_domain + '/live/rooms/' + $scope.data.id,
+                                // url: con.live_domain + '/live/rooms/' + $scope.data.id,
+                                url: con.live_domain + '/live/rooms/' + $scope.data.id+'/status',
                                 method: 'put',
                                 scope: $scope,
                                 data: {live_status: status},

@@ -27,6 +27,15 @@ define(['./common'], function (common) {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
+                    {
+                        value: 'status', text: '房间状态', type: 'btnGroup', default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全部'},
+                            {value: '1', text: '开启的'},
+                            {value: '2', text: '关闭的'},
+                            // {value: '0', text: '草稿'},
+                        ]
+                    },
                     {value: 'keyword', text: '关键字', placeholder: '标题', default: ''},
                     {value: 'id', text: '点播房间ID', placeholder: '点播房间ID', default: ''},
                 ],
