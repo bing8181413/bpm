@@ -449,7 +449,7 @@ define([
                             // $scope.token ?
                             '<show-upload-token images="ngModel" hide-bar="hideBar"   ' + name + max + required + disabledRole + token + '></show-upload-token>';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                            '<div class="col-sm-8" style="border: 1px #ccc dashed;">' + uploadHtml +
+                            '<div class="col-sm-8" style="">' + uploadHtml +
                             '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
                             '</div>';
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='

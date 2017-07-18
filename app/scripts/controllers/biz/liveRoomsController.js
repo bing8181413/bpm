@@ -23,7 +23,22 @@ define([
             })
         }
 
+        $scope.compare_plan_time = function () {
+            var err_flag = false; // 是否有错误?
+            angular.forEach($scope.param.plans, function (val, key) {
+                if (val.start_time > val.end_time) {
+                    widget.msgToast('第' + (key + 1) + '行的开始时间 > 结束时间了', 5000);
+                    err_flag = true;
+                }
+            })
+            return err_flag;
+        }
         $scope.submit = function (status) {
+
+            if ($scope.compare_plan_time()) {
+                return false;
+            }
+
             widget.ajaxRequest({
                 url: con.live_domain + '/live/rooms' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
                 method: $stateParams.id ? 'PUT' : 'POST',
@@ -57,7 +72,8 @@ define([
         }
 
         $scope.submit = function (status) {
-            if ($scope.pic[0] && !$scope.pic[0].pic_url) {
+            $scope.param.type = 1;
+            if (!$scope.pic || !$scope.pic[0] || $scope.pic && $scope.pic[0] && !$scope.pic[0].pic_url) {
                 widget.msgToast('图片没上传,不能提交');
                 return false;
             }

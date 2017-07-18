@@ -28,7 +28,7 @@ define([
 
         $scope.submit = function (status) {
             $scope.param.type = 2;
-            if ($scope.pic && $scope.pic[0] && !$scope.pic[0].pic_url) {
+            if (!$scope.pic || !$scope.pic[0] || $scope.pic && $scope.pic[0] && !$scope.pic[0].pic_url) {
                 widget.msgToast('图片没上传,不能提交');
                 return false;
             }

@@ -459,6 +459,9 @@ define([
                     case "9":
                         result = "课程";
                         break;
+                    case "10":
+                        result = "直播";
+                        break;
                 }
                 return result;
             }

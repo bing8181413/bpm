@@ -6,8 +6,8 @@
     </style>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.id">新增视频</h3>
-            <h3 class="panel-title inlineBlock" ng-if="$stateParams.id">修改视频</h3>
+            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.id">新增点播</h3>
+            <h3 class="panel-title inlineBlock" ng-if="$stateParams.id">修改点播</h3>
         </div>
         <div class="panel-body">
             <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
@@ -22,14 +22,17 @@
                         <div form-input text="视频ID" ng-model="param.id" ng-show="$stateParams.id"
                              placeholder="视频ID" ng-disabled="$stateParams.id"></div>
 
-                        <div form-input text="视频标题" ng-model="param.title" placeholder="视频标题,不超过30个字" required="true"
+                        <div form-input text="点播标题" ng-model="param.title" placeholder="视频标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
 
-                        <div form-input text="SKU" ng-model="param.sku" placeholder="填写数字" required="true"></div>
+                        <div form-radio text="订单类型" type="radio" ng-model="param.sku" required="true" default="10"
+                             source="[{text:'十万漫游',value:'10'},{text:'免费',value:'0'}]" source-api=""></div>
+
                         <div form-input text="分享URl" ng-model="param.share_url" placeholder="分享URl" required="true"></div>
 
 
                         <div form-image text="视频图片" ng-model="pic" max="1"></div>
+
                         <div form-date-time text="视频发布时间" ng-model="param.record.publish_at" required="true"></div>
 
                         <div form-input text="视频标题" ng-model="param.record.video_title" placeholder="视频标题"

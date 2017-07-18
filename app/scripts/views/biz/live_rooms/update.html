@@ -28,7 +28,7 @@
                         <div form-image text="直播图片" ng-model="pic" max="1"></div>
 
                         <div form-radio text="订单类型" type="radio" ng-model="param.sku" required="true" default="10"
-                             source="[{text:'博物馆',value:'10'},{text:'免费',value:'0'}]" source-api=""></div>
+                             source="[{text:'十万漫游',value:'10'},{text:'免费',value:'0'}]" source-api=""></div>
 
                         <div form-input text="分享URL" ng-model="param.share_url" placeholder="分享URL"
                              required="true"></div>
@@ -37,6 +37,20 @@
                              required="true"></div>
                         <hr>
                         <h5>播放地址</h5>
+
+                        <div form-radio text="云服务器类型" type="radio" ng-model="param.cloud.cloud_type" required="true" default="1"
+                             source="[{text:'阿里',value:'1'},{text:'七牛',value:'2'}]" source-api=""></div>
+
+                        <div form-radio text="是否需要签权" type="radio" ng-model="param.cloud.cloud_auth" required="true" default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+
+                        <div form-input text="直播域名" ng-model="param.cloud.domain" placeholder="直播域名"
+                             required="true"></div>
+                        <div form-input text="应用名称" ng-model="param.cloud.app_name" placeholder="应用名称"
+                             required="true"></div>
+                        <div form-input text="流名称" ng-model="param.cloud.stream_name" placeholder="流名称"
+                             required="true"></div>
+
                         <div form-input text="RTMP" ng-model="param.cloud.rtmp_url" placeholder="RTMP"
                              required="true"></div>
                         <div form-input text="HLS" ng-model="param.cloud.mu_url" placeholder="HLS(m3u8)"

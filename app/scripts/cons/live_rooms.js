@@ -6,6 +6,7 @@ define(['./common'], function (common) {
                 {name: '房间号', field: 'room_no'},
                 {name: '排序', field: 'order_by'},
                 {name: '标题', field: 'title'},
+                {name: '订单类型', field: 'sku', filter: 'keyVal:\'10\':\'十万漫游\':\'0\':\'免费\''},
                 {
                     name: '房间状态/开关',
                     fieldDirective: '<h5><span ng-bind="item.status|keyVal:\'1\':\'开启\':\'2\':\'——\'"></span>&nbsp;&nbsp;&nbsp;<span change-live-room-status data="item"></span></h5>'
@@ -16,7 +17,10 @@ define(['./common'], function (common) {
                 },
                 {
                     name: '直播预告',
-                    fieldDirective: '<h5><span ng-bind="item.plans[0].start_time||\'无\'"></span>&nbsp;&nbsp;&nbsp;<span live-room-plan data="item" ></span></h5>'
+                    fieldDirective: '<h5><span ng-bind="\'开始:\'+item.plans[0].start_time" ng-show="item.plans[0].start_time"></span></h5>' +
+                    '<h5><span ng-bind="\'结束:\'+item.plans[0].end_time" ng-show="item.plans[0].end_time"></span></h5>' +
+                    '<h5 ng-show="!item.plans[0].start_time||!item.plans[0].end_time"><span ng-bind="\'无\'"></span>&nbsp;&nbsp;&nbsp;</h5>' +
+                    '<h5><span live-room-plan data="item" ></span></h5>'
                 },
                 {
                     name: '操作',
@@ -63,6 +67,7 @@ define(['./common'], function (common) {
                     // },
                 ],
                 preSelectionSearch: {
+                    type: 1
                     // category: [1, 2],
                     // key: 'deviceNo',
                     // value: 'testinfo'

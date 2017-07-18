@@ -10,7 +10,7 @@ define(['./common'], function (common) {
                 {
                     name: '评论次数',
                     fieldDirective: '<h5><span ng-bind="item.record.comment_count|null2empty|zero2empty"></span>&nbsp;&nbsp;&nbsp;' +
-                    '<a class="btn btn-info btn-rounded btn-sm" ui-sref="main.record_comment.list({id:item.id})">详情</a></h5>'
+                    '<a class="btn btn-info btn-rounded btn-sm" ui-sref="main.record_comment.list({id:item.record.id})">详情</a></h5>'
                 },
                 {
                     name: '状态/开关',
