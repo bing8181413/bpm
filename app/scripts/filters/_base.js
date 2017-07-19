@@ -337,13 +337,16 @@ define([
                 val = val + '';
                 switch (val) {
                     case "1":
-                        result = "APP";
+                        result = "APP微信";
                         break;
                     case "2":
-                        result = "支付宝";
+                        result = "APP支付宝";
                         break;
                     case "3":
-                        result = "微信";
+                        result = "H5微信";
+                        break;
+                    case "6":
+                        result = "WAP支付宝";
                         break;
                 }
                 return result;
