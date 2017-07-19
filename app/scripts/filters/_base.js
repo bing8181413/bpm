@@ -99,6 +99,7 @@ define([
                 return rtn;
             }
         }])
+        //  支付类型 0 待支付，1 微信，2 支付宝，3 微信H5  6 支付宝H5
         .filter('payment_from', [function () { // 支付类型
             return function (val) {
                 val = val + '';
@@ -113,8 +114,35 @@ define([
                     case '3':
                         rtn = '微信H5';
                         break;
+                    case '6':
+                        rtn = '支付宝H5';
+                        break;
                     default :
                         rtn = '未选择';
+                }
+                return rtn;
+            }
+        }])
+        // 支付状态 0 待支付，1 支付中，2 支付失败，3 支付成功
+        .filter('payment_status', [function () { // 支付状态
+            return function (val) {
+                val = val + '';
+                var rtn = '';
+                switch (val) {
+                    case '0':
+                        rtn = '待支付';
+                        break;
+                    case '1':
+                        rtn = '支付中';
+                        break;
+                    case '2':
+                        rtn = '支付失败';
+                        break;
+                    case '3':
+                        rtn = '支付成功';
+                        break;
+                    default :
+                        rtn = '';
                 }
                 return rtn;
             }

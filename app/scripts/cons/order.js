@@ -132,7 +132,9 @@ define([], function () {
             columns_by_act_all: [
                 {name: '订单ID', field: 'order_id', className: 'text-right'},
                 {name: '拼团ID', field: 'groupbuy_id', className: 'text-right'},
-                // {name: '订单号', field: 'order_no'},
+
+                {name: '支付类型', field: 'payment_from', filter: 'payment_from'},
+                {name: '支付状态', field: 'payment_status', filter: 'payment_status'},
                 {
                     name: '订单号/推荐人',
                     fieldDirective: '<span ng-bind="item.order_no"></span>' +
@@ -199,6 +201,8 @@ define([], function () {
                 {name: '订单ID', field: 'order_id', className: 'text-right'},
                 {name: '拼团ID', field: 'groupbuy_id', className: 'text-right'},
                 // {name: '订单号', field: 'order_no'},
+                {name: '支付类型', field: 'payment_from', filter: 'payment_from'},
+                {name: '支付状态', field: 'payment_status', filter: 'payment_status'},
                 {
                     name: '订单号/推荐人',
                     fieldDirective: '<span ng-bind="item.order_no"></span>' +
@@ -252,6 +256,28 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
+                    {   // payment_from //  支付类型 0 待支付，1 微信，2 支付宝，3 微信H5  6 支付宝H5
+                        value: 'payment_from', text: '支付类型', type: 'btnGroup',
+                        default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全部'},
+                            {value: 1, text: '微信'},
+                            {value: 2, text: '支付宝'},
+                            {value: 3, text: '微信H5'},
+                            {value: 6, text: '支付宝H5'},
+                        ]
+                    },
+                    {   // order_status  0 待支付，1 支付中，2 支付失败，3 支付成功
+                        value: 'payment_status', text: '支付状态', type: 'btnGroup',
+                        default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全部'},
+                            // {value: 0, text: '待支付'},
+                            {value: 1, text: '支付中'},
+                            {value: 2, text: '支付失败'},
+                            {value: 3, text: '支付成功'},
+                        ]
+                    },
                     {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
                         value: 'flag2', text: '订单状态', type: 'btnGroupArray2',
                         default: 0, width: '12',
@@ -296,6 +322,28 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
+                    {   // payment_from //  支付类型 0 待支付，1 微信，2 支付宝，3 微信H5  6 支付宝H5
+                        value: 'payment_from', text: '支付类型', type: 'btnGroup',
+                        default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全部'},
+                            {value: 1, text: '微信'},
+                            {value: 2, text: '支付宝'},
+                            {value: 3, text: '微信H5'},
+                            {value: 6, text: '支付宝H5'},
+                        ]
+                    },
+                    {   // order_status  0 待支付，1 支付中，2 支付失败，3 支付成功
+                        value: 'payment_status', text: '支付状态', type: 'btnGroup',
+                        default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全部'},
+                            // {value: 0, text: '待支付'},
+                            {value: 1, text: '支付中'},
+                            {value: 2, text: '支付失败'},
+                            {value: 3, text: '支付成功'},
+                        ]
+                    },
                     {   // order_type 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
                         value: 'flag1', text: '订单类型', type: 'btnGroupArray2',
                         default: 0, width: '6',
@@ -361,6 +409,28 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
+                    {   // payment_from //  支付类型 0 待支付，1 微信，2 支付宝，3 微信H5  6 支付宝H5
+                        value: 'payment_from', text: '支付类型', type: 'btnGroup',
+                        default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全部'},
+                            {value: 1, text: '微信'},
+                            {value: 2, text: '支付宝'},
+                            {value: 3, text: '微信H5'},
+                            {value: 6, text: '支付宝H5'},
+                        ]
+                    },
+                    {   // order_status  0 待支付，1 支付中，2 支付失败，3 支付成功
+                        value: 'payment_status', text: '支付状态', type: 'btnGroup',
+                        default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全部'},
+                            {value: 0, text: '待支付'},
+                            {value: 1, text: '支付中'},
+                            {value: 2, text: '支付失败'},
+                            {value: 3, text: '支付成功'},
+                        ]
+                    },
                     {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
                         value: 'flag', text: '订单状态', type: 'btnGroupArray2',
                         default: 0, width: '12',
@@ -403,7 +473,9 @@ define([], function () {
             columns_by_groupbuy: [
                 {name: '订单ID', field: 'order_id', className: 'text-right'},
                 {name: '拼团ID', field: 'groupbuy_id', className: 'text-right'},
-                {name: '母订单号', field: 'order_no',},
+                {name: '支付类型', field: 'payment_from', filter: 'payment_from'},
+                {name: '支付状态', field: 'payment_status', filter: 'payment_status'},
+                {name: '母订单号', field: 'order_no'},
                 {
                     name: '收货<br/>信息',
                     fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +
@@ -478,6 +550,28 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
+                    {   // payment_from //  支付类型 0 待支付，1 微信，2 支付宝，3 微信H5  6 支付宝H5
+                        value: 'payment_from', text: '支付类型', type: 'btnGroup',
+                        default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全部'},
+                            {value: 1, text: '微信'},
+                            {value: 2, text: '支付宝'},
+                            {value: 3, text: '微信H5'},
+                            {value: 6, text: '支付宝H5'},
+                        ]
+                    },
+                    {   // order_status  0 待支付，1 支付中，2 支付失败，3 支付成功
+                        value: 'payment_status', text: '支付状态', type: 'btnGroup',
+                        default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全部'},
+                            // {value: 0, text: '待支付'},
+                            {value: 1, text: '支付中'},
+                            {value: 2, text: '支付失败'},
+                            {value: 3, text: '支付成功'},
+                        ]
+                    },
                     {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
                         value: 'flag', text: '订单状态', type: 'btnGroupArray2',
                         default: 0, width: '12',
