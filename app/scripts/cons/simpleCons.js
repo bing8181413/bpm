@@ -32,6 +32,7 @@ define([
     './live_rooms',//直播房间',
     './record_rooms',//点播房间',
     './record_comment',//点播评论列表',
+    // './record_user_block',//点播用户禁言',
     // './subject_group',
 ], function (common) {
     // console.log(arguments);

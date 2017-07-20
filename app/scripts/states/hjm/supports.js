@@ -38,6 +38,14 @@ define([
                                 return $templateCache.get('app/' + cons.biz_path + 'support/version.html');
                             }
                         })
+                        // supports/configs
+                        .state(cons.state.main + '.support.configs', {
+                            url: "/configs.html",
+                            controller: 'supports.configsController',
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.biz_path + 'support/configs.html');
+                            }
+                        })
                         //  直播版本升级
                         .state(cons.state.main + '.support.upgrade', {
                             url: "/upgrade.html",

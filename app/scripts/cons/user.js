@@ -12,6 +12,8 @@ define([], function () {
                 // {name: '优惠券', field: 'coupon.count'},
                 {name: '注册时间', field: 'created_at'},
                 {name: '最近一次使用时间', field: 'authed_at', filter: 'null2empty'},
+                {name: '融云禁言到期', field: 'rongyun_block_time', filter: 'null2empty'},
+                {name: '直播禁言', fieldDirective: '<div user-block data="item"></div>'},
                 {name: '模拟登陆', fieldDirective: '<div user-token data="item"></div>'},
             ],
             config: {

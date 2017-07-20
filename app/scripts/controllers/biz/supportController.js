@@ -5,11 +5,13 @@ define([
 ], function (mod, simpleCons) {
     mod.controller('supports.opencitiesController', opencitiesController);
     mod.controller('supports.versionController', versionController);
+    mod.controller('supports.configsController', configsController);
     mod.controller('supports.upgradesUpdateController', upgradesUpdateController);
     mod.controller('supports.bannerUpdateController', bannerUpdateController);
 
     opencitiesController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
     upgradesUpdateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    configsController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
     versionController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
     bannerUpdateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
 
@@ -101,6 +103,38 @@ define([
                 success: function (json) {
                     widget.msgToast('上传成功');
                     $state.go('main.support.upgrade');
+                }
+            })
+        }
+    };
+    function configsController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
+        $scope.param = {};
+        $scope.flag = 'app_block_keywords';
+        $scope.init = function () {
+            widget.ajaxRequest({
+                url: simpleCons.live_domain + '/supports/configs',
+                method: 'get',
+                scope: $scope,
+                data: {key: $scope.flag},
+                success: function (json) {
+                    $scope.$eval('(param.' + $scope.flag + '= \'' + (json.data[$scope.flag] || '') + '\')');
+                }
+            });
+        }
+        $scope.$watch('flag', function () {
+            $scope.init();
+        });
+        $scope.submit = function () {
+            widget.ajaxRequest({
+                url: simpleCons.live_domain + '/supports/configs',
+                method: 'put',
+                scope: $scope,
+                data: {
+                    key: $scope.flag,
+                    value: $scope.$eval('param.' + $scope.flag)
+                },
+                success: function (json) {
+                    widget.msgToast('更新成功');
                 }
             })
         }

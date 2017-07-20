@@ -104,13 +104,13 @@ define([
                             return false;
                         }
                         var modalInstance = $uibModal.open({
-                            template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                            template: '<form modal-panel title="title" tmpl="tmpl"></form>',
                             controller: function ($scope, $uibModalInstance) {
                                 $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
                                     '<div form-textarea text="模拟登陆的URL" ng-model="rtn_url"' +
                                     ' placeholder = "URL" > </div > ' +
                                     '</form>';
-                                $scope.title = '取消订单';
+                                $scope.title = '模拟登陆';
                                 widget.ajaxRequest({
                                     url: '/users/' + supscope.data.user_id + '/token',
                                     method: 'get',
@@ -129,6 +129,55 @@ define([
                     }
                     var content = '<a class="btn btn-warning btn-rounded btn-sm" ng-click="show_user_token();">模拟登陆</a>';
                     $element.find('.user-token').html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
+        .directive('userBlock', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="user-block" ></p>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_user_block = function () {
+                        var modalInstance = $uibModal.open({
+                            template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                            controller: function ($scope, $uibModalInstance) {
+                                $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
+                                    '<div form-radio ng-model="minute" text="禁言分钟数" required="true"' +
+                                    ' source="[{text:\'15分钟\',value:15},{text:\'1小时\',value:60},{text:\'2小时\',value:120},{text:\'永久\',value:43200},]"></div>' +
+                                    '<div form-input ng-model="minute" text="禁言分钟数" required="true" placeholder="分钟数"></div>' +
+                                    '<a class="btn btn-danger btn-rounded pull-right" ng-click="submit();">确定禁言</a>' +
+                                    '</form>';
+                                $scope.title = '直播禁言';
+                                $scope.submit = function () {
+                                    widget.ajaxRequest({
+                                        url: '/users/' + supscope.data.user_id + '/block',
+                                        method: 'put',
+                                        scope: $scope,
+                                        data: {minute:$scope.minute},
+                                        success: function (json) {
+                                            if(json.code ==0){
+                                                widget.msgToast('禁言成功',200);
+                                                $scope.cancel();
+                                                supscope.$parent.$parent.searchAction();
+                                            }
+                                        }
+                                    })
+                                }
+                                $scope.cancel = function () {
+                                    $uibModalInstance.dismiss('cancel');
+                                };
+                            },
+                            size: ''
+                        });
+                    }
+                    var content = '<a class="btn btn-warning btn-rounded btn-sm" ng-click="show_user_block();">直播禁言</a>';
+                    $element.find('.user-block').html(content);
                     $compile($element.contents())($scope);
                 }
             }

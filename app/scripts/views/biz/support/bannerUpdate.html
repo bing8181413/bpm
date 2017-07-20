@@ -14,7 +14,12 @@
                         <div form-radio text="广告位置" ng-model="param.category" required="true" default="1"
                              source="[{text:'首页',value:'1'}]" source-api=""></div>
                         <div form-image text="广告图片" ng-model="_param.pics" max="1" required="true"></div>
+                        <div form-input text="广告标题" ng-model="param.title" placeholder="title" required="true"></div>
                         <div form-input text="广告链接" ng-model="param.url" placeholder="url" required="true"></div>
+
+                        <div form-double-date-time text-start="开始时间" text-end="结束时间" required="true"
+                             ng-model-start="param.start_time" ng-model-end="param.end_time"></div>
+
                         <div form-input text="排序" ng-model="param.sort_num" placeholder="排序" type="number" min="0" required="true"></div>
                     </div>
                 </div>
