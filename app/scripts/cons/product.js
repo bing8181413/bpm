@@ -109,12 +109,11 @@ define([], function () {
                     '<p><div account_id_to_name data="item"></div></p></div>'
                 },
                 {
-                    name: '活动信息', className: 'mobile_show',
+                    name: '活动信息', className: 'width100 mobile_show',
                     fieldDirective: '<div><p><span ng-bind="\'标题:\'+item.title"></span></p>' +
                     '<p><span ng-bind="\'SKU:\'+(item.sku|product_sku)"></span></p>' +
                     '<p><span ng-bind="\'活动类型:\'+(item.category|product_category)"></span></p>' +
-                    '<p><span ng-bind="\'活动类别:\'+item.act_type"></span></p>' +
-                    '<p><span ng-bind="\'课程:\'+(item.course_category|course_category)"></span></p></div>'
+                    '<p><span ng-bind="\'活动类别:\'+item.act_type"></span></p></div>'
                 },
                 {
                     name: '报名时间',
@@ -132,7 +131,7 @@ define([], function () {
                     '<span ng-bind="($index+1)+\':\'+obj.detail_address"></span>' +
                     '</p></div>'
                 },
-                {name: '活动类目', className: 'mobile_show', fieldDirective: '<div product-option data="item"></div>'},
+                {name: '活动类目', className: 'width250 mobile_show', fieldDirective: '<div product-option data="item"></div>'},
                 {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
                 {name: '订单数', className: 'mobile_show', fieldDirective: '<div act-order-copies data="item"></div>'},
                 {name: '报名人数', className: 'mobile_show', field: 'order.order_count'},
@@ -211,7 +210,8 @@ define([], function () {
                             {text: '测试', value: '6'},
                             {text: '其他', value: '7'},
                             {text: '霸王团', value: '8'},
-                            {text: '课程', value: '9'}
+                            {text: '课程', value: '9'},
+                            {text: '博物馆直播', value: '10'},
                         ]
                     },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
