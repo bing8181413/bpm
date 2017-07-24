@@ -10,7 +10,6 @@
             <h3 class="panel-title inlineBlock" ng-if="$stateParams.id">修改直播</h3>
         </div>
         <div class="panel-body">
-            <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
             <form class="form-horizontal" name="FormBody" novalidate
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
@@ -25,7 +24,9 @@
                         <div form-input text="直播标题" ng-model="param.title" placeholder="直播标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
 
-                        <div form-image text="直播图片" ng-model="pic" max="1"></div>
+                        <div form-image-single text="直播图片" ng-model="param.pic_url" required="true"></div>
+
+                        <div form-image-single text="上传二维码" ng-model="param.qrcode_url"></div>
 
                         <div form-radio text="订单类型" type="radio" ng-model="param.sku" required="true" default="10"
                              source="[{text:'十万漫游',value:'10'},{text:'免费',value:'0'}]" source-api=""></div>
@@ -44,6 +45,8 @@
                         <div form-radio text="是否需要签权" type="radio" ng-model="param.cloud.cloud_auth" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
 
+                        <div form-input text="聊天房间ID" ng-model="param.cloud.chat_room_id" placeholder="聊天房间ID"
+                             required="true"></div>
                         <div form-input text="直播域名" ng-model="param.cloud.domain" placeholder="直播域名"
                              required="true"></div>
                         <div form-input text="应用名称" ng-model="param.cloud.app_name" placeholder="应用名称"

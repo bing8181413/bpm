@@ -4,6 +4,7 @@ define([
     './hjm-grid',// grid
     './hjm-compile',// grid
     './hjm-form',// form
+    './hjm-form-image',// form image single
     './hjm-form-date',// form date
     './hjm-form-valid',// form-valid 表单验证
     './hjm-ueditor',// ueditor

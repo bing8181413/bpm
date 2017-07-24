@@ -33,6 +33,35 @@ define([
                 }
             }
         })
+        .directive('recordRoomDownload', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<span export-run data="item"></span>',
+                // template: '<p class="survey-category-download-html"></p>',
+                link: function ($scope, $element, $attrs) {
+                    // console.log($scope.data.id);
+                    $scope.item = {
+                        command: "export:liverecord",
+                        condition: {
+                            room_id: {
+                                name: "房间ID", type: "text", options: [], defaultValue: [], default_val: $scope.data.id,
+                            },
+                            start_time: {
+                                name: "开始时间", type: "datetime", options: [], defaultValue: []
+                            },
+                            end_time: {
+                                name: "结束时间", type: "datetime", options: [], defaultValue: []
+                            },
+                        },
+                        desc: "导出点播数据"
+                    };
+                }
+            }
+        })
         .directive('liveRoomAdd', function ($rootScope, $templateCache, $filter, $compile, widget) {
             return {
                 multiElement: true,
@@ -127,7 +156,7 @@ define([
                         if (confirm('确认修改为' + status_title + '状态?')) {
                             widget.ajaxRequest({
                                 // url: con.live_domain + '/live/rooms/' + $scope.data.id,
-                                url: con.live_domain + '/live/rooms/' + $scope.data.id+'/status',
+                                url: con.live_domain + '/live/rooms/' + $scope.data.id + '/status',
                                 method: 'put',
                                 scope: $scope,
                                 data: {status: status},
@@ -162,7 +191,7 @@ define([
                         class_text = 'ng-class={\"btn-warning\":true} ';
                         click_text = 'ng-click="change(3);"';
                         $scope.show_text = true;
-                    } else if ($scope.data.live_status == 1) {
+                    } else if ($scope.data.live_status == 1 || $scope.data.live_status == 3) {
                         status_title = '开启直播流';
                         status_text = 'ng-bind="\'开启直播流\'"';
                         class_text = 'ng-class={\"btn-success\":true} ';
@@ -180,7 +209,7 @@ define([
                         if (confirm('确认修改为' + status_title + '状态?')) {
                             widget.ajaxRequest({
                                 // url: con.live_domain + '/live/rooms/' + $scope.data.id,
-                                url: con.live_domain + '/live/rooms/' + $scope.data.id+'/status',
+                                url: con.live_domain + '/live/rooms/' + $scope.data.id + '/status',
                                 method: 'put',
                                 scope: $scope,
                                 data: {live_status: status},

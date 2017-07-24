@@ -12,8 +12,8 @@
                                  source="[{text:'屏蔽直播关键字',value:'app_block_keywords'},{text:'直播系统用户',value:'app_system_account'}]"
                                  source-api=""></div>
                             <div form-textarea text="屏蔽直播关键字" ng-model="param.app_block_keywords" required="true"
-                                 col="5" ng-if="flag=='app_block_keywords'"></div>
-                            <div form-textarea text="直播系统用户" ng-model="param.app_system_account" required="true" col="5"
+                                 rows="30" ng-if="flag=='app_block_keywords'"></div>
+                            <div form-textarea text="直播系统用户" ng-model="param.app_system_account" required="true" rows="30"
                                  ng-if="flag=='app_system_account'"></div>
                             <a class="btn btn-success btn-rounded pull-right" ng-disabled="FormBody.$invalid"
                                ng-click="submit()">提交</a>

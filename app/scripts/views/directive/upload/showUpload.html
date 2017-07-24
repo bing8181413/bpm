@@ -134,7 +134,7 @@
                                     <button type="button" class="btn btn-success btn-xs btn-rounded"
                                             ng-click="uploader.queue[k].upload()"
                                             ng-if="!v.updated_at"
-                                            ng-disabled="uploader.queue[k].isReady || uploader.queue[k].isUploading || uploader.queue[k].isSuccess">
+                                            ng-disabled="uploader.queue[k].isReady || uploader.queue[k].isUploading || uploader.queue[k].isSuccess || !!v.pic_url">
                                         <span class="glyphicon glyphicon-upload"></span> 上传
                                     </button>
                                 </div>
@@ -146,62 +146,6 @@
             </div>
         </div>
     </div>
-    <!--<table class="table table-hover table-bordered table-condensed">-->
-    <!--<thead>-->
-    <!--<tr>-->
-    <!--<th width="50%">图片</th>-->
-    <!--<th width="10%" ng-show="uploader.isHTML5">大小</th>-->
-    <!--<th width="20%" ng-show="uploader.isHTML5">上传进度</th>-->
-    <!--<th width="10%">状态</th>-->
-    <!--<th width="10%">操作</th>-->
-    <!--</tr>-->
-    <!--</thead>-->
-    <!--<tbody>-->
-    <!--<tr ng-repeat="(k,v) in uploader.queue track by $index" ng-required="required">-->
-    <!--<td width="50%">-->
-    <!--<strong class="ng-binding" ng-bind="v.file.name" ng-if="!v.qiniu_url"></strong>-->
-    <!--<img class="img-responsive" style="max-height: 200px;max-width: 200px;"-->
-    <!--ng-src="{{v.qiniu_url}}" ng-if="v.qiniu_url">-->
-    <!--<div ng-show="uploader.isHTML5" ng-thumb="{ file: v._file, height: 100 , itemobj : v}"></div>-->
-    <!--<a class="img_a" ng-if="v.updated_at">-->
-    <!--<img class="img-responsive" style="max-height: 200px;max-width: 200px;" ng-src="{{v.url}}"/>-->
-    <!--</a>-->
-    <!--</td>-->
-    <!--<td ng-show="uploader.isHTML5">-->
-    <!--<span ng-if="!v.updated_at" ng-bind="(v.file.size/1024/1024|number:2)+'MB'"></span>-->
-    <!--</td>-->
-    <!--<td ng-show="uploader.isHTML5">-->
-    <!--<div class="progress" style="margin-bottom: 0;">-->
-    <!--<div class="progress-bar" role="progressbar" style="width:{{v.progress}}%;"-->
-    <!--style="width: 0%;"></div>-->
-    <!--</div>-->
-    <!--</td>-->
-    <!--<td class="text-center">-->
-    <!--<div ng-if="!v.updated_at">-->
-    <!--<span ng-show="v.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>-->
-    <!--<span ng-show="v.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>-->
-    <!--<span ng-show="v.isError"><i class="glyphicon glyphicon-remove"></i></span>-->
-    <!--</div>-->
-    <!--</td>-->
-    <!--<td>-->
-    <!--<div ng-class="{'hide':disabled}">-->
-    <!--&lt;!&ndash;<button type="button" class="btn btn-primary btn-xs btn-rounded" ng-click="addImage($index)">&ndash;&gt;-->
-    <!--&lt;!&ndash;<span class="glyphicon glyphicon-plus"></span> 插入&ndash;&gt;-->
-    <!--&lt;!&ndash;</button>&ndash;&gt;-->
-    <!--<button type="button" class="btn btn-success btn-xs btn-rounded" ng-click="v.upload()"-->
-    <!--ng-if="!v.updated_at"-->
-    <!--ng-disabled="v.isReady || v.isUploading || v.isSuccess">-->
-    <!--<span class="glyphicon glyphicon-upload"></span> 上传-->
-    <!--</button>-->
-    <!--<button type="button" class="btn btn-danger btn-xs btn-rounded" ng-click="delImage(k,v)"-->
-    <!--show-role="'{{disabledRole}}'">-->
-    <!--<span class="glyphicon glyphicon-trash"></span> 移除-->
-    <!--</button>-->
-    <!--</div>-->
-    <!--</td>-->
-    <!--</tr>-->
-    <!--</tbody>-->
-    <!--</table>-->
     <div ng-class="{'hide':disabled}" style="padding: 10px;">
         <div class="form-group" style="margin-bottom: 5px;">
             <!--上传过程:-->
@@ -236,7 +180,4 @@
             </div>
         </div>
     </div>
-    <!--<div class="col-sm-12 form-group">-->
-    <!--<input class="form-control upload-image" type="file" nv-file-select uploader="uploader" multiple/>-->
-    <!--</div>-->
 </div>

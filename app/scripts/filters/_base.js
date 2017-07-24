@@ -460,7 +460,7 @@ define([
                         result = "课程";
                         break;
                     case "10":
-                        result = "直播";
+                        result = "博物馆直播";
                         break;
                 }
                 return result;

@@ -10,7 +10,6 @@
             <h3 class="panel-title inlineBlock" ng-if="$stateParams.id">修改点播</h3>
         </div>
         <div class="panel-body">
-            <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
             <form class="form-horizontal" name="FormBody" novalidate
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
@@ -30,10 +29,11 @@
 
                         <div form-input text="分享URl" ng-model="param.share_url" placeholder="分享URl" required="true"></div>
 
+                        <div form-image-single text="直播图片" ng-model="param.pic_url" required="true"></div>
 
-                        <div form-image text="视频图片" ng-model="pic" max="1"></div>
+                        <div form-image-single text="上传二维码" ng-model="param.qrcode_url"></div>
 
-                        <div form-date-time text="视频发布时间" ng-model="param.record.publish_at" required="true"></div>
+                        <!--<div form-date-time text="视频发布时间" ng-model="param.record.publish_at" required="true"></div>-->
 
                         <div form-input text="视频标题" ng-model="param.record.video_title" placeholder="视频标题"
                              required="true"></div>

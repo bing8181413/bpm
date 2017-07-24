@@ -5,12 +5,13 @@ define(['./common'], function (common) {
                 {name: '点播房间ID', field: 'id', className: 'text-center'},
                 {name: '排序', field: 'order_by'},
                 {name: '标题', field: 'title'},
-                {name: '发布时间', field: 'record.publish_at'},
+                // {name: '发布时间', field: 'record.publish_at'},
+                {name: '发布时间', field: 'record.created_at'},
                 {name: '播放次数', field: 'record.play_count'},
                 {
                     name: '评论次数',
-                    fieldDirective: '<h5><span ng-bind="item.record.comment_count|null2empty|zero2empty"></span>&nbsp;&nbsp;&nbsp;' +
-                    '<a class="btn btn-info btn-rounded btn-sm" ui-sref="main.record_comment.list({id:item.record.id})">详情</a></h5>'
+                    fieldDirective: '<h5><a class="btn btn-info btn-rounded btn-sm" ui-sref="main.record_comment.list({id:item.record.id})">详情</a>' +
+                    '&nbsp;&nbsp;&nbsp;<span ng-bind="item.record.comment_count|null2empty|zero2empty"></span></h5>'
                 },
                 {
                     name: '状态/开关',
@@ -18,7 +19,8 @@ define(['./common'], function (common) {
                 },
                 {
                     name: '操作',
-                    fieldDirective: '<h5><a class="btn btn-success btn-rounded btn-sm" ui-sref="main.record_rooms.update({id:item.id})">编辑</a></h5>'
+                    fieldDirective: '<a class="btn btn-success btn-rounded btn-sm" ui-sref="main.record_rooms.update({id:item.id})">编辑</a>' +
+                    '&nbsp;&nbsp;&nbsp;<span record-room-download data="item"></span>'
                 },
             ],
             config: {
