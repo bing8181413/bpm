@@ -31,6 +31,16 @@ define([], function () {
                 searchSupport: true,
                 searchItems: [
                     {
+                        value: 'refund_channel', text: '支付方式', type: 'btnGroup', default: '', width: '12',
+                        enum: [
+                            {value: '', text: '全部'},
+                            {value: '1', text: 'APP微信'},
+                            {value: '2', text: 'APP支付宝'},
+                            {value: '3', text: 'H5微信'},
+                            {value: '6', text: 'H5支付宝'},
+                        ]
+                    },
+                    {
                         value: 'refund_type', text: '退款类型', type: 'btnGroup', default: '1', width: '6',
                         enum: [
                             {value: '1', text: '订单退款'},
