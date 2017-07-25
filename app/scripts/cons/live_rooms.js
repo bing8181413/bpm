@@ -2,7 +2,7 @@ define(['./common'], function (common) {
     var rtn = {
         liveRoomsList: {
             columns: [
-                {name: '房间ID', field: 'id', className: 'text-center'},
+                {name: 'ID', field: 'id', className: 'text-center'},
                 {name: '房间号', field: 'room_no'},
                 {name: '排序', field: 'order_by'},
                 {name: '标题', field: 'title'},
@@ -13,18 +13,17 @@ define(['./common'], function (common) {
                 },
                 {
                     name: '直播流状态/开关',
-                    fieldDirective: '<h5><span ng-bind="item.live_status|keyVal:\'1\':\'未开启\':\'2\':\'直播中\':\'3\':\'直播结束\'"></span>&nbsp;&nbsp;&nbsp;<span change-live-room-live-status data="item"></span></h5>'
+                    fieldDirective: '<h5><span ng-bind="item.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'"></span>&nbsp;&nbsp;&nbsp;<span change-live-room-live-status data="item"></span></h5>'
                 },
                 {
                     name: '直播预告',
                     fieldDirective: '<h5><span ng-bind="\'开始:\'+item.plans[0].start_time" ng-show="item.plans[0].start_time"></span></h5>' +
                     '<h5><span ng-bind="\'结束:\'+item.plans[0].end_time" ng-show="item.plans[0].end_time"></span></h5>' +
-                    '<h5 ng-show="!item.plans[0].start_time||!item.plans[0].end_time"><span ng-bind="\'无\'"></span>&nbsp;&nbsp;&nbsp;</h5>' +
-                    '<h5><span live-room-plan data="item" ></span></h5>'
+                    '<h5 ng-show="!item.plans[0].start_time||!item.plans[0].end_time"><span ng-bind="\'无\'"></span>&nbsp;&nbsp;&nbsp;</h5>'
                 },
                 {
                     name: '操作',
-                    fieldDirective: '<h5> <span live-room-edit data="item" ></span>&nbsp;&nbsp;&nbsp;<span live-room-download data="item"></span>'
+                    fieldDirective: '<h5> <span live-room-edit data="item" ></span>&nbsp;&nbsp;&nbsp;<span live-room-plan data="item" ></span>&nbsp;&nbsp;&nbsp;<span live-room-download data="item"></span>'
                 },
             ],
             config: {

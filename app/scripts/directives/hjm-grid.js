@@ -107,10 +107,10 @@ define([
                     function buildHeader(columns, config) {
                         var headerContent = '';
                         if (config.ext && config.ext.checked) {
-                            headerContent += '<th>' + config.ext.checked.text + '</th>';
+                            headerContent += '<th class="text-center">' + config.ext.checked.text + '</th>';
                         }
                         angular.forEach(columns, function (col) {
-                            var cssProperty = col.className ? ' class="' + col.className + '" ' : "";
+                            var cssProperty = col.className ? ' class="text-center ' + col.className + '" ' : ' class="text-center" ';
                             headerContent += '<th' + cssProperty + '>' + col.name + '</th>';
                         });
                         // console.log('headerContent :: ', '<thead><tr>' + headerContent + '</tr></thead>');
@@ -138,7 +138,7 @@ define([
                         angular.forEach(columns, function (col) {
                             // var rowClass = (rowItemClass[0].product_id == $rootScope[rowItemClass[0].product_id]) ? '' : '';
                             var cellContent = cellRender(col, rowItemName, useBindOnce);
-                            var cssProperty = col.className ? ' class="' + col.className + '" ' : "";
+                            var cssProperty = (col.className || col.fieldDirective) ? (' class="' + (col.className || '') + '" ') : ' class="text-center" ';
                             rowItem += '<td' + cssProperty + '>' + cellContent + '</td>'
                         });
                         return '<tbody><tr ' + useBindOnce + ' ng-repeat="' + rowItemName + ' in ' + itemList + '">' +

@@ -126,7 +126,7 @@ define([], function () {
                     '<p>结束时间:<br/><span ng-bind="item.act_end_time"></span></p>' +
                     '<p>活动时间类型:<br/> <span ng-bind="item.act_time_type|act_time_type"></span></p>' +
                     '<p ng-show="item.act_time_type==2"><span ng-bind="item.act_week_desc"></span></p>' +
-                    '<br/><span ng-show="item.addresses.length>0">地点:</span>' +
+                    '<span ng-show="item.addresses.length>0">地点:</span>' +
                     '<p ng-repeat=" obj in item.addresses " ng-show="item.addresses.length>0">' +
                     '<span ng-bind="($index+1)+\':\'+obj.detail_address"></span>' +
                     '</p></div>'

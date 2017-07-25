@@ -112,10 +112,10 @@ define([
                     var content = '';
                     if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
                         content = '<a class="btn btn-success btn-rounded btn-sm"' +
-                            'ui-sref="main.live_rooms.plan({id:' + $scope.data.id + '})" show-role="\'admin,op\'" >设置</a>';
+                            'ui-sref="main.live_rooms.plan({id:' + $scope.data.id + '})" show-role="\'admin,op\'" >设置预告</a>';
                     } else {
                         content = '<a class="btn btn-info btn-rounded btn-sm"' +
-                            'ui-sref="main.live_rooms.plan({id:' + $scope.data.id + '})" show-role="\'!admin,op\'" >详情</a>';
+                            'ui-sref="main.live_rooms.plan({id:' + $scope.data.id + '})" show-role="\'!admin,op\'" >预告详情</a>';
                     }
                     $element.html(content);
                     $compile($element.contents())($scope);

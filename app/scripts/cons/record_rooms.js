@@ -2,7 +2,7 @@ define(['./common'], function (common) {
     var rtn = {
         recordRoomsList: {
             columns: [
-                {name: '点播房间ID', field: 'id', className: 'text-center'},
+                {name: 'ID', field: 'id', className: 'text-center'},
                 {name: '排序', field: 'order_by'},
                 {name: '标题', field: 'title'},
                 // {name: '发布时间', field: 'record.publish_at'},
