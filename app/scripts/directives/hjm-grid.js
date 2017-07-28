@@ -210,6 +210,7 @@ define([
                     columns: '@',
                     extSearch: '=',
                     extApi: '=',
+                    extDomain: '=',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     // console.log(angular.isFunction($scope.$parent.$close));
@@ -248,6 +249,7 @@ define([
                     }
                     $scope.updateList = function () {
                         $scope.api = $scope.extApi || configDef.api;
+                        $scope.domain = $scope.extDomain || configDef.domain;
                         var pageInfo = {
                             page: $scope.pageInfo.currentPage || 1,
                             count: configDef.pageInfo.count || 1,
@@ -282,6 +284,7 @@ define([
 
                         widget.ajaxRequest({
                             method: 'GET',
+                            domain: $scope.domain,
                             url: $scope.api,
                             scope: $scope,
                             data: searchParam,

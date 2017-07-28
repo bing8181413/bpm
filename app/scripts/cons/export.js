@@ -2,8 +2,8 @@ define([], function () {
     var rtn = {
         exportList: {
             columns: [
-                {name: '描述', field: 'desc'},
-                {name: '操作', fieldDirective: '<div export-run data="item"></div>'},
+                {name: '描述', field: 'desc', className: 'text-center width300'},
+                {name: '操作', fieldDirective: '<div export-run data="item" class="text-center"></div>'},
             ],
             config: {
                 title: '导出管理',

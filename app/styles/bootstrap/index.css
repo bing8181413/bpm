@@ -10468,6 +10468,14 @@ html, body {
     width: 250px;
 }
 
+.width300 {
+    width: 300px;
+}
+
+.width500 {
+    width: 500px;
+}
+
 .overflowAuto {
     overflow: auto;
 }

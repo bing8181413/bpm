@@ -663,12 +663,15 @@ define([
                 template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
                 scope: {
                     ngModel: '=',
+                    ngModelText: '@ngModel',
                     text: '@',
                     // name: '@',
                     required: '@',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
+                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required = $scope.required ? (' required') : '';
                     $scope.editorConfig = {
                         // focus: true, //自动把光标放到UEditor中。测试config配置。 实际情况要删掉 容易误操作填入文本内容
                         allowDivTransToP: false, //DIV 自动替换 为其他标签
@@ -678,6 +681,7 @@ define([
                             '<div class="col-sm-8">' +
                             '<ueditor config="editorConfig" ng-model="ngModel">' +
                             '</ueditor>' +
+                            '<input class="hide" ng-model="ngModel"' + name + required + '>' +
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);

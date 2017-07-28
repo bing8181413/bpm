@@ -2,6 +2,7 @@ define(['./common'], function (common) {
     var rtn = {
         recordCommentsList: {
             columns: [
+                {name: 'ID', field: 'id', className: 'width100'},
                 {name: '时间', field: 'created_at', className: 'width200'},
                 {name: '用户id', field: 'user_id', className: 'width200'},
                 {
