@@ -11,7 +11,7 @@
                             <h1 class="text-danger col-sm-offset-2">直播APP版本更新</h1>
                         </div>
                         <div class="form-group">
-                            <div form-apk text="Apk安装包" ng-model="apk" max="1" required="true"></div>
+                            <div form-apk text="Apk安装包" ng-model="param.update_url" required="true"></div>
                             <div form-radio text="版本环境" type="radio" ng-model="param.environment" required="true"
                                  default="test" source="[{text:'测试',value:'testing'},{text:'正式',value:'production'}]"
                                  source-api=""></div>

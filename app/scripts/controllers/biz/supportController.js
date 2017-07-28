@@ -77,17 +77,12 @@ define([
                 data: {},
                 success: function (json) {
                     $scope.param = angular.copy(json.data);
-                    $scope.apk = [{
-                        pic_url: json.data.update_url,
-                        updated_at: json.data.updated_at,
-                    }];
                 }
             })
         }
+
         $scope.submit = function () {
-            if ($scope.apk && $scope.apk.length > 0 && $scope.apk[0].pic_url) {
-                $scope.param.update_url = $scope.apk[0].pic_url;
-            } else {
+            if (!$scope.param.update_url) {
                 widget.msgToast('没有上传Android安装包,不能提交更新');
                 return false;
             }

@@ -15,7 +15,6 @@ define([
                     text: '@',
                     name: '@',
                     required: '@',
-                    max: '@',
                     callback: '&',
                     token: '@',
                     // hideBar: '=',

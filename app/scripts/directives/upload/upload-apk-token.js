@@ -100,7 +100,8 @@ define([
                                 updateApk();
                             } else {
                                 // console.log(3, response);
-                                fileItem.qiniu_url = 'http://ocamara.img.huijiame.com/' + response.key;
+                                // fileItem.qiniu_url = 'http://ocamara.img.huijiame.com/' + response.key;
+                                fileItem.qiniu_url = response.url;
                                 // fileItem.name = fileItem.file && fileItem.file.name;
                                 // fileItem.size = response.size;
                                 //console.log('success', $scope.uploader);
