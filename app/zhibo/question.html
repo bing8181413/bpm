@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="flexible" content="initial-dpr=2"/>
+    <title>互动回答</title>
+    <link rel="stylesheet" href="styles/question.css">
+    <script src="js/lib-flexible-master/build/flexible_css.js"></script>
+    <script src="js/lib-flexible-master/build/flexible.js"></script>
+</head>
+<body>
+<div class="b-img">
+    <img src="styles/img/sign/diban2x.png">
+</div>
+<section class="c-content">
+    <header>
+        <img class="h-img" src="styles/img/question/dotted2x.png">
+        <span class="h-tite">互动回答</span>
+    </header>
+    <div class="content">
+        <div class="timu-num">题目二</div>
+        <div class="timu-line">
+            <hr>
+        </div>
+        <div class="timu-question">
+            油画《维纳斯的诞生》中，维纳斯脚底踩着的是什么？
+        </div>
+        <ul class="timu-ul">
+            <li id="answer_a" class="">A <span class="answer_text">浪花</span></li>
+            <li id="answer_b" class="">B <span class="answer_text">贝壳</span></li>
+            <li id="answer_c" class="">C <span class="answer_text">海螺</span></li>
+            <li id="answer_d" class="">D <span class="answer_text">莲花</span></li>
+        </ul>
+        <div class="timu-btn">
+            <a id="submit" href="javascript:void(0);">提 <span class="timu-btn-space"></span> 交</a>
+        </div>
+    </div>
+</section>
+<div class="toast">
+    <div class="backdrop"></div>
+    <div id="answer_right" class="answer-content show">
+        <div class="answer">
+            <img class="" src="styles/img/question/right2x.png">
+            <div class="answer-text"><span>恭喜你回答正确,</span></div>
+            <div class="answer-text"><span>请耐心等待下一题</span></div>
+        </div>
+        <a id="answer_right_btn" class="single-btn" href="javascript:void(0);">确定 </a>
+    </div>
+    <div id="answer_wrong" class="answer-content ">
+        <div class="answer">
+            <img class="" src="styles/img/question/wrong2x.png">
+            <div class="answer-text"><span>很遗憾，回答不正确</span></div>
+            <div class="answer-text"><span> 感谢你的参与！</span></div>
+        </div>
+        <a id="answer_wrong_btn" class="single-btn" href="javascript:void(0);">确定 </a>
+    </div>
+    <div id="answer_wait" class="answer-content ">
+        <div class="answer">
+            <img class="" src="styles/img/question/time2x.png">
+            <div class="answer-text"><span>请等待本节目公布答案</span></div>
+            <div class="answer-text"><span></span></div>
+        </div>
+        <a id="answer_wait_btn" class="single-btn" href="javascript:void(0);">确定 </a>
+    </div>
+    <div id="answer_congratulation" class="answer-content ">
+        <div class="answer">
+            <img class="" src="styles/img/question/gantan.png" style="width: 128px;height: 128px;">
+            <div class="answer-text"><span>恭喜你，成功完成答题，</span></div>
+            <div class="answer-text"><span> 请完善你的资料，以获得奖励。</span></div>
+        </div>
+        <a id="answer_congratulation_info_btn" class="half-width-btn left" href="javascript:void(0);">完善资料 </a>
+        <a id="answer_congratulation_confirm_btn" class="half-width-btn" href="javascript:void(0);">确定 </a>
+    </div>
+</div>
+<!--<div class="toast wrong is-show"></div>-->
+<script type="text/javascript" src="js/zepto.min.js"></script>
+<script type="text/javascript" src="js/touch.js"></script>
+<script>
+    (function () {
+        //获取选择的ID
+        var get_select_id = function () {
+            var $selected_id = '';
+            var $selected_list = $('.timu-ul>li');
+            $.each($selected_list, function (index, item) {
+                if ($(item).hasClass('selected')) {
+                    $selected_id = $(item).attr('id');
+                }
+            })
+            return $selected_id;
+        }
+        //  隐藏 弹出框
+        var hide_toast = function (env) {
+            $(".answer-content").removeClass('show');
+            $(".toast").removeClass('show');
+            env.preventDefault();
+        }
+        //  隐藏 弹出框
+        var show_toast = function (env, id) {
+            $(".toast").addClass('show');
+            $(".answer-content").removeClass('show');
+            $("#" + id).addClass('show');
+            env.preventDefault();
+        }
+
+        // 提交答案
+        $("#submit").on("click", function (event) {
+            var select_id = get_select_id();
+            var select_value = $("#" + select_id).find('span').text();
+
+            if (!select_id) {                       // 未选答案提示 在这里写 `
+                return false;
+            }
+            //  以下都是假设场景  start   4个答案代表4种不同场景  看后面注释的信息
+            if (select_id == 'answer_a') {// 答案正确 ,假设id为 answer_a 是正确答案
+                //自定义事件
+                show_toast(event, 'answer_right');
+            } else if (select_id == 'answer_b') {//   id为 answer_b 时 弹出框为需要等待的情况
+                //自定义事件
+                show_toast(event, 'answer_congratulation');
+            } else if (select_id == 'answer_c') {// id为 answer_c 时 弹出框为恭喜全部答对的情况
+                //自定义事件
+                show_toast(event, 'answer_wait');
+            } else if (select_id == 'answer_d') {// 答案错误  id为 answer_c 时 弹出框为错误的情况
+                //自定义事件
+                show_toast(event, 'answer_wrong');
+            }
+            //  以上都是假设场景  end
+            event.preventDefault();
+        });
+        //  弹框的确定按钮事件
+        //  答题正确的弹出框确定按钮
+        $("#answer_right_btn").on("click", function (event) {
+            //在这处理逻辑
+            //再下面隐藏弹窗
+            hide_toast(event);
+        });
+        //  答题错误的弹出框确定按钮
+        $("#answer_wrong_btn").on("click", function (event) {
+            hide_toast(event);
+        });
+        //  答题未开始的弹出框确定按钮
+        $("#answer_wait_btn").on("click", function (event) {
+            hide_toast(event);
+        });
+        //  恭喜 完善资料按钮
+        $("#answer_congratulation_info_btn").on("click", function (event) {
+            hide_toast(event);
+        });
+        //  恭喜 确定按钮
+        $("#answer_congratulation_confirm_btn").on("click", function (event) {
+            hide_toast(event);
+        });
+
+        // 切换选项
+        $(".timu-ul>li").on("click", function (event) {
+            $(".timu-ul>li").removeClass('selected');
+            $(this).addClass('selected');
+            event.preventDefault();
+        });
+    })($);
+
+</script>
+</body>
+</html>

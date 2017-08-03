@@ -87,7 +87,7 @@ module.exports = function (grunt) {
                             '**/main.js',
                             '!vendor/**/*.js', //  三方包 一般不用copy
                             '**/bootstrap.js',
-                            'wap/**/*',
+                            'zhibo/**/*',
                         ],
                         dest: '../build/bpm'
                     }

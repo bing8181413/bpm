@@ -187,6 +187,7 @@ define([], function () {
                 {name: '下单时间', field: 'order_time'},
                 {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
                 {name: '马甲<br/>状态', field: 'is_mj', filter: 'keyVal:\'1\':\'马甲\':\'0\':\'\''},
+                {name: 'utm<br/>source', fieldDirective: '<p ng-bind="item.stat.utm_source"></p>'},
                 {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},
                 {
                     name: '操作',
@@ -372,11 +373,14 @@ define([], function () {
                     },
                     {value: 'date_min', text: '(下单时间)--开始', type: 'datetime'},
                     {value: 'date_max', text: '(下单时间)--结束', type: 'datetime'},
-                    {value: 'order_no', text: '订单号'},
                     {value: 'product_id', text: '活动ID'},
+                    {value: 'groupbuy_id', text: '拼团ID'},
+                    {value: 'order_id', text: '订单ID'},
+                    {value: 'order_no', text: '订单号'},
+                    {value: 'user_id', text: '用户ID'},
                     {value: 'contact_name', text: '联系人'},
                     {value: 'contact_mobile', text: '订单手机号'},
-                    {value: 'user_id', text: '用户ID'},
+                    {value: 'utm_source', text: 'utm_source'},
                     {
                         value: 'is_mj', text: '马甲状态', type: 'btnGroup', default: '', width: '6',
                         enum: [
