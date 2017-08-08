@@ -29,7 +29,8 @@
         </div>
         <div class="panel-body">
             <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
-            <form class="form-horizontal" name="FormBody" novalidate ng-init="title_info = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"
+            <form class="form-horizontal" name="FormBody" novalidate
+                  ng-init="title_info = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"
                   disabled-role="{{$stateParams.product_id?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
@@ -303,8 +304,9 @@
                     <div class="panel-body" ng-show="title_info[4]%2==1">
                         <div form-input text="音频媒体标题" ng-model="param.media_title" placeholder="音频媒体标题,不超过30个字"
                              minlength="0" maxlength="30"></div>
-                        <h5>腾讯视频播放界面的分享中有个复制通用代码,把代码中src的内容复制到这里。</h5>
-                        <h5>例如:https://imgcache.qq.com/tencentvideo_v1/playerv3/TPout.swf?max_age=86400&v=20161117&vid=q0522r5taby&auto=0</h5>
+                        <h5 class="col-sm-10 col-sm-offset-2 text-primary">腾讯视频播放界面的分享中有个复制通用代码,把代码中src的内容复制到这里。</h5>
+                        <h5 class="col-sm-10 col-sm-offset-2 text-primary">
+                            例如:https://imgcache.qq.com/tencentvideo_v1/playerv3/TPout.swf?max_age=86400&v=20161117&vid=q0522r5taby&auto=0</h5>
                         <div form-input text="视频音频媒体地址" ng-model="param.video_url"
                              placeholder="音频是http开头;视频是https开头"></div>
                         <div form-radio text="详情类型" ng-model="param.content_type" default="2"
@@ -348,7 +350,8 @@
                             <div class="form_element">
                                 <label class="col-sm-2 control-label">例:</label>
                                 <div class="col-sm-10">
-                                    <label  class="control-label" ng-bind="'\{\{title\}\} : \''+title+'\' , \{\{nickname\}\} : \''+nickname+'\''"></label>
+                                    <label class="control-label"
+                                           ng-bind="'\{\{title\}\} : \''+title+'\' , \{\{nickname\}\} : \''+nickname+'\''"></label>
                                 </div>
                             </div>
                             <div class="form_element">

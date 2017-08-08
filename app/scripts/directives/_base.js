@@ -628,16 +628,16 @@ define([
                 }
             };
         })
-        .directive('showUploadAudioToken', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget) {
+        .directive('showUploadMediaToken', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget) {
             return {
                 restrict: 'E',
                 replace: true,
                 scope: {
-                    audio: '=',
+                    media: '=',
                     required: '@',
                     token: '@',
                 },
-                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showAudioUpload.html'),
+                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showMediaUpload.html'),
                 controller: function ($scope, $element, $attrs) {
                     $timeout(function () {
                         $scope.disabled = ($attrs.disabled ? true : false);
@@ -650,13 +650,13 @@ define([
                         url: 'https://up.qbox.me/'
                     });
                     var init = false;
-                    $scope.$watch('audio', function (audioVal) {
+                    $scope.$watch('media', function (mediaVal) {
                         $scope.max = $attrs.max || 100;
                         // console.log('images1111', imagesVal, init, $scope.uploader.queue);
-                        if (audioVal && (audioVal.length > 0 ) && !init && $scope.uploader.queue.length == 0) {
+                        if (mediaVal && (mediaVal.length > 0 ) && !init && $scope.uploader.queue.length == 0) {
                             init = true;
-                            if ($scope.audio && $scope.audio.length > 0) {
-                                angular.forEach($scope.audio, function (v, k) {
+                            if ($scope.media && $scope.media.length > 0) {
+                                angular.forEach($scope.media, function (v, k) {
                                     $scope.uploader.queue.push({
                                         pic_id: v.pic_id || undefined,
                                         url: v.pic_url || v.url || '',
@@ -674,9 +674,9 @@ define([
                     }, true);
 
                     // 删除历史数据
-                    $scope.removeAudio = function (key) {
+                    $scope.removeMedia = function (key) {
                         $scope.uploader.queue.splice(key, 1);
-                        updateAudio();
+                        updateMedia();
                     };
                     //选择文件之后
                     $scope.uploader.onAfterAddingFile = function (fileItem) {
@@ -707,7 +707,7 @@ define([
                                 fileItem.isError = true;
                                 fileItem.isUploaded = true;
                                 fileItem.isSuccess = false;
-                                updateAudio();
+                                updateMedia();
                                 // return false;
                             } else if (!response.url || response.state == 'ERROR') {
                                 // console.log(2, response);
@@ -717,7 +717,7 @@ define([
                                 fileItem.isUploaded = true;
                                 fileItem.isSuccess = false;
                                 // return false;
-                                updateAudio();
+                                updateMedia();
                             } else {
                                 // console.log(3, response);
                                 fileItem.qiniu_url = response.url;
@@ -727,7 +727,7 @@ define([
                                 //console.log(fileItem);
 
                                 //console.log('success', $scope.uploader);
-                                updateAudio();
+                                updateMedia();
                             }
                         }
                     };
@@ -750,16 +750,16 @@ define([
                     });
 
                     $scope.uploader.onAfterAddingAll = function (fileItems) {
-                        $scope.audio = $scope.audio || [];
+                        $scope.media = $scope.media || [];
                         angular.forEach(fileItems, function (v, k) {
-                            $scope.audio.push({});
+                            $scope.media.push({});
                         });
                         $timeout(function () {
-                            updateAudio();
+                            updateMedia();
                         }, 0);
                     };
                     $scope.log = function () {
-                        updateAudio();
+                        updateMedia();
                         widget.msgToast('确认排序成功')
                         console.log($scope.uploader.queue);
                     }
@@ -769,7 +769,7 @@ define([
                         if (!confirm('确定全部移除吗?')) {
                             return false;
                         }
-                        $scope.audio = [];
+                        $scope.media = [];
                         $scope.uploader.queue = [];
                     }
                     // $scope.uploader.clearAll = function () {
@@ -781,7 +781,7 @@ define([
 
                     // 移除上传的数据
                     $scope.confirm_del_image_notice = true;
-                    $scope.delAudio = function (key, obj) {
+                    $scope.delMedia = function (key, obj) {
                         if ($scope.confirm_del_image_notice) {
                             if (confirm('确定移除,且本次操作此字段不再有删除提示?')) {
                                 $scope.confirm_del_image_notice = false;
@@ -796,12 +796,12 @@ define([
                             obj.remove();
                         }
                         // console.log(obj);
-                        updateAudio();
+                        updateMedia();
                     };
 
 
-                    function updateAudio() {
-                        // 重新填充 audio 对象
+                    function updateMedia() {
+                        // 重新填充 media 对象
                         init = true;
                         $scope.images = [];
                         angular.forEach($scope.uploader.queue, function (v, k) {

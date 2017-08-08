@@ -1,11 +1,16 @@
-<div>
-    <div ng-click="show();" ng-if="url && url.substring(url.length-4,url.length)!=='.mp3'"
+<div ng-init="type=url.slice(url.lastIndexOf('.') + 1)">
+    <style>
+        .modal.in .modal-dialog > .modal-content {
+            background-color: rgba(255, 255, 255, 0);
+        }
+    </style>
+    <div ng-click="show();" ng-if="'|mp3|mp4|apk|'.indexOf('|' + type + '|')== -1"
          style="{{widthPx&&('width:'+widthPx) }}">
         <img class="img-responsive pointer show_image_radius" ng-src="{{url}}" alt="">
     </div>
-    <div ng-if="url && url.substring(url.length-4,url.length)=='.mp3'">
-        <span>MP3文件</span>
-    </div>
+
+    <span ng-bind="type+'文件'" ng-if="'|mp3|mp4|apk|'.indexOf('|' + type + '|')!== -1"></span>
+
     <script type="text/ng-template" id="show.html">
         <img class="img-responsive center-block show_image_radius" ng-src="{{url}}"
              ng-if="url.substring(url.length-4,url.length)!=='.mp3'">

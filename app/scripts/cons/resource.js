@@ -37,7 +37,7 @@ define([], function () {
                         },
                         {
                             text: '新增音频',
-                            fieldFirective: '<div add-resource-audio data=""></div>',
+                            fieldFirective: '<div add-resource-media data=""></div>',
                         },
                     ]
                 }

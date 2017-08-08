@@ -32,14 +32,12 @@
                 <!--<pre ng-bind="uploader.queue | json">  这个不能json 这个自定义的对象里面有循环嵌套 </pre>-->
                 <!--<pre ng-bind="images | json"></pre>-->
                 <ul class="list-group">
-                    <li ng-repeat="(k,v) in audio"
+                    <li ng-repeat="(k,v) in media"
                         class="list-group-item row"
                         ng-required="required">
                         <div>
                             <div class="col-md-6">
-                                <audio class="img-responsive" ng-src="{{uploader.queue[k].qiniu_url}}"
-                                       type="audio/mpeg">
-                                </audio>
+                                <span ng-bind="uploader.queue[k].qiniu_url"></span>
                             </div>
                             <div class="col-md-2 text-center">
                                 <div ng-bind="v.pic_id"></div>

@@ -87,12 +87,24 @@ module.exports = function (grunt) {
                             '**/main.js',
                             '!vendor/**/*.js', //  三方包 一般不用copy
                             '**/bootstrap.js',
+                            // 'zhibo/**/*',
+                        ],
+                        dest: '../build/bpm'
+                    }
+                ]
+            },
+            zhibodist: {
+                files: [
+                    {
+                        expand: true,
+                        cwd: 'app',
+                        src: [
                             'zhibo/**/*',
                         ],
                         dest: '../build/bpm'
                     }
                 ]
-            }
+            },
         },
         html2js: {
             options: {

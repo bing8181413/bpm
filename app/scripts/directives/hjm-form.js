@@ -518,22 +518,10 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-
-                    // $scope.$watch('ngModel', function (val) {
-                    //     var tmp_pics_err = 0;
-                    //     angular.forEach(val, function (v, k) {
-                    //         if (!v.pic_url) {
-                    //             tmp_pics_err++;
-                    //         }
-                    //     })
-                    //     if (tmp_pics_err > 0) {
-                    //         console.log('图片还没有完成上传');
-                    //     }
-                    // }, true);
                 }
             }
         })
-        .directive('formAudio', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formMedia', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -559,7 +547,7 @@ define([
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
-                            '<show-upload-audio-token audio="ngModel" ' + name + max + required + disabledRole + token + '></show-upload-audio-token>';
+                            '<show-upload-media-token media="ngModel" ' + name + max + required + disabledRole + token + '></show-upload-media-token>';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8" style="border: 1px #ccc dashed;">' + uploadHtml +
                             '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
@@ -598,7 +586,12 @@ define([
                     $scope.tmpNgModel = [];
                     $scope.$watch('ngModel', function (url) {
                         if (!!url) {
-                            $scope.tmpNgModel = [{pic_url: url, pic_width: 100, pic_hight: 100, updated_at: new Date()}];
+                            $scope.tmpNgModel = [{
+                                pic_url: url,
+                                pic_width: 100,
+                                pic_hight: 100,
+                                updated_at: new Date()
+                            }];
                         } else {
                             $scope.tmpNgModel = [];
                         }
@@ -668,6 +661,47 @@ define([
                         }
                     }, 0);
 
+                }
+            }
+        })
+        .directive('formRichText', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout, $sce) {
+            return {
+                restrict: 'EA',
+                replace: true,
+                template: $templateCache.get('app/' + cons.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
+                scope: {
+                    ngModel: '=',
+                    ngModelText: '@ngModel',
+                    text: '@',
+                    required: '@',
+                },
+                link: function ($scope, $element, $attrs, $ctrl) {
+                    var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required = $scope.required ? (' ng-required="true" ') : '';
+                    $timeout(function () {
+                        $scope.simditorConfig = {placeholder: ''};
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8">' +
+                            '<simditor ng-model="ngModel" config="simditorConfig" ' + required + '></simditor>' +
+                            '</div>';
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
+                        $scope.$watch('ngModel', function (newVal) {
+                            if ($scope.required) {
+                                var text = $element.find('.simditor-body').text();
+                                $scope.$parent.FormBody[$scope.ngModelText].$setViewValue(newVal);
+                                if (text.trim() === "") {
+                                    $scope.$parent.FormBody[$scope.ngModelText].$setValidity("required", false);
+                                } else {
+                                    $scope.$parent.FormBody[$scope.ngModelText].$setValidity("required", true);
+                                }
+                            }
+                        }, true);
+                    }, 0);
                 }
             }
         })
