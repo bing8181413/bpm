@@ -9,12 +9,15 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <div form-radio text="修改啥子" type="radio" ng-model="flag" default="app_block_keywords"
-                                 source="[{text:'屏蔽直播关键字',value:'app_block_keywords'},{text:'直播系统用户',value:'app_system_account'}]"
+                                 source="[{text:'屏蔽直播关键字',value:'app_block_keywords'},{text:'直播系统用户',value:'app_system_account'},{text:'IOS审核版本号',value:'ios_audit_version'}]"
                                  source-api=""></div>
                             <div form-textarea text="屏蔽直播关键字" ng-model="param.app_block_keywords" required="true"
                                  rows="30" ng-if="flag=='app_block_keywords'"></div>
-                            <div form-textarea text="直播系统用户" ng-model="param.app_system_account" required="true" rows="30"
+                            <div form-textarea text="直播系统用户" ng-model="param.app_system_account" required="true"
+                                 rows="30"
                                  ng-if="flag=='app_system_account'"></div>
+                            <div form-input text="IOS审核版本号" ng-model="param.ios_audit_version" required="true" rows="30"
+                                 ng-if="flag=='ios_audit_version'"></div>
                             <a class="btn btn-success btn-rounded pull-right" ng-disabled="FormBody.$invalid"
                                ng-click="submit()">提交</a>
                         </div>
