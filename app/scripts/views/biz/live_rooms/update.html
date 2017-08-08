@@ -37,7 +37,6 @@
                              required="true"></div>
                         <hr>
                         <h5>播放地址</h5>
-
                         <div form-radio text="云服务器类型" type="radio" ng-model="param.cloud.cloud_type" required="true"
                              default="1"
                              source="[{text:'阿里',value:'1'},{text:'七牛',value:'2'}]" source-api=""></div>
@@ -68,6 +67,11 @@
                              required="true"></div>
                         <div form-input text="高清FLV" ng-model="param.cloud.high_flv_url" placeholder="FLV"
                              required="true"></div>
+
+                        <div form-radio text="苹果审核标志" type="radio" ng-model="param.ios_audit" required="true"
+                             default="2"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+
                         <div form-rich-text text="看点" ng-model="param.watch_point" placeholder="看点"></div>
 
                     </div>

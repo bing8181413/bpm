@@ -47,6 +47,9 @@
                              required="true"></div>
                         <div form-radio text="是否回放" ng-model="param.record.play_back" required="true" default="1"
                              source="[{text:'回放',value:'1'},{text:'不回放',value:'2'}]" source-api=""></div>
+                        <div form-radio text="苹果审核标志" type="radio" ng-model="param.ios_audit" required="true"
+                             default="2"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
                         <div form-input text="排序" ng-model="param.order_by" placeholder="排序" type="number" min="0"
                              required="true"></div>
                         <div form-rich-text text="看点" ng-model="param.watch_point" placeholder="看点"></div>

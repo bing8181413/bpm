@@ -22,6 +22,10 @@ define([
         }
 
         $scope.submit = function (status) {
+            var watch_point_text = angular.element($scope.param.watch_point).text();
+            if (!watch_point_text || watch_point_text == '') {
+                $scope.param.watch_point = '';
+            }
             $scope.param.type = 2;
             widget.ajaxRequest({
                 url: con.live_domain + '/live/rooms' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
