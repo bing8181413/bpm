@@ -149,7 +149,7 @@ define([
                 template: '<p class="lessons-mission-add"></p>',
                 link: function ($scope, $element, $attrs) {
                     var content = '<a class="btn btn-primary btn-rounded btn-sm"' +
-                        'ui-sref="main.mission.add({lesson_id:' + $scope.data.lesson_id + '})" show-role="\'admin,op\'" >新增任务</a>';
+                        'ui-sref="main.mission.add({lesson_id:' + $scope.data.lesson_id + '})">新增任务</a>';
                     $element.find('.lessons-mission-add').html(content);
                     $compile($element.contents())($scope);
                 }
@@ -167,7 +167,7 @@ define([
                 template: '<p class="lessons-mission-order"></p>',
                 link: function ($scope, $element, $attrs) {
                     var content = '<a class="btn btn-primary btn-rounded btn-sm"' +
-                        'ui-sref="main.lessons.order({lesson_id:' + $scope.data.lesson_id + ',status:3})" show-role="\'admin,op\'" >草稿任务管理</a>';
+                        'ui-sref="main.lessons.order({lesson_id:' + $scope.data.lesson_id + ',status:3})">草稿任务管理</a>';
                     $element.find('.lessons-mission-order').html(content);
                     $compile($element.contents())($scope);
                 }
@@ -185,7 +185,7 @@ define([
                 template: '<p class="knowledge-edit"></p>',
                 link: function ($scope, $element, $attrs) {
                     var content = '<a class="btn btn-success btn-rounded btn-sm"' +
-                        'ui-sref="main.mission.knowledge({mission_id:' + $scope.data.mission_id + '})" show-role="\'admin,op\'"' +
+                        'ui-sref="main.mission.knowledge({mission_id:' + $scope.data.mission_id + '})" ' +
                         ' ng-bind="data.stat_knowledge.knowledge_count||0" ></a>';
                     $element.find('.knowledge-edit').html(content);
                     $compile($element.contents())($scope);

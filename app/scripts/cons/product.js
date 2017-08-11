@@ -212,6 +212,7 @@ define([], function () {
                             {text: '霸王团', value: '8'},
                             {text: '课程', value: '9'},
                             {text: '博物馆直播', value: '10'},
+                            {text: '名校直播', value: '11'},
                         ]
                     },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外

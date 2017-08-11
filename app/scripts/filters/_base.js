@@ -493,6 +493,9 @@ define([
                     case "10":
                         result = "博物馆直播";
                         break;
+                    case "11":
+                        result = "名校直播";
+                        break;
                 }
                 return result;
             }
