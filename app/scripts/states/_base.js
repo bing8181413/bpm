@@ -37,6 +37,9 @@ define([
     'states/hjm/record_rooms',//点播房间
 
 
+    'states/hjm/cctalk_account',//CCtalk 账户列表
+
+
 
     'states/demo/demo',//demo index
     'states/demo/baidumap',//百度地图
