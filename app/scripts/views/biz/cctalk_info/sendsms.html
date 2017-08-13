@@ -1,37 +1,41 @@
 <div class="dashboard-page ">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title" ng-if="!$stateParams.account_id">新增账户</h3>
-            <h3 class="panel-title" ng-if="$stateParams.account_id">修改账户</h3>
+            <h3 class="panel-title">查询CCtalk信息</h3>
         </div>
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h4>账户信息</h4>
-                        <div form-input text="账户ID" ng-model="param.account_id"
-                             ng-show="$stateParams.account_id"
-                             placeholder="账户ID" ng-disabled="$stateParams.account_id"></div>
-                        <div form-input text="负责人账号" ng-model="param.username" placeholder="负责人账号"
-                             required="true"></div>
-                        <div form-input text="初始化密码" ng-model="userpass" placeholder="初始化密码"
-                             ng-if="!$stateParams.account_id"></div>
-                        <div form-input text="手机号码" ng-model="param.mobile" min="11" max="11" placeholder="11位数字"
-                             required="true"></div>
-                        <div form-radio text="角色" ng-model="param.role" required="true" default="param.role"
-                             source="roles"></div>
-                        <!--source="[{text:'op',value:'op'},{text:'pm',value:'pm'},{text:'admin',value:'admin'},{text:'cw',value:'cw'}]"-->
-                        <!--<div form-checkbox text="所属城市列表" ng-model="param.city_list" required="true"-->
-                        <!--source="openCitys"></div>-->
-                        <div form-radio text="定位城市" ng-model="param.city_name" required="true" default="上海市"
-                             source="[{text:'上海市',value:'上海市'}]" source-api=""></div>
-                        <div form-radio text="使用状态" ng-model="param.status" required="true" default="1"
-                             source="[{text:'启用',value:'1'},{text:'禁用',value:'2'}]" source-api=""></div>
-                        <div form-textarea="" text="备注" ng-model="param.remark"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">查询<span class="form_label_dangus">*</span></label>
+                            <div class="col-sm-8 form-group">
+                                <div class="col-sm-2">
+                                    <input class="form-control" ng-model="mobile" placeholder="手机号码">
+                                </div>
+                                <div class="col-sm-3">
+                                    <a class="btn btn-primary btn-rounded" ng-click="search()">查询CCtalk账户信息</a>
+                                </div>
+                                <div class="col-sm-3">
+                                    <a class="btn btn-success btn-rounded" ng-click="send()">发送cctalk信息给用户</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div form-input ng-model="info.account.mobile" text="手机号码" ng-disabled="true"></div>
+                        <div form-input ng-model="info.account.user_id" text="用户ID" ng-disabled="true"></div>
+                        <div form-input ng-model="info.account.user_name" text="CCtalk账户" ng-disabled="true"></div>
+                        <div form-input ng-model="info.account.user_pass" text="CCtalk密码" ng-disabled="true"></div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">邀请码<span
+                                    class="form_label_dangus"></span></label>
+                            <div class="col-sm-8">
+                                <p class="form-control"
+                                   style="background-color: #eee;min-height: 34px;height: auto;word-break: break-word;"
+                                   ng-bind="info.exchangecodes|arraySub2String:'code'"> &nbsp;</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
-                <!--<a class="btn btn-warning btn-rounded" ng-click="aaa()">查看提交的数据</a>-->
             </form>
         </div>
     </div>

@@ -5,83 +5,26 @@
 define([
         '../states'
         , '../../cons/simpleCons'
-        , '../../controllers/biz/menusController'
-        , '../../controllers/biz/accountController'
+        , '../../controllers/biz/cctalkInfoController'
     ],
     function (stateModule, cons) {
         stateModule.config(
             ['$stateProvider', '$urlRouterProvider',
                 function ($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.account', {
-                            url: "/account",
+                        .state(cons.state.main + '.cctalk_info', {
+                            url: "/cctalk_info",
                             templateProvider: function ($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
-                        .state(cons.state.main + '.account.list', {
+                        .state(cons.state.main + '.cctalk_info.sendsms', {
                             url: "/list",
                             views: {
                                 "": {
-                                    // controller: 'accountController'
+                                    controller: 'cctalkInfo.sendController',
                                     templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'account/list.html');
-                                    }
-                                }
-                            }
-                        })
-                        .state(cons.state.main + '.account.roles', {
-                            url: "/role.html",
-                            views: {
-                                "": {
-                                    // controller: 'accountController'
-                                    templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'role/list.html');
-                                    }
-                                }
-                            }
-                        })
-                        .state(cons.state.main + '.account.menus', {
-                            url: "/menus.html",
-                            views: {
-                                "": {
-                                    controller: 'menusController',
-                                    templateProvider: function ($templateCache) {
-                                        // return $templateCache.get('app/' + cons.biz_path + 'menu/list.html');
-                                        return $templateCache.get('app/' + cons.biz_path + 'menu/menus.html');
-                                    }
-                                }
-                            }
-                        })
-                        .state(cons.state.main + '.account.update', {
-                            url: "/update.html/:account_id",
-                            views: {
-                                "": {
-                                    controller: "account.updateController",
-                                    templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'account/update.html');
-                                    }
-                                }
-                            }
-                        })
-                        .state(cons.state.main + '.account.add', {
-                            url: "/add.html",
-                            views: {
-                                "": {
-                                    controller: "account.updateController",
-                                    templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'account/update.html');
-                                    }
-                                }
-                            }
-                        })
-                        .state(cons.state.main + '.account.profile', {
-                            url: "/profile.html",
-                            views: {
-                                "": {
-                                    controller: "account.profileController",
-                                    templateProvider: function ($templateCache) {
-                                        return $templateCache.get('app/' + cons.biz_path + 'account/profile.html');
+                                        return $templateCache.get('app/' + cons.biz_path + 'cctalk_info/sendsms.html');
                                     }
                                 }
                             }
