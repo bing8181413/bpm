@@ -50,6 +50,7 @@ define([
 
 
     './upload/upload-apk-token',//  直播APK
+    './zhibo_qr_code/list',//  直播APK
 
 
     // './subject_group/list',//专题组 规则

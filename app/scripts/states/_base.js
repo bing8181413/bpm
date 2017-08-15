@@ -38,6 +38,7 @@ define([
 
 
     'states/hjm/cctalk_account',//CCtalk 账户列表
+    'states/hjm/zhibo_qr_code',//CCtalk 直播二维码
 
 
 
