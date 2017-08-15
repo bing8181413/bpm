@@ -2,7 +2,7 @@ define(['./common'], function (common) {
     var rtn = {
         zhibo_qr_codeList: {
             columns: [
-                // {name: 'ID', field: 'id', className: 'width100'},
+                {name: '描述', field: 'name', className: 'width100'},
                 {
                     name: '资源文件',
                     fieldDirective: '<show_image url="item.url" width="100"></show_image>',

@@ -59,8 +59,10 @@ define([
                                 controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '新增CCtalk二维码';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
+                                        '<div form-input text="描述" ng-model="name" required="true"></div>' +
                                         '<div form-image-single text="二维码" ng-model="url" required="true"></div>' +
-                                        '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
+                                        '<a class="btn btn-success btn-rounded pull-right" ng-disabled="FormBody.$invalid"' +
+                                        ' ng-click="submit()">确定</a>' +
                                         '</form>';
                                     $scope.submit = function () {
                                         if (!$scope.url) {
@@ -71,10 +73,14 @@ define([
                                             url: '/cctalk/qrcodes',
                                             method: 'post',
                                             scope: $scope,
-                                            data: {url: $scope.url},
+                                            data: {
+                                                name: $scope.name,
+                                                url: $scope.url
+                                            },
                                             success: function (json) {
                                                 widget.msgToast('上传成功,请刷新查看');
                                                 $scope.$parent.$$childHead.$$childTail.$$childHead.$$childHead.searchAction();
+                                                $scope.cancel();
                                             }
                                         })
 
