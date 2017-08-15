@@ -5,7 +5,7 @@ define(['./common'], function (common) {
                 {name: 'ID', field: 'id', className: 'text-center'},
                 {name: '排序', field: 'order_by'},
                 {name: '标题', field: 'title'},
-                // {name: '发布时间', field: 'record.publish_at'},
+                {name: '苹果标示', field: 'ios_audit|keyVal:\'1\':\'是\':\'2\':\'——\''},
                 {name: '发布时间', field: 'record.created_at'},
                 {name: '播放次数', field: 'record.play_count'},
                 {
