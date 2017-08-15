@@ -30,6 +30,17 @@ define([
                                 }
                             }
                         })
+                        .state(cons.state.main + '.user.readlist', {
+                            url: "/readlist",
+                            views: {
+                                "": {
+                                    // controller: 'accountController'
+                                    templateProvider: function ($templateCache) {
+                                        return '<div hjm-grid modid="userList" config="config" columns="columns_by_read"></div>';
+                                    }
+                                }
+                            }
+                        })
                         .state(cons.state.main + '.vipuser', {
                             url: "/vipuser",
                             templateProvider: function ($templateCache) {

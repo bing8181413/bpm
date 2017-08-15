@@ -16,6 +16,17 @@ define([], function () {
                 {name: '直播禁言', fieldDirective: '<div user-block data="item"></div>'},
                 {name: '模拟登陆', fieldDirective: '<div user-token data="item"></div>'},
             ],
+            columns_by_read: [
+                {name: 'ID', field: 'user_id', className: 'text-center'},
+                {name: '微信昵称', field: 'name', filter: 'null2empty'},
+                {name: '性别', field: 'gender', filter: 'gender'},
+                {name: '手机号', field: 'mobile'},
+                {name: '关联订单', fieldDirective: '<div user-order data="item"></div>'},
+                {name: '收货地址', fieldDirective: '<div user-address data="item"></div>'},
+                {name: '优惠券', fieldDirective: '<div user-coupon data="item"></div>'},
+                {name: '注册时间', field: 'created_at'},
+                {name: '最近一次使用时间', field: 'authed_at', filter: 'null2empty'}
+            ],
             config: {
                 title: '用户列表',
                 api: '/users',
