@@ -44,6 +44,7 @@ define([
                         $scope.txt += ($scope.data.address && $scope.data.address.contact_name ) ? ('<br/>\n联系人:' + $scope.data.address.contact_name) : '';
                         $scope.txt += ($scope.data.address && $scope.data.address.contact_mobile ) ? ('<br/>手机:' + $scope.data.address.contact_mobile) : '';
                         $scope.txt += ($scope.data.address && $scope.data.address.created_at ) ? ('<br/>开团时间<br/>' + $scope.data.address.created_at) : '';
+                        $scope.txt += ($scope.data.accomplish_time) ? ('<br/>成团时间<br/>' + $scope.data.accomplish_time) : '';
                         $element.find(".txt").html($scope.txt);
                         $compile($element.contents())($scope);
                     }

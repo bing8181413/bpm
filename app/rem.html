@@ -23,7 +23,7 @@
         }
 
         .left {
-            background: #ccc;
+            /*background: #ccc;*/
             float: left;
             width: 40%;
             height: 100%;
@@ -31,7 +31,7 @@
         }
 
         .right {
-            background: #ddd;
+            /*background: #ddd;*/
             float: right;
             width: 40%;
             height: 100%;
@@ -44,6 +44,7 @@
 
         .content {
             width: 100%;
+            height: 70%;
             padding: 10px;
             border: 1px #ccc solid;
             background-color: #fbfbfb;
@@ -62,9 +63,11 @@
         }
 
         .center {
+            /*background: azure;*/
             box-sizing: border-box;
             float: left;
-            height: 100%;
+            width: 20%;
+            height: 70%;
             display: block;
         }
 
@@ -75,40 +78,124 @@
 
         .center-content {
             display: table;
-            vertical-align: middle;
+            text-align: center;
+            width: 100%;
+            height: 100%;
         }
 
         .center-input {
             display: table-cell;
+            vertical-align: middle;
+        }
+
+        .center-input > div {
+            display: block;
+            padding: 10px 10px;
+            height: auto;
+            font-size: 16px;
+            margin-top: 10px;
+            box-sizing: border-box;
+            vertical-align: middle;
+        }
+
+        .center-input > div > input[type=checkbox] {
+            font-size: 10px;
+        }
+
+        .btn {
+            padding: 5px 20px;
+            font-size: 16px;
+            background: #229917;
+            color: #fff;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+        }
+
         }
     </style>
 </head>
 <body>
 <div class="main">
-    <div class="left" id="txtSourceRem">
+    <div class="left">
         <h1>source</h1>
-        <textarea class="content" rows="21"></textarea>
+        <textarea id="txtSource" class="content" rows="21"></textarea>
     </div>
-    <div class="right" id="txtDestRem">
+    <div class="right">
         <h1>result</h1>
-        <textarea class="content" rows="21"></textarea>
+        <textarea id="txtDest" class="content" rows="21"></textarea>
     </div>
-    <div class="center" id="txtRemIntalize">
+    <div class="center">
         <h1>&nbsp;</h1>
         <div class="center-tmp">
             <div class="center-content">
                 <div class="center-input">
-                    1rem = <input class="px-input" type="text" value=""/>px
+                    <div> 1rem = <input id="txtRemIntalize" class="px-input" type="text" value="75"/>px</div>
+                    <div><input type="checkbox" checked="checked" id="chkIgnoreBorder">不处理border</input></div>
+                    <div><a class="btn" id="btnToRem">转化为rem</a></div>
+                    <div><a class="btn" id="btnToPx">转化为px</a></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 <script src="vendor/jquery/jquery.min.js"></script>
+<script src="http://www.ofmonkey.com/Assets/js/format/jquery-extend.js"></script>
 <script>
+    var error = function (msg) {
+        alert(msg);
+    }
     $(function () {
+        $("#btnToPx").click(function () {
+            var text = $("#txtSource").val();
+            var px = $("#txtRemIntalize").val();
+            if (text == "") {
+                error("请填写要转换的CSS");
+            }
+            else if (px == "") {
+                error("请填写1rem等于多少px值");
+            }
+            else if (px <= 0) {
+                error("请填写正确的px值");
+            }
+            else {
+                text = $.format(text, {method: "css"});   // 都转换成多行来比较
+                var arr = text.split("\n");
+                console.log(arr);
+                var sb = '';
+                for (var i = 0; i < arr.length; i++) {
+                    var line = arr[i];
+                    sb += line.replace(/([1-9]\d*.\d*|0.\d*[1-9]\d*)+rem/g, function (rem) {
+//                    sb += line.replace(/\d+rem/g, function (rem) {
+                                if ($("#chkIgnoreBorder").is(":checked") || true) {
+                                    if (!/border:/ig.test(line)) {
+                                        console.log(rem);
+                                        return (parseInt(px) * parseFloat(rem)) + "px";
+                                    }
+                                    else {
+                                        return px;
+                                    }
+                                }
+                                else {
+                                    return (parseInt(px) * parseFloat(rem)) + "px";
+                                }
+                            }) + "\n";
+                }
+                var source = $("#txtSource").val();
+                var sourceArr = source.split("\n");
+                var len = sourceArr.length;
+                if (len > 1) {
+                    sb = $.format(sb, {method: "css"});
+                }
+                else {
+                    sb = $.format(sb, {method: "cssmin"});
+                }
+                $("#txtDest").val(sb);
+            }
+        });
+
         $("#btnToRem").click(function () {
-            var text = $("#txtSourceRem").val();
+            var text = $("#txtSource").val();
             var rem = $("#txtRemIntalize").val();
             if (text == "") {
                 error("请填写要转换的CSS");
@@ -126,7 +213,7 @@
                 for (var i = 0; i < arr.length; i++) {
                     var line = arr[i];
                     sb += line.replace(/\d+px/g, function (px) {
-                                if ($("#chkIgnoreBorder").is(":checked")) {
+                                if ($("#chkIgnoreBorder").is(":checked") || true) {
                                     if (!/border:/ig.test(line)) {
                                         return (parseInt(px) / parseInt(rem)) + "rem";
                                     }
@@ -139,7 +226,7 @@
                                 }
                             }) + "\n";
                 }
-                var source = $("#txtSourceRem").val();
+                var source = $("#txtSource").val();
                 var sourceArr = source.split("\n");
                 var len = sourceArr.length;
                 if (len > 1) {
@@ -148,7 +235,7 @@
                 else {
                     sb = $.format(sb, {method: "cssmin"});
                 }
-                $("#txtDestRem").val(sb);
+                $("#txtDest").val(sb);
             }
         });
     });
