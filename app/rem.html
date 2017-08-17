@@ -38,7 +38,7 @@
             box-sizing: border-box;
         }
 
-        .left > h1, .right > h1 {
+        .left > h1, .right > h1, .center > h1 {
             text-align: center;
         }
 
@@ -50,6 +50,8 @@
             background-color: #fbfbfb;
             border: 1px solid #d5d5d5;
             box-sizing: border-box;
+            border-radius: 7px;
+            resize: none;
         }
 
         .content:focus {
@@ -59,7 +61,7 @@
         .px-input {
             padding: 5px 10px;
             font-size: 24px;
-            width: 150px;
+            width: 70px;
         }
 
         .center {
@@ -69,6 +71,8 @@
             width: 20%;
             height: 70%;
             display: block;
+            border-radius: 10px;
+            resize:none;
         }
 
         .center-tmp {
@@ -86,6 +90,7 @@
         .center-input {
             display: table-cell;
             vertical-align: middle;
+            font-size: 24px;
         }
 
         .center-input > div {
@@ -103,15 +108,17 @@
         }
 
         .btn {
-            padding: 5px 20px;
-            font-size: 16px;
+            padding: 15px 20px;
+            font-size: 24px;
             background: #229917;
             color: #fff;
-            border-radius: 8px;
-            cursor: pointer;
+            border-radius: 40px;
             display: block;
+            cursor: pointer;
         }
 
+        #txtRemIntalize:focus {
+            outline: 0;
         }
     </style>
 </head>
@@ -126,7 +133,7 @@
         <textarea id="txtDest" class="content" rows="21"></textarea>
     </div>
     <div class="center">
-        <h1>&nbsp;</h1>
+        <h1>=></h1>
         <div class="center-tmp">
             <div class="center-content">
                 <div class="center-input">
@@ -165,7 +172,7 @@
                 var sb = '';
                 for (var i = 0; i < arr.length; i++) {
                     var line = arr[i];
-                    sb += line.replace(/([1-9]\d*.\d*|0.\d*[1-9]\d*)+rem/g, function (rem) {
+                    sb += line.replace(/([1-9]\d*|[1-9]\d*.\d*|0.\d*[1-9]\d*)+rem/g, function (rem) {
 //                    sb += line.replace(/\d+rem/g, function (rem) {
                                 if ($("#chkIgnoreBorder").is(":checked") || true) {
                                     if (!/border:/ig.test(line)) {
@@ -210,19 +217,22 @@
                 text = $.format(text, {method: "css"});   // 都转换成多行来比较
                 var arr = text.split("\n");
                 var sb = '';
+                console.log(arr);
                 for (var i = 0; i < arr.length; i++) {
                     var line = arr[i];
-                    sb += line.replace(/\d+px/g, function (px) {
+                    sb += line.replace(/([1-9]\d*|[1-9]\d*.\d*|0.\d*[1-9]\d*)+px/g, function (px) {
+//                    sb += line.replace(/\d+px/g, function (px) {
+                                console.log(px);
                                 if ($("#chkIgnoreBorder").is(":checked") || true) {
                                     if (!/border:/ig.test(line)) {
-                                        return (parseInt(px) / parseInt(rem)) + "rem";
+                                        return (parseFloat(px) / parseInt(rem)) + "rem";
                                     }
                                     else {
                                         return px;
                                     }
                                 }
                                 else {
-                                    return (parseInt(px) / parseInt(rem)) + "rem";
+                                    return (parseFloat(px) / parseInt(rem)) + "rem";
                                 }
                             }) + "\n";
                 }

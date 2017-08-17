@@ -143,7 +143,7 @@ define([
         }])
         .filter('null2empty', [function () {
             return function (val, rtn_str) {
-                return (!val || val == null || val == 'null') ? (rtn_str || '') : val;
+                return (!val || val == null || val == 'null' || val == undefined || val == 'undefined') ? (rtn_str || '') : val;
             }
         }])
         .filter('arraySub2Array', [function () {
