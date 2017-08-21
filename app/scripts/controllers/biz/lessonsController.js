@@ -18,7 +18,7 @@ define([
                 url: '/lessons/' + $stateParams.lesson_id + '/missions',
                 method: 'get',
                 scope: $scope,
-                data: {},//草稿状态的列表
+                data: {page: 1, count: 1000},//草稿状态的列表
                 success: function (json) {
                     $scope.mission_edit_status = [];//草稿
                     $scope.mission_online_status = [];// 上线
