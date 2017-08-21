@@ -35,26 +35,12 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">是否发送过短信消息<span
-                                    class="form_label_dangus"></span></label>
-                            <div class="col-sm-8">
-                                <p class="form-control"
-                                   style="background-color: #eee;min-height: 34px;height: auto;word-break: break-word;"
-                                   ng-bind="info.send_message.sms_result_status|keyVal:'1':'已发送':'0':'未发送'|null2empty">
-                                    &nbsp;</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">是否发送过微信消息<span
-                                    class="form_label_dangus"></span></label>
-                            <div class="col-sm-8">
-                                <p class="form-control"
-                                   style="background-color: #eee;min-height: 34px;height: auto;word-break: break-word;"
-                                   ng-bind="info.send_message.wechat_result_status|keyVal:'1':'已发送':'0':'未发送'|null2empty">
-                                    &nbsp;</p>
-                            </div>
-                        </div>
+                        <div form-table text="消息" ng-model="info.messages"
+                             config="{readonly:true}"
+                             columns="[
+                             {'name': '微信状态', 'field': 'wechat_result_status|keyVal:\'1\':\'已发送\':\'0\':\'——\':\'2\':\'发送失败\'|null2empty',readonly:true},
+                             {'name': '短信状态', 'field': 'sms_result_status|keyVal:\'1\':\'已发送\':\'0\':\'——\':\'2\':\'发送失败\'|null2empty',readonly:true},
+                             {'name': '创建时间', 'field': 'created_at',readonly:true}]"></div>
                     </div>
                 </div>
             </form>
