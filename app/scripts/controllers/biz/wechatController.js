@@ -178,7 +178,7 @@ define([
             }
         });
         $scope.add = function () {
-            if ($scope.keyword_autoreply_info_list.length > 25) {
+            if ($scope.keyword_autoreply_info_list.length > 100) {
                 widget.msgToast('设定规则超出限制数量')
                 return false;
             }
