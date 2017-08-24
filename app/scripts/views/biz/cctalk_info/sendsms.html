@@ -21,10 +21,14 @@
                                 </div>
                             </div>
                         </div>
-                        <div form-input ng-model="info.account.mobile" text="手机号码" ng-disabled="true"></div>
-                        <div form-input ng-model="info.account.user_id" text="用户ID" ng-disabled="true"></div>
-                        <div form-input ng-model="info.account.user_name" text="CCtalk账户" ng-disabled="true"></div>
-                        <div form-input ng-model="info.account.user_pass" text="CCtalk密码" ng-disabled="true"></div>
+
+                        <div form-table text="账户信息" ng-model="info.accounts" config="{readonly:true}"
+                             columns="[
+                             {'name': '手机号码', 'field': 'mobile',readonly:true},
+                             {'name': '用户ID', 'field': 'user_id',readonly:true},
+                             {'name': 'CCtalk账户', 'field': 'user_name',readonly:true},
+                             {'name': 'CCtalk密码', 'field': 'user_pass',readonly:true}]"></div>
+
                         <div class="form-group">
                             <label class="col-sm-2 control-label">邀请码<span
                                     class="form_label_dangus"></span></label>
