@@ -26,7 +26,7 @@ define([
                     angular.forEach(json.data, function (val, key) {
                         if (val.status == 1) {
                             $scope.mission_online_status.push(val);
-                            $scope.max_order_by = (val.order_by && $scope.max_order_by > val.order_by) ? $scope.max_order_by : val.order_by;
+                            $scope.max_order_by = (Number.parseInt(val.order_by) && Number.parseInt($scope.max_order_by) > Number.parseInt(val.order_by)) ? $scope.max_order_by : val.order_by;
                         } else if (val.status == 3) {
                             $scope.mission_edit_status.push(val);
                         }

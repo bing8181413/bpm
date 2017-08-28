@@ -19,6 +19,8 @@
                              ng-show="$stateParams.mission_id"
                              placeholder="任务ID" ng-disabled="$stateParams.mission_id"></div>
 
+                        <div form-input text="排序数字" ng-model="param.order_by" placeholder="排序数字" required="true"></div>
+
                         <div form-input text="任务名称" ng-model="param.title" placeholder="不超过25个字" required="true"
                              minlength="1" maxlength="25"></div>
 
