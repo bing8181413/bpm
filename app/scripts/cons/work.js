@@ -9,15 +9,15 @@ define([], function () {
                 {name: '任务', field: 'title'},
                 {name: '交作业时间', field: 'created_at'},
                 {
-                    name: '作业状态',
+                    name: '作业状态',className: 'text-center',
                     fieldDirective: '<span ng-bind=" (item.appraise_at)?\'已评价\':\'未评价\'"></span>',
                 },
                 {
-                    name: '是否有提问',
+                    name: '是否有提问',className: 'text-center',
                     fieldDirective: '<span class="label label-danger fa fa-check" ng-show="item.ask&&!item.appraise_at">&nbsp;</span>'
                 },
                 {
-                    name: '操作',
+                    name: '操作',className: 'text-center',
                     fieldDirective: '<div student-plan-works data="item" ></div>'
                 },
             ],
@@ -29,7 +29,7 @@ define([], function () {
                 searchItems: [
                     {value: 'date_min', text: '交作业时间-开始', type: 'datetime'},
                     {value: 'date_max', text: '结束', type: 'datetime'},
-                    {value: 'keyword', text: '昵称', placeholder: '昵称', default: ''},
+                    {value: 'keyword', text: '关键字', placeholder: '关键字', default: ''},
                 ],
                 preSelectionSearch: {
                     // status: '1',
