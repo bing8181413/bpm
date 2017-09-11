@@ -30,7 +30,6 @@ define([], function () {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                route: [{value: 'main.activitycoupons.add', text: '新增优惠劵'}]
             },
         }
     }
