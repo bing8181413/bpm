@@ -1,0 +1,48 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!$stateParams.id">新增优惠券链接</h3>
+            <h3 class="panel-title" ng-if="$stateParams.id">更新优惠券链接</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>优惠劵</h4>
+                        <div form-input text="优惠劵名称" ng-model="param.title" placeholder="优惠劵名称" required="true"></div>
+
+                        <div form-input text="活动ID" ng-model="param.product_id " placeholder="不限定活动ID的不填写"></div>
+
+                        <div form-image-single text="优惠券图片" ng-model="param.image" required="true"></div>
+
+                        <div form-input text="发放总数量" ng-model="param.total" required="true" type="number" min="0"></div>
+
+                        <div form-radio text="领取对象" ng-model="param.target" required="true" default="0"
+                             source="[{text:'不限',value:'1'},{text:'新用户',value:'2'},{text:'老用户',value:'3'}]"
+                             source-api=""></div>
+
+                        <div form-input text="满(金额)" ng-model="param.over_price" type="number" min="0" max="param.price"
+                             placeholder="不是满减优惠券的不填写"></div>
+
+                        <div form-input text="减(金额)" ng-model="param.price" required="true" type="number" min="0"></div>
+
+                        <div form-input text="有效时间" ng-model="param.days" required="true" type="number" min="0"></div>
+
+                        <div form-date-time text="兑换开始时间" ng-model="param.start_time" required="true"></div>
+
+                        <div form-date-time text="兑换结束时间" ng-model="param.end_time" required="true"></div>
+
+
+                        <div form-input text="运营文案" ng-model="param.brief" placeholder="不超过15字" maxlength="15"></div>
+
+                        <div form-textarea text="活动细则" ng-model="param.description" placeholder="不超过15字"></div>
+
+                        <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过15字"></div>
+                    </div>
+                </div>
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

@@ -5,18 +5,18 @@ require.config({
     paths: {
         "jquery": "../vendor/jquery/jquery.min",
         //"domready":"../vendor/requirejs-domready/domReady",
-        "angular": "../vendor/angular/angular",
+        "angular": "../vendor/angular/angular.min",
         // "highcharts" : "../vendor/highcharts/highcharts",
         "ui.router": "../vendor/angular-ui-router/release/angular-ui-router.min",
         //"ui.select2":"../vendor/angular-ui-select2/src/select2",
-        "ng.ueditor": "../vendor/angular-ueditor/dist/angular-ueditor",
+        "ng.ueditor": "../vendor/angular-ueditor/dist/angular-ueditor.min",
         // "ZeroClipboard": "../vendor/zeroclipboard/ZeroClipboard",
-        "angular-file-upload": "../vendor/angular-file-upload/angular-file-upload",
-        "bindonce": "../vendor/angular-bindonce/bindonce",
-        "ab-base64": "../vendor/angular-utf8-base64/angular-utf8-base64",
+        "angular-file-upload": "../vendor/angular-file-upload/angular-file-upload.min",
+        "bindonce": "../vendor/angular-bindonce/bindonce.min",
+        "ab-base64": "../vendor/angular-utf8-base64/angular-utf8-base64.min",
         //"snap":  "../vendor/Snap.svg/dist/snap.svg-min",
         //"me-pageloading":  "../vendor/me-pageloading/me-pageloading",
-        "ui.bootstrap": "../vendor/angular-bootstrap/ui-bootstrap-tpls",
+        "ui.bootstrap": "../vendor/angular-bootstrap/ui-bootstrap-tpls.min",
         // "angular-async-loader": "../vendor/angular-async-loader/src/angular-async-loader",
         //"ui.bootstrap":"../vendor/bootstrap/ui-bootstrap-tpls.min",
         // "twitter": "../vendor/bootstrap/bootstrap.min",
@@ -29,11 +29,11 @@ require.config({
         "perfect_scrollbar": "../vendor/angular-perfect-scrollbar/src/angular-perfect-scrollbar",
         "angular-loading-bar": "../vendor/angular-loading-bar/build/loading-bar.min",
         "progressButton": "../vendor/angular-progress-button/dist/progress-button.min",
-        "angular-animate": "../vendor/angular-animate/angular-animate",
+        "angular-animate": "../vendor/angular-animate/angular-animate.min",
         "angular-truncate": "../vendor/angular-truncate/src/truncate",
         "angucomplete-alt": "../vendor/angucomplete-alt/dist/angucomplete-alt.min", // 订单的修改收货地址  使用
         "angular-aria": "../vendor/angular-aria/angular-aria.min", //
-        "dndLists": "../vendor/angular-drag-and-drop-lists/angular-drag-and-drop-lists", //
+        "dndLists": "../vendor/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min", //
         "app-tpl": "./app-tpl",
         "ng.simditor": "../vendor/ng.simditor/src/ng-simditor",
         "simple-module": "../vendor/simple-module/lib/module",

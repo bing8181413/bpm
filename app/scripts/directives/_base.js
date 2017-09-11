@@ -47,6 +47,7 @@ define([
     './live_rooms/list',// 直播
     './record_comments/list',// 点播
     './support/list',// 点播
+    './activitycoupons/list',// 活动 领取优惠券
 
 
     './upload/upload-apk-token',//  直播APK

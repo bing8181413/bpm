@@ -33,12 +33,24 @@ define([
     './record_rooms',//点播房间',
     './record_comment',//点播评论列表',
     './zhibo_qr_code',//点播评论列表',
+
     // './record_user_block',//点播用户禁言',
     // './subject_group',
-], function (common) {
-    // console.log(arguments);
-    // console.log(common);
+    './market/_conf'//  组
 
+], function (common) {
+    // console.log(common);
+    var confs = {};
+    angular.forEach(arguments, function (val, key) {
+        if (val.length > 0) {
+            angular.forEach(val, function (v, k) {
+                confs[k] = v;
+            })
+        } else {
+            confs[key] = val;
+        }
+    });
+    // console.log(confs);
     var common = common;
     var default_param = {
         page: 1,
@@ -69,7 +81,7 @@ define([
         'default_param': default_param,
         'api': common.api,
         'state': state,
-        'modsconfs': arguments,
+        'modsconfs': confs,
         'common': common,
         'last': 'ooo:)'
     };
