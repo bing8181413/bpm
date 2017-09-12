@@ -79,7 +79,9 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         cwd: 'app',
-                        src: ['styles/app.css',
+                        src: [
+                            'get_common.php',
+                            'styles/app.css',
                             'styles/bootstrap/index.css',
                             'index.html',
                             '**/app.js',
