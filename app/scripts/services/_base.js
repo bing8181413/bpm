@@ -262,7 +262,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                     "key": 'attachments_questions',
                                     "url": cons.domain + '/surveys/questions',
                                     "data": {"count": 1000, "status": 1, "category_type": 1}
-                                },
+                                }
                             );
                         }
                         widget.ajaxRequest({
