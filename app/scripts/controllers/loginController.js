@@ -90,7 +90,6 @@ define([
                     $rootScope.nowlogintimestamp = new Date().getTime();
                     $rootScope.lastlogintimestamp = JSON.parse($rootScope.nowlogintimestamp);
 
-                    $rootScope.login_init();//登陆是更新或者添加必要的初始化数据
                     $rootScope.login_account = {
                         uname: $scope.uname,
                         pwd: $scope.pwd,
@@ -100,6 +99,9 @@ define([
                     localStorage.setItem('login_account', base64.encode(JSON.stringify($rootScope.login_account)));
                     localStorage.setItem('hjm', JSON.stringify($rootScope.hjm));
                     localStorage.setItem('lastlogintimestamp', $rootScope.lastlogintimestamp);
+
+                    $rootScope.login_init();//登陆是更新或者添加必要的初始化数据
+
                     $scope.success_time = 1.0;
                     var interval = $interval(function () {
                         $scope.loading += 0.1;

@@ -25,7 +25,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-rounded btn-sm btn-info" ng-bind="data.coupons[0].used+\'-\'+data.coupons[0].count" ng-click="show()" ' +
+                template: '<a class="btn btn-rounded btn-sm btn-info" ng-bind="data.coupons[0].used+\' / \'+data.coupons[0].count" ng-click="show()" ' +
                 ' ng-show="data.coupons[0].used && data.coupons[0].count"></a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;

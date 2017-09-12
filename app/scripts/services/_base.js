@@ -1,4 +1,4 @@
-define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (mod, cons, widget) {
+define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (mod, cons, widget, comfunc) {
     mod
         .factory('bpmHttpInterceptor', ['$log', '$rootScope', function ($log, $rootScope) {
             // $log.debug('$log is here to show you that this is a regular factory with injection');
@@ -37,8 +37,8 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
             };
             return bpmHttpInterceptor;
         }])
-        .run(['$rootScope', '$state', '$stateParams', '$http', '$uibModal', '$location', 'widget', '$document', 'base64',
-            function ($rootScope, $state, $stateParams, $http, $uibModal, $location, widget, $document, base64) {
+        .run(['$rootScope', '$state', '$stateParams', '$http', '$uibModal', '$location', 'widget', '$document', 'base64', '$q',
+            function ($rootScope, $state, $stateParams, $http, $uibModal, $location, widget, $document, base64, $q) {
                 var arr = [];
                 $document.bind("keydown", function (event) {
 
@@ -125,191 +125,385 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                     $rootScope.current_city_name = $rootScope.hjm.current_city_name == '' ? '' : $rootScope.hjm.current_city_name;
                     $http.defaults.headers.common.Authorization = $rootScope.hjm.Authorization || '';
                 }
-                $rootScope.update_menus = function () {
-                    if (localStorage.getItem('login_account')) {
+
+                $rootScope.account_list = [];
+                $rootScope.account_list_bd_op = [];
+                $rootScope.get_accounts = function (accounts) {
+                    $rootScope.account_list_bd_op.push({
+                        text: '--请选择--',
+                        value: undefined
+                    });
+                    angular.forEach(accounts, function (val, key) {
+                        if (val.role == 'bd' || val.role == 'op') {
+                            $rootScope.account_list_bd_op.push({
+                                text: val.username,
+                                value: val.account_id
+                            });
+                        }
+                    });
+                    accounts.unshift({
+                        account_id: "",
+                        city_name: "",
+                        email: "",
+                        mobile: "",
+                        role: "op",
+                        username: "全部联系人"
+                    })
+                    $rootScope.account_list = accounts;
+                    angular.forEach($rootScope.account_list, function (val, key) {
+                        $rootScope.account_list[key].account_id += '';
+                    });
+                }
+
+
+                $rootScope.teacher_list = [];
+                $rootScope.get_teachers = function (teachers) {
+                    $rootScope.teacher_list = [{
+                        text: '--请选择--',
+                        value: undefined
+                    }];
+                    angular.forEach(teachers, function (val, key) {
+                        $rootScope.teacher_list.push({
+                            text: val.name,
+                            value: val.teacher_id + ''
+                        });
+                    });
+                }
+
+
+                $rootScope.get_categories = function (categories) {
+                    $rootScope.survey_question_category_list = []; // 获取 survey_question_category_list  维度列表
+                    $rootScope.survey_question_category_list_attachments = [];//适用于form—table 里的 select  附加信息
+                    $rootScope.survey_question_category_list_general = [];//适用于form—table 里的 select  普通信息
+                    angular.forEach(categories, function (val, key) {
+                        if (val.type == 1) {
+                            $rootScope.survey_question_category_list_attachments.push({
+                                value: val.id + '',
+                                text: val.name
+                            });
+                        }
+                    });
+                    $rootScope.survey_question_category_list_general.push({
+                        value: undefined,
+                        text: '-- 请选择 --'
+                    });
+                    angular.forEach(categories, function (val, key) {
+                        if (val.type == 2) {
+                            $rootScope.survey_question_category_list_general.push({
+                                value: val.id + '',
+                                text: val.name
+                            });
+                        }
+                    });
+                    categories.unshift({
+                        id: "0",
+                        name: "无维度",
+                    })
+                    $rootScope.survey_question_category_list = [];
+                    angular.forEach(categories, function (val, key) {
+                        $rootScope.survey_question_category_list.push({id: val.id, name: val.name});
+                    });
+                }
+
+
+                $rootScope.get_attachments_questions = function (attachments_questions) {
+                    $rootScope.survey_question_list_attachments = [];
+                    $rootScope.survey_question_list_attachments.push({
+                        value: undefined,
+                        text: '-- 请选择 --'
+                    });
+                    angular.forEach(attachments_questions, function (val, key) {
+                        $rootScope.survey_question_list_attachments.push({
+                            value: val.id + '',
+                            text: val.title
+                        });
+                    });
+                }
+
+                $rootScope.reset = function (request_param) {
+                    if (!$http.defaults.headers.common.Authorization || !localStorage.getItem('login_account')) {
+                        $rootScope.$state.go('login');
+                    } else {
                         var login_account = JSON.parse(base64.decode(localStorage.getItem('login_account')));
+                        var param = [];
+                        // param = {
+                        //     menus: cons.domain + '/account/menus?username=' + login_account.username + '&password=' + login_account.password,
+                        //     accounts: cons.api.account_mans + '?count=1000&role=op,majia,bd',
+                        //     teachers: cons.domain + '/teachers?count=1000&page=1',
+                        //     categories: cons.domain + '/surveys/categories?count=1000&page=1',
+                        //     attachments_questions: cons.domain + '/surveys/questions?count=1000&status=1&category_type=1',//适用于form—table 里的 select  附加信息的题目
+                        // },
+                        if (request_param) {
+                            param.push(request_param);
+                        } else {
+                            param.push(
+                                {
+                                    "key": 'menus',
+                                    "method": 'POST',
+                                    "url": cons.domain + '/account/menus',
+                                    "data": {"username": login_account.username, "password": login_account.password}
+                                },
+                                {
+                                    "key": 'accounts',
+                                    "url": cons.api.account_mans,
+                                    "data": {"count": 1000, "role": "op,majia,bd"}
+                                },
+                                {
+                                    "key": 'teachers',
+                                    "url": cons.domain + '/teachers',
+                                    "data": {"count": 1000}
+                                },
+                                {
+                                    "key": 'categories',
+                                    "url": cons.domain + '/surveys/categories',
+                                    "data": {"count": 1000}
+                                },
+                                {
+                                    "key": 'attachments_questions',
+                                    "url": cons.domain + '/surveys/questions',
+                                    "data": {"count": 1000, "status": 1, "category_type": 1}
+                                },
+                            );
+                        }
                         widget.ajaxRequest({
+                            url: location.protocol + '//' + location.host + ':' + location.port + '/get_common.php',
                             method: 'POST',
-                            url: '/account/menus',
-                            scope: {$rootScope},
-                            data: {username: login_account.username, password: login_account.password},
+                            data: param,
                             success: function (json) {
-                                if ($rootScope.hjm) {
-                                    $rootScope.hjm.menus = json.data;
+                                if (json.data.menus && $rootScope.hjm) {
+                                    $rootScope.hjm.menus = json.data.menus;
+                                }
+                                if (json.data.accounts) {
+                                    $rootScope.get_accounts(json.data.accounts);
+                                }
+                                if (json.data.teachers) {
+                                    $rootScope.get_teachers(json.data.teachers);
+                                }
+                                if (json.data.categories) {
+                                    $rootScope.get_categories(json.data.categories);
+                                }
+                                if (json.data.attachments_questions) {
+                                    $rootScope.get_attachments_questions(json.data.attachments_questions);
                                 }
                             },
-                            failure: function (err) {
-                                // widget.msgToast(err.message);
+                            error: function (err) {
+                                widget.msgToast('网络错误，请稍候再试');
                             }
                         });
                     }
                 }
-                $rootScope.getaccount_times = 0;
-                // 获取account_list
-                $rootScope.account_list = [];
-                $rootScope.account_list_bd_op = [];
                 $rootScope.get_account_list = function () {
-                    $rootScope.account_list = [];
-                    $rootScope.account_list_bd_op = [];
-                    if ($rootScope.hjm && $rootScope.hjm.Authorization) {
-                        $rootScope.update_menus();
-                        widget.ajaxRequest({
-                            url: cons.api.account_mans,
-                            method: 'GET',
-                            data: {count: 1000, role: 'op,majia,bd'},
-                            success: function (json) {
-                                $rootScope.account_list_bd_op.push({
-                                    text: '--请选择--',
-                                    value: undefined
-                                });
-                                angular.forEach(json.data, function (val, key) {
-                                    if (val.role == 'bd' || val.role == 'op') {
-                                        $rootScope.account_list_bd_op.push({
-                                            text: val.username,
-                                            value: val.account_id
-                                        });
-                                    }
-                                });
-                                json.data.unshift({
-                                    account_id: "",
-                                    city_name: "",
-                                    email: "",
-                                    mobile: "",
-                                    role: "op",
-                                    username: "全部联系人"
-                                })
-                                $rootScope.account_list = json.data;
-                                angular.forEach($rootScope.account_list, function (val, key) {
-                                    $rootScope.account_list[key].account_id += '';
-                                });
-
-                            },
-                            failure: function () {
-                                widget.msgToast('没有获取到公共数据');
-                            }
-                        })
-                    }
+                    $rootScope.reset({
+                        "key": 'accounts',
+                        "url": cons.api.account_mans,
+                        "data": {"count": 1000, "role": "op,majia,bd"}
+                    });
                 }
-                if ($rootScope.account_list.length == 0) {
-                    $rootScope.get_account_list();
-                }
-                $rootScope.teacher_list = [];
                 $rootScope.get_teacher_list = function () {
-                    $rootScope.teacher_list = [];
-                    if ($rootScope.hjm && $rootScope.hjm.Authorization) {
-                        widget.ajaxRequest({
-                            url: '/teachers',
-                            method: 'GET',
-                            data: {count: 1000, page: 1},
-                            success: function (json) {
-                                $rootScope.teacher_list.push({
-                                    text: '--请选择--',
-                                    value: undefined
-                                });
-                                angular.forEach(json.data, function (val, key) {
-                                    $rootScope.teacher_list.push({
-                                        text: val.name,
-                                        value: val.teacher_id + ''
-                                    });
-                                });
-                            },
-                            failure: function () {
-                                widget.msgToast('没有获取到老师信息');
-                            }
-                        })
-                    }
+                    $rootScope.reset({
+                        "key": 'teachers',
+                        "url": cons.domain + '/teachers',
+                        "data": {"count": 1000}
+                    });
                 }
-                if ($rootScope.teacher_list.length == 0) {
-                    $rootScope.get_teacher_list();
-                }
-                // 获取 survey_question_category_list  维度列表
-                $rootScope.survey_question_category_list = [];
-                $rootScope.survey_question_category_list_attachments = [];//适用于form—table 里的 select  附加信息
-                $rootScope.survey_question_category_list_general = [];//适用于form—table 里的 select  普通信息
                 $rootScope.get_survey_question_category_list = function () {
-                    if ($rootScope.hjm && $rootScope.hjm.Authorization) {
-                        widget.ajaxRequest({
-                            url: '/surveys/categories',
-                            method: 'GET',
-                            data: {count: 1000, status: 1},
-                            success: function (json) {
-                                $rootScope.survey_question_category_list_attachments = [];
-                                $rootScope.survey_question_category_list_general = [];
-                                angular.forEach(json.data, function (val, key) {
-                                    if (val.type == 1) {
-                                        $rootScope.survey_question_category_list_attachments.push({
-                                            value: val.id + '',
-                                            text: val.name
-                                        });
-                                    }
-                                });
-                                $rootScope.survey_question_category_list_general.push({
-                                    value: undefined,
-                                    text: '-- 请选择 --'
-                                });
-                                angular.forEach(json.data, function (val, key) {
-                                    if (val.type == 2) {
-                                        $rootScope.survey_question_category_list_general.push({
-                                            value: val.id + '',
-                                            text: val.name
-                                        });
-                                    }
-
-                                });
-                                json.data.unshift({
-                                    id: "0",
-                                    name: "无维度",
-                                })
-                                $rootScope.survey_question_category_list = [];
-                                angular.forEach(json.data, function (val, key) {
-                                    $rootScope.survey_question_category_list.push({id: val.id, name: val.name});
-                                });
-
-                            },
-                            failure: function () {
-                                widget.msgToast('没有获取到测评维度');
-                            }
-                        })
-                    }
+                    $rootScope.reset({
+                        "key": 'categories',
+                        "url": cons.domain + '/surveys/categories',
+                        "data": {"count": 1000}
+                    });
                 }
-                if ($rootScope.survey_question_category_list.length == 0) {
-                    $rootScope.get_survey_question_category_list();
-                }
-                // 获取 survey_question_list_attachments
-                $rootScope.survey_question_list_attachments = [];//适用于form—table 里的 select  附加信息的题目
                 $rootScope.get_survey_question_list = function () {
-                    if ($rootScope.hjm && $rootScope.hjm.Authorization) {
-                        widget.ajaxRequest({
-                            url: '/surveys/questions',
-                            method: 'GET',
-                            data: {count: 1000, status: 1, category_type: 1},
-                            success: function (json) {
-                                $rootScope.survey_question_list_attachments = [];
-                                $rootScope.survey_question_list_attachments.push({
-                                    value: undefined,
-                                    text: '-- 请选择 --'
-                                });
-                                angular.forEach(json.data, function (val, key) {
-                                    $rootScope.survey_question_list_attachments.push({
-                                        value: val.id + '',
-                                        text: val.title
-                                    });
-                                });
-                            },
-                            failure: function () {
-                                widget.msgToast('没有获取到附加问题数据');
-                            }
-                        })
-                    }
+                    $rootScope.reset({
+                        "key": 'attachments_questions',
+                        "url": cons.domain + '/surveys/questions',
+                        "data": {"count": 1000, "status": 1, "category_type": 1}
+                    });
                 }
-                if ($rootScope.survey_question_list_attachments.length == 0) {
-                    $rootScope.get_survey_question_list();
-                }
+
+                // $rootScope.update_menus = function () {
+                //     if (localStorage.getItem('login_account')) {
+                //         var login_account = JSON.parse(base64.decode(localStorage.getItem('login_account')));
+                //         widget.ajaxRequest({
+                //             method: 'POST',
+                //             url: '/account/menus',
+                //             scope: {$rootScope},
+                //             data: {username: login_account.username, password: login_account.password},
+                //             success: function (json) {
+                //                 if ($rootScope.hjm) {
+                //                     $rootScope.hjm.menus = json.data;
+                //                 }
+                //             },
+                //             failure: function (err) {
+                //                 // widget.msgToast(err.message);
+                //             }
+                //         });
+                //     }
+                // }
+                // $rootScope.getaccount_times = 0;
+                // // 获取account_list
+                // $rootScope.account_list = [];
+                // $rootScope.account_list_bd_op = [];
+                // $rootScope.get_account_list = function () {
+                //     $rootScope.account_list = [];
+                //     $rootScope.account_list_bd_op = [];
+                //     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
+                //         $rootScope.update_menus();
+                //         widget.ajaxRequest({
+                //             url: cons.api.account_mans,
+                //             method: 'GET',
+                //             data: {count: 1000, role: 'op,majia,bd'},
+                //             success: function (json) {
+                //                 $rootScope.account_list_bd_op.push({
+                //                     text: '--请选择--',
+                //                     value: undefined
+                //                 });
+                //                 angular.forEach(json.data, function (val, key) {
+                //                     if (val.role == 'bd' || val.role == 'op') {
+                //                         $rootScope.account_list_bd_op.push({
+                //                             text: val.username,
+                //                             value: val.account_id
+                //                         });
+                //                     }
+                //                 });
+                //                 json.data.unshift({
+                //                     account_id: "",
+                //                     city_name: "",
+                //                     email: "",
+                //                     mobile: "",
+                //                     role: "op",
+                //                     username: "全部联系人"
+                //                 })
+                //                 $rootScope.account_list = json.data;
+                //                 angular.forEach($rootScope.account_list, function (val, key) {
+                //                     $rootScope.account_list[key].account_id += '';
+                //                 });
+                //
+                //             },
+                //             failure: function () {
+                //                 widget.msgToast('没有获取到公共数据');
+                //             }
+                //         })
+                //     }
+                // }
+                // if ($rootScope.account_list.length == 0) {
+                //     $rootScope.get_account_list();
+                // }
+                // $rootScope.teacher_list = [];
+                // $rootScope.get_teacher_list = function () {
+                //     $rootScope.teacher_list = [];
+                //     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
+                //         widget.ajaxRequest({
+                //             url: '/teachers',
+                //             method: 'GET',
+                //             data: {count: 1000, page: 1},
+                //             success: function (json) {
+                //                 $rootScope.teacher_list.push({
+                //                     text: '--请选择--',
+                //                     value: undefined
+                //                 });
+                //                 angular.forEach(json.data, function (val, key) {
+                //                     $rootScope.teacher_list.push({
+                //                         text: val.name,
+                //                         value: val.teacher_id + ''
+                //                     });
+                //                 });
+                //             },
+                //             failure: function () {
+                //                 widget.msgToast('没有获取到老师信息');
+                //             }
+                //         })
+                //     }
+                // }
+                // if ($rootScope.teacher_list.length == 0) {
+                //     $rootScope.get_teacher_list();
+                // }
+                // // 获取 survey_question_category_list  维度列表
+                // $rootScope.survey_question_category_list = [];
+                // $rootScope.survey_question_category_list_attachments = [];//适用于form—table 里的 select  附加信息
+                // $rootScope.survey_question_category_list_general = [];//适用于form—table 里的 select  普通信息
+                // $rootScope.get_survey_question_category_list = function () {
+                //     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
+                //         widget.ajaxRequest({
+                //             url: '/surveys/categories',
+                //             method: 'GET',
+                //             data: {count: 1000, status: 1},
+                //             success: function (json) {
+                //                 $rootScope.survey_question_category_list_attachments = [];
+                //                 $rootScope.survey_question_category_list_general = [];
+                //                 angular.forEach(json.data, function (val, key) {
+                //                     if (val.type == 1) {
+                //                         $rootScope.survey_question_category_list_attachments.push({
+                //                             value: val.id + '',
+                //                             text: val.name
+                //                         });
+                //                     }
+                //                 });
+                //                 $rootScope.survey_question_category_list_general.push({
+                //                     value: undefined,
+                //                     text: '-- 请选择 --'
+                //                 });
+                //                 angular.forEach(json.data, function (val, key) {
+                //                     if (val.type == 2) {
+                //                         $rootScope.survey_question_category_list_general.push({
+                //                             value: val.id + '',
+                //                             text: val.name
+                //                         });
+                //                     }
+                //
+                //                 });
+                //                 json.data.unshift({
+                //                     id: "0",
+                //                     name: "无维度",
+                //                 })
+                //                 $rootScope.survey_question_category_list = [];
+                //                 angular.forEach(json.data, function (val, key) {
+                //                     $rootScope.survey_question_category_list.push({id: val.id, name: val.name});
+                //                 });
+                //
+                //             },
+                //             failure: function () {
+                //                 widget.msgToast('没有获取到测评维度');
+                //             }
+                //         })
+                //     }
+                // }
+                // if ($rootScope.survey_question_category_list.length == 0) {
+                //     $rootScope.get_survey_question_category_list();
+                // }
+                // // 获取 survey_question_list_attachments
+                // $rootScope.survey_question_list_attachments = [];//适用于form—table 里的 select  附加信息的题目
+                // $rootScope.get_survey_question_list = function () {
+                //     if ($rootScope.hjm && $rootScope.hjm.Authorization) {
+                //         widget.ajaxRequest({
+                //             url: '/surveys/questions',
+                //             method: 'GET',
+                //             data: {count: 1000, status: 1, category_type: 1},
+                //             success: function (json) {
+                //                 $rootScope.survey_question_list_attachments = [];
+                //                 $rootScope.survey_question_list_attachments.push({
+                //                     value: undefined,
+                //                     text: '-- 请选择 --'
+                //                 });
+                //                 angular.forEach(json.data, function (val, key) {
+                //                     $rootScope.survey_question_list_attachments.push({
+                //                         value: val.id + '',
+                //                         text: val.title
+                //                     });
+                //                 });
+                //             },
+                //             failure: function () {
+                //                 widget.msgToast('没有获取到附加问题数据');
+                //             }
+                //         })
+                //     }
+                // }
+                // if ($rootScope.survey_question_list_attachments.length == 0) {
+                //     $rootScope.get_survey_question_list();
+                // }
+                $rootScope.reset();
                 $rootScope.login_init = function () {
-                    $rootScope.get_account_list();
-                    $rootScope.get_teacher_list();
-                    $rootScope.get_survey_question_category_list();
-                    $rootScope.get_survey_question_list();
+                    $rootScope.reset();
                 }
             }
         ])

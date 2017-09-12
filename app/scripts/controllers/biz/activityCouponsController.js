@@ -6,7 +6,7 @@ define([
     mod.controller('activitycoupons.updateController', updateController)
 
     updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
-    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
+    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
         $scope.param = {};
 
         if ($stateParams.id) {
@@ -16,7 +16,6 @@ define([
                 scope: $scope,
                 success: function (json) {
                     $scope.param = json.data;
-                    console.log($scope.param, $scope._param);
                 }
             })
         }

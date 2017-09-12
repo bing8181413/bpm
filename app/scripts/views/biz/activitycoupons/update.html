@@ -28,10 +28,8 @@
 
                         <div form-input text="有效时间" ng-model="param.days" required="true" type="number" min="0"></div>
 
-                        <div form-date-time text="兑换开始时间" ng-model="param.start_time" required="true"></div>
-
-                        <div form-date-time text="兑换结束时间" ng-model="param.end_time" required="true"></div>
-
+                        <div form-double-date-time text-start="兑换-开始时间" text-end="结束时间"
+                             ng-model-start="param.start_time" ng-model-end="param.end_time" required="true"></div>
 
                         <div form-input text="运营文案" ng-model="param.brief" placeholder="不超过15字" maxlength="15"></div>
 
