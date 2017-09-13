@@ -41,13 +41,16 @@ define([
 ], function (common) {
     // console.log(common);
     var confs = {};
+    var conf_index = 0;
     angular.forEach(arguments, function (val, key) {
+        conf_index++;
         if (val.length > 0) {
             angular.forEach(val, function (v, k) {
-                confs[k] = v;
+                conf_index++;
+                confs[conf_index] = v;
             })
         } else {
-            confs[key] = val;
+            confs[conf_index] = val;
         }
     });
     // console.log(confs);

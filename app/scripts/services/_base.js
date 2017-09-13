@@ -292,6 +292,19 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                         });
                     }
                 }
+                $rootScope.update_menus = function () {
+                    if (!localStorage.getItem('login_account')) {
+                        $rootScope.$state.go('login');
+                    } else {
+                        var login_account = JSON.parse(base64.decode(localStorage.getItem('login_account')));
+                        $rootScope.reset({
+                            "key": 'menus',
+                            "method": 'POST',
+                            "url": cons.domain + '/account/menus',
+                            "data": {"username": login_account.username, "password": login_account.password}
+                        });
+                    }
+                }
                 $rootScope.get_account_list = function () {
                     $rootScope.reset({
                         "key": 'accounts',
