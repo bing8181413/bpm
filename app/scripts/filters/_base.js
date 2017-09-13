@@ -496,6 +496,9 @@ define([
                     case "11":
                         result = "名校直播";
                         break;
+                    case "11":
+                        result = "成人演讲";
+                        break;
                 }
                 return result;
             }
