@@ -11,18 +11,21 @@
                         <h4>优惠劵</h4>
                         <div form-input text="优惠劵名称" ng-model="param.title" placeholder="优惠劵名称" required="true"></div>
 
-                        <div form-input text="活动ID" ng-model="param.product_id " placeholder="不限定活动ID的不填写"></div>
+                        <div form-input text="分享标题" ng-model="param.share_title" placeholder="分享标题" maxlength="30" required="true"></div>
+                        <div form-input text="分享描述" ng-model="param.share_description" placeholder="分享描述" required="true"></div>
+
+                        <div form-input text="活动ID" ng-model="param.product_id" placeholder="用来设置定向优惠券，且只支持一个活动ID"></div>
 
                         <div form-image-single text="优惠券图片" ng-model="param.image" required="true"></div>
 
                         <div form-input text="发放总数量" ng-model="param.total" required="true" type="number" min="0"></div>
 
                         <div form-radio text="领取对象" ng-model="param.target" required="true" default="0"
-                             source="[{text:'不限',value:'1'},{text:'新用户',value:'2'},{text:'老用户',value:'3'}]"
-                             source-api=""></div>
+                             source="[{text:'不限',value:'1'}]"source-api=""></div>
+                        <!--,{text:'新用户',value:'2'},{text:'老用户',value:'3'}-->
 
-                        <div form-input text="满(金额)" ng-model="param.over_price" type="number" min="0" max="param.price"
-                             placeholder="不是满减优惠券的不填写"></div>
+                        <div form-input text="满(金额)" ng-model="param.over_price" type="number" min="0"
+                             placeholder="不是满减优惠券的请填写0" required="true" ></div>
 
                         <div form-input text="减(金额)" ng-model="param.price" required="true" type="number" min="0"></div>
 

@@ -9,7 +9,6 @@ define([], function () {
                     name: '领取链接',
                     fieldDirective: '<div modal-textarea title="查看链接" content="$root.common.wx_domain + \'/marketing/activitycoupon/code/\'+item.code"></div>'
                 },
-                {name: '优惠券类型', field: 'id', className: 'text-center'},
                 {name: '满(金额)', field: 'over_price', filter: 'null2empty'},
                 {name: '减(金额)', field: 'price', filter: 'null2empty'},
                 {

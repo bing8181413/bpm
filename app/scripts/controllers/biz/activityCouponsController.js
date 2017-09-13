@@ -5,8 +5,8 @@ define([
 ], function (mod, con) {
     mod.controller('activitycoupons.updateController', updateController)
 
-    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
-    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', 'comfunc', '$filter', '$timeout'];
+    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.param = {};
 
         if ($stateParams.id) {
@@ -22,13 +22,9 @@ define([
 
 
         $scope.submit = function (status) {
-            $scope.param.scope_type = 3;
-            if (!$scope.param.price || $scope.param.price <= 0) {
+
+            if ($scope.param.price <= 0) {
                 widget.msgToast('优惠劵金额不能小于等于0');
-                return false;
-            }
-            if ($scope.param.over_price && $scope.param.over_price <= 0) {
-                widget.msgToast('满减优惠条件的金额不能小于等于0');
                 return false;
             }
             if ($scope.param.price && $scope.param.over_price && ($scope.param.over_price <= $scope.param.price)) {
