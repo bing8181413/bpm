@@ -31,7 +31,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 },
                 'responseError': function (response) {
                     $rootScope.http_notification = null;
-                    console.log('responseError:  ' + response);
+                    console.log('responseError:  ' + JSON.stringify(response));
                     return response;
                 }
             };

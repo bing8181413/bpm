@@ -1,0 +1,37 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!$stateParams.id">新增观看权限</h3>
+            <h3 class="panel-title" ng-if="$stateParams.id">更新观看权限</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>观看权限</h4>
+                        <!--<div form-input text="分享标题" ng-model="param.share_title" placeholder="分享标题" maxlength="30" required="true"></div>-->
+                        <!--<div form-input text="分享描述" ng-model="param.share_description" placeholder="分享描述" required="true"></div>-->
+
+                        <div form-input text="选择视频组ID" ng-model="param.obj_id" placeholder="用来设置选择视频组ID，且只支持一个视频组ID"
+                             required="true"></div>
+
+                        <div form-input text="发放总数量" ng-model="param.total_count" required="true" type="number"
+                             min="0"></div>
+
+                        <div form-radio text="领取对象" ng-model="param.receive_type" required="true" default="0"
+                             source="[{text:'不限',value:'1'},{text:'新用户',value:'2'},{text:'老用户',value:'3'}]"
+                             source-api=""></div>
+
+                        <div form-input text="运营文案" ng-model="param.content" placeholder="不超过15字" maxlength="15"></div>
+
+                        <div form-textarea text="活动细则" ng-model="param.description" placeholder="不超过15字"></div>
+
+                        <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过15字"></div>
+                    </div>
+                </div>
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

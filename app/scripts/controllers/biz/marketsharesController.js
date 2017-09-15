@@ -3,15 +3,14 @@ define([
     './../controllers'
     , '../../cons/simpleCons'
 ], function (mod, con) {
-    mod.controller('activitycoupons.updateController', updateController)
+    mod.controller('marketshares.updateController', updateController)
 
     updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', 'comfunc', '$filter', '$timeout'];
     function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.param = {};
-
         if ($stateParams.id) {
             widget.ajaxRequest({
-                url: '/markets/liveshare/' + $stateParams.id,
+                url: con.live_domain + '/live/marketshares/' + $stateParams.id,
                 method: 'GET',
                 scope: $scope,
                 success: function (json) {
@@ -24,13 +23,13 @@ define([
         $scope.submit = function (status) {
 
             widget.ajaxRequest({
-                url: '/markets/liveshare' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
+                url: con.live_domain + '/live/marketshares' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
                 method: $stateParams.id ? 'PUT' : 'POST',
                 scope: $scope,
                 data: $scope.param,
                 success: function (json) {
                     widget.msgToast('发布成功！');
-                    $state.go(con.state.main + '.liveShare.list');
+                    $state.go(con.state.main + '.marketshare.list');
                 }
             })
         }

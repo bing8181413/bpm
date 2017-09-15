@@ -4,6 +4,7 @@ define(['./common'], function (common) {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-center'},
                 {name: '排序', field: 'order_by'},
+                {name: '房间号', field: 'room_no'},
                 {name: '标题', field: 'title'},
                 {name: '苹果标示', field: 'ios_audit|keyVal:\'1\':\'是\':\'2\':\'——\''},
                 {name: '发布时间', field: 'record.created_at'},

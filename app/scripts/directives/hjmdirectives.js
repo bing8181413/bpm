@@ -478,13 +478,14 @@ define([
 
             };
         })
-        .directive('jsonTable', function ($state, $rootScope, $timeout, $templateCache, $compile, $timeout, widget) {
+        .directive('jsonTable', function ($state, $rootScope, $timeout, $templateCache, $compile, $timeout, widget, base64) {
             return {
                 restrict: 'E',
                 replace: true,
                 scope: {
                     ngModel: '=',
                     columns: '=',
+                    base64: '@',
                     max: '@',
                     config: '=?',
                     callback: '&',
@@ -542,7 +543,9 @@ define([
                         var disabled = (col.disabled) ? ' disabled ' : '';
                         var minContent = (col.min || col.min == 0) ? ('ng-min="' + col.min + '" ' + 'min="' + col.min + '"' ) : '';
                         var maxContent = (col.max || col.max == 0) ? ('ng-max="' + col.max + '" ' + 'max="' + col.max + '"') : '';
-                        if (!col.readonly) {
+                        if (col.fieldDirective) {
+                            cellContent = col.fieldDirective;
+                        } else if (!col.readonly) {
                             if (col.textarea) {
                                 var rows = col.rows ? ('rows = "+col.rows +"') : ('rows = 5');
                                 cellContent = '<textarea class="form-control" ' + rows + minContent + maxContent + disabled + typeContent + requiredContent +
@@ -599,9 +602,9 @@ define([
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var tmpHtml = '';
                     $timeout(function () {
+                        // console.log($scope.columns);
                         if (angular.isArray($scope.columns)) {
                             // console.log($attrs.disabled);
-
                             // 为select 补充 一个 非固定的 source
                             //{'name': '设置维度', 'field': 'category_id',required:'true',select:'true',source:'survey_question_category_list2'},
                             angular.forEach($scope.columns, function (val, key) {

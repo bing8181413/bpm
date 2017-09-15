@@ -847,7 +847,7 @@ define([
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     $timeout(function () {
-                        var columns = $scope.columns ? (' columns=' + JSON.stringify($scope.columns) + '') : ('');
+                        var columns = $scope.columns ? (' columns="columns" ') : ('');
                         if ($scope.ngDisabled) {
                             // || $scope.$parent && $scope.$parent.disabledRole
                             $scope.config = $scope.config || {};
@@ -868,9 +868,9 @@ define([
                                 '<div class="col-sm-8">';
                         }
                         if ($scope.columns) {
-                            content += '<json-table ng-model="ngModel"' + columns + config + name +
+                            content += '<json-table ng-model="ngModel" base64="true" ' + columns + config + name +
                                 required + max + disabledRole + '></json-table>';
-
+                            // console.log(content);
                         }
                         // content += '<input class="hide" ng-model="ngModel"' + name + required + '>' ;
                         content += '</div>';

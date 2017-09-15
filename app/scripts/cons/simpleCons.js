@@ -36,7 +36,8 @@ define([
 
     // './record_user_block',//点播用户禁言',
     // './subject_group',
-    './market/_conf'//  组
+    './market/_conf',//  组
+    './live/_conf'//  组
 
 ], function (common) {
     // console.log(common);
@@ -63,12 +64,14 @@ define([
         main: 'main',
         biz: 'biz',
         demo: 'demo',
+        live: 'live',
     }
     return {
         'VIEW_PATH': 'scripts/views/',
         'view_path': 'scripts/views/',
         'main_path': 'scripts/views/' + state.main + '/',
         'biz_path': 'scripts/views/' + state.biz + '/',
+        'live_path': 'scripts/views/' + state.live + '/',
         'demo_path': 'scripts/views/' + state.demo + '/',
         'DIRECTIVE_PATH': 'scripts/views/directive/',
         'DIRECTIVE_LIST_PATH': 'scripts/views/directive/list/',

@@ -1,0 +1,43 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!$stateParams.id">新增视频组</h3>
+            <h3 class="panel-title" ng-if="$stateParams.id">更新视频组</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>视频组</h4>
+                        <div form-input text="名称" ng-model="param.title" placeholder="视频组名称" required="true"></div>
+
+                        <div form-image-single text="图片" ng-model="param.image" required="true"></div>
+
+                        <div form-radio text="是否付费" ng-model="param.target" required="true" default="1"
+                             source="[{text:'免费',value:'1'},{text:'付费',value:'2'}]" source-api=""></div>
+
+                        <div form-radio text="分享设置" ng-model="param.target" required="true" default="1"
+                             source="[{text:'普通分享',value:'1'},{text:'分享单个视频观看权限',value:'2'}]" source-api=""></div>
+
+                        <div form-input text="单人最多领取视频数量" ng-model="param.product_id" placeholder=""></div>
+
+                        <div form-table text="SKU" ng-model="param.skus"
+                             columns="[{name: 'SKU',
+                              'fieldDirective': '<select class=\'form-control\' ng-model=\'item.category_id\'
+                               ng-options=\'obj.value as obj.text for obj in $root.survey_question_category_list_general\' ></select>',required:'true'}]"></div>
+
+
+                        <div form-input text="指定购买活动" ng-model="param.product_id" placeholder="活动ID"
+                             required="true"></div>
+
+                        <div form-date-time text="观看权限发放开始时间" ng-model="param.brief" required="true"></div>
+
+                        <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过15字"></div>
+                    </div>
+                </div>
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>
