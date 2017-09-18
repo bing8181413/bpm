@@ -250,6 +250,7 @@ define([
                     name: '@',
                     required: '@',
                     source: '=',
+                    type: '@?',
                     // sourceApi: '=',
                     callback: '&',
                 },
@@ -266,9 +267,15 @@ define([
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">';
                         angular.forEach($scope.source, function (val, key) {
+                            console.log($scope.type);
+                            if ($scope.type == 'number') {
+                                var value = val.value;
+                            } else {
+                                var value = "\'" + val.value + "\'";
+                            }
                             content += '<label class="checkbox-inline checkbox1"><input ' + type + disabledRole + name +
-                                ' ng-checked="isChecked(\'' + val.value + '\')"' +
-                                ' ng-click="updateSelection($event,\'' + val.value + '\',' + key + ')"  ' +
+                                ' ng-checked="isChecked(' + value + ')"' +
+                                ' ng-click="updateSelection($event,' + value + ',' + key + ')"  ' +
                                 '><span></span>' + val.text + '</label>';
                         });
                         content += '<div><input class="hide" ng-model="tmp_field" ' + nickname + required + disabledRole + '" /></div>';

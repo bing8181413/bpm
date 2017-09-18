@@ -28,44 +28,54 @@
                              ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/rooms/'+room_id}"
                              ng-model="room_id" callback="add_room(json)"></div>
 
-                        <div form-table text="直播间" ng-model="param.rooms"
+                        <div form-table text="直播间" ng-model="param.rooms" min="1"
                              config="{add:false}"
                              columns="[{name: '视频ID', field:'room_id',readonly:'true'}
                              ,{name: '标题', field:'room.title',readonly:'true'}
                              ,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}
                              ,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>
-
+                        <hr>
+                        <h4>关联SKU</h4>
                         <div form-table text="关联SKU" ng-model="param.skus"
                              columns="[{name: '选择SKU',width:'50%',
                               'fieldDirective': '<select class=\'form-control \' ng-model=\'item.sku\'
                                ng-options=\'obj.value as obj.text for obj in $root.common.sku\' ></select>',required:'true'}]"></div>
 
+                        <hr>
+                        <h4>关联活动类目</h4>
                         <div class="row">
                             <div class="col-sm-offset-2 col-sm-8" ng-repeat="product in param.products">
                                 <div class="panel panel-primary">
                                     <div class="panel-body">
-                                        <div form-search text="添加活动" verify="verify_product(product.product_id,$index)"
-                                             btn-text="查询活动类目"
+                                        <div form-search text="搜索活动ID" btn-text="查询活动类目"
+                                             verify="verify_product(product.product_id,$index)"
                                              ajax-config="{method:'get',url:$root.common.domain+'/products/'+product.product_id}"
-                                             ng-model="product.product_id" callback="add_product(json,$index)"></div>
-                                        <h5 ng-bind="product.tmp_data.options|json"></h5>
-                                        <div form-checkbox text="选择类目" ng-model="product.options"
-                                             source="product.tmp_options"></div>
+                                             ng-model="product.product_id"
+                                             callback="add_product(json,$index)"></div>
+                                        <div form-checkbox text="选择类目" ng-model="product._tmp_options_selected"
+                                             type="number" ng-show="product._tmp_options"
+                                             source="product._tmp_options"></div>
 
-                                        <json-table ng-model="product.options" config="{add:false}"
+                                        <json-table ng-model="product.options"
+                                                    config="{readonly:true}"
                                                     columns="[{name: '活动ID', field:'product_id',readonly:'true'},
                                                     {name: '类目ID', field:'option_id',readonly:'true'},
                                                     {name: '类目名称', field:'option_name',readonly:'true'}]">
                                         </json-table>
+                                        <div class="row pull-right">
+                                            <a class="btn btn-danger btn-rounded"
+                                               ng-click="param.products.splice($index,1)">删除</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                                 <a class="btn btn-primary btn-rounded" ng-click="param.products.push({});">新增活动并选择类目</a>
                             </div>
                         </div>
+                        <hr>
 
                         <div form-input text="指定购买活动" ng-model="param.product_id" placeholder="活动ID"
                              required="true"></div>

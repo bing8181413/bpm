@@ -15,6 +15,10 @@ define(['.././common'], function (common) {
                     // fieldDirective: '<span activity-coupons data="item"></span>',
                     className: 'text-center'
                 },
+                {
+                    name: '已领取', className: 'text-center',
+                    fieldDirective: '<span show-table data="{text:item.receive_count,modid:\'marketsharesreceiveList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/marketshares/\'+item.id+\'/receive\'}"></span>'
+                },
                 {name: '领取对象', field: 'receive_type|keyVal:\'1\':\'不限\':\'2\':\'新用户\':\'3\':\'老用户\''},
                 {name: '创建时间', field: 'created_at', filter: 'null2empty'},
                 {

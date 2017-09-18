@@ -5,13 +5,19 @@ define(['.././common'], function (common) {
                 {name: 'ID', field: 'id', className: 'text-right'},
                 {name: '发布时间', field: 'created_at', filter: 'null2empty'},
                 {name: '视频组名称', field: 'group_title', className: 'text-center'},
-                {name: '视频数量', field: 'video_count', filter: 'zero2empty'},
-                {name: '关联活动', field: 'product_id', filter: 'zero2empty'},
-                {name: '直播状态', field: 'receive_type|keyVal:\'1\':\'预告\':\'2\':\'直播中\':\'3\':\'结束\''},
                 {
-                    name: '直播日期',
-                    fieldDirective: '<span ng-bind="(item.start_time|null2empty)+\'-\'+(item.end_time|null2empty)"></span>'
+                    name: '视频数量', className: 'text-center',
+                    fieldDirective: '<span show-table data="{text:item.video_count||0,modid:\'videogroupsroomList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/rooms\'}"></span>'
                 },
+                {
+                    name: '关联活动', className: 'text-center',
+                    fieldDirective: '<span show-table data="{text:\'查看\',modid:\'videogroupsoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/options\'}"></span>'
+                },
+                {
+                    name: '关联SKU', className: 'text-center',
+                    fieldDirective: '<span show-table data="{text:\'查看\',modid:\'videogroupsskuoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/skuoptions\'}"></span>'
+                },
+                {name: '类型', field: 'group_type|keyVal:\'1\':\'直播\':\'2\':\'点播\''},
                 {
                     name: '备注',
                     fieldDirective: '<div modal-textarea title="查看" content="item.remark|null2empty"></div>',

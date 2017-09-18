@@ -15,6 +15,7 @@ define([
     './side-left',// 左边菜单
     './hjmdirectives',
     './role-permission',
+    './show_table', //  btn 弹出一个列表
     './show_image',
     './select_city',
     './select_boards',// 负责人管理中 选择板块
