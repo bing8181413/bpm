@@ -42,6 +42,7 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
+                    {value: 'keyword', text: '关键字', placeholder: '关键字', default: ''},
                     {
                         value: 'status', text: '状态', type: 'btnGroup', default: '', width: '6',
                         enum: [

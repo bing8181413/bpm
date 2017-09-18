@@ -5,6 +5,7 @@ define([
     './hjm-compile',// grid
     './hjm-form',// form
     './hjm-form-image',// form image single
+    './hjm-form-search',// form search form表单里查询数据
     './hjm-form-date',// form date
     './hjm-form-valid',// form-valid 表单验证
     './hjm-ueditor',// ueditor
@@ -932,7 +933,7 @@ define([
                             // console.log(($scope.mapData.city));
                             $scope.show_tip[$scope.mapData.index] = false;
                             if ($scope.mapData.city && $scope.mapData.city.indexOf('上海') == -1) {
-                                widget.msgToast('定位了非上海市,不展示城市和区县',3000);
+                                widget.msgToast('定位了非上海市,不展示城市和区县', 3000);
                                 $scope.show_tip[$scope.mapData.index] = true;
                                 $scope.addresses[$scope.mapData.index].district = '';
                                 $scope.addresses[$scope.mapData.index].city_name = '';

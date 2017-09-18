@@ -260,8 +260,7 @@ define([
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="checkbox"';
-                    $scope.tmp_source = [];
-                    $timeout(function () {
+                    $scope.init = function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
@@ -282,7 +281,15 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                             // console.log($scope.$parent.FormBody);
                         }
+                    }
+                    $scope.tmp_source = [];
+                    $timeout(function () {
+                        $scope.init();
                     }, 0);
+                    $scope.$watch('source', function () {
+                        $scope.init();
+                    });
+
                     $scope.$watch('ngModel', function (val) {
                         // console.log('ngModel  ===', $scope.ngModel);
                         if (val && val.length > 0) {
@@ -868,7 +875,7 @@ define([
                                 '<div class="col-sm-8">';
                         }
                         if ($scope.columns) {
-                            content += '<json-table ng-model="ngModel" base64="true" ' + columns + config + name +
+                            content += '<json-table ng-model="ngModel" ' + columns + config + name +
                                 required + max + disabledRole + '></json-table>';
                             // console.log(content);
                         }

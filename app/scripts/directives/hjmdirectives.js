@@ -478,14 +478,13 @@ define([
 
             };
         })
-        .directive('jsonTable', function ($state, $rootScope, $timeout, $templateCache, $compile, $timeout, widget, base64) {
+        .directive('jsonTable', function ($state, $rootScope, $timeout, $templateCache, $compile, $timeout, widget) {
             return {
                 restrict: 'E',
                 replace: true,
                 scope: {
                     ngModel: '=',
                     columns: '=',
-                    base64: '@',
                     max: '@',
                     config: '=?',
                     callback: '&',
@@ -500,14 +499,14 @@ define([
                     function buildHeader(columns, config) {
                         var headerContent = '';
                         angular.forEach(columns, function (col) {
-                            var width = col.width ? ('width = "' + col.width + 'px"') : '';
+                            var width = col.width ? ('width = "' + (col.width.indexOf('%') > -1 ? (col.width + '"') : (col.width + 'px"'))) : '';
                             if (!col.hide) {
                                 headerContent += '<th class="text-center" ' + width + '>' + col.name + '</th>';
                             }
                         });
                         if (!config.readonly) {
                             headerContent += '<th class="text-center">' +
-                                '<a class="btn btn-primary btn-sm btn-bordered" ng-click="add()">添加</a>' +
+                                (config.add == false ? '操作' : '<a class="btn btn-primary btn-sm btn-bordered" ng-click="add()">添加</a>') +
                                 // '<a class="btn btn-primary btn-sm btn-bordered" ng-click="conslog()">log</a>' +
                                 '</th>';
                         }
@@ -602,7 +601,6 @@ define([
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var tmpHtml = '';
                     $timeout(function () {
-                        // console.log($scope.columns);
                         if (angular.isArray($scope.columns)) {
                             // console.log($attrs.disabled);
                             // 为select 补充 一个 非固定的 source

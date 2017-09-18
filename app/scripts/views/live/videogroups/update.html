@@ -8,29 +8,74 @@
             <form class="form-horizontal" name="FormBody" novalidate>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h4>视频组</h4>
-                        <div form-input text="名称" ng-model="param.title" placeholder="视频组名称" required="true"></div>
+                        <div form-input text="名称" ng-model="param.group_title" placeholder="视频组名称"
+                             required="true"></div>
 
-                        <div form-image-single text="图片" ng-model="param.image" required="true"></div>
+                        <div form-image-single text="图片" ng-model="param.pic_url" required="true"></div>
 
-                        <div form-radio text="是否付费" ng-model="param.target" required="true" default="1"
+                        <div form-radio text="类型" ng-model="param.group_type" required="true" default="1"
+                             source="[{text:'直播',value:'1'},{text:'点播',value:'2'}]" source-api=""></div>
+
+                        <div form-radio text="是否付费" ng-model="param.pay_type" required="true" default="1"
                              source="[{text:'免费',value:'1'},{text:'付费',value:'2'}]" source-api=""></div>
 
-                        <div form-radio text="分享设置" ng-model="param.target" required="true" default="1"
+                        <div form-radio text="分享设置" ng-model="param.share_type" required="true" default="1"
                              source="[{text:'普通分享',value:'1'},{text:'分享单个视频观看权限',value:'2'}]" source-api=""></div>
 
-                        <div form-input text="单人最多领取视频数量" ng-model="param.product_id" placeholder=""></div>
+                        <div form-input text="单人最多领取视频数量" ng-model="param.receive_num" placeholder=""></div>
 
-                        <div form-table text="SKU" ng-model="param.skus"
-                             columns="[{name: 'SKU',
-                              'fieldDirective': '<select class=\'form-control\' ng-model=\'item.category_id\'
-                               ng-options=\'obj.value as obj.text for obj in $root.survey_question_category_list_general\' ></select>',required:'true'}]"></div>
+                        <div form-search text="添加直播间" verify="verify_room(room_id)" btn-text="查询并添加直播间"
+                             ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/rooms/'+room_id}"
+                             ng-model="room_id" callback="add_room(json)"></div>
 
+                        <div form-table text="直播间" ng-model="param.rooms"
+                             config="{add:false}"
+                             columns="[{name: '视频ID', field:'room_id',readonly:'true'}
+                             ,{name: '标题', field:'room.title',readonly:'true'}
+                             ,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}
+                             ,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>
+
+                        <div form-table text="关联SKU" ng-model="param.skus"
+                             columns="[{name: '选择SKU',width:'50%',
+                              'fieldDirective': '<select class=\'form-control \' ng-model=\'item.sku\'
+                               ng-options=\'obj.value as obj.text for obj in $root.common.sku\' ></select>',required:'true'}]"></div>
+
+                        <div class="row">
+                            <div class="col-sm-offset-2 col-sm-8" ng-repeat="product in param.products">
+                                <div class="panel panel-primary">
+                                    <div class="panel-body">
+                                        <div form-search text="添加活动" verify="verify_product(product.product_id,$index)"
+                                             btn-text="查询活动类目"
+                                             ajax-config="{method:'get',url:$root.common.domain+'/products/'+product.product_id}"
+                                             ng-model="product.product_id" callback="add_product(json,$index)"></div>
+                                        <h5 ng-bind="product.tmp_data.options|json"></h5>
+                                        <div form-checkbox text="选择类目" ng-model="product.options"
+                                             source="product.tmp_options"></div>
+
+                                        <json-table ng-model="product.options" config="{add:false}"
+                                                    columns="[{name: '活动ID', field:'product_id',readonly:'true'},
+                                                    {name: '类目ID', field:'option_id',readonly:'true'},
+                                                    {name: '类目名称', field:'option_name',readonly:'true'}]">
+                                        </json-table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <a class="btn btn-primary btn-rounded" ng-click="param.products.push({});">新增活动并选择类目</a>
+                            </div>
+                        </div>
 
                         <div form-input text="指定购买活动" ng-model="param.product_id" placeholder="活动ID"
                              required="true"></div>
 
-                        <div form-date-time text="观看权限发放开始时间" ng-model="param.brief" required="true"></div>
+                        <div form-date-time text="观看权限发放开始时间" ng-model="param.open_time" required="true"></div>
+
+                        <h3 class="col-sm-offset-2 text-primary">只能管理员来操作开启自动处理开关</h3>
+                        <div form-radio text="自动处理开关" ng-model="param.onoff" required="true" default="2"
+                             source="[{text:'开',value:'1'},{text:'关',value:'2'}]" source-api=""
+                             ng-disabled="$root.hjm.role!=='admin'"></div>
 
                         <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过15字"></div>
                     </div>
