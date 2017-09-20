@@ -3,8 +3,8 @@ define(['.././common'], function (common) {
         marketsharesList: {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-right'},
-                {name: '观看权限名称', field: 'title', className: 'text-center'},
                 {name: '视频ID', field: 'obj_id', filter: 'zero2empty'},
+                {name: '视频组名称', field: 'videgroup.group_title', className: 'text-center'},
                 {
                     name: '领取链接', className: 'text-center',
                     fieldDirective: '<div modal-textarea title="查看链接" content="$root.common.wx_domain + \'/marketing/activitycoupon/code/\'+item.market.code"></div>'
@@ -17,7 +17,7 @@ define(['.././common'], function (common) {
                 },
                 {
                     name: '已领取', className: 'text-center',
-                    fieldDirective: '<span show-table data="{text:item.receive_count,modid:\'marketsharesreceiveList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/marketshares/\'+item.id+\'/receive\'}"></span>'
+                    fieldDirective: '<span show-table data="{text:item.receive_count,modid:\'marketsharesreceiveList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/marketshares/\'+item.id+\'/receives\'}"></span>'
                 },
                 {name: '领取对象', field: 'receive_type|keyVal:\'1\':\'不限\':\'2\':\'新用户\':\'3\':\'老用户\''},
                 {name: '创建时间', field: 'created_at', filter: 'null2empty'},
@@ -28,7 +28,7 @@ define(['.././common'], function (common) {
                 },
                 {
                     name: '管理', className: 'text-center',
-                    fieldDirective: '<a class="btn btn-primary btn-rounded" ui-sref="main.marketshare.update({id:item.id})">编辑</a>'
+                    fieldDirective: '<a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.marketshare.update({id:item.id})">编辑</a>'
                 }
             ],
             config: {

@@ -25,7 +25,7 @@ define(['.././common'], function (common) {
                 },
                 {
                     name: '管理', className: 'text-center',
-                    fieldDirective: '<a class="btn btn-primary btn-rounded" ui-sref="main.videogroups.update({id:item.id})">编辑</a>'
+                    fieldDirective: '<a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.videogroups.update({id:item.id})">编辑</a>'
                 }
             ],
             config: {

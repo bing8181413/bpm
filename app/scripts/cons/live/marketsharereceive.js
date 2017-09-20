@@ -3,13 +3,13 @@ define(['.././common'], function (common) {
         marketsharesreceiveList: {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-right'},
-                {name: '用户ID', field: 'user_id', className: 'text-center'},
-                {name: '手机号', field: 'mobile', className: 'text-center'},
+                {name: '用户ID', field: 'user.user_id', className: 'text-center'},
+                {name: '手机号', field: 'user.mobile', className: 'text-center'},
                 {name: '领取时间', field: 'created_at', className: 'text-center'}
             ],
             config: {
                 title: '观看权限-已领取列表',
-                api: common.live_domain + '/live/marketshares/{id}/receive',
+                api: common.live_domain + '/live/marketshares/{id}/receives',
                 rowItemName: 'item',
                 searchSupport: false,
                 searchItems: [],

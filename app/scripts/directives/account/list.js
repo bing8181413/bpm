@@ -53,7 +53,7 @@ define([
                                 controller: function ($scope, $uibModalInstance, $timeout) {
                                     $scope.tmpl = '<style type="text/css">.checkbox-inline{margin-left: 0px;}</style>' +
                                         '<form class="form-horizontal" name="FormBody" novalidate>' +
-                                        '<div form-checkbox text="角色菜单" ng-model="menuIds" ' + ' source="' + source + '"> </div> ' +
+                                        '<div form-checkbox text="角色菜单" type="number" ng-model="menuIds" ' + ' source="' + source + '"> </div> ' +
                                         '<a class="btn btn-primary btn-rounded pull-right" ng-click="change_role()">确定</a>' +
                                         '</form>';
                                     $scope.menu = supscope.data.menus;
@@ -62,7 +62,7 @@ define([
                                     $scope.title = '修改角色权限';
                                     $timeout(function () {
                                         angular.forEach($scope.menu, function (val, key) {
-                                            $scope.menuIds.push(val.menu_id + '');
+                                            $scope.menuIds.push(Number(val.menu_id));
                                         })
                                     }, 100);
                                     $scope.change_role = function () {

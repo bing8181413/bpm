@@ -9,11 +9,13 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <h4>观看权限</h4>
-                        <!--<div form-input text="分享标题" ng-model="param.share_title" placeholder="分享标题" maxlength="30" required="true"></div>-->
-                        <!--<div form-input text="分享描述" ng-model="param.share_description" placeholder="分享描述" required="true"></div>-->
 
-                        <div form-input text="选择视频组ID" ng-model="param.obj_id" placeholder="用来设置选择视频组ID，且只支持一个视频组ID"
-                             required="true"></div>
+                        <div form-search text="查询视频组ID" verify="verify_obj_id(obj_id)" btn-text="添加视频组"
+                             ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/videogroups/'+obj_id}"
+                             ng-model="obj_id" callback="add_obj_id(json)"></div>
+
+                        <div form-input text="已选择的视频组ID" ng-model="param.obj_id" placeholder="通过查询视频组ID来填充"
+                             ng-disabled="true" required="true"></div>
 
                         <div form-input text="发放总数量" ng-model="param.total_count" required="true" type="number"
                              min="0"></div>
@@ -25,6 +27,15 @@
                         <div form-input text="运营文案" ng-model="param.content" placeholder="不超过15字" maxlength="15"></div>
 
                         <div form-textarea text="活动细则" ng-model="param.description" placeholder="不超过15字"></div>
+
+                        <div form-input text="分享标题" ng-model="param.market.param.title" placeholder="分享标题"
+                             maxlength="30" required="true"></div>
+
+                        <div form-input text="分享描述" ng-model="param.market.param.desc" placeholder="分享描述"
+                             required="true"></div>
+
+                        <div form-double-date-time text-start="领取开始时间" text-end="领取结束时间" required="true"
+                             ng-model-start="param.start_time" ng-model-end="param.end_time"></div>
 
                         <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过15字"></div>
                     </div>
