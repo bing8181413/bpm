@@ -153,6 +153,9 @@ define([
                     var status_title = '';
                     // 有2个地方要用 这个 directive 要特殊处理
                     $scope.work_id = $scope.data.work_id ? $scope.data.work_id : (supscope.data.works[0] && supscope.data.works[0].work_id || 0);
+                    if(!$scope.work_id){
+                        return false;
+                    }
                     $scope.hasappraise = null;
                     if (($scope.data.appraise_at)
                         || ($scope.data.works && $scope.data.works[0] && $scope.data.works[0].appraise_at)) {
@@ -198,6 +201,8 @@ define([
                                                     '</form>';
                                             }
                                         })
+                                    } else {
+                                        widget.msgToast('还没有提交过作业!');
                                     }
                                     $scope.submit = function () {
                                         widget.ajaxRequest({
@@ -224,8 +229,7 @@ define([
                             }
                         );
                     }
-                    var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text +
-                        ' show-role="\'admin,op\'"></a>';
+                    var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text + '></a>';
                     $element.find('.student-plan-works').html(content);
                     $compile($element.contents())($scope);
                 }

@@ -18,7 +18,7 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
-                    {value: 'keyword', text: '昵称', placeholder: '昵称', default: ''},
+                    {value: 'keyword', text: '搜索', placeholder: '关键字', default: ''},
                 ],
                 preSelectionSearch: {},
                 paginationSupport: true,
