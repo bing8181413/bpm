@@ -40,6 +40,10 @@
                              required="true"></div>
                         <div form-input text="视频来源" ng-model="param.record.video_url" placeholder="视频来源"
                              required="true"></div>
+                        <div form-input text="视频来源-高清版" ng-model="param.record.high_video_url" placeholder="视频来源-高清版"
+                             required="true"></div>
+                        <div form-input text="视频来源-流畅版" ng-model="param.record.fluent_video_url" placeholder="视频来源-流畅版"
+                             required="true"></div>
                         <div form-input text="视频宽度" ng-model="param.record.video_width" placeholder="视频宽度"
                              required="true"></div>
                         <div form-input text="视频高度" ng-model="param.record.video_height" placeholder="视频高度"
@@ -48,6 +52,7 @@
                              required="true"></div>
                         <div form-radio text="是否回放" ng-model="param.record.play_back" required="true" default="1"
                              source="[{text:'回放',value:'1'},{text:'不回放',value:'2'}]" source-api=""></div>
+
                         <div form-radio text="苹果审核标志" type="radio" ng-model="param.ios_audit" required="true"
                              default="2"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
