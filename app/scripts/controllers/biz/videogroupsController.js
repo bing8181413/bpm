@@ -43,6 +43,7 @@ define([
                     }
                 });
                 if (!has_room) {
+                    $scope.param.rooms = $scope.param.rooms || [];
                     $scope.param.rooms.push({
                         room_id: json.data.id,
                         room: {
@@ -55,6 +56,9 @@ define([
                 } else {
                     widget.msgToast('已经存在了')
                 }
+            } else {
+                widget.msgToast('没有相关的房间ID');
+                return false;
             }
         }
         $scope.verify_product = function (product_id, index) {
@@ -131,6 +135,13 @@ define([
                 // console.log('还没有products');
             }
         }, true)
+        $scope.$watch('param.product_id', function (product_id) {
+            if (product_id && product_id != 0) {
+                $scope.param.product_url = $rootScope.common.wx_domain + '/product/detail/product_id/' + product_id;
+            } else {
+                $scope.param.product_url = '';
+            }
+        })
         $scope.submit = function (status) {
             $scope.param.video_count = $scope.param.rooms && $scope.param.rooms.length || 0;
             if ($scope.param.video_count == 0) {

@@ -7,14 +7,9 @@ define(['.././common'], function (common) {
                 {name: '视频组名称', field: 'videgroup.group_title', className: 'text-center'},
                 {
                     name: '领取链接', className: 'text-center',
-                    fieldDirective: '<div modal-textarea title="查看链接" content="$root.common.wx_domain + \'/marketing/activitycoupon/code/\'+item.market.code"></div>'
+                    fieldDirective: '<div modal-textarea title="查看链接" content="$root.common.wx_domain + \'/marketvideoshare/code/\'+item.market.code"></div>'
                 },
                 {name: '发放总数量', field: 'total_count', filter: 'null2empty'},
-                {
-                    name: '已领取', field: 'receive_count',
-                    // fieldDirective: '<span activity-coupons data="item"></span>',
-                    className: 'text-center'
-                },
                 {
                     name: '已领取', className: 'text-center',
                     fieldDirective: '<span show-table data="{text:item.receive_count,modid:\'marketsharesreceiveList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/marketshares/\'+item.id+\'/receives\'}"></span>'

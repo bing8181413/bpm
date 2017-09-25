@@ -44,7 +44,7 @@ define(['.././common'], function (common) {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                route: [{value: 'main.videogroups.add', text: '新增观看权限'}]
+                route: [{value: 'main.videogroups.add', text: '新增视频组'}]
             },
         }
     }

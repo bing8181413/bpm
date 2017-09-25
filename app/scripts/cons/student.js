@@ -3,7 +3,7 @@ define([], function () {
         studentList: {
             columns: [
                 {name: 'ID', field: 'user_id', className: 'text-right'},
-                {name: '微信昵称', field: 'name'},
+                {name: '微信昵称', field: 'name|null2empty'},
                 {name: '手机号', field: 'mobile'},
                 {name: '课程', fieldDirective: '<div student-lessons data="item" ></div>'},
                 {name: '作业', fieldDirective: '<div student-plans data="item" ></div>'},

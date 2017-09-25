@@ -22,7 +22,8 @@
                         <div form-radio text="分享设置" ng-model="param.share_type" required="true" default="1"
                              source="[{text:'普通分享',value:'1'},{text:'分享单个视频观看权限',value:'2'}]" source-api=""></div>
 
-                        <div form-input text="单人最多领取视频数量" ng-model="param.receive_num" placeholder=""></div>
+                        <div form-input text="单人最多领取视频数量" ng-model="param.receive_num" placeholder=""
+                             ng-show="param.share_type==2"></div>
 
                         <div form-search text="添加直播间" verify="verify_room(room_id)" btn-text="查询并添加直播间"
                              ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/rooms/'+room_id}"
@@ -72,13 +73,17 @@
                         </div>
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
-                                <a class="btn btn-primary btn-rounded" ng-click="param.products.push({});">新增活动并选择类目</a>
+                                <a class="btn btn-primary btn-rounded"
+                                   ng-click="(param.products=param.products||[])&&param.products.push({});">新增活动并选择类目</a>
                             </div>
                         </div>
                         <hr>
-
-                        <div form-input text="指定购买活动" ng-model="param.product_id" placeholder="活动ID"
+                        <h4 class="col-sm-offset-2 text-primary">不要填错指定购买活动ID,以免影响购买</h4>
+                        <div form-input text="指定购买活动" ng-model="param.product_id" placeholder="活动ID,不能为空或者0"
                              required="true"></div>
+
+                        <div form-input text="指定购买活动链接" ng-model="param.product_url" placeholder="活动购买URL"
+                             required="true" ng-disabled="true"></div>
 
                         <div form-date-time text="观看权限发放开始时间" ng-model="param.open_time" required="true"></div>
 

@@ -153,7 +153,7 @@ define([
                     var status_title = '';
                     // 有2个地方要用 这个 directive 要特殊处理
                     $scope.work_id = $scope.data.work_id ? $scope.data.work_id : (supscope.data.works[0] && supscope.data.works[0].work_id || 0);
-                    if(!$scope.work_id){
+                    if (!$scope.work_id) {
                         return false;
                     }
                     $scope.hasappraise = null;
@@ -174,10 +174,11 @@ define([
                     $scope.openworks = function (status) {
                         var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $uibModalInstance) {
+                                controller: function ($scope, $uibModalInstance,$sce) {
                                     $scope.title = status_title;
                                     $scope.hasappraise = supscope.hasappraise;
                                     // if (supscope.data.works[0] && supscope.data.works[0].work_id) {
+                                    $scope.sce = $sce.trustAsResourceUrl;
                                     if (supscope.work_id) {
                                         widget.ajaxRequest({
                                             url: '/planworks/' + supscope.work_id,
@@ -188,9 +189,12 @@ define([
                                                 $scope.param = json.data;
                                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
                                                     '<div class="form-group">' +
-                                                    '<div class="col-sm-2 "></div>' +
-                                                    '<div ng-repeat="pic in param.sources" class="col-sm-6 ">' +
+                                                    '<div ng-repeat="pic in param.sources" class="col-sm-3 " ng-if="pic.type==1">' +
                                                     '<img ng-src="{{pic.url}}" class="img-responsive"/></div>' +
+                                                    '</div>' +
+                                                    '<div class="form-group">' +
+                                                    '<div ng-repeat="audio in param.sources" class="col-sm-3" ng-if="audio.type==3">' +
+                                                    '<audio ng-src="{{sce(audio.url)}}" controls="controls">您的浏览器不支持 audio 标签。</audio>' +
                                                     '</div>' +
                                                     '<hr class="form-group">' +
                                                     '<div form-textarea text="学生提问" ng-model="param.ask" placeholder="学生提问" ng-disabled="true"></div>' +

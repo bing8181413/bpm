@@ -35,7 +35,7 @@ define([
             }
         }
         $scope.submit = function (status) {
-            $scope.param.obj_type = '2';// 视频组
+            $scope.param.obj_type = '1';// 视频组
             widget.ajaxRequest({
                 url: con.live_domain + '/live/marketshares' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
                 method: $stateParams.id ? 'PUT' : 'POST',
