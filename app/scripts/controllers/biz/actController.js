@@ -19,6 +19,96 @@ define([
                 data: {},
                 success: function (json) {
                     $rootScope.hjm.act = {product_id: $stateParams.product_id};
+                    if ($state.current.name.indexOf('act.copy') > -1) { // 复制用的
+                        json.data.parent_id = $stateParams.product_id;
+                        delete json.data.product_id;
+                        delete json.data.account_id;
+                        delete json.data.status;
+                        delete json.data.created_at;
+                        delete json.data.updated_at;
+                        angular.forEach(json.data.addresses, function (val, key) {
+                            delete val.address_id;
+                            delete val.product_id;
+                            delete val.created_at;
+                            delete val.updated_at;
+                        });
+                        angular.forEach(json.data.contents, function (val, key) {
+                            delete val.product_id;
+                            delete val.content_id;
+                            delete val.created_at;
+                            delete val.updated_at;
+                            angular.forEach(val.pics, function (val, key) {
+                                delete val.pic_id;
+                                delete val.imageable_id;
+                                delete val.imageable_type;
+                                delete val.status;
+                                delete val.created_at;
+                                delete val.updated_at;
+                            });
+                        });
+                        angular.forEach(json.data.gift_contents, function (val, key) {
+                            delete val.product_id;
+                            delete val.content_id;
+                            delete val.created_at;
+                            delete val.updated_at;
+                            angular.forEach(val.pics, function (val, key) {
+                                delete val.pic_id;
+                                delete val.imageable_id;
+                                delete val.imageable_type;
+                                delete val.status;
+                                delete val.created_at;
+                                delete val.updated_at;
+                            });
+                        });
+                        angular.forEach(json.data.pics, function (val, key) {
+                            delete val.pic_id;
+                            delete val.imageable_id;
+                            delete val.imageable_type;
+                            delete val.status;
+                            delete val.created_at;
+                            delete val.updated_at;
+                        });
+                        angular.forEach(json.data.thumbnail_pics, function (val, key) {
+                            delete val.pic_id;
+                            delete val.imageable_id;
+                            delete val.imageable_type;
+                            delete val.status;
+                            delete val.created_at;
+                            delete val.updated_at;
+                        });
+                        angular.forEach(json.data.options, function (val, key) {
+                            delete val.option_id;
+                            delete val.option_status;
+                            delete val.option_type;
+                            delete val.product_id;
+                            delete val.created_at;
+                            delete val.updated_at;
+                        });
+                        angular.forEach(json.data.groupbuy_options, function (val, key) {
+                            delete val.option_id;
+                            delete val.option_status;
+                            delete val.option_type;
+                            delete val.product_id;
+                            delete val.created_at;
+                            delete val.updated_at;
+                        });
+                        angular.forEach(json.data.gift_options, function (val, key) {
+                            delete val.option_id;
+                            delete val.option_status;
+                            delete val.option_type;
+                            delete val.product_id;
+                            delete val.created_at;
+                            delete val.updated_at;
+                        });
+                        angular.forEach(json.data.gift_pics, function (val, key) {
+                            delete val.imageable_id;
+                            delete val.imageable_type;
+                            delete val.status;
+                            delete val.created_at;
+                            delete val.updated_at;
+                        });
+
+                    }
                     $scope.param = angular.copy(json.data);
                     $scope.is_default_category = $scope.param.category;
                     $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600);
@@ -368,8 +458,8 @@ define([
         }
         $scope.onsubmit = function () {
             widget.ajaxRequest({
-                url: '/products' + ($stateParams.product_id ? ('/' + $stateParams.product_id) : ''),
-                method: $stateParams.product_id ? 'PUT' : 'POST',
+                url: '/products' + ((!$stateParams.product_id || $scope.param.parent_id) ? '' : ('/' + $stateParams.product_id)),
+                method: (!$stateParams.product_id || $scope.param.parent_id) ? 'POST' : 'PUT',
                 scope: $scope,
                 data: $scope.param,
                 success: function (json) {

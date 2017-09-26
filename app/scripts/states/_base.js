@@ -45,6 +45,8 @@ define([
     'states/hjm/live/marketshares',//领取观看权限
     'states/hjm/live/videogroups',//视频组
 
+    'states/hjm/batchproduct/batchproducts',//批量活动管理
+
 
     'states/demo/demo',//demo index
     'states/demo/baidumap',//百度地图

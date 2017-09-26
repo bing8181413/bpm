@@ -2,8 +2,8 @@ define(['.././common'], function (common) {
     var rtn = {
         videogroupsoptionList: {
             columns: [
-                {name: 'ID', field: 'id', className: 'text-right'},
-                {name: '类目ID', field: 'option_id', className: 'text-right'},
+                {name: 'ID', field: 'id', className: 'text-center'},
+                {name: '类目ID', field: 'option_id', className: 'text-center'},
                 {name: '活动名称', field: 'product.title', className: 'text-center'},
                 {name: '活动类目', field: 'option.option_name', filter: 'zero2empty'},
             ],

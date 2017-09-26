@@ -37,6 +37,7 @@ define([
     // './record_user_block',//点播用户禁言',
     // './subject_group',
     './market/_conf',//  组
+    './batchproduct/_conf',//  组
     './live/_conf'//  组
 
 ], function (common) {

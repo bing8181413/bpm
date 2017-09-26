@@ -120,6 +120,17 @@ define([
                                 }
                             }
                         })
+                        .state(cons.state.main + '.act.copy', {
+                            url: "/copy.html/:product_id",
+                            views: {
+                                "": {
+                                    controller: 'act.updateController',
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'act/update.html');
+                                    }
+                                }
+                            }
+                        })
                 }
             ]);
     })

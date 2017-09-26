@@ -267,7 +267,6 @@ define([
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">';
                         angular.forEach($scope.source, function (val, key) {
-                            console.log($scope.type);
                             if ($scope.type == 'number') {
                                 var value = val.value;
                             } else {

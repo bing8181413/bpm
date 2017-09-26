@@ -51,6 +51,8 @@ define([
     './support/list',// 点播
     './activitycoupons/list',// 活动 领取优惠券
 
+    './batchproducts/list',// 批量活动列表
+
 
     './upload/upload-apk-token',//  直播APK
     './zhibo_qr_code/list',//  直播APK

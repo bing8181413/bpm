@@ -11,13 +11,12 @@ define(['.././common'], function (common) {
                 },
                 {
                     name: '关联活动', className: 'text-center',
-                    fieldDirective: '<span show-table data="{text:\'查看\',modid:\'videogroupsoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/options\'}"></span>'
+                    fieldDirective: '<span ng-show="item.pay_type!=2">免费</span> <span ng-show="item.pay_type==2" show-table data="{text:\'查看\',modid:\'videogroupsoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/options\'}"></span>'
                 },
                 {
                     name: '关联SKU', className: 'text-center',
-                    fieldDirective: '<span show-table data="{text:\'查看\',modid:\'videogroupsskuoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/skuoptions\'}"></span>'
+                    fieldDirective: '<span ng-show="item.pay_type!=2">免费</span> <span ng-show="item.pay_type==2" show-table data="{text:\'查看\',modid:\'videogroupsskuoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/skuoptions\'}"></span>'
                 },
-                {name: '类型', field: 'group_type|keyVal:\'1\':\'直播\':\'2\':\'点播\''},
                 {
                     name: '备注',
                     fieldDirective: '<div modal-textarea title="查看" content="item.remark|null2empty"></div>',

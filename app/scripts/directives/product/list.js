@@ -34,7 +34,8 @@ define([
                 link: function ($scope, $element, $attrs) {
                     // console.log($scope.data);
                     // console.log(1);
-                    if ($scope.data && $scope.data.category == 1) {``
+                    if ($scope.data && $scope.data.category == 1) {
+                        ``
                         // $scope.txt = '砍价团';
                         // $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.data.group_seconds) + '小时';
                         // $scope.txt += '<br/>起始价:' + $scope.data.high_price;
@@ -174,28 +175,46 @@ define([
             }
         })
         .directive('actEdit', function ($rootScope, $templateCache, $filter, $compile, widget) {
-        return {
-            multiElement: true,
-            restrict: 'AE',
-            replace: false,
-            scope: {
-                data: '=',
-            },
-            template: '<p class="act-edit"></p>',
-            link: function ($scope, $element, $attrs) {
-                var content = '';
-                if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
-                    content = '<a class="btn btn-success btn-rounded btn-sm"' +
-                        'ui-sref="main.act.update({product_id:' + $scope.data.product_id + '})" show-role="\'admin,op\'" >编辑</a>';
-                } else {
-                    content = '<a class="btn btn-info btn-rounded btn-sm"' +
-                        'ui-sref="main.act.update({product_id:' + $scope.data.product_id + '})" show-role="\'!admin,op\'" >详情</a>';
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                    callback: '&'
+                },
+                template: '<p class="act-edit"></p>',
+                link: function ($scope, $element, $attrs) {
+                    var content = '';
+                    if ('admin,op'.indexOf($rootScope.hjm.role) > -1) {
+                        content = '<a class="btn btn-success btn-rounded btn-sm"' +
+                            'ui-sref="main.act.update({product_id:' + $scope.data.product_id + '})" show-role="\'admin,op\'" >编辑</a>';
+                    } else {
+                        content = '<a class="btn btn-info btn-rounded btn-sm"' +
+                            'ui-sref="main.act.update({product_id:' + $scope.data.product_id + '})" show-role="\'!admin,op\'" >详情</a>';
+                    }
+                    $element.find('.act-edit').html(content);
+                    $compile($element.contents())($scope);
                 }
-                $element.find('.act-edit').html(content);
-                $compile($element.contents())($scope);
             }
-        }
-    })
+        })
+        .directive('actCopy', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<p class="act-copy"></p>',
+                link: function ($scope, $element, $attrs) {
+                    var content = '<a class="btn btn-success btn-rounded btn-sm"' +
+                        'ui-sref="main.act.copy({product_id:' + $scope.data.product_id + '})" >复制</a>';
+                    $element.find('.act-copy').html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
         .directive('productAdd', function ($rootScope, $templateCache, $filter, $compile, widget) {
             return {
                 multiElement: true,

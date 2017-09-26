@@ -2,8 +2,8 @@ define(['.././common'], function (common) {
     var rtn = {
         videogroupsroomList: {
             columns: [
-                {name: '视频房间ID', field: 'room_id', className: 'text-right'},
-                {name: '名称', field: 'room.title', className: 'text-center'},
+                {name: '房间/视频ID', field: 'room_id', className: 'text-center'},
+                {name: '视频名称', field: 'room.title', className: 'text-center'},
                 {name: '播放次数', field: 'room.record.play_count', filter: 'zero2empty'},
                 {name: '评论次数', field: 'room.record.comment_count', filter: 'zero2empty'},
             ],

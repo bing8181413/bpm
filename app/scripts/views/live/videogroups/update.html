@@ -13,8 +13,8 @@
 
                         <div form-image-single text="图片" ng-model="param.pic_url" required="true"></div>
 
-                        <div form-radio text="类型" ng-model="param.group_type" required="true" default="1"
-                             source="[{text:'直播',value:'1'},{text:'点播',value:'2'}]" source-api=""></div>
+                        <!--<div form-radio text="类型" ng-model="param.group_type" required="true" default="1"-->
+                             <!--source="[{text:'直播',value:'1'},{text:'点播',value:'2'}]" source-api=""></div>-->
 
                         <div form-radio text="是否付费" ng-model="param.pay_type" required="true" default="1"
                              source="[{text:'免费',value:'1'},{text:'付费',value:'2'}]" source-api=""></div>
@@ -25,13 +25,13 @@
                         <div form-input text="单人最多领取视频数量" ng-model="param.receive_num" placeholder=""
                              ng-show="param.share_type==2"></div>
 
-                        <div form-search text="添加直播间" verify="verify_room(room_id)" btn-text="查询并添加直播间"
+                        <div form-search text="添加房间/视频ID" verify="verify_room(room_id)" btn-text="查询并添加房间/视频ID"
                              ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/rooms/'+room_id}"
                              ng-model="room_id" callback="add_room(json)"></div>
 
-                        <div form-table text="直播间" ng-model="param.rooms" min="1"
+                        <div form-table text="房间/视频ID" ng-model="param.rooms" min="1"
                              config="{add:false}"
-                             columns="[{name: '视频ID', field:'room_id',readonly:'true'}
+                             columns="[{name: '房间/视频ID', field:'room_id',readonly:'true'}
                              ,{name: '标题', field:'room.title',readonly:'true'}
                              ,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}
                              ,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>
