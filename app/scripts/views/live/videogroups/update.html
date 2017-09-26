@@ -35,63 +35,63 @@
                              ,{name: '标题', field:'room.title',readonly:'true'}
                              ,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}
                              ,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>
-                        <hr>
-                        <h4>关联SKU</h4>
-                        <div form-table text="关联SKU" ng-model="param.skus"
-                             columns="[{name: '选择SKU',width:'50%',
+                        <div ng-if="param.pay_type==2">
+                            <hr>
+                            <h4>关联SKU</h4>
+                            <div form-table text="关联SKU" ng-model="param.skus"
+                                 columns="[{name: '选择SKU',width:'50%',
                               'fieldDirective': '<select class=\'form-control \' ng-model=\'item.sku\'
                                ng-options=\'obj.value as obj.text for obj in $root.common.sku\' ></select>',required:'true'}]"></div>
 
-                        <hr>
-                        <h4>关联活动类目</h4>
-                        <div class="row">
-                            <div class="col-sm-offset-2 col-sm-8" ng-repeat="product in param.products">
-                                <div class="panel panel-primary">
-                                    <div class="panel-body">
-                                        <div form-search text="搜索活动ID" btn-text="查询活动类目"
-                                             verify="verify_product(product.product_id,$index)"
-                                             ajax-config="{method:'get',url:$root.common.domain+'/products/'+product.product_id}"
-                                             ng-model="product.product_id"
-                                             callback="add_product(json,$index)"></div>
-                                        <div form-checkbox text="选择类目" ng-model="product._tmp_options_selected"
-                                             type="number" ng-show="product._tmp_options"
-                                             source="product._tmp_options"></div>
+                            <hr>
+                            <h4>关联活动类目</h4>
+                            <div class="row">
+                                <div class="col-sm-offset-2 col-sm-8" ng-repeat="product in param.products">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-body">
+                                            <div form-search text="搜索活动ID" btn-text="查询活动类目"
+                                                 verify="verify_product(product.product_id,$index)"
+                                                 ajax-config="{method:'get',url:$root.common.domain+'/products/'+product.product_id}"
+                                                 ng-model="product.product_id"
+                                                 callback="add_product(json,$index)"></div>
+                                            <div form-checkbox text="选择类目" ng-model="product._tmp_options_selected"
+                                                 type="number" ng-show="product._tmp_options"
+                                                 source="product._tmp_options"></div>
 
-                                        <json-table ng-model="product.options"
-                                                    config="{readonly:true}"
-                                                    columns="[{name: '活动ID', field:'product_id',readonly:'true'},
+                                            <json-table ng-model="product.options"
+                                                        config="{readonly:true}"
+                                                        columns="[{name: '活动ID', field:'product_id',readonly:'true'},
                                                     {name: '类目ID', field:'option_id',readonly:'true'},
                                                     {name: '类目名称', field:'option_name',readonly:'true'}]">
-                                        </json-table>
-                                        <div class="row pull-right">
-                                            <a class="btn btn-danger btn-rounded"
-                                               ng-click="param.products.splice($index,1)">删除</a>
+                                            </json-table>
+                                            <div class="row pull-right">
+                                                <a class="btn btn-danger btn-rounded"
+                                                   ng-click="param.products.splice($index,1)">删除</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <a class="btn btn-primary btn-rounded"
-                                   ng-click="(param.products=param.products||[])&&param.products.push({});">新增活动并选择类目</a>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <a class="btn btn-primary btn-rounded"
+                                       ng-click="(param.products=param.products||[])&&param.products.push({});">新增活动并选择类目</a>
+                                </div>
                             </div>
+                            <hr>
+                            <h4 class="col-sm-offset-2 text-primary">不要填错指定购买活动ID,以免影响购买</h4>
+                            <div form-input text="指定购买活动" ng-model="param.product_id" placeholder="活动ID,不能为空或者0"
+                                 required="true"></div>
+
+                            <div form-input text="指定购买活动链接" ng-model="param.product_url" placeholder="活动购买URL"
+                                 required="true" ng-disabled="true"></div>
+
+                            <div form-date-time text="观看权限发放开始时间" ng-model="param.open_time" required="true"></div>
+                            <h3 class="col-sm-offset-2 text-primary">只能管理员来操作开启自动处理开关</h3>
+                            <div form-radio text="自动处理开关" ng-model="param.onoff" required="true" default="2"
+                                 source="[{text:'开',value:'1'},{text:'关',value:'2'}]" source-api=""
+                                 ng-disabled="$root.hjm.role!=='admin'"></div>
                         </div>
-                        <hr>
-                        <h4 class="col-sm-offset-2 text-primary">不要填错指定购买活动ID,以免影响购买</h4>
-                        <div form-input text="指定购买活动" ng-model="param.product_id" placeholder="活动ID,不能为空或者0"
-                             required="true"></div>
-
-                        <div form-input text="指定购买活动链接" ng-model="param.product_url" placeholder="活动购买URL"
-                             required="true" ng-disabled="true"></div>
-
-                        <div form-date-time text="观看权限发放开始时间" ng-model="param.open_time" required="true"></div>
-
-                        <h3 class="col-sm-offset-2 text-primary">只能管理员来操作开启自动处理开关</h3>
-                        <div form-radio text="自动处理开关" ng-model="param.onoff" required="true" default="2"
-                             source="[{text:'开',value:'1'},{text:'关',value:'2'}]" source-api=""
-                             ng-disabled="$root.hjm.role!=='admin'"></div>
-
                         <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过15字"></div>
                     </div>
                 </div>

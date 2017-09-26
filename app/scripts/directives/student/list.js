@@ -174,7 +174,7 @@ define([
                     $scope.openworks = function (status) {
                         var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-                                controller: function ($scope, $uibModalInstance,$sce) {
+                                controller: function ($scope, $uibModalInstance, $sce) {
                                     $scope.title = status_title;
                                     $scope.hasappraise = supscope.hasappraise;
                                     // if (supscope.data.works[0] && supscope.data.works[0].work_id) {
@@ -189,12 +189,16 @@ define([
                                                 $scope.param = json.data;
                                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
                                                     '<div class="form-group">' +
-                                                    '<div ng-repeat="pic in param.sources" class="col-sm-3 " ng-if="pic.type==1">' +
-                                                    '<img ng-src="{{pic.url}}" class="img-responsive"/></div>' +
+                                                    '<label class="col-sm-2 control-label">图片作业</label>' +
+                                                    '<div ng-repeat="pic in param.sources" class="col-sm-2 " ng-if="pic.type==1">' +
+                                                    '<show_image url="pic.url"></show_image>' +
+                                                    '</div>' +
                                                     '</div>' +
                                                     '<div class="form-group">' +
+                                                    '<label class="col-sm-2 control-label">音频作业</label>' +
                                                     '<div ng-repeat="audio in param.sources" class="col-sm-3" ng-if="audio.type==3">' +
                                                     '<audio ng-src="{{sce(audio.url)}}" controls="controls">您的浏览器不支持 audio 标签。</audio>' +
+                                                    '</div>' +
                                                     '</div>' +
                                                     '<hr class="form-group">' +
                                                     '<div form-textarea text="学生提问" ng-model="param.ask" placeholder="学生提问" ng-disabled="true"></div>' +

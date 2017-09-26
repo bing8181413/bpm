@@ -148,6 +148,13 @@ define([
                 widget.msgToast('视频数量不能为0!');
                 return false;
             }
+            if ($scope.param.pay_type == 1) {
+                $scope.param.skus = [];
+                $scope.param.products = [];
+                $scope.param.product_id = '';
+                $scope.param.product_url = '';
+                $scope.param.onoff = 2;
+            }
             widget.ajaxRequest({
                 url: con.live_domain + '/live/videogroups' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
                 method: $stateParams.id ? 'PUT' : 'POST',
