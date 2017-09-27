@@ -24,6 +24,11 @@
                         <div form-input text="点播标题" ng-model="param.title" placeholder="视频标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
 
+                        <div form-input text="播放次数基数" ng-model="param.base_play_count" type="number" required="true"
+                             min="0"></div>
+                        <div form-input text="点赞次数基数" ng-model="param.base_thumbup_count" type="number" min="0"
+                             required="true"></div>
+
                         <div form-radio text="订单类型" type="radio" ng-model="param.sku" required="true" default="10"
                              source="[{text:'十万漫游',value:'10'},{text:'名校直播',value:'11'},{text:'成人演讲',value:'12'}
                              ,{text:'少年好声音',value:'13'},{text:'免费',value:'0'}]" source-api=""></div>

@@ -266,7 +266,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                             );
                         }
                         widget.ajaxRequest({
-                            url: location.protocol + '//' + location.host + ':' + location.port + '/get_common.php',
+                            url: location.protocol + '//' + location.host + ':' + location.port + location.pathname + 'get_common.php',
                             method: 'POST',
                             data: param,
                             success: function (json) {

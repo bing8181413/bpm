@@ -89,6 +89,15 @@ define([
                         product_id: val.product_id
                     });
                 });
+                angular.forEach(json.data.gift_options, function (val, key) {
+                    $scope.param.products[index]._tmp_options.push({
+                        text: val.option_name,
+                        value: val.option_id,
+                        option_id: val.option_id,
+                        option_name: val.option_name,
+                        product_id: val.product_id
+                    });
+                });
                 $scope.param.products[index]._tmp_options_selected = [];
                 angular.forEach($scope.param.products[index].options, function (val, key) {
                     if (val.option_id) {

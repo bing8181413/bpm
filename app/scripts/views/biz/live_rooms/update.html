@@ -24,6 +24,11 @@
                         <div form-input text="直播标题" ng-model="param.title" placeholder="直播标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
 
+                        <div form-input text="播放次数基数" ng-model="param.base_play_count" type="number" required="true"
+                             min="0"></div>
+                        <div form-input text="点赞次数基数" ng-model="param.base_thumbup_count" type="number" min="0"
+                             required="true"></div>
+
                         <div form-image-single text="直播图片" ng-model="param.pic_url" required="true"></div>
 
                         <div form-image-single text="上传二维码" ng-model="param.qrcode_url"></div>

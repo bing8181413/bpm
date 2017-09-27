@@ -17,6 +17,15 @@ define([], function () {
         web_domain = 'https://www.ahaschool.com';
         qiniu_domain = 'https://bpm.ahaschool.com';
         wx_domain = 'https://m.ahaschool.com';
+    } else if (location.href.indexOf('//test.ahaschool.com/bpm') > 0
+    // || location.href.indexOf('//bpm.hjm.com') > 0
+    ) {
+        env = 'test';
+        env_name = '测试系统2';
+        domain = 'https://test.ahaschool.com/mgrapi';
+        web_domain = 'https://test.ahaschool.com/bpm';
+        qiniu_domain = 'https://testbpm.ahaschool.com';
+        wx_domain = 'https://testm.ahaschool.com';
     } else if (location.href.indexOf('//testbpm.ahaschool.com') > 0
     // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
@@ -31,7 +40,7 @@ define([], function () {
         env = 'dev';
         env_name = '开发系统';
         domain = 'https://devmgrapi.ahaschool.com';
-        web_domain = 'https://devwww.ahaschool.com';
+        web_domain = 'https://devbpm.ahaschool.com';
         qiniu_domain = 'https://devbpm.ahaschool.com';
         wx_domain = 'https://devm.ahaschool.com';
         // qiniu_domain = 'http://qiniu.hjm.com/';

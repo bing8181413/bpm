@@ -4,7 +4,7 @@ header('Access-Control-Allow-Headers: X-Requested-With,X_Requested_With'); //设
 date_default_timezone_set("Asia/chongqing");
 error_reporting(E_ERROR);
 //header("Content-Type: text/html; charset=utf-8");
-header("Content-Type: application/x-www-form-urlencoded");
+//header("Content-Type: application/x-www-form-urlencoded");
 
 $request_body = json_decode(file_get_contents('php://input'));
 
