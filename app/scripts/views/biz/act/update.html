@@ -51,7 +51,8 @@
                              placeholder="活动ID" ng-disabled="$stateParams.product_id"></div>
                         <div form-input text="活动标题" ng-model="param.title" placeholder="活动标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
-                        <div form-radio text="SKU" type="radio" ng-model="param.sku" required="true" default="1" type="number"
+                        <div form-radio text="SKU" type="radio" ng-model="param.sku" required="true" default="1"
+                             type="number"
                              source="[{text:'活动',value:'1'},{text:'测评',value:'2'},{text:'众筹',value:'3'},{text:'年卡',value:'4'},
                              {text:'会员',value:'5'},{text:'测试',value:'6'},{text:'其他',value:'7'},{text:'霸王团',value:'8'}
                              ,{text:'课程',value:'9'},{text:'博物馆直播',value:'10'},{text:'名校直播',value:'11'},{text:'成人演讲',value:'12'}
@@ -315,7 +316,7 @@
                         <div form-image-content text="图文详情" ng-model="param.contents"
                              ng-show="param.content_type==1"></div>
                         <div form-rich-content text="富文本" ng-model="param.rich_text"
-                             ng-show="param.content_type==2"></div>
+                             ng-show="param.content_type==2" ng-if="param.content_type==2"></div>
                     </div>
                 </div>
                 <div class="panel panel-primary">
@@ -415,7 +416,8 @@
                              ng-show="param.gift_content_type==1" ng-if="param.gift_buy==1"></div>
 
                         <div form-rich-content text="富文本" ng-model="param.gift_rich_text"
-                             ng-show="param.gift_content_type==2&&param.gift_buy==1"></div>
+                             ng-show="param.gift_content_type==2&&param.gift_buy==1"
+                             ng-if="param.gift_content_type==2&&param.gift_buy==1"></div>
 
                     </div>
                 </div>

@@ -499,6 +499,9 @@ define([
                     case "12":
                         result = "成人演讲";
                         break;
+                    case "13":
+                        result = "少年好声音";
+                        break;
                 }
                 return result;
             }

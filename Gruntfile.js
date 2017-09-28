@@ -102,7 +102,8 @@ module.exports = function (grunt) {
                         expand: true,
                         cwd: 'app',
                         src: [
-                            'zhibo/**/*',
+                            'vendor/ueditor/ueditor.all.js', //
+                            // 'zhibo/**/*',
                         ],
                         dest: '../build/bpm'
                     }

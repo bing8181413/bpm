@@ -131,7 +131,7 @@ define([
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                         '<h4 class="col-sm-offset-2 text-danger">请选择以下项目覆盖全部活动</h4>' +
                                         '<div form-checkbox text="覆盖内容" type="radio" ng-model="param.covers" required="true" ' +
-                                        'default="1" source="[{text:\'活动信息\',value:\'1\'},{text:\'活动详情\',value:\'2\'}]" ' +
+                                        'default="1" source="[{text:\'活动详情\',value:\'1\'}]" ' +
                                         'source-api=""></div>' +
                                         '<a class="btn btn-success btn-rounded pull-right"  ng-disabled="FormBody.$invalid" ng-click="submit()">确定</a>' +
                                         '</form>';

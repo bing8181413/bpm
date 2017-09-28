@@ -898,7 +898,7 @@ define([
                     $scope.$watch('ngModel', function (val) {
                         // 简单区分数据是否填写 要是length 为0 就置为undefined 这样require就起作用了
                         if (val && val.length == 0) {
-                            $scope.ngModel = undefined;
+                            $scope.ngModel = [];
                         }
                     }, true);
 
