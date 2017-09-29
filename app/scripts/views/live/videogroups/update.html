@@ -51,7 +51,7 @@
                                         <div class="panel-body">
                                             <div form-search text="搜索活动ID" btn-text="查询活动类目"
                                                  verify="verify_product(product.product_id,$index)"
-                                                 ajax-config="{method:'get',url:$root.common.domain+'/products/'+product.product_id}"
+                                                 ajax-config="{method:'get',url:$root.common.domain+'/products/'+product.product_id+'/options?count=1000'}"
                                                  ng-model="product.product_id"
                                                  callback="add_product(json,$index)"></div>
                                             <div form-checkbox text="选择类目" ng-model="product._tmp_options_selected"
@@ -61,8 +61,10 @@
                                             <json-table ng-model="product.options"
                                                         config="{readonly:true}"
                                                         columns="[{name: '活动ID', field:'product_id',readonly:'true'},
+                                                    {name: '拼团类型', field:'option.option_type|product_category',readonly:'true'},
                                                     {name: '类目ID', field:'option_id',readonly:'true'},
-                                                    {name: '类目名称', field:'option_name',readonly:'true'}]">
+                                                    {name: '类目名称', field:'option.option_name',readonly:'true'},
+                                                    {name: '状态', field:'option.option_status|product_option_status',readonly:'true'}]">
                                             </json-table>
                                             <div class="row pull-right">
                                                 <a class="btn btn-danger btn-rounded"

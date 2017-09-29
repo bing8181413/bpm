@@ -71,33 +71,46 @@ define([
         $scope.add_product = function (json, index) {
             if (json.code == 0) {
                 $scope.param.products[index]._tmp_options = [];
-                angular.forEach(json.data.options, function (val, key) {
+                angular.forEach(json.data, function (val, key) {
                     $scope.param.products[index]._tmp_options.push({
-                        text: val.option_name,
-                        value: val.option_id,
+                        option: {
+                            option_type: val.option_type,
+                            option_status: val.option_status,
+                            option_name: val.option_name
+                        },
                         option_id: val.option_id,
-                        option_name: val.option_name,
-                        product_id: val.product_id
+                        product_id: val.product_id,
+                        text: val.option_name + '(' + $filter('product_option_status')(val.option_status) + ')',
+                        value: val.option_id
                     });
-                });
-                angular.forEach(json.data.groupbuy_options, function (val, key) {
-                    $scope.param.products[index]._tmp_options.push({
-                        text: val.option_name,
-                        value: val.option_id,
-                        option_id: val.option_id,
-                        option_name: val.option_name,
-                        product_id: val.product_id
-                    });
-                });
-                angular.forEach(json.data.gift_options, function (val, key) {
-                    $scope.param.products[index]._tmp_options.push({
-                        text: val.option_name,
-                        value: val.option_id,
-                        option_id: val.option_id,
-                        option_name: val.option_name,
-                        product_id: val.product_id
-                    });
-                });
+                })
+                // angular.forEach(json.data.options, function (val, key) {
+                //     $scope.param.products[index]._tmp_options.push({
+                //         text: val.option_name,
+                //         value: val.option_id,
+                //         option_id: val.option_id,
+                //         option_name: val.option_name,
+                //         product_id: val.product_id
+                //     });
+                // });
+                // angular.forEach(json.data.groupbuy_options, function (val, key) {
+                //     $scope.param.products[index]._tmp_options.push({
+                //         text: val.option_name,
+                //         value: val.option_id,
+                //         option_id: val.option_id,
+                //         option_name: val.option_name,
+                //         product_id: val.product_id
+                //     });
+                // });
+                // angular.forEach(json.data.gift_options, function (val, key) {
+                //     $scope.param.products[index]._tmp_options.push({
+                //         text: val.option_name,
+                //         value: val.option_id,
+                //         option_id: val.option_id,
+                //         option_name: val.option_name,
+                //         product_id: val.product_id
+                //     });
+                // });
                 $scope.param.products[index]._tmp_options_selected = [];
                 angular.forEach($scope.param.products[index].options, function (val, key) {
                     if (val.option_id) {
@@ -146,7 +159,7 @@ define([
         }, true)
         $scope.$watch('param.product_id', function (product_id) {
             if (product_id && product_id != 0) {
-                $scope.param.product_url = $rootScope.common.wx_domain + '/product/detail/product_id/' + product_id+'?utm_source=appbuy';
+                $scope.param.product_url = $rootScope.common.wx_domain + '/product/detail/product_id/' + product_id + '?utm_source=appbuy';
             } else {
                 $scope.param.product_url = '';
             }
