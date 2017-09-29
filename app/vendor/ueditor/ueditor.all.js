@@ -3548,6 +3548,9 @@ var domUtils = dom.domUtils = {
         if(utils.isRegExp(className)){
             return className.test(element.className)
         }
+        if(!element){
+            console.log(element, className,this);
+        }
         className = utils.trim(className).replace(/[ ]{2,}/g,' ').split(' ');
         for(var i = 0,ci,cls = element.className;ci=className[i++];){
             if(!new RegExp('\\b' + ci + '\\b','i').test(cls)){
@@ -29280,6 +29283,8 @@ UE.ui = baidu.editor.ui = {};
         },
         postRender:function () {
             UIBase.prototype.postRender.call(this);
+
+            console.log(this.toolbars);
             for (var i = 0; i < this.toolbars.length; i++) {
                 this.toolbars[i].postRender();
             }
