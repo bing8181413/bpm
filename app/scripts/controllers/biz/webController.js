@@ -14,6 +14,11 @@ define([
         }, 0);
 
         $scope.$watch('param', function (val) {
+            if ($scope.param.url.indexOf('#!') > -1 || $scope.param.full_url.indexOf('#!') > -1) {
+                widget.msgToast('推广网址不能有 #! 等符号');
+                $scope.param.full_url = ' ';
+                return false;
+            }
             if (!!val.url && !!val.utm_source) {
                 var tmp = val.url.indexOf('?') > 0 ? '&' : '?';
                 $scope.param.full_url = encodeURI(val.url + tmp +
