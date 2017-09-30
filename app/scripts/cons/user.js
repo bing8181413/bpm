@@ -15,6 +15,7 @@ define([], function () {
                 {name: '融云禁言到期', field: 'imblocktime', filter: 'null2empty'},
                 {name: '直播禁言', fieldDirective: '<div user-block data="item"></div>'},
                 {name: '模拟登陆', fieldDirective: '<div user-token data="item"></div>'},
+                {name: '绑定与解绑手机号', fieldDirective: '<div user-mobile-unbind data="item"></div>'},
             ],
             columns_by_read: [
                 {name: 'ID', field: 'user_id', className: 'text-center'},
@@ -25,7 +26,8 @@ define([], function () {
                 {name: '收货地址', fieldDirective: '<div user-address data="item"></div>'},
                 {name: '优惠券', fieldDirective: '<div user-coupon data="item"></div>'},
                 {name: '注册时间', field: 'created_at'},
-                {name: '最近一次使用时间', field: 'authed_at', filter: 'null2empty'}
+                {name: '最近一次使用时间', field: 'authed_at', filter: 'null2empty'},
+                {name: '绑定与解绑手机号', fieldDirective: '<div user-mobile-unbind data="item"></div>'},
             ],
             config: {
                 title: '用户列表',

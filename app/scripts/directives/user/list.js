@@ -133,6 +133,35 @@ define([
                 }
             }
         })
+        .directive('userMobileUnbind', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show = function () {
+                        if(confirm('确定解绑该用户手机号码')){
+                            widget.ajaxRequest({
+                                url: '/users/' + supscope.data.user_id + '/mobile',
+                                method: 'put',
+                                scope: $scope,
+                                data: {},
+                                success: function (json) {
+                                    supscope.$parent.searchAction();
+                                }
+                            })
+                        }
+                    }
+                    var content = '<a class="btn btn-warning btn-rounded btn-sm" ng-click="show();">解绑手机号</a>';
+                    $element.html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
         .directive('userBlock', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',
