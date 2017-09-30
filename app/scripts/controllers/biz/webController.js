@@ -5,8 +5,8 @@ define([
 ], function (mod, con) {
     mod.controller('web.updateController', updateController)
 
-    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter','$timeout'];
-    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter,$timeout) {
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.param = {};
         $timeout(function () {
             // $scope.param = {url: 'https://m.ahaschool.com/produnct/detail?product_id=10000'};
@@ -25,6 +25,10 @@ define([
             }
         }, true);
         $scope.submit = function (status) {
+            if ($scope.param.url.indexOf('#!') > -1 || $scope.param.full_url.indexOf('#!') > -1) {
+                widget.msgToast('推广网址不能有 #! 等符号');
+                return false;
+            }
             widget.ajaxRequest({
                 url: '/markets/urls',
                 method: 'POST',
