@@ -181,8 +181,8 @@ define([
                                 scope: $scope,
                                 data: {},
                                 success: function (json) {
-                                    widget.msgToast('覆盖所有子活动成功!');
-                                    supscope.searchAction();
+                                    widget.msgToast('删除母活动成功!');
+                                    supscope.$parent.searchAction();
                                 }
                             })
                         }
@@ -209,7 +209,7 @@ define([
                                 data: {},
                                 success: function (json) {
                                     widget.msgToast('取消覆盖成功!');
-                                    supscope.searchAction();
+                                    supscope.$parent.searchAction();
                                 }
                             })
                         }
