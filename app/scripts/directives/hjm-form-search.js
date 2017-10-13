@@ -55,7 +55,10 @@ define([
                         if ('boolean' == typeof rtn_verify && rtn_verify == true) {
                             widget.ajaxRequest($scope.ajaxConfig);
                         } else {
-                            widget.msgToast(rtn_verify);
+                            if ('boolean' == typeof rtn_verify && rtn_verify == false) {
+                            } else {
+                                widget.msgToast(rtn_verify);
+                            }
                         }
 
                     }

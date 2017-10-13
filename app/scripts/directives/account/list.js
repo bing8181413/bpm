@@ -202,6 +202,8 @@ define([
                                         $state.go(con.state.main + '.account.list');
                                 }
                             })
+                        } else if (!pwd) {// 空密码
+
                         } else {
                             widget.msgToast('密码必须包含字母和数字,并8~16位');
                         }

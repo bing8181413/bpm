@@ -58,6 +58,9 @@ define([
     './zhibo_qr_code/list',//  直播APK
 
 
+    './merchant/list',//  供应商
+
+
     // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,

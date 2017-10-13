@@ -48,6 +48,10 @@ define([
     'states/hjm/batchproduct/batchproducts',//批量活动管理
 
 
+
+    'states/hjm/merchant/merchant',//供应商管理
+
+
     'states/demo/demo',//demo index
     'states/demo/baidumap',//百度地图
     'states/demo/datetime',//时间 日期插件

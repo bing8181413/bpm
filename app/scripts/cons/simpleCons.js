@@ -38,7 +38,10 @@ define([
     // './subject_group',
     './market/_conf',//  组
     './batchproduct/_conf',//  组
-    './live/_conf'//  组
+    './live/_conf',//  组
+
+
+    './merchant/_conf'//  供应商
 
 ], function (common) {
     // console.log(common);

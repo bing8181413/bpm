@@ -14,7 +14,10 @@ define([
         }, 0);
 
         $scope.$watch('param', function (val) {
-            if ($scope.param.url.indexOf('#!') > -1 || $scope.param.full_url.indexOf('#!') > -1) {
+            if(!$scope.param.url){
+                return false;
+            }
+            if ($scope.param.url.indexOf('#!') > -1) {
                 widget.msgToast('推广网址不能有 #! 等符号');
                 $scope.param.full_url = ' ';
                 return false;
@@ -30,7 +33,7 @@ define([
             }
         }, true);
         $scope.submit = function (status) {
-            if ($scope.param.url.indexOf('#!') > -1 || $scope.param.full_url.indexOf('#!') > -1) {
+            if ($scope.param.url.indexOf('#!') > -1 || $scope.param.full_url&&$scope.param.full_url.indexOf('#!') > -1) {
                 widget.msgToast('推广网址不能有 #! 等符号');
                 return false;
             }

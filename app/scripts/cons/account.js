@@ -55,6 +55,7 @@ define([], function () {
                         enum: [
                             {value: 'bd', text: 'BD'},
                             {value: 'op', text: '运营'},
+                            {value: 'merchant', text: '供应商'},
                             {value: 'pm', text: '产品'},
                             {value: 'user', text: '用户'},
                             {value: 'teacher', text: '教师'},
