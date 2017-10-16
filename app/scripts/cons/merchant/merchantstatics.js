@@ -4,14 +4,14 @@ define([], function () {
             columns: [
                 {name: '供应商ID', field: 'account_id', className: 'text-right'},
                 {name: '供应商全名', field: 'company_name|null2empty'},
-                {name: '关联活动', fieldDirective: '<div merchant-product data="item"></div>'},
+                {name: '关联活动', fieldDirective: '<div merchant-product data="item" class="text-center"></div>'},
                 {name: '总订单数', field: 'stat.count|null2empty'},
                 {name: '已售份数', field: 'stat.copies|null2empty'},
                 {name: '退订数', field: 'stat.refund_count|null2empty'},
                 {name: '总金额', field: 'stat.amount|null2empty'},
                 {
                     name: '管理',
-                    fieldDirective:'<div add-merchant-product data="item" ></div>'
+                    fieldDirective:'<div add-merchant-product data="item" class="text-center"></div>'
                 },
             ],
             config: {
@@ -20,7 +20,7 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
-                    {value: 'name', text: '供应商名称'}
+                    {value: 'company_name', text: '供应商名称'}
                 ],
                 paginationSupport: true,
                 pageInfo: {
@@ -29,7 +29,7 @@ define([], function () {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                route: [{value: 'main.merchant.add', text: '新增供应商'}]
+                // route: [{value: 'main.merchant.add', text: '新增供应商'}]
             },
         },
     }

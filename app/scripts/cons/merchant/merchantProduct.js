@@ -9,7 +9,7 @@ define([], function () {
                 },
                 {
                     name: '供应商', className: 'mobile_show',
-                    fieldDirective: '<div><p><span ng-bind="\'供应商ID:\'+item.merchant_product.merchant.id"></span></p>' +
+                    fieldDirective: '<div><p><span ng-bind="\'供应商ID:\'+item.merchant_product.merchant.account_id"></span></p>' +
                     '<p><span ng-bind="\'全名:\'+item.merchant_product.merchant.company_name"></span></p>'
                 },
                 {name: '是否可看<br/>联系人信息', field: 'merchant_product.show_contact|keyVal:\'1\':\'是\':\'2\':\'--\''},
@@ -66,7 +66,7 @@ define([], function () {
                 searchSupport: true,
                 searchItems: [
                     {value: 'company_name', text: '供应商名字', placeholder: '供应商名字', default: ''},
-                    {value: 'merchant_id', text: '供应商ID', placeholder: '供应商ID', default: ''},
+                    {value: 'account_id', text: '供应商ID', placeholder: '供应商ID', default: ''},
                 ],
                 preSelectionSearch: {
                     // sku: '',
@@ -118,7 +118,7 @@ define([], function () {
                     '<p>已售份数<br/><span ng-bind="(item.order && item.order.order_copies)||0"></span></p>' +
                     '<p>库存<br/><span ng-bind="item.options|arraySum:\'option_inventory\'"></span></p></div>'
                 },
-                {name: '总金额', field: 'merchant_product.real_order.amount'},
+                {name: '总金额', field: 'order.amounts'},
                 {
                     name: '操作',
                     fieldDirective: '<div del-merchant-product data="item" ></div>'
@@ -131,7 +131,7 @@ define([], function () {
                 searchSupport: false,
                 searchItems: [
                     {value: 'company_name', text: '供应商名字', placeholder: '供应商名字', default: ''},
-                    {value: 'merchant_id', text: '供应商ID', placeholder: '供应商ID', default: ''},
+                    {value: 'account_id', text: '供应商ID', placeholder: '供应商ID', default: ''},
                 ],
                 preSelectionSearch: {
                     // sku: '',

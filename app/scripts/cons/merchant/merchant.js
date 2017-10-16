@@ -2,7 +2,7 @@ define([], function () {
     var rtn = {
         merchantList: {
             columns: [
-                {name: '供应商ID', field: 'account_id', className: 'text-right'},
+                {name: '供应商ID', field: 'account_id', className: 'text-center'},
                 {name: '供应商全名', field: 'company_name|null2empty'},
                 {name: '联系方式', field: 'contact_mobile|null2empty',},
                 {name: '联系人', field: 'contact_name|null2empty'},
@@ -11,10 +11,10 @@ define([], function () {
                     name: '营业执照',
                     fieldDirective: '<div ng-repeat="obj in item.business_license"><show-image  url="obj.pic_url" width="100"></show-image></div>'
                 },
-                {name: '关联活动', fieldDirective: '<div merchant-product data="item"></div>'},
+                // {name: '关联活动', className: 'text-center', fieldDirective: '<div merchant-product data="item"></div>'},
                 {name: '负责人', field: 'charge_bd|null2empty'},
                 {
-                    name: '管理',
+                    name: '管理', className: 'text-center',
                     fieldDirective: '<span merchant-forbidden data="item"></span>' +
                     '<a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.merchant.update({merchant_id:item.id})">编辑账户</a>'
                 },
@@ -25,7 +25,7 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
-                    {value: 'name', text: '供应商名称'}
+                    {value: 'company_name', text: '供应商名称'}
                 ],
                 paginationSupport: true,
                 pageInfo: {

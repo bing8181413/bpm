@@ -1,8 +1,8 @@
 <div class="dashboard-page ">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title" ng-if="!$stateParams.banner_id">新增运营位</h3>
-            <h3 class="panel-title" ng-if="$stateParams.banner_id">修改运营位</h3>
+            <h3 class="panel-title" ng-if="!$stateParams.merchant_id">新增供应商账户</h3>
+            <h3 class="panel-title" ng-if="$stateParams.merchant_id">修改供应商账户</h3>
         </div>
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate>
@@ -10,17 +10,38 @@
                     <div class="panel-body">
                         <h4>供应商信息</h4>
                         <div form-input text="ID" ng-model="param.id"
-                             ng-show="$stateParams.id"
-                             placeholder="ID" ng-disabled="$stateParams.id == param.id"></div>
-                        <div form-input text="供应商全名" ng-model="param.company_name" placeholder="供应商全名" required="true"></div>
-                        <div form-input text="供应商联系方式" ng-model="param.contact_mobile" placeholder="供应商联系方式" required="true"></div>
-                        <div form-input text="供应商联系人" ng-model="param.contact_name" placeholder="供应商联系人" required="true"></div>
-                        <div form-image text="营业执照" ng-model="param.business_license" max="10" required="true"></div>
+                             ng-show="$stateParams.merchant_id"
+                             placeholder="ID" ng-disabled="$stateParams.merchant_id"></div>
+                        <div form-input text="供应商全名" ng-model="param.company_name" placeholder="供应商全名"
+                             required="true"></div>
+                        <div form-input text="供应商联系方式" ng-model="param.contact_mobile" placeholder="供应商联系方式"
+                             required="true"></div>
+                        <div form-input text="供应商联系人" ng-model="param.contact_name" placeholder="供应商联系人"
+                             required="true"></div>
+                        <div form-image text="营业执照" ng-model="param.business_license" max="10"></div>
                         <h4>登录账号信息</h4>
-                        <div form-input text="登录账号" ng-model="param.account.username" placeholder="登录账号" required="true"></div>
-                        <div form-input text="登录密码" ng-model="param.account.password" placeholder="登录密码" required="true"></div>
+                        <div form-input text="登录账号" ng-model="param.account.username" placeholder="登录账号"
+                             required="true"></div>
+                        <div class="form-group">
+                            <div class="form_element"><label class="col-sm-2 control-label">登录密码
+                                <span class="form_label_dangus"
+                                      ng-bind="!$stateParams.merchant_id?'*':'&nbsp;'">*</span></label>
+                                <div class="col-sm-4 ">
+                                    <input class="form-control" ng-model="param.account.userpass" placeholder="登录密码"
+                                           ng-readonly="true" ng-if="$stateParams.merchant_id">
+                                    <input class="form-control" ng-model="param.account.userpass" placeholder="登录密码"
+                                           required="true" ng-readonly="true" ng-if="!$stateParams.merchant_id">
+                                </div>
+                                <div class="col-sm-2 ">
+                                    <a class="btn btn-primary" ng-click="randomString(8)"
+                                       ng-bind="$stateParams.merchant_id?'重置密码':'生成密码'">重置密码</a>
+                                    <!--<a class="btn btn-warning" ng-click="param.account.userpass=''">清空密码</a>-->
+                                </div>
+                            </div>
+                        </div>
 
-                        <div form-input text="对接负责人" ng-model="param.charge_bd" placeholder="对接负责人" required="true"></div>
+                        <div form-input text="对接负责人" ng-model="param.charge_bd" placeholder="对接负责人"
+                             required="true"></div>
                         <div form-textarea text="备注" ng-model="param.remark"></div>
 
                     </div>
