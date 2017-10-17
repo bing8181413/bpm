@@ -17,11 +17,16 @@ define([
                 success: function (json) {
                     if ($state.current.name.indexOf('record_rooms.copy') > -1) { // 复制用的
                         delete json.data.id;
+                        delete json.data.room_stream_id;
+                        delete json.data.room_no;
                         delete json.data.created_at;
                         delete json.data.updated_at;
 
                         delete json.data.record.id;
                         delete json.data.record.room_id;
+                        delete json.data.record.play_count;
+                        delete json.data.record.thumbup_count;
+                        delete json.data.record.show_play_count;
                         delete json.data.record.created_at;
                         delete json.data.record.updated_at;
 
@@ -39,8 +44,8 @@ define([
             }
             $scope.param.type = 2;
             widget.ajaxRequest({
-                url: con.live_domain + '/live/rooms' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
-                method: $stateParams.id ? 'PUT' : 'POST',
+                url: con.live_domain + '/live/rooms' + ($scope.param.id ? ('/' + $scope.param.id) : ''),
+                method: $scope.param.id ? 'PUT' : 'POST',
                 scope: $scope,
                 data: $scope.param,
                 success: function (json) {
