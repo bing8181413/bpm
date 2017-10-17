@@ -21,7 +21,8 @@ define(['./common'], function (common) {
                 {
                     name: '操作',
                     fieldDirective: '<a class="btn btn-success btn-rounded btn-sm" ui-sref="main.record_rooms.update({id:item.id})">编辑</a>' +
-                    '&nbsp;&nbsp;&nbsp;<span record-room-download data="item"></span>'
+                    '&nbsp;&nbsp;&nbsp;<span record-room-download data="item"></span>' +
+                    '&nbsp;&nbsp;&nbsp; <span record-rooms-copy data="item"></span>'
                 },
             ],
             config: {

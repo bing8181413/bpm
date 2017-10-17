@@ -39,6 +39,17 @@ define([
                                 }
                             }
                         })
+                        .state(cons.state.main + '.record_rooms.copy', {
+                            url: "/copy.html/:id",
+                            views: {
+                                "": {
+                                    controller: "recordRooms.updateController",
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'record_rooms/update.html');
+                                    }
+                                }
+                            }
+                        })
                         .state(cons.state.main + '.record_rooms.add', {
                             url: "/add.html",
                             views: {

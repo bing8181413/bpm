@@ -76,6 +76,23 @@ define([
                 }
             }
         })
+        .directive('recordRoomsCopy', function ($rootScope, $templateCache, $filter, $compile, widget) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '',
+                link: function ($scope, $element, $attrs) {
+                    var content = '<a class="btn btn-success btn-rounded btn-sm"' +
+                        'ui-sref="main.record_rooms.copy({id:' + $scope.data.id + '})" >复制</a>';
+                    $element.html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
         .directive('liveRoomEdit', function ($rootScope, $templateCache, $filter, $compile, widget) {
             return {
                 multiElement: true,

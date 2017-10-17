@@ -15,6 +15,17 @@ define([
                 scope: $scope,
                 data: {},
                 success: function (json) {
+                    if ($state.current.name.indexOf('record_rooms.copy') > -1) { // 复制用的
+                        delete json.data.id;
+                        delete json.data.created_at;
+                        delete json.data.updated_at;
+
+                        delete json.data.record.id;
+                        delete json.data.record.room_id;
+                        delete json.data.record.created_at;
+                        delete json.data.record.updated_at;
+
+                    }
                     json.data.order_by = Number(json.data.order_by);
                     $scope.param = angular.copy(json.data);
                 }
