@@ -36,10 +36,6 @@ define([
         }
 
         $scope.submit = function (status) {
-            if (comfunc.isEmptyArray($scope.param.business_license)) {
-                widget.msgToast('营业执照没有上传');
-                return false;
-            }
             widget.ajaxRequest({
                 url: '/merchant/merchants' + ($stateParams.merchant_id ? ('/' + $stateParams.merchant_id) : ''),
                 method: $stateParams.merchant_id ? 'PUT' : 'POST',
