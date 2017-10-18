@@ -6,6 +6,7 @@ define([
     , './videogroupskuoption'
     , './videogroupoption'
     , './videogroupuser'
+    , './marketshareuser'
 ], function () {
     return arguments;
 })

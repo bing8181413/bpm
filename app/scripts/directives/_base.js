@@ -55,7 +55,8 @@ define([
 
 
 
-    './videogroup/list',// 批量活动列表
+    './videogroup/list',// 视频组
+    './marketshare/list',// 观看权限
 
 
 
