@@ -5,6 +5,7 @@ define([
     , './videogrouproom'
     , './videogroupskuoption'
     , './videogroupoption'
+    , './videogroupuser'
 ], function () {
     return arguments;
 })

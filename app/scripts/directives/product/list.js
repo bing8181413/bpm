@@ -277,8 +277,8 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-rounded btn-sm btn-info" ng-bind="data.order.order_copies" ng-click="show_order_copies()"' +
-                ' ng-show="data.order.order_copies"></a>',
+                template: '<a class="btn btn-rounded btn-sm btn-info" ng-bind="data.order.order_copies||0" ng-click="show_order_copies()"' +
+                ' ></a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show_order_copies = function () {
@@ -468,7 +468,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show();" ng-bind="text" ng-show="text"></a>',
+                template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show();" ng-bind="text"></a>',
                 link: function ($scope, $element, $attrs) {
                     $scope.text = (($scope.data.order || {}).order_count || 0);// + '/' + (($scope.data.allorder || {}).count || 0);
                     $scope.ext = {product_id: $scope.data.product_id};

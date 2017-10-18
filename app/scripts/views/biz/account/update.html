@@ -12,9 +12,8 @@
                         <div form-input text="账户ID" ng-model="param.account_id"
                              ng-show="$stateParams.account_id"
                              placeholder="账户ID" ng-disabled="$stateParams.account_id"></div>
-                        <div form-input text="负责人账号" ng-model="param.username" placeholder="负责人账号"
-                             required="true"></div>
-                        <div form-input text="公司名称" ng-model="param.company" required="true"></div>
+                        <div form-input text="登录账号" ng-model="param.username" placeholder="登录账号"
+                             required="true" ng-disabled="$stateParams.account_id"></div>
                         <div form-input text="初始化密码" ng-model="userpass" placeholder="初始化密码"
                              ng-if="!$stateParams.account_id"></div>
                         <div form-input text="手机号码" ng-model="param.mobile" min="11" max="11" placeholder="11位数字"

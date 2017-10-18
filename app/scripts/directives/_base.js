@@ -54,6 +54,11 @@ define([
     './batchproducts/list',// 批量活动列表
 
 
+
+    './videogroup/list',// 批量活动列表
+
+
+
     './upload/upload-apk-token',//  直播APK
     './zhibo_qr_code/list',//  直播APK
 
