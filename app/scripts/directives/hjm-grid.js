@@ -454,7 +454,6 @@ define([
                                         // 赋予默认值  param 对象
                                         var btnHtml = '';
                                         $scope.$eval('params.' + val.value + '="' + val.default + '"');
-
                                         if (val.enum.length > 0) {
                                             angular.forEach(val.enum, function (enum_val, enum_key) {
                                                 var btnClassHtml = ('"btn-rounded":params.' + val.value + '=="' + enum_val.value + '",' +

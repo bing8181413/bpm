@@ -129,6 +129,212 @@ define([
                 }
             }
         })
+        .directive('supportSkuAdd', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: true,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-rounded btn-success btn-sm pull-right" ng-click="show_imei_add()">添加SKU</a>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_imei_add = function () {
+                        var modalInstance = $uibModal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $uibModalInstance) {
+                                    $scope.title = '添加SKU';
+                                    $scope.param = {};
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
+                                        '<div form-input text="名称" ng-model="param.name" required="true"></div>' +
+                                        '<div form-input text="对应值" ng-model="param.value" required="true"></div>' +
+                                        '<div form-checkbox text="能力标签" ng-model="param.tags" type="number" required="true" default="" source="$root.common.tag" source-api=""></div>' +
+                                        '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()" ng-disabled="FormBody.$invalid" >确定</a>' +
+                                        '</form>';
+                                    $scope.submit = function () {
+                                        widget.ajaxRequest({
+                                            url: '/supports/skus',
+                                            method: 'post',
+                                            scope: $scope,
+                                            data: $scope.param,
+                                            success: function (json) {
+                                                supscope.$parent.searchAction();
+                                                widget.msgToast('添加成功');
+                                                $scope.cancel();
+                                            },
+                                            failure: function (json) {
+                                                widget.msgToast(json.message);
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                    $scope.cancel = function () {
+                                        $uibModalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'sm'
+                            }
+                        );
+                    }
+                }
+            }
+        })
+        .directive('supportSkuUpdate', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: true,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-rounded btn-success btn-sm" ng-click="show()">修改SKU</a>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show = function () {
+                        var modalInstance = $uibModal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $uibModalInstance) {
+                                    $scope.title = '修改SKU';
+                                    $scope.param = angular.copy(supscope.data);
+                                    // console.log(supscope.data);
+                                    $scope.param.tags = (supscope.data.tags && supscope.data.tags.length > 0) ?
+                                        $filter('arraySub2String')(supscope.data.tags, 'id').split(',').map(function (val) {
+                                            return Number(val)
+                                        }) : [];
+                                    // console.log($scope.param.tags);
+                                    // console.log( $rootScope.common.tag);
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
+                                        '<div form-input text="名称" ng-model="param.name" required="true"></div>' +
+                                        '<div form-input text="对应值" ng-model="param.value" required="true"></div>' +
+                                        '<div form-checkbox text="能力标签" ng-model="param.tags" type="number" required="true" default="" source="$root.common.tag" source-api=""></div>' +
+                                        '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()" ng-disabled="FormBody.$invalid" >确定</a>' +
+                                        '</form>';
+                                    $scope.submit = function () {
+                                        widget.ajaxRequest({
+                                            url: '/supports/skus/' + $scope.param.id,
+                                            method: 'put',
+                                            scope: $scope,
+                                            data: $scope.param,
+                                            success: function (json) {
+                                                supscope.$parent.searchAction();
+                                                widget.msgToast('修改成功');
+                                                $scope.cancel();
+                                            },
+                                            failure: function (json) {
+                                                widget.msgToast(json.message);
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                    $scope.cancel = function () {
+                                        $uibModalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'sm'
+                            }
+                        );
+                    }
+                }
+            }
+        })
+        .directive('supportTagAdd', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: true,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-rounded btn-success btn-sm pull-right" ng-click="show_imei_add()">添加标签</a>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show_imei_add = function () {
+                        var modalInstance = $uibModal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $uibModalInstance) {
+                                    $scope.title = '添加标签';
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
+                                        '<div form-input text="名称" ng-model="param.name" required="true"></div>' +
+                                        '<div form-input text="对应值" ng-model="param.type" required="true"></div>' +
+                                        '<div form-textarea text="备注" ng-model="param.remark" required="true"></div>' +
+                                        '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()" ng-disabled="FormBody.$invalid" >确定</a>' +
+                                        '</form>';
+                                    $scope.submit = function () {
+                                        widget.ajaxRequest({
+                                            url: '/supports/tags',
+                                            method: 'post',
+                                            scope: $scope,
+                                            data: $scope.param,
+                                            success: function (json) {
+                                                supscope.$parent.searchAction();
+                                                widget.msgToast('添加成功');
+                                                $scope.cancel();
+                                            },
+                                            failure: function (json) {
+                                                widget.msgToast(json.message);
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                    $scope.cancel = function () {
+                                        $uibModalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'sm'
+                            }
+                        );
+                    }
+                }
+            }
+        })
+        .directive('supportTagUpdate', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: true,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-rounded btn-success btn-sm" ng-click="show()">修改SKU标签</a>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show = function () {
+                        var modalInstance = $uibModal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $uibModalInstance) {
+                                    $scope.title = '修改SKU标签';
+                                    $scope.param = angular.copy(supscope.data);
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
+                                        '<div form-input text="名称" ng-model="param.name" required="true"></div>' +
+                                        '<div form-input text="对应值" ng-model="param.type" required="true"></div>' +
+                                        '<div form-textarea text="备注" ng-model="param.remark" required="true"></div>' +
+                                        '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()" ng-disabled="FormBody.$invalid" >确定</a>' +
+                                        '</form>';
+                                    $scope.submit = function () {
+                                        widget.ajaxRequest({
+                                            url: '/supports/tags/' + supscope.data.id,
+                                            method: 'PUT',
+                                            scope: $scope,
+                                            data: $scope.param,
+                                            success: function (json) {
+                                                supscope.$parent.searchAction();
+                                                widget.msgToast('修改SKU标签成功');
+                                                $scope.cancel();
+                                            },
+                                            failure: function (json) {
+                                                widget.msgToast(json.message);
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                    $scope.cancel = function () {
+                                        $uibModalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'sm'
+                            }
+                        );
+                    }
+                }
+            }
+        })
         .directive('changeSupportBannerStatus', function ($templateCache, $rootScope, $compile, widget, $state) {
             return {
                 restrict: 'AE',

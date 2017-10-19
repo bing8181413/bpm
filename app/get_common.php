@@ -5,6 +5,7 @@ date_default_timezone_set("Asia/chongqing");
 error_reporting(E_ERROR);
 //header("Content-Type: text/html; charset=utf-8");
 //header("Content-Type: application/x-www-form-urlencoded");
+header("Content-Type: application/json");
 
 $request_body = json_decode(file_get_contents('php://input'));
 
@@ -98,7 +99,7 @@ function getData($url, $data)
 {
     $ch = curl_init();
     $timeout = 300;
-    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_URL, $url.$data);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_USERPWD, $_SERVER['PHP_AUTH_USER'] . ':' . $_SERVER['PHP_AUTH_PW']);
     curl_setopt($ch, CURLOPT_HEADER, 0);

@@ -48,8 +48,10 @@ define([
     'states/hjm/batchproduct/batchproducts',//批量活动管理
 
 
-
     'states/hjm/merchant/merchant',//供应商管理
+
+
+    'states/hjm/support/sku',//sku
 
 
     'states/demo/demo',//demo index

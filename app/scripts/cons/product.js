@@ -1,4 +1,4 @@
-define([], function () {
+define(['angular', './common'], function (angular, common) {
     var rtn = {
         productList: {
             columns: [
@@ -131,7 +131,11 @@ define([], function () {
                     '<span ng-bind="($index+1)+\':\'+obj.detail_address"></span>' +
                     '</p></div>'
                 },
-                {name: '活动类目', className: 'width250 mobile_show', fieldDirective: '<div product-option data="item"></div>'},
+                {
+                    name: '活动类目',
+                    className: 'width250 mobile_show',
+                    fieldDirective: '<div product-option data="item"></div>'
+                },
                 {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
                 {name: '订单数', className: 'mobile_show', fieldDirective: '<div act-order-copies data="item"></div>'},
                 {name: '报名人数', className: 'mobile_show', field: 'order.order_count'},
@@ -199,23 +203,11 @@ define([], function () {
                 searchSupport: true,
                 searchItems: [
                     {
-                        value: 'sku', text: 'SKU', type: 'btnGroup', default: '', width: '12',
-                        enum: [
-                            {value: '', text: '全 部'},
-                            {text: '活动', value: '1'},
-                            {text: '测评', value: '2'},
-                            {text: '众筹', value: '3'},
-                            {text: '年卡', value: '4'},
-                            {text: '会员', value: '5'},
-                            {text: '测试', value: '6'},
-                            {text: '其他', value: '7'},
-                            {text: '霸王团', value: '8'},
-                            {text: '课程', value: '9'},
-                            {text: '博物馆直播', value: '10'},
-                            {text: '名校直播', value: '11'},
-                            {text: '成人演讲', value: '12'},
-                            {text: '少年好声音', value: '13'}
-                        ]
+                        text: 'SKU',width: '6',
+                        paramDirective: '<select class="form-control" ng-model="params.sku" ' +
+                        'ng-options="item.value as item.text for item in $root.common.sku">' +
+                            '<option value="">-- 全部 --</option>'+
+                        '</select>'
                     },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
                         // process_type  1 即将开始  2 进行中 3 已结束

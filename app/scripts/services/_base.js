@@ -219,7 +219,24 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                         });
                     });
                 }
-
+                $rootScope.get_skus = function (skus) {
+                    // console.log($rootScope.common, skus)
+                    $rootScope.common.sku = skus.map(function (val) {
+                        return {text: val.name, value: Number(val.value)};
+                    });
+                }
+                $rootScope.get_live_skus = function (live_skus) {
+                    // console.log($rootScope.common, skus)
+                    $rootScope.common.live_sku = live_skus.map(function (val) {
+                        return {text: val.name, value: Number(val.value)};
+                    });
+                }
+                $rootScope.get_tags = function (tags) {
+                    // console.log($rootScope.common, skus)
+                    $rootScope.common.tag = tags.map(function (val) {
+                        return {text: val.name, value: Number(val.id)};
+                    });
+                }
                 $rootScope.reset = function (request_param) {
                     if (!$http.defaults.headers.common.Authorization || !localStorage.getItem('login_account')) {
                         $rootScope.$state.go('login');
@@ -245,23 +262,39 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 },
                                 {
                                     "key": 'accounts',
-                                    "url": cons.api.account_mans,
-                                    "data": {"count": 1000, "role": "op,majia,bd"}
+                                    "url": cons.api.account_mans + '?count=1000&role=op,majia,bd', data: {}
+                                    // "data": {"count": 1000, "role": "op,majia,bd"}
                                 },
                                 {
                                     "key": 'teachers',
-                                    "url": cons.domain + '/teachers',
-                                    "data": {"count": 1000}
+                                    "url": cons.domain + '/teachers?count=1000', data: {}
+                                    // "data": {"count": 1000}
                                 },
                                 {
                                     "key": 'categories',
-                                    "url": cons.domain + '/surveys/categories',
-                                    "data": {"count": 1000}
+                                    "url": cons.domain + '/surveys/categories?count=1000', data: {}
+                                    // "data": {"count": 1000}
                                 },
                                 {
                                     "key": 'attachments_questions',
-                                    "url": cons.domain + '/surveys/questions',
-                                    "data": {"count": 1000, "status": 1, "category_type": 1}
+                                    "url": cons.domain + '/surveys/questions?count=1000&status=1&category_type=1',
+                                    data: {}
+                                    // "data": {"count": 1000, "status": 1, "category_type": 1}
+                                },
+                                {
+                                    "key": 'skus',
+                                    "url": cons.domain + '/supports/tagskus?count=1000&type=product', data: {}
+                                    // "data": {"count": 1000, "status": 1}
+                                },
+                                {
+                                    "key": 'live_skus',
+                                    "url": cons.domain + '/supports/tagskus?count=1000&type=live', data: {}
+                                    // "data": {"count": 1000, "status": 1}
+                                },
+                                {
+                                    "key": 'tags',
+                                    "url": cons.domain + '/supports/tags?count=1000', data: {}
+                                    // "data": {"count": 1000, "status": 1}
                                 }
                             );
                         }
@@ -284,6 +317,15 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                 }
                                 if (json.data.attachments_questions) {
                                     $rootScope.get_attachments_questions(json.data.attachments_questions);
+                                }
+                                if (json.data.skus) {
+                                    $rootScope.get_skus(json.data.skus);
+                                }
+                                if (json.data.live_skus) {
+                                    $rootScope.get_live_skus(json.data.live_skus);
+                                }
+                                if (json.data.tags) {
+                                    $rootScope.get_tags(json.data.tags);
                                 }
                             },
                             error: function (err) {

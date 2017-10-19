@@ -22,6 +22,14 @@ define([
                     $scope.menus = json.data;
                     $rootScope.update_menus();//  获取最新的菜单
                     $scope.param = [];
+                    if ($rootScope.common) {
+                        $rootScope.common.menus_key_val = [];
+                    }
+                    var menus_options = '';
+                    $scope.menus.map(function (val) {
+                        menus_options += '<option value=' + val.id + ' >' + val.name + '</option>'
+                        return val;
+                    });
                     $scope.param.push(
                         {key: 'id', val: '', name: 'id', isprimary: true},
                         {key: 'key', val: '', name: 'key', allownull: true},
@@ -40,7 +48,13 @@ define([
                         {key: 'type', val: '', name: '类型'},
                         {key: 'route', val: '', name: '路由'},
                         {key: 'sort', val: '', name: '排序'},
-                        {key: 'pid', val: '', name: '父节点'}
+                        // {
+                        //     name: '父节点ID',
+                        //     fieldDirective: '<select class="form-control" ng-model="item.pid">' +
+                        //     '<option value="">--  请选择  --</option>' + menus_options +
+                        //     '</select>'
+                        // }
+                        {key: 'pid', val: '', name: '父节点ID'}
                     );
                 }
             });

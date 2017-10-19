@@ -17,9 +17,9 @@
                         <label class="col-sm-3 control-label">{{item.name}}
                             <span class="form_label_dangus" ng-bind="(item.allownull|| item.isprimary)?'':'*'"></span>
                         </label>
-
                         <div class="col-sm-6">
                             <input class="form-control" ng-model="item.val" ng-disabled="item.isprimary==1">
+                            <!--<div ng-bind-html="item.fieldDirective|to_trusted " ng-show="item.fieldDirective"></div>-->
                         </div>
                     </div>
                 </form>

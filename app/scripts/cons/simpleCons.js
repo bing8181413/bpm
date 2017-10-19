@@ -41,7 +41,8 @@ define([
     './live/_conf',//  组
 
 
-    './merchant/_conf'//  供应商
+    './merchant/_conf',//  供应商
+    './support/_conf'//  SKU
 
 ], function (common) {
     // console.log(common);
