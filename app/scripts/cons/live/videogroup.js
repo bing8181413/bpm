@@ -17,14 +17,14 @@ define(['.././common'], function (common) {
                     name: '关联SKU', className: 'text-center',
                     fieldDirective: '<span ng-show="item.pay_type!=2">免费</span> <span ng-show="item.pay_type==2" show-table data="{text:\'查看\',modid:\'videogroupsskuoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/skuoptions\'}"></span>'
                 },
-                {
-                    name: '观看用户', className: 'text-center',
-                    fieldDirective: '<span show-table data="{text:\'查看\',modid:\'videogroupUserList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/users\'}"></span>'
-                },
-                {
-                    name: '导入用户', className: 'text-center',
-                    fieldDirective: '<span videogroup-import-user data="item" ></span>'
-                },
+                // {
+                //     name: '观看用户', className: 'text-center',
+                //     fieldDirective: '<span show-table data="{text:\'查看\',modid:\'videogroupUserList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/users\'}"></span>'
+                // },
+                // {
+                //     name: '导入用户', className: 'text-center',
+                //     fieldDirective: '<span videogroup-import-user data="item" ></span>'
+                // },
                 {
                     name: '备注',
                     fieldDirective: '<div modal-textarea title="查看" content="item.remark|null2empty"></div>',
