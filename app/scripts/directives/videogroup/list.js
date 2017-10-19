@@ -74,6 +74,13 @@ define([
                                             data: $scope.param,
                                             success: function (json) {
                                                 widget.msgToast('导入成功!');
+                                            },
+                                            failure: function (error) {
+                                                if (JSON.stringify(error.validates).indexOf('has already been taken') > -1) {
+                                                    widget.msgToast('数据验证失败,请检查手机号是否已经存在!');
+                                                } else {
+                                                    widget.msgToast(error.message);
+                                                }
                                             }
                                         })
                                     }

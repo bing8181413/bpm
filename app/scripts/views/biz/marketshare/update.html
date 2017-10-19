@@ -1,14 +1,14 @@
 <div class="dashboard-page ">
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title" ng-if="!$stateParams.id">新增观看权限</h3>
-            <h3 class="panel-title" ng-if="$stateParams.id">更新观看权限</h3>
+            <h3 class="panel-title" ng-if="!$stateParams.id">新增运营分享视频组权限</h3>
+            <h3 class="panel-title" ng-if="$stateParams.id">更新运营分享视频组权限</h3>
         </div>
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h4>观看权限</h4>
+                        <h4>运营分享视频组权限</h4>
 
                         <div form-search text="查询视频组ID" verify="verify_obj_id(obj_id)" btn-text="添加视频组"
                              ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/videogroups/'+obj_id}"
@@ -21,7 +21,7 @@
                              min="0"></div>
 
                         <div form-radio text="领取对象" ng-model="param.receive_type" required="true" default="0"
-                             source="[{text:'不限',value:'1'},{text:'新用户',value:'2'},{text:'老用户',value:'3'},{text:'手机号码列表',value:'4'}]"
+                             source="[{text:'不限',value:'1'},{text:'新用户',value:'2'},{text:'老用户',value:'3'},{text:'仅手机号码可领取(导入请到列表操作)',value:'4'}]"
                              source-api=""></div>
 
                         <div form-input text="运营文案" ng-model="param.content" placeholder="不超过15字" maxlength="15"></div>

@@ -16,7 +16,7 @@ define(['.././common'], function (common) {
                 },
                 {name: '领取对象', field: 'receive_type|keyVal:\'1\':\'不限\':\'2\':\'新用户\':\'3\':\'老用户\':\'4\':\'手机号码列表\''},
                 {
-                    name: '观看用户', className: 'text-center',
+                    name: '手机号码列表', className: 'text-center',
                     fieldDirective: '<span show-table ng-show="item.receive_type==4" data="{text:\'查看\',modid:\'marketshareUserList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/marketshares/\'+item.id+\'/mobiles\'}"></span>'
                 },
                 {
@@ -35,7 +35,7 @@ define(['.././common'], function (common) {
                 }
             ],
             config: {
-                title: '观看权限列表',
+                title: '运营分享视频组权限列表',
                 api: common.live_domain + '/live/marketshares',
                 rowItemName: 'item',
                 searchSupport: false,
@@ -50,7 +50,7 @@ define(['.././common'], function (common) {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                route: [{value: 'main.marketshare.add', text: '新增观看权限'}]
+                route: [{value: 'main.marketshare.add', text: '新增运营分享视频组权限'}]
             },
         }
     }

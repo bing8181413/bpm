@@ -9,7 +9,7 @@ define(['.././common'], function (common) {
                     name: '头像',
                     fieldDirective: '<div class="text-center" show-image url="item.user.avatar" width="50"></div>'
                 },
-                {name: '操作', fieldDirective: ' <span del-videogroup-user data="item" ></span>'},
+                // {name: '操作', fieldDirective: ' <span del-videogroup-user data="item" ></span>'},
             ],
             config: {
                 title: '视频组-关联用户列表',

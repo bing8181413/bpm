@@ -9,7 +9,10 @@ define(['.././common'], function (common) {
                     name: '头像',
                     fieldDirective: '<div class="text-center" show-image url="item.user.avatar" width="50"></div>'
                 },
-                {name: '操作', fieldDirective: ' <span del-marketshare-user data="item" ></span>'},
+                {
+                    name: '操作',
+                    fieldDirective: ' <span ng-show="item.user_id" del-marketshare-user data="item" ></span>'
+                },
             ],
             config: {
                 title: '观看权限-关联用户列表',
