@@ -111,8 +111,9 @@ define(['angular', './common'], function (angular, common) {
                 {
                     name: '活动信息', className: 'width100 mobile_show',
                     fieldDirective: '<div><p><span ng-bind="\'标题:\'+item.title"></span></p>' +
-                    '<p><span ng-bind="\'SKU:\'+(item.sku|product_sku)"></span></p>' +
+                    '<p><span ng-bind="\'SKU:\'+(item.sku|common:\'sku\')"></span></p>' +
                     '<p><span ng-bind="\'活动类型:\'+(item.category|product_category)"></span></p>' +
+                    // '<p><span ng-bind="\'活动类型:\'+(item.category|product_category)"></span></p>' +
                     '<p><span ng-bind="\'活动类别:\'+item.act_type"></span></p></div>'
                 },
                 {
@@ -202,20 +203,13 @@ define(['angular', './common'], function (angular, common) {
                 ],
                 searchSupport: true,
                 searchItems: [
-                    {
-                        text: 'SKU',width: '6',
-                        paramDirective: '<select class="form-control" ng-model="params.sku" ' +
-                        'ng-options="item.value as item.text for item in $root.common.sku">' +
-                            '<option value="">-- 全部 --</option>'+
-                        '</select>'
-                    },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
                         // process_type  1 即将开始  2 进行中 3 已结束
                         type: 'btnGroupArray',
                         value: 'flag2',
                         text: '活动状态',
                         default: 1, //有enum_text时 enumde index 的值
-                        width: '12',
+                        width: '6',
                         enum_text: ['status', 'available_type', 'process_type'],//  有  enum_text 说明是数组
                         enum: [
                             {value: ['', '', ''], text: '全 部'},
@@ -226,6 +220,13 @@ define(['angular', './common'], function (angular, common) {
                             {value: ['3', '', ''], text: '已下线'},
                             {value: ['1', '2', ''], text: '待上线'},
                         ]
+                    },
+                    {
+                        text: 'SKU',width: '6',
+                        paramDirective: '<select class="form-control" ng-model="params.sku" ' +
+                        'ng-options="item.value as item.text for item in $root.common.sku">' +
+                        '<option value="">-- 全部 --</option>'+
+                        '</select>'
                     },
                     {
                         value: 'visible', text: '是否显示', type: 'btnGroup', default: '0', width: '6',

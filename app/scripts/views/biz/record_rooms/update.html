@@ -29,12 +29,12 @@
                         <div form-input text="点赞次数基数" ng-model="param.base_thumbup_count" type="number" min="0"
                              required="true"></div>
 
-                        <!--<div form-select text="SKU" ng-model="param.sku" required="true"-->
-                             <!--source="$root.common.live_sku" source-api=""></div>-->
+                        <div form-select text="订单SKU类型" ng-model="param.sku" required="true"
+                             source="$root.common.live_sku" source-api=""></div>
 
-                        <div form-radio text="订单类型" type="radio" ng-model="param.sku" required="true" default="10"
-                             source="[{text:'博物馆直播第一期',value:'10'},{text:'名校直播第一期',value:'11'},{text:'成人演讲',value:'12'}
-                             ,{text:'少年好声音',value:'13'},{text:'博物馆直播第二期',value:'14'},{text:'免费',value:'0'}]" source-api=""></div>
+                        <!--<div form-radio text="订单类型" type="radio" ng-model="param.sku" required="true" default="10"-->
+                             <!--source="[{text:'博物馆直播第一期',value:'10'},{text:'名校直播第一期',value:'11'},{text:'成人演讲',value:'12'}-->
+                             <!--,{text:'少年好声音',value:'13'},{text:'博物馆直播第二期',value:'14'},{text:'免费',value:'0'}]" source-api=""></div>-->
 
                         <div form-input text="分享URl" ng-model="param.share_url" placeholder="分享URl"></div>
 

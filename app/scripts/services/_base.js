@@ -230,6 +230,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                     $rootScope.common.live_sku = live_skus.map(function (val) {
                         return {text: val.name, value: Number(val.value)};
                     });
+                    $rootScope.common.live_sku.push({text: '免费', value: 0});
                 }
                 $rootScope.get_tags = function (tags) {
                     // console.log($rootScope.common, skus)

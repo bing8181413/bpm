@@ -15,9 +15,9 @@ define([], function () {
                 title: 'SKU列表',
                 api: '/supports/skus',
                 rowItemName: 'item',
-                searchSupport: false,
+                searchSupport: true,
                 searchItems: [
-                    // {value: 'company_name', text: '供应商名称'}
+                    {value: 'keyword', text: '名称'}
                 ],
                 paginationSupport: true,
                 pageInfo: {

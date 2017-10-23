@@ -33,12 +33,12 @@
 
                         <div form-image-single text="上传二维码" ng-model="param.qrcode_url"></div>
 
-                        <!--<div form-select text="SKU" ng-model="param.sku" required="true"-->
-                             <!--source="$root.common.live_sku" source-api=""></div>-->
+                        <div form-select text="订单SKU类型" ng-model="param.sku" required="true"
+                             source="$root.common.live_sku" source-api=""></div>
 
-                        <div form-radio text="订单类型" type="radio" ng-model="param.sku" required="true" default="10"
-                             source="[{text:'博物馆直播第一期',value:'10'},{text:'名校直播第一期',value:'11'},{text:'成人演讲',value:'12'}
-                             ,{text:'少年好声音',value:'13'},{text:'博物馆直播第二期',value:'14'},{text:'免费',value:'0'}]" source-api=""></div>
+                        <!--<div form-radio text="订单SKU类型" type="radio" ng-model="param.sku" required="true" default="10"-->
+                        <!--source="[{text:'博物馆直播第一期',value:'10'},{text:'名校直播第一期',value:'11'},{text:'成人演讲',value:'12'}-->
+                        <!--,{text:'少年好声音',value:'13'},{text:'博物馆直播第二期',value:'14'},{text:'免费',value:'0'}]" source-api=""></div>-->
 
                         <div form-input text="分享URL" ng-model="param.share_url" placeholder="分享URL"></div>
 
@@ -60,6 +60,7 @@
                              required="true"></div>
                         <div form-input text="应用名称" ng-model="param.cloud.app_name" placeholder="应用名称"
                              required="true"></div>
+
                         <div form-input text="流名称" ng-model="param.cloud.stream_name" placeholder="流名称"
                              required="true"></div>
 
@@ -75,7 +76,8 @@
                         <div form-input text="高清FLV" ng-model="param.cloud.high_flv_url" placeholder="FLV"></div>
 
                         <div form-input text="流畅RTMP" ng-model="param.cloud.fluency_rtmp_url" placeholder="RTMP"></div>
-                        <div form-input text="流畅HLS" ng-model="param.cloud.fluency_mu_url" placeholder="HLS(m3u8)"></div>
+                        <div form-input text="流畅HLS" ng-model="param.cloud.fluency_mu_url"
+                             placeholder="HLS(m3u8)"></div>
                         <div form-input text="流畅FLV" ng-model="param.cloud.fluency_flv_url" placeholder="FLV"></div>
 
                         <div form-radio text="苹果审核标志" type="radio" ng-model="param.ios_audit" required="true"

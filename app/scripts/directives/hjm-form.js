@@ -147,6 +147,7 @@ define([
                     name: '@',
                     required: '@',
                     source: '=',
+                    needDefaultEmpty: '=?',
                     sourceApi: '@',
                     callback: '&',
                     ngDisabled: '=',
@@ -163,13 +164,17 @@ define([
                     var required = $scope.required ? (' required ') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="radio"';
+                    var optionDefault = '';
+                    if (!$scope.needDefaultEmpty || $scope.needDefaultEmpty != false) {
+                        optionDefault = '<option value="">--  请选择  --</option>';
+                    }
                     $timeout(function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label class="' + labelWidth + ' control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="' + contentWidth + '">';
                         content += '<select class="form-control"' + name + ngDisabled + ' ng-model="ngModel" ' +
-                            'ng-options="item.value as item.text for item in source">' +
+                            'ng-options="item.value as item.text for item in source">' + optionDefault +
                             // '<option value=undefined>--  请选择  --</option>' +
                             '</select>';
                         content += '<input class="hide" ng-model="ngModel" ' + name + disabledRole + required + '">'

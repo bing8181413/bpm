@@ -15,7 +15,7 @@ angular.module('ng.simditor')
     .directive('simditor', function ($timeout) {
 
         // var TOOLBAR_DEFAULT = ['title', 'bold', 'italic', 'underline', 'strikethrough', '|', 'ol', 'ul', 'blockquote', 'code', 'table', '|', 'link', 'image', 'hr', '|', 'indent', 'outdent'];
-        var TOOLBAR_DEFAULT = ['bold', 'italic', 'underline', 'strikethrough', 'fontScale', 'color', 'hr', 'alignment'];
+        var TOOLBAR_DEFAULT = ['bold', 'italic', 'underline', 'strikethrough', '|', 'fontScale', 'color', 'hr', 'alignment', 'link'];
 
         return {
             require: "?^ngModel",

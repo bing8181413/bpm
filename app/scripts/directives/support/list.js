@@ -205,7 +205,7 @@ define([
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                         '<div form-input text="名称" ng-model="param.name" required="true"></div>' +
                                         '<div form-input text="对应值" ng-model="param.value" required="true"></div>' +
-                                        '<div form-checkbox text="能力标签" ng-model="param.tags" type="number" required="true" default="" source="$root.common.tag" source-api=""></div>' +
+                                        '<div form-checkbox text="标签" ng-model="param.tags" type="number" required="true" default="" source="$root.common.tag" source-api=""></div>' +
                                         '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()" ng-disabled="FormBody.$invalid" >确定</a>' +
                                         '</form>';
                                     $scope.submit = function () {
