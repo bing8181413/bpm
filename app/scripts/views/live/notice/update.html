@@ -1,0 +1,16 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title inlineBlock">发送公告</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" name="FormBody" novalidate>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div form-input text="公告标题" ng-model="param.title" required="true"></div>
+                    <div form-textarea text="公告正文" ng-model="param.content" required="true"></div>
+                </div>
+            </div>
+            <a class="btn btn-success btn-rounded pull-right" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+        </form>
+    </div>
+</div>

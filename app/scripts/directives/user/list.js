@@ -144,7 +144,7 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show = function () {
-                        if(confirm('确定解绑该用户手机号码')){
+                        if (confirm('确定解绑该用户手机号码')) {
                             widget.ajaxRequest({
                                 url: '/users/' + supscope.data.user_id + '/mobile',
                                 method: 'put',
@@ -188,10 +188,10 @@ define([
                                         url: '/users/' + supscope.data.user_id + '/block',
                                         method: 'put',
                                         scope: $scope,
-                                        data: {minute:$scope.minute},
+                                        data: {minute: $scope.minute},
                                         success: function (json) {
-                                            if(json.code ==0){
-                                                widget.msgToast('禁言成功',200);
+                                            if (json.code == 0) {
+                                                widget.msgToast('禁言成功', 200);
                                                 $scope.cancel();
                                                 supscope.$parent.$parent.searchAction();
                                             }
@@ -270,6 +270,83 @@ define([
                                 size: 'lg'
                             }
                         );
+                    }
+                }
+            }
+        })
+        .directive('userLiveBlock', function ($templateCache, $rootScope, $compile, widget, $state, $uibModal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '',
+                link: function ($scope, $element, $attrs) {
+                    var status_text = '';
+                    var click_text = '';
+                    var class_text = '';
+                    var status_title = '';
+                    //用户列表和禁言用户列表都用到  做了以下判定
+                    $scope.data.block_status = $scope.data.block && $scope.data.block.block_status || ($scope.data.block_expire_time ? 2 : 1 );
+
+                    if ($scope.data.block_status == 1) {  //1 未被禁言
+                        status_title = '禁止评论';
+                        status_text = 'ng-bind="\'禁止评论\'"';
+                        class_text = 'ng-class={\"btn-warning\":true} ';
+                        click_text = 'ng-click="change(1);"';
+                    } else if ($scope.data.block_status == 2) {
+                        status_title = '解除禁止';
+                        status_text = 'ng-bind="\'解除禁止\'"';
+                        class_text = 'ng-class={\"btn-success\":true} ';
+                        click_text = 'ng-click="change(2);"';
+                    }
+                    var content = ' <a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text + '></a>';
+                    $element.html(content);
+                    $compile($element.contents())($scope);
+                    var supScope = $scope;
+                    $scope.change = function (block_status) {
+                        var modalInstance = $uibModal.open({
+                            template: function () {
+                                return $templateCache.get('app/' + simpleCons.biz_path + 'user/block.html');
+                            },
+                            controller: function ($scope, $uibModalInstance) {
+                                $scope.param = {};
+                                $timeout(function () {
+                                    if (block_status == 2) {
+                                        $scope.block_status = 2;
+                                        $scope.param.minute = 0;
+                                    } else {
+                                        $scope.block_status = 1;
+                                    }
+                                }, 0);
+
+                                $scope.$watch('param.minute', function (val) {
+                                    $scope.param.minute = Number($scope.param.minute);
+                                });
+                                $scope.submit = function () {
+                                    if (Number($scope.param.minute) < 0) {
+                                        widget.msgToast('分钟数必须大于0');
+                                        return false;
+                                    }
+                                    widget.ajaxRequest({
+                                        url: '/users/' + supScope.data.user_id + '/block ',
+                                        method: 'PUT',
+                                        scope: $scope,
+                                        data: $scope.param,
+                                        success: function (json) {
+                                            widget.msgToast('操作成功,请刷新查看');
+                                            supScope.$parent.searchAction();
+                                            $scope.cancel();
+                                        }
+                                    })
+                                }
+                                $scope.cancel = function () {
+                                    $uibModalInstance.dismiss('cancel');
+                                }
+                            },
+                            size: ''
+                        });
                     }
                 }
             }

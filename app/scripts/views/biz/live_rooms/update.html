@@ -24,6 +24,9 @@
                         <div form-input text="直播标题" ng-model="param.title" placeholder="直播标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
 
+                        <div form-double-date-time text-start="直播--开始时间" text-end="结束时间" required="true"
+                             ng-model-start="param.start_time" ng-model-end="param.end_time"></div>
+
                         <div form-input text="播放次数基数" ng-model="param.base_play_count" type="number" required="true"
                              min="0"></div>
                         <div form-input text="点赞次数基数" ng-model="param.base_thumbup_count" type="number" min="0"

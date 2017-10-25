@@ -1,0 +1,23 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title inlineBlock">直播禁言</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" name="FormBody" novalidate>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div form-radio text="禁言" type="radio" ng-model="readonly" default="1" ng-show="block_status!=2"
+                         source="[{text:'选择有效禁言时长',value:'1'},{text:'自定义',value:'2'}]"></div>
+                    <div form-radio text="禁言时长" type="radio" ng-model="param.minute" required="true" default="5"
+                         source-api="" ng-if="readonly==1" ng-show="block_status!=2"
+                         source="[{text:'5分钟',value:5},{text:'15分钟',value:15},{text:'30分钟',value:30}]"></div>
+                    <div form-input text="禁言时长" ng-model="param.minute" required="true"
+                         ng-if="readonly==2" placeholder="单位:分钟"></div>
+                    <h3 class="text-primary text-center" ng-show="block_status==2">解除禁言</h3>
+                </div>
+            </div>
+            &nbsp;&nbsp;&nbsp;<a class="btn btn-success btn-rounded pull-right" ng-disabled="FormBody.$invalid" ng-click="submit()">确定</a>
+            &nbsp;&nbsp;&nbsp;<a class="btn btn-warning btn-rounded pull-right" ng-click="cancel()">取消</a>
+        </form>
+    </div>
+</div>

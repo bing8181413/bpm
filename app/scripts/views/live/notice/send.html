@@ -1,0 +1,22 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title inlineBlock">发送公告</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" name="FormBody" novalidate>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div form-input text="房间ID" ng-model="room_id" required="true" placeholder="多个房间ID"></div>
+                    <div form-radio text="填写时长" type="radio" ng-model="readonly" default="1"
+                         source="[{text:'选择有效时长',value:'1'},{text:'填写有效时长',value:'2'}]"></div>
+                    <div form-radio text="选择有效时长" type="radio" ng-model="param.expire_time" required="true" default=""
+                         source-api="" ng-if="readonly==1"
+                         source="[{text:'15分钟',value:15},{text:'30分钟',value:30},{text:'45分钟',value:45},{text:'一小时',value:60},{text:'永久',value:-1}]"></div>
+                    <div form-input text="填写有效时长" ng-model="param.expire_time" required="true"
+                         ng-if="readonly==2" placeholder="单位:分钟"></div>
+                </div>
+            </div>
+            <a class="btn btn-success btn-rounded pull-right" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+        </form>
+    </div>
+</div>

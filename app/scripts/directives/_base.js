@@ -47,6 +47,7 @@ define([
     './student/list',// 学生
     './teacher/list',// 教师
     './live_rooms/list',// 直播
+    './live_notice/list',// 直播 点播 公告
     './record_comments/list',// 点播
     './support/list',// 点播
     './activitycoupons/list',// 活动 领取优惠券
@@ -54,10 +55,8 @@ define([
     './batchproducts/list',// 批量活动列表
 
 
-
     './videogroup/list',// 视频组
     './marketshare/list',// 观看权限
-
 
 
     './upload/upload-apk-token',//  直播APK

@@ -537,7 +537,7 @@ define([
                         }
                     })
                     if (!$scope.account_name) {
-                        $scope.account_name = '';
+                        $scope.account_name = $scope.data.account_id || '';
                     }
                 }
             }

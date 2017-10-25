@@ -202,6 +202,7 @@ define([
                     required: '@',
                     source: '=',
                     sourceApi: '@',
+                    type: '@?',
                     callback: '&',
                     ngDisabled: '='
                 },
@@ -223,10 +224,10 @@ define([
                             '<div class="col-sm-8">';
                         angular.forEach($scope.source, function (val, key) {
                             var value = '';
-                            if (typeof val.value == 'number') {
-                                value = ' value = "' + parseFloat(val.value) + '"';
+                            if ($scope.type == 'number' || typeof val.value == 'number') {
+                                var value = ' value = ' + val.value + '  ';
                             } else {
-                                value = ' value = "' + val.value + '"';
+                                var value = ' value = "' + val.value + '"';
                             }
                             content += '<label class="radio-inline radio1"><input ' + type + ' ng-model="ngModel"' +
                                 name + value + disabledRole + ngDisabled + '><span></span>' + val.text + '</label>';

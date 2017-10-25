@@ -6,6 +6,11 @@ define(['./common'], function (common) {
                 {name: '房间号', field: 'room_no'},
                 {name: '排序', field: 'order_by'},
                 {name: '标题', field: 'title'},
+                {
+                    name: '直播时间',
+                    fieldDirective: '<div><p ng-show="item.start_time">开始时间:<br/> <span ng-bind="item.start_time"></span></p>' +
+                    '<p ng-show="item.end_time">结束时间:<br/><span ng-bind="item.end_time"></span></p></div>'
+                },
                 {name: '订单类型', field: 'sku', filter: 'keyVal:\'10\':\'十万漫游\':\'0\':\'免费\''},
                 {
                     name: '房间状态/开关',
@@ -23,7 +28,11 @@ define(['./common'], function (common) {
                 },
                 {
                     name: '操作',
-                    fieldDirective: '<h5> <span live-room-edit data="item" ></span>&nbsp;&nbsp;&nbsp;<span live-room-plan data="item" ></span>&nbsp;&nbsp;&nbsp;<span live-room-download data="item"></span>'
+                    fieldDirective: '<span live-room-edit data="item" ></span>&nbsp;&nbsp;&nbsp;' +
+                    '<span live-room-plan data="item" ></span>&nbsp;&nbsp;&nbsp;' +
+                    '<span live-room-download data="item"></span>&nbsp;&nbsp;&nbsp;' +
+                    '<span live-room-block data="item"></span>&nbsp;&nbsp;&nbsp;' +
+                    '<span to-record-room-edit data="item" ></span>'
                 },
             ],
             config: {

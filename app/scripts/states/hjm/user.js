@@ -30,6 +30,17 @@ define([
                                 }
                             }
                         })
+                        .state(cons.state.main + '.user.blocklist', {
+                            url: "/blocklist",
+                            views: {
+                                "": {
+                                    // controller: 'accountController'
+                                    templateProvider: function ($templateCache) {
+                                        return '<div hjm-grid modid="userblockList" config="config" columns="columns"></div>';
+                                    }
+                                }
+                            }
+                        })
                         .state(cons.state.main + '.user.readlist', {
                             url: "/readlist",
                             views: {

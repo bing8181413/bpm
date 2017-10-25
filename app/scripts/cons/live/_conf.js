@@ -7,6 +7,8 @@ define([
     , './videogroupoption'
     , './videogroupuser'
     , './marketshareuser'
+    , './notice'
+    , './noticeroom'
 ], function () {
     return arguments;
 })

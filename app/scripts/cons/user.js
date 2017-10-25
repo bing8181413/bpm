@@ -15,7 +15,14 @@ define([], function () {
                 {name: '融云禁言到期', field: 'imblocktime', filter: 'null2empty'},
                 {name: '直播禁言', fieldDirective: '<div user-block data="item"></div>'},
                 {name: '模拟登陆', fieldDirective: '<div user-token data="item"></div>'},
-                {name: '绑定与解绑手机号', fieldDirective: '<div user-mobile-unbind data="item"></div>'},
+                {
+                    name: '绑定与解绑手机号',
+                    fieldDirective: '<div user-mobile-unbind data="item"></div>'
+                },
+                {
+                    name: '禁言管理',
+                    fieldDirective: '<span user-live-block data="item"></span>'
+                },
             ],
             columns_by_read: [
                 {name: 'ID', field: 'user_id', className: 'text-center'},
@@ -142,6 +149,43 @@ define([], function () {
                 preSelectionSearch: {
                     role_type: 2
                 },
+                paginationSupport: true,
+                pageInfo: {
+                    count: 50,
+                    page: 1,
+                    maxSize: 5, //最大展示页，默认3
+                    // showPageGoto: false //属性为true将显示前往第几页。
+                },
+                route: [{value: 'main.user.customersAdd', text: '新增马甲'}]
+            }
+        },
+        userblockList: {
+            columns: [
+                {name: 'ID', field: 'user_id', className: 'text-center'},
+                {name: '头像', fieldDirective: '<show_image url="item.user.avatar" width="100"></show_image>'},
+                // {name: '头像', field: 'avatar', filter: 'null2empty'},
+                {name: '微信昵称', field: 'user.name', filter: 'null2empty'},
+                {name: '性别', field: 'user.gender', filter: 'gender'},
+                {name: '手机号', field: 'user.mobile'},
+                {
+                    name: '禁言管理', className: 'text-center',
+                    fieldDirective: '<span user-live-block data="item"></span>'
+                },
+            ],
+            config: {
+                title: '马甲列表',
+                api: '/users/blockUsers',
+                rowItemName: 'item',
+                searchSupport: true,
+                searchItems: [
+                    {value: 'mobile', text: '手机号码'},
+                    {value: 'name', text: '微信昵称'},
+                    // {value: 'openid', text: '微信ID'},
+                    // {value: 'authed_at', text: '登陆日期', type: 'date'},
+                    // {value: 'datetime_min', text: '开始时间', type: 'datetime'},
+                    // {value: 'datetime_max', text: '结束时间', type: 'datetime'},
+                ],
+                preSelectionSearch: {},
                 paginationSupport: true,
                 pageInfo: {
                     count: 50,

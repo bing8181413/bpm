@@ -50,7 +50,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-rounded btn-sm btn-warning" ng-click="show()" >导入用户</a>',
+                template: '<a class="btn btn-rounded btn-sm btn-primary" ng-click="show()" >导入用户</a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show = function () {
