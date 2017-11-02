@@ -67,11 +67,16 @@
                         <div form-input text="流名称" ng-model="param.cloud.stream_name" placeholder="流名称"
                              required="true"></div>
 
-                        <div form-input text="RTMP" ng-model="param.cloud.rtmp_url" placeholder="RTMP"
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-4">
+                                <a class="btn btn-primary btn-bordered" ng-click="make_all_url()">根据流名称同步所有资源URL</a>
+                            </div>
+                        </div>
+                        <div form-input text="标清RTMP" ng-model="param.cloud.rtmp_url" placeholder="RTMP"
                              required="true"></div>
-                        <div form-input text="HLS" ng-model="param.cloud.mu_url" placeholder="HLS(m3u8)"
+                        <div form-input text="标清HLS" ng-model="param.cloud.mu_url" placeholder="HLS(m3u8)"
                              required="true"></div>
-                        <div form-input text="FLV" ng-model="param.cloud.flv_url" placeholder="FLV"
+                        <div form-input text="标清FLV" ng-model="param.cloud.flv_url" placeholder="FLV"
                              required="true"></div>
 
                         <div form-input text="高清RTMP" ng-model="param.cloud.high_rtmp_url" placeholder="RTMP"></div>

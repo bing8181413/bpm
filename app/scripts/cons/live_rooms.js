@@ -11,6 +11,13 @@ define(['./common'], function (common) {
                     fieldDirective: '<div><p ng-show="item.start_time">开始时间:<br/> <span ng-bind="item.start_time"></span></p>' +
                     '<p ng-show="item.end_time">结束时间:<br/><span ng-bind="item.end_time"></span></p></div>'
                 },
+                {
+                    name: '关联测评',
+                    fieldDirective: '<p ng-show="item.survey">测评ID:<span ng-bind="item.survey.plan_id"></span></p>' +
+                    '<p ng-show="item.survey">查看答案有效时间:<span ng-bind="item.survey.show_result_time+\'s\'"></span></p>' +
+                    '<span live-room-plan-add data="item"></span>'
+                },
+
                 {name: '订单类型', field: 'sku', filter: 'keyVal:\'10\':\'十万漫游\':\'0\':\'免费\''},
                 {
                     name: '房间状态/开关',
@@ -28,9 +35,9 @@ define(['./common'], function (common) {
                 },
                 {
                     name: '操作',
-                    fieldDirective: '<span live-room-edit data="item" ></span>&nbsp;&nbsp;&nbsp;' +
+                    fieldDirective: '<p><span live-room-edit data="item" ></span>&nbsp;&nbsp;&nbsp;' +
                     '<span live-room-plan data="item" ></span>&nbsp;&nbsp;&nbsp;' +
-                    '<span live-room-download data="item"></span>&nbsp;&nbsp;&nbsp;' +
+                    '<span live-room-download data="item"></span>&nbsp;&nbsp;&nbsp;</p>' +
                     '<span live-room-block data="item"></span>&nbsp;&nbsp;&nbsp;' +
                     '<span to-record-room-edit data="item" ></span>'
                 },

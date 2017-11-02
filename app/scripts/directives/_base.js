@@ -66,6 +66,9 @@ define([
     './merchant/list',//  供应商
 
 
+    './cert/list',//  供应商
+
+
     // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//
 ], function (mod,

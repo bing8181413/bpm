@@ -1,0 +1,90 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.id">新增问答证书</h3>
+            <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.id">修改问答证书</h3>
+            <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.id">问答证书详情</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div form-input text="ID" ng-model="param.id"
+                             ng-show="$stateParams.id"
+                             placeholder="ID" ng-disabled="$stateParams.id"></div>
+
+                        <div form-input text="名称" ng-model="param.name" placeholder="不超过25个字" required="true"
+                             minlength="1" maxlength="25"></div>
+
+                        <div form-input text="视频组ID" ng-model="param.video_group_id" required="true"></div>
+
+                        <div form-radio text="证书样式" ng-model="param.type" default="1" required="true"
+                             source="[{text:'名校证书',value:'1'}]"></div>
+
+                        <div form-image-single text="添加证书缩略图（获得）" ng-model="param.selected_thumb_image"
+                             required="true"></div>
+                        <div form-image-single text="添加证书缩略图（未获得）" ng-model="param.thumb_image" required="true"></div>
+                        <div form-image-single text="添加证书图片" ng-model="param.bg_image" required="true"></div>
+
+                        <div form-search text="关联测评活动ID" verify="verify_activity(param.activity_id)"
+                             btn-text="查询关联测评活动ID"
+                             ajax-config="{method:'get',url:$root.common.live_domain+'/live/certs/surveys?activity_id='+param.activity_id}"
+                             ng-model="param.activity_id" callback="add_activity(json)"></div>
+
+                        <!--<div form-table text="选择活动的测评" ng-model="param.cert_survey"-->
+                        <!--config="{add:false,readonly:true}"-->
+                        <!--columns="[{name: '测评ID', field:'plan_id',readonly:'true'}-->
+                        <!--,{name: '测评名称', field:'plan.name',readonly:'true'}-->
+                        <!--,{name: '管理', fieldDirective:'<span>1111111</span>'}]"></div>-->
+                        <div class="form-group">
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center">测评ID</th>
+                                        <th class="text-center">测评名称</th>
+                                        <th class="text-center" style="width: 250px;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="item in param.cert_survey">
+                                        <td class="text-center">
+                                            <span ng-bind="item.plan_id"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.survey.name"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="checkbox-inline checkbox1">
+                                                <input type="checkbox" ng-model="item.selected"
+                                                       name="{{item.plan_id}}"
+                                                       ng-checked="item.selected"
+                                                       ng-click="updateSelection($event,$index)">
+                                                <span></span>选择
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+
+                        <div form-input text="有效正确率" ng-model="param.pass_rate" placeholder="0~100之间的数字 ,单位是百分比"
+                             required="true" type="number" min="0" max="100"></div>
+
+                        <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过100个字"></div>
+
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.id?'admin,op':''}}'"
+                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

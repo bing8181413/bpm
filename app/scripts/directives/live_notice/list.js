@@ -61,10 +61,17 @@ define([
                                 return $templateCache.get('app/' + con.live_path + 'notice/send.html');
                             },
                             controller: function ($scope, $uibModalInstance) {
-                                $scope.param = {notice_id: supScope.data.id};
+                                $scope.param = {};
                                 $scope.$watch('param.expire_time', function (val) {
                                     $scope.param.expire_time = Number($scope.param.expire_time);
                                 })
+                                $scope.$watch('readonly', function (val, oldVal) {
+                                    // console.log(val, oldVal);
+                                    if (oldVal == 2 && val == 1) {
+                                        $scope.param.expire_time = 0;
+                                    }
+
+                                });
                                 $scope.submit = function () {
                                     $scope.param.room_ids = $scope.room_id.split(',');
                                     // console.log(Number($scope.param.expire_time));
@@ -73,7 +80,7 @@ define([
                                         return false;
                                     }
                                     widget.ajaxRequest({
-                                        url: con.live_domain + '/live/notice/sending',
+                                        url: con.live_domain + '/live/notice/' + supScope.data.id + '/sending',
                                         method: 'POST',
                                         scope: $scope,
                                         data: $scope.param,

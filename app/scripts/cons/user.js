@@ -13,15 +13,15 @@ define([], function () {
                 {name: '注册时间', field: 'created_at'},
                 {name: '最近一次使用时间', field: 'authed_at', filter: 'null2empty'},
                 {name: '融云禁言到期', field: 'imblocktime', filter: 'null2empty'},
-                {name: '直播禁言', fieldDirective: '<div user-block data="item"></div>'},
+                // {name: '直播禁言', fieldDirective: '<div user-block data="item"></div>'},
+                {
+                    name: '直播禁言管理',
+                    fieldDirective: '<span user-live-block data="item"></span>'
+                },
                 {name: '模拟登陆', fieldDirective: '<div user-token data="item"></div>'},
                 {
                     name: '绑定与解绑手机号',
                     fieldDirective: '<div user-mobile-unbind data="item"></div>'
-                },
-                {
-                    name: '禁言管理',
-                    fieldDirective: '<span user-live-block data="item"></span>'
                 },
             ],
             columns_by_read: [

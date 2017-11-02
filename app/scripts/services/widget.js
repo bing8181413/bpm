@@ -97,7 +97,13 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                             var tmp = [];
                             if (angular.isArray(val)) {
                                 angular.forEach(val, function (v, k) {
-                                    ajaxConfig.url += (key + '[]=' + v + '&');
+                                    if (angular.isArray(v)) {
+                                        angular.forEach(v, function (second_v, second_k) {
+                                            ajaxConfig.url += (key + '[' + k + '][]=' + second_v + '&');
+                                        });
+                                    } else {
+                                        ajaxConfig.url += (key + '[]=' + v + '&');
+                                    }
                                 });
                             } else if (!angular.isUndefined(val)) {
                                 ajaxConfig.url += (key + '=' + val + '&');

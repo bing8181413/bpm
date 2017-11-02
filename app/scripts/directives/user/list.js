@@ -287,13 +287,14 @@ define([
                     var click_text = '';
                     var class_text = '';
                     var status_title = '';
+                    var supScope = $scope;
                     //用户列表和禁言用户列表都用到  做了以下判定
                     $scope.data.block_status = $scope.data.block && $scope.data.block.block_status || ($scope.data.block_expire_time ? 2 : 1 );
 
                     if ($scope.data.block_status == 1) {  //1 未被禁言
-                        status_title = '禁止评论';
-                        status_text = 'ng-bind="\'禁止评论\'"';
-                        class_text = 'ng-class={\"btn-warning\":true} ';
+                        status_title = '禁止发言';
+                        status_text = 'ng-bind="\'禁止发言\'"';
+                        class_text = 'ng-class={\"btn-danger\":true} ';
                         click_text = 'ng-click="change(1);"';
                     } else if ($scope.data.block_status == 2) {
                         status_title = '解除禁止';
@@ -304,7 +305,6 @@ define([
                     var content = ' <a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text + '></a>';
                     $element.html(content);
                     $compile($element.contents())($scope);
-                    var supScope = $scope;
                     $scope.change = function (block_status) {
                         var modalInstance = $uibModal.open({
                             template: function () {

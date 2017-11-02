@@ -36,6 +36,8 @@ define([
     'states/hjm/live_rooms',//直播房间
     'states/hjm/record_rooms',//点播房间
 
+    'states/hjm/cert',//问答证书
+
 
     'states/hjm/cctalk_account',//CCtalk 账户列表
     'states/hjm/zhibo_qr_code',//CCtalk 直播二维码

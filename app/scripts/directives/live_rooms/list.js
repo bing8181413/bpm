@@ -233,6 +233,64 @@ define([
                 }
             }
         })
+        .directive('liveRoomPlanAdd', function ($templateCache, $rootScope, $compile, widget, $state, $uibModal, $timeout) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: ' <a class="btn btn-rounded btn-sm {{class_btn}}" ng-click="plan()" ng-bind="text">&&&&</a>',
+                link: function ($scope, $element, $attrs) {
+                    var supScope = $scope;
+                    $scope.already_add = $scope.data.survey && $scope.data.survey['id'] ? true : false;
+                    $scope.text = $scope.already_add ? '删除测评' : '添加测评';
+                    $scope.class_btn = $scope.already_add ? 'btn-danger' : 'btn-primary'
+                    $scope.plan = function (block_status) {
+                        var modalInstance = $uibModal.open({
+                            template: function () {
+                                return $templateCache.get('app/' + con.biz_path + 'live_rooms/add_plan.html');
+                            },
+                            controller: function ($scope, $uibModalInstance) {
+                                $scope.already_add = supScope.already_add;
+                                $scope.param = {room_id: supScope.data.id};
+                                $scope.submit = function () {
+                                    if (!$scope.already_add) {
+                                        widget.ajaxRequest({
+                                            url: con.live_domain + '/live/rooms/survey',
+                                            method: 'POST',
+                                            scope: $scope,
+                                            data: $scope.param,
+                                            success: function (json) {
+                                                widget.msgToast('添加成功,请刷新列表查看');
+                                                supScope.$parent.searchAction();
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    } else {
+                                        widget.ajaxRequest({
+                                            url: con.live_domain + '/live/rooms/survey/' + supScope.data.survey['id'],
+                                            method: 'DELETE',
+                                            scope: $scope,
+                                            data: {},
+                                            success: function (json) {
+                                                widget.msgToast('删除成功,请刷新列表查看');
+                                                supScope.$parent.searchAction();
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                }
+                                $scope.cancel = function () {
+                                    $uibModalInstance.dismiss('cancel');
+                                }
+                            },
+                            size: ''
+                        });
+                    }
+                }
+            }
+        })
         .directive('changeLiveRoomStatus', function ($templateCache, $rootScope, $compile, widget, $state) {
             return {
                 restrict: 'AE',

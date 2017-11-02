@@ -10,6 +10,12 @@ define(['./common'], function (common) {
                 {name: '发布时间', field: 'record.created_at'},
                 {name: '播放次数', field: 'record.play_count'},
                 {
+                    name: '关联测评',
+                    fieldDirective: '<p ng-show="item.survey">测评ID:<span ng-bind="item.survey.plan_id"></span></p>' +
+                    '<p ng-show="item.survey">查看答案有效时间:<span ng-bind="item.survey.show_result_time+\'s\'"></span></p>'+
+                    '<span live-room-plan-add data="item"></span>'
+                },
+                {
                     name: '评论次数',
                     fieldDirective: '<h5><a class="btn btn-info btn-rounded btn-sm" ui-sref="main.record_comment.list({id:item.record.id})">详情</a>' +
                     '&nbsp;&nbsp;&nbsp;<span ng-bind="item.record.comment_count|null2empty|zero2empty"></span></h5>'
