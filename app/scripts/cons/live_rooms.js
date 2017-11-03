@@ -18,7 +18,7 @@ define(['./common'], function (common) {
                     '<span live-room-plan-add data="item"></span>'
                 },
 
-                {name: '订单类型', field: 'sku', filter: 'keyVal:\'10\':\'十万漫游\':\'0\':\'免费\''},
+                {name: '订单类型', field: 'sku|common:\'live_sku\''},
                 {
                     name: '房间状态/开关',
                     fieldDirective: '<h5><span ng-bind="item.status|keyVal:\'1\':\'开启\':\'2\':\'——\'"></span>&nbsp;&nbsp;&nbsp;<span change-live-room-status data="item"></span></h5>'
