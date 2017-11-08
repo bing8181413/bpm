@@ -9,7 +9,7 @@ define([
                 restrict: 'EA',
                 replace: true,
                 scope: {},
-                // template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'nav-top/nav-message.html'),
+                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'nav-top/nav-message.html'),
                 link: function ($scope, $element, $attrs) {
 
                 }

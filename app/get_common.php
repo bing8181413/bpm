@@ -27,9 +27,11 @@ if (is_array($request_body)) { // 是数组  变量来控制
                 $output_code = json_decode($output)->code;
                 $output_data = json_decode($output)->data;
                 $output_msg = json_decode($output)->message;
+                $output_total = json_decode($output)->total;
             }
             if ($output_code == 0) {
                 $result_data[$obj->key] = $output_data;
+                $result_total[$obj->key] = $output_total;
             } else {
                 $rsp_code = 500;
                 $rsp_msg[$obj->key]->code = $output_code;
@@ -51,6 +53,7 @@ if (is_array($request_body)) { // 是数组  变量来控制
         $output = getData($url, http_build_query($param));
         $output_code = json_decode($output)->code;
         $output_data = json_decode($output)->data;
+        $result_total = json_decode($output)->total;
         if ($output_code == 0) {
             $result_data[$key] = $output_data;
         } else {
@@ -65,6 +68,7 @@ if (!$rsp_code == 500) {
         'code' => 0,
         'message' => $rsp_msg,
         'data' => $result_data,
+        'total' => $result_total,
     );
     echo json_encode($ret, true);
     return;
@@ -99,7 +103,7 @@ function getData($url, $data)
 {
     $ch = curl_init();
     $timeout = 300;
-    curl_setopt($ch, CURLOPT_URL, $url.$data);
+    curl_setopt($ch, CURLOPT_URL, $url . $data);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_USERPWD, $_SERVER['PHP_AUTH_USER'] . ':' . $_SERVER['PHP_AUTH_PW']);
     curl_setopt($ch, CURLOPT_HEADER, 0);

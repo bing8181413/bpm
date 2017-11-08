@@ -5,6 +5,11 @@ define([], function () {
                 {name: 'ID', field: 'id', className: 'text-right'},
                 {name: '母活动ID', field: 'parent_id', className: 'text-center'},
                 {
+                    name: '同步商品基数',
+                    fieldDirective: '<p><span ng-bind="item.sync_base|keyVal:\'1\':\'同步\':\'2\':\'不同步\'"></span></p>'
+                    + '<span batchproducts-update data="item"></span>'
+                },
+                {
                     name: '活动信息', className: 'width100 mobile_show',
                     fieldDirective: '<div><p><span ng-bind="\'标题:\'+item.product.title"></span></p>' +
                     '<p><span ng-bind="\'SKU:\'+(item.product.sku|product_sku)"></span></p>' +

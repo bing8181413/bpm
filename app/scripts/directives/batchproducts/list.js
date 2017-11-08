@@ -18,12 +18,13 @@ define([
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                                 controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '新增母活动';
-                                    $scope.param = {parent_id: ''};
+                                    $scope.param = {parent_id: '', sync_base: 2};
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                         '<div form-search text="查询添加活动ID" verify="true" btn-text="添加活动ID" ' +
                                         'ajax-config="{method:\'get\',url:$root.common.domain+\'/products/\'+produce_id}" ' +
                                         'ng-model="produce_id" callback="add_parent_id(json)"></div>' +
                                         '<div form-input text="活动ID" ng-model="param.parent_id" required="true" ng-disabled="true" ></div>' +
+                                        '<div form-radio text="同步商品基数" ng-model="param.sync_base" type="number" required="true" source="[{text:\'同步\',value:\'1\'},{text:\'不同步\',value:\'2\'}]"></div>' +
                                         '<a class="btn btn-success btn-rounded pull-right"  ng-disabled="FormBody.$invalid" ng-click="submit()">确定</a>' +
                                         '</form>';
                                     $scope.add_parent_id = function (json) {
@@ -42,6 +43,53 @@ define([
                                             data: $scope.param,
                                             success: function (json) {
                                                 widget.msgToast('添加母活动成功!');
+                                                supscope.$parent.searchAction();
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                    $scope.cancel = function () {
+                                        $uibModalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'lg'
+                            }
+                        );
+                    }
+                }
+            }
+        })
+        .directive('batchproductsUpdate', function ($templateCache, $filter, $compile, widget, $state, $rootScope, $uibModal) {
+            return {
+                restrict: 'AE',
+                replace: true,
+                scope: {
+                    data: '=',
+                },
+                template: '<span class="btn btn-rounded btn-success btn-sm" ng-click="show();">编辑关联参数</span>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show = function () {
+                        var modalInstance = $uibModal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $uibModalInstance) {
+                                    $scope.title = '新增母活动';
+                                    // $scope.param = {parent_id: supscope.data.parent_id, sync_base: supscope.data.sync_base};
+                                    $scope.param = supscope.data;
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
+                                        '<div form-input text="活动ID" ng-model="param.parent_id" required="true" ng-disabled="true" ></div>' +
+                                        '<div form-radio text="同步商品基数" ng-model="param.sync_base" type="number" required="true" source="[{text:\'同步\',value:\'1\'},{text:\'不同步\',value:\'2\'}]"></div>' +
+                                        '<a class="btn btn-success btn-rounded pull-right"  ng-disabled="FormBody.$invalid" ng-click="submit()">确定</a>' +
+                                        '</form>';
+                                    $scope.submit = function () {
+                                        widget.ajaxRequest({
+                                            url: '/product/parent/' + supscope.data.id,
+                                            method: 'PUT',
+                                            scope: $scope,
+                                            data: $scope.param,
+                                            success: function (json) {
+                                                widget.msgToast('修改母活动成功!');
+                                                supscope.$parent.searchAction();
                                                 $scope.cancel();
                                             }
                                         })

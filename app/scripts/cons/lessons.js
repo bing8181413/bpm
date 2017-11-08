@@ -5,9 +5,10 @@ define([], function () {
                 {name: 'ID', field: 'lesson_id', className: 'text-right'},
                 {
                     name: '活动ID/已选择类目',
-                    fieldDirective: '<div><p ng-bind="item.products[0].product_id|null2empty"></p>' +
+                    fieldDirective: '<div>' +
                     '<p ng-repeat="obj in item.products">' +
-                    '<span ng-if="obj.option" ng-bind="($index+1)+\'.\'+obj.option.option_name"></span>' +
+                    '<span ng-bind="obj.product_id|null2empty"></span>' +
+                    '<span ng-if="obj.option" ng-bind="\' ): \'+obj.option.option_name"></span>' +
                     '<span ng-if="obj.option.option_name" ng-bind="\'/￥\' +obj.option.option_price"></span>' +
                     '</p></div>'
                 },

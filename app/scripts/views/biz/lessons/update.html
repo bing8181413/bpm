@@ -97,57 +97,85 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">关联活动
-                                <span class="form_label_dangus">*</span></label>
-                            <div class="col-sm-2">
-                                <input class="form-control" ng-model="product_id" placeholder="活动ID"
-                                       required="true">
-                            </div>
-                            <div class="col-sm-2">
-                                <a class="btn btn-primary btn-rounded" ng-click="search_product_id()">查询</a>
-                            </div>
-                        </div>
-                        <div class="form-group">
                             <div class="col-sm-8 col-sm-offset-2">
-                                <table class="table table-bordered table-striped">
-                                    <thead>
-                                    <tr>
-                                        <th class="text-center">ID</th>
-                                        <th class="text-center">类型</th>
-                                        <th class="text-center">类目</th>
-                                        <th class="text-center">价格</th>
-                                        <th class="text-center" style="width: 250px;">操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr ng-repeat="item in products">
-                                        <td class="text-center">
-                                            <span ng-bind="item.option_id"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span ng-bind="item.option_type|keyVal:'2':'人数团':'3':'直接买':'4':'礼包'"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span ng-bind="item.option_name"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <span ng-bind="item.option_price"></span>
-                                        </td>
-                                        <td class="text-center">
-                                            <label class="checkbox-inline checkbox1">
-                                                <input type="checkbox" ng-model="item.selected"
-                                                       name="{{item.option_id}}"
-                                                       ng-checked="item.selected"
-                                                       ng-disabled="item.disabled"
-                                                       ng-click="updateSelection($event,$index)">
-                                                <span></span>选择
-                                            </label>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
+                                <div class="panel panel-primary">
+                                    <div class="panel-body">
+                                        <div form-search text="搜索活动ID" btn-text="查询活动类目"
+                                             verify="verify_product(product_id)"
+                                             ajax-config="{method:'get',url:$root.common.domain+'/products/'+product_id+'/options?count=1000'}"
+                                             ng-model="product_id"
+                                             callback="add_product(json)"></div>
+                                        <div form-checkbox text="选择类目" ng-model="_tmp_.options_selected"
+                                             type="number" ng-show="_tmp_.options.length>0"
+                                             source="_tmp_.options"></div>
+
+                                        <json-table ng-model="param.products" config="{readonly:true}"
+                                                    columns="[{name: '活动ID', field:'product_id',readonly:'true'},
+                                                    {name: '拼团类型', field:'option.option_type|product_category',readonly:'true'},
+                                                    {name: '类目ID', field:'option_id',readonly:'true'},
+                                                    {name: '类目名称', field:'option.option_name',readonly:'true'},
+                                                    {name: '状态', field:'option.option_status|product_option_status',readonly:'true'}]">
+                                        </json-table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
+                        <!--<div class="form-group">-->
+                        <!--<label class="col-sm-2 control-label">关联活动-->
+                        <!--<span class="form_label_dangus">*</span></label>-->
+                        <!--<div class="col-sm-2">-->
+                        <!--<input class="form-control" ng-model="product_id" placeholder="活动ID"-->
+                        <!--required="true">-->
+                        <!--</div>-->
+                        <!--<div class="col-sm-2">-->
+                        <!--<a class="btn btn-primary btn-rounded" ng-click="search_product_id()">查询</a>-->
+                        <!--</div>-->
+                        <!--</div>-->
+                        <!--<div class="form-group">-->
+                        <!--<div class="col-sm-8 col-sm-offset-2">-->
+                        <!--<table class="table table-bordered table-striped">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                        <!--<th class="text-center">ID</th>-->
+                        <!--<th class="text-center">类型</th>-->
+                        <!--<th class="text-center">类目</th>-->
+                        <!--<th class="text-center">价格</th>-->
+                        <!--<th class="text-center">状态</th>-->
+                        <!--<th class="text-center" style="width: 250px;">操作</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr ng-repeat="item in products">-->
+                        <!--<td class="text-center">-->
+                        <!--<span ng-bind="item.option_id"></span>-->
+                        <!--</td>-->
+                        <!--<td class="text-center">-->
+                        <!--<span ng-bind="item.option_type|keyVal:'2':'人数团':'3':'直接买':'4':'礼包'"></span>-->
+                        <!--</td>-->
+                        <!--<td class="text-center">-->
+                        <!--<span ng-bind="item.option_name"></span>-->
+                        <!--</td>-->
+                        <!--<td class="text-center">-->
+                        <!--<span ng-bind="item.option_price"></span>-->
+                        <!--</td>-->
+                        <!--<td class="text-center">-->
+                        <!--<span ng-bind="item.option_status|keyVal:'1':'正常':'2':'删除'"></span>-->
+                        <!--</td>-->
+                        <!--<td class="text-center">-->
+                        <!--<label class="checkbox-inline checkbox1">-->
+                        <!--<input type="checkbox" ng-model="item.selected"-->
+                        <!--name="{{item.option_id}}"-->
+                        <!--ng-checked="item.selected"-->
+                        <!--ng-disabled="item.disabled"-->
+                        <!--ng-click="updateSelection($event,$index)">-->
+                        <!--<span></span>选择-->
+                        <!--</label>-->
+                        <!--</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                        <!--</table>-->
+                        <!--</div>-->
+                        <!--</div>-->
 
                     </div>
                 </div>

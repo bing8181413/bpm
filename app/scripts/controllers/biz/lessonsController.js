@@ -177,12 +177,18 @@ define([
                 success: function (json) {
                     $scope.param = angular.copy(json.data);
                     $scope.product_id = $scope.param.products[0] && $scope.param.products[0].product_id;
-                    $scope.search_product_id();
+                    // $scope.search_product_id();
                 }
             })
         } else {
             $scope.param = {};
         }
+        // 临时变量存放
+        $scope._tmp_ = {
+            options: [], // 已查询出的选项
+            options_selected: []  // 当前已选的变量
+        };
+
         $scope.add_schedule = function () {
             if (!$scope.param.schedules) {
                 $scope.param.schedules = [];
@@ -199,68 +205,162 @@ define([
                 $scope.param.schedules.splice(index, 1);
             }
         }
-        // 查询活动ID
-        var search_product_time = 0;
-        $scope.search_product_id = function () {
-            search_product_time++;
-            if (!$scope.product_id) {
-                if (search_product_time > 1) {
-                    widget.msgToast('没有活动ID');
-                }
-                return false;
+
+
+        $scope.verify_product = function (product_id) {
+            if (product_id) {
+                return true;
+            } else {
+                return '请输入活动ID!!';
             }
-            widget.ajaxRequest({
-                url: '/lessons_options',
-                method: 'GET',
-                data: {product_id: $scope.product_id},
-                success: function (json) {
-                    if (json.data.length > 0) {
-                        if ($stateParams.lesson_id) {
-                            angular.forEach(json.data, function (val, key) {
-                                if (val.lesson_id != 0 && val.lesson_id != $stateParams.lesson_id) {
-                                    val.disabled = true;
-                                    val.selected = true;
-                                } else {
-                                    angular.forEach($scope.param.products, function (v, k) {
-                                        if (val.option_id == v.option_id) {
-                                            val.selected = true;
-                                            val.id = v.id;
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                        $scope.products = json.data;
+        }
+        $scope.add_product = function (json) {
+            if (json.code == 0) {
+                $scope._tmp_.options = [];
+                angular.forEach(json.data, function (val, key) {
+                    $scope._tmp_.options.push({
+                        option: {
+                            option_type: val.option_type,
+                            option_status: val.option_status,
+                            option_name: val.option_name
+                        },
+                        option_id: val.option_id,
+                        product_id: val.product_id,
+                        text: val.option_name + '(' + $filter('product_option_status')(val.option_status) + ')',
+                        value: val.option_id
+                    });
+                })
+                $scope._tmp_.options_selected = [];
+                angular.forEach($scope.param.products, function (val, key) {
+                    if (val.option_id) {
+                        angular.forEach($scope._tmp_.options, function (_tmp_options_val, _tmp_options_key) {
+                            if (val.option_id == _tmp_options_val.option_id) {
+                                $scope._tmp_.options_selected.push(_tmp_options_val.option_id);
+                                // _tmp_options_val.id = val.id;
+                            }
+                        });
+                    }
+                });
+            }
+        }
+        $scope.update_option = function () {
+            angular.forEach($scope._tmp_.options, function (_tmp_option_val, _tmp_option_key) {
+                if (('|' + $scope._tmp_.options_selected.join('|') + '|').indexOf('|' + _tmp_option_val.option_id + '|') > -1) {
+                    if ($filter('arraySub2String')($scope.param.products, 'option_id').indexOf(_tmp_option_val.option_id) == -1) {
+                        //已选中  未在param.products列表
+                        console.log(1);
+                        $scope.param.products.push(_tmp_option_val);
                     } else {
-                        widget.msgToast('未找到符合要求的活动');
+                        //已选中  已在param.products列表
+                        console.log(2);
+                    }
+                } else {
+                    if ($filter('arraySub2String')($scope.param.products, 'option_id').indexOf(_tmp_option_val.option_id) > -1) {
+                        //未选中  已在param.products列表
+                        console.log(3);
+                        var tmp_index = 0;
+                        angular.forEach($scope.param.products, function (options, options_key) {
+                            if (_tmp_option_val.option_id == options.option_id) {
+                                tmp_index = options_key;
+                            }
+                        });
+                        $scope.param.products.splice(tmp_index, 1);
+                    } else {
+                        //未选中  未在param.products列表
+                        console.log(4);
                     }
                 }
-            })
+            });
         }
-
-        $scope.updateSelection = function ($event, index) {
-            var checkbox = $event.target;
-            var checked = checkbox.checked;
-            if (checked) {
-                $scope.products[index].selected = true;
+        $scope.$watch('param.products', function (products) {
+            if (products) {
+                // $scope.update_option();
             } else {
-                $scope.products[index].selected = false;
+                // console.log('还没有products');
             }
-        };
+        }, true)
+        $scope.$watch('_tmp_', function (options_val, old_options_val) {
+            var diff = $filter('arraySub2String')(options_val.options, 'option_id') + '???' + $filter('arraySub2String')(old_options_val.options, 'option_id');
+            // console.log(0, diff);
+            if ($filter('arraySub2String')(options_val.options, 'option_id') == $filter('arraySub2String')(old_options_val.options, 'option_id')) {
+                // console.log('ok', options_val, old_options_val);
+                $scope.update_option();
+            } else {
+                // console.log('diff', options_val, old_options_val);
+                angular.forEach(options_val.options, function (tmp_options, tmp_options_key) {
+                    angular.forEach($scope.param.products, function (options, options_key) {
+                        if (tmp_options.option_id == options.option_id) {
+                            $scope._tmp_.options_selected.push(tmp_options.option_id);
+                        }
+                    });
+                });
+
+            }
+        }, true)
+
+
+        // // 查询活动ID
+        // var search_product_time = 0;
+        // $scope.search_product_id = function () {
+        //     search_product_time++;
+        //     if (!$scope.product_id) {
+        //         if (search_product_time > 1) {
+        //             widget.msgToast('没有活动ID');
+        //         }
+        //         return false;
+        //     }
+        //     widget.ajaxRequest({
+        //         url: '/lessons_options',
+        //         method: 'GET',
+        //         data: {product_id: $scope.product_id},
+        //         success: function (json) {
+        //             if (json.data.length > 0) {
+        //                 if ($stateParams.lesson_id) {
+        //                     angular.forEach(json.data, function (val, key) {
+        //                         if (val.lesson_id != 0 && val.lesson_id != $stateParams.lesson_id) {
+        //                             val.disabled = true;
+        //                             val.selected = true;
+        //                         } else {
+        //                             angular.forEach($scope.param.products, function (v, k) {
+        //                                 if (val.option_id == v.option_id) {
+        //                                     val.selected = true;
+        //                                     val.id = v.id;
+        //                                 }
+        //                             });
+        //                         }
+        //                     });
+        //                 }
+        //                 $scope.products = json.data;
+        //             } else {
+        //                 widget.msgToast('未找到符合要求的活动');
+        //             }
+        //         }
+        //     })
+        // }
+        //
+        // $scope.updateSelection = function ($event, index) {
+        //     var checkbox = $event.target;
+        //     var checked = checkbox.checked;
+        //     if (checked) {
+        //         $scope.products[index].selected = true;
+        //     } else {
+        //         $scope.products[index].selected = false;
+        //     }
+        // };
         $scope.submit = function (status) {
             // console.log($scope.param);
 
             //组装 param.options start
-            $scope.param.products = [];
-            angular.forEach($scope.products, function (val, key) {
-                if (val.selected && !val.disabled) {
-                    $scope.param.products.push({
-                        id: val.id || undefined,
-                        product_id: val.product_id,
-                        option_id: val.option_id,
-                    });
-                }
-            });
+            // $scope.param.products = [];
+            // angular.forEach($scope.products, function (val, key) {
+            //     if (val.selected && !val.disabled) {
+            //         $scope.param.products.push({
+            //             id: val.id || undefined,
+            //             product_id: val.product_id,
+            //             option_id: val.option_id,
+            //         });
+            //     }
+            // });
             //组装 param.options end
 
             var err_schedules = false;

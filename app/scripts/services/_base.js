@@ -122,13 +122,13 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                     $rootScope.hjm = JSON.parse(localStorage.getItem('hjm'));
                     // $rootScope.selected = angular.copy($rootScope.hjm);
                     // $rootScope.selected.account_id = '';
-                    $rootScope.current_city_name = $rootScope.hjm.current_city_name == '' ? '' : $rootScope.hjm.current_city_name;
+                    $rootScope.current_city_name = ($rootScope.hjm && $rootScope.hjm.current_city_name == '') ? '' : ($rootScope.hjm && $rootScope.hjm.current_city_name);
                     $http.defaults.headers.common.Authorization = $rootScope.hjm.Authorization || '';
                 }
-
+                $rootScope.func = {};//定义公共函数
                 $rootScope.account_list = [];
                 $rootScope.account_list_bd_op = [];
-                $rootScope.get_accounts = function (accounts) {
+                $rootScope.func.get_accounts = function (accounts) {
                     $rootScope.account_list_bd_op.push({
                         text: '--请选择--',
                         value: undefined
@@ -157,7 +157,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
 
 
                 $rootScope.teacher_list = [];
-                $rootScope.get_teachers = function (teachers) {
+                $rootScope.func.get_teachers = function (teachers) {
                     $rootScope.teacher_list = [{
                         text: '--请选择--',
                         value: undefined
@@ -171,7 +171,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 }
 
 
-                $rootScope.get_categories = function (categories) {
+                $rootScope.func.get_categories = function (categories) {
                     $rootScope.survey_question_category_list = []; // 获取 survey_question_category_list  维度列表
                     $rootScope.survey_question_category_list_attachments = [];//适用于form—table 里的 select  附加信息
                     $rootScope.survey_question_category_list_general = [];//适用于form—table 里的 select  普通信息
@@ -206,7 +206,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 }
 
 
-                $rootScope.get_attachments_questions = function (attachments_questions) {
+                $rootScope.func.get_attachments_questions = function (attachments_questions) {
                     $rootScope.survey_question_list_attachments = [];
                     $rootScope.survey_question_list_attachments.push({
                         value: undefined,
@@ -219,24 +219,30 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                         });
                     });
                 }
-                $rootScope.get_skus = function (skus) {
+                $rootScope.func.get_skus = function (skus) {
                     // console.log($rootScope.common, skus)
                     $rootScope.common.sku = skus.map(function (val) {
                         return {text: val.name, value: Number(val.value)};
                     });
                 }
-                $rootScope.get_live_skus = function (live_skus) {
+                $rootScope.func.get_live_skus = function (live_skus) {
                     // console.log($rootScope.common, skus)
                     $rootScope.common.live_sku = live_skus.map(function (val) {
                         return {text: val.name, value: Number(val.value)};
                     });
                     $rootScope.common.live_sku.push({text: '免费', value: 0});
                 }
-                $rootScope.get_tags = function (tags) {
+                $rootScope.func.get_tags = function (tags) {
                     // console.log($rootScope.common, skus)
                     $rootScope.common.tag = tags.map(function (val) {
                         return {text: val.name, value: Number(val.id)};
                     });
+                }
+                $rootScope.func.get_expires_product = function (expires_product, total) {
+                    $rootScope.common.expires_product = {data: expires_product, total: total};
+                }
+                $rootScope.func.get_inventories_product = function (inventories_product, total) {
+                    $rootScope.common.inventories_product = {data: inventories_product, total: total};
                 }
                 $rootScope.reset = function (request_param) {
                     if (!$http.defaults.headers.common.Authorization || !localStorage.getItem('login_account')) {
@@ -296,6 +302,14 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                     "key": 'tags',
                                     "url": cons.domain + '/supports/tags?count=1000', data: {}
                                     // "data": {"count": 1000, "status": 1}
+                                },
+                                {
+                                    "key": 'expires_product',// 过期商品报警
+                                    "url": cons.domain + '/products/expires?count=10', data: {}
+                                },
+                                {
+                                    "key": 'inventories_product', //  库存不足商品报警
+                                    "url": cons.domain + '/products/inventories?count=10', data: {}
                                 }
                             );
                         }
@@ -308,25 +322,31 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                                     $rootScope.hjm.menus = json.data.menus;
                                 }
                                 if (json.data.accounts) {
-                                    $rootScope.get_accounts(json.data.accounts);
+                                    $rootScope.func.get_accounts(json.data.accounts);
                                 }
                                 if (json.data.teachers) {
-                                    $rootScope.get_teachers(json.data.teachers);
+                                    $rootScope.func.get_teachers(json.data.teachers);
                                 }
                                 if (json.data.categories) {
-                                    $rootScope.get_categories(json.data.categories);
+                                    $rootScope.func.get_categories(json.data.categories);
                                 }
                                 if (json.data.attachments_questions) {
-                                    $rootScope.get_attachments_questions(json.data.attachments_questions);
+                                    $rootScope.func.get_attachments_questions(json.data.attachments_questions);
                                 }
                                 if (json.data.skus) {
-                                    $rootScope.get_skus(json.data.skus);
+                                    $rootScope.func.get_skus(json.data.skus);
                                 }
                                 if (json.data.live_skus) {
-                                    $rootScope.get_live_skus(json.data.live_skus);
+                                    $rootScope.func.get_live_skus(json.data.live_skus);
                                 }
                                 if (json.data.tags) {
-                                    $rootScope.get_tags(json.data.tags);
+                                    $rootScope.func.get_tags(json.data.tags);
+                                }
+                                if (json.data.expires_product) {
+                                    $rootScope.func.get_expires_product(json.data.expires_product, json.total.expires_product);
+                                }
+                                if (json.data.inventories_product) {
+                                    $rootScope.func.get_inventories_product(json.data.inventories_product, json.total.inventories_product);
                                 }
                             },
                             error: function (err) {
