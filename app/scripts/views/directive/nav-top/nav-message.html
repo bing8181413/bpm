@@ -13,26 +13,26 @@
             <li class="dropdown-messages" ng-repeat="obj in $root.common.expires_product.data">
                 <a ui-sref="main.act.update({product_id:{{obj.product_id}}})">
                     <div class="message-sender"> 商品ID {{obj.product_id}}</div>
-                    <div class="message-header"> 标题: {{obj.title}}</div>
+                    <div class="message-header"> 标题: {{obj.title|limitTo:15}}..</div>
                 </a>
             </li>
         </ul>
     </li>
     <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)"
-        ng-show="$root.common.expires_product&&$root.common.inventories_product.total>0">
+        ng-show="$root.common.inventories_product&&$root.common.inventories_product.total>0">
         <a class="dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
             <span class="fa fa-flash"></span>&nbsp;&nbsp;库存不足提醒&nbsp;&nbsp;
             <span class="badge badge-red"
-                  ng-bind="$root.common.expires_product&&$root.common.inventories_product.total"></span>
+                  ng-bind="$root.common.inventories_product&&$root.common.inventories_product.total"></span>
         </a>
         <ul class="dropdown-menu animated fadeIn" uib-dropdown-menu>
             <li class="messages-top text-center">
-                有 {{$root.common.expires_product&&$root.common.expires_product.total}} 个商品库存不足.
+                有 {{$root.common.inventories_product&&$root.common.inventories_product.total}} 个商品库存不足.
             </li>
-            <li class="dropdown-messages" ng-repeat="obj in $root.common.expires_product.data">
+            <li class="dropdown-messages" ng-repeat="obj in $root.common.inventories_product.data">
                 <a ui-sref="main.act.update({product_id:{{obj.product_id}}})">
                     <div class="message-sender"> 商品ID {{obj.product_id}}</div>
-                    <div class="message-header"> 标题: {{obj.title}}</div>
+                    <div class="message-header"> 标题: {{obj.title|limitTo:15}}..</div>
                 </a>
             </li>
         </ul>
