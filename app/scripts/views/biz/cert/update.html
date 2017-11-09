@@ -33,7 +33,7 @@
 
                         <div form-search text="关联测评活动ID" verify="verify_activity(param.activity_id)"
                              btn-text="查询关联测评活动ID"
-                             ajax-config="{method:'get',url:$root.common.live_domain+'/live/certs/surveys?activity_id='+param.activity_id}"
+                             ajax-config="{method:'get',url:$root.common.live_domain+'/live/certs/surveys?count=200&activity_id='+param.activity_id}"
                              ng-model="param.activity_id" callback="add_activity(json)"></div>
 
                         <!--<div form-table text="选择活动的测评" ng-model="param.cert_survey"-->
