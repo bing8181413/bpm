@@ -4,7 +4,11 @@ define(['./common'], function (common) {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-center'},
                 {name: '排序', field: 'order_by'},
-                {name: '房间号', field: 'room_no'},
+                {
+                    name: '房间号/URL地址',
+                    fieldDirective: '<p ng-bind="item.room_no"></p>' +
+                    '<span ng-bind="$root.common.wx_domain+\'/chatroomdetail?room_no=\'+item.room_no"></span>'
+                },
                 {name: '标题', field: 'title'},
                 {name: '苹果标示', field: 'ios_audit|keyVal:\'1\':\'是\':\'2\':\'——\''},
                 {name: '发布时间', field: 'record.created_at'},
@@ -12,7 +16,7 @@ define(['./common'], function (common) {
                 {
                     name: '关联测评',
                     fieldDirective: '<p ng-show="item.survey">测评ID:<span ng-bind="item.survey.plan_id"></span></p>' +
-                    '<p ng-show="item.survey">查看答案有效时间:<span ng-bind="item.survey.show_result_time+\'s\'"></span></p>'+
+                    '<p ng-show="item.survey">查看答案有效时间:<span ng-bind="item.survey.show_result_time+\'s\'"></span></p>' +
                     '<span live-room-plan-add data="item"></span>'
                 },
                 {
