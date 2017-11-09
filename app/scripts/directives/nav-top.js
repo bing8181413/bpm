@@ -11,7 +11,18 @@ define([
                 scope: {},
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'nav-top/nav-message.html'),
                 link: function ($scope, $element, $attrs) {
-
+                    $scope.refresh_product = function () {
+                        $rootScope.reset([
+                            {
+                                "key": 'expires_product',// 过期商品报警
+                                "url": simpleCons.domain + '/products/expires?count=10', data: {}
+                            },
+                            {
+                                "key": 'inventories_product', //  库存不足商品报警
+                                "url": simpleCons.domain + '/products/inventories?count=10', data: {}
+                            }]
+                        );
+                    }
                 }
             };
         })

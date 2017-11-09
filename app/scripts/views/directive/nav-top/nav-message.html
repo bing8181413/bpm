@@ -12,8 +12,8 @@
             </li>
             <li class="dropdown-messages" ng-repeat="obj in $root.common.expires_product.data">
                 <a ui-sref="main.act.update({product_id:{{obj.product_id}}})">
-                    <div class="message-sender"> 商品ID {{obj.product_id}}</div>
-                    <div class="message-header"> 标题: {{obj.title|limitTo:15}}..</div>
+                    <div class="message-sender">ID :{{obj.product_id}}</div>
+                    <div class="message-header">{{obj.title|limitTo:15}}..</div>
                 </a>
             </li>
         </ul>
@@ -31,10 +31,15 @@
             </li>
             <li class="dropdown-messages" ng-repeat="obj in $root.common.inventories_product.data">
                 <a ui-sref="main.act.update({product_id:{{obj.product_id}}})">
-                    <div class="message-sender"> 商品ID {{obj.product_id}}</div>
-                    <div class="message-header"> 标题: {{obj.title|limitTo:15}}..</div>
+                    <div class="message-sender">ID : {{obj.product_id}}</div>
+                    <div class="message-header">{{obj.title|limitTo:15}}..</div>
                 </a>
             </li>
         </ul>
+    </li>
+    <li class="dropdown" uib-dropdown="">
+        <a class="dropdown-toggle" ng-click="refresh_product();">
+            <span class="fa fa-refresh"></span>
+        </a>
     </li>
 </ul>

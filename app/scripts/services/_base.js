@@ -258,7 +258,11 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                         //     attachments_questions: cons.domain + '/surveys/questions?count=1000&status=1&category_type=1',//适用于form—table 里的 select  附加信息的题目
                         // },
                         if (request_param) {
-                            param.push(request_param);
+                            if (angular.isArray(request_param)) {
+                                param = param.concat(request_param);
+                            } else {
+                                param.push(request_param);
+                            }
                         } else {
                             param.push(
                                 {
