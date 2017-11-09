@@ -367,7 +367,7 @@ define([
                         click_text = 'ng-click="change(2);"';
                         $scope.show_text = true;
                         if ($scope.data.status == 2) {//  房间关闭 也不能开启直播流
-                            status_disabled = 'ng-disabled="true"';
+                            // status_disabled = 'ng-disabled="true"';
                         }
                     }
                     var content = ' <a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text + status_disabled + ' ng-show="show_text"></a>';

@@ -3,7 +3,11 @@ define(['./common'], function (common) {
         liveRoomsList: {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-center'},
-                {name: '房间号', field: 'room_no'},
+                {
+                    name: '房间号',
+                    fieldDirective: '<p ng-bind="item.room_no"></p>' +
+                    '<span ng-bind="$root.common.wx_domain+\'/chatroomdetail?room_no=\'+item.room_no"></span>'
+                },
                 {name: '排序', field: 'order_by'},
                 {name: '标题', field: 'title'},
                 {
