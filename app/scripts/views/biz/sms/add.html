@@ -9,14 +9,17 @@
                     <div class="panel-body">
                         <h4>短信信息</h4>
                         <div form-radio text="短信运营商" ng-model="param.is_marketing" required="true"
-                             source="[{text:'大汉三通短信',value:'1'},{text:'漫道',value:'2'}]" default="1"></div>
+                             source="[{text:'大汉三通短信',value:'1'},{text:'建周短信',value:'0'}]" default="1"></div>
 
-                        <div form-radio text="是否定时" ng-model="param.is_timing" required="true"
-                             ng-if="param.is_marketing==2"
-                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" default="2"></div>
+                        <!--<div form-radio text="短信运营商" ng-model="param.is_marketing" required="true"-->
+                             <!--source="[{text:'大汉三通短信',value:'1'},{text:'漫道',value:'2'}]" default="1"></div>-->
 
-                        <div form-date-time text="定时的时间" ng-model="param.timing_date" required="true"
-                             ng-if="param.is_timing==1"></div>
+                        <!--<div form-radio text="是否定时" ng-model="param.is_timing" required="true"-->
+                             <!--ng-if="param.is_marketing==2"-->
+                             <!--source="[{text:'是',value:'1'},{text:'否',value:'2'}]" default="2"></div>-->
+
+                        <!--<div form-date-time text="定时的时间" ng-model="param.timing_date" required="true"-->
+                             <!--ng-if="param.is_timing==1"></div>-->
 
                         <div class="row">
                             <h3 class="col-sm-offset-2 text-danger">短信内容,不要加签名,例:【芝麻学社】(千万不能加,加了发不出去)</h3>

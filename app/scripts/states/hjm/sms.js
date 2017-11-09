@@ -35,11 +35,11 @@ define([
                                     controller: function ($scope, widget, $state) {
                                         $scope.param = {mobiles: []};
                                         $scope.mobiles = '';
-                                        $scope.$watch('param.is_marketing', function (val) {
-                                            if (val == 1) {
-                                                $scope.param.is_timing = 2;
-                                            }
-                                        });
+                                        // $scope.$watch('param.is_marketing', function (val) {
+                                        //     if (val == 1) {
+                                        //         $scope.param.is_timing = 2;
+                                        //     }
+                                        // });
                                         $scope.submit = function (status) {
                                             $scope.param.mobiles = $scope.mobiles.replace(/\n/g, ',').split(',');
                                             widget.ajaxRequest({
