@@ -102,7 +102,7 @@ define([], function () {
                         value: '_checked'
                     },
                     showNum: [
-                        {text: '总数', type: 'count'},
+                        {text: '总数', type: 'total'},
                         {text: '已选', type: 'selected'},
                     ],
                     eventBtn: [

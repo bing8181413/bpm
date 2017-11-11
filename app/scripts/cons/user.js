@@ -3,6 +3,7 @@ define([], function () {
         userList: {
             columns: [
                 {name: 'ID', field: 'user_id', className: 'text-center'},
+                {name: '头像', fieldDirective: '<show_image url="item.avatar" width="100"></show_image>'},
                 {name: '微信昵称', field: 'name', filter: 'null2empty'},
                 {name: '性别', field: 'gender', filter: 'gender'},
                 {name: '手机号', field: 'mobile'},
@@ -26,6 +27,7 @@ define([], function () {
             ],
             columns_by_read: [
                 {name: 'ID', field: 'user_id', className: 'text-center'},
+                {name: '头像', fieldDirective: '<show_image url="item.avatar" width="100"></show_image>'},
                 {name: '微信昵称', field: 'name', filter: 'null2empty'},
                 {name: '性别', field: 'gender', filter: 'gender'},
                 {name: '手机号', field: 'mobile'},
@@ -61,12 +63,18 @@ define([], function () {
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
                 // route: [{value: 'product.add', text: '新增商品'}]
+                ext: {
+                    showNum: [
+                        {text: '总数', type: 'total'}
+                    ]
+                }
             }
         },
         vipUserList: {
             columns: [
                 {name: '会员编号', field: 'vip_number'},
                 {name: 'ID', field: 'user_id', className: 'text-center'},
+                {name: '头像', fieldDirective: '<show_image url="item.avatar" width="100"></show_image>'},
                 {name: '微信昵称', field: 'name'},
                 {name: '性别', field: 'gender', filter: 'gender'},
                 {name: '手机号', field: 'mobile'},
