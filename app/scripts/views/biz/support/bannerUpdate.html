@@ -12,7 +12,7 @@
                         <div form-input text="ID" ng-model="param.id" ng-show="$stateParams.id"
                              placeholder="ID" ng-disabled="$stateParams.id == param.id"></div>
                         <div form-radio text="广告位置" ng-model="param.category" required="true" default="1"
-                             source="[{text:'首页',value:'1'}]" source-api=""></div>
+                             source="[{text:'首页',value:'1'},{text:'测试',value:'2'}]" source-api=""></div>
                         <div form-image text="广告图片" ng-model="_param.pics" max="1" required="true"></div>
                         <div form-input text="广告标题" ng-model="param.title" placeholder="title" required="true"></div>
                         <div form-input text="广告链接" ng-model="param.url" placeholder="url" required="true"></div>
