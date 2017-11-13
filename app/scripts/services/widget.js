@@ -85,7 +85,8 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                     var ajaxConfig = {
                         headers: {
                             'x-requested-with': 'XMLHttpRequest',
-                            'Content-Type': 'application/json;charset=UTF-8'
+                            'Content-Type': 'application/json;charset=UTF-8',
+                            'X-Request-Page': location.href
                         },
                         method: params.method || 'POST',
                         url: params.url.indexOf('http') == 0 ? params.url : (cons.domain + params.url),
