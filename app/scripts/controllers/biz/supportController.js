@@ -135,6 +135,7 @@ define([
         }
     };
     function versionController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
+
         $scope.init = function () {
             widget.ajaxRequest({
                 url: '/supports/version',
@@ -142,25 +143,27 @@ define([
                 scope: $scope,
                 data: {},
                 success: function (json) {
-                    $scope.version = json.data.version;
-                    $scope.param = {version: new Date()};
+                    $scope.current_page_version_number = $filter('date')((version == 'timestamp' ? 0 : version), 'yyyy-MM-dd HH:mm:ss');
+                    // $scope.version = $filter('date')(json.data.version, 'yyyy-MM-dd HH:mm:ss');
+                    // $scope.param = {version: $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss')};
+                    $scope.param = json.data;
                 }
             })
         }
         $scope.init();
         $scope.submit = function () {
-            if (!$scope.param || !$scope.param.version) {
-                widget.msgToast('未输入新版本的日期');
-                return false;
-            }
+            // if (!$scope.param || !$scope.param.version) {
+            //     widget.msgToast('未输入新版本的日期');
+            //     return false;
+            // }
             widget.ajaxRequest({
                 url: '/supports/version',
                 method: 'put',
                 scope: $scope,
-                data: {version: $scope.param.version},
+                data: $scope.param,
                 success: function (json) {
                     widget.msgToast('更新成功');
-                    $scope.init();
+                    // $scope.init();
                 }
             })
         }

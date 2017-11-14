@@ -37,6 +37,13 @@
             </li>
         </ul>
     </li>
+    <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-show="$root.new_version">
+        <a class="dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"
+           ng-click="$root.func.get_new_version();">
+            <span class="fa fa-flash"></span>&nbsp;&nbsp;有最新版本,点击刷新&nbsp;&nbsp;
+            <span class="badge badge-red">1</span>
+        </a>
+    </li>
     <li class="dropdown" uib-dropdown="">
         <a class="dropdown-toggle" ng-click="refresh_product();">
             <span class="fa fa-refresh"></span>

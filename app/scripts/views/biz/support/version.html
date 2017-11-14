@@ -11,9 +11,11 @@
                             <h1 class="text-danger col-sm-offset-2">版本更新,非管理员勿操作</h1>
                         </div>
                         <div class="form-group">
-                            <div form-date-time ng-model="version" text="上次版本日期"></div>
-                            <div form-date-time ng-model="param.version" text="新的版本日期" required="true"
-                                 showtip="默认今天"></div>
+                            <div form-date-time ng-model="current_page_version_number" text="当前版本时间"></div>
+                            <!--<div form-date-time ng-model="version" text="服务端版本时间"></div>-->
+                            <div form-date-time ng-model="param.version" text="更新服务端版本时间(BPM)"></div>
+                            <div form-date-time ng-model="param.version_p" text="更新服务端版本时间(P)"></div>
+                            <div form-date-time ng-model="param.version_survey" text="更新服务端版本时间(survey)"></div>
                         </div>
                     </div>
                 </div>

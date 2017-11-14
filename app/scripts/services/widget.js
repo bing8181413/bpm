@@ -127,6 +127,24 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                         function (res) {
                             if (res.status == 200) {
                                 if (res.data.code == 0) {
+                                    if ($filter('uppercase')(params.method) == 'GET') {
+                                        // get请求才能够刷新页面
+                                        var default_version = '0';
+                                        var current_page_version_number = $filter('date')(version == 'timestamp' ? default_version : version, 'yyyy-MM-dd HH:mm:ss');
+                                        var new_version_number = $filter('date')(res.data.versions.version, 'yyyy-MM-dd HH:mm:ss');
+                                        if (new_version_number > current_page_version_number) {
+                                            console.log('当前页面版本时间 : ' + current_page_version_number, ';   服务端版本时间 : ' + new_version_number);
+                                            if (!$rootScope.new_version) {
+                                                $rootScope.new_version = true;
+                                                if (confirm('当前版本不是最新的,点击确定立即刷新页面?')) {
+                                                    $rootScope.func.get_new_version();
+                                                }
+                                            }
+                                        } else {
+                                            $rootScope.new_version = false;
+                                        }
+
+                                    }
                                     if (options.success && typeof options.success === 'function') {
                                         options.success(res.data);
                                     }

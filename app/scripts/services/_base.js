@@ -126,6 +126,10 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                     $http.defaults.headers.common.Authorization = $rootScope.hjm.Authorization || '';
                 }
                 $rootScope.func = {};//定义公共函数
+                $rootScope.new_version = false;
+                $rootScope.func.get_new_version = function () {
+                    window.location.reload();
+                }
                 $rootScope.account_list = [];
                 $rootScope.account_list_bd_op = [];
                 $rootScope.func.get_accounts = function (accounts) {
