@@ -19,7 +19,11 @@ define([], function () {
                     name: '直播禁言管理',
                     fieldDirective: '<span user-live-block data="item"></span>'
                 },
-                {name: '模拟登陆', fieldDirective: '<div user-token data="item"></div>'},
+                {
+                    name: '模拟登陆',
+                    fieldDirective: '<div user-token data="item"></div>' +
+                    '<div user-captcha data="item"></div>'
+                },
                 {
                     name: '绑定与解绑手机号',
                     fieldDirective: '<div user-mobile-unbind data="item"></div>'

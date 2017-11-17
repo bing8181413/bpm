@@ -133,6 +133,46 @@ define([
                 }
             }
         })
+        .directive('userCaptcha', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal) {
+            return {
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.show = function () {
+                        var modalInstance = $uibModal.open({
+                            template: '<form modal-panel title="title" tmpl="tmpl"></form>',
+                            controller: function ($scope, $uibModalInstance) {
+                                $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
+                                    '<div form-input text="验证码" ng-model="captcha" ng-disabled="true"> </div> ' +
+                                    '</form>';
+                                $scope.title = '获取验证码';
+                                widget.ajaxRequest({
+                                    url: '/supports/captcha',
+                                    method: 'post',
+                                    scope: $scope,
+                                    data: {"mobile": supscope.data.mobile},
+                                    success: function (json) {
+                                        $scope.captcha = json.data.code;
+                                    }
+                                })
+                                $scope.cancel = function () {
+                                    $uibModalInstance.dismiss('cancel');
+                                };
+                            },
+                            size: 'sm'
+                        });
+                    }
+                    var content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show();">获取验证码</a>';
+                    $element.html(content);
+                    $compile($element.contents())($scope);
+                }
+            }
+        })
         .directive('userMobileUnbind', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal) {
             return {
                 restrict: 'AE',

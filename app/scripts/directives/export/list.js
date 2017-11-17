@@ -25,12 +25,20 @@ define([
                                     '.modal .checkbox-inline{padding-left: 0;}</style>';
                                 $scope.condition = supscope.data.condition;
                                 $scope.command = supscope.data.command;
+                                console.log($scope.condition);
                                 angular.forEach($scope.condition, function (val, key) {
                                     if (val.type == 'checkbox') {
                                         if (val.defaultValue) {
-                                            $scope.$eval('param.' + key + '= "' + val.defaultValue + '"');
+                                            // angular.isArray(val.defaultValue), val.defaultValue.length,
+                                            // console.log(val.defaultValue[0], typeof val.defaultValue[0], JSON.stringify(val.defaultValue), val);
+                                            // if (typeof val.defaultValue)
+                                            var type = '';
+                                            if ('number' == typeof val.defaultValue[0]) {
+                                                type = " type= 'number' ";
+                                            }
+                                            $scope.param[key] = val.defaultValue;
                                         }
-                                        $scope.tmpl += '<div form-checkbox text="' + val.name + '" ng-model="param.' + key + '"' +
+                                        $scope.tmpl += '<div form-checkbox text="' + val.name + '" ng-model="param.' + key + '"' + type +
                                             ' source="condition[\'' + key + '\'].options"  ' + (val.required ? ('required=\"true\"') : '') + '></div>';
                                     } else if (val.type == 'radiobox') {
                                         $scope.tmpl += '<div form-radio text="' + val.name + '" ng-model="param.' + key + '"' +
@@ -48,6 +56,10 @@ define([
                                         eval('$scope.param.' + key + ' = ' + val.default_val);
                                     }
                                 });
+
+                                console.log($scope.param);
+
+
                                 $scope.tmpl += '<a class="btn btn-primary btn-rounded pull-right" ng-disabled="FormBody.$invalid"  ng-click="exec();">执行</a>'
                                 $scope.tmpl += '</form>';
                                 $scope.exec = function () {
