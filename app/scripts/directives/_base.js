@@ -4,6 +4,7 @@ define([
     './hjm-grid',// grid
     './hjm-compile',// grid
     './hjm-form',// form
+    './hjm-form-audio',// form audio 音频 录音
     './hjm-form-image',// form image single
     './hjm-form-search',// form search form表单里查询数据
     './hjm-form-date',// form date
@@ -58,6 +59,8 @@ define([
     './videogroup/list',// 视频组
     './marketshare/list',// 观看权限
 
+
+    './upload/upload-audio-token',//  音频录制
 
     './upload/upload-apk-token',//  直播APK
     './zhibo_qr_code/list',//  直播APK

@@ -27,6 +27,9 @@ define([
                                 $scope.command = supscope.data.command;
                                 angular.forEach($scope.condition, function (val, key) {
                                     if (val.type == 'checkbox') {
+                                        if (val.defaultValue) {
+                                            $scope.$eval('param.' + key + '= "' + val.defaultValue + '"');
+                                        }
                                         $scope.tmpl += '<div form-checkbox text="' + val.name + '" ng-model="param.' + key + '"' +
                                             ' source="condition[\'' + key + '\'].options"  ' + (val.required ? ('required=\"true\"') : '') + '></div>';
                                     } else if (val.type == 'radiobox') {

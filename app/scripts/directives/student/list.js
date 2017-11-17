@@ -203,6 +203,13 @@ define([
                                                     '<hr class="form-group">' +
                                                     '<div form-textarea text="学生提问" ng-model="param.ask" placeholder="学生提问" ng-disabled="true"></div>' +
                                                     '<div form-textarea text="作业评价" ng-model="param.appraise" placeholder="作业评价" ng-disabled="hasappraise"></div>' +
+                                                    '<form-audio ng-model="param.teacher_sources" text="语音录制"></form-audio>' +
+                                                    // '<div class="form-group">' +
+                                                    // '<label class="col-sm-2 control-label">音频作业</label>' +
+                                                    // '<div ng-repeat="audio in param.sources" class="col-sm-3" ng-if="audio.type==3">' +
+                                                    // '<audio ng-src="{{sce(audio.url)}}" controls="controls">您的浏览器不支持 audio 标签。</audio>' +
+                                                    // '</div>' +
+                                                    // '</div>' +
                                                     '<div form-radio text="是否需要重做" ng-model="param.redo" required="true" ' +
                                                     ' default="1" source="[{text:\'否\',value:1},{text:\'是\',value:2}]" source-api="" ng-disabled="hasappraise"></div>' +
                                                     '<a class="btn btn-rounded pull-right" ' + class_text + ' ng-click="submit()" ng-show="!hasappraise">' + status_title + '</a>' +
