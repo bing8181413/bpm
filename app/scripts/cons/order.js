@@ -3,7 +3,8 @@ define([], function () {
         orderList: {
             columns_by_act_all: [
                 {name: '订单ID', field: 'order_id', className: 'text-right'},
-                {name: '拼团ID', field: 'groupbuy_id', className: 'text-right'},
+                {name: '拼团ID', field: 'groupbuy_id', className: 'text-center'},
+                {name: '是否是团长', field: 'open_group|keyVal:\'1\':\'是\':\'2\':\'--\'', className: 'text-center'},
 
                 {name: '支付类型', field: 'payment_from', filter: 'payment_from'},
                 {name: '支付状态', field: 'payment_status', filter: 'payment_status'},
@@ -28,14 +29,17 @@ define([], function () {
                     '<span ng-bind="item.option_price"></span>'
                 },
                 {
-                    name: '收货人信息',
-                    fieldDirective: '<span ng-bind="\'联系人:\'+item.address.contact_name|characters: 10 : false"' +
+                    name: '用户、收货人信息', className: 'width200',
+                    fieldDirective: '<span ng-bind="\'用户ID:\'+item.user_id"></span>' +
+                    '<br/> <span ng-bind="\'用户手机:\'+item.user.mobile"></span>' +
+                    '<br/> <span ng-bind="\'用户名:\'+item.user.name"></span>' +
+                    '<br/> <span ng-bind="\'收货联系人:\'+item.address.contact_name|characters: 10 : false"' +
                     ' uib-tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
-                    '<br/>手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<span ng-if="item.address.address"><br/>详细地址:</span>' +
+                    '<br/>收货人手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
+                    '<span ng-if="item.address.address"><br/>收货人地址:</span>' +
                     '<span ng-bind="item.address.address" ' +
                     ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
-                    '<span ng-if="item.address.email"><br/>邮件:</span>' +
+                    '<span ng-if="item.address.email"><br/>收货人邮件:</span>' +
                     '<span ng-bind="item.address.email" ' +
                     ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>' +
                     '<span ng-if="item.address.baby_name"><br/>孩子姓名:</span>' +

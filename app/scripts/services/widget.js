@@ -129,11 +129,19 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                                 if (res.data.code == 0) {
                                     if ($filter('uppercase')(params.method) == 'GET') {
                                         // get请求才能够刷新页面
-                                        var default_version = '0';
+                                        var default_version = '2018-10-01 00:00:00';
                                         var current_page_version_number = $filter('date')(version == 'timestamp' ? default_version : version, 'yyyy-MM-dd HH:mm:ss');
                                         var new_version_number = $filter('date')(res.data.versions.version, 'yyyy-MM-dd HH:mm:ss');
                                         if (new_version_number > current_page_version_number) {
-                                            console.log('当前页面版本时间 : ' + current_page_version_number, ';   服务端版本时间 : ' + new_version_number);
+                                            var obj_version = [{
+                                                '当前页面版本时间': current_page_version_number,
+                                                '服务端版本时间': new_version_number
+                                            }];
+                                            if (console.table) {
+                                                console.table(obj_version);
+                                            } else {
+                                                console.log(JSON.stringify(obj_version));
+                                            }
                                             if (!$rootScope.new_version) {
                                                 $rootScope.new_version = true;
                                                 if (confirm('当前版本不是最新的,点击确定立即刷新页面?')) {
