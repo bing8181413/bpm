@@ -21,8 +21,11 @@ define([], function () {
                 },
                 {
                     name: '模拟登陆',
-                    fieldDirective: '<div user-token data="item"></div>' +
-                    '<div user-captcha data="item"></div>'
+                    fieldDirective: '<div user-token data="item"></div>'
+                },
+                {
+                    name: '获取验证码',
+                    fieldDirective: '<div user-captcha data="item"></div>'
                 },
                 {
                     name: '绑定与解绑手机号',
