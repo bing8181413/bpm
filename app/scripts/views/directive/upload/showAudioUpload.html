@@ -1,29 +1,22 @@
 <div>
     <style type="text/css">
-        .upload-image {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background: #eee;
-            -webkit-border-radius: 0;
+        .voiceItem {
+            background-color: skyblue;
+            color: white;
+            min-width: 200px;
+            width: 200px;
+            min-height: 32px;
+            border-radius: 3px;
+            cursor: pointer;
+            line-height: 32px;
+            text-indent: 10px;
             position: relative;
-            border-radius: 5px;
         }
 
-        .upload-image:before {
-            content: "+";
-            line-height: 50%;
-            cursor: pointer;
-            color: #000;
-            font-size: 45px;
-            text-align: center;
+        .voiceText {
             position: absolute;
-            left: 0;
             top: 0;
-            width: 100%;
-            height: 100%;
-            background: #eee;
-            border-radius: 5px;
+            left: 45px;
         }
     </style>
     <div class="row">
@@ -32,48 +25,20 @@
                 <!--<pre ng-bind="uploader.queue | json">  这个不能json 这个自定义的对象里面有循环嵌套 </pre>-->
                 <!--<pre ng-bind="images | json"></pre>-->
                 <ul class="list-group">
-                    <li ng-repeat="(k,v) in media"
-                        class="list-group-item row"
-                        ng-required="required">
-                        <div>
-                            <div class="col-md-6">
-                                <span ng-bind="uploader.queue[k].qiniu_url"></span>
+                    <li ng-repeat="(k,v) in audio" class="list-group-item row">
+                        <div class="col-md-6">
+                            <div class='voiceItem' ng-click="playRecord(v)">
+                                <div id="{{v.id}}" class="voiceObj">{{v.duration}}s</div>
+                                <span class="voiceText" ng-show="v.playing">已选中/正在播放..</span>
                             </div>
-                            <div class="col-md-2 text-center">
-                                <div ng-bind="v.pic_id"></div>
-                                <div ng-show="!v.updated_at">
-                                    <span ng-show="uploader.queue[k].isSuccess">
-                                        <i class="glyphicon glyphicon-ok"></i>
-                                    </span>
-                                    <span ng-show="uploader.queue[k].isCancel">
-                                        <i class="glyphicon glyphicon-ban-circle"></i>
-                                    </span>
-                                    <span ng-show="uploader.queue[k].isError">
-                                        <i class="glyphicon glyphicon-remove"></i>
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="col-md-2 pull-right">
-                                <div class="progress" ng-show="!v.updated_at">
-                                    <div class="progress-bar" role="progressbar"
-                                         style="width:{{uploader.queue[k].progress}}%;"></div>
-                                </div>
-                            </div>
-                            <div class="handle col-md-2 pull-right">
-                                <div ng-class="{'hide':disabled}">
-                                    <button type="button" class="btn btn-danger btn-xs btn-rounded"
-                                            ng-click="delAudio(k,uploader.queue[k])"
-                                            show-role="'{{disabledRole}}'">
-                                        <span class="glyphicon glyphicon-trash"></span> 移除
-                                    </button>
-                                    <button type="button" class="btn btn-success btn-xs btn-rounded"
-                                            ng-click="uploader.queue[k].upload()"
-                                            ng-if="!v.updated_at"
-                                            ng-disabled="uploader.queue[k].isReady || uploader.queue[k].isUploading || uploader.queue[k].isSuccess">
-                                        <span class="glyphicon glyphicon-upload"></span> 上传
-                                    </button>
-                                </div>
-                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <span ng-show="v.type!=3" class="text-danger ">未上传</span>
+                            <span ng-show="v.type==3" class="text-success">上传成功</span>
+                            <a ng-click="audio.splice($index,1)" class="btn btn-danger btn-rounded btn-sm  pull-right">删除</a>
+                            <!--<a ng-click="upload_audio(v,$index)" class="btn btn-success btn-rounded btn-sm  pull-right"-->
+                               <!--ng-disabled="v.type==3">上传</a>-->
+                            <!--<span ng-bind="v|json"></span>-->
                         </div>
                     </li>
                 </ul>
@@ -82,26 +47,19 @@
     </div>
     <div ng-class="{'hide':disabled}">
         <div class="form-group">
-            <!--上传过程:-->
-            <div class="col-sm-12">
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width:{{uploader.progress}}%"></div>
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2">
-                <input class="form-control upload-image" type="file" nv-file-select uploader="uploader" multiple/>
-            </div>
-            <div class="col-sm-10">
-                <button type="button" class="btn btn-success btn-rounded" ng-click="uploader.uploadAll()"
-                        ng-disabled="!uploader.getNotUploadedItems().length">
-                    <span class="glyphicon glyphicon-upload"></span> 全部上传
-                </button>
-                <button type="button" class="btn btn-danger btn-rounded" ng-click="removeAll()"
-                        ng-disabled="!uploader.queue.length">
-                    <span class="glyphicon glyphicon-trash"></span> 全部移除
-                </button>
+            <div class="col-md-12">
+                <audio controls autoplay id="main_audio" ng-src="{{sce(audio_url)}}" ng-show="false"></audio>
+                <a ng-click="startRecording()" class="btn btn-primary">
+                    开始录音
+                    <span class="badge" ng-bind="(duration>0?(' '+duration+' s'):'')" ng-show="duration>0">4</span>
+                </a>
+                <!--<a ng-click="stopRecord()" class="btn btn-success btn-rounded btn-sm">停止录音</a>-->
+                <!--<a ng-click="playRecord()" class="btn btn-success btn-rounded btn-sm">播放</a>-->
+                <a ng-click="send()" class="btn btn-warning">提交录音</a>
+                <!--<a ng-click="play_pause()" class="btn btn-success btn-rounded btn-sm">播放/暂停</a>-->
+                <!--<span class="label label-default" ng-bind="(duration>0?('   '+duration+'s'):'')"-->
+                      <!--ng-show="duration>0"></span>-->
+                <!--<span ng-bind="duration"></span>-->
             </div>
         </div>
     </div>

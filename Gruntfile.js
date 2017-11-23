@@ -64,6 +64,7 @@ module.exports = function (grunt) {
                             '**/main.js',
                             '**/app.js',
                             '**/require.js',
+                            '**/recoder.js',
                             '**/jquery-extend.js',
                             '**/bootstrap.js',
                             'vendor/**/*.js', //  三方包 一般不用copy

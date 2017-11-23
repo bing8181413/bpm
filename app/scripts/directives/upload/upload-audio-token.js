@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-        .directive('showUploadAudioToken', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget) {
+        .directive('showUploadAudioToken', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget, $interval, $sce, $http) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -14,50 +14,167 @@ define([
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showAudioUpload.html'),
                 controller: function ($scope, $element, $attrs) {
-                    $timeout(function () {
-                        $scope.disabled = ($attrs.disabled ? true : false);
-                        $scope.disabledRole = $attrs.disabledRole || '';
-                        // console.log($scope, $attrs.disabledRole);
-                        // console.log($scope, $attrs, $scope.disabled);
-                    }, 0);
-                    $scope.uploader = new FileUploader({
-                        // url: simpleCons.qiniu_domain + '/qiniu/controller.php?action=uploadimage'
-                        url: 'https://up.qbox.me/'
+                    // https://www.cnblogs.com/stoneniqiu/p/7341181.html  分享
+                    $scope.audio = $scope.audio || [];
+                    var recorder;
+                    var audio = $('#main_audio');
+                    $scope.sce = $sce.trustAsResourceUrl;
+                    $scope.audio_url = '';//  主播放器的URL
+                    $scope.duration = 0;
+                    var gd;// 获取录音时间
+                    $scope.stop_duration = function () {
+                        $interval.cancel(gd);
+                        gd = undefined;
+                    }
+                    $scope.get_duration = function () {
+                        $scope.duration = 1;
+                        if (gd) {
+                            $interval.cancel(gd);
+                        }
+                        gd = $interval(function () {
+                            $scope.duration++;
+                            // console.log($scope.duration);
+                            if ($scope.duration >= 55) {
+                                $scope.send();
+                                console.log('............');
+                                $scope.stop_duration();
+                                $scope.stopRecord();
+                            }
+                        }, 1000);
+                    }
+                    $scope.startRecording = function () {
+                        if (recorder) {
+                            var data = recorder.getBlob();
+                            if (data.duration == 0) {
+                                $scope.get_duration();
+                                recorder.start();
+                                console.log('开始录音!!!');
+                            } else {
+                                console.log('继续录音!!!');
+                            }
+                            return;
+                        }
+                        $scope.get_duration();
+                        HZRecorder.get(function (rec) {
+                            // console.log('第一次录音 !!!');
+                            recorder = rec;
+                            recorder.start();
+                        }, {error: showError});
+                    }
+
+
+                    function getStr() {
+                        var now = new Date;
+                        var str = now.toDateString();
+                    }
+
+                    $scope.stopRecord = function () {
+                        // console.log($scope.duration);
+                        $scope.stop_duration();
+                        recorder && recorder.stop() / 10;
+                        // console.log($scope.duration);
+                        // console.log('时长:' + $scope.duration);
+                    };
+                    var msg = {};
+                    //发送音频片段
+                    var msgId = 1;
+
+                    $scope.send = function () {
+                        if (!recorder) {
+                            $scope.stopRecord();
+                            showError("请先录音");
+                            widget.msgToast('请先录音');
+                            return;
+                        } else {
+                            console.log($scope.duration);
+                            $scope.stopRecord();
+                        }
+                        var data = recorder.getBlob();
+                        // console.log(data, data.duration);
+                        if (data.duration == 0) {
+                            recorder.clear();
+                            showError("时间太短,请重新录音");
+                            widget.msgToast('时间太短,请重新录音');
+                            return;
+                        }
+                        msg[msgId] = data;
+                        recorder.clear();
+                        // console.log(data);
+                        var dur = Math.ceil(data.duration / 10);
+                        $scope.duration = 0;
+                        $scope.audio.push({
+                            type: 'blob',
+                            id: msgId,
+                            duration: dur,
+                            data: msg[msgId],
+                            name: msgId + '.wav'
+                        });
+                        msgId++;
+                        $scope.upload_audio($scope.audio[$scope.audio.length - 1], ($scope.audio.length - 1));//上传
+                    }
+
+                    // var ct;
+
+                    function showError(msg) {
+                        console.error(msg);
+                        // clearTimeout(ct);
+                        // ct = setTimeout(function () {
+                        //     $(".error").html("")
+                        // }, 3000);
+                    }
+
+                    $('#main_audio').off().on('pause', function () {
+                        console.log('监听停止播放');
+                        $scope.playRecord();
                     });
-                    var init = false;
-                    $scope.$watch('audio', function (audioVal) {
-                        $scope.max = $attrs.max || 100;
-                        // console.log('images1111', imagesVal, init, $scope.uploader.queue);
-                        if (audioVal && (audioVal.length > 0 ) && !init && $scope.uploader.queue.length == 0) {
-                            init = true;
-                            if ($scope.audio && $scope.audio.length > 0) {
-                                angular.forEach($scope.audio, function (v, k) {
-                                    $scope.uploader.queue.push({
-                                        pic_id: v.pic_id || undefined,
-                                        url: v.pic_url || v.url || '',
-                                        width: v.pic_width || v.width || 100,
-                                        height: v.pic_height || v.height || 100,
-                                        size: v.pic_size || v.size || 1,
-                                        updated_at: v.updated_at || undefined,
-                                        old: true,
-                                        progress: 100,
-                                        isUploaded: true,
-                                    });
-                                });
+
+                    $scope.playRecord = function (audio_obj) {
+                        // console.log($scope.audio, audio_obj);
+                        angular.forEach($scope.audio, function (val, key) {
+                            val.playing = false;
+                        });
+                        if (!audio_obj) {
+                            return;
+                        }
+                        audio_obj.playing = true;
+                        // console.log(!!audio_obj.url, !!audio.attr('src'), audio_obj.url == audio.attr('src'));
+                        if (!!audio_obj.url && !!audio.attr('src') && (audio_obj.url == audio.attr('src'))) {
+                            // 还是当前SRC
+                            $scope.play_pause();
+                        } else {
+                            // 替换为其他音频 src
+                            if (audio_obj.type == 3) {//type 3 : 音频
+                                $scope.audio_url = audio_obj.url;
+                            } else if (audio_obj.type == 'blob') {
+                                var id = audio_obj.id;
+                                var data = msg[id];
+                                // console.log(data);
+                                if (!recorder) {
+                                    showError("请先录音");
+                                    return;
+                                }
+                                audio_obj.url = $scope.audio_url = window.URL.createObjectURL(data.blob);
                             }
                         }
-                    }, true);
-
-                    // 删除历史数据
-                    $scope.removeAudio = function (key) {
-                        $scope.uploader.queue.splice(key, 1);
-                        updateAudio();
                     };
-                    //选择文件之后
-                    $scope.uploader.onAfterAddingFile = function (fileItem) {
-                        // $scope.uploader.onBeforeUploadItem = function (fileItem) {
-                        // console.log('onAfterAddingFile', fileItem);
-                        var fileItemTmpl = {name: fileItem._file.name, type: $scope.token};
+
+                    $scope.play_pause = function () {
+                        var audio2 = document.getElementById('main_audio');
+                        // audio2 = audio;
+                        if (audio2.paused) {
+                            audio2.play();
+                        } else {
+                            audio2.pause();
+                        }
+                    }
+
+
+                    $scope.upload_audio = function (audio_obj, index) {
+                        if (audio_obj.type == 3) {
+                            return;
+                        }
+                        // console.log(audio_obj);
+                        var fileItemTmpl = {name: audio_obj.name, type: $scope.token};
                         widget.ajaxRequest({
                             url: '/supports/uptoken',
                             method: 'get',
@@ -66,139 +183,45 @@ define([
                             success: function (json) {
                                 // console.log(json);
                                 // console.log(form, item.formData);
-                                fileItem.formData.push({key: json.data.key, token: json.data.token});
+                                // fileItem.formData.push({key: json.data.key, token: json.data.token});
+                                $scope.audio[index].name = json.data.key;
+                                $scope.audio[index].token = json.data.token;
+                                $http({
+                                    method: 'POST',
+                                    url: 'https://up.qbox.me/',
+                                    headers: {
+                                        'Content-Type': undefined
+                                    },
+                                    transformRequest: function (data) {
+                                        var formData = new FormData();
+                                        formData.append('key', $scope.audio[index].name);
+                                        formData.append('token', $scope.audio[index].token);
+                                        formData.append('file', msg[$scope.audio[index].id].blob);
+                                        return formData;
+                                    },
+                                    data: {}
+                                }).success(function (json) {
+                                    $scope.audio[index].type = 3;
+                                    $scope.audio[index].url = json.url;
+                                    $scope.audio[index].width = json.width || 0;
+                                    $scope.audio[index].height = json.height || 0;
+                                    $scope.audio[index].size = json.size || 0;
+                                    delete $scope.audio[index].id;
+                                    delete $scope.audio[index].data;
+                                    delete $scope.audio[index].token;
+                                    // widget.msgToast('上传成功!');
+                                }).error(function (err, status) {
+                                    console.log(err);
+                                    widget.msgToast('上传失败,请检查网络..');
+                                });
                             }
                         })
-                    }
-                    // 上传成功
-                    $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
-                        // console.log(fileItem, response);
-                        if (response) {
-                            if (response.code == 1001) {
-                                // console.log(1, response);
-                                alert(response.msg);
-                                fileItem.qiniu_url = '';
-                                fileItem.isReady = false;
-                                fileItem.isError = true;
-                                fileItem.isUploaded = true;
-                                fileItem.isSuccess = false;
-                                updateAudio();
-                                // return false;
-                            } else if (!response.url || response.state == 'ERROR') {
-                                // console.log(2, response);
-                                fileItem.qiniu_url = '';
-                                fileItem.isReady = false;
-                                fileItem.isError = true;
-                                fileItem.isUploaded = true;
-                                fileItem.isSuccess = false;
-                                // return false;
-                                updateAudio();
-                            } else {
-                                // console.log(3, response);
-                                fileItem.qiniu_url = response.url;
-                                fileItem.width = response.width;
-                                fileItem.height = response.height;
-                                // fileItem.size = response.size;
-                                //console.log(fileItem);
-
-                                //console.log('success', $scope.uploader);
-                                updateAudio();
-                            }
-                        }
-                    };
-
-                    // FILTERS
-                    $scope.uploader.filters.push({
-                        name: 'imageFilter',
-                        fn: function (item /*{File|FileLikeObject}*/, options) {
-                            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                            return '|mp3|mp4|'.indexOf(type) !== -1;
-                        }
-                    });
-
-                    $scope.uploader.filters.push({
-                        name: 'customFilter',
-                        fn: function (item /*{File|FileLikeObject}*/, options) {
-                            var len = ($scope.images && $scope.images != 'undefined') ? $scope.images.length : 0;
-                            return this.queue.length < $scope.max - len;
-                        }
-                    });
-
-                    $scope.uploader.onAfterAddingAll = function (fileItems) {
-                        $scope.audio = $scope.audio || [];
-                        angular.forEach(fileItems, function (v, k) {
-                            $scope.audio.push({});
-                        });
-                        $timeout(function () {
-                            updateAudio();
-                        }, 0);
-                    };
-                    $scope.log = function () {
-                        updateAudio();
-                        widget.msgToast('确认排序成功')
-                        console.log($scope.uploader.queue);
-                    }
-                    // 全部取消
-                    $scope.removeAll = function () {
-                        // $scope.uploader.clearQueue();
-                        if (!confirm('确定全部移除吗?')) {
-                            return false;
-                        }
-                        $scope.audio = [];
-                        $scope.uploader.queue = [];
-                    }
-                    // $scope.uploader.clearAll = function () {
-                    //     $scope.images = [];
-                    //     $scope.uploader.queue = [];
-                    //     $scope.uploader.progress = 0;
-                    // };
 
 
-                    // 移除上传的数据
-                    $scope.confirm_del_image_notice = true;
-                    $scope.delAudio = function (key, obj) {
-                        if ($scope.confirm_del_image_notice) {
-                            if (confirm('确定移除,且本次操作此字段不再有删除提示?')) {
-                                $scope.confirm_del_image_notice = false;
-                            } else {
-                                $scope.confirm_del_image_notice = true;
-                                return false;
-                            }
-                        }
-                        if (obj.updated_at || obj.pic_id) {
-                            $scope.uploader.queue.splice(key, 1);
-                        } else {
-                            obj.remove();
-                        }
-                        // console.log(obj);
-                        updateAudio();
-                    };
-
-
-                    function updateAudio() {
-                        // 重新填充 audio 对象
-                        init = true;
-                        $scope.images = [];
-                        angular.forEach($scope.uploader.queue, function (v, k) {
-                            if (v.updated_at || v.old) {
-                                $scope.images.push({
-                                    // pic_id: v.pic_id || undefined,
-                                    updated_at: v.updated_at || undefined,
-                                    pic_url: v.url,
-                                    pic_width: v.width,
-                                    pic_height: v.height,
-                                });
-                            } else {
-                                $scope.images.push({
-                                    pic_url: v.qiniu_url,
-                                    pic_width: v.width,
-                                    pic_height: v.height,
-                                });
-                            }
-                        });
                     }
 
                 }
             };
         })
-});
+})
+;
