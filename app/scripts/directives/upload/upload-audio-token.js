@@ -11,12 +11,13 @@ define([
                     audio: '=',
                     required: '@',
                     token: '@',
+                    // max: '@',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showAudioUpload.html'),
                 controller: function ($scope, $element, $attrs) {
                     // https://www.cnblogs.com/stoneniqiu/p/7341181.html  分享
                     $scope.audio = $scope.audio || [];
-                    var recorder;
+                    var recorder = $rootScope.recorder || undefined;
                     var audio = $('#main_audio');
                     $scope.sce = $sce.trustAsResourceUrl;
                     $scope.audio_url = '';//  主播放器的URL
@@ -56,8 +57,9 @@ define([
                         }
                         $scope.get_duration();
                         HZRecorder.get(function (rec) {
-                            // console.log('第一次录音 !!!');
+                            console.log('第一次录音 !!!');
                             recorder = rec;
+                            $rootScope.recorder = recorder;
                             recorder.start();
                         }, {error: showError});
                     }
@@ -83,10 +85,9 @@ define([
                         if (!recorder) {
                             $scope.stopRecord();
                             showError("请先录音");
-                            widget.msgToast('请先录音');
                             return;
                         } else {
-                            console.log($scope.duration);
+                            // console.log($scope.duration);
                             $scope.stopRecord();
                         }
                         var data = recorder.getBlob();
@@ -94,7 +95,6 @@ define([
                         if (data.duration == 0) {
                             recorder.clear();
                             showError("时间太短,请重新录音");
-                            widget.msgToast('时间太短,请重新录音');
                             return;
                         }
                         msg[msgId] = data;
@@ -116,6 +116,7 @@ define([
                     // var ct;
 
                     function showError(msg) {
+                        widget.msgToast(msg);
                         console.error(msg);
                         // clearTimeout(ct);
                         // ct = setTimeout(function () {

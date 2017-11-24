@@ -34,11 +34,11 @@ define([
                 }
             })
         }
-        $scope.$watch('mission_edit_status', function (val) {
-            angular.forEach(val, function (v, k) {
-                v.order_by = comfunc.numAdd($scope.max_order_by, k) + 1;
-            })
-        }, true);
+        // $scope.$watch('mission_edit_status', function (val) {
+        //     angular.forEach(val, function (v, k) {
+        //         v.order_by = comfunc.numAdd($scope.max_order_by, k) + 1;
+        //     })
+        // }, true);
         $scope.notify = function (mission_id) {
             var superscope = $scope;
             var modalInstance = $uibModal.open({

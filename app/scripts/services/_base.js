@@ -91,6 +91,7 @@ define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (
                 $rootScope.common = cons.common;
                 $rootScope.env_name = cons.env_name;
 
+
                 // $compileProvider.debugInfoEnabled(true);
                 // 监听路由事件
                 // $rootScope.$on('$stateChangeSuccess', function (event, toState, toParams, fromState, fromParams) {

@@ -12,8 +12,7 @@
         //创建一个音频环境对象  
         audioContext = window.AudioContext || window.webkitAudioContext;
         var context = new audioContext();
-
-        //将声音输入这个对像  
+        //将声音输入这个对像
         var audioInput = context.createMediaStreamSource(stream);
 
         //设置音量节点  
@@ -21,7 +20,7 @@
         audioInput.connect(volume);
 
         context.onstatechange = function () {
-            console.log("state", context.state);
+            console.log("context   state : ", context.state);
         }
         //创建缓存，用来缓存声音  
         var bufferSize = 4096;
