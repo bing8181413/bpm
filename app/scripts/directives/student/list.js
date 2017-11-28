@@ -153,9 +153,6 @@ define([
                     var status_title = '';
                     // 有2个地方要用 这个 directive 要特殊处理
                     $scope.work_id = $scope.data.work_id ? $scope.data.work_id : (supscope.data.works[0] && supscope.data.works[0].work_id || 0);
-                    if (!$scope.work_id) {
-                        return false;
-                    }
                     $scope.hasappraise = null;
                     if (($scope.data.appraise_at)
                         || ($scope.data.works && $scope.data.works[0] && $scope.data.works[0].appraise_at)) {
@@ -174,6 +171,7 @@ define([
                     $scope.openworks = function (status) {
                         var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                windowClass: 'xx-dialog',
                                 controller: function ($scope, $uibModalInstance, $sce) {
                                     $scope.title = status_title;
                                     $scope.hasappraise = supscope.hasappraise;
@@ -199,7 +197,7 @@ define([
                                                     '<div class="form-group">' +
                                                     '<div class="col-sm-12" style="height: 700px;overflow: auto;margin: 5px;padding: 5px;border: 1px #ccc solid;">' +
                                                     '<div ng-repeat="pic in param.sources" ng-if="pic.type==1" style="width:100%;margin-bottom: 20px;" class="pull-left">' +
-                                                    '<show_image url="pic.url" width="100%"></show_image>' +
+                                                    '<show_image url="pic.url" width="100%" rotate="true"></show_image>' +
                                                     '</div>' +
                                                     '</div>' +
                                                     '</div>' +
@@ -247,7 +245,8 @@ define([
                             }
                         );
                     }
-                    var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text + '></a>';
+                    var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text +
+                        ' show-role="\'admin,op,teacher\'"></a>';
                     $element.find('.student-plan-works').html(content);
                     $compile($element.contents())($scope);
                 }

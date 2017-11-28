@@ -5905,6 +5905,11 @@ button.close {
     outline: 0
 }
 
+.xx-dialog .modal-dialog {
+    width: 95%;
+    min-width: 800px;
+}
+
 .modal.fade .modal-dialog {
     transform: translate(0, -25%);
     transition: transform .3s ease-out

@@ -3,10 +3,22 @@
         .modal.in .modal-dialog > .modal-content {
             background-color: rgba(255, 255, 255, 0);
         }
+
+        .rotate {
+            margin: 20px auto;
+            text-align: center;
+        }
     </style>
-    <div ng-click="show();" ng-if="'|mp3|mp4|apk|'.indexOf('|' + type + '|')== -1"
+    <div ng-if="'|mp3|mp4|apk|'.indexOf('|' + type + '|')== -1"
          style="{{widthPx&&('width:'+widthPx) }}">
-        <img class="img-responsive pointer show_image_radius" ng-src="{{url}}" alt="">
+        <img class="img-responsive pointer show_image_radius" ng-click="show();" ng-src="{{url}}" alt=""
+             ng-style="rotateObj">
+        <div class="rotate" ng-show="rotate">
+            <a class="btn btn-primary btn-sm btn-rounded" ng-click="rotateImg(90)">左旋</a>
+            <a class="btn btn-primary btn-sm btn-rounded" ng-click="rotateImg(180)">上翻</a>
+            <a class="btn btn-primary btn-sm btn-rounded" ng-click="rotateImg(0)">还原</a>
+            <a class="btn btn-primary btn-sm btn-rounded" ng-click="rotateImg(270)">右旋</a>
+        </div>
     </div>
 
     <span ng-bind="type+'文件'" ng-if="'|mp3|mp4|apk|'.indexOf('|' + type + '|')!== -1"></span>
