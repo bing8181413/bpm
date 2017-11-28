@@ -5,7 +5,8 @@ define([], function () {
                 {name: 'ID', field: 'pic_id', className: 'text-center'},
                 {name: '名称', field: 'name'},
                 {name: '资源文件', fieldDirective: '<show_image url="item.pic_url" width="100"></show_image>'},
-                {name: 'URL', field: 'pic_url'},
+                // {name: '老URL', field: 'pic_url'},
+                {name: '新URL', fieldDirective: '<span ng-bind="item.pic_url.replace(\'huijiame\',\'bucket.ahaschool\');"></span>'},
                 {name: '创建时间', field: 'created_at',filter:'null2empty'},
             ],
             config: {

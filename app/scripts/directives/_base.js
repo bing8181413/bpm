@@ -672,7 +672,7 @@ define([
                     var init = false;
                     $scope.$watch('media', function (mediaVal) {
                         $scope.max = $attrs.max || 100;
-                        // console.log('images1111', imagesVal, init, $scope.uploader.queue);
+                        // console.log('images1111', mediaVal, init, $scope.uploader.queue);
                         if (mediaVal && (mediaVal.length > 0 ) && !init && $scope.uploader.queue.length == 0) {
                             init = true;
                             if ($scope.media && $scope.media.length > 0) {
@@ -757,14 +757,15 @@ define([
                         name: 'imageFilter',
                         fn: function (item /*{File|FileLikeObject}*/, options) {
                             var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                            return '|mp3|mp4|'.indexOf(type) !== -1;
+                            return '|mp3|mp4|pdf|doc|docx|xls|xlsx|ppt|pptx|'.indexOf(type) !== -1;
+                            // return '|mp3|mp4|'.indexOf(type) !== -1;
                         }
                     });
 
                     $scope.uploader.filters.push({
                         name: 'customFilter',
                         fn: function (item /*{File|FileLikeObject}*/, options) {
-                            var len = ($scope.images && $scope.images != 'undefined') ? $scope.images.length : 0;
+                            var len = ($scope.media && $scope.media != 'undefined') ? $scope.media.length : 0;
                             return this.queue.length < $scope.max - len;
                         }
                     });
@@ -823,10 +824,10 @@ define([
                     function updateMedia() {
                         // 重新填充 media 对象
                         init = true;
-                        $scope.images = [];
+                        $scope.media = [];
                         angular.forEach($scope.uploader.queue, function (v, k) {
                             if (v.updated_at || v.old) {
-                                $scope.images.push({
+                                $scope.media.push({
                                     // pic_id: v.pic_id || undefined,
                                     updated_at: v.updated_at || undefined,
                                     pic_url: v.url,
@@ -834,7 +835,7 @@ define([
                                     pic_height: v.height,
                                 });
                             } else {
-                                $scope.images.push({
+                                $scope.media.push({
                                     pic_url: v.qiniu_url,
                                     pic_width: v.width,
                                     pic_height: v.height,
