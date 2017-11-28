@@ -31,10 +31,38 @@
 
                         <div form-textarea text="任务备注" ng-model="param.remark" placeholder="不超过100个字"></div>
 
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">题目&nbsp;&nbsp;</label>
+                            <div class="col-sm-8">
+                                <div ng-repeat="item in param.questions"
+                                     style="border: 1px #ccc dashed;padding: 25px 0;">
+                                    <div form-input text="文字题干" ng-model="item.name" placeholder="不超过25个字"
+                                         required="true" minlength="1" maxlength="25"></div>
+
+                                    <div form-textarea text="任务描述" ng-model="item.explain" required="true"></div>
+
+                                    <div form-table text="选项" ng-model="item.options" max="6"
+                                         columns="[{'name': 'ID', 'field': 'id',hide:'true'},
+                                    {'name': '名称', 'field': 'name',required:'true'},
+                                    {'name': '该选项得分', 'field': 'score',required:'true',type:'number'}]">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-danger btn-rounded pull-right"
+                                           ng-click="param.questions&&param.questions.splice($index,1);">删除题目</a>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12" style="margin-top: 15px;">
+                                    <a class="btn btn-success btn-rounded"
+                                       ng-click="(param.questions&&param.questions.length<1)&&(param.questions.push({}));">新增题目</a>
+                                </div>
+
+                            </div>
+
+
+                        </div>
                     </div>
-                </div>
-                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.mission_id?'admin,op':''}}'"
-                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                    <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.mission_id?'admin,op':''}}'"
+                       ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
             </form>
         </div>
     </div>

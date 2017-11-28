@@ -654,6 +654,10 @@ define([
                     }, true);
 
                     $scope.add = function (obj) {
+                        if ($scope.data && $scope.max && $scope.data.length >= $scope.max) {
+                            widget.msgToast('已超过最大行数 ' + $scope.max + ' !');
+                            return false;
+                        }
                         $scope.random_date = new Date().getTime(); // radio 等组件 name 使用
                         var obj = obj || {};
                         if ($scope.columns) {
