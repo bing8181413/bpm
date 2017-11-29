@@ -31,10 +31,13 @@ define([
                             $scope.rotateGroupBtn[rotateGroupBtnIndex] = 1;
                         }
                         if (!oImg.src) {
+                            // $scope.url = 'http://resource.huijiame.com/media_f1f266a2fb57bbad95ea8ec6e70e4af4';
+                            // $scope.url = 'http://resource.huijiame.com/media_24cd2941b85007d0b54fc1e0cf05f113';
                             oImg.src = $scope.url;
                             oImg.onload = function () {
                                 $scope.imgObj.clientWidth = $($element).find('.imgObjClass').width();
                                 $scope.imgObj.clientHeight = $($element).find('.imgObjClass').height();
+                                console.log('imgObj : ',$scope.imgObj.clientWidth,$scope.imgObj.clientHeight);
                             }
                         } else {
                         }
@@ -47,6 +50,7 @@ define([
                                 "margin": "0 auto",
                                 "transform": "rotate(" + rotate + "deg)",
                                 "max-height": (rotate % 180 != 0) ? (($scope.imgObj.clientHeight < $scope.imgObj.clientWidth) ? $scope.imgObj.clientWidth : $scope.imgObj.clientWidth) : '1',
+                                "min-height": (rotate % 180 != 0) ? (($scope.imgObj.clientHeight < $scope.imgObj.clientWidth) ? $scope.imgObj.clientWidth : $scope.imgObj.clientWidth) : '1',
                                 "max-width": (rotate % 180 != 0) ? (($scope.imgObj.clientHeight < $scope.imgObj.clientWidth) ? $scope.imgObj.clientWidth : $scope.imgObj.clientWidth) : '1'
                             }
                         }
