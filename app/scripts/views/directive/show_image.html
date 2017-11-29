@@ -9,19 +9,24 @@
             text-align: center;
         }
     </style>
-    <div ng-if="'|mp3|mp4|apk|pdf|doc|docx|xls|xlsx|ppt|pptx|'.indexOf('|' + type + '|')== -1"
+    <div ng-if="'|mp3|mp4|apk|pdf|doc|docx|xls|xlsx|ppt|pptx|'.indexOf('|' + type + '|')== -1" class="imgObjClass"
          style="{{widthPx&&('width:'+widthPx) }}">
         <img class="img-responsive pointer show_image_radius" ng-click="show();" ng-src="{{url}}" alt=""
              ng-style="rotateObj">
         <div class="rotate" ng-show="rotate">
-            <a class="btn btn-primary btn-sm btn-rounded" ng-click="rotateImg(-90)">左旋</a>
-            <a class="btn btn-primary btn-sm btn-rounded" ng-click="rotateImg(180)">上翻</a>
-            <a class="btn btn-primary btn-sm btn-rounded" ng-click="rotateImg(0)">还原</a>
-            <a class="btn btn-primary btn-sm btn-rounded" ng-click="rotateImg(90)">右旋</a>
+            <a class="btn btn-primary btn-sm btn-rounded" ng-class="{'btn-success':rotateGroupBtn[0]}"
+               ng-click="rotateImg(-90,0)">左旋</a>
+            <a class="btn btn-primary btn-sm btn-rounded" ng-class="{'btn-success':rotateGroupBtn[1]}"
+               ng-click="rotateImg(180,1)">上翻</a>
+            <a class="btn btn-primary btn-sm btn-rounded" ng-class="{'btn-success':rotateGroupBtn[2]}"
+               ng-click="rotateImg(0,2)">还原</a>
+            <a class="btn btn-primary btn-sm btn-rounded" ng-class="{'btn-success':rotateGroupBtn[3]}"
+               ng-click="rotateImg(90,3)">右旋</a>
         </div>
     </div>
 
-    <span ng-bind="type+' 文件'" ng-if="'|mp3|mp4|apk|pdf|doc|docx|xls|xlsx|ppt|pptx|'.indexOf('|' + type + '|')!== -1"></span>
+    <span ng-bind="type+' 文件'"
+          ng-if="'|mp3|mp4|apk|pdf|doc|docx|xls|xlsx|ppt|pptx|'.indexOf('|' + type + '|')!== -1"></span>
 
     <script type="text/ng-template" id="show.html">
         <img class="img-responsive center-block show_image_radius" ng-src="{{url}}"
