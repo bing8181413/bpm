@@ -31,7 +31,6 @@ define([
                             $scope.rotateGroupBtn[rotateGroupBtnIndex] = 1;
                         }
                         if (!oImg.src) {
-                            $scope.url = 'http://resource.huijiame.com/media_f1f266a2fb57bbad95ea8ec6e70e4af4';
                             oImg.src = $scope.url;
                             oImg.onload = function () {
                                 $scope.imgObj.clientWidth = $($element).find('.imgObjClass').width();
