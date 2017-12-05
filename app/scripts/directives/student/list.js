@@ -185,6 +185,7 @@ define([
                                             data: {},
                                             success: function (json) {
                                                 $scope.param = json.data;
+                                                $scope.param.redo = 1;// 默认不重做   每次都不让重做  重做的话自己选择
                                                 console.log($scope.param);
                                                 if ($scope.param.questions[0]) {
                                                     angular.forEach($scope.param.questions[0].options, function (val, key) {
