@@ -58,12 +58,12 @@
                                      source="[{text:'回复全部',value:'reply_all'},{text:'随机回复',value:'random_one'}]"></div>
                                 <div form-input text="创建时间" ng-model="val.create_time" placeholder="创建时间"
                                      ng-show="false"></div>
-                                <div form-table text="关键字列表" ng-model="val.keyword_list_info" max="1" required="true"
+                                <div form-table text="关键字列表" ng-model="val.keyword_list_info" required="true"
                                      columns="[{'name': '关键字类型', 'field': 'type',default:'text',hide:true},
                              {'name': '匹配模式', 'field': 'match_mode',required:'true',radioBox:'true',default:'equal',source:'[{text:\'全等匹配\',value:\'equal\'},{text:\'包含匹配\',value:\'contain\'}]'},
                              {'name': '关键字', 'field': 'content',required:'true'}]"></div>
 
-                                <div form-table text="回复列表" ng-model="val.reply_list_info" max="1" required="true"
+                                <div form-table text="回复列表" ng-model="val.reply_list_info" required="true"
                                      columns="[{'name': '回复类型', 'field': 'type',default:'text',hide:true},
                              {'name': '回复内容', 'field': 'content',required:'true',textarea:'true'}]"></div>
                                 <div class="col-sm-12">
