@@ -538,16 +538,17 @@ define([
                         var cellFilter = col.filter ? ('|' + col.filter) : '';
                         var colField = 'item.' + col.field;
                         var typeContent = (col.type == 'number') ? 'type="number"' : '';
+                        var placeholderContent = (col.placeholder) ? (' placeholder="' + col.placeholder + '" ') : '';
                         var requiredContent = (col.required == 'true') ? ' required ' : '';
                         var disabled = (col.disabled) ? ' disabled ' : '';
                         var minContent = (col.min || col.min == 0) ? ('ng-min="' + col.min + '" ' + 'min="' + col.min + '"' ) : '';
-                        var maxContent = (col.max || col.max == 0) ? ('ng-max="' + col.max + '" ' + 'max="' + col.max + '"') : '';
+                        var maxContent = (col.max || col.max == 0) ? ('ng-max="' + col.max + '" ' + 'max="' + col.max + '"' + '" ' + 'maxlength="' + col.max + '"') : '';
                         if (col.fieldDirective) {
                             cellContent = col.fieldDirective;
                         } else if (!col.readonly) {
                             if (col.textarea) {
                                 var rows = col.rows ? ('rows = "+col.rows +"') : ('rows = 5');
-                                cellContent = '<textarea class="form-control" ' + rows + minContent + maxContent + disabled + typeContent + requiredContent +
+                                cellContent = '<textarea class="form-control" ' + rows + minContent + maxContent + disabled + typeContent + requiredContent + placeholderContent +
                                     'ng-model="' + colField + cellFilter + '"></textarea>';
                             } else if (col.radioBox) {
                                 var date = new Date().getTime() + '{{$index}}';
@@ -572,7 +573,7 @@ define([
                             } else if (col.select) {
                                 // eval('var source = $rootScope.' + col.source);
                                 // console.log(source);
-                                var search_param = '<select class="form-control"' + name + ' ng-model="' + colField + '" ' + requiredContent +
+                                var search_param = '<select class="form-control"' + name + ' ng-model="' + colField + '" ' + requiredContent + placeholderContent +
                                     'ng-options="item.value  as item.text for item in ' + col.source + '">' +
                                     // '<option value="">--  请选择  --</option>' +
                                     '</select>';
@@ -588,7 +589,7 @@ define([
                                 col.right = col.right || '';
                                 cellContent = '<hjm_date_time ng-model="' + colField + '"' + requiredContent + disabled + '></hjm_date_time>';
                             } else {
-                                cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent + disabled + requiredContent +
+                                cellContent = '<input class="form-control" ' + minContent + maxContent + typeContent + disabled + requiredContent + placeholderContent +
                                     'ng-model="' + colField + cellFilter + '"/>';
                             }
                         } else if (config.readonly || col.readonly) {

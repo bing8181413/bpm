@@ -173,6 +173,106 @@ define([
                 }
             }
         })
+        //导入任务   mission
+        .directive('missionImport', function ($templateCache, $filter, $compile, widget, $uibModal, $timeout, $rootScope, $http) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: true,
+                scope: {
+                    data: '='
+                },
+                template: '<p><a class="btn btn-success btn-rounded btn-sm" style="margin-top: -5.5px;" ng-click="import()" >导入任务</a></p>',
+                link: function ($scope, $element, $attrs) {
+                    var supscope = $scope;
+                    $scope.import = function () {
+                        var modalInstance = $uibModal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $uibModalInstance) {
+                                    $scope.title = '导入任务';
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
+                                        ' <input type="file" class="form-control" id="missions" name="missions"><hr>' +
+                                        '<a class="btn btn-primary btn-rounded pull-right" ng-disabled="FormBody.$invalid" ng-click="submit()">确定</a>' +
+                                        '</form>';
+                                    $scope.submit = function () {
+                                        var formData = new FormData(); //初始化一个FormData实例
+                                        formData.append('missions', $('#missions')[0].files[0]); //file就是图片或者其他你要上传的formdata，可以通过$("input")[0].files[0]来获取
+                                        $http({
+                                            method: 'POST',
+                                            url: simpleCons.domain + '/lessons/'+supscope.data.lesson_id+'/upload',
+                                            data: formData,
+                                            headers: {'Content-Type': undefined}
+                                        }).success(function (json) {
+                                            if (json.code == 0) {
+                                                widget.msgToast('导入成功,请刷新查看');
+                                                supscope.$parent.$parent.searchAction();
+                                                $scope.cancel();
+                                            } else {
+                                                widget.msgToast(json.message)
+                                            }
+                                        }).error(function (err) {
+                                            widget.msgToast('网络错误')
+                                        });
+                                    }
+                                    $scope.cancel = function () {
+                                        $uibModalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'sm'
+                            }
+                        );
+                    }
+                }
+            }
+        })
+        //草稿任务排序
+        .directive('missionNotify', function ($rootScope, $templateCache, $filter, $compile, widget, $uibModal) {
+            return {
+                multiElement: true,
+                restrict: 'AE',
+                replace: false,
+                scope: {
+                    data: '=',
+                },
+                template: '<a class="btn btn-warning btn-sm btn-bordered" ng-click="notify()" show-role="\'admin,op,teacher\'" >任务修改通知</a>',
+                link: function ($scope, $element, $attrs) {
+                    $scope.notify = function () {
+                        var mission_id = $scope.data.mission_id;
+                        var superscope = $scope;
+                        var modalInstance = $uibModal.open({
+                                template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+                                controller: function ($scope, $uibModalInstance) {
+                                    $scope.title = '任务修改通知';
+                                    $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
+                                        '<a class="btn btn-rounded pull-right btn-primary" ' + ' ng-click="submit()">发送通知</a>' +
+                                        '</form>';
+                                    $scope.submit = function () {
+                                        widget.ajaxRequest({
+                                            url: '/teacher/missions/' + mission_id + '/notify',
+                                            method: 'post',
+                                            scope: $scope,
+                                            data: {status: status},
+                                            success: function (json) {
+                                                widget.msgToast('发送成功');
+                                                $scope.cancel();
+                                            },
+                                            failure: function (json) {
+                                                widget.msgToast(json.message);
+                                                $scope.cancel();
+                                            }
+                                        })
+                                    }
+                                    $scope.cancel = function () {
+                                        $uibModalInstance.dismiss('cancel');
+                                    };
+                                },
+                                size: 'sm'
+                            }
+                        );
+                    }
+                }
+            }
+        })
         //知识点编辑
         .directive('knowledgeEdit', function ($rootScope, $templateCache, $filter, $compile, widget) {
             return {

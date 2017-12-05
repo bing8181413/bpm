@@ -27,7 +27,10 @@ define([], function () {
                 {name: '备注', field: 'remark|null2empty'},
                 {
                     name: '已上线任务',
-                    fieldDirective: '<div mission-online data="item"></div>' +
+                    fieldDirective:
+                    // '<div mission-online data="item"></div>' +
+                    '<p><a class="btn btn-info btn-rounded btn-sm" ui-sref="main.mission.list({lesson_id:item.lesson_id})" ng-bind="\'已上线(\'+(item.stat_mission && item.stat_mission.mission_count || 0)+\')\'" ></a></p>' +
+                    '<div mission-import data="item" ></div>'+
                     '<div lessons-mission-order data="item" ></div>'
                 },
                 {

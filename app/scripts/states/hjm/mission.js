@@ -19,11 +19,11 @@ define([
                             }
                         })
                         .state(cons.state.main + '.mission.list', {
-                            url: "/list",
+                            url: "/:lesson_id/list",
                             views: {
                                 "": {
-                                    templateProvider: function ($templateCache) {
-                                        return '<div hjm-grid modid="missionList" config="config" columns="columns"></div>';
+                                    templateProvider: function ($templateCache, $stateParams) {
+                                        return '<div hjm-grid modid="missionList" config="config_by_online" columns="columns_by_online" ext-api-string="/teacher/lessons/' + $stateParams.lesson_id + '/missions"></div>';
                                     }
                                 }
                             }

@@ -27,7 +27,7 @@ define([], function () {
         qiniu_domain = 'https://testbpm.ahaschool.com';
         wx_domain = 'https://testm.ahaschool.com';
     } else if (location.href.indexOf('//testbpm.ahaschool.com') > 0
-        // || location.href.indexOf('//bpm.hjm.com') > 0 || location.href.indexOf('//http://localhost')
+        || location.href.indexOf('//bpm.hjm.com') > 0 || location.href.indexOf('//http://localhost')
     ) {
         env = 'test';
         env_name = '测试系统';
@@ -39,8 +39,10 @@ define([], function () {
         // domain = 'https://devapi.huijiame.com';
         env = 'dev';
         env_name = '开发系统';
-        domain = 'https://devmgrapi.ahaschool.com';
+        // domain = 'https://devmgrapi.ahaschool.com';
+        domain = 'https://dev.ahaschool.com/mgrapi';
         web_domain = 'https://devbpm.ahaschool.com';
+        web_domain = 'https://dev.ahaschool.com/bpm';
         qiniu_domain = 'https://devbpm.ahaschool.com';
         wx_domain = 'https://devm.ahaschool.com';
         // qiniu_domain = 'http://qiniu.hjm.com/';

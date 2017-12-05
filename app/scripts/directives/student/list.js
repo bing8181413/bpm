@@ -185,8 +185,36 @@ define([
                                             data: {},
                                             success: function (json) {
                                                 $scope.param = json.data;
+                                                console.log($scope.param);
+                                                if ($scope.param.questions[0]) {
+                                                    angular.forEach($scope.param.questions[0].options, function (val, key) {
+                                                        if (val.id == $scope.param.questions[0].result.option_id) {
+                                                            if ($scope.param.questions[0].result.score > 0) {
+                                                                val.selected = "√";
+                                                            } else {
+                                                                val.selected = "X";
+                                                            }
+                                                        } else {
+                                                            val.selected = "";
+                                                        }
+                                                    });
+                                                }
+                                                //  左右显示样式
+                                                if($scope.param.sources.length>0){
+                                                    $scope.left_style = {
+                                                        width: '60%'
+                                                    };
+                                                    $scope.right_style = {
+                                                        width: '35%'
+                                                    };
+                                                }else{
+                                                    $scope.left_style = {};
+                                                    $scope.right_style = {
+                                                        width: '80%'
+                                                    };
+                                                }
                                                 $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
-                                                    '<div class="pull-left" style="width: 60%">' +
+                                                    '<div class="pull-left" ng-style="left_style" ng-if="param.sources.length>0">' +
                                                     '<div class="form-group">' +
                                                     '<div class="col-sm-12" style="height: 50px;margin: 5px;">' +
                                                     '<div ng-repeat="audio in param.sources" ng-if="audio.type==3" style="width:50%;margin-bottom: 20px;" class="pull-left">' +
@@ -202,13 +230,21 @@ define([
                                                     '</div>' +
                                                     '</div>' +
                                                     '</div>' +
-                                                    '<div class="pull-right" style="width: 35%">' +
+                                                    '<div ng-style="right_style" ng-class="{\'pull-right\':param.sources.length>0}" >' +
+                                                    '<div form-input text="任务名称" ng-model="param.mission.title" content-width="10" ng-disabled="true"></div>' +
+                                                    '<div form-table text="选项" ng-model="param.questions[0].options" max="6" config="{readonly:true}" ' +
+                                                    'ng-if="param.questions.length>0"' +
+                                                    'columns="[{\'name\': \'ID\', \'field\': \'id\',hide:\'true\'},' +
+                                                    '{\'name\': \'名称\', \'field\': \'name\',\'disabled\': \'true\'},' +
+                                                    '{\'name\': \'该选项得分\', \'field\': \'score\',\'disabled\': \'true\'},' +
+                                                    '{\'name\': \'选择结果\', \'field\': \'selected\',\'disabled\': \'true\'}]">' +
+                                                    '</div>' +
                                                     '<div form-textarea text="学生提问" ng-model="param.ask" content-width="10" placeholder="学生提问" ng-disabled="true"></div>' +
                                                     '<hr class="form-group">' +
                                                     '<form-audio ng-model="param.teacher_sources" text="语音录制"></form-audio>' +
                                                     '<div form-textarea text="作业评价" ng-model="param.appraise" content-width="10" placeholder="作业评价"></div>' +
                                                     '<div form-radio text="是否重做" ng-model="param.redo" ' +
-                                                    ' default="1" source="[{text:\'否\',value:1},{text:\'是\',value:2}]" source-api="" ng-disabled="hasappraise"></div>' +
+                                                    ' default="1" source="[{text:\'否\',value:1},{text:\'是\',value:2}]" source-api="" ng-disabled="hasappraise||param.questions.length>0"></div>' +
                                                     '<a class="btn btn-rounded pull-right" ' + class_text + ' ng-click="submit()">' + (!$scope.hasappraise ? '评价作业' : '再次评价作业') + '</a>' +
                                                     '</div>' +
                                                     '</form>';

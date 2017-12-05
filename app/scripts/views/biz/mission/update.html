@@ -45,7 +45,7 @@
 
                                     <div form-table text="选项" ng-model="item.options" max="6"
                                          columns="[{'name': 'ID', 'field': 'id',hide:'true'},
-                                    {'name': '名称', 'field': 'name',required:'true'},
+                                    {'name': '名称', 'field': 'name','max':10,'placeholder':'不超过10个字',required:'true'},
                                     {'name': '该选项得分', 'field': 'score',required:'true',type:'number'}]">
                                     </div>
                                     <div class="col-sm-12">
@@ -56,9 +56,10 @@
                                     <div form-textarea text="答案解析" ng-model="item.explain"></div>
 
                                 </div>
-                                <div class="col-sm-12" style="margin-top: 15px;">
+                                <div class="col-sm-12" style="margin-top: 15px;"
+                                     ng-show="(!param.questions||param.questions&&param.questions.length<1)">
                                     <a class="btn btn-success btn-rounded"
-                                       ng-click="(param.questions&&param.questions.length<1)&&(param.questions.push({}));">新增题目</a>
+                                       ng-click="(!param.questions||param.questions&&param.questions.length<1)&&(param.questions=[{}]);">新增题目</a>
                                 </div>
 
                             </div>

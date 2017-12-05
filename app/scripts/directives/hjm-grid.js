@@ -210,6 +210,7 @@ define([
                     columns: '@',
                     extSearch: '=',
                     extApi: '=',
+                    extApiString: '@',
                     extDomain: '=',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
@@ -248,7 +249,7 @@ define([
                         $scope.updateList();
                     }
                     $scope.updateList = function () {
-                        $scope.api = $scope.extApi || configDef.api;
+                        $scope.api = $scope.extApi || $scope.extApiString || configDef.api;
                         $scope.domain = $scope.extDomain || configDef.domain;
                         var pageInfo = {
                             page: $scope.pageInfo.currentPage || 1,
