@@ -794,5 +794,15 @@ define([
                 return result;
             }
         }])
+        //  date_time_duration   0 =>'0:00-1:00' ,12=> '12:00-13:00'
+        .filter('date_time_duration', [function () {
+            return function (val) {
+                var result = val;
+                if (val || val == 0) {
+                    result = val + ':00 - ' + (parseInt(val) + 1) + ':00';
+                }
+                return result;
+            }
+        }])
     ;
 });

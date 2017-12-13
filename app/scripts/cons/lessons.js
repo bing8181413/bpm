@@ -27,17 +27,20 @@ define([], function () {
                 {name: '备注', field: 'remark|null2empty'},
                 {
                     name: '已上线任务',
-                    fieldDirective:
-                    // '<div mission-online data="item"></div>' +
+                    fieldDirective: // '<div mission-online data="item"></div>' +
                     '<p><a class="btn btn-info btn-rounded btn-sm" ui-sref="main.mission.list({lesson_id:item.lesson_id})" ng-bind="\'已上线(\'+(item.stat_mission && item.stat_mission.mission_count || 0)+\')\'" ></a></p>' +
-                    '<div mission-import data="item" ></div>'+
+                    '<div mission-import data="item" ></div>' +
                     '<div lessons-mission-order data="item" ></div>'
+                },
+                {
+                    name: '状态',
+                    fieldDirective: '<span ng-bind="item.status|keyVal:\'1\':\'已上线\':\'2\':\'已下线\':\'3\':\'草稿\'"></span>' +
+                    '<div lessons-change-status data="item" ></div>'
                 },
                 {
                     name: '操作',
                     fieldDirective: '<div lessons-mission-add data="item" ></div>' +
-                    '<div lessons-edit data="item" ></div>' +
-                    '<div lessons-change-status data="item" ></div>'
+                    '<div lessons-edit data="item" ></div>'
                 },
             ],
             config: {

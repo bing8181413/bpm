@@ -1,0 +1,136 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock">活动数据看板</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <form class="form-horizontal" name="FormBody" novalidate>
+                    <div class="col-sm-12 form-group">
+                        <div form-input text="活动ID" ng-model="searchItem.product_id" content-width="4"></div>
+                        <div form-double-date-time text-start="上架时间" text-end="下架时间" required="true"
+                             ng-model-start="searchItem.start_time" ng-model-end="searchItem.end_time"></div>
+                        <div form-radio text="选择时间" ng-model="searchItem.period" default="10"
+                             source="[{text:'今天',value:'1'},{text:'昨天',value:'2'},{text:'本周',value:'3'},
+                                  {text:'本月',value:'4'},{text:'过去7天',value:'5'},{text:'过去30天',value:'6'},{text:'其他',value:'10'}]"></div>
+                        <div class="form_element">
+                            <div class="col-sm-offset-2">
+                                <a class="btn btn-bordered btn-primary pull-left" ng-disabled="FormBody.$invalid"
+                                   ng-click="search()">查询</a>
+                                <span class="pull-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <a class="btn btn-bordered btn-primary pull-left" ng-click="export()">导出</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-sm-12 form-group">
+                    <h3 ng-if="show">Please wait a moment...</h3>
+                    <hr/>
+                    <table class="table table-bordered table-striped" id="order_list_text">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 150px;background: #ccc;">订单数据</th>
+                            <th class="text-center" style="width: 150px;">PV</th>
+                            <th class="text-center" style="width: 150px;">UV</th>
+                            <th class="text-center" style="width: 150px;">订单数</th>
+                            <th class="text-center" style="width: 150px;">单人购订单</th>
+                            <th class="text-center" style="width: 150px;">礼包订单</th>
+                            <th class="text-center" style="width: 150px;">已售份数</th>
+                            <th class="text-center" style="width: 150px;">支付金额</th>
+                            <th class="text-center" style="width: 150px;">订单用户</th>
+                            <th class="text-center" style="width: 150px;">新增下单用户</th>
+                            <th class="text-center" style="width: 150px;">回访下单用户</th>
+                            <th class="text-center" style="width: 150px;">订单转化率</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr bindonce ng-repeat="(key,item) in stat.order_list">
+                            <td class="text-center">
+                                <span ng-if="item.data_type==1" ng-bind="item.stat_hous|date_time_duration"></span>
+                                <span ng-if="item.data_type==2" ng-bind="item.stat_day"></span>
+                            </td>
+                            <td class="text-center"><span bo-text="item.pv"></span></td>
+                            <td class="text-center"><span bo-text="item.uv"></span></td>
+                            <td class="text-center"><span bo-text="item.total"></span></td>
+                            <td class="text-center"><span bo-text="item.buy_total"></span></td>
+                            <td class="text-center"><span bo-text="item.gift_total"></span></td>
+                            <td class="text-center"><span bo-text="item.sale_total"></span></td>
+                            <td class="text-center"><span bo-text="item.pamt_total"></span></td>
+                            <td class="text-center"><span bo-text="item.user_total"></span></td>
+                            <td class="text-center"><span bo-text="item.new_user_total"></span></td>
+                            <td class="text-center"><span bo-text="item.visit_user_total"></span></td>
+                            <td class="text-center"><span bo-text="item.convert_rate"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <table class="table table-bordered table-striped" id="groupbuy_list_text">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 150px;background: #ccc;">团数据</th>
+                            <th class="text-center" style="width: 150px;">总团数</th>
+                            <th class="text-center" style="width: 150px;">未成团</th>
+                            <th class="text-center" style="width: 150px;">成团数</th>
+                            <th class="text-center" style="width: 150px;">定员成团数</th>
+                            <th class="text-center" style="width: 150px;">弹性成团数</th>
+                            <th class="text-center" style="width: 150px;">开团失败数</th>
+                            <th class="text-center" style="width: 150px;">成团率</th>
+                            <th class="text-center" style="width: 150px;">开团失败率</th>
+                            <th class="text-center" style="width: 150px;">开团率</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr bindonce ng-repeat="(key,item) in stat.groupbuy_list">
+                            <td class="text-center">
+                                <span ng-if="item.data_type==1" ng-bind="item.stat_hous|date_time_duration"></span>
+                                <span ng-if="item.data_type==2" ng-bind="item.stat_day"></span>
+                            </td>
+                            <td class="text-center"><span bo-text="item.total"></span></td>
+                            <td class="text-center"><span bo-text="item.in_total"></span></td>
+                            <td class="text-center"><span bo-text="item.accomplish_total"></span></td>
+                            <td class="text-center"><span bo-text="item.fixed_total"></span></td>
+                            <td class="text-center"><span bo-text="item.elastic_total"></span></td>
+                            <td class="text-center"><span bo-text="item.fail_total"></span></td>
+                            <td class="text-center"><span bo-text="item.accomplish_rate"></span></td>
+                            <td class="text-center"><span bo-text="item.fail_rate"></span></td>
+                            <td class="text-center"><span bo-text="item.open_rate"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr/>
+                    <table class="table table-bordered table-striped" id="share_list_text">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 150px;background: #ccc;">分享数据</th>
+                            <th class="text-center" style="width: 150px;">分享次数</th>
+                            <th class="text-center" style="width: 150px;">分享人数</th>
+                            <th class="text-center" style="width: 150px;">分享产生的订单</th>
+                            <th class="text-center" style="width: 150px;">分享产生UV</th>
+                            <th class="text-center" style="width: 150px;">分享转化率</th>
+                            <th class="text-center" style="width: 150px;">分享UV占比</th>
+                            <th class="text-center" style="width: 150px;">人均分享UV</th>
+                            <th class="text-center" style="width: 150px;">人均分享订单</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr bindonce ng-repeat="(key,item) in stat.share_list">
+                            <td class="text-center">
+                                <span ng-if="item.data_type==1" ng-bind="item.stat_hous|date_time_duration"></span>
+                                <span ng-if="item.data_type==2" ng-bind="item.stat_day"></span>
+                            </td>
+                            <td class="text-center"><span bo-text="item.total""></span></td>
+                            <td class="text-center"><span bo-text="item.user_total"></span></td>
+                            <td class="text-center"><span bo-text="item.order_total"></span></td>
+                            <td class="text-center"><span bo-text="item.uv"></span></td>
+                            <td class="text-center"><span bo-text="item.convert_rate"></span></td>
+                            <td class="text-center"><span bo-text="item.uv_proportion"></span></td>
+                            <td class="text-center"><span bo-text="item.user_avg_uv"></span></td>
+                            <td class="text-center"><span bo-text="item.user_avg_order_total"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
