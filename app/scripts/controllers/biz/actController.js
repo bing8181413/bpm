@@ -327,6 +327,18 @@ define([
                     return false;
                 }
             }
+            if ($scope.param.gift_pics && !comfunc.isEmptyArray($scope.param.gift_pics)) {
+                var tmp_gift_pics_err = 0;
+                angular.forEach($scope.param.gift_pics, function (val, key) {
+                    if (!val.pic_url) {
+                        tmp_gift_pics_err++;
+                    }
+                })
+                if (tmp_gift_pics_err > 0) {
+                    widget.msgToast('礼包图片还没有完成上传');
+                    return false;
+                }
+            }
             if ($scope.param.contents && !comfunc.isEmptyArray($scope.param.contents)) {
                 var tmp_content_err = 0;
                 angular.forEach($scope.param.contents, function (val, key) {
