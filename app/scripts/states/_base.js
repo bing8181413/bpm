@@ -6,7 +6,7 @@ define([
     'states/hjm/product',// 商品
     'states/hjm/order',// 订单
     'states/hjm/banner',// 运营位
-    'states/hjm/export',// 倒导出
+    'states/hjm/export',// 导出
     'states/hjm/user',// 用户
     'states/hjm/refund',// 财务退款
     'states/hjm/delivery',// 配送
@@ -49,6 +49,11 @@ define([
     'states/hjm/live/notice',//公告
 
     'states/hjm/batchproduct/batchproducts',//批量活动管理
+
+
+
+    'states/hjm/dashboard/dashboard',//活动面板  报表
+
 
 
     'states/hjm/merchant/merchant',//供应商管理

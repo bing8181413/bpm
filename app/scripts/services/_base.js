@@ -1,4 +1,9 @@
-define(['./services', '../cons/simpleCons', './widget', './comfunc'], function (mod, cons, widget, comfunc) {
+define([
+    './services'
+    , '../cons/simpleCons'
+    , './widget'
+    , './comfunc'
+], function (mod, cons, widget, comfunc) {
     mod
         .factory('bpmHttpInterceptor', ['$log', '$rootScope', function ($log, $rootScope) {
             // $log.debug('$log is here to show you that this is a regular factory with injection');
