@@ -89,10 +89,10 @@
                                  required="true" ng-disabled="true"></div>
 
                             <div form-date-time text="观看权限发放开始时间" ng-model="param.open_time" required="true"></div>
-                            <h3 class="col-sm-offset-2 text-primary">只能管理员来操作开启自动处理开关</h3>
+                            <!--<h3 class="col-sm-offset-2 text-primary">只能管理员来操作开启自动处理开关</h3>-->
+                            <!--ng-disabled="$root.hjm.role!=='admin'"-->
                             <div form-radio text="自动处理开关" ng-model="param.onoff" required="true" default="2"
-                                 source="[{text:'开',value:'1'},{text:'关',value:'2'}]" source-api=""
-                                 ng-disabled="$root.hjm.role!=='admin'"></div>
+                                 source="[{text:'开',value:'1'},{text:'关',value:'2'}]" source-api=""></div>
                         </div>
                         <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过15字"></div>
                     </div>
