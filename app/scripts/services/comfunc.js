@@ -1,7 +1,50 @@
 define(['./services', '../cons/simpleCons'], function (mod, cons) {
     mod
-        .factory('comfunc', function ($q, $state, $compile, $location, $rootScope, $log) {
+        .factory('comfunc', function ($q, $state, $compile, $location, $rootScope, $log, $filter) {
             var comfunc = {
+                getDatePeriod: function (period) {
+                    var day_start = new Date();
+                    var day_end = new Date();
+                    var rtn_start = ''
+                    var rtn_end = ''
+                    period = period + '';
+                    switch (period) {
+                        case '1'://今天
+                            rtn_start = $filter('date')(day_start, 'yyyy-MM-dd 00:00:00');
+                            rtn_end = $filter('date')(day_end, 'yyyy-MM-dd 23:59:59');
+                            break;
+                        case '2':// 昨天
+                            day_start.setDate(day_start.getDate() - 1);
+                            day_end.setDate(day_end.getDate() - 1);
+                            rtn_start = $filter('date')(day_start, 'yyyy-MM-dd 00:00:00');
+                            rtn_end = $filter('date')(day_end, 'yyyy-MM-dd 23:59:59');
+                            break;
+                        case '3':// 本周
+                            day_start.setDate(day_start.getDate() - (day_end.getDay() - 1));
+                            rtn_start = $filter('date')(day_start, 'yyyy-MM-dd 00:00:00');
+                            rtn_end = $filter('date')(day_end, 'yyyy-MM-dd 23:59:59');
+                            break;
+                        case '4':// 本月
+                            rtn_start = $filter('date')(day_start, 'yyyy-MM-01 00:00:00');
+                            rtn_end = $filter('date')(day_end, 'yyyy-MM-dd 23:59:59');
+                            break;
+                        case '5':// 过去7天
+                            day_start.setDate(day_start.getDate() - 6);
+                            rtn_start = $filter('date')(day_start, 'yyyy-MM-dd 00:00:00');
+                            rtn_end = $filter('date')(day_end, 'yyyy-MM-dd 23:59:59');
+                            break;
+                        case '6':// 过去30天
+                            day_start.setDate(day_start.getDate() - 29);
+                            rtn_start = $filter('date')(day_start, 'yyyy-MM-dd 00:00:00');
+                            rtn_end = $filter('date')(day_end, 'yyyy-MM-dd 23:59:59');
+                            break;
+                        default:// 其他
+                            rtn_start = $filter('date')(day_start, 'yyyy-MM-dd 00:00:00');
+                            rtn_end = $filter('date')(day_end, 'yyyy-MM-dd 23:59:59');
+                            break;
+                    }
+                    return {start_time: rtn_start, end_time: rtn_end}
+                },
                 isEmptyArray: function (arr) {
                     if (angular.isArray(arr)) {
                         return (arr.length == 0) || false;

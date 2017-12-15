@@ -22,9 +22,42 @@ define([
                             url: "/list.html",
                             views: {
                                 "": {
-                                    controller: 'dashboard.updateController',
+                                    controller: 'dashboard.listController',
                                     templateProvider: function ($templateCache) {
                                         return $templateCache.get('app/' + cons.biz_path + 'dashboard/list.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.dashboard.orders', {
+                            url: "/orders.html",
+                            views: {
+                                "": {
+                                    controller: 'dashboard.ordersController',
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'dashboard/orders.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.dashboard.groupbuys', {
+                            url: "/groupbuys.html",
+                            views: {
+                                "": {
+                                    controller: 'dashboard.groupbuysController',
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'dashboard/groupbuys.html');
+                                    }
+                                }
+                            }
+                        })
+                        .state(cons.state.main + '.dashboard.shares', {
+                            url: "/shares.html",
+                            views: {
+                                "": {
+                                    controller: 'dashboard.sharesController',
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.biz_path + 'dashboard/shares.html');
                                     }
                                 }
                             }

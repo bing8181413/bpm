@@ -1,0 +1,71 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock">活动报表-拼团</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <form class="form-horizontal" name="FormBody" novalidate>
+                    <div class="col-sm-12 form-group">
+                        <div form-textarea text="活动ID" ng-model="searchItem.product_ids" placeholder="多个ID回车换行或者逗号隔开"></div>
+                        <div form-double-date-time text-start="开始时间" text-end="结束时间" required="true"
+                             ng-model-start="searchItem.start_time" ng-model-end="searchItem.end_time"></div>
+                        <div form-radio text="选择时间" ng-model="searchItem.period" default="10"
+                             source="[{text:'今天',value:'1'},{text:'昨天',value:'2'},{text:'本周',value:'3'},
+                                  {text:'本月',value:'4'},{text:'过去7天',value:'5'},{text:'过去30天',value:'6'},{text:'其他',value:'10'}]"></div>
+                        <div class="form_element">
+                            <div class="col-sm-offset-2">
+                                <a class="btn btn-bordered btn-primary pull-left" ng-disabled="FormBody.$invalid"
+                                   ng-click="search()">查询</a>
+                                <span class="pull-left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <a class="btn btn-bordered btn-primary pull-left" ng-click="export()">导出</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <div class="col-sm-12 form-group">
+                    <h3 ng-if="show">Please wait a moment...</h3>
+                    <hr/>
+                    <table class="table table-bordered table-striped" id="groupbuy_list_text">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 150px;background: #ccc;">活动ID</th>
+                            <th class="text-center" style="width: 150px;">活动名称</th>
+                            <th class="text-center" style="width: 150px;">管理备注</th>
+                            <th class="text-center" style="width: 150px;">PV</th>
+                            <th class="text-center" style="width: 150px;">UV</th>
+                            <th class="text-center" style="width: 150px;">总团数</th>
+                            <th class="text-center" style="width: 150px;">开团率</th>
+                            <th class="text-center" style="width: 150px;">未成团</th>
+                            <th class="text-center" style="width: 150px;">成团数</th>
+                            <th class="text-center" style="width: 150px;">定员成团(人数团)</th>
+                            <th class="text-center" style="width: 150px;">弹性成团(时间团)</th>
+                            <th class="text-center" style="width: 150px;">成团率</th>
+                            <th class="text-center" style="width: 150px;">开团失败数</th>
+                            <th class="text-center" style="width: 150px;">开团失败率</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr bindonce ng-repeat="(key,item) in groupbuy_list">
+                            <td class="text-center"><span bo-text="item.product_id"></span></td>
+                            <td class="text-center"><span bo-text="item.title"></span></td>
+                            <td class="text-center"><span bo-text="item.admin_remark"></span></td>
+                            <td class="text-center"><span bo-text="item.pv"></span></td>
+                            <td class="text-center"><span bo-text="item.uv"></span></td>
+                            <td class="text-center"><span bo-text="item.total"></span></td>
+                            <td class="text-center"><span bo-text="item.rate_total+'%'"></span></td>
+                            <td class="text-center"><span bo-text="item.total_wait"></span></td>
+                            <td class="text-center"><span bo-text="item.total_finish"></span></td>
+                            <td class="text-center"><span bo-text="item.finish_num"></span></td>
+                            <td class="text-center"><span bo-text="item.finish_time"></span></td>
+                            <td class="text-center"><span bo-text="item.rate_finish+'%'"></span></td>
+                            <td class="text-center"><span bo-text="item.total_fail"></span></td>
+                            <td class="text-center"><span bo-text="item.rate_fail+'%'"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

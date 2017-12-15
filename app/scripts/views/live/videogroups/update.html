@@ -14,7 +14,7 @@
                         <div form-image-single text="图片" ng-model="param.pic_url" required="true"></div>
 
                         <!--<div form-radio text="类型" ng-model="param.group_type" required="true" default="1"-->
-                             <!--source="[{text:'直播',value:'1'},{text:'点播',value:'2'}]" source-api=""></div>-->
+                        <!--source="[{text:'直播',value:'1'},{text:'点播',value:'2'}]" source-api=""></div>-->
 
                         <div form-radio text="是否付费" ng-model="param.pay_type" required="true" default="1"
                              source="[{text:'免费',value:'1'},{text:'付费',value:'2'}]" source-api=""></div>
@@ -37,38 +37,40 @@
                              ,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>
                         <div ng-if="param.pay_type==2">
                             <hr>
-                            <h4>关联SKU</h4>
+                            <h4>关联SKU,活动类目</h4>
+                            <h5 class="col-sm-offset-2 text-danger">选择收费模式时 关联SKU、关联活动类目 必须至少选一个并切填写完成</h5>
                             <div form-table text="关联SKU" ng-model="param.skus"
                                  columns="[{name: '选择SKU',width:'50%',
                               'fieldDirective': '<select class=\'form-control \' ng-model=\'item.sku\'
                                ng-options=\'obj.value as obj.text for obj in $root.common.sku\' ></select>',required:'true'}]"></div>
 
-                            <hr>
-                            <h4>关联活动类目</h4>
                             <div class="row">
-                                <div class="col-sm-offset-2 col-sm-8" ng-repeat="product in param.products">
-                                    <div class="panel panel-primary">
-                                        <div class="panel-body">
-                                            <div form-search text="搜索活动ID" btn-text="查询活动类目"
-                                                 verify="verify_product(product.product_id,$index)"
-                                                 ajax-config="{method:'get',url:$root.common.domain+'/products/'+product.product_id+'/options?count=1000'}"
-                                                 ng-model="product.product_id"
-                                                 callback="add_product(json,$index)"></div>
-                                            <div form-checkbox text="选择类目" ng-model="product._tmp_options_selected"
-                                                 type="number" ng-show="product._tmp_options"
-                                                 source="product._tmp_options"></div>
+                                <label class="col-sm-2 control-label">关联活动类目&nbsp;&nbsp;</label>
+                                <div class="col-sm-8">
+                                    <div ng-repeat="product in param.products">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-body">
+                                                <div form-search text="搜索活动ID" btn-text="查询活动类目"
+                                                     verify="verify_product(product.product_id,$index)"
+                                                     ajax-config="{method:'get',url:$root.common.domain+'/products/'+product.product_id+'/options?count=1000'}"
+                                                     ng-model="product.product_id"
+                                                     callback="add_product(json,$index)"></div>
+                                                <div form-checkbox text="选择类目" ng-model="product._tmp_options_selected"
+                                                     type="number" ng-show="product._tmp_options"
+                                                     source="product._tmp_options"></div>
 
-                                            <json-table ng-model="product.options"
-                                                        config="{readonly:true}"
-                                                        columns="[{name: '活动ID', field:'product_id',readonly:'true'},
+                                                <json-table ng-model="product.options"
+                                                            config="{readonly:true}"
+                                                            columns="[{name: '活动ID', field:'product_id',readonly:'true'},
                                                     {name: '拼团类型', field:'option.option_type|product_category',readonly:'true'},
                                                     {name: '类目ID', field:'option_id',readonly:'true'},
                                                     {name: '类目名称', field:'option.option_name',readonly:'true'},
                                                     {name: '状态', field:'option.option_status|product_option_status',readonly:'true'}]">
-                                            </json-table>
-                                            <div class="row pull-right">
-                                                <a class="btn btn-danger btn-rounded"
-                                                   ng-click="param.products.splice($index,1)">删除</a>
+                                                </json-table>
+                                                <div class="row pull-right">
+                                                    <a class="btn btn-danger btn-rounded"
+                                                       ng-click="param.products.splice($index,1)">删除</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

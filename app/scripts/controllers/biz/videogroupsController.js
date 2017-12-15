@@ -8,6 +8,7 @@ define([
     updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', 'comfunc', '$filter', '$timeout'];
     function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.param = {};
+        $scope._tmp = {};
         if ($stateParams.id) {
             widget.ajaxRequest({
                 url: con.live_domain + '/live/videogroups/' + $stateParams.id,
@@ -15,6 +16,11 @@ define([
                 scope: $scope,
                 success: function (json) {
                     $scope.param = json.data;
+                    // 记录变化使用的临时变量
+                    $scope._tmp = {
+                        skus: json.data.skus,
+                        products: angular.copy(json.data.products)
+                    }
                 }
             })
         }
@@ -150,13 +156,6 @@ define([
                 });
             }
         }
-        $scope.$watch('param.products', function (products) {
-            if (products) {
-                $scope.update_option();
-            } else {
-                // console.log('还没有products');
-            }
-        }, true)
         $scope.$watch('param.product_id', function (product_id) {
             if (product_id && product_id != 0) {
                 $scope.param.product_url = $rootScope.common.wx_domain + '/product/detail/product_id/' + product_id + '?utm_source=appbuy';
@@ -164,6 +163,40 @@ define([
                 $scope.param.product_url = '';
             }
         })
+
+
+        $scope.reset_open_time = function (type) {
+            console.log(type);
+            $scope.param.open_time = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
+        }
+
+        // products 有变化 自动更新授权的时间
+        $scope.$watch('param.products', function (products_val, products_old_val) {
+            if (products_val) {
+                $scope.update_option();
+                if (products_old_val && (products_val.length != $scope._tmp.products.length)) {
+                    $scope.reset_open_time('products1');
+                } else {
+                    angular.forEach(products_val, function (val, key) {
+                        if (!$scope._tmp.products[key] || !$scope._tmp.products[key].options) {
+                            $scope.reset_open_time('products2');
+                        } else if ($scope._tmp.products[key] && $scope._tmp.products[key].options && JSON.stringify(val.options) != JSON.stringify($scope._tmp.products[key].options)) {
+                            $scope.reset_open_time('products3');
+                        }
+                    })
+                }
+            } else {
+                // console.log('还没有products');
+            }
+        }, true);
+
+        // skus 有变化 自动更新授权的时间
+        $scope.$watch('param.skus', function (val, old_val) {
+            if (old_val || (old_val != undefined && JSON.stringify(val) != JSON.stringify($scope._tmp.skus))) {
+                $scope.reset_open_time('skus');
+            }
+        }, true);
+
         $scope.submit = function (status) {
             $scope.param.video_count = $scope.param.rooms && $scope.param.rooms.length || 0;
             if ($scope.param.video_count == 0) {
@@ -176,6 +209,23 @@ define([
                 $scope.param.product_id = '';
                 $scope.param.product_url = '';
                 $scope.param.onoff = 2;
+            } else if ($scope.param.pay_type == 2) {
+                if ($scope.param.skus.length == 0 && $scope.param.products.length == 0) {
+                    widget.msgToast('收费模式下,关联SKU和关联活动类目不能同时为空!');
+                    return false;
+                } else if ($scope.param.products.length > 0) {
+                    var err_option = false;
+                    angular.forEach($scope.param.products, function (val, key) {
+                        if (val.options.length == 0) {
+                            err_option = true;
+                        }
+                    });
+                    if (err_option) {
+                        widget.msgToast('收费模式下,关联活动类目不能为空!');
+                        return false;
+                    }
+                }
+
             }
             widget.ajaxRequest({
                 url: con.live_domain + '/live/videogroups' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
