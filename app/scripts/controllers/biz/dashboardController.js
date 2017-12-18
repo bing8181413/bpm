@@ -221,11 +221,12 @@ define([
         $scope.searchItem = {
             page: 1,
             count: 100,
-            product_id: undefined,
-            period: undefined,
-            start_time: '2017-12-04',
-            end_time: '2017-12-06'
+            product_id: '500475',
+            period: 6,
+            // start_time: '2017-12-04',
+            // end_time: '2017-12-06'
         };
+        $scope.actData = {};
         $scope.stat = {
             order_list: [],//订单数据
             groupbuy_list: [],// 团数据
@@ -265,6 +266,8 @@ define([
                 data: {},
                 success: function (json) {
                     if (json.code == 0) {
+                        json.data.status = $filter('product_status')(json.data.status);
+                        json.data.category = $filter('product_category')(json.data.category);
                         $scope.actData = json.data;
                         console.log($scope.actData);
                     }
@@ -276,9 +279,9 @@ define([
                 widget.msgToast('商品ID没有传!');
                 return false;
             }
-            $scope.getActData($scope.searchItem.product_id);
             $scope.getData($scope.searchItem, type).then(function (result) {
                 if (result.type == 'stat_order') {
+                    $scope.getActData($scope.searchItem.product_id);
                     $scope.stat.order_list = result.json.data;
                     $scope.search('stat_groupbuy');
                 } else if (result.type == 'stat_groupbuy') {

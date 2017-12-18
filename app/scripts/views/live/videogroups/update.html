@@ -37,7 +37,7 @@
                              ,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>
                         <div ng-if="param.pay_type==2">
                             <hr>
-                            <h4>关联SKU,活动类目</h4>
+                            <h4>关联活动</h4>
                             <h5 class="col-sm-offset-2 text-danger">选择收费模式时 关联SKU、关联活动类目 必须至少选一个并切填写完成</h5>
                             <div form-table text="关联SKU" ng-model="param.skus"
                                  columns="[{name: '选择SKU',width:'50%',

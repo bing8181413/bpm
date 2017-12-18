@@ -8,11 +8,12 @@
                 <form class="form-horizontal" name="FormBody" novalidate>
                     <div class="col-sm-12 form-group">
                         <div form-input text="活动ID" ng-model="searchItem.product_id" content-width="4"></div>
-                        <div form-double-date-time text-start="上架时间" text-end="下架时间" required="true"
-                             ng-model-start="searchItem.start_time" ng-model-end="searchItem.end_time"></div>
+                        <!--<div form-double-date-time text-start="上架时间" text-end="下架时间" required="true"-->
+                        <!--ng-model-start="searchItem.start_time" ng-model-end="searchItem.end_time"></div>-->
                         <div form-radio text="选择时间" ng-model="searchItem.period" default="10"
                              source="[{text:'今天',value:'1'},{text:'昨天',value:'2'},{text:'本周',value:'3'},
-                                  {text:'本月',value:'4'},{text:'过去7天',value:'5'},{text:'过去30天',value:'6'},{text:'其他',value:'10'}]"></div>
+                                  {text:'本月',value:'4'},{text:'过去7天',value:'5'},{text:'过去30天',value:'6'}]"></div>
+                        <!--{text:'其他',value:'10'}-->
                         <div class="form_element">
                             <div class="col-sm-offset-2">
                                 <a class="btn btn-bordered btn-primary pull-left" ng-disabled="FormBody.$invalid"
@@ -23,8 +24,30 @@
                         </div>
                     </div>
                 </form>
+                <hr/>
                 <div class="col-sm-12 form-group">
-                    <h3 ng-if="show">Please wait a moment...</h3>
+                    <div class="panel panel-primary" ng-init="title_info=1;">
+                        <div class="panel-body" ng-click="title_info = title_info+1; ">
+                            <h5 style="margin: 0; padding: 10px 0;">活动信息
+                                <i class="animate-switch fa pull-right text-primary"
+                                   ng-class="{'fa-angle-double-up':title_info%2==1,'fa-angle-double-down':title_info%2==0}"></i>
+                            </h5>
+                        </div>
+                        <div class="panel-body" ng-show="title_info%2==1">
+                            <form class="form-horizontal" name="FormBody" novalidate>
+                                <div form-input text="活动ID" ng-model="actData.product_id" ng-disabled="true"></div>
+                                <div form-input text="活动标题" ng-model="actData.title" ng-disabled="true"></div>
+                                <div form-input text="活动状态" ng-model="actData.status" ng-disabled="true"></div>
+                                <div form-select text="SKU" ng-model="actData.sku" ng-disabled="true"
+                                     source="$root.common.sku" source-api=""></div>
+                                <div form-input text="活动类型" ng-model="actData.category" ng-disabled="true"></div>
+                                <div form-radio text="是否支持陌生人拼团" type="radio" ng-model="actData.group_strange"
+                                     default="2" source="[{text:'是',value:'2'},{text:'否',value:'1'}]" source-api=""
+                                     ng-disabled="true"></div>
+                                <div form-input text="管理备注" ng-model="actData.admin_remark" ng-disabled="true"></div>
+                            </form>
+                        </div>
+                    </div>
                     <hr/>
                     <table class="table table-bordered table-striped" id="order_list_text">
                         <thead>
@@ -47,7 +70,7 @@
                         <tr bindonce ng-repeat="(key,item) in stat.order_list">
                             <td class="text-center">
                                 <span ng-if="item.data_type==1" ng-bind="item.stat_hous|date_time_duration"></span>
-                                <span ng-if="item.data_type==2" ng-bind="item.stat_day"></span>
+                                <span ng-if="item.data_type==2" ng-bind="item.stat_day|date:'yyyy-MM-dd'"></span>
                             </td>
                             <td class="text-center"><span bo-text="item.pv"></span></td>
                             <td class="text-center"><span bo-text="item.uv"></span></td>
