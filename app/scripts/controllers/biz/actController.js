@@ -269,16 +269,27 @@ define([
 
             // 礼包验证  start
 
-            $scope.param.gift_discount = comfunc.numDiv($scope.gift_discount || 0, 100);
             if ($scope.param.gift_buy == 2) {
                 // 没有选择礼包 不做处理
-            } else if (!$scope.param.gift_options || $scope.param.gift_options && $scope.param.gift_options.length == 0) {
-                widget.msgToast('sorry!礼包类目不能为空');
-                return false;
             } else {
-                if (comfunc.hasEmptyFieldArray($scope.param.gift_options)) {
-                    widget.msgToast('sorry!礼包类目有空值');
+                if ($scope.param.gift_promotion_type == 1) {
+                    if ($scope.gift_discount == 0) {
+                        $scope.param.gift_discount = 0;
+                    } else if (!$scope.gift_discount) {
+                        widget.msgToast('sorry!礼包折扣不能为空');
+                        return false;
+                    }else{
+                        $scope.param.gift_discount = comfunc.numDiv($scope.gift_discount || 99, 100);
+                    }
+                }
+                if (!$scope.param.gift_options || $scope.param.gift_options && $scope.param.gift_options.length == 0) {
+                    widget.msgToast('sorry!礼包类目不能为空');
                     return false;
+                } else {
+                    if (comfunc.hasEmptyFieldArray($scope.param.gift_options)) {
+                        widget.msgToast('sorry!礼包类目有空值');
+                        return false;
+                    }
                 }
             }
 

@@ -3,6 +3,8 @@ define(['.././common'], function (common) {
         videogroupsList: {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-right'},
+                {name: '排序', field: 'order_by'},
+                {name: '是否显示', field: 'visible', filter: 'keyVal:\'1\':\'是\':\'2\':\'--\''},
                 {
                     name: 'URL地址',
                     fieldDirective: '<span ng-bind="$root.common.wx_domain+\'/groupvideolist/video_group_id/\'+item.id"></span>'

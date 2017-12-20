@@ -96,6 +96,11 @@
                             <div form-radio text="自动处理开关" ng-model="param.onoff" required="true" default="1"
                                  source="[{text:'开',value:'1'},{text:'关',value:'2'}]" source-api=""></div>
                         </div>
+
+                        <div form-input text="排序数字" ng-model="param.order_by" placeholder="不排序就填0"
+                             required="true"></div>
+                        <div form-radio text="是否显示" ng-model="param.visible" required="true" default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
                         <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过15字"></div>
                     </div>
                 </div>

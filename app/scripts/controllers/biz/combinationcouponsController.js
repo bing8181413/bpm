@@ -30,10 +30,10 @@ define([
         $scope.add = function () {
             if (!$scope.param.combination || $scope.param.combination.length == 0) {
                 $scope.param.combination = [{}];
-            } else if ($scope.param.combination.length < 10) {
+            } else if ($scope.param.combination.length < 15) {
                 $scope.param.combination.push({});
             } else {
-                widget.msgToast('最多只能添加10种优惠券');
+                widget.msgToast('最多只能添加15种优惠券');
             }
         }
         $scope.submit = function (status) {
