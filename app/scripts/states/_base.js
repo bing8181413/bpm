@@ -42,7 +42,7 @@ define([
     'states/hjm/cctalk_account',//CCtalk 账户列表
     'states/hjm/zhibo_qr_code',//CCtalk 直播二维码
 
-
+    'states/hjm/market/combinationcoupons',//组合优惠券
     'states/hjm/market/activitycoupons',//优惠券
     'states/hjm/live/marketshares',//领取观看权限
     'states/hjm/live/videogroups',//视频组

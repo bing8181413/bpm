@@ -20,7 +20,7 @@ define([
                     $scope.extApi = $scope.data.extApi;
                     // $scope.ext = {};
                     // $scope.extApi = '/students/' + $scope.data.user_id + '/lessons';
-                    if (!$scope.config) {
+                    if (!$scope.modid) {
                         console.log('没有modid');
                     }
                     if (!$scope.config) {

@@ -1,0 +1,74 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!param.id">新增组合券</h3>
+            <h3 class="panel-title" ng-if="param.id">编辑组合券</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h4>组合券</h4>
+                        <div form-input text="组合券名称" ng-model="param.title" placeholder="组合券名称" required="true"></div>
+                        <div form-image-single text="头图" ng-model="param.image" required="true"></div>
+                        <hr/>
+                        <div class="row">
+                            <h4>设置优惠券</h4>
+                            <div class="col-sm-offset-2 col-sm-8" ng-repeat="item in param.combination">
+                                <div class="form-group">
+                                    <div form-input text="优惠券名称" ng-model="item.combination_coupon_name"
+                                         placeholder="优惠券名称" required="true"></div>
+                                    <div form-input text="指定活动ID" ng-model="item.product_id"
+                                         placeholder="不限定活动ID的不填写"></div>
+                                    <div form-input text="满(金额)" ng-model="item.over_price" type="number" min="0"
+                                         max="item.price" placeholder="不是满减优惠券的不填写"></div>
+                                    <div form-input text="减(金额)" ng-model="item.price" required="true" type="number"
+                                         min="0"></div>
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <a class="btn btn-danger btn-sm btn-rounded pull-left"
+                                           ng-click="param.combination.splice($index,1);">删除</a></div>
+                                    <div class="col-sm-12">
+                                        <hr/>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--</div>-->
+                            <!--<div class="row">-->
+                            <div class="col-sm-offset-2 col-sm-8">
+                                <a class="btn btn-primary btn-rounded"
+                                   ng-click="add();">添加优惠券</a>
+                            </div>
+                        </div>
+                        <hr/>
+
+                        <h4>分享</h4>
+                        <div form-input text="分享标题" ng-model="param.share_title" minlength="1"
+                             maxlength="15" required="true"></div>
+                        <div form-textarea text="分享描述" ng-model="param.share_description" row="5" required="true"></div>
+                        <hr/>
+
+                        <div form-input text="发放总数量" ng-model="param.total" type="number" required="true"></div>
+
+                        <div form-radio text="领取对象" ng-model="param.target" default="1"
+                             source="[{text:'不限',value:'1'},{text:'新用户',value:'2'},{text:'老用户',value:'3'}]"></div>
+
+                        <div form-input text="有限时间" ng-model="param.days" type="number" min="1"  required="true"></div>
+
+                        <div form-double-date-time text-start="兑换开始时间" text-end="结束时间" required="true"
+                             ng-model-start="param.start_time" ng-model-end="param.end_time"></div>
+
+                        <div form-input text="运营文案" ng-model="param.brief" minlength="1" maxlength="15"
+                             required="true"></div>
+                        <div form-textarea text="活动细则" ng-model="param.description" row="5" required="true"></div>
+                        <div form-textarea text="备注" ng-model="param.remark" row="5"></div>
+
+                    </div>
+                </div>
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid&&submit_disabled"
+                   ng-click="submit()">提交</a>
+                <!--<a class="btn btn-success btn-rounded" ng-click="aaa()">提交</a>-->
+            </form>
+        </div>
+    </div>
+</div>
