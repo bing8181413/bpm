@@ -235,7 +235,7 @@ define([
         $scope.searchItem = {
             // product_ids: '500676,500704,500475,500126',
             product_ids: '',
-            period: undefined,
+            period: 1,
             start_time: $filter('date')(new Date(), 'yyyy-MM-dd 00:00:00'),
             end_time: $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss')
         };
@@ -256,6 +256,7 @@ define([
             var deferred = $q.defer();
             var promise = deferred.promise;
             $scope.param = searchItem;
+            $scope.param.count = 100;
             widget.ajaxRequest({
                 url: '/dashboard/stats',
                 method: 'GET',
