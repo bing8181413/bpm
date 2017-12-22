@@ -70,7 +70,7 @@
                         <tr bindonce ng-repeat="(key,item) in stat.order_list">
                             <td class="text-center">
                                 <span ng-if="item.data_type==1" ng-bind="item.stat_hous|date_time_duration"></span>
-                                <span ng-if="item.data_type==2" ng-bind="item.stat_day|date:'yyyy-MM-dd'"></span>
+                                <span ng-if="item.data_type==2" ng-bind="item.stat_day|limitTo:10"></span>
                             </td>
                             <td class="text-center"><span bo-text="item.pv"></span></td>
                             <td class="text-center"><span bo-text="item.uv"></span></td>
@@ -106,7 +106,7 @@
                         <tr bindonce ng-repeat="(key,item) in stat.groupbuy_list">
                             <td class="text-center">
                                 <span ng-if="item.data_type==1" ng-bind="item.stat_hous|date_time_duration"></span>
-                                <span ng-if="item.data_type==2" ng-bind="item.stat_day"></span>
+                                <span ng-if="item.data_type==2" ng-bind="item.stat_day|limitTo:10"></span>
                             </td>
                             <td class="text-center"><span bo-text="item.total"></span></td>
                             <td class="text-center"><span bo-text="item.in_total"></span></td>
@@ -139,7 +139,7 @@
                         <tr bindonce ng-repeat="(key,item) in stat.share_list">
                             <td class="text-center">
                                 <span ng-if="item.data_type==1" ng-bind="item.stat_hous|date_time_duration"></span>
-                                <span ng-if="item.data_type==2" ng-bind="item.stat_day"></span>
+                                <span ng-if="item.data_type==2" ng-bind="item.stat_day|limitTo:10"></span>
                             </td>
                             <td class="text-center"><span bo-text="item.total""></span></td>
                             <td class="text-center"><span bo-text="item.user_total"></span></td>

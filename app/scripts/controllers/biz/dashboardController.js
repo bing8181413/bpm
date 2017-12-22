@@ -17,9 +17,10 @@ define([
     function groupbuysController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $q, table2Array, comfunc) {
         $rootScope.dashboard = {};
         $scope.searchItem = {
-            product_ids: '500676,500704,500475,500126',
+            // product_ids: '500676,500704,500475,500126',
+            product_ids: '',
             period: undefined,
-            start_time: '2016-01-01 00:00:00',
+            start_time: $filter('date')(new Date(), 'yyyy-MM-dd 00:00:00'),
             end_time: $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss')
         };
         $scope.$watch('searchItem.period', function (val) {
@@ -37,6 +38,10 @@ define([
             $scope.param.product_ids = searchItem.product_ids.replace(/\n/g, ',').split(',');
             $scope.param.start_time = searchItem.start_time;
             $scope.param.end_time = searchItem.end_time;
+            if((new Date($scope.param.end_time)-new Date($scope.param.start_time))/(24*3600*1000)>30){
+                widget.msgToast('日期区间不能大于30天!');
+                return ;
+            }
             widget.ajaxRequest({
                 url: '/dashboard/groupbuys',
                 method: 'GET',
@@ -105,6 +110,10 @@ define([
             $scope.param.product_ids = searchItem.product_ids.replace(/\n/g, ',').split(',');
             $scope.param.start_time = searchItem.start_time;
             $scope.param.end_time = searchItem.end_time;
+            if((new Date($scope.param.end_time)-new Date($scope.param.start_time))/(24*3600*1000)>30){
+                widget.msgToast('日期区间不能大于30天!');
+                return ;
+            }
             widget.ajaxRequest({
                 url: '/dashboard/shares',
                 method: 'GET',
@@ -153,9 +162,10 @@ define([
 
     function ordersController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $q, table2Array, comfunc) {
         $scope.searchItem = {
-            product_ids: '500676,500704,500475,500126',
+            // product_ids: '500676,500704,500475,500126',
+            product_ids: '',
             period: undefined,
-            start_time: '2016-01-01 00:00:00',
+            start_time: $filter('date')(new Date(), 'yyyy-MM-dd 00:00:00'),
             end_time: $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss')
         };
         $scope.$watch('searchItem.period', function (val) {
@@ -173,6 +183,10 @@ define([
             $scope.param.product_ids = searchItem.product_ids.replace(/\n/g, ',').split(',');
             $scope.param.start_time = searchItem.start_time;
             $scope.param.end_time = searchItem.end_time;
+            if((new Date($scope.param.end_time)-new Date($scope.param.start_time))/(24*3600*1000)>30){
+                widget.msgToast('日期区间不能大于30天!');
+                return ;
+            }
             widget.ajaxRequest({
                 url: '/dashboard/orders',
                 method: 'GET',
@@ -219,12 +233,11 @@ define([
     };
     function listController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $q, table2Array) {
         $scope.searchItem = {
-            page: 1,
-            count: 100,
-            product_id: '500475',
-            period: 6,
-            // start_time: '2017-12-04',
-            // end_time: '2017-12-06'
+            // product_ids: '500676,500704,500475,500126',
+            product_ids: '',
+            period: undefined,
+            start_time: $filter('date')(new Date(), 'yyyy-MM-dd 00:00:00'),
+            end_time: $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss')
         };
         $scope.actData = {};
         $scope.stat = {
@@ -232,26 +245,29 @@ define([
             groupbuy_list: [],// 团数据
             share_list: [] // 分享数据
         };
-        $scope.getData = function (searchItem, type) {
+        $scope.clear = function(){
+            $scope.stat = {
+                order_list: [],//订单数据
+                groupbuy_list: [],// 团数据
+                share_list: [] // 分享数据
+            };
+        }
+        $scope.getData = function (searchItem) {
             var deferred = $q.defer();
             var promise = deferred.promise;
             $scope.param = searchItem;
-            if (!type) {
-                type = 'stat_order';
-            }
-            $scope.param = angular.extend($scope.param, {type: type});
             widget.ajaxRequest({
                 url: '/dashboard/stats',
                 method: 'GET',
                 scope: $scope,
                 data: $scope.param,
                 success: function (json) {
-                    // console.log(json, type);
-                    var result = {type: type, json: json}
+                    // console.log(json);
+                    var result = {json: json}
                     deferred.resolve(result);
                 },
                 failure: function (error) {
-                    console.log('错误了', error, type);
+                    console.log('错误了', error);
                     deferred.reject(error);
                 }
             })
@@ -274,22 +290,34 @@ define([
                 }
             })
         }
-        $scope.search = function (type) {
+        $scope.search = function () {
             if (!$scope.searchItem.product_id) {
                 widget.msgToast('商品ID没有传!');
                 return false;
             }
-            $scope.getData($scope.searchItem, type).then(function (result) {
-                if (result.type == 'stat_order') {
-                    $scope.getActData($scope.searchItem.product_id);
-                    $scope.stat.order_list = result.json.data;
-                    $scope.search('stat_groupbuy');
-                } else if (result.type == 'stat_groupbuy') {
-                    $scope.stat.groupbuy_list = result.json.data;
-                    $scope.search('stat_share');
-                } else if (result.type == 'stat_share') {
-                    $scope.stat.share_list = result.json.data;
-                }
+            $scope.getData($scope.searchItem).then(function (result) {
+                $scope.getActData($scope.searchItem.product_id);
+                $scope.clear();
+                angular.forEach(result.json.data, function (val, key) {
+                    angular.extend(val.order, {
+                        data_type: val.data_type,
+                        stat_day: val.stat_day,
+                        stat_hous: val.stat_hous
+                    });
+                    angular.extend(val.groupbuy, {
+                        data_type: val.data_type,
+                        stat_day: val.stat_day,
+                        stat_hous: val.stat_hous
+                    });
+                    angular.extend(val.share, {
+                        data_type: val.data_type,
+                        stat_day: val.stat_day,
+                        stat_hous: val.stat_hous
+                    });
+                    $scope.stat.order_list.push(val.order);
+                    $scope.stat.groupbuy_list.push(val.groupbuy);
+                    $scope.stat.share_list.push(val.share);
+                })
             }, function (error) {
                 $scope.data = "error!";
             }, function (progress) {
