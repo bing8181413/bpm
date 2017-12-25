@@ -235,9 +235,9 @@ define([
         $scope.searchItem = {
             // product_ids: '500676,500704,500475,500126',
             product_ids: '',
-            period: 1,
-            start_time: $filter('date')(new Date(), 'yyyy-MM-dd 00:00:00'),
-            end_time: $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss')
+            period: 1
+            // start_time: $filter('date')(new Date(), 'yyyy-MM-dd 00:00:00'),
+            // end_time: $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss')
         };
         $scope.actData = {};
         $scope.stat = {
