@@ -7,7 +7,7 @@ define([
 
     updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', 'comfunc', '$filter', '$timeout'];
     function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
-        $scope.param = {};
+        $scope.param = {skus: [], products: []};
         $scope._tmp = {};
         if ($stateParams.id) {
             widget.ajaxRequest({
