@@ -101,6 +101,7 @@ define([
                             delete val.updated_at;
                         });
                         angular.forEach(json.data.gift_pics, function (val, key) {
+                            delete val.pic_id;
                             delete val.imageable_id;
                             delete val.imageable_type;
                             delete val.status;
