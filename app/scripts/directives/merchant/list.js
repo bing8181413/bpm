@@ -67,6 +67,13 @@ define([
                                             widget.msgToast('新增成功,请刷新查看');
                                             supScope.$parent.searchAction();
                                             $scope.cancel();
+                                        },
+                                        failure: function (error) {
+                                            if (JSON.stringify(error.validates).indexOf('has already been taken') > -1) {
+                                                widget.msgToast('数据验证失败,请检查课程ID是否已经存在!');
+                                            } else {
+                                                widget.msgToast(error.message);
+                                            }
                                         }
                                     })
                                 }
