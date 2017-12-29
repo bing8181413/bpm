@@ -34,11 +34,10 @@
 		UEDITOR_HOME_URL: URL
 
 		// 服务器统一请求接口路径
-		// , serverUrl: URL + "qiniu/controller.php"
-		// , serverUrl: "https://bpm.hjm.com/qiniu/controller.php"
-		// , imageFieldName: 'url'
-		// , imageUrlPrefix:''
-		// ,imageUrl:"http://devbpm.huijiame.com/qiniu/controller.php"             //图片上传提交后台对应的地址
+		, serverUrl: "https://bpm.ahaschool.com/qiniu/controller.php"
+		, imageFieldName: 'url'
+		, imageUrlPrefix:''
+		// ,imageUrl:"http://devbpm.ahaschool.com/qiniu/controller.php"             //图片上传提交后台对应的地址
 		// ,imagePath: ""                   //图片在服务器上的存储目录
 		// ,imageFieldName:"url"
 		//工具栏上的所有的功能按钮和下拉框，可以在new编辑器的实例时选择自己需要的从新定义
