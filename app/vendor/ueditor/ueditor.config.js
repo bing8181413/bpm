@@ -32,7 +32,10 @@
 
 		//为编辑器实例添加一个路径，这个不能被注释
 		UEDITOR_HOME_URL: URL
-
+		,catcherLocalDomain:['huijiame.com','ahaschool.com']
+		,catcherActionName:'catchimage'
+		,catcherUrlPrefix:''
+		,catcherFieldName:'source'
 		// 服务器统一请求接口路径
 		, serverUrl: "https://bpm.ahaschool.com/qiniu/controller.php"
 		, imageFieldName: 'url'
