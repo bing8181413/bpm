@@ -199,10 +199,10 @@ define([
 
         $scope.submit = function (status) {
             $scope.param.video_count = $scope.param.rooms && $scope.param.rooms.length || 0;
-            if ($scope.param.video_count == 0) {
-                widget.msgToast('视频数量不能为0!');
-                return false;
-            }
+            // if ($scope.param.video_count == 0) {
+            //     widget.msgToast('视频数量不能为0!');
+            //     return false;
+            // }
             if ($scope.param.pay_type == 1) {
                 $scope.param.skus = [];
                 $scope.param.products = [];
