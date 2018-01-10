@@ -90,6 +90,24 @@
                              ng-model-start="param.start_time" ng-model-end="param.end_time"></div>
 
                         <hr>
+
+                        <div form-double-date-time text-start="课程开始时间" text-end="结束时间"
+                             ng-model-start="param.course_start_time" ng-model-end="param.course_end_time"></div>
+                        <div form-input text="课时" ng-model="param.course_num" type="number" min="0"></div>
+                        <div form-textarea text="课程价值" ng-model="param.course_value" placeholder="不超过100个字"
+                             minlength="0" maxlength="100"></div>
+                        <div form-checkbox text="课程能力标签" ng-model="course_ability_label" default="[]"
+                             source="[{text:'心智自立',value:'心智自立'},{text:'广阔视野',value:'广阔视野'},
+                             {text:'数理工程',value:'数理工程'},{text:'艺术修养',value:'艺术修养'},{text:'多元思维',value:'多元思维'},
+                             {text:'沟通协作',value:'沟通协作'},{text:'解决问题',value:'解决问题'}]" source-api=""></div>
+                        <div form-radio text="课程QA图文内容" ng-model="param.course_content_type" default="2"
+                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""></div>
+                        <div form-image-content text="课程QA图文详情" ng-model="param.course_contents"
+                             ng-show="param.course_content_type==1"></div>
+                        <div form-rich-content text="课程QA富文本" ng-model="param.course_rich_text"
+                             ng-show="param.course_content_type==2" ng-if="param.course_content_type==2"></div>
+
+                        <hr>
                         <div form-radio text="活动时间类型" type="radio" ng-model="param.act_time_type" required="true"
                              default="1" source="[{text:'每天连续',value:'1'},{text:'每周固定天数',value:'2'}]"
                              source-api=""></div>
