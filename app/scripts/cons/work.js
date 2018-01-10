@@ -5,6 +5,7 @@ define([], function () {
                 {name: '作业ID', field: 'work_id', className: 'text-right'},
                 {name: '任务编号', field: 'plan_id', className: 'text-right'},
                 {name: '用户', field: 'user_name'},
+                {name: '手机号码', field: 'mobile'},
                 {name: '课程', field: 'lesson_name'},
                 {name: '任务', field: 'title'},
                 {name: '交作业时间', field: 'created_at'},
