@@ -4,6 +4,7 @@ define([], function () {
             columns: [
                 {name: '供应商ID', field: 'account_id', className: 'text-center'},
                 {name: '供应商全名', field: 'company_name|null2empty'},
+                {name: 'utm_source', field: 'utm_source|null2empty'},
                 {name: '联系方式', field: 'contact_mobile|null2empty',},
                 {name: '联系人', field: 'contact_name|null2empty'},
                 {name: '登录账号', field: 'account.username|null2empty'},
