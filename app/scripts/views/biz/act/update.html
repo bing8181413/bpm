@@ -39,12 +39,12 @@
 
                         <div form-input text="活动标题" ng-model="param.title" placeholder="活动标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
-                        <div class="form-group">
-                            <div class="col-sm-8 col-sm-offset-2">
-                                <span show-table
-                                      data="{text:'查看SKU列表',modid:'skuList',config:'config',columns:'columns'}"></span>
-                            </div>
-                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<div class="col-sm-8 col-sm-offset-2">-->
+                                <!--<span show-table-->
+                                      <!--data="{text:'查看SKU列表',modid:'skuList',config:'config',columns:'columns'}"></span>-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <!--<div form-radio text="SKU" type="radio" ng-model="param.sku" required="true" default="1"-->
                              <!--type="number" source="$root.common.sku" source-api=""></div>-->
 
@@ -90,25 +90,6 @@
                              ng-model-start="param.start_time" ng-model-end="param.end_time"></div>
 
                         <hr>
-
-                        <div form-input text="课程价值标题" ng-model="param.course_label" placeholder="不填默认是:课程价值"></div>
-                        <div form-double-date-time text-start="课程开始时间" text-end="结束时间"
-                             ng-model-start="param.course_start_time" ng-model-end="param.course_end_time"></div>
-                        <div form-input text="课时" ng-model="param.course_num" type="number" min="0"></div>
-                        <div form-textarea text="课程价值" ng-model="param.course_value" placeholder="不超过100个字"
-                             minlength="0" maxlength="100"></div>
-                        <div form-checkbox text="课程能力标签" ng-model="course_ability_label" default="[]"
-                             source="[{text:'心智自立',value:'心智自立'},{text:'广阔视野',value:'广阔视野'},
-                             {text:'数理工程',value:'数理工程'},{text:'艺术修养',value:'艺术修养'},{text:'多元思维',value:'多元思维'},
-                             {text:'沟通协作',value:'沟通协作'},{text:'解决问题',value:'解决问题'}]" source-api=""></div>
-                        <div form-radio text="课程QA图文内容" ng-model="param.course_content_type" default="2"
-                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""></div>
-                        <div form-image-content text="课程QA图文详情" ng-model="param.course_contents"
-                             ng-show="param.course_content_type==1"></div>
-                        <div form-rich-content text="课程QA富文本" ng-model="param.course_rich_text"
-                             ng-show="param.course_content_type==2" ng-if="param.course_content_type==2"></div>
-
-                        <hr>
                         <div form-radio text="活动时间类型" type="radio" ng-model="param.act_time_type" required="true"
                              default="1" source="[{text:'每天连续',value:'1'},{text:'每周固定天数',value:'2'}]"
                              source-api=""></div>
@@ -125,9 +106,11 @@
                             </div>
                         </div>
 
-                        <div form-double-date text-start="活动开始时间" text-end="活动结束时间" required="true"
-                             ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"
-                             ng-show="showTime"></div>
+                        <div form-date text="活动开始时间" ng-model="param.act_start_time" ng-show="showTime" required="true"></div>
+                        <div form-date text="活动结束时间" ng-model="param.act_end_time" ng-show="showTime"></div>
+                        <!--<div form-double-date text-start="活动开始时间" text-end="活动结束时间"-->
+                             <!--ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"-->
+                             <!--ng-show="showTime"></div>-->
 
 
                         <div form-double-date-time text-start="活动开始时间" text-end="活动结束时间" required="true"
@@ -310,12 +293,36 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[4] = title_info[4]+1; ">活动详情
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[4] = title_info[4]+1; ">课程价值
                             <i class="animate-switch fa pull-right text-primary"
                                ng-class="{'fa-angle-double-up':title_info[4]%2==1,'fa-angle-double-down':title_info[4]%2==0}"></i>
                         </h5>
                     </div>
                     <div class="panel-body" ng-show="title_info[4]%2==1">
+                        <div form-input text="课程价值标题" ng-model="param.course_label" placeholder="不填默认是:课程价值"></div>
+                        <div form-input text="课时" ng-model="param.course_num" type="number" min="0"></div>
+                        <div form-textarea text="课程价值" ng-model="param.course_value" placeholder="不超过100个字"
+                             minlength="0" maxlength="100"></div>
+                        <div form-checkbox text="课程能力标签" ng-model="course_ability_label" default="[]"
+                             source="[{text:'心智自立',value:'心智自立'},{text:'广阔视野',value:'广阔视野'},
+                             {text:'数理工程',value:'数理工程'},{text:'艺术修养',value:'艺术修养'},{text:'多元思维',value:'多元思维'},
+                             {text:'沟通协作',value:'沟通协作'},{text:'解决问题',value:'解决问题'}]" source-api=""></div>
+                        <div form-radio text="课程QA图文内容" ng-model="param.course_content_type" default="2"
+                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""></div>
+                        <div form-image-content text="课程QA图文详情" ng-model="param.course_contents"
+                             ng-show="param.course_content_type==1"></div>
+                        <div form-rich-content text="课程QA富文本" ng-model="param.course_rich_text"
+                             ng-show="param.course_content_type==2" ng-if="param.course_content_type==2"></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[5] = title_info[5]+1; ">活动详情
+                            <i class="animate-switch fa pull-right text-primary"
+                               ng-class="{'fa-angle-double-up':title_info[5]%2==1,'fa-angle-double-down':title_info[5]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[5]%2==1">
                         <div form-input text="音频媒体标题" ng-model="param.media_title" placeholder="音频媒体标题,不超过30个字"
                              minlength="0" maxlength="30"></div>
                         <h5 class="col-sm-10 col-sm-offset-2 text-primary">腾讯视频播放界面的分享中有个复制通用代码,把代码中src的内容复制到这里。</h5>
@@ -333,12 +340,12 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[5] = title_info[5]+1; ">礼包详情
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[6] = title_info[6]+1; ">礼包详情
                             <i class="animate-switch fa pull-right text-primary"
-                               ng-class="{'fa-angle-double-up':title_info[5]%2==1,'fa-angle-double-down':title_info[5]%2==0}"></i>
+                               ng-class="{'fa-angle-double-up':title_info[6]%2==1,'fa-angle-double-down':title_info[6]%2==0}"></i>
                         </h5>
                     </div>
-                    <div class="panel-body" ng-show="title_info[5]%2==1">
+                    <div class="panel-body" ng-show="title_info[6]%2==1">
                         <div form-radio text="是否可买礼包" ng-model="param.gift_buy" default="1" required="true"
                              source="[{text:'是',value:1},{text:'否',value:2}]" source-api=""></div>
 
@@ -436,12 +443,12 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[6] = title_info[6]+1; ">显示管理
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[7] = title_info[7]+1; ">显示管理
                             <i class="animate-switch fa pull-right text-primary"
-                               ng-class="{'fa-angle-double-up':title_info[6]%2==1,'fa-angle-double-down':title_info[6]%2==0}"></i>
+                               ng-class="{'fa-angle-double-up':title_info[7]%2==1,'fa-angle-double-down':title_info[7]%2==0}"></i>
                         </h5>
                     </div>
-                    <div class="panel-body" ng-show="title_info[6]%2==1">
+                    <div class="panel-body" ng-show="title_info[7]%2==1">
                         <div form-radio text="显示在商城" ng-model="param.visible" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
                         <div form-radio text="显示在首页" ng-model="param.show_in_index" required="true" default="1"
