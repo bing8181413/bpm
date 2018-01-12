@@ -30,6 +30,7 @@ define([], function () {
                 searchItems: [
                     {value: 'date_min', text: '交作业时间-开始', type: 'datetime'},
                     {value: 'date_max', text: '结束', type: 'datetime'},
+                    {value: 'mobile', text: '手机号码', placeholder: '手机号码', default: ''},
                     {value: 'keyword', text: '关键字', placeholder: '关键字', default: ''},
                 ],
                 preSelectionSearch: {
