@@ -29,16 +29,11 @@ define([
                                 angular.forEach($scope.condition, function (val, key) {
                                     if (val.type == 'checkbox') {
                                         if (val.defaultValue) {
-                                            // angular.isArray(val.defaultValue), val.defaultValue.length,
-                                            // console.log(val.defaultValue[0], typeof val.defaultValue[0], JSON.stringify(val.defaultValue), val);
-                                            // if (typeof val.defaultValue)
-                                            var type = '';
-                                            if ('number' == typeof val.defaultValue[0]) {
-                                                type = " type= 'number' ";
-                                            }
-                                            $scope.param[key] = val.defaultValue;
+                                            $scope.param[key] = val.defaultValue.map(function(v){
+                                                return v+'';
+                                            });
                                         }
-                                        $scope.tmpl += '<div form-checkbox text="' + val.name + '" ng-model="param.' + key + '"' + type +
+                                        $scope.tmpl += '<div form-checkbox text="' + val.name + '" ng-model="param.' + key + '"' + ' default="" ' +
                                             ' source="condition[\'' + key + '\'].options"  ' + (val.required ? ('required=\"true\"') : '') + '></div>';
                                     } else if (val.type == 'radiobox') {
                                         $scope.tmpl += '<div form-radio text="' + val.name + '" ng-model="param.' + key + '"' +

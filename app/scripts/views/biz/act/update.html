@@ -18,7 +18,7 @@
             <!--<simditor ng-model="content" config="simditorConfig"></simditor>-->
             <form class="form-horizontal" name="FormBody" novalidate
                   ng-init="title_info = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"
-                  disabled-role="{{$stateParams.product_id?'admin,op':''}}">
+                  disabled-role="{{param.product_id  || !copy?'admin,op':''}}">
                 <div class="panel panel-primary">
                     <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
                         <h5 style="margin: 0; padding: 10px 0;">活动信息
@@ -34,8 +34,8 @@
 
                         <!--<div form-image-content text="图文详情" ng-model="param.contents" ng-show="param.content_type==1"></div>-->
                         <div form-input text="活动ID" ng-model="param.product_id"
-                             ng-show="param.product_id"
-                             placeholder="活动ID" ng-disabled="$stateParams.product_id"></div>
+                             ng-show="param.product_id  || !copy"
+                             placeholder="活动ID" ng-disabled="param.product_id  || !copy"></div>
 
                         <div form-input text="活动标题" ng-model="param.title" placeholder="活动标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
@@ -108,14 +108,15 @@
 
                         <div form-date text="活动开始时间" ng-model="param.act_start_time" ng-show="showTime" required="true"></div>
                         <div form-date text="活动结束时间" ng-model="param.act_end_time" ng-show="showTime"></div>
+                        <div form-date-time text="活动开始时间" ng-model="param.act_start_time" ng-show="!showTime" required="true"></div>
+                        <div form-date-time text="活动结束时间" ng-model="param.act_end_time" ng-show="!showTime"></div>
+
                         <!--<div form-double-date text-start="活动开始时间" text-end="活动结束时间"-->
                              <!--ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"-->
                              <!--ng-show="showTime"></div>-->
-
-
-                        <div form-double-date-time text-start="活动开始时间" text-end="活动结束时间" required="true"
-                             ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"
-                             ng-show="!showTime"></div>
+                        <!--<div form-double-date-time text-start="活动开始时间" text-end="活动结束时间" required="true"-->
+                             <!--ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"-->
+                             <!--ng-show="!showTime"></div>-->
 
 
                         <div form-double-date-time text-start="报名开始时间" text-end="报名截止时间" required="true"
@@ -195,13 +196,13 @@
                              required="true"></div>
 
                         <div form-radio text="是否需填收货地址" ng-model="param.delivery_type" required="true"
-                             ng-disabled="$stateParams.product_id"
+                             ng-disabled="param.product_id  || !copy"
                              source="[{text:'需要',value:'1'},{text:'不需要',value:'3'}]"
                              default="3"></div>
                         <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
                              ng-show="false" ng-disabled="true"></div>
                         <div form-radio text="送达时间类型" ng-model="param.arrive_type" default="2"
-                             ng-show="false" ng-disabled="$stateParams.product_id"
+                             ng-show="false" ng-disabled="param.product_id  || !copy"
                              source="[{text:'无需指定',value:'2'},{text:'周六／周一',value:'1'}]" source-api=""></div>
                         <div form-radio text="是否支持陌生人拼团" type="radio" ng-model="param.group_strange" required="true"
                              default="2" source="[{text:'是',value:'2'},{text:'否',value:'1'}]"
@@ -293,20 +294,21 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[4] = title_info[4]+1; ">课程价值
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[4] = title_info[4]+1; ">
+                            课程价值
                             <i class="animate-switch fa pull-right text-primary"
                                ng-class="{'fa-angle-double-up':title_info[4]%2==1,'fa-angle-double-down':title_info[4]%2==0}"></i>
                         </h5>
                     </div>
                     <div class="panel-body" ng-show="title_info[4]%2==1">
                         <div form-input text="课程价值标题" ng-model="param.course_label" placeholder="不填默认是:课程价值"></div>
-                        <div form-input text="课时" ng-model="param.course_num" type="number" min="0"></div>
-                        <div form-textarea text="课程价值" ng-model="param.course_value" placeholder="不超过100个字"
-                             minlength="0" maxlength="100"></div>
+                        <div form-input text="课时" ng-model="param.course_num" type="number" min="1"></div>
+                        <div form-textarea text="课程价值" ng-model="param.course_value" placeholder="不超过300个字"
+                             minlength="0" maxlength="300"></div>
                         <div form-checkbox text="课程能力标签" ng-model="course_ability_label" default="[]"
                              source="[{text:'心智自立',value:'心智自立'},{text:'广阔视野',value:'广阔视野'},
                              {text:'数理工程',value:'数理工程'},{text:'艺术修养',value:'艺术修养'},{text:'多元思维',value:'多元思维'},
-                             {text:'沟通协作',value:'沟通协作'},{text:'解决问题',value:'解决问题'}]" source-api=""></div>
+                             {text:'协作沟通',value:'协作沟通'},{text:'解决问题',value:'解决问题'}]" source-api=""></div>
                         <div form-radio text="课程QA图文内容" ng-model="param.course_content_type" default="2"
                              source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""></div>
                         <div form-image-content text="课程QA图文详情" ng-model="param.course_contents"
@@ -467,7 +469,7 @@
                 </div>
 
                 <div form-error-block></div>
-                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
+                <a class="btn btn-success btn-rounded" show-role="'{{param.product_id || !copy?'admin,op':''}}'"
                    ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
             </form>
         </div>
