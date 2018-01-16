@@ -302,7 +302,7 @@
                     </div>
                     <div class="panel-body" ng-show="title_info[4]%2==1">
                         <div form-input text="课程价值标题" ng-model="param.course_label" placeholder="不填默认是:课程价值"></div>
-                        <div form-input text="课时" ng-model="param.course_num" type="number" min="1"></div>
+                        <div form-input text="课时" ng-model="param.course_num" type="number" min="0"></div>
                         <div form-textarea text="课程价值" ng-model="param.course_value" placeholder="不超过300个字"
                              minlength="0" maxlength="300"></div>
                         <div form-checkbox text="课程能力标签" ng-model="course_ability_label" default="[]"
