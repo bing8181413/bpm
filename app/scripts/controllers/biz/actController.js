@@ -11,6 +11,9 @@ define([
         // $scope.$watch('content',function(val){
         //     console.log(val);
         // });
+        if ($state.current.name.indexOf('act.copy') > -1) { // 复制用的
+            $scope.copy = true;
+        }
         if ($stateParams.product_id) {
             widget.ajaxRequest({
                 url: '/products/' + $stateParams.product_id,
@@ -26,6 +29,7 @@ define([
                         delete json.data.status;
                         delete json.data.created_at;
                         delete json.data.updated_at;
+                        delete json.data.sale_count;// 删除已售库存字段
                         angular.forEach(json.data.addresses, function (val, key) {
                             delete val.address_id;
                             delete val.product_id;
@@ -270,7 +274,7 @@ define([
             }
 
             $scope.param.act_start_time = $filter('date')($scope.param.act_start_time, 'yyyy-MM-dd HH:mm:ss');
-            $scope.param.act_end_time = $filter('date')($scope.param.act_end_time, 'yyyy-MM-dd HH:mm:ss');
+            $scope.param.act_end_time = $filter('date')($scope.param.act_end_time, 'yyyy-MM-dd HH:mm:ss')||'';
             if ($scope.param.vip_promotion_type == '1') {
                 $scope.param.vip_discount = comfunc.numDiv($scope.vip_discount, 100);
             } else if ($scope.param.vip_promotion_type == '2') {

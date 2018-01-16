@@ -214,7 +214,8 @@ define(['angular', './common'], function (angular, common) {
                         enum: [
                             {value: ['', '', ''], text: '全 部'},
                             // {value: ['1', '1', '1'], text: '正在进行'},
-                            {value: ['1', '1', '2'], text: '进行中'},
+                            // {value: ['1', '1', '2'], text: '进行中'},
+                            {value: ['1', '1', '5'], text: '进行中'},//包括原进行中和 没有结束时间的活动
                             {value: ['1', '1', '1'], text: '即将开始'},
                             {value: ['1', '1', '3'], text: '已结束'},
                             {value: ['3', '', ''], text: '已下线'},
