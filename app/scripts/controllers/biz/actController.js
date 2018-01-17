@@ -392,10 +392,10 @@ define([
                 widget.msgToast('富文本内容未填写');
                 return false;
             }
-            if (comfunc.isEmptyArray($scope.param.visible_cities)) {
-                widget.msgToast('配送城市没有选择');
-                return false;
-            }
+            // if (comfunc.isEmptyArray($scope.param.visible_cities)) {
+            //     widget.msgToast('配送城市没有选择');
+            //     return false;
+            // }
             if ($scope.param.category == 2 || $scope.param.category == 4) {
                 // 人数团 要填写 拼团人数 和 拼团时间
                 if (!$scope.param.group_min_num && $scope.param.group_min_num <= 0) {
