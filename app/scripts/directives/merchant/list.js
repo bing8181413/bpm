@@ -57,7 +57,11 @@ define([
                                 $scope.submit = function () {
                                     $scope.param = {products: []};
                                     $scope.param.products = $scope.products.map(function (item) {
-                                        return {product_id: item.product_id, show_contact: $scope.show_contact};
+                                        return {
+                                            product_id: item.product_id,
+                                            show_contact: $scope.show_contact,
+                                            utm_source: $scope.utm_source
+                                        };
                                     });
                                     widget.ajaxRequest({
                                         url: '/merchant/merchants/' + supScope.data.id + '/products',
