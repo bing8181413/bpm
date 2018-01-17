@@ -22,6 +22,7 @@ define([
                             },
                             controller: function ($scope, $uibModalInstance) {
                                 $scope.company_name = supScope.data.company_name;
+                                $scope.utm_source = supScope.data.utm_source;
                                 $scope.param = {};
                                 $scope.verify_product_id = function (product_id) {
                                     if (!product_id) {

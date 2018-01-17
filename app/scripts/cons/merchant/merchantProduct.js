@@ -95,6 +95,10 @@ define([], function () {
             },
             columns_by_merchant: [
                 {name: '活动ID', field: 'product_id'},
+                {
+                    name: 'utm_source',
+                    field: 'merchant_product.utm_source',
+                },
                 {name: '活动标题', field: 'title'},
                 {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
                 {

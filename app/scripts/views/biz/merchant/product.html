@@ -7,10 +7,10 @@
             <div class="panel panel-primary">
                 <div class="panel-body">
                     <h4>供应商信息</h4>
+                    <div form-input text="utm_source" ng-model="utm_source"></div>
                     <div form-search text="查询活动ID" verify="verify_product_id(product_id)" btn-text="查询活动"
                          ajax-config="{method:'get',url:$root.common.domain+'/merchant/products/'+product_id}"
                          ng-model="product_id" callback="add_product_id(json)"></div>
-
                     <div form-radio text="类型" type="radio" ng-model="show_contact" required="true" default=""
                          type="number" source-api=""
                          source="[{text:'供应商可以看联系人、联系电话信息',value:'1'},{text:'供应商不可以看到联系人、联系电话信息',value:'2'}]"></div>

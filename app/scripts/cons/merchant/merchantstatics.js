@@ -4,6 +4,7 @@ define([], function () {
             columns: [
                 {name: '供应商ID', field: 'account_id', className: 'text-right'},
                 {name: '供应商全名', field: 'company_name|null2empty'},
+                {name: 'utm_source', field: 'utm_source|null2empty'},
                 {name: '关联活动', fieldDirective: '<div merchant-product data="item" class="text-center"></div>'},
                 {name: '总订单数', field: 'stat.count|null2empty'},
                 {name: '已售份数', field: 'stat.copies|null2empty'},
