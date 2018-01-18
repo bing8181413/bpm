@@ -175,12 +175,12 @@ define([
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                                 controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '覆盖所有子活动';
-                                    $scope.desc = '活动详情：即同步图文详情模块;\n基本信息：同步活动标题，简介，分享标题， 时间（上下架，报名，活动), 年龄;\n礼包信息：除类目不同步，其他信息都会同步。';
+                                    $scope.desc = '活动详情：即同步图文详情模块;\n基本信息：同步活动标题，简介，分享标题， 时间（上下架，报名，活动), 年龄;\n礼包信息：除类目不同步，其他信息都会同步;\n课程价值：课程价值模块。';
                                     $scope.param = {parent_id: supscope.data.parent_id};
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                         '<h4 class="col-sm-offset-2 text-danger">请选择以下项目覆盖全部活动</h4>' +
                                         '<div form-checkbox text="覆盖内容" type="radio" ng-model="param.covers" required="true" ' +
-                                        'default="1" source="[{text:\'课程详情\',value:\'1\'},{text:\'基本信息\',value:\'2\'},{text:\'礼包信息\',value:\'3\'}]" ' +
+                                        'default="1" source="[{text:\'课程详情\',value:\'1\'},{text:\'基本信息\',value:\'2\'},{text:\'礼包信息\',value:\'3\'},{text:\'课程价值\',value:\'4\'}]" ' +
                                         'source-api=""></div>' +'<div form-textarea ng-model="desc" text="描述" ng-disabled="true"></div>'+
                                         '<a class="btn btn-success btn-rounded pull-right"  ng-disabled="FormBody.$invalid" ng-click="submit()">确定</a>' +
                                         '</form>';
