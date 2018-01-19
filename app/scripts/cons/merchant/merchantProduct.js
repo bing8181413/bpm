@@ -104,7 +104,7 @@ define([], function () {
                 },
                 {
                     name: '链接',
-                    fieldDirective: '<span ng-bind="$root.common.wx_domain+\'/product/detail/product_id/\'+item.product_id+\'?utm_source=\'+item.utm_source+\'&utm_medium=&utm_campaign=\'"></span>'
+                    fieldDirective: '<span ng-bind="$root.common.wx_domain+\'/product/detail/product_id/\'+item.product_id+\'?utm_source=\'+item.merchant_product.utm_source+\'&utm_medium=&utm_campaign=\'"></span>'
                 },
                 {name: '活动标题', field: 'title', className: 'width100'},
                 {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
