@@ -35,10 +35,11 @@ define([], function () {
                     '<br/> <span ng-bind="\'用户名:\'+item.user.name"></span>' +
                     '<br/> <span ng-bind="\'收货联系人:\'+item.address.contact_name|characters: 10 : false"' +
                     ' uib-tooltip="{{item.address.contact_name}}" tooltip-placement="bottom"></span>' +
-                    '<br/>收货人手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
-                    '<span ng-if="item.address.address"><br/>收货人地址:</span>' +
-                    '<span ng-bind="item.address.address" ' +
-                    ' uib-tooltip="{{item.address.address}}" tooltip-placement="bottom"></span>' +
+                    '<br/>收货手机号<br/><span ng-bind="item.address.contact_mobile"></span>' +
+                    '<span ng-if="item.address"><br/>收货地址:</span>' +
+                    '<span ng-bind="item.address.province+item.address.city_name+item.address.address" ' +
+                    ' uib-tooltip="{{item.address.province+item.address.city_name+item.address.address}}"' +
+                    ' tooltip-placement="bottom"></span>' +
                     '<span ng-if="item.address.email"><br/>收货人邮件:</span>' +
                     '<span ng-bind="item.address.email" ' +
                     ' uib-tooltip="{{item.address.email}}" tooltip-placement="bottom"></span>' +
