@@ -9,7 +9,6 @@ define([
     function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.param = {};
         $timeout(function () {
-            // $scope.param = {url: 'https://m.ahaschool.com/produnct/detail?product_id=10000'};
             $scope.param = {url: 'https://m.ahaschool.com/'};
         }, 0);
 

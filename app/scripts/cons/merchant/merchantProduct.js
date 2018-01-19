@@ -9,10 +9,13 @@ define([], function () {
                 },
                 {
                     name: '供应商', className: 'mobile_show',
-                    fieldDirective: '<div><p><span ng-bind="\'供应商ID:\'+item.merchant_product.merchant.account_id"></span></p>' +
-                    '<p><span ng-bind="\'全名:\'+item.merchant_product.merchant.company_name"></span></p>'
+                    fieldDirective: '<div ng-show="item.merchant_product"><p><span ng-bind="\'供应商ID:\'+item.merchant_product.merchant.account_id"></span></p>' +
+                    '<p><span ng-bind="\'全名:\'+item.merchant_product.merchant.company_name"></span></p></div>'
                 },
-                {name: '是否可看<br/>联系人信息', field: 'merchant_product.show_contact|keyVal:\'1\':\'是\':\'2\':\'--\''},
+                {
+                    name: '是否可看<br/>联系人信息',
+                    field: 'merchant_product.show_contact|keyVal:\'1\':\'是\':\'2\':\'--\'|null2empty'
+                },
                 {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
                 {name: '订单数', className: 'mobile_show', fieldDirective: '<div act-order-copies data="item"></div>'},
                 {name: '报名人数', className: 'mobile_show', field: 'order.order_count'},
@@ -48,15 +51,15 @@ define([], function () {
                 // {
                 //     name: '操作', className: 'mobile_show',
                 //     fieldDirective: '<div add-merchant-product data="item" ></div>'
-                    // '<div weinxi-view data="item" ></div>'
-                    // + '<div act-edit data="item" ></div>'
-                    // + '<div product-change-status data="item" ></div>'
-                    // + '<div change-product-type data="item" ></div>'
-                    // + '<div act-crowdfunding data="item" ></div>'
-                    // + '<div act-change-notice data="item" ></div>'
-                    // '<p><a class="btn btn-success btn-rounded btn-sm" data="item" ' +
-                    // 'ui-sref="main.act.update({product_id:item.product_id})">编辑</a></p>' +
-                    // '<div product-change-status data="item"></div>'
+                // '<div weinxi-view data="item" ></div>'
+                // + '<div act-edit data="item" ></div>'
+                // + '<div product-change-status data="item" ></div>'
+                // + '<div change-product-type data="item" ></div>'
+                // + '<div act-crowdfunding data="item" ></div>'
+                // + '<div act-change-notice data="item" ></div>'
+                // '<p><a class="btn btn-success btn-rounded btn-sm" data="item" ' +
+                // 'ui-sref="main.act.update({product_id:item.product_id})">编辑</a></p>' +
+                // '<div product-change-status data="item"></div>'
                 // },
             ],
             config: {
@@ -99,7 +102,11 @@ define([], function () {
                     name: 'utm_source',
                     field: 'merchant_product.utm_source',
                 },
-                {name: '活动标题', field: 'title'},
+                {
+                    name: '链接',
+                    fieldDirective: '<span ng-bind="$root.common.wx_domain+\'/product/detail/product_id/\'+item.product_id+\'?utm_source=\'+item.utm_source+\'&utm_medium=&utm_campaign=\'"></span>'
+                },
+                {name: '活动标题', field: 'title', className: 'width100'},
                 {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
                 {
                     name: '订单数',
