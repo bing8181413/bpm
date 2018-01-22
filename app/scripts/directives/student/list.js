@@ -265,7 +265,7 @@ define([
                                             data: $scope.param,
                                             success: function (json) {
                                                 widget.msgToast('评价成功,请刷新查看');
-                                                supscope.$parent.$parent.searchAction();
+                                                supscope.$parent.$parent.updateList();
                                                 $scope.cancel();
                                             },
                                             failure: function (json) {
