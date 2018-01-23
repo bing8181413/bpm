@@ -197,7 +197,7 @@
                              required="true"></div>
 
                         <div form-radio text="是否需填收货地址" ng-model="param.delivery_type" required="true"
-                             ng-disabled="param.product_id  || !copy"
+                             ng-disabled="param.product_id"
                              source="[{text:'需要',value:'1'},{text:'不需要',value:'3'}]"
                              default="3"></div>
                         <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
