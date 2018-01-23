@@ -40,13 +40,13 @@
                         <div form-input text="活动标题" ng-model="param.title" placeholder="活动标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
                         <!--<div class="form-group">-->
-                            <!--<div class="col-sm-8 col-sm-offset-2">-->
-                                <!--<span show-table-->
-                                      <!--data="{text:'查看SKU列表',modid:'skuList',config:'config',columns:'columns'}"></span>-->
-                            <!--</div>-->
+                        <!--<div class="col-sm-8 col-sm-offset-2">-->
+                        <!--<span show-table-->
+                        <!--data="{text:'查看SKU列表',modid:'skuList',config:'config',columns:'columns'}"></span>-->
+                        <!--</div>-->
                         <!--</div>-->
                         <!--<div form-radio text="SKU" type="radio" ng-model="param.sku" required="true" default="1"-->
-                             <!--type="number" source="$root.common.sku" source-api=""></div>-->
+                        <!--type="number" source="$root.common.sku" source-api=""></div>-->
 
                         <div form-select text="SKU" ng-model="param.sku" required="true"
                              source="$root.common.sku" source-api=""></div>
@@ -107,17 +107,19 @@
                             </div>
                         </div>
 
-                        <div form-date text="活动开始时间" ng-model="param.act_start_time" ng-show="showTime" required="true"></div>
+                        <div form-date text="活动开始时间" ng-model="param.act_start_time" ng-show="showTime"
+                             required="true"></div>
                         <div form-date text="活动结束时间" ng-model="param.act_end_time" ng-show="showTime"></div>
-                        <div form-date-time text="活动开始时间" ng-model="param.act_start_time" ng-show="!showTime" required="true"></div>
+                        <div form-date-time text="活动开始时间" ng-model="param.act_start_time" ng-show="!showTime"
+                             required="true"></div>
                         <div form-date-time text="活动结束时间" ng-model="param.act_end_time" ng-show="!showTime"></div>
 
                         <!--<div form-double-date text-start="活动开始时间" text-end="活动结束时间"-->
-                             <!--ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"-->
-                             <!--ng-show="showTime"></div>-->
+                        <!--ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"-->
+                        <!--ng-show="showTime"></div>-->
                         <!--<div form-double-date-time text-start="活动开始时间" text-end="活动结束时间" required="true"-->
-                             <!--ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"-->
-                             <!--ng-show="!showTime"></div>-->
+                        <!--ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"-->
+                        <!--ng-show="!showTime"></div>-->
 
 
                         <div form-double-date-time text-start="报名开始时间" text-end="报名截止时间" required="true"
@@ -195,9 +197,8 @@
                         <div form-radio text="是否限制仅会员可购买" ng-model="param.vip_buy" default="1"
                              source="[{text:'仅会员',value:'1'},{text:'不限制',value:'2'}]"
                              required="true"></div>
-
                         <div form-radio text="是否需填收货地址" ng-model="param.delivery_type" required="true"
-                             ng-disabled="param.product_id"
+                             ng-disabled="$stateParams.product_id && !copy"
                              source="[{text:'需要',value:'1'},{text:'不需要',value:'3'}]"
                              default="3"></div>
                         <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
@@ -413,7 +414,8 @@
 
                         <div class="form-group" ng-show="param.gift_buy==1&&param.gift_promotion_type==1">
                             <div class="form_element">
-                                <label class="col-sm-2 control-label">设置折扣<span class="form_label_dangus">*</span></label>
+                                <label class="col-sm-2 control-label">设置折扣<span
+                                        class="form_label_dangus">*</span></label>
                                 <div class="col-sm-2">
                                     <input class="form-control text-right" ng-model="gift_discount"
                                            ng-blur="reset_gift_discount()"

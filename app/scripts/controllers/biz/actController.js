@@ -11,6 +11,7 @@ define([
         // $scope.$watch('content',function(val){
         //     console.log(val);
         // });
+        $scope.copy = false;
         if ($state.current.name.indexOf('act.copy') > -1) { // 复制用的
             $scope.copy = true;
         }
@@ -274,7 +275,7 @@ define([
             }
 
             $scope.param.act_start_time = $filter('date')($scope.param.act_start_time, 'yyyy-MM-dd HH:mm:ss');
-            $scope.param.act_end_time = $filter('date')($scope.param.act_end_time, 'yyyy-MM-dd HH:mm:ss')||'';
+            $scope.param.act_end_time = $filter('date')($scope.param.act_end_time, 'yyyy-MM-dd HH:mm:ss') || '';
             if ($scope.param.vip_promotion_type == '1') {
                 $scope.param.vip_discount = comfunc.numDiv($scope.vip_discount, 100);
             } else if ($scope.param.vip_promotion_type == '2') {
@@ -292,7 +293,7 @@ define([
                     } else if (!$scope.gift_discount) {
                         widget.msgToast('sorry!礼包折扣不能为空');
                         return false;
-                    }else{
+                    } else {
                         $scope.param.gift_discount = comfunc.numDiv($scope.gift_discount || 99, 100);
                     }
                 }
