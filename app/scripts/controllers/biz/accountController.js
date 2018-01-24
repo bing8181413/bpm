@@ -74,8 +74,11 @@ define([
         //     });
         // }
         if ($rootScope.hjm.pubData.roles) {
+            $scope.roles.push({text: '供应商', value: 'merchant'});
             angular.forEach($rootScope.hjm.pubData.roles, function (val, key) {
-                $scope.roles.push({text: val, value: key});
+                if (val.value !== 'merchant') {
+                    $scope.roles.push({text: val, value: key});
+                }
             });
         }
         // console.log($scope.roles);
