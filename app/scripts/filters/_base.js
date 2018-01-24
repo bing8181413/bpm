@@ -603,7 +603,7 @@ define([
                         result = "直接买";
                         break;
                     case "4":
-                        result = "人数团+直接买";
+                        result = "礼包";
                         break;
                 }
                 return result;
