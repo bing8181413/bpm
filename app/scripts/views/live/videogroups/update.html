@@ -11,6 +11,12 @@
                         <div form-input text="名称" ng-model="param.group_title" placeholder="视频组名称"
                              required="true"></div>
 
+                        <div form-date-time text="首播时间" ng-model="param.first_time"></div>
+                        <div form-input text="总集数" ng-model="param.video_count" type="number" placeholder=""
+                             required="true" min="0"></div>
+                        <div form-input text="预告片" ng-model="param.pre_video_url" placeholder="预告片视频地址"></div>
+
+
                         <div form-image-single text="图片" ng-model="param.pic_url" required="true"></div>
 
                         <!--<div form-radio text="类型" ng-model="param.group_type" required="true" default="1"-->
