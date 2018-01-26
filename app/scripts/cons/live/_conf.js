@@ -9,6 +9,7 @@ define([
     , './marketshareuser'
     , './notice'
     , './noticeroom'
+    , './permission'
 ], function () {
     return arguments;
 })
