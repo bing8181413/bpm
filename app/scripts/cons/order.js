@@ -402,7 +402,12 @@ define([], function () {
             columns_by_user: [
                 {name: '订单ID', field: 'order_id', className: 'text-right'},
                 {name: '拼团ID', field: 'groupbuy_id', className: 'text-right'},
-                {name: '母订单号', field: 'order_no',},
+                {name: '母订单号', field: 'order_no'},
+                {
+                    name: '课程信息',
+                    fieldDirective: '<span ng-bind="\'活动ID:\'+item.product.product_id"></span>' +
+                    '<br/>标题:<br/><span ng-bind="item.product.title"></span> '
+                },
                 {
                     name: '收货<br/>信息',
                     fieldDirective: '<p><span ng-bind="\'联系人:\'+item.address.contact_name"></span>' +

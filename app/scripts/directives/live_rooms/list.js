@@ -392,5 +392,58 @@ define([
                 }
             }
         })
+        .directive('livePoint', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+            return {
+                restrict: 'EA',
+                replace: true,
+                template: $templateCache.get('app/' + con.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
+                scope: {
+                    ngModel: '=ngModel',
+                    ngModelText: '@ngModel',
+                    text: '@',
+                    name: '@',
+                    required: '=',
+                    max: '@',
+                    callBack: '&',
+                    ngDisabled: '='
+                },
+                link: function ($scope, $element, $attrs, $ctrl) {
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                        var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                        var required = $scope.required ? (' required') : '';
+                        var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                        var max = $scope.max ? (' max="' + $scope.max + '"') : '';
+                        var content = '';
+                        if (!$scope.text) {
+                            content = '<div class="col-sm-12 ">';
+                        } else {
+                            content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                                '<div class="col-sm-8">';
+                        }
+                        content += '<dnd-array ng-model="ngModel" '  + name +
+                            required + max + disabledRole + '></dnd-array>';
+                        // console.log(content);
+                        // content += '<input class="hide" ng-model="ngModel"' + name + required + '>' ;
+                        content += '</div>';
+                        // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                        // console.log($scope.$parent.FormBody[$scope.ngModelText]);
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
+                    }, 0);
+                    $scope.$watch('ngModel', function (val) {
+                        // 简单区分数据是否填写 要是length 为0 就置为undefined 这样require就起作用了
+                        if (val && val.length == 0) {
+                            $scope.ngModel = [];
+                        }
+                    }, true);
+
+                }
+            }
+        })
 })
 ;

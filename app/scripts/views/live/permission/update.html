@@ -1,0 +1,29 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title inlineBlock">权限配置</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" name="FormBody" novalidate>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div form-input text="用户账号" ng-model="param.user_id"></div>
+                    <div form-input text="用户昵称" ng-model="param.nickname"></div>
+                    <div form-radio text="选择角色" ng-model="param.role_id" required="true"
+                         source="[{text:'老师',value:1},{text:'助理',value:2}]"></div>
+
+                    <div form-search text="查询视频组ID" verify="verify_obj_id(obj_id)" btn-text="添加视频组"
+                         ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/videogroups/'+obj_id}"
+                         ng-model="obj_id" callback="add_obj_id(json)"></div>
+
+                    <div form-table text="房间/视频ID" ng-model="param.video_group" min="1"
+                         config="{add:false}"
+                         columns="[{name: '房间/视频ID', field:'video_group_id',readonly:'true'}
+                             ,{name: '标题', field:'group_title',readonly:'true'}]"></div>
+
+
+                </div>
+            </div>
+            <a class="btn btn-success btn-rounded pull-right" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+        </form>
+    </div>
+</div>

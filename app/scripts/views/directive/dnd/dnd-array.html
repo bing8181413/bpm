@@ -1,0 +1,84 @@
+<div class="dashboard-page ">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+
+        .dndsimpleSubject tbody[dnd-list],
+        .dndsimpleSubject tbody[dnd-list] > tr {
+            /*position: relative;*/
+        }
+
+        .dndsimpleSubject tbody[dnd-list]  .dndDragging {
+            opacity: 0.7;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] .dndDraggingSource {
+            display: none;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] .dndPlaceholder {
+            /*display: block;*/
+            /*float: left;*/
+            background-color: #ddd;
+            /*display: flex;*/
+            height: 100px;
+            /*width: 100px;*/
+            /*width: 100%;*/
+            border: 1px solid #ddd;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .dndsimpleSubject tbody[dnd-list] > tr {
+            /*background-color: #fff;*/
+            /*display: block;*/
+            /*width: 100%;*/
+        }
+
+        .dndsimpleSubject tbody[dnd-list] > tr.selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+            width: 1000px;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock">视频列表</h3>
+        </div>
+        <div class="panel-body dndsimpleSubject">
+            <div class="col-sm-12 form-group">
+                <table class="table table-bordered table-striped">
+                    <thead>
+                    <tr>
+                        <td class="text-center" colspan="15">
+                            <p>
+                                <a class="btn btn-success btn-rounded btn-sm pull-right"
+                                   ng-click="add()">添加</a>
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="text-center" style="width: 100px;">排序</th>
+                    </tr>
+                    </thead>
+                    <tbody dnd-list="ngModel">
+                    <tr ng-repeat="(key,item) in ngModel" dnd-draggable="item"
+                        dnd-moved="videos.splice(key, 1);" dnd-effect-allowed="copyMove">
+                        <td>
+                            <div videos-del data="item"></div>
+                            <a class="btn btn-danger btn-sm btn-bordered"
+                               ng-click="del($index)">删除所选资源</a>
+                        </td>
+                    </tr>
+                    <tr class="dndPlaceholder">
+                        <td class="text-center" colspan="1"><h3 class="red">拖拽到这里</h3></td>
+                    </tr>
+                    </tbody>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

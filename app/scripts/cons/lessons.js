@@ -4,13 +4,13 @@ define([], function () {
             columns: [
                 {name: 'ID', field: 'lesson_id', className: 'text-right'},
                 {
-                    name: '活动ID/已选择类目',
-                    fieldDirective: '<div>' +
-                    '<p ng-repeat="obj in item.products">' +
+                    name: '活动ID/已选择类目', className: 'width200',
+                    fieldDirective: '<ul>' +
+                    '<li ng-repeat="obj in item.products">' +
                     '<span ng-bind="obj.product_id|null2empty"></span>' +
                     '<span ng-if="obj.option" ng-bind="\' ): \'+obj.option.option_name"></span>' +
                     '<span ng-if="obj.option.option_name" ng-bind="\'/￥\' +obj.option.option_price"></span>' +
-                    '</p></div>'
+                    '</li></ul>'
                 },
                 {name: '课程名称', field: 'name'},
                 {name: '负责教师', field: 'teacher.name', filter: 'null2empty'},
