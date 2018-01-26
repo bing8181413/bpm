@@ -358,7 +358,7 @@ define([
                                 }
                                 $scope.pageInfo = {
                                     itemsPerPage: configDef.pageInfo.count,
-                                    maxSize: configDef.pageInfo.maxSize || 5,
+                                    maxSize: (!configDef.pageInfo.maxSize || configDef.pageInfo.maxSize < 5) ? 5 : configDef.pageInfo.maxSize,
                                     currentPage: configDef.pageInfo.page,
                                 }//初始化   开始监听  paginationInfo
                                 $scope.searchItems = configDef.searchItems || [];

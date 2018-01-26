@@ -60,6 +60,9 @@ define([
     './marketshare/list',// 观看权限
 
 
+    './permission/list',// 权限
+
+
     './upload/upload-audio-token',//  音频录制
 
     './upload/upload-apk-token',//  直播APK
@@ -69,11 +72,14 @@ define([
     './merchant/list',//  供应商
 
 
-    './cert/list',//  供应商
+    './cert/list',//
 
 
     // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//
+
+    './common/dndArray',//  dnd array   可以拖动的 array
+
 ], function (mod,
              simpleCons) {
     mod

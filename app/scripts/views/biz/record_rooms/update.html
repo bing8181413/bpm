@@ -17,7 +17,7 @@
                         <h5 style="margin: 0; padding: 10px 0;">视频信息</h5>
                     </div>
                     <div class="panel-body">
-
+                        <div live-point text="看点" ng-model="param.point">
                         <div form-input text="视频ID" ng-model="param.id" ng-show="param.id"
                              placeholder="视频ID" ng-disabled="$stateParams.id"></div>
 
@@ -33,8 +33,8 @@
                              source="$root.common.live_sku" source-api=""></div>
 
                         <!--<div form-radio text="订单类型" type="radio" ng-model="param.sku" required="true" default="10"-->
-                             <!--source="[{text:'博物馆直播第一期',value:'10'},{text:'名校直播第一期',value:'11'},{text:'成人演讲',value:'12'}-->
-                             <!--,{text:'少年好声音',value:'13'},{text:'博物馆直播第二期',value:'14'},{text:'免费',value:'0'}]" source-api=""></div>-->
+                        <!--source="[{text:'博物馆直播第一期',value:'10'},{text:'名校直播第一期',value:'11'},{text:'成人演讲',value:'12'}-->
+                        <!--,{text:'少年好声音',value:'13'},{text:'博物馆直播第二期',value:'14'},{text:'免费',value:'0'}]" source-api=""></div>-->
 
                         <div form-input text="分享URl" ng-model="param.share_url" placeholder="分享URl"></div>
 
@@ -78,6 +78,9 @@
                         <div form-input text="排序" ng-model="param.order_by" placeholder="排序" type="number" min="0"
                              required="true"></div>
                         <div form-rich-text text="看点" ng-model="param.watch_point" placeholder="看点"></div>
+
+
+                        </div>
                     </div>
                 </div>
 

@@ -48,6 +48,11 @@ define([
     'states/hjm/live/videogroups',//视频组
     'states/hjm/live/notice',//公告
 
+
+
+
+    'states/hjm/live/permissions',//权限
+
     'states/hjm/batchproduct/batchproducts',//批量活动管理
 
 

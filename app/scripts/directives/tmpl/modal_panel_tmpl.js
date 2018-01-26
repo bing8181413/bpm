@@ -47,6 +47,7 @@ define([
                 //require: '?ngModel',
                 scope: {
                     title: '@',
+                    size: '@',
                     content: '=',
                 },
                 // scope: false,
@@ -68,13 +69,14 @@ define([
                                     $scope.content = supscope.content;
                                 }, 0);
                                 $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
-                                    '<div form-textarea text="{{title}}" ng-model="content"> </div > ' +
+                                    '<blockquote><p>{{content}}</p></blockquote>'+
+                                    // '<div form-textarea text="{{title}}" ng-model="content"> </div > ' +
                                     '</form>';
                                 $scope.cancel = function () {
                                     $uibModalInstance.dismiss('cancel');
                                 };
                             },
-                            size: ''
+                            size: supscope.size||'lg'
                         });
                     }
                 }
