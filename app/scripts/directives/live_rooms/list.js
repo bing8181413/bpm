@@ -395,7 +395,7 @@ define([
         .directive('livePoint', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
-                replace: true,
+                // transclude: true,
                 template: $templateCache.get('app/' + con.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
                 scope: {
                     ngModel: '=ngModel',
@@ -408,6 +408,7 @@ define([
                     ngDisabled: '='
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
+                    $scope.tmp_url = 'app/' + con.biz_path + 'live_rooms/point.html';
                     $timeout(function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
@@ -422,8 +423,8 @@ define([
                             content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                                 '<div class="col-sm-8">';
                         }
-                        content += '<dnd-array ng-model="ngModel" '  + name +
-                            required + max + disabledRole + '></dnd-array>';
+                        content += '<dnd-array ng-model="ngModel" ' + name +
+                            required + max + disabledRole + '><div tmp-url="tmp_url" >这是一个可替换的内容</div></dnd-array>';
                         // console.log(content);
                         // content += '<input class="hide" ng-model="ngModel"' + name + required + '>' ;
                         content += '</div>';

@@ -2,47 +2,35 @@ define([
     '../../directives/directives',
     '../../cons/simpleCons'
 ], function (mod, simpleCons) {
-
     mod
-
         .directive('dndArray', function ($state, $rootScope, $timeout, $templateCache, $compile, $timeout, widget) {
             return {
                 restrict: 'E',
-                replace: true,
-                scope: {
-                    ngModel: '=',
-                    max: '@',
-                    config: '=?',
-                    callback: '&',
-                },
-                controller: ['$scope', function ($scope) {
-                }],
-                template: '',
+                replace: false,
+                transclude: true,
+                scope: false,
+                // scope: {
+                //     ngModel: '=',
+                //     tmpUrl: '='
+                // },
+                template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'dnd/dnd-array.html'),
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var tmpHtml = '';
-                    $timeout(function () {
-                    }, 0);
-
+                    $scope.getContentUrl = function () {
+                        return $scope.tmp_url || '';
+                    }
                     $scope.$watch('ngModel', function (defval) {
                         if (!(defval && angular.isArray(defval))) {
                             $scope.ngModel = [];
                         }
                     }, true);
 
-                    $scope.add = function (obj) {
-                        if ($scope.ngModel && $scope.max && $scope.ngModel.length >= $scope.max) {
-                            widget.msgToast('已超过最大行数 ' + $scope.max + ' !');
-                            return false;
-                        }
-                        $scope.ngModel.push(obj);
+                    $scope.add = function () {
+                        $scope.ngModel.push({});
                     }
                     $scope.del = function (index) {
                         $scope.ngModel.splice(index, 1);
                     }
-                    $scope.conslog = function () {
-                        console.log($scope.ngModel);
-                    }
-
                 }
             }
         })

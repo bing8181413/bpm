@@ -17,7 +17,6 @@
                         <h5 style="margin: 0; padding: 10px 0;">视频信息</h5>
                     </div>
                     <div class="panel-body">
-                        <div live-point text="看点" ng-model="param.point">
                         <div form-input text="视频ID" ng-model="param.id" ng-show="param.id"
                              placeholder="视频ID" ng-disabled="$stateParams.id"></div>
 
@@ -78,15 +77,11 @@
                         <div form-input text="排序" ng-model="param.order_by" placeholder="排序" type="number" min="0"
                              required="true"></div>
                         <div form-rich-text text="看点" ng-model="param.watch_point" placeholder="看点"></div>
-
-
-                        </div>
+                        <div live-point text="看点" ng-model="param.points"></div>
                     </div>
                 </div>
-
                 <div form-error-block></div>
-                <a class="btn btn-success btn-rounded" show-role="'{{$stateParams.product_id?'admin,op':''}}'"
-                   ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
             </form>
         </div>
     </div>
