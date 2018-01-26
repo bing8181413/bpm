@@ -8,7 +8,7 @@ define([
     updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', 'comfunc', '$filter', '$timeout'];
     function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.param = {skus: [], products: []};
-        $scope._tmp = {};
+        $scope._tmp = {skus: [], products: []};
         if ($stateParams.id) {
             widget.ajaxRequest({
                 url: con.live_domain + '/live/videogroups/' + $stateParams.id,
@@ -18,9 +18,10 @@ define([
                     $scope.param = json.data;
                     // 记录变化使用的临时变量
                     $scope._tmp = {
-                        skus: json.data.skus,
+                        skus: angular.copy(json.data.skus),
                         products: angular.copy(json.data.products)
                     }
+                    $scope.getDataFlag = true;
                 }
             })
         }
@@ -191,10 +192,26 @@ define([
         }, true);
 
         // skus 有变化 自动更新授权的时间
-        $scope.$watch('param.skus', function (val, old_val) {
-            if (old_val || (old_val != undefined && JSON.stringify(val) != JSON.stringify($scope._tmp.skus))) {
-                $scope.reset_open_time('skus');
+        $scope.$watch('param.skus', function (sku_val, sku_old_val) {
+            if (sku_val) {
+                if (sku_old_val && (sku_val.length != $scope._tmp.skus.length)) {
+                    $scope.reset_open_time('sku1');
+                } else {
+                    angular.forEach(sku_val, function (val, key) {
+                        if (!$scope._tmp.skus[key] || !$scope._tmp.skus[key].sku) {
+                            $scope.reset_open_time('sku2');
+                        } else if ($scope._tmp.skus[key] && $scope._tmp.skus[key].sku && val.sku != $scope._tmp.skus[key].sku) {
+                            $scope.reset_open_time('sku3');
+                        }
+                    })
+                }
+            } else {
+                // console.log('还没有skus');
             }
+            // if ($scope.getDataFlag && (sku_old_val || (sku_old_val != undefined && JSON.stringify(val) != JSON.stringify($scope._tmp.skus)))) {
+            //     console.log(sku_old_val, JSON.stringify(val), JSON.stringify($scope._tmp.skus));
+            //     $scope.reset_open_time('skus');
+            // }
         }, true);
 
         $scope.submit = function (status) {
