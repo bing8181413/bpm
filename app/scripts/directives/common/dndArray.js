@@ -9,13 +9,8 @@ define([
                 replace: false,
                 transclude: true,
                 scope: false,
-                // scope: {
-                //     ngModel: '=',
-                //     tmpUrl: '='
-                // },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'dnd/dnd-array.html'),
                 link: function ($scope, $element, $attrs, $ctrl) {
-                    var tmpHtml = '';
                     $scope.getContentUrl = function () {
                         return $scope.tmp_url || '';
                     }

@@ -437,9 +437,12 @@ define([
                         }
                     }, 0);
                     $scope.$watch('ngModel', function (val) {
-                        // 简单区分数据是否填写 要是length 为0 就置为undefined 这样require就起作用了
-                        if (val && val.length == 0) {
+                        if (!val || val && val.length == 0) {
                             $scope.ngModel = [];
+                        } else {
+                            angular.forEach(val, function (v, k) {
+                                v.order_by = (k + 1);
+                            });
                         }
                     }, true);
 
