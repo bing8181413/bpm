@@ -1,0 +1,32 @@
+<div>
+    <div class="row text-muted" ng-if="item.type==1">
+        <div class="col-sm-1">
+            <span ng-bind="'第 '+item.chapters_index+' 章节'" class="label-info label"></span>
+        </div>
+        <div class="col-sm-11">
+            <div class="input-group">
+                <span class="input-group-addon">章节:</span>
+                <input type="text" class="form-control" ng-model="item.title" required="true">
+            </div>
+        </div>
+    </div>
+    <div class="row text-muted" ng-if="item.type==2">
+        <div class="col-sm-1">
+            <!--<span ng-bind="item.order_by" class="label-info label"></span>-->
+        </div>
+        <div class="col-sm-9">
+            <!--<span class="label-info label" ng-bind="item.order_by"></span>-->
+            <span class="label label-primary">房间/视频ID : {{item.room_id}}</span>
+            <span class="label label-success">{{item.room.title}}</span>
+        </div>
+        <div class="col-sm-1">
+            <span class="label pull-right"
+                  ng-class="{'label-default':item.room.live_status==1,'label-success':item.room.live_status==2,'label-warning':item.room.live_status==3}">
+                直播流:{{(item.room.live_status|keyVal:'1':'未开启':'2':'直播中':'3':'直播结束'|null2empty)}}
+            </span>
+        </div>
+        <div class="col-sm-1">
+            <a class="btn btn-primary btn-bordered btn-sm" ng-click="ngModel.splice($index, 0, {type: 1, title: ''})">插入章节</a>
+        </div>
+    </div>
+</div>

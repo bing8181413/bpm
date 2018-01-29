@@ -204,13 +204,18 @@ define([
                     sourceApi: '@',
                     type: '@?',
                     callback: '&',
-                    ngDisabled: '='
+                    ngDisabled: '=',
+                    labelWidth: '@',
+                    contentWidth: '@',
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     if (!$scope.ngModel) {
                         $scope.ngModel = $scope.default;
                     }
                     // console.log('formElement', $scope, $attrs);
+                    var labelWidth = $scope.labelWidth ? ('col-sm-' + $scope.labelWidth) : ('col-sm-2');
+                    var contentWidth = $scope.contentWidth ? ('col-sm-' + $scope.contentWidth) :
+                        ($scope.labelWidth ? ('col-sm-' + (10 - $scope.labelWidth)) : ('col-sm-8'));
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var date = new Date().getTime();
                     var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + '"');
@@ -220,8 +225,8 @@ define([
                     $timeout(function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
-                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                            '<div class="col-sm-8">';
+                        var content = '<label  class="' + labelWidth + ' control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="' + contentWidth + '">';
                         angular.forEach($scope.source, function (val, key) {
                             var value = '';
                             if ($scope.type == 'number' || typeof val.value == 'number') {

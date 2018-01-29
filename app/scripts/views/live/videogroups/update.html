@@ -8,11 +8,12 @@
             <form class="form-horizontal" name="FormBody" novalidate>
                 <div class="panel panel-primary">
                     <div class="panel-body">
+
                         <div form-input text="名称" ng-model="param.group_title" placeholder="视频组名称"
                              required="true"></div>
 
                         <div form-date-time text="首播时间" ng-model="param.first_time"></div>
-                        <div form-input text="总集数" ng-model="param.video_count" type="number" placeholder=""
+                        <div form-input text="总集数" ng-model="param.course_num" type="number" placeholder=""
                              required="true" min="0"></div>
                         <div form-input text="预告片" ng-model="param.pre_video_url" placeholder="预告片视频地址"></div>
 
@@ -31,16 +32,19 @@
                         <div form-input text="单人最多领取视频数量" ng-model="param.receive_num" placeholder=""
                              ng-show="param.share_type==2"></div>
 
+
                         <div form-search text="添加房间/视频ID" verify="verify_room(room_id)" btn-text="查询并添加房间/视频ID"
                              ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/rooms/'+room_id}"
                              ng-model="room_id" callback="add_room(json)"></div>
 
-                        <div form-table text="房间/视频ID" ng-model="param.rooms" min="1"
-                             config="{add:false}"
-                             columns="[{name: '房间/视频ID', field:'room_id',readonly:'true'}
-                             ,{name: '标题', field:'room.title',readonly:'true'}
-                             ,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}
-                             ,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>
+                        <div videogroup-room ng-model="chapters" text="章节"></div>
+
+                        <!--<div form-table text="房间/视频ID" ng-model="param.rooms" min="1"-->
+                             <!--config="{add:false}"-->
+                             <!--columns="[{name: '房间/视频ID', field:'room_id',readonly:'true'}-->
+                             <!--,{name: '标题', field:'room.title',readonly:'true'}-->
+                             <!--,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}-->
+                             <!--,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>-->
                         <div ng-if="param.pay_type==2">
                             <hr>
                             <h4>关联活动</h4>

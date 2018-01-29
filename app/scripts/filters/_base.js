@@ -42,6 +42,22 @@ define([
                 return val == 5 ? '验证中' : val == 6 ? '已经通过' : '未验证';
             }
         }])
+        .filter('live_role_type', [function () { // 小区覆盖类型
+            return function (val) {
+                var rtn = '';
+                switch (val) {
+                    case '1':
+                        rtn = '老师';
+                        break;
+                    case '2':
+                        rtn = '处理';
+                        break;
+                    default :
+                        rtn = '学生';
+                }
+                return rtn;
+            }
+        }])
         .filter('target_type', [function () { // 小区覆盖类型
             return function (val) {
                 var rtn = '';
