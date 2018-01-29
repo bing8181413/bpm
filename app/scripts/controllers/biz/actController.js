@@ -65,6 +65,20 @@ define([
                                 delete val.updated_at;
                             });
                         });
+                        angular.forEach(json.data.course_contents, function (val, key) {
+                            delete val.product_id;
+                            delete val.content_id;
+                            delete val.created_at;
+                            delete val.updated_at;
+                            angular.forEach(val.pics, function (val, key) {
+                                delete val.pic_id;
+                                delete val.imageable_id;
+                                delete val.imageable_type;
+                                delete val.status;
+                                delete val.created_at;
+                                delete val.updated_at;
+                            });
+                        });
                         angular.forEach(json.data.pics, function (val, key) {
                             delete val.pic_id;
                             delete val.imageable_id;
