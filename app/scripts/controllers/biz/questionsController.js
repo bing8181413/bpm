@@ -3,16 +3,17 @@ define([
     './../controllers'
     , '../../cons/simpleCons'
 ], function (mod, con) {
-    mod
-        .controller('questions.updateController', updateController)
-        .controller('questions.questionsController', questionsController)
+    mod.controller('questions.questionsController', questionsController)
 
-    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter'];
     questionsController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$templateCache', '$q'];
 
     function questionsController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $templateCache, $q) {
         $scope.searchItem = {};
         $scope.init = function () {
+            if (!($scope.searchItem.start_time && $scope.searchItem.end_time || !$scope.searchItem.start_time && !$scope.searchItem.end_time)) {
+                widget.msgToast('开始和结束时间必须同时存在才能查询', 2000);
+                return false;
+            }
             angular.extend($scope.searchItem, {page: $scope.currentPage || 1, count: 20});
             widget.ajaxRequest({
                 url: con.live_domain + '/live/questions',
@@ -26,9 +27,12 @@ define([
             })
         }
         $scope.init();
+
         $scope.$watch('searchItem', function (val, old_val) {
             if (val != old_val) {
-                $scope.init();
+                if (old_val.role_type != undefined && val.role_type != old_val.role_type || old_val.status != undefined && val.status != old_val.status) {
+                    $scope.init();
+                }
             }
         }, true);
 
@@ -65,41 +69,33 @@ define([
                     },
                     success: function (json) {
                         widget.msgToast('审核完成!');
-                        $scope.init();
+                        angular.forEach($scope.data, function (val, key) {
+                            var someResult = selected_array.some(function (item, index) {
+                                return item == val.id;
+                            });
+                            if (someResult) {
+                                val.status = status;
+                            }
+                        })
                     }
                 })
             }
+        }
+
+
+        $scope.open_answer = function (item) {
+            var modalInstance = $uibModal.open({
+                templateUrl: 'app/' + con.live_path + 'answers/answers.html',
+                controller: 'answers.answersController',
+                resolve: {
+                    question: function () {
+                        item.question_id = item.id;
+                        return item;
+                    }
+                },
+                size: 'lg'
+            });
 
         }
     }
-
-    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter) {
-        if ($stateParams.id) {
-            widget.ajaxRequest({
-                url: '/questions/' + $stateParams.id,
-                method: 'get',
-                scope: $scope,
-                data: {},
-                success: function (json) {
-                    $scope.param = angular.copy(json.data);
-                }
-            })
-        } else {
-            $scope.param = {};
-        }
-        $scope.submit = function (status) {
-            // console.log($scope.param);
-            // return false;
-            widget.ajaxRequest({
-                url: '/questions' + ($stateParams.id ? ('/' + $stateParams.id) : ''),
-                method: $stateParams.id ? 'PUT' : 'POST',
-                scope: $scope,
-                data: $scope.param,
-                success: function (json) {
-                    widget.msgToast('发布成功！', 500);
-                    $state.go(con.state.main + '.questions.list');
-                },
-            })
-        }
-    };
 });

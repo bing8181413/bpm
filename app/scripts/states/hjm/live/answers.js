@@ -25,42 +25,47 @@ define([
                                     controller: 'answers.answersController',
                                     templateProvider: function ($templateCache) {
                                         return $templateCache.get('app/' + cons.live_path + 'answers/answers.html');
-                                    }
+                                    },
+                                    resolve: {
+                                        question: function () {
+                                            return '';
+                                        }
+                                    },
                                 }
                             }
                         })
-                        // .state(cons.state.main + '.answers.list', {
-                        //     url: "/list",
-                        //     views: {
-                        //         "": {
-                        //             templateProvider: function ($templateCache) {
-                        //                 return '<div hjm-grid modid="answersList" config="config" columns="columns"></div>';
-                        //             }
-                        //         }
-                        //     }
-                        // })
-                        // .state(cons.state.main + '.answers.add', {
-                        //     url: "/add.html",
-                        //     views: {
-                        //         "": {
-                        //             controller: 'answers.updateController',
-                        //             templateProvider: function ($templateCache) {
-                        //                 return $templateCache.get('app/' + cons.biz_path + 'answers/update.html');
-                        //             }
-                        //         }
-                        //     }
-                        // })
-                        // .state(cons.state.main + '.answers.update', {
-                        //     url: "/update.html/:id",
-                        //     views: {
-                        //         "": {
-                        //             controller: 'answers.updateController',
-                        //             templateProvider: function ($templateCache) {
-                        //                 return $templateCache.get('app/' + cons.biz_path + 'answers/update.html');
-                        //             }
-                        //         }
-                        //     }
-                        // })
+                    // .state(cons.state.main + '.answers.list', {
+                    //     url: "/list",
+                    //     views: {
+                    //         "": {
+                    //             templateProvider: function ($templateCache) {
+                    //                 return '<div hjm-grid modid="answersList" config="config" columns="columns"></div>';
+                    //             }
+                    //         }
+                    //     }
+                    // })
+                    // .state(cons.state.main + '.answers.add', {
+                    //     url: "/add.html",
+                    //     views: {
+                    //         "": {
+                    //             controller: 'answers.updateController',
+                    //             templateProvider: function ($templateCache) {
+                    //                 return $templateCache.get('app/' + cons.biz_path + 'answers/update.html');
+                    //             }
+                    //         }
+                    //     }
+                    // })
+                    // .state(cons.state.main + '.answers.update', {
+                    //     url: "/update.html/:id",
+                    //     views: {
+                    //         "": {
+                    //             controller: 'answers.updateController',
+                    //             templateProvider: function ($templateCache) {
+                    //                 return $templateCache.get('app/' + cons.biz_path + 'answers/update.html');
+                    //             }
+                    //         }
+                    //     }
+                    // })
                 }
             ]);
     })
