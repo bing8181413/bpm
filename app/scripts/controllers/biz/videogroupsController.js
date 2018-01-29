@@ -9,6 +9,8 @@ define([
     function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.param = {skus: [], products: []};
         $scope._tmp = {skus: [], products: []};
+        $scope.chapters = [];
+        $scope.chapters_length = 0;
         if ($stateParams.id) {
             widget.ajaxRequest({
                 url: con.live_domain + '/live/videogroups/' + $stateParams.id,
@@ -22,12 +24,58 @@ define([
                         products: angular.copy(json.data.products)
                     }
                     $scope.getDataFlag = true;
+
+                    // 章节和视频排序 初始化
+                    angular.forEach($scope.param.chapters, function (val, key) {
+                        $scope.chapters_length++;
+                        var tmp_val = angular.copy(val);
+                        delete tmp_val.videos;
+                        tmp_val.chapters_index = $scope.chapters_length;
+                        tmp_val.type = 1;
+                        $scope.chapters.push(tmp_val);
+                        angular.forEach(val.videos, function (v, k) {
+                            v.type = 2;
+                            $scope.chapters.push(v);
+                        })
+                    })
+
                 }
             })
         }
+
+        $scope.$watch('chapters', function (chapters_val) {
+            if (chapters_val && chapters_val.length > 0 && chapters_val[0].type != 1) {
+                // 第一行必须是 章节类型 type : 1
+                $scope.chapters.unshift({type: 1, title: ''});
+            } else {
+                var chapters_index = 0;
+                $scope.param.chapters = [];
+                angular.forEach(chapters_val, function (val, key) {
+                    if (val.type == 1) {//  章节
+                        chapters_index++;
+                        val.chapters_index = chapters_index;
+                        val.order_by = chapters_index;
+                        var tmp_val = angular.copy(val);
+                        tmp_val.videos = [];
+                        delete tmp_val.chapters_index;
+                        delete tmp_val.type;
+                        $scope.param.chapters.push(tmp_val);
+                    } else {// 视频
+                        val.chapters_index = chapters_index;
+                        val.order_by = (key + 1);
+                        var tmp_val = angular.copy(val);
+                        delete tmp_val.chapters_index;
+                        delete tmp_val.type;
+                        $scope.param.chapters[(chapters_index - 1)].videos.push(tmp_val);
+                    }
+                });
+                // console.log($scope.param.chapters);
+            }
+        }, true);
+
         $scope.verify_room = function () {
             var has_room = false;
-            angular.forEach($scope.param.rooms, function (val, key) {
+            angular.forEach($scope.chapters, function (val, key) {
                 if (val.room_id == $scope.room_id) {
                     has_room = true;
                 }
@@ -41,28 +89,17 @@ define([
             }
         }
         $scope.add_room = function (json) {
-            // console.log(json);
-            var has_room = false;
             if (json.code == 0) {
-                angular.forEach($scope.param.rooms, function (val, key) {
-                    if (val.room_id == $scope.room_id) {
-                        has_room = true;
+                $scope.chapters.push({
+                    type: 2,
+                    room_id: json.data.id,
+                    room: {
+                        title: json.data.title,
+                        live_status: json.data.live_status,
+                        plans: json.data.plans
                     }
                 });
-                if (!has_room) {
-                    $scope.param.rooms = $scope.param.rooms || [];
-                    $scope.param.rooms.push({
-                        room_id: json.data.id,
-                        room: {
-                            title: json.data.title,
-                            live_status: json.data.live_status,
-                            plans: json.data.plans
-                        }
-
-                    });
-                } else {
-                    widget.msgToast('已经存在了')
-                }
+                $scope.room_id = '';
             } else {
                 widget.msgToast('没有相关的房间ID');
                 return false;
@@ -91,33 +128,6 @@ define([
                         value: val.option_id
                     });
                 })
-                // angular.forEach(json.data.options, function (val, key) {
-                //     $scope.param.products[index]._tmp_options.push({
-                //         text: val.option_name,
-                //         value: val.option_id,
-                //         option_id: val.option_id,
-                //         option_name: val.option_name,
-                //         product_id: val.product_id
-                //     });
-                // });
-                // angular.forEach(json.data.groupbuy_options, function (val, key) {
-                //     $scope.param.products[index]._tmp_options.push({
-                //         text: val.option_name,
-                //         value: val.option_id,
-                //         option_id: val.option_id,
-                //         option_name: val.option_name,
-                //         product_id: val.product_id
-                //     });
-                // });
-                // angular.forEach(json.data.gift_options, function (val, key) {
-                //     $scope.param.products[index]._tmp_options.push({
-                //         text: val.option_name,
-                //         value: val.option_id,
-                //         option_id: val.option_id,
-                //         option_name: val.option_name,
-                //         product_id: val.product_id
-                //     });
-                // });
                 $scope.param.products[index]._tmp_options_selected = [];
                 angular.forEach($scope.param.products[index].options, function (val, key) {
                     if (val.option_id) {
@@ -164,8 +174,6 @@ define([
                 $scope.param.product_url = '';
             }
         })
-
-
         $scope.reset_open_time = function (type) {
             console.log(type);
             $scope.param.open_time = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
@@ -208,14 +216,11 @@ define([
             } else {
                 // console.log('还没有skus');
             }
-            // if ($scope.getDataFlag && (sku_old_val || (sku_old_val != undefined && JSON.stringify(val) != JSON.stringify($scope._tmp.skus)))) {
-            //     console.log(sku_old_val, JSON.stringify(val), JSON.stringify($scope._tmp.skus));
-            //     $scope.reset_open_time('skus');
-            // }
         }, true);
 
         $scope.submit = function (status) {
-            $scope.param.video_count = $scope.param.rooms && $scope.param.rooms.length || 0;
+
+            // $scope.param.video_count = $scope.param.rooms && $scope.param.rooms.length || 0;
             // if ($scope.param.video_count == 0) {
             //     widget.msgToast('视频数量不能为0!');
             //     return false;

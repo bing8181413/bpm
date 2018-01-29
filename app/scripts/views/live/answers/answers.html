@@ -1,0 +1,126 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock">视频列表</h3>
+        </div>
+        <div class="panel-body dndsimpleSubject">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <form class="form-horizontal" name="FormBody" novalidate>
+                                <div class="col-sm-12 form-group">
+                                    <div class="col-sm-6">
+                                        <div form-radio text="分类" ng-model="searchItem.category" default="1"
+                                             source="[{text:'动画',value:'1'},{text:'儿歌',value:'2'},{text:'学习',value:'3'},
+                                        {text:'探索',value:'4'},{text:'艺术',value:'5'}]"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <div class="col-sm-6">
+                                        <div form-input text="关键词" ng-model="searchItem.keyword" label-width="2"
+                                             content-width="8"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <a class="btn btn-success btn-bordered" ng-click="init()">查询</a>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--<div class="col-sm-12 form-group">-->
+                            <!--<a class="btn btn-primary btn-rounded btn-sm pull-right" ng-click="online()">发布到上线</a>-->
+                            <!--</div>-->
+                            <div class="col-sm-12 form-group">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <td class="text-center" colspan="15">
+                                            <p>
+                                                <a class="btn btn-success btn-rounded btn-sm pull-right"
+                                                   ng-click="online()">发布上线准备</a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th class="text-center" style="width: 50px;">选择</th>
+                                        <th class="text-center" style="width: 50px;">分类</th>
+                                        <th class="text-center" style="width: 250px;">标题</th>
+                                        <th class="text-center" style="width: 50px;">描述</th>
+                                        <th class="text-center" style="width: 150px;">视频缩略图</th>
+                                        <th class="text-center text-primary" style="width: 150px;"
+                                            ng-click="change_sort(sort.created_time,'created_time')">
+                                            创建时间
+                                            <i class="animate-switch fa"
+                                               ng-class="{'fa-angle-double-up':sort.created_time=='asc',
+                                               'fa-angle-double-down':sort.created_time=='desc'}"></i>
+                                        </th>
+                                        <th class="text-center text-primary" style="width: 80px;"
+                                            ng-click="change_sort(sort.views,'views')">
+                                            观看次数
+                                            <i class="animate-switch fa"
+                                               ng-class="{'fa-angle-double-up':sort.views=='asc',
+                                               'fa-angle-double-down':sort.views=='desc'}"></i>
+                                        </th>
+                                        <th class="text-center text-primary" style="width: 80px;"
+                                            ng-click="change_sort(sort.likes,'likes')">
+                                            喜欢
+                                            <i class="animate-switch fa"
+                                               ng-class="{'fa-angle-double-up':sort.likes=='asc',
+                                               'fa-angle-double-down':sort.likes=='desc'}"></i>
+                                        </th>
+                                        <th class="text-center text-primary" style="width: 80px;"
+                                            ng-click="change_sort(sort.unlikes,'unlikes')">
+                                            不喜欢
+                                            <i class="animate-switch fa"
+                                               ng-class="{'fa-angle-double-up':sort.unlikes=='asc',
+                                               'fa-angle-double-down':sort.unlikes=='desc'}"></i>
+                                        </th>
+                                        <th class="text-center" style="width: 150px;">小编一句话</th>
+                                        <th class="text-center" style="width: 150px;">视频地址</th>
+                                        <th class="text-center" style="width: 150px;">操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="(key,item) in data">
+                                        <td class="text-center">
+                                            <label class="checkbox-inline checkbox1">
+                                                <input type="checkbox" ng-model="item.checked" ng-true-value="1"
+                                                       ng-false-value="2" ng-change="add_tmp_resources(item,$index)">
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                        <td class="text-center"><span ng-bind="item.category"></span></td>
+                                        <td class="text-center"><span ng-bind="item.title"></span></td>
+                                        <td class="text-center">
+                                            <div modal-textarea title="查看" content="item.desc"></div>
+                                        </td>
+                                        <td class="text-center">
+                                            <!--<show_image url="item.image" width="100"></show_image>-->
+                                            <show_video url="item.video_url" image-url="item.pic_url"
+                                                        image-width="100"></show_video>
+                                        </td>
+                                        <td class="text-center"><span ng-bind="item.created_at"></span></td>
+                                        <td class="text-center"><span ng-bind="item.play_number"></span></td>
+                                        <td class="text-center"><span ng-bind="item.like_number"></span></td>
+                                        <td class="text-center"><span ng-bind="item.dislike_number"></span></td>
+                                        <td class="text-center"><span ng-bind="item.remark|null2empty"></span></td>
+                                        <td class="text-center"><span ng-bind="item.video_url|null2empty"></span></td>
+                                        <td class="text-center">
+                                            <div resources-edit data="item"></div>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-12 form-group">
+                                <ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
+                                    ng-change="init()" max-size="5" rotate="false" items-per-page="20"
+                                    class="pull-right" previous-text="&lsaquo;" next-text="&rsaquo;"
+                                    first-text="&laquo;" last-text="&raquo;"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

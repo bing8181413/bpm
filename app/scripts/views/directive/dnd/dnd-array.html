@@ -48,26 +48,31 @@
     <div class="panel-body dndsimpleSubject">
         <div class="col-sm-12 form-group">
             <table class="table table-bordered table-striped">
-                <thead>
-                </thead>
+                <thead></thead>
                 <tbody dnd-list="ngModel">
                 <tr ng-repeat="(key,item) in ngModel" dnd-draggable="item"
                     dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="copyMove">
                     <td>
-                        <div ng-include="getContentUrl()"></div>
+                        <div class="row">
+                            <div class="col-sm-11" ng-include="getContentUrl()"></div>
+                            <div class="col-sm-1">
+                                <a class="btn btn-danger btn-sm btn-bordered pull-right"
+                                   ng-click="del($index)" ng-show="config.del!=false">删除</a>
+                            </div>
+                        </div>
                     </td>
-                    <td class="width100">
-                        <a class="btn btn-danger btn-sm btn-bordered  pull-right"
-                           ng-click="del($index)">删除</a>
-                    </td>
+                    <!--<td class="width100">-->
+                    <!--<a class="btn btn-danger btn-sm btn-bordered  pull-right"-->
+                    <!--ng-click="del($index)">删除</a>-->
+                    <!--</td>-->
                 </tr>
                 <tr class="dndPlaceholder">
-                    <td class="text-center" colspan="2"><h3 class="red">拖拽到这里</h3></td>
+                    <td class="text-center" colspan="1"><h3 class="red">拖拽到这里</h3></td>
                 </tr>
                 </tbody>
                 <tbody>
-                <tr>
-                    <td class="text-center" colspan="2">
+                <tr ng-show="config.add!=false">
+                    <td class="text-center" colspan="1">
                         <a class="btn btn-success btn-rounded btn-sm pull-right"
                            ng-click="add()">添加</a>
                     </td>

@@ -11,6 +11,7 @@ define([
                 scope: false,
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'dnd/dnd-array.html'),
                 link: function ($scope, $element, $attrs, $ctrl) {
+                    !$scope.config ? '' : ($scope.config['add'] ? ($scope.config['add'] = $scope.config['add']) : '');
                     $scope.getContentUrl = function () {
                         return $scope.tmp_url || '';
                     }

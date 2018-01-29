@@ -52,6 +52,8 @@ define([
 
 
     'states/hjm/live/permissions',//权限
+    'states/hjm/live/questions',//问题
+    'states/hjm/live/answers',//答案
 
     'states/hjm/batchproduct/batchproducts',//批量活动管理
 

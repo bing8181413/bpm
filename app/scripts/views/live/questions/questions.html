@@ -1,0 +1,125 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock">视频列表</h3>
+        </div>
+        <div class="panel-body dndsimpleSubject">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <form class="form-horizontal" name="FormBody" novalidate>
+                                <div class="col-sm-12 form-group">
+                                    <div class="col-sm-4">
+                                        <div form-radio text="角色" ng-model="searchItem.role" default=""
+                                             source="[{text:'全部',value:''},{text:'老师',value:'1'},{text:'助教',value:'2'}]"></div>
+                                    </div>
+                                    <div class="col-sm-8">
+                                        <div form-radio text="状态" ng-model="searchItem.status" default="" label-width="1"
+                                             source="[{text:'全部',value:''},{text:'未审核',value:'1'},{text:'显示',value:'2'},{text:'隐藏',value:'3'}]"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <div class="col-sm-4">
+                                        <div form-input text="关键词" ng-model="searchItem.keyword" label-width="2"
+                                             content-width="8"></div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div form-input text="视频ID" ng-model="searchItem.video_id" label-width="2"
+                                             content-width="8"></div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div form-input text="视频组ID" ng-model="searchItem.video_group_id"
+                                             label-width="2" content-width="8"></div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 form-group">
+                                    <div class="col-sm-4">
+                                        <div form-date-time text="创建-开始" ng-model="searchItem.start_time"
+                                             label-width="2" content-width="8"></div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div form-date-time text="创建-结束" ng-model="searchItem.end_time"
+                                             label-width="2" content-width="8"></div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <a class="btn btn-success btn-bordered" ng-click="init()">查询</a>
+                                    </div>
+                                </div>
+                            </form>
+                            <!--<div class="col-sm-12 form-group">-->
+                            <!--<a class="btn btn-primary btn-rounded btn-sm pull-right" ng-click="online()">发布到上线</a>-->
+                            <!--</div>-->
+                            <div class="col-sm-12 form-group">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th class="text-center" style="width: 50px;">编号</th>
+                                        <th class="text-center" style="width: 250px;">用户</th>
+                                        <th class="text-center" style="width: 50px;">手机</th>
+                                        <th class="text-center" style="width: 150px;">角色</th>
+                                        <th class="text-center" style="width: 150px;">回答</th>
+                                        <th class="text-center" style="width: 150px;">内容</th>
+                                        <th class="text-center" style="width: 150px;">时间</th>
+                                        <th class="text-center" style="width: 150px;">操作</th>
+                                        <th class="text-center" style="width: 150px;">状态</th>
+                                        <th class="text-center" style="width: 50px;">选择</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr ng-repeat="(key,item) in data">
+                                        <td class="text-center"><span ng-bind="item.id"></span></td>
+                                        <td class="text-center"><span ng-bind="item.user.name"></span></td>
+                                        <td class="text-center"><span ng-bind="item.user.mobile"></span></td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.role_type|live_role_type"></span>
+                                        </td>
+                                        <td class="text-center"><span ng-bind="item.answers_num"></span></td>
+                                        <td class="text-center"><span ng-bind="item.content"></span></td>
+                                        <td class="text-center"><span ng-bind="item.created_at"></span></td>
+                                        <td class="text-center">
+                                            <div modal-textarea title="查看" content="item.content"></div>
+                                        </td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.status|keyVal:'1':'待审核':'2':'已公开':'3':'已隐藏'"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <label class="checkbox-inline checkbox1">
+                                                <input type="checkbox" ng-model="item.checked" ng-true-value="true"
+                                                       ng-false-value="false">
+                                                <span></span>
+                                            </label>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tbody>
+                                    <tr>
+                                        <td class="text-center" colspan="15">
+                                            <p class="pull-right">
+                                                <a class="btn btn-primary btn-bordered btn-sm"
+                                                   ng-click="selected('all')">全选</a>&nbsp;&nbsp;
+                                                <a class="btn btn-primary btn-bordered btn-sm"
+                                                   ng-click="selected('reverse')">反选</a>&nbsp;&nbsp;
+                                                <a class="btn btn-danger btn-rounded btn-sm"
+                                                   ng-click="audit(3)">审核不通过</a>&nbsp;&nbsp;
+                                                <a class="btn btn-success btn-rounded btn-sm"
+                                                   ng-click="audit(2)">审核通过</a>&nbsp;&nbsp;
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-sm-12 form-group">
+                                <ul uib-pagination boundary-links="true" total-items="totalItems" ng-model="currentPage"
+                                    ng-change="init()" max-size="5" rotate="false" items-per-page="20"
+                                    class="pull-right" previous-text="&lsaquo;" next-text="&rsaquo;"
+                                    first-text="&laquo;" last-text="&raquo;"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
