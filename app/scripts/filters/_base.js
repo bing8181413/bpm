@@ -50,7 +50,7 @@ define([
                         rtn = '老师';
                         break;
                     case '2':
-                        rtn = '处理';
+                        rtn = '助理';
                         break;
                     default :
                         rtn = '学生';
