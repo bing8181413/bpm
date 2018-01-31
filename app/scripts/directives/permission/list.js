@@ -21,10 +21,10 @@ define([
                             },
                             controller: function ($scope, $uibModalInstance) {
                                 $scope.param = {};
-
-                                if (supScope.data.id) {
+                                $scope.superData = supScope.data;
+                                if (supScope.data) {
                                     widget.ajaxRequest({
-                                        url: con.live_domain + '/live/permission/' + supScope.data.id,
+                                        url: con.live_domain + '/live/permissions/' + supScope.data.id,
                                         method: 'get',
                                         scope: $scope,
                                         success: function (json) {
@@ -39,13 +39,13 @@ define([
                                         return false;
                                     }
                                     var has_video_group_verify = false;
-                                    angular.forEach($scope.param.video_group, function (val, key) {
+                                    angular.forEach($scope.param.permissions, function (val, key) {
                                         if (val.video_group_id == obj_id) {
                                             has_video_group_verify = true;
                                         }
                                     });
                                     if (has_video_group_verify) {
-                                        widget.msgToast('添加失败,视频组已存在!');
+                                        widget.msgToast('视频组已存在!');
                                         return false;
                                     }
                                     return true;
@@ -53,17 +53,20 @@ define([
                                 $scope.add_obj_id = function (json) {
                                     var has_video_group = false;
                                     if (json.code == 0) {
-                                        angular.forEach($scope.param.video_group, function (val, key) {
+                                        angular.forEach($scope.param.permissions, function (val, key) {
                                             if (val.video_group_id == json.data.id) {
                                                 has_video_group = true;
                                             }
                                         });
                                         if (!has_video_group) {
-                                            $scope.param.video_group = $scope.param.video_group || [];
-                                            $scope.param.video_group.push({
+                                            $scope.param.permissions = $scope.param.permissions || [];
+                                            $scope.param.permissions.push({
                                                 video_group_id: json.data.id,
-                                                group_title: json.data.group_title,
+                                                video_group: {
+                                                    group_title: json.data.group_title
+                                                }
                                             });
+                                            $scope.obj_id = '';
                                         } else {
                                             widget.msgToast('添加失败,视频组已存在!');
                                         }
@@ -75,8 +78,8 @@ define([
 
                                 $scope.submit = function () {
                                     widget.ajaxRequest({
-                                        url: con.live_domain + '/live/permission',
-                                        method: 'POST',
+                                        url: con.live_domain + '/live/permissions' + (supScope.data ? ('/' + supScope.data.id) : ''),
+                                        method: supScope.data ? 'PUT' : 'POST',
                                         scope: $scope,
                                         data: $scope.param,
                                         success: function (json) {

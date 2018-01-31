@@ -6,19 +6,19 @@
         <form class="form-horizontal" name="FormBody" novalidate>
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <div form-input text="用户账号" ng-model="param.user_id"></div>
-                    <div form-input text="用户昵称" ng-model="param.nickname"></div>
-                    <div form-radio text="选择角色" ng-model="param.role_id" required="true"
+                    <div form-input text="用户账号" ng-model="param.user_id" ng-disabled="superData.id"></div>
+                    <div form-input text="用户昵称" ng-model="param.user.name" ng-if="superData.id" ng-disabled="superData.id"></div>
+                    <div form-radio text="选择角色" ng-model="param.role_type" required="true" default="1"
                          source="[{text:'老师',value:1},{text:'助理',value:2}]"></div>
 
                     <div form-search text="查询视频组ID" verify="verify_obj_id(obj_id)" btn-text="添加视频组"
                          ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/videogroups/'+obj_id}"
                          ng-model="obj_id" callback="add_obj_id(json)"></div>
 
-                    <div form-table text="房间/视频ID" ng-model="param.video_group" min="1"
+                    <div form-table text="房间/视频ID" ng-model="param.permissions" min="0"
                          config="{add:false}"
                          columns="[{name: '房间/视频ID', field:'video_group_id',readonly:'true'}
-                             ,{name: '标题', field:'group_title',readonly:'true'}]"></div>
+                             ,{name: '标题', field:'video_group.group_title',readonly:'true'}]"></div>
 
 
                 </div>

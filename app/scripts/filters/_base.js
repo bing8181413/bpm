@@ -46,9 +46,11 @@ define([
             return function (val) {
                 var rtn = '';
                 switch (val) {
+                    case 1:
                     case '1':
                         rtn = '老师';
                         break;
+                    case 2:
                     case '2':
                         rtn = '助理';
                         break;
