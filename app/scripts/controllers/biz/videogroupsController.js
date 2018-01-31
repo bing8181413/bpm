@@ -38,7 +38,6 @@ define([
                             $scope.chapters.push(v);
                         })
                     })
-
                 }
             })
         }

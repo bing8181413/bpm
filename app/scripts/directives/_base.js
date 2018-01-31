@@ -79,6 +79,7 @@ define([
     './tmpl/modal_panel_tmpl',//
 
     './common/dndArray',//  dnd array   可以拖动的 array
+    './common/deleteData',// 简单的删除组件
 
 ], function (mod,
              simpleCons) {

@@ -46,9 +46,13 @@ define([
                 $scope.data.forEach(function (val, key) {
                     val.checked = true;
                 });
-            } else if (type == 'reverse') {
+            } else if (type == 'cancel') {
                 $scope.data.forEach(function (val, key) {
                     val.checked = false;
+                });
+            } else if (type == 'reverse') {
+                $scope.data.forEach(function (val, key) {
+                    val.checked = !val.checked;
                 });
             }
         }
