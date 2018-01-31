@@ -145,6 +145,7 @@ define(['angular', './common'], function (angular, common) {
                     className: 'mobile_show',
                     fieldDirective: '<div product-order-copies data="item"></div>'
                 },
+                {name: '销售总金额', className: 'mobile_show', field: 'order.amounts'},
                 {name: '剩余<br/>库存', field: 'options', filter: 'arraySum:\'left_inventory\''},
                 // {
                 //     name: '众筹进度',
