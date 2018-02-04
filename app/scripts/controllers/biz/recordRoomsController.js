@@ -5,9 +5,9 @@ define([
 ], function (mod, con) {
     mod.controller('recordRooms.updateController', updateController);
 
-    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout', '$q'];
 
-    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
+    function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout, $q) {
         if ($stateParams.id) {
             widget.ajaxRequest({
                 url: con.live_domain + '/live/rooms/' + $stateParams.id,
@@ -37,12 +37,46 @@ define([
             })
         }
 
-        $scope.submit = function (status) {
-            var watch_point_text = angular.element($scope.param.watch_point).text();
-            if (!watch_point_text || watch_point_text == '') {
-                $scope.param.watch_point = '';
+
+        $scope.getDuration = function () {
+            var url = $scope.param.record && $scope.param.record.fluent_video_url || '';
+            // var deferred = $q.defer();
+            // var promise = deferred.promise;
+            if (!url || url == '') {
+                // deferred.reject('没有URL,不能提交!');
+                widget.msgToast('没有URL,不能提交!');
+            } else {
+                widget.ajaxRequest({
+                    url: con.live_domain + '/live/rooms/duration',
+                    method: 'post',
+                    scope: $scope,
+                    data: {url: url},
+                    success: function (json) {
+                        $scope.param.record.video_duration = json.data.duration;
+                        // deferred.resolve('success');
+                    }
+                    // failure: function (error) {
+                    // deferred.reject(error);
+                    // }
+                })
             }
+            // return promise;
+        }
+
+        $scope.submit = function (status) {
+            // var watch_point_text = angular.element($scope.param.watch_point).text();
+            // if (!watch_point_text || watch_point_text == '') {
+            //     $scope.param.watch_point = '';
+            // }
             $scope.param.type = 2;
+            $scope.doSubmit(status);
+            // $scope.getDuration().then(function (result) {
+            //     $scope.doSubmit(status);
+            // }, function (error) {
+            //     widget.msgToast(error);
+            // });
+        }
+        $scope.doSubmit = function (status) {
             widget.ajaxRequest({
                 url: con.live_domain + '/live/rooms' + ($scope.param.id ? ('/' + $scope.param.id) : ''),
                 method: $scope.param.id ? 'PUT' : 'POST',

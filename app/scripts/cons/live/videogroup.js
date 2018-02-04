@@ -7,10 +7,12 @@ define(['.././common'], function (common) {
                 {name: '是否显示', field: 'visible', filter: 'keyVal:\'1\':\'是\':\'2\':\'--\''},
                 {
                     name: 'URL地址',
-                    fieldDirective: '<span ng-bind="$root.common.wx_domain+\'/groupvideolist/video_group_id/\'+item.id"></span>'
+                    // fieldDirective: '<span ng-bind="$root.common.wx_domain+\'/groupvideolist/video_group_id/\'+item.id"></span>'
+                    fieldDirective: '<div modal-textarea title="查看" content="$root.common.wx_domain+\'/groupvideolist/video_group_id/\'+item.id"></div>',
+                    className: 'text-center'
                 },
                 {name: '发布时间', field: 'created_at', filter: 'null2empty'},
-                {name: '视频组名称', field: 'group_title', className: 'text-center'},
+                {name: '视频组名称', field: 'group_title', className: 'text-left'},
                 {
                     name: '视频数量', className: 'text-center',
                     fieldDirective: '<span show-table data="{text:item.video_count||0,modid:\'videogroupsroomList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/rooms\'}"></span>'
@@ -23,10 +25,6 @@ define(['.././common'], function (common) {
                     name: '关联SKU', className: 'text-center',
                     fieldDirective: '<span ng-show="item.pay_type!=2">免费</span> <span ng-show="item.pay_type==2" show-table data="{text:\'查看\',modid:\'videogroupsskuoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/skuoptions\'}"></span>'
                 },
-                // {
-                //     name: '观看用户', className: 'text-center',
-                //     fieldDirective: ''
-                // },
                 {
                     name: '导入用户/列表', className: 'text-center',
                     fieldDirective: '<span videogroup-import-user data="item" ></span>' +
@@ -46,8 +44,8 @@ define(['.././common'], function (common) {
                 title: '视频组列表',
                 api: common.live_domain + '/live/videogroups',
                 rowItemName: 'item',
-                searchSupport: false,
-                searchItems: [],
+                searchSupport: true,
+                searchItems: [{text: '关键字', value: 'keyword', type: 'text'},],
                 preSelectionSearch: {
                     // status: '0',
                 },

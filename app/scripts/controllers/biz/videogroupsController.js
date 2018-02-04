@@ -63,6 +63,9 @@ define([
                         val.chapters_index = chapters_index;
                         val.order_by = (key + 1);
                         var tmp_val = angular.copy(val);
+                        if ($scope.param.chapters[(chapters_index - 1)].id != tmp_val.chapter_id) {
+                            delete tmp_val.id;
+                        }
                         delete tmp_val.chapters_index;
                         delete tmp_val.type;
                         $scope.param.chapters[(chapters_index - 1)].videos.push(tmp_val);
@@ -94,7 +97,7 @@ define([
                     room_id: json.data.id,
                     room: {
                         title: json.data.title,
-                        live_status: json.data.live_status,
+                        status: json.data.status,
                         plans: json.data.plans
                     }
                 });

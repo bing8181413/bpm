@@ -6,11 +6,10 @@ define(['./common'], function (common) {
                 {name: '排序', field: 'order_by'},
                 {
                     name: '房间号/URL地址',
-                    fieldDirective: '<p ng-bind="item.room_no"></p>' +
-                    '<span ng-bind="$root.common.wx_domain+\'/chatroomdetail?room_no=\'+item.room_no"></span>'
+                    fieldDirective: '<div modal-textarea title="{{item.room_no}}" content="$root.common.wx_domain+\'/chatroomdetail?room_no=\'+item.room_no"></div>'
                 },
-                {name: '标题', field: 'title'},
-                {name: '苹果标示', field: 'ios_audit|keyVal:\'1\':\'是\':\'2\':\'——\''},
+                {name: '标题', field: 'title', className: 'text-left'},
+                {name: '苹果标示', field: 'ios_audit|keyVal:\'1\':\'是\':\'2\':\'—\''},
                 {name: '发布时间', field: 'record.created_at'},
                 {name: '播放次数', field: 'record.play_count'},
                 {
@@ -21,18 +20,19 @@ define(['./common'], function (common) {
                 },
                 {
                     name: '评论次数',
-                    fieldDirective: '<h5><a class="btn btn-info btn-rounded btn-sm" ui-sref="main.record_comment.list({id:item.record.id})">详情</a>' +
-                    '&nbsp;&nbsp;&nbsp;<span ng-bind="item.record.comment_count|null2empty|zero2empty"></span></h5>'
+                    fieldDirective: '<a class="btn btn-link btn-rounded" ui-sref="main.record_comment.list({id:item.record.id})">详情</a>' +
+                    '&nbsp;&nbsp;&nbsp;<span ng-bind="item.record.comment_count|null2empty|zero2empty"></span>'
                 },
                 {
                     name: '状态/开关',
-                    fieldDirective: '<h5><span ng-bind="item.status|keyVal:\'1\':\'开启\':\'2\':\'——\'"></span>&nbsp;&nbsp;&nbsp;<span change-live-room-status data="item"></span></h5>'
+                    fieldDirective: '<span ng-bind="item.status|keyVal:\'1\':\'开启\':\'2\':\'——\'"></span>' +
+                    '&nbsp;&nbsp;&nbsp;<span change-live-room-status data="item"></span>'
                 },
                 {
                     name: '操作',
                     fieldDirective: '<a class="btn btn-success btn-rounded btn-sm" ui-sref="main.record_rooms.update({id:item.id})">编辑</a>' +
-                    '&nbsp;&nbsp;&nbsp;<span record-room-download data="item"></span>' +
-                    '&nbsp;&nbsp;&nbsp; <span record-rooms-copy data="item"></span>'
+                    '&nbsp;&nbsp;<span record-room-download data="item"></span>' +
+                    '&nbsp;&nbsp;<span record-rooms-copy data="item"></span>'
                 },
             ],
             config: {

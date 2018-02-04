@@ -153,4 +153,78 @@ define([
                 }
             }
         })
+        .directive('videogroupQas', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+            return {
+                restrict: 'EA',
+                // transclude: true,
+                template: $templateCache.get('app/' + con.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
+                scope: {
+                    ngModel: '=ngModel',
+                    ngModelText: '@ngModel',
+                    text: '@',
+                    name: '@',
+                    required: '=',
+                    max: '@',
+                    callBack: '&',
+                    ngDisabled: '='
+                },
+                link: function ($scope, $element, $attrs, $ctrl) {
+                    $scope.tmp_url = 'app/' + con.live_path + 'videogroups/qa.html';
+                    $timeout(function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                        var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                        var required = $scope.required ? (' required') : '';
+                        var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                        var max = $scope.max ? (' max="' + $scope.max + '"') : '';
+                        var content = '';
+                        if (!$scope.text) {
+                            content = '<div class="col-sm-12 ">';
+                        } else {
+                            content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                                '<div class="col-sm-8">';
+                        }
+                        // $scope.config = {add: false};
+                        content += '<dnd-array ng-model="ngModel" ' + name + 'config= "config"' +
+                            required + max + disabledRole + '><div tmp-url="tmp_url" >ahaschool</div></dnd-array>';
+                        // console.log(content);
+                        // content += '<input class="hide" ng-model="ngModel"' + name + required + '>' ;
+                        content += '</div>';
+                        // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                        // console.log($scope.$parent.FormBody[$scope.ngModelText]);
+                        if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
+                    }, 0);
+                    $scope.$watch('ngModel', function (val) {
+                        if (!val || val && val.length == 0) {
+                            $scope.ngModel = [];
+                        } else {
+                            angular.forEach(val, function (v, k) {
+                                v.order_by = (k + 1);
+                                var start = new Date(v.start_time);
+                                if (!v.start_time) {
+                                    v.start_time = new Date();
+                                    // console.log(0, v.start_time);
+                                } else if ((v.pre_time_tmp && v.pre_time_tmp > 0 || v.pre_time_tmp == 0) && v.start_time) {
+                                    // console.log(1, v.pre_time_tmp);
+                                    start.setDate(start.getDate() - v.pre_time_tmp);
+                                    v.pre_time = $filter('date')(start, 'yyyy-MM-dd HH:mm:ss');
+                                } else if (!v.pre_time_tmp && v.start_time && v.pre_time) {
+                                    v.pre_time_tmp =  Math.floor(Math.abs(Date.parse(start)-Date.parse(v.pre_time)) / (24 * 3600 * 1000));
+                                    // console.log(2, v.pre_time_tmp, start.getDate(), new Date(v.pre_time).getDate());
+                                } else {
+                                    v.pre_time_tmp = 0;
+                                    v.start_time = $filter('date')(start, 'yyyy-MM-dd HH:mm:ss');
+                                    // console.log(3, v.pre_time);
+                                }
+                            });
+                        }
+                    }, true);
+
+                }
+            }
+        })
 });
