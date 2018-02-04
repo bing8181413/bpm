@@ -240,7 +240,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: ' <a class="btn btn-rounded btn-sm {{class_btn}}" ng-click="plan()" ng-bind="text">&&&&</a>',
+                template: ' <a class="btn btn-rounded btn-sm {{class_btn}}" ng-click="plan()" ng-bind="text"></a>',
                 link: function ($scope, $element, $attrs) {
                     var supScope = $scope;
                     $scope.already_add = $scope.data.survey && $scope.data.survey['id'] ? true : false;
@@ -307,7 +307,7 @@ define([
                     if ($scope.data.status == 1) {
                         status_title = '关闭';
                         status_text = 'ng-bind="\'关闭\'"';
-                        class_text = 'ng-class={\"btn-warning\":true} ';
+                        class_text = 'ng-class={\"btn-danger\":true} ';
                         click_text = 'ng-click="change(2);"';
                         $scope.show_text = true;
                     } else if ($scope.data.status == 2) {
@@ -396,6 +396,7 @@ define([
             return {
                 restrict: 'EA',
                 // transclude: true,
+                require:"ngModel",
                 template: $templateCache.get('app/' + con.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
                 scope: {
                     ngModel: '=ngModel',
@@ -408,6 +409,18 @@ define([
                     ngDisabled: '='
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
+                    // console.log(0,$ctrl);
+                    // $ctrl.$parsers.push(function(viewValue){
+                    //     console.log(0,$ctrl.$parsers);
+                    //     if(viewValue){
+                    //         console.log(11111);
+                    //         $ctrl.$setValidity('even',false);
+                    //     }else{
+                    //         console.log(222222);
+                    //         $ctrl.$setValidity('even',false);
+                    //     }
+                    //     return undefined;
+                    // });
                     $scope.tmp_url = 'app/' + con.biz_path + 'live_rooms/point.html';
                     $timeout(function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
@@ -436,6 +449,8 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
+
+
                     $scope.$watch('ngModel', function (val) {
                         if (!val || val && val.length == 0) {
                             $scope.ngModel = [];
@@ -449,5 +464,24 @@ define([
                 }
             }
         })
+        // .directive('even',function(){
+        //     return {
+        //         restrict:"A",
+        //         require:"ngModel",
+        //         link:function(scope,ele,attrs,ngModelController){
+        //             console.log(ngModelController.$parsers);
+        //             ngModelController.$parsers.push(function(viewValue){
+        //                 if(viewValue % 2 === 0){
+        //                     console.log(11111);
+        //                     ngModelController.$setValidity('even',false);
+        //                 }else{
+        //                     console.log(222222);
+        //                     ngModelController.$setValidity('even',false);
+        //                 }
+        //                 return viewValue;
+        //             });
+        //         }
+        //     }
+        // })
 })
 ;

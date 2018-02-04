@@ -39,12 +39,19 @@
 
                         <div videogroup-room ng-model="chapters" text="章节"></div>
 
+                        <hr>
+                        <h4>答疑管理</h4>
+                        <div form-radio text="答疑入口" ng-model="param.qa_onoff" required="true" default="1"
+                             source="[{text:'显示',value:'1'},{text:'关闭',value:'2'}]" source-api=""></div>
+
+                        <div videogroup-qas ng-model="param.qas" text="答疑"></div>
+
                         <!--<div form-table text="房间/视频ID" ng-model="param.rooms" min="1"-->
-                             <!--config="{add:false}"-->
-                             <!--columns="[{name: '房间/视频ID', field:'room_id',readonly:'true'}-->
-                             <!--,{name: '标题', field:'room.title',readonly:'true'}-->
-                             <!--,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}-->
-                             <!--,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>-->
+                        <!--config="{add:false}"-->
+                        <!--columns="[{name: '房间/视频ID', field:'room_id',readonly:'true'}-->
+                        <!--,{name: '标题', field:'room.title',readonly:'true'}-->
+                        <!--,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}-->
+                        <!--,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>-->
                         <div ng-if="param.pay_type==2">
                             <hr>
                             <h4>关联活动</h4>

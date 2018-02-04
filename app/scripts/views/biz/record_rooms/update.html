@@ -62,11 +62,17 @@
                              placeholder="视频来源-高清版"></div>
 
 
+                        <div class="form-group">
+                            <div class="col-sm-offset-2">
+                                <a class="btn btn-primary btn-rounded" ng-click="getDuration()">获取时长</a>
+                            </div>
+                        </div>
+                        <div form-input text="视频时长" ng-model="param.record.video_duration" placeholder="视频时长:秒"
+                             required="true"></div>
+
                         <div form-input text="视频宽度" ng-model="param.record.video_width" placeholder="视频宽度"
                              required="true"></div>
                         <div form-input text="视频高度" ng-model="param.record.video_height" placeholder="视频高度"
-                             required="true"></div>
-                        <div form-input text="视频时长" ng-model="param.record.video_duration" placeholder="视频时长"
                              required="true"></div>
                         <div form-radio text="是否回放" ng-model="param.record.play_back" required="true" default="1"
                              source="[{text:'回放',value:'1'},{text:'不回放',value:'2'}]" source-api=""></div>
@@ -76,7 +82,7 @@
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
                         <div form-input text="排序" ng-model="param.order_by" placeholder="排序" type="number" min="0"
                              required="true"></div>
-                        <div form-rich-text text="看点" ng-model="param.watch_point" placeholder="看点"></div>
+                        <!--<div form-rich-text text="看点" ng-model="param.watch_point" placeholder="看点"></div>-->
                         <div live-point text="看点" ng-model="param.points"></div>
                     </div>
                 </div>

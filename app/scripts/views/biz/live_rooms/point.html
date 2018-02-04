@@ -1,8 +1,9 @@
 <div>
-    <span ng-bind="'排序 : '+item.order_by"></span>
-    <div form-input text="看点名" ng-model="item.title" required="true"></div>
-    <div form-textarea text="基本信息" ng-model="item.content"></div>
-    <div form-image="" text="图片" ng-model="item.pics" hide-bar="[0,0,1,1]" max="8"></div>
+    <span ng-bind="'排序 : '+item.order_by" dnd-handle></span>
+    <div form-input text="看点名" ng-model="item.title" required="true" maxlength="15" minlength="1"
+         placeholder="最多15个字"></div>
+    <div form-textarea text="基本信息" ng-model="item.content" required="true"></div>
+    <div form-image text="图片" ng-model="item.pics" hide-bar="[0,0,1,1]" max="8" min="1" required="true"></div>
     <!--<p>-->
     <!--<span ng-bind="item|json"></span>-->
     <!--</p>-->
