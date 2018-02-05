@@ -37,7 +37,6 @@ define([
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '' + '" ');
                     var required = $scope.required ? (' required') : '';
                     var required_span = ($scope.required || $scope.requiredSpanShow) ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
-                    var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var type = $scope.type ? (' type="' + $scope.type + '" ') : '';
                     var min = $scope.min ? (' min="' + $scope.min + '" ') : '';
                     var max = $scope.max ? (' max="' + $scope.max + '" ') : '';
@@ -45,13 +44,17 @@ define([
                     var maxlength = $scope.maxlength ? (' maxlength="' + $scope.maxlength + '" ') : '';
                     var minlength = $scope.minlength ? (' minlength="' + $scope.minlength + '" ') : '';
                     var formShowRole = $scope.formShowRole ? (' show-role="' + $scope.formShowRole + '" ') : '';
-                    $timeout(function () {
-                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
-                            (' disabled-role="' + $scope.$parent.disabledRole + '" ') : '';
+                    $scope.init = function () {
+                        var disabledRole = '';
+                        if ($scope.ngDisabled) {
+                            disabledRole = ' disabled="true" ';
+                        } else {
+                            disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ? (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+                        }
                         var content = '<label class="' + labelWidth + ' control-label" ' + formShowRole + '>' + $scope.text + required_span + '</label>' +
                             '<div class="' + contentWidth + ' " ' + formShowRole + '>' +
                             '<input class="form-control" ng-model="ngModel"' + min + max +
-                            type + name + placeholder + maxlength + minlength + required + disabledRole + ngDisabled + '>' +
+                            type + name + placeholder + maxlength + minlength + required + disabledRole + '>' +
                             '</div>';
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
@@ -59,7 +62,13 @@ define([
                         if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
+                    };
+                    $timeout(function () {
+                        $scope.init();
                     }, 0);
+                    $scope.$watch('ngDisabled', function () {
+                        $scope.init();
+                    });
                     $scope.$watch('ngModel', function (val) {
                         if ($scope.type == 'number' && $scope.max) {
                             (val > $scope.max) ? (val = $scope.max) : (angular.noop());
@@ -216,15 +225,21 @@ define([
                     var labelWidth = $scope.labelWidth ? ('col-sm-' + $scope.labelWidth) : ('col-sm-2');
                     var contentWidth = $scope.contentWidth ? ('col-sm-' + $scope.contentWidth) :
                         ($scope.labelWidth ? ('col-sm-' + (10 - $scope.labelWidth)) : ('col-sm-8'));
-                    var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var date = new Date().getTime();
                     var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="radio"';
-                    $timeout(function () {
-                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
-                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+
+                    $scope.init = function () {
+                        var disabledRole = '';
+                        if ($scope.ngDisabled) {
+                            disabledRole = ' disabled="true" ';
+                        } else {
+                            disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ? (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+                        }
+                        // var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                        //     (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label  class="' + labelWidth + ' control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="' + contentWidth + '">';
                         angular.forEach($scope.source, function (val, key) {
@@ -234,8 +249,8 @@ define([
                             } else {
                                 var value = ' value = "' + val.value + '"';
                             }
-                            content += '<label class="radio-inline radio1"><input ' + type + ' ng-model="ngModel"' +
-                                name + value + disabledRole + ngDisabled + '><span></span>' + val.text + '</label>';
+                            content += '<label class="radio-inline radio1" ng-class="{\'disabled\':ngDisabled}" ><input ' + type + ' ng-model="ngModel"' +
+                                name + value + disabledRole + '><span></span>' + val.text + '</label>';
                         });
                         content += '<input class="hide" ng-model="ngModel" ' + name + required + '>' +
                             '</div>';
@@ -244,7 +259,13 @@ define([
                         if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
+                    }
+                    $timeout(function () {
+                        $scope.init();
                     }, 0);
+                    $scope.$watch('ngDisabled', function () {
+                        $scope.init();
+                    });
                 }
             }
         })
@@ -262,6 +283,7 @@ define([
                     required: '@',
                     source: '=',
                     type: '@?',
+                    ngDisabled: '=',
                     // sourceApi: '=',
                     callback: '&',
                 },
@@ -273,8 +295,14 @@ define([
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="checkbox"';
                     $scope.init = function () {
-                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
-                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+                        var disabledRole = '';
+                        if ($scope.ngDisabled) {
+                            disabledRole = ' disabled="true" ';
+                        } else {
+                            disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ? (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
+                        }
+                        // var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                        //     (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">';
                         angular.forEach($scope.source, function (val, key) {
@@ -283,7 +311,7 @@ define([
                             } else {
                                 var value = "\'" + val.value + "\'";
                             }
-                            content += '<label class="checkbox-inline checkbox1"><input ' + type + disabledRole + name +
+                            content += '<label class="checkbox-inline checkbox1" ng-class="{\'disabled\':ngDisabled}" ><input ' + type + disabledRole + name +
                                 ' ng-checked="isChecked(' + value + ')"' +
                                 ' ng-click="updateSelection($event,' + value + ',' + key + ')"  ' +
                                 '><span></span>' + val.text + '</label>';
@@ -303,6 +331,9 @@ define([
                     $timeout(function () {
                         $scope.init();
                     }, 0);
+                    $scope.$watch('ngDisabled', function () {
+                        $scope.init();
+                    });
                     $scope.$watch('source', function () {
                         $scope.init();
                     });

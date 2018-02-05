@@ -273,10 +273,44 @@ define([
             }
             return true;
         }
+        $scope.miniapp = function () {
+            $scope.param.group_strange = 1;// 陌生人拼团 不支持
+            $scope.param.visible_cities = [];//覆盖城市置空  无覆盖城市表示 任何城市都可以购买
+            $scope.param.order_count_max = 1;// 单次限购份数 1
+            $scope.param.per_buy_count = 0;// 单人限购份数 0 表示不限制
+            // 优惠规则
+            $scope.param.coupon_share = 2; // 会员、优惠券是否可同享 2 不可共享
+            $scope.param.act_coupon = 2;// 是否可选优惠券  2 不可选
+            $scope.param.coupon_category = 1;// 年卡优惠券类型 1 不可用年卡
+            $scope.param.vip_promotion_type = 3;//会员购买优惠 3 无优惠
+            // 不支持礼包
+            $scope.param.gift_buy = 2;// 是否可买礼包 2 否
+            // 不支持富文本
+            $scope.param.course_content_type = 1;// QA 图文类型 1 图文
+            $scope.param.content_type = 1;//课程详情 图文类型 1 图文
+            $scope.param.gift_content_type = 1;//礼包详情 图文类型 1 图文
+        }
+        //选择 小程序 要改动的地方
+        $scope.$watch('param.course_type', function (val) {
+            if (val == 2) {
+                $scope.miniapp();
+            }
+        }, true);
 
         $scope.submit = function (status) {
             var supscope = $scope;
             $scope.goon = true;
+            if ($scope.param.course_type == 2) {
+                // 小程序 do something
+                $scope.miniapp();
+                if ($scope.param.options.length > 1) {
+                    widget.msgToast('直接买活动类目不能大于1条');
+                    return false;
+                } else if ($scope.param.options.length > 1) {
+                    widget.msgToast('groupbuy_options不能大于1条');
+                    return false;
+                }
+            }
             // console.log($scope.is_default_category, $scope.param.category);
 
             // $scope.param.enable_bind_mobile = 1; // 强制绑定手机号码
