@@ -1,4 +1,9 @@
-<div class="dashboard-page ">
+<div class="dashboard-page answer">
+    <style>
+        .answer .form-group {
+            margin-bottom: 5px;
+        }
+    </style>
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title inlineBlock">答案管理{{question.question_id?(' ID:'+question.question_id):''}}</h3>
@@ -58,6 +63,18 @@
                                     <tr>
                                         <td colspan="15">
                                             <span ng-bind="'总数:'+totalItems"></span>
+                                            <p class="pull-right">
+                                                <a class="btn btn-primary btn-bordered btn-sm"
+                                                   ng-click="selected('all')">全选</a>&nbsp;&nbsp;
+                                                <a class="btn btn-primary btn-bordered btn-sm"
+                                                   ng-click="selected('cancel')">全取消</a>&nbsp;&nbsp;
+                                                <a class="btn btn-primary btn-bordered btn-sm"
+                                                   ng-click="selected('reverse')">反选</a>&nbsp;&nbsp;
+                                                <a class="btn btn-danger btn-rounded btn-sm"
+                                                   ng-click="audit(3)">审核不通过</a>&nbsp;&nbsp;
+                                                <a class="btn btn-success btn-rounded btn-sm"
+                                                   ng-click="audit(2)">审核通过</a>&nbsp;&nbsp;
+                                            </p>
                                         </td>
                                     </tr>
                                     <tr>
@@ -66,7 +83,7 @@
                                         <th class="text-center" style="width: 150px;">手机</th>
                                         <th class="text-center" style="width: 50px;">角色</th>
                                         <th class="text-center" style="width: 50px;">点赞数</th>
-                                        <th class="text-center" style="width: 150px;">内容</th>
+                                        <th class="text-center">内容</th>
                                         <th class="text-center" style="width: 120px;">图片</th>
                                         <th class="text-center" style="width: 150px;">创建时间</th>
                                         <th class="text-center" style="width: 100px;">状态</th>
@@ -82,7 +99,7 @@
                                             <span ng-bind="item.role_type|live_role_type"></span>
                                         </td>
                                         <td class="text-center"><span ng-bind="item.thumbup_count"></span></td>
-                                        <td class="text-center"><span ng-bind="item.answer"></span></td>
+                                        <td class="text-left"><span ng-bind="item.answer"></span></td>
                                         <td class="text-center">
                                             <show_image url="item.pics[0].pic_url" width="100"></show_image>
                                         </td>
@@ -97,22 +114,6 @@
                                                        ng-false-value="false">
                                                 <span></span>
                                             </label>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center" colspan="15">
-                                            <p class="pull-right">
-                                                <a class="btn btn-primary btn-bordered btn-sm"
-                                                   ng-click="selected('all')">全选</a>&nbsp;&nbsp;
-                                                <a class="btn btn-primary btn-bordered btn-sm"
-                                                   ng-click="selected('cancel')">全取消</a>&nbsp;&nbsp;
-                                                <a class="btn btn-primary btn-bordered btn-sm"
-                                                   ng-click="selected('reverse')">反选</a>&nbsp;&nbsp;
-                                                <a class="btn btn-danger btn-rounded btn-sm"
-                                                   ng-click="audit(3)">审核不通过</a>&nbsp;&nbsp;
-                                                <a class="btn btn-success btn-rounded btn-sm"
-                                                   ng-click="audit(2)">审核通过</a>&nbsp;&nbsp;
-                                            </p>
                                         </td>
                                     </tr>
                                     </tbody>

@@ -409,18 +409,18 @@ define([
                     ngDisabled: '='
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
-                    // console.log(0,$ctrl);
-                    // $ctrl.$parsers.push(function(viewValue){
-                    //     console.log(0,$ctrl.$parsers);
-                    //     if(viewValue){
-                    //         console.log(11111);
-                    //         $ctrl.$setValidity('even',false);
-                    //     }else{
-                    //         console.log(222222);
-                    //         $ctrl.$setValidity('even',false);
-                    //     }
-                    //     return undefined;
-                    // });
+                    $ctrl.$parsers.push(function(viewValue){
+                        console.log(0,$ctrl.$parsers);
+                        if(viewValue){
+                            console.log(11111);
+                            $ctrl.$setValidity('even',false);
+                        }else{
+                            console.log(222222);
+                            $ctrl.$setValidity('even',false);
+                        }
+                        return undefined;
+                    });
+                    console.log(0,$ctrl.$parsers);
                     $scope.tmp_url = 'app/' + con.biz_path + 'live_rooms/point.html';
                     $timeout(function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
