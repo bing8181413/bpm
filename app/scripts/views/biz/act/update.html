@@ -421,7 +421,7 @@
                              source="[{text:'是',value:1},{text:'否',value:2}]" source-api="" ng-disabled="true"
                              ng-if="param.gift_buy==1"></div>
 
-                        <h4 class="col-sm-offset-2 text-danger">没有折扣请选择礼包折扣为否,防止出现系统问题</h4>
+                        <h4 class="col-sm-offset-2 text-danger" ng-if="param.gift_buy==1">没有折扣请选择礼包折扣为否,防止出现系统问题</h4>
                         <div form-radio text="礼包是否打折" ng-model="param.gift_promotion_type" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" ng-if="param.gift_buy==1"></div>
 

@@ -282,7 +282,7 @@ define([
             $scope.param.coupon_share = 2; // 会员、优惠券是否可同享 2 不可共享
             $scope.param.act_coupon = 2;// 是否可选优惠券  2 不可选
             $scope.param.coupon_category = 1;// 年卡优惠券类型 1 不可用年卡
-            $scope.param.vip_promotion_type = 1;//会员购买优惠 3 无优惠
+            $scope.param.vip_promotion_type = 3;//会员购买优惠 3 无优惠
             // 不支持礼包
             $scope.param.gift_buy = 2;// 是否可买礼包 2 否
             // 不支持富文本
