@@ -22,7 +22,8 @@
                   ng-init="title_info = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"
                   disabled-role="{{param.product_id  || !copy?'admin,op':''}}">
                 <div form-radio text="课程类型" ng-model="param.course_type" default="1"
-                     source="[{text:'公众号课程',value:'1'},{text:'小程序课程',value:'2'}]"></div>
+                     source="[{text:'公众号课程',value:'1'},{text:'小程序课程',value:'2'}]"
+                     ng-disabled="param.product_id"></div>
                 <div class="panel panel-primary">
                     <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
                         <h5 style="margin: 0; padding: 10px 0;">活动信息
