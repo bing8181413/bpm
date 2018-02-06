@@ -289,6 +289,13 @@ define([
             $scope.param.course_content_type = 1;// QA 图文类型 1 图文
             $scope.param.content_type = 1;//课程详情 图文类型 1 图文
             $scope.param.gift_content_type = 1;//礼包详情 图文类型 1 图文
+            //  后来加的限制  毛群
+            $scope.param.act_time_type = 1;// 活动时间类型 1 每天连续
+            $scope.param.vip_buy = 2;// 是否限制仅会员可购买 2 不限制
+            $scope.param.delivery_type = 3;// 是否需填收货地址 3 否
+            $scope.param.show_in_calendar = 2;// 显示在日历 2 否
+            $scope.param.enable_bind_mobile = 1;// 绑定手机号 1 是
+            $scope.param.act_recommend = 2;// 是否推荐该活动 2 否
         }
         //选择 小程序 要改动的地方
         $scope.$watch('param.course_type', function (val) {

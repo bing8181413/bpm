@@ -99,7 +99,7 @@
                         <hr>
                         <div form-radio text="活动时间类型" type="radio" ng-model="param.act_time_type" required="true"
                              default="1" source="[{text:'每天连续',value:'1'},{text:'每周固定天数',value:'2'}]"
-                             source-api=""></div>
+                             source-api="" ng-disabled="param.course_type == 2"></div>
 
                         <div form-checkbox text="选择每周时间" ng-model="act_week" ng-show="param.act_time_type == 2"
                              source="$root.common.act_checkbox_week" source-api=""></div>
@@ -200,11 +200,11 @@
                         <div form-input text="已售份数基数" ng-model="param.base_sale_count" type="number"
                              min="0"></div>
 
-                        <div form-radio text="是否限制仅会员可购买" ng-model="param.vip_buy" default="1"
+                        <div form-radio text="是否限制仅会员可购买" ng-model="param.vip_buy" default="2"
                              source="[{text:'仅会员',value:'1'},{text:'不限制',value:'2'}]"
-                             required="true"></div>
+                             required="true" ng-disabled="param.course_type==2"></div>
                         <div form-radio text="是否需填收货地址" ng-model="param.delivery_type" required="true"
-                             ng-disabled="$stateParams.product_id && !copy"
+                             ng-disabled="$stateParams.product_id && !copy || param.course_type==2"
                              source="[{text:'需要',value:'1'},{text:'不需要',value:'3'}]"
                              default="3"></div>
                         <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"
@@ -473,13 +473,16 @@
                         <div form-radio text="显示在首页" ng-model="param.show_in_index" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
                         <div form-radio text="显示在日历" ng-model="param.show_in_calendar" default="1"
-                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"
+                             ng-disabled="param.course_type == 2"></div>
                         <div form-radio text="显示用户购买记录" ng-model="param.show_user_list" default="2"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
                         <div form-radio text="绑定手机号" ng-model="param.enable_bind_mobile" default="1"
-                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"
+                             ng-disabled="param.course_type == 2"></div>
                         <div form-radio text="是否推荐该活动" ng-model="param.act_recommend" default="2"
-                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"
+                             ng-disabled="param.course_type == 2"></div>
                         <div form-input text="排序" ng-model="param.order_by" type="number" min="0"></div>
                         <div form-textarea text="管理备注" ng-model="param.admin_remark"></div>
                     </div>
