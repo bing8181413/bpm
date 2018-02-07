@@ -396,7 +396,7 @@ define([
             return {
                 restrict: 'EA',
                 // transclude: true,
-                require:"ngModel",
+                // require: "ngModel",
                 template: $templateCache.get('app/' + con.DIRECTIVE_PATH + 'hjm/hjm-form-element.html'),
                 scope: {
                     ngModel: '=ngModel',
@@ -408,19 +408,11 @@ define([
                     callBack: '&',
                     ngDisabled: '='
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
-                    $ctrl.$parsers.push(function(viewValue){
-                        console.log(0,$ctrl.$parsers);
-                        if(viewValue){
-                            console.log(11111);
-                            $ctrl.$setValidity('even',false);
-                        }else{
-                            console.log(222222);
-                            $ctrl.$setValidity('even',false);
-                        }
-                        return undefined;
-                    });
-                    console.log(0,$ctrl.$parsers);
+                link: function ($scope, $element, $attrs) {
+                    var $ctrl = null;
+                    // $ctrl.$validate();
+
+                    // console.log(0, $ctrl);
                     $scope.tmp_url = 'app/' + con.biz_path + 'live_rooms/point.html';
                     $timeout(function () {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
@@ -444,14 +436,35 @@ define([
                         // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
-                        // console.log($scope.$parent.FormBody[$scope.ngModelText]);
                         if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
+                            $ctrl = $scope.$parent.FormBody[$scope.ngModelText];
+                            // $ctrl.$validators.hasPic = function (modelValue, viewValue) {
+                            //     return hasPic(modelValue, viewValue);
+                            // }
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-
-
+                    var hasPic = function (modelValue, viewValue) {
+                        var hasPicFlag = true;
+                        var value = modelValue || viewValue;
+                        angular.forEach(value, function (val) {
+                            if (!val.pics || val.pics.length == 0) {
+                                hasPicFlag = false;
+                            } else if (val && val.pics) {
+                                angular.forEach(val.pics, function (v, k) {
+                                    if (!v || !v.pic_url) {
+                                        hasPicFlag = false;
+                                    }
+                                })
+                            }
+                        })
+                        // console.log(hasPicFlag, '验证过程 == 的值是:', modelValue);
+                        return hasPicFlag;
+                    }
                     $scope.$watch('ngModel', function (val) {
+                        if ($ctrl) {
+                            $ctrl.$setValidity('hasPic', hasPic(val));
+                        }
                         if (!val || val && val.length == 0) {
                             $scope.ngModel = [];
                         } else {
@@ -464,24 +477,24 @@ define([
                 }
             }
         })
-        // .directive('even',function(){
-        //     return {
-        //         restrict:"A",
-        //         require:"ngModel",
-        //         link:function(scope,ele,attrs,ngModelController){
-        //             console.log(ngModelController.$parsers);
-        //             ngModelController.$parsers.push(function(viewValue){
-        //                 if(viewValue % 2 === 0){
-        //                     console.log(11111);
-        //                     ngModelController.$setValidity('even',false);
-        //                 }else{
-        //                     console.log(222222);
-        //                     ngModelController.$setValidity('even',false);
-        //                 }
-        //                 return viewValue;
-        //             });
-        //         }
-        //     }
-        // })
+    // .directive('even',function(){
+    //     return {
+    //         restrict:"A",
+    //         require:"ngModel",
+    //         link:function(scope,ele,attrs,ngModelController){
+    //             console.log(ngModelController.$parsers);
+    //             ngModelController.$parsers.push(function(viewValue){
+    //                 if(viewValue % 2 === 0){
+    //                     console.log(11111);
+    //                     ngModelController.$setValidity('even',false);
+    //                 }else{
+    //                     console.log(222222);
+    //                     ngModelController.$setValidity('even',false);
+    //                 }
+    //                 return viewValue;
+    //             });
+    //         }
+    //     }
+    // })
 })
 ;

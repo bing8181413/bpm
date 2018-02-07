@@ -204,6 +204,14 @@ define(['angular', './common'], function (angular, common) {
                 ],
                 searchSupport: true,
                 searchItems: [
+                    {
+                        value: 'course_type', text: '课程类型', type: 'btnGroup', default: '', width: '12',
+                        enum: [
+                            {value: '', text: '全 部'},
+                            {value: '1', text: '公众号课程'},
+                            {value: '2', text: '小程序课程'},
+                        ]
+                    },
                     {   // available_type 1 有效期内 2 尚未开始	3 已经过期 4 有效期外
                         // process_type  1 即将开始  2 进行中 3 已结束
                         type: 'btnGroupArray',

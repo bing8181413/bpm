@@ -52,6 +52,7 @@ define([
                     scope: $scope,
                     data: {url: url},
                     success: function (json) {
+                        $scope.param.video_seconds = json.data.duration;
                         $scope.param.record.video_duration = json.data.duration;
                         // deferred.resolve('success');
                     }
