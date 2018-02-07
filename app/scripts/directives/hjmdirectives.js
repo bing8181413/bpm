@@ -455,8 +455,8 @@ define([
                     $scope.$watch('dt', function (val) {
                         // 清空日期
                         if (!val) {
-                            $scope.ngModel = undefined;
-                            // $scope.ngModel = '';
+                            // $scope.ngModel = undefined;
+                            $scope.ngModel = null;
                         }
                     });
                     $scope.open = function ($event) {

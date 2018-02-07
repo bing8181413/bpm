@@ -204,23 +204,26 @@ define([
                         } else {
                             angular.forEach(val, function (v, k) {
                                 v.order_by = (k + 1);
-                                var start = new Date(v.start_time);
-                                if (!v.start_time) {
-                                    v.start_time = new Date();
-                                    // console.log(0, v.start_time);
-                                } else if ((v.pre_time_tmp && v.pre_time_tmp > 0 || v.pre_time_tmp == 0) && v.start_time) {
-                                    // console.log(1, v.pre_time_tmp);
-                                    start.setDate(start.getDate() - v.pre_time_tmp);
-                                    v.pre_time = $filter('date')(start, 'yyyy-MM-dd HH:mm:ss');
-                                } else if (!v.pre_time_tmp && v.start_time && v.pre_time) {
-                                    v.pre_time_tmp =  Math.floor(Math.abs(Date.parse(start)-Date.parse(v.pre_time)) / (24 * 3600 * 1000));
-                                    // console.log(2, v.pre_time_tmp, start.getDate(), new Date(v.pre_time).getDate());
-                                } else {
-                                    v.pre_time_tmp = 0;
-                                    v.start_time = $filter('date')(start, 'yyyy-MM-dd HH:mm:ss');
-                                    // console.log(3, v.pre_time);
-                                }
                             });
+                            // angular.forEach(val, function (v, k) {
+                            //     v.order_by = (k + 1);
+                            //     var start = new Date(v.start_time);
+                            //     if (!v.start_time) {
+                            //         v.start_time = new Date();
+                            //         // console.log(0, v.start_time);
+                            //     } else if ((v.pre_time_tmp && v.pre_time_tmp > 0 || v.pre_time_tmp == 0) && v.start_time) {
+                            //         // console.log(1, v.pre_time_tmp);
+                            //         start.setDate(start.getDate() - v.pre_time_tmp);
+                            //         v.pre_time = $filter('date')(start, 'yyyy-MM-dd HH:mm:ss');
+                            //     } else if (!v.pre_time_tmp && v.start_time && v.pre_time) {
+                            //         v.pre_time_tmp =  Math.floor(Math.abs(Date.parse(start)-Date.parse(v.pre_time)) / (24 * 3600 * 1000));
+                            //         // console.log(2, v.pre_time_tmp, start.getDate(), new Date(v.pre_time).getDate());
+                            //     } else {
+                            //         v.pre_time_tmp = 0;
+                            //         v.start_time = $filter('date')(start, 'yyyy-MM-dd HH:mm:ss');
+                            //         // console.log(3, v.pre_time);
+                            //     }
+                            // });
                         }
                     }, true);
 

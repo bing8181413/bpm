@@ -11,6 +11,8 @@
 
                         <div form-input text="名称" ng-model="param.group_title" placeholder="视频组名称"
                              required="true"></div>
+                        <div form-input text="年龄标签" ng-model="param.age_label" placeholder="最多6个字"
+                             maxlength="6"></div>
 
                         <div form-date-time text="首播时间" ng-model="param.first_time"></div>
                         <div form-input text="总集数" ng-model="param.course_num" type="number" placeholder=""
@@ -22,9 +24,6 @@
 
                         <!--<div form-radio text="类型" ng-model="param.group_type" required="true" default="1"-->
                         <!--source="[{text:'直播',value:'1'},{text:'点播',value:'2'}]" source-api=""></div>-->
-
-                        <div form-radio text="是否付费" ng-model="param.pay_type" required="true" default="1"
-                             source="[{text:'免费',value:'1'},{text:'付费',value:'2'}]" source-api=""></div>
 
                         <div form-radio text="分享设置" ng-model="param.share_type" required="true" default="1"
                              source="[{text:'普通分享',value:'1'},{text:'分享单个视频观看权限',value:'2'}]" source-api=""></div>
@@ -44,7 +43,7 @@
                         <div form-radio text="答疑入口" ng-model="param.qa_onoff" required="true" default="1"
                              source="[{text:'显示',value:'1'},{text:'关闭',value:'2'}]" source-api=""></div>
 
-                        <div videogroup-qas ng-model="param.qas" text="答疑"></div>
+                        <div videogroup-qas ng-model="param.qas" text="答疑" ng-show="param.qa_onoff==1"></div>
 
                         <!--<div form-table text="房间/视频ID" ng-model="param.rooms" min="1"-->
                         <!--config="{add:false}"-->
@@ -52,8 +51,11 @@
                         <!--,{name: '标题', field:'room.title',readonly:'true'}-->
                         <!--,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}-->
                         <!--,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>-->
+                        <hr>
+                        <div form-radio text="是否付费" ng-model="param.pay_type" required="true" default="1"
+                             source="[{text:'免费',value:'1'},{text:'付费',value:'2'}]" source-api=""></div>
+
                         <div ng-if="param.pay_type==2">
-                            <hr>
                             <h4>关联活动</h4>
                             <h5 class="col-sm-offset-2 text-danger">选择收费模式时 关联SKU、关联活动类目 必须至少选一个并切填写完成</h5>
                             <div form-table text="关联SKU" ng-model="param.skus"

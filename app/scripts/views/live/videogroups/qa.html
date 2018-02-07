@@ -10,8 +10,8 @@
             <div form-input ng-model="item.qa_name" text="答疑标题" required="true"></div>
             <div form-date-time ng-model="item.start_time" text="答疑时间-开始" required="true"></div>
             <div form-date-time ng-model="item.end_time" text="结束" required="true"></div>
-            <div form-input ng-model="item.pre_time_tmp" text="预告提前天数" required="true" type="number" min="0" max="1000"></div>
-            <div form-date-time ng-model="item.pre_time" text="预告时间" disabled="true" showtip="跟随预告提前天数变动"></div>
+            <!--<div form-input ng-model="item.pre_time_tmp" text="预告提前天数" required="true" type="number" min="0" max="1000"></div>-->
+            <div form-date-time ng-model="item.pre_time" text="显示时间" required="true"></div>
             <div form-input ng-model="item.qian_url" text="千聊链接" required="true"></div>
         </div>
     </div>

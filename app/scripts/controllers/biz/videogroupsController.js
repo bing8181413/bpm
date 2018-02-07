@@ -48,6 +48,7 @@ define([
                 $scope.chapters.unshift({type: 1, title: ''});
             } else {
                 var chapters_index = 0;
+                var video_index = 0
                 $scope.param.chapters = [];
                 angular.forEach(chapters_val, function (val, key) {
                     if (val.type == 1) {//  章节
@@ -61,7 +62,8 @@ define([
                         $scope.param.chapters.push(tmp_val);
                     } else {// 视频
                         val.chapters_index = chapters_index;
-                        val.order_by = (key + 1);
+                        video_index++;
+                        val.order_by = video_index;
                         var tmp_val = angular.copy(val);
                         if ($scope.param.chapters[(chapters_index - 1)].id != tmp_val.chapter_id) {
                             delete tmp_val.id;
@@ -221,7 +223,12 @@ define([
         }, true);
 
         $scope.submit = function (status) {
-
+            $scope.param.video_count = 0;
+            angular.forEach($scope.param.chapters, function (val, key) {
+                angular.forEach(val.videos, function (v, k) {
+                    $scope.param.video_count++;
+                })
+            })
             // $scope.param.video_count = $scope.param.rooms && $scope.param.rooms.length || 0;
             // if ($scope.param.video_count == 0) {
             //     widget.msgToast('视频数量不能为0!');

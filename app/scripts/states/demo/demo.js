@@ -17,6 +17,16 @@ define([
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             }
                         })
+                        .state(cons.state.main + '.demo.test', {
+                            url: "/test.html",
+                            views: {
+                                "": {
+                                    templateProvider: function ($templateCache) {
+                                        return $templateCache.get('app/' + cons.demo_path + 'test.html');
+                                    }
+                                }
+                            }
+                        })
                 }
             ])
         ;
