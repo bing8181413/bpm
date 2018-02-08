@@ -12,8 +12,24 @@
                     <span class="col-sm-2">提示项</span>
                     <span class="col-sm-3">提交字段名(name)</span>
                     <span class="col-sm-3">详情</span>
+                    <div class="col-sm-2">
+                        <a class="btn btn-xs btn-primary btn-rounded" ng-click="mock_dev=!mock_dev">展示详细信息</a>
+                    </div>
                 </div>
             </li>
+            <!--<li class="list-group-item" ng-repeat="(key,val) in FormBody.$error">-->
+            <!--<div class="row" ng-repeat="(k,v) in val">-->
+            <!--<span class="col-sm-2" ng-bind="v.text"></span>-->
+            <!--<span class="col-sm-3" ng-bind="v.$name"></span>-->
+            <!--<div class="col-sm-3">-->
+            <!--&lt;!&ndash;<span ng-bind="v.$error|form_err"></span>&ndash;&gt;-->
+            <!--<span ng-repeat="(kk,vv) in v.$error"-->
+            <!--ng-bind="(($index>0)?'; ':'')+(kk|form_err)"></span>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;<span class="col-sm-2" ng-bind="val|json" show-env="dev,test"></span>&ndash;&gt;-->
+            <!--</div>-->
+
+            <!--</li>-->
             <li class="list-group-item" ng-repeat-start="(key,val) in FormBody"
                 ng-if="val.$invalid&&val.$name">
                 <div class="row">
@@ -26,9 +42,9 @@
                     <!--<span class="col-sm-2" ng-bind="val|json" show-env="dev,test"></span>-->
                 </div>
             </li>
-            <li class="list-group-item" ng-repeat-end ng-if="val.$invalid&&val.$name" show-env="dev">
+            <li class="list-group-item" ng-repeat-end ng-show="val.$invalid&&val.$name&&mock_dev">
                 <div class="row">
-                    <span class="col-sm-8" ng-bind="val|json" show-env="dev,test"></span>
+                    <span class="col-sm-8" ng-bind="val|json"></span>
                 </div>
             </li>
         </ul>

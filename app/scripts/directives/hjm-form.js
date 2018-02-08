@@ -497,34 +497,15 @@ define([
                     var FormScope = formBody.getScope($scope);
 
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
+                    $scope.ngModelText = $scope.name || $scope.ngModelText;
+                    var nameText = angular.copy($scope.name || $scope.ngModelText);
+                    // console.log($scope.ngModelText, nameText);
+
                     var required = $scope.required ? (' required ') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var min = $scope.min ? (' min="' + $scope.min + '"') : '';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="activity"');
-
-                    $timeout(function () {
-                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
-                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
-                        var uploadHtml =
-                            // $scope.token ?
-                            '<show-upload-token images="ngModel" ng-model="ngModel"  hide-bar="hideBar"   ' + name + min + max + required + disabledRole + token + '></show-upload-token>';
-                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                            '<div class="col-sm-8" style="">' + uploadHtml +
-                            // '<input class="hide" ng-model="ngModel" ' + min + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
-                            '</div>';
-                        // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
-                        $element.find('.form_element').html(content);
-                        $compile($element.contents())($scope);
-                        // console.log($scope.$parent.FormBody[$scope.ngModelText]);
-                        // console.log(formBody.getScope($scope));
-                        if (FormScope && FormScope.FormBody && FormScope.FormBody[$scope.ngModelText]) {
-                            FormScope.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
-                            valid_model();
-                        } else if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
-                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
-                        }
-                    }, 0);
 
                     var hasPic = function (modelValue, viewValue) {
                         var hasPicFlag = true;
@@ -541,30 +522,53 @@ define([
                         return hasPicFlag;
                     }
                     var times = 0;
-                    var valid_model = function () {
-                        if (($scope.min && ($scope.min > 0) || $scope.required) && FormScope.FormBody[$scope.ngModelText]) {
+                    var valid_model = function (aaa) {
+                        console.log(aaa, 1, FormScope.FormBody, FormScope.FormBody[$scope.ngModelText]);
+                        if (($scope.min || $scope.required) && FormScope.FormBody[$scope.ngModelText]) {
                             times++;
+                            // console.log(2);
                             FormScope.FormBody[$scope.ngModelText].$setValidity('hasPic', hasPic($scope.ngModel));
                             if (FormScope.FormBody[$scope.ngModelText].$pristine && times > 1) {
+                                // console.log(3);
                                 FormScope.FormBody[$scope.ngModelText].$setDirty();
                             }
                         }
                     }
+                    $scope.init = function () {
+                        var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
+                            (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
+                        var uploadHtml =
+                            // $scope.token ?
+                            '<show-upload-token images="ngModel" ng-model="ngModel"  hide-bar="hideBar"   ' + name + min + max + required + disabledRole + token + '></show-upload-token>';
+                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                            '<div class="col-sm-8" style="">' + uploadHtml +
+                            // '<input class="hide" ng-model="ngModel" ' + min + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
+                            '</div>';
+                        // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
+                        $element.find('.form_element').html(content);
+                        $compile($element.contents())($scope);
+                        // console.log($scope.$parent.FormBody[$scope.ngModelText]);
+                        // console.log(formBody.getScope($scope));
+                        $scope.ngModelText = nameText;
+                        // console.log(FormScope, FormScope.FormBody[$scope.ngModelText], $scope.ngModelText);
+                        if (FormScope && FormScope.FormBody && FormScope.FormBody[$scope.ngModelText]) {
+                            valid_model(11111111);
+                            FormScope.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        } else if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
+                            $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
+                        }
+                    }
+                    $timeout(function () {
+                        $scope.init();
+                    }, 0);
+
                     $scope.$watch('ngModel', function (val) {
-                        valid_model();
+                        nameText = $scope.name || $scope.ngModelText;
+                        // console.log(nameText);
+                        $scope.init();
+                        // valid_model();
                     }, true);
 
-                    // $scope.$watch('ngModel', function (val) {
-                    //     var tmp_pics_err = 0;
-                    //     angular.forEach(val, function (v, k) {
-                    //         if (!v.pic_url) {
-                    //             tmp_pics_err++;
-                    //         }
-                    //     })
-                    //     if (tmp_pics_err > 0) {
-                    //         console.log('图片还没有完成上传');
-                    //     }
-                    // }, true);
                 }
             }
         })
