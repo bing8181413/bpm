@@ -462,9 +462,9 @@ define([
                         return hasPicFlag;
                     }
                     $scope.$watch('ngModel', function (val) {
-                        if ($ctrl) {
-                            $ctrl.$setValidity('hasPic', hasPic(val));
-                        }
+                        // if ($ctrl) {
+                        //     $ctrl.$setValidity('hasPic', hasPic(val));
+                        // }
                         if (!val || val && val.length == 0) {
                             $scope.ngModel = [];
                         } else {

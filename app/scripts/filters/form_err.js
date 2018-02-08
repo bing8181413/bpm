@@ -18,6 +18,9 @@ define([
                     case "minlength":
                         result = "至少要有一个数据";
                         break;
+                    case "hasPic":
+                        result = "至少上传一张图片";
+                        break;
                 }
 
                 return result;

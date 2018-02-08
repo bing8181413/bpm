@@ -10276,20 +10276,28 @@ html, body {
 
 /*  form 表单验证 start */
 /*   专门为 jsonTable directive 添加的验证样式 */
+[name=FormBody] input.ng-dirty.ng-invalid-required,
 [name=FormBody] td > input.ng-invalid-required {
-    background-color: pink;
+    border: 1px red solid !important;
 }
 
 [name=FormBody] .form-group input.ng-dirty.ng-invalid-required {
-    border-color: pink;
+    border: 1px red solid !important;
 }
 
 [name=FormBody] .form-group input[disabled].ng-invalid-required {
-    background-color: pink;
+    border: 1px red solid !important;
 }
 
+[name=FormBody] textarea.ng-dirty.ng-invalid-required,
 [name=FormBody] td > textarea.ng-invalid-required {
-    background-color: pink;
+    border: 1px red solid !important;
+}
+
+/*  图片未添加的bug    */
+[name=FormBody] .ng-dirty.ng-invalid-has-pic {
+    display: block;
+    border: 1px red solid !important;
 }
 
 /*  form 表单验证 end  */
@@ -10417,31 +10425,31 @@ html, body {
 }
 
 /*.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-1 {*/
-    /*background: #f70b0b !important;*/
+/*background: #f70b0b !important;*/
 /*}*/
 
 /*.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-2 {*/
-    /*background: #ffe62e !important;*/
+/*background: #ffe62e !important;*/
 /*}*/
 
 /*.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-3 {*/
-    /*background: #4f4f4f !important;*/
+/*background: #4f4f4f !important;*/
 /*}*/
 
 /*.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-4 {*/
-    /*background: #424242 !important;*/
+/*background: #424242 !important;*/
 /*}*/
 
 /*.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-5 {*/
-    /*background: #f70b0b !important;*/
+/*background: #f70b0b !important;*/
 /*}*/
 
 /*.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-6 {*/
-    /*background: #ffe62e !important;*/
+/*background: #ffe62e !important;*/
 /*}*/
 
 /*.simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list li .font-color-7 {*/
-    /*background: #4f4f4f !important;*/
+/*background: #4f4f4f !important;*/
 /*}*/
 
 .simditor .simditor-toolbar .toolbar-menu.toolbar-menu-color .color-list {
