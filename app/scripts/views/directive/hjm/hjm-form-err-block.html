@@ -3,14 +3,14 @@
         <h5>表单验证提示</h5>
         <!--<textarea class="form-control" rows="200" ng-bind="FormBody|json"></textarea>-->
         <!--<div ng-repeat="(key,val) in FormBody" >-->
-            <!--ng-if="val.$invalid && val.$name"-->
+        <!--ng-if="val.$invalid && val.$name"-->
         <!--<span ng-bind="val|json"></span><br/>-->
         <!--</div>-->
         <ul class="list-group col-sm-8 col-sm-offset-2">
             <li class="list-group-item list-group-item-danger">
                 <div class="row">
                     <span class="col-sm-2">提示项</span>
-                    <span class="col-sm-3">提交字段名</span>
+                    <span class="col-sm-3">提交字段名(name)</span>
                     <span class="col-sm-3">详情</span>
                 </div>
             </li>
@@ -19,8 +19,10 @@
                 <div class="row">
                     <span class="col-sm-2" ng-bind="val.text"></span>
                     <span class="col-sm-3" ng-bind="val.$name"></span>
-                    <span class="col-sm-3" ng-repeat="(k,v) in val.$error"
-                          ng-bind="($index>0)?';':''+(k|form_err)"></span>
+                    <div class="col-sm-3">
+                        <span ng-repeat="(k,v) in val.$error"
+                              ng-bind="(($index>0)?'; ':'')+(k|form_err)"></span>
+                    </div>
                     <!--<span class="col-sm-2" ng-bind="val|json" show-env="dev,test"></span>-->
                 </div>
             </li>

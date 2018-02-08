@@ -17,6 +17,15 @@ define([], function () {
         web_domain = 'https://www.ahaschool.com';
         qiniu_domain = 'https://bpm.ahaschool.com';
         wx_domain = 'https://m.ahaschool.com';
+    } else if (location.href.indexOf('//uat.ahaschool.com/bpm') > 0
+    // || location.href.indexOf('//bpm.hjm.com') > 0
+    ) {
+        env = 'prod';
+        env_name = '线上系统uat';
+        domain = 'https://uat.ahaschool.com/mgrapi';
+        web_domain = 'https://uat.ahaschool.com/bpm';
+        qiniu_domain = 'https://uat.ahaschool.com';
+        wx_domain = 'https://m.ahaschool.com';
     } else if (location.href.indexOf('//test.ahaschool.com/bpm') > 0
     // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
