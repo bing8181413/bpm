@@ -238,5 +238,12 @@ define([
                 return '';
             }
         }])
+        // mp4 文件域名 修改
+        .filter('change_domain_mp4', [function () {
+            return function (val) {
+                var rtn = val.replace(/\/{2}.*.\/{1}/, '//resourcevideo.bucket.ahaschool.com/');
+                return rtn;
+            }
+        }])
     ;
 });

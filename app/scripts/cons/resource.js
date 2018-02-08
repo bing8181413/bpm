@@ -6,8 +6,13 @@ define([], function () {
                 {name: '名称', field: 'name'},
                 {name: '资源文件', fieldDirective: '<show_image url="item.pic_url" width="100"></show_image>'},
                 // {name: '老URL', field: 'pic_url'},
-                {name: '新URL', fieldDirective: '<span ng-bind="item.pic_url.replace(\'huijiame\',\'bucket.ahaschool\');"></span>'},
-                {name: '创建时间', field: 'created_at',filter:'null2empty'},
+                {
+                    name: '新URL',
+                    fieldDirective: '<span ng-bind="item.pic_url.replace(\'huijiame\',\'bucket.ahaschool\');"' +
+                    ' ng-if="item.pic_url.substr(item.pic_url.length-4)!=\'.mp4\'"></span>' +
+                    '<span ng-bind="item.pic_url|change_domain_mp4" ng-if="item.pic_url.substr(item.pic_url.length-4)==\'.mp4\'"></span>'
+                },
+                {name: '创建时间', field: 'created_at', filter: 'null2empty'},
             ],
             config: {
                 title: '资源库列表',
