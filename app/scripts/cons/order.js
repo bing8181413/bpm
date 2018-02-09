@@ -135,6 +135,14 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
+                    {
+                        value: 'app_type', text: '课程类型', type: 'btnGroup', default: '', width: '12',
+                        enum: [
+                            {value: '', text: '全 部'},
+                            {value: '1', text: '公众号课程'},
+                            {value: '2', text: '小程序课程'},
+                        ]
+                    },
                     {   // payment_from //  支付类型 0 待支付，1 微信，2 支付宝，3 微信H5  6 支付宝H5
                         value: 'payment_from', text: '支付类型', type: 'btnGroup',
                         default: '', width: '6',
@@ -201,6 +209,14 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
+                    {
+                        value: 'app_type', text: '课程类型', type: 'btnGroup', default: '', width: '12',
+                        enum: [
+                            {value: '', text: '全 部'},
+                            {value: '1', text: '公众号课程'},
+                            {value: '2', text: '小程序课程'},
+                        ]
+                    },
                     {   // payment_from //  支付类型 0 待支付，1 微信，2 支付宝，3 微信H5  6 支付宝H5
                         value: 'payment_from', text: '支付类型', type: 'btnGroup',
                         default: '', width: '6',
@@ -292,6 +308,14 @@ define([], function () {
                 rowItemName: 'item',
                 searchSupport: true,
                 searchItems: [
+                    {
+                        value: 'app_type', text: '课程类型', type: 'btnGroup', default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全 部'},
+                            {value: '1', text: '公众号课程'},
+                            {value: '2', text: '小程序课程'},
+                        ]
+                    },
                     {   // payment_from //  支付类型 0 待支付，1 微信，2 支付宝，3 微信H5  6 支付宝H5
                         value: 'payment_from', text: '支付类型', type: 'btnGroup',
                         default: '', width: '6',
@@ -316,7 +340,7 @@ define([], function () {
                     },
                     {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
                         value: 'flag', text: '订单状态', type: 'btnGroupArray2',
-                        default: 0, width: '12',
+                        default: 0, width: '6',
                         enum_text: 'order_status',//
                         enum: [
                             {value: [], text: '全部'},

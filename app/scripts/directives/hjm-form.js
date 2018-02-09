@@ -523,7 +523,7 @@ define([
                     }
                     var times = 0;
                     var valid_model = function (aaa) {
-                        console.log(aaa, 1, FormScope.FormBody, FormScope.FormBody[$scope.ngModelText]);
+                        // console.log(aaa, 1, FormScope.FormBody, FormScope.FormBody[$scope.ngModelText]);
                         if (($scope.min || $scope.required) && FormScope.FormBody[$scope.ngModelText]) {
                             times++;
                             // console.log(2);
