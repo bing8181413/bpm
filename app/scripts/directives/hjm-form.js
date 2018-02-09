@@ -565,8 +565,8 @@ define([
                     $scope.$watch('ngModel', function (val) {
                         nameText = $scope.name || $scope.ngModelText;
                         // console.log(nameText);
-                        $scope.init();
-                        // valid_model();
+                        // $scope.init();
+                        valid_model();
                     }, true);
 
                 }
