@@ -46,7 +46,17 @@ define(['.././common'], function (common) {
                 api: common.live_domain + '/live/videogroups',
                 rowItemName: 'item',
                 searchSupport: true,
-                searchItems: [{text: '关键字', value: 'keyword', type: 'text'},],
+                searchItems: [
+                    {
+                        value: 'visible', text: '是否显示', type: 'btnGroup', default: '', width: '6',
+                        enum: [
+                            {value: '', text: '全 部'},
+                            {value: '1', text: '是'},
+                            {value: '2', text: '否'},
+                        ]
+                    },
+                    {text: '关键字', value: 'keyword', type: 'text'},
+                ],
                 preSelectionSearch: {
                     // status: '0',
                 },

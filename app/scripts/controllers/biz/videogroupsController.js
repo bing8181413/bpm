@@ -223,12 +223,6 @@ define([
         }, true);
 
         $scope.submit = function (status) {
-            $scope.param.video_count = 0;
-            angular.forEach($scope.param.chapters, function (val, key) {
-                angular.forEach(val.videos, function (v, k) {
-                    $scope.param.video_count++;
-                })
-            })
             // $scope.param.video_count = $scope.param.rooms && $scope.param.rooms.length || 0;
             // if ($scope.param.video_count == 0) {
             //     widget.msgToast('视频数量不能为0!');
