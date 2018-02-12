@@ -56,12 +56,16 @@
                         <div form-select text="SKU" ng-model="param.sku" required="true"
                              source="$root.common.sku" source-api=""></div>
 
+                        <!--source="[{text:'父母学堂',value:'父母学堂'},{text:'艺术',value:'艺术'},{text:'微课',value:'微课'},-->
+                        <!--{text:'游学',value:'游学'},{text:'运动',value:'运动'},{text:'天赋测评',value:'天赋测评'},-->
+                        <!--{text:'儿童剧',value:'儿童剧'},{text:'夏令营',value:'夏令营'},{text:'STEM',value:'STEM'},-->
+                        <!--{text:'DIY',value:'DIY'},{text:'乐园',value:'乐园'},{text:'其他',value:'其他'}]"-->
                         <div form-radio text="活动类别" ng-model="param.act_type" required="true" default=""
-                             source="[{text:'父母学堂',value:'父母学堂'},{text:'艺术',value:'艺术'},{text:'微课',value:'微课'},
-                             {text:'游学',value:'游学'},{text:'运动',value:'运动'},{text:'天赋测评',value:'天赋测评'},
-                             {text:'儿童剧',value:'儿童剧'},{text:'夏令营',value:'夏令营'},{text:'STEM',value:'STEM'},
-                             {text:'DIY',value:'DIY'},{text:'乐园',value:'乐园'},{text:'其他',value:'其他'}]"
+                             source="[{text:'通识',value:'通识'},{text:'科学',value:'科学'},{text:'学习力',value:'学习力'},
+                             {text:'文史',value:'文史'},{text:'英语',value:'英语'},{text:'艺术',value:'艺术'},
+                             {text:'数学',value:'数学'},{text:'其他',value:'其他'}]"
                              source-api=""></div>
+
                         <div form-checkbox text="能力标签" ng-model="ability_label" required="true" default=""
                              source="[{text:'音乐感知',value:'音乐感知'},{text:'语言能力',value:'语言能力'},
                         {text:'想象力',value:'想象力'},{text:'动手能力',value:'动手能力'},{text:'观察力',value:'观察力'},
