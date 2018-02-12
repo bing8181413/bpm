@@ -6,7 +6,7 @@ define([
     // <show_image url="item.pic_url" width="100"></show_image>
         .directive('showImage', function ($state, $rootScope, $templateCache, $uibModal) {
             return {
-                restrict: 'E',
+                restrict: 'AE',
                 replace: true,
                 //require: '?ngModel',
                 scope: {
