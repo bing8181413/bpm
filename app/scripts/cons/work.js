@@ -31,7 +31,9 @@ define([], function () {
                     {value: 'date_min', text: '交作业时间-开始', type: 'datetime'},
                     {value: 'date_max', text: '结束', type: 'datetime'},
                     {value: 'mobile', text: '手机号码', placeholder: '手机号码', default: ''},
-                    {value: 'keyword', text: '关键字', placeholder: '关键字', default: ''},
+                    {value: 'user_keyword', text: '用户', placeholder: '用户关键字', default: ''},
+                    {value: 'lesson_keyword', text: '课程', placeholder: '课程关键字', default: ''},
+                    {value: 'mission_keyword', text: '任务', placeholder: '任务关键字', default: ''}
                 ],
                 preSelectionSearch: {
                     // status: '1',
