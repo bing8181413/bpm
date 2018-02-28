@@ -6,6 +6,7 @@ define([
     mod.controller('coupon.addController', addController)
 
     addController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+
     function addController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
@@ -15,6 +16,17 @@ define([
         }, 1000);
         $scope.submit = function (status) {
             $scope.param.scope_type = 3;
+
+            if (!$scope.param.mobile_list) {
+                widget.msgToast('手机号码没有填写');
+                return false;
+            } else {
+                $scope.param.mobile_list = $scope.param.mobile_list.replace(/\n/g, ',').replace(/，/g, ',');
+                if ($scope.param.mobile_list.split(',').length > 50) {
+                    widget.msgToast('手机号码超过50个不能添加优惠券');
+                    return false;
+                }
+            }
             if (!$scope.param.price || $scope.param.price <= 0) {
                 widget.msgToast('优惠劵金额不能小于等于0');
                 return false;
@@ -27,18 +39,14 @@ define([
                 widget.msgToast('满减优惠条件的金额不能小于等于优惠劵金额');
                 return false;
             }
-            if (!$scope.param.mobile_list) {
-                widget.msgToast('手机号码没有填写');
-                return false;
-            }
             widget.ajaxRequest({
                 url: '/coupons',
                 method: 'POST',
                 scope: $scope,
                 data: $scope.param,
                 success: function (json) {
-                    widget.msgToast('发布成功！');
-                    $state.go(con.state.main + '.coupon.list');
+                    widget.msgToast('已发布成功！可继续发送优惠券', 2000);
+                    // $state.go(con.state.main + '.coupon.list');
                 }
             })
         }
