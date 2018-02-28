@@ -21,7 +21,7 @@ define([], function () {
                 ],
                 paginationSupport: true,
                 pageInfo: {
-                    count: 20,
+                    count: 1000,
                     page: 1,
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
