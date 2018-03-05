@@ -12,6 +12,7 @@ define(['.././common'], function (common) {
                     className: 'text-center'
                 },
                 {name: '发布时间', field: 'created_at', filter: 'null2empty'},
+                {name: '权限发放时间', field: 'open_time', filter: 'null2empty'},
                 {name: '首播时间', field: 'first_time', filter: 'null2empty'},
                 {name: '视频组名称', field: 'group_title', className: 'text-left'},
                 {

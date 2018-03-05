@@ -10,6 +10,7 @@ define(['./common'], function (common) {
                 },
                 {name: '排序', field: 'order_by'},
                 {name: '标题', field: 'title'},
+                {name: '流名称', field: 'cloud.stream_name', filter: 'null2empty'},
                 {
                     name: '直播时间',
                     fieldDirective: '<div><p ng-show="item.start_time">开始时间:<br/> <span ng-bind="item.start_time"></span></p>' +
