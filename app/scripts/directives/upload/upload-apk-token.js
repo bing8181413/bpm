@@ -59,6 +59,7 @@ define([
                         // var fileItemTmpl = {name: fileItem._file.name, type: $scope.token};
                         var fileItemTmpl = {
                             name: fileItem._file.name,
+                            save_name: fileItem._file.name,
                             // type: $scope.token,
                             type:'resource',
                             skey: 'uxThINf7Ns9Qy8tGQXm3'
