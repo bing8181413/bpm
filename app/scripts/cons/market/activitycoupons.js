@@ -7,7 +7,8 @@ define([], function () {
                 {name: '活动ID', field: 'product_id', filter: 'zero2empty'},
                 {
                     name: '领取链接',
-                    fieldDirective: '<div modal-textarea title="查看链接" content="$root.common.wx_domain + \'/marketing/activitycoupon/code/\'+item.code"></div>'
+                    fieldDirective: '<div ng-show="item.type==1" modal-textarea title="查看单个券链接" content="$root.common.wx_domain + \'/marketing/activitycoupon/code/\'+item.code"></div>' +
+                    '<div ng-show="item.type==2" modal-textarea title="查看组合券链接" content="$root.common.wx_domain + \'/marketing/combinationcoupons/code/\'+item.code"></div>'
                 },
                 {name: '满(金额)', field: 'over_price', filter: 'null2empty'},
                 {name: '减(金额)', field: 'price', filter: 'null2empty'},

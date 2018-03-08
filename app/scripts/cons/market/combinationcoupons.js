@@ -6,7 +6,7 @@ define([], function () {
                 {name: '优惠券名称', field: 'title'},
                 {
                     name: '领取链接',
-                    fieldDirective: '<div modal-textarea title="查看链接" content="$root.common.wx_domain + \'/marketing/combinationcoupons/code/\'+item.code"></div>'
+                    fieldDirective: '<div modal-textarea title="查看组合券链接" content="$root.common.wx_domain + \'/marketing/combinationcoupons/code/\'+item.code"></div>'
                 },
                 {
                     name: '优惠券数量',
