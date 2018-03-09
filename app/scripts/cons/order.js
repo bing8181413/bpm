@@ -16,15 +16,15 @@ define([], function () {
                 },
                 {name: '订单类型', field: 'order_type', filter: 'order_type'},
                 {
-                    name: '活动信息',
-                    fieldDirective: '<span ng-bind="\'活动ID:\'+item.product.product_id"></span>' +
-                    '<br/>标题:<br/><span ng-bind="item.product.title|characters: 7 : false" ' +
-                    'uib-tooltip="{{item.product.title}}" tooltip-placement="bottom"></span>' +
+                    name: '课程信息',
+                    fieldDirective: 'SKU:<span ng-bind="item.sku|common:\'sku\'"></span>'+
+                    '<br/><span ng-bind="\'ID:\'+item.product.product_id"></span>' +
+                    '<br/>标题:<span ng-bind="item.product.title"></span>' +
                     '<br/>活动开始时间:<br/><span ng-bind="item.product.start_time"></span>' +
                     '<br/>报名截止时间:<br/><span ng-bind="item.product.end_time"></span>'
                 },
                 {
-                    name: '活动类目',
+                    name: '课程类目',
                     fieldDirective: '<span ng-bind="item.option_name +\':\'" ng-if="item.option_name"></span>' +
                     '<span ng-bind="item.option_price"></span>'
                 },

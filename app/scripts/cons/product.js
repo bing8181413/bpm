@@ -109,7 +109,7 @@ define(['angular', './common'], function (angular, common) {
                     '<p><div account_id_to_name data="item"></div></p></div>'
                 },
                 {
-                    name: '活动信息', className: 'width100 mobile_show',
+                    name: '课程信息', className: 'width100 mobile_show',
                     fieldDirective: '<div><p><span ng-bind="\'标题:\'+item.title"></span></p>' +
                     '<p><span ng-bind="\'SKU:\'+(item.sku|common:\'sku\')"></span></p>' +
                     '<p><span ng-bind="\'活动类型:\'+(item.category|product_category)"></span></p>' +

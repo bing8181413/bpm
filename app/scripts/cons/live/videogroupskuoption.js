@@ -4,7 +4,7 @@ define(['.././common'], function (common) {
             columns: [
                 {name: '活动类目ID', field: 'option_id', className: 'text-center'},
                 {name: '名称', field: 'product.title', className: 'text-center'},
-                {name: 'SKU', field: 'product.sku|product_sku'},
+                {name: 'SKU', field: 'product.sku|common:sku|null2empty'},
                 {name: '活动类目', field: 'option_name'},
             ],
             config: {
