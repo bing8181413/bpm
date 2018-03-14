@@ -280,7 +280,7 @@ define([
             $scope.param.per_buy_count = 0;// 单人限购份数 0 表示不限制
             // 优惠规则
             $scope.param.coupon_share = 2; // 会员、优惠券是否可同享 2 不可共享
-            $scope.param.act_coupon = 2;// 是否可选优惠券  2 不可选
+            // $scope.param.act_coupon = 2;// 是否可选优惠券  2 不可选
             $scope.param.coupon_category = 1;// 年卡优惠券类型 1 不可用年卡
             $scope.param.vip_promotion_type = 3;//会员购买优惠 3 无优惠
             // 不支持礼包

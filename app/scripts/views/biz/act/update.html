@@ -246,7 +246,19 @@
 
                     </div>
                 </div>
-                <div class="panel panel-primary" ng-show="param.course_type==1">
+                <div class="panel panel-primary" ng-if="param.course_type==2">
+                    <div class="panel-body">
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[3] = title_info[3]+1; ">优惠规则
+                            <i class="animate-switch fa pull-right text-primary"
+                               ng-class="{'fa-angle-double-up':title_info[3]%2==1,'fa-angle-double-down':title_info[3]%2==0}"></i>
+                        </h5>
+                    </div>
+                    <div class="panel-body" ng-show="title_info[3]%2==1">
+                        <div form-radio text="是否可选优惠券" ng-model="param.act_coupon" required="true" default="1"
+                             source="[{text:'可选',value:1},{text:'不可选',value:2}]" source-api=""></div>
+                    </div>
+                </div>
+                <div class="panel panel-primary" ng-if="param.course_type==1">
                     <div class="panel-body">
                         <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[3] = title_info[3]+1; ">优惠规则
                             <i class="animate-switch fa pull-right text-primary"
@@ -259,8 +271,7 @@
                              ng-disabled="param.course_type==2"></div>
 
                         <div form-radio text="是否可选优惠券" ng-model="param.act_coupon" required="true" default="1"
-                             source="[{text:'可选',value:1},{text:'不可选',value:2}]" source-api=""
-                             ng-disabled="param.course_type==2"></div>
+                             source="[{text:'可选',value:1},{text:'不可选',value:2}]" source-api=""></div>
 
                         <div form-radio text="年卡优惠券类型" ng-model="param.coupon_category" required="true" default="1"
                              source="[{text:'不可用年卡',value:'1'},{text:'年卡通用券',value:'2'},
