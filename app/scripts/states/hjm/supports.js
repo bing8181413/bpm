@@ -38,6 +38,13 @@ define([
                                 return $templateCache.get('app/' + cons.biz_path + 'support/version.html');
                             }
                         })
+                        .state(cons.state.main + '.support.weappconfig', {// 微信小程序 配置项
+                            url: "/weappconfig.html",
+                            controller: 'supports.weappconfigController',
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.biz_path + 'support/weappconfig.html');
+                            }
+                        })
                         // supports/configs
                         .state(cons.state.main + '.support.configs', {
                             url: "/configs.html",
