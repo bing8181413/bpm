@@ -1,0 +1,26 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">更新APP分享配置</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <h1 class="text-danger col-sm-offset-2">APP分享配置</h1>
+                        </div>
+                        <div class="form-group">
+                            <div form-radio ng-model="param.appshare_channel" text="类型"  default="1" required="true"
+                                 source="[{text:'微信好友',value:'1'},{text:'朋友圈',value:'2'},{text:'全部',value:'3'}]"></div>
+                            <div form-input ng-model="param.appshare_title" text="分享标题" required="true"></div>
+                            <div form-input ng-model="param.appshare_content" text="分享内容" required="true"></div>
+                            <div form-image-single ng-model="param.appshare_pic" text="分享图片" required="true"></div>
+                        </div>
+                    </div>
+                </div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">更新版本</a>
+            </form>
+        </div>
+    </div>
+</div>

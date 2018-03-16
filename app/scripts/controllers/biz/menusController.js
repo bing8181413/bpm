@@ -20,7 +20,8 @@ define([
                 data: {},
                 success: function (json) {
                     $scope.menus = json.data;
-                    $rootScope.update_menus();//  获取最新的菜单
+                    $rootScope.hjm.menus = json.data; //  获取最新的菜单
+                    // $rootScope.update_menus();//  获取最新的菜单
                     $scope.param = [];
                     if ($rootScope.common) {
                         $rootScope.common.menus_key_val = [];

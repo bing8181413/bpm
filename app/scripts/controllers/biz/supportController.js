@@ -6,6 +6,7 @@ define([
     mod.controller('supports.opencitiesController', opencitiesController);
     mod.controller('supports.versionController', versionController);
     mod.controller('supports.weappconfigController', weappconfigController);
+    mod.controller('supports.appshareconfigController', appshareconfigController);
     mod.controller('supports.configsController', configsController);
     mod.controller('supports.upgradesUpdateController', upgradesUpdateController);
     mod.controller('supports.bannerUpdateController', bannerUpdateController);
@@ -14,6 +15,8 @@ define([
     upgradesUpdateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
     configsController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
     versionController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    weappconfigController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
+    appshareconfigController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
     bannerUpdateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', '$filter', '$timeout'];
 
 
@@ -178,21 +181,40 @@ define([
                 scope: $scope,
                 data: {},
                 success: function (json) {
-                    // $scope.current_page_version_number = $filter('date')((version == 'timestamp' ? 0 : version), 'yyyy-MM-dd HH:mm:ss');
-                    // $scope.version = $filter('date')(json.data.version, 'yyyy-MM-dd HH:mm:ss');
-                    // $scope.param = {version: $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss')};
                     $scope.param = json.data;
                 }
             })
         }
         $scope.init();
         $scope.submit = function () {
-            // if (!$scope.param || !$scope.param.version) {
-            //     widget.msgToast('未输入新版本的日期');
-            //     return false;
-            // }
             widget.ajaxRequest({
                 url: '/supports/weappconfig',
+                method: 'put',
+                scope: $scope,
+                data: $scope.param,
+                success: function (json) {
+                    widget.msgToast('更新成功');
+                }
+            })
+        }
+    };
+    function appshareconfigController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $timeout) {
+
+        $scope.init = function () {
+            widget.ajaxRequest({
+                url: '/supports/appshareconfig',
+                method: 'get',
+                scope: $scope,
+                data: {},
+                success: function (json) {
+                    $scope.param = json.data;
+                }
+            })
+        }
+        $scope.init();
+        $scope.submit = function () {
+            widget.ajaxRequest({
+                url: '/supports/appshareconfig',
                 method: 'put',
                 scope: $scope,
                 data: $scope.param,

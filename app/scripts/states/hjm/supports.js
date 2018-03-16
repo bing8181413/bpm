@@ -45,6 +45,13 @@ define([
                                 return $templateCache.get('app/' + cons.biz_path + 'support/weappconfig.html');
                             }
                         })
+                        .state(cons.state.main + '.support.appshareconfig', {// APP分享 配置项
+                            url: "/appshareconfig.html",
+                            controller: 'supports.appshareconfigController',
+                            templateProvider: function ($templateCache) {
+                                return $templateCache.get('app/' + cons.biz_path + 'support/appshareconfig.html');
+                            }
+                        })
                         // supports/configs
                         .state(cons.state.main + '.support.configs', {
                             url: "/configs.html",
