@@ -1,6 +1,13 @@
 # BPM
-###基于angular 的业务流程管理项目
-##### 重要的 自定义 directive有 1:hjm-grid 能够提高列表的开发效率 只需提供 column 和config 即可快速渲染一个grid
+### 基于angularJS 1.x 的业务流程管理项目 
+mvvm 架构 
+- 配置生成表格，查询，分页，统计等，
+- 表单验证指令
+- 资源上传指令 图片（单个，多个），其他资源（APK，excel等）
+- 路由配置指令
+
+
+##### 主要的 directive 1:hjm-grid 能够提高列表的开发效率 只需提供 column 和 config 即可快速渲染一个grid
 ##### 公共组件
     hjm-grid', grids
     hjm-form', formule
