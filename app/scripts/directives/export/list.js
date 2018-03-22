@@ -59,7 +59,7 @@ define([
                                 $scope.tmpl += '</form>';
                                 $scope.exec = function () {
                                     angular.forEach($scope.condition, function (val, key) {
-                                        if (val.type == 'textarea') {
+                                        if (val.type == 'textarea' && $scope._param[key]) {
                                             $scope.param[key] = $scope._param[key].replace(/\n/g, ',').split(',');
                                             // console.log($scope.param[key]);
                                         }
