@@ -22,6 +22,7 @@ define([
                 return false;
             }
             if (!!val.url && !!val.utm_source) {
+                val.utm_source = val.utm_source.replace(/_/g,'');
                 var tmp = val.url.indexOf('?') > 0 ? '&' : '?';
                 $scope.param.full_url = encodeURI(val.url + tmp +
                     'utm_source=' + val.utm_source +
