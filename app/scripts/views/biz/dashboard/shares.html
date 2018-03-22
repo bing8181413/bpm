@@ -7,7 +7,8 @@
             <div class="form-group">
                 <form class="form-horizontal" name="FormBody" novalidate>
                     <div class="col-sm-12 form-group">
-                        <div form-textarea text="活动ID" ng-model="searchItem.product_ids" placeholder="多个ID回车换行或者逗号隔开"></div>
+                        <div form-textarea text="活动ID" ng-model="searchItem.product_ids" placeholder="多个ID回车换行或者逗号隔开:500476,500222"
+                             required_span_show="true"></div>
                         <div form-double-date-time text-start="开始时间" text-end="结束时间" required="true"
                              ng-model-start="searchItem.start_time" ng-model-end="searchItem.end_time"></div>
                         <div form-radio text="选择时间" ng-model="searchItem.period" default="10"

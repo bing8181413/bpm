@@ -90,7 +90,7 @@ define([
 
     function sharesController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $q, table2Array, comfunc) {
         $scope.searchItem = {
-            product_ids: '500676,500704,500475,500126',
+            product_ids: '',
             period: undefined,
             start_time: '2016-01-01 00:00:00',
             end_time: $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss')

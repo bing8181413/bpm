@@ -15,9 +15,9 @@
                          ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/videogroups/'+obj_id}"
                          ng-model="obj_id" callback="add_obj_id(json)"></div>
 
-                    <div form-table text="房间/视频ID" ng-model="param.permissions" min="0"
+                    <div form-table text="视频组" ng-model="param.permissions" min="0"
                          config="{add:false}"
-                         columns="[{name: '房间/视频ID', field:'video_group_id',readonly:'true'}
+                         columns="[{name: 'ID', field:'video_group_id',readonly:'true'}
                              ,{name: '标题', field:'video_group.group_title',readonly:'true'}]"></div>
 
 
