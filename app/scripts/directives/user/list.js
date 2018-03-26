@@ -196,7 +196,22 @@ define([
                             })
                         }
                     }
-                    var content = '<a class="btn btn-warning btn-rounded btn-sm" ng-click="show();">解绑手机号</a>';
+                    $scope.show_bind_mobile = function () {
+                        var mobile = prompt('确定解绑该用户手机号码');
+                        if (mobile&&mobile.length==11) {
+                            widget.ajaxRequest({
+                                url: '/users/' + supscope.data.user_id + '/mobile',
+                                method: 'put',
+                                scope: $scope,
+                                data: {mobile:mobile},
+                                success: function (json) {
+                                    supscope.$parent.searchAction();
+                                }
+                            })
+                        }
+                    }
+                    var content = '<a class="btn btn-warning btn-rounded btn-sm" ng-click="show();" ng-if="data.mobile">解绑手机号</a>' +
+                      '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_bind_mobile();" ng-if="!data.mobile">绑定手机号</a>';
                     $element.html(content);
                     $compile($element.contents())($scope);
                 }
