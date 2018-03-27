@@ -181,6 +181,7 @@ define([
         $scope.reset_open_time = function (type) {
             console.log(type);
             $scope.param.open_time = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
+            $scope.param.onoff = '1';
         }
 
         // products 有变化 自动更新授权的时间
@@ -228,6 +229,9 @@ define([
             //     widget.msgToast('视频数量不能为0!');
             //     return false;
             // }
+            if(!$scope.param.open_time|| $scope.param.open_time==''){
+                $scope.reset_open_time('submit');
+            }
             if ($scope.param.pay_type == 1) {
                 $scope.param.skus = [];
                 $scope.param.products = [];
