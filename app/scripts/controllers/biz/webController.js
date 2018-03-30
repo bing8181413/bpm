@@ -9,7 +9,7 @@ define([
     function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
         $scope.param = {};
         $timeout(function () {
-            $scope.param = {url: 'https://m.ahaschool.com/'};
+            $scope.param = {url: con.wx_domain+'/'};
         }, 0);
 
         $scope.$watch('param', function (val) {

@@ -16,7 +16,7 @@ define([], function () {
         domain = 'https://mgrapi.ahaschool.com';
         web_domain = 'https://www.ahaschool.com';
         qiniu_domain = 'https://bpm.ahaschool.com';
-        wx_domain = 'https://m.ahaschool.com';
+        wx_domain = 'https://n.ahaschool.com';
     } else if (location.href.indexOf('//uat.ahaschool.com/bpm') > 0
     // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
@@ -25,7 +25,7 @@ define([], function () {
         domain = 'https://uat.ahaschool.com/mgrapi';
         web_domain = 'https://uat.ahaschool.com/bpm';
         qiniu_domain = 'https://uat.ahaschool.com';
-        wx_domain = 'https://m.ahaschool.com';
+        wx_domain = 'https://n.ahaschool.com';
     } else if (location.href.indexOf('//test.ahaschool.com/bpm') > 0
     // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
