@@ -44,6 +44,7 @@ define([
 
     'states/hjm/market/combinationcoupons',//组合优惠券
     'states/hjm/market/activitycoupons',//优惠券
+    'states/hjm/market/exchanges',//生成兑换码
     'states/hjm/live/marketshares',//领取观看权限
     'states/hjm/live/videogroups',//视频组
     'states/hjm/live/notice',//公告

@@ -1,0 +1,23 @@
+<div class="dashboard-page ">
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <h3 class="panel-title" ng-if="!$stateParams.id">新增生成兑换码</h3>
+      <h3 class="panel-title" ng-if="$stateParams.id">更新优惠券链接</h3>
+    </div>
+    <div class="panel-body">
+      <form class="form-horizontal" name="FormBody" novalidate>
+        <div class="panel panel-primary">
+          <div class="panel-body">
+            <h4>生成兑换码</h4>
+            <div form-input text="渠道名" ng-model="param.channel_name" placeholder="渠道名" required="true"></div>
+            <div form-input text="视频组ID" ng-model="param.video_group_id" placeholder="视频组ID" type="number"
+                 required="true"></div>
+            <div form-input text="生成数量" ng-model="param.number" placeholder="请输入生成数量" type="number" required="true"></div>
+          </div>
+        </div>
+        <div form-error-block></div>
+        <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+      </form>
+    </div>
+  </div>
+</div>
