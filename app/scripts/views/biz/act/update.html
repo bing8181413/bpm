@@ -182,7 +182,7 @@
                              {'name': '类目', 'field': 'option_name',required:'true'},
                              {'name': '价格', 'field': 'option_price',type:'number',min:'0',required:'true'},
                              {'name': '特价', 'field': 'special_price',type:'number',min:'0',required:'true'},
-                             {'name': '库存', 'field': 'option_inventory',required:'true'},
+                             {'name': '库存', 'field': 'option_inventory',type:'number',required:'true',default:200000},
                              {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
 
                         <div form-table text="人数团活动类目" ng-model="param.groupbuy_options"
@@ -191,7 +191,7 @@
                              {'name': '类目', 'field': 'option_name',required:'true'},
                              {'name': '价格', 'field': 'option_price',type:'number',min:'0',required:'true'},
                              {'name': '特价', 'field': 'special_price',type:'number',min:'0',required:'true'},
-                             {'name': '库存', 'field': 'option_inventory',required:'true'},
+                             {'name': '库存', 'field': 'option_inventory',type:'number',required:'true',default:200000},
                              {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
 
                         <div form-input text="单次限购份数" ng-model="param.order_count_max" type="number"
@@ -426,7 +426,7 @@
                              columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
                              {'name': '类目', 'field': 'option_name',required:'true'},
                              {'name': '价格', 'field': 'option_price',type:'number',min:'0',required:'true'},
-                             {'name': '库存', 'field': 'option_inventory',required:'true'},
+                             {'name': '库存', 'field': 'option_inventory',type:'number',required:'true',default:200000},
                              {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
 
                         <div form-radio text="礼包的优惠券与折扣是否可同享" ng-model="param.gift_coupon_share" required="true"
