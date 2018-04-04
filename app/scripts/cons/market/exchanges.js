@@ -13,7 +13,7 @@ define([], function() {
         },
       ],
       config: {
-        title: '生成兑换码',
+        title: '生成兑换码列表',
         api: '/markets/exchanges',
         rowItemName: 'item',
         searchSupport: false,
@@ -28,7 +28,7 @@ define([], function() {
           maxSize: 5, //最大展示页，默认3
           // showPageGoto: false //属性为true将显示前往第几页。
         },
-        route: [{value: 'main.exchanges.add', text: '新增优惠劵'}],
+        route: [{value: 'main.exchanges.add', text: '生成兑换码'}],
       },
     },
   };
