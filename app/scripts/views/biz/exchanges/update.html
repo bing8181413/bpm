@@ -12,7 +12,7 @@
             <div form-input text="渠道名" ng-model="param.channel_name" placeholder="渠道名" required="true"></div>
             <div form-input text="视频组ID" ng-model="param.video_group_id" placeholder="视频组ID" type="number"
                  required="true"></div>
-            <div form-input text="生成数量" ng-model="param.number" placeholder="请输入生成数量" type="number" required="true"></div>
+            <div form-input text="生成数量" ng-model="param.number" placeholder="请输入生成数量" type="number" required="true" min="1" max="50000"></div>
           </div>
         </div>
         <div form-error-block></div>

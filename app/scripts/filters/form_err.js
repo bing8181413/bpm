@@ -21,6 +21,12 @@ define([
                     case "hasPic":
                         result = "至少上传一张图片";
                         break;
+                    case "max":
+                        result = "最大值范围出错";
+                        break;
+                    case "min":
+                        result = "最小值范围出错";
+                        break;
                 }
 
                 return result;

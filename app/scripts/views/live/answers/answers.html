@@ -6,7 +6,7 @@
     </style>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title inlineBlock">答案管理{{question.question_id?(' ID:'+question.question_id):''}}</h3>
+            <h3 class="panel-title inlineBlock">回答管理{{question.question_id?(' ID:'+question.question_id):''}}</h3>
         </div>
         <div class="panel-body dndsimpleSubject">
             <form class="form-horizontal" name="FormBody" novalidate>
@@ -71,9 +71,9 @@
                                                 <a class="btn btn-primary btn-bordered btn-sm"
                                                    ng-click="selected('reverse')">反选</a>&nbsp;&nbsp;
                                                 <a class="btn btn-danger btn-rounded btn-sm"
-                                                   ng-click="audit(3)">审核不通过</a>&nbsp;&nbsp;
+                                                   ng-click="audit(2)">隐藏</a>&nbsp;&nbsp;
                                                 <a class="btn btn-success btn-rounded btn-sm"
-                                                   ng-click="audit(2)">审核通过</a>&nbsp;&nbsp;
+                                                   ng-click="audit(1)">公开</a>&nbsp;&nbsp;
                                             </p>
                                         </td>
                                     </tr>
@@ -105,7 +105,7 @@
                                         </td>
                                         <td class="text-center"><span ng-bind="item.created_at"></span></td>
                                         <td class="text-center">
-                                            <span ng-bind="item.status|keyVal:'1':'待审核':'2':'已公开':'3':'已隐藏'"
+                                            <span ng-bind="item.status|keyVal:'1':'已公开':'2':'已隐藏':'3':'未知状态'"
                                                   ng-class="{'text-default':item.status==1,'text-success':item.status==2,'text-danger':item.status==3}"></span>
                                         </td>
                                         <td class="text-center">
