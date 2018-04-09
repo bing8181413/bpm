@@ -163,8 +163,10 @@ define(['./services', '../cons/simpleCons'], function (mod, cons) {
                                         self.msgToast(res.data.message);
                                     }
                                 }
+                            }else{
+                                console.error(res);
+                                self.msgToast(res.statusText);
                             }
-
                         },
                         function (err) {
                             if (options.error && typeof options.error === 'function') {
