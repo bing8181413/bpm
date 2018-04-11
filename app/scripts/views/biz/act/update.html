@@ -208,7 +208,7 @@
                              source="[{text:'仅会员',value:'1'},{text:'不限制',value:'2'}]"
                              required="true" ng-disabled="param.course_type==2"></div>
                         <div form-radio text="是否需填收货地址" ng-model="param.delivery_type" required="true"
-                             ng-disabled="$stateParams.product_id && !copy || param.course_type==2"
+                             ng-disabled="$stateParams.product_id && !copy && delivery_type==3 || param.course_type==2"
                              source="[{text:'需要',value:'1'},{text:'不需要',value:'3'}]"
                              default="3"></div>
                         <div form-input text="配送次数" ng-model="param.frequency_num" type="number" min="0"

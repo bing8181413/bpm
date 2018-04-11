@@ -130,6 +130,8 @@ define([
 
                     }
                     $scope.param = angular.copy(json.data);
+                    // 是否需填收货地址 的条件专用
+                    $scope.delivery_type = $scope.param.delivery_type;
                     $scope.is_default_category = $scope.param.category;
                     $scope.hours = comfunc.numDiv($scope.param.group_seconds || 0, 3600);
                     $scope.groupbuy_auto_hours = comfunc.numDiv($scope.param.groupbuy_auto_seconds || 0, 3600);

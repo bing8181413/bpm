@@ -4,8 +4,8 @@
  */
 define([
       '../../states'
-      , '../../../cons/simpleCons',
-      , './order',
+      , '../../../cons/simpleCons'
+      , './order'
       , './skuno',
     ],
     function(stateModule, cons) {
@@ -20,6 +20,5 @@ define([
                 },
               });
             },
-          ])
-      ;
+          ]);
     });
