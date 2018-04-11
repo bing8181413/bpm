@@ -55,25 +55,19 @@ define([
 
     './batchproducts/list',// 批量活动列表
 
-
     './videogroup/list',// 视频组
     './marketshare/list',// 观看权限
 
-
     './permission/list',// 权限
-
 
     './upload/upload-audio-token',//  音频录制
 
     './upload/upload-apk-token',//  直播APK
     './zhibo_qr_code/list',//  直播APK
 
-
     './merchant/list',//  供应商
 
-
     './cert/list',//
-
 
     // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//
@@ -81,6 +75,8 @@ define([
     './common/dndArray',//  dnd array   可以拖动的 array
     './common/deleteData',// 简单的删除组件
     './common/openUrl',// 打开一个URL  下载一个url 文件
+
+    './market/list',//market   skuno ...
 
 ], function (mod,
              simpleCons) {
