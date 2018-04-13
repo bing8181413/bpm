@@ -51,15 +51,11 @@ define([
                     content: '=',
                 },
                 // scope: false,
-                template: '<div class="show_textarea"></div>',
+                template: '<a class="btn btn-primary btn-rounded btn-sm" ng-click="open();" ng-bind="title||\'查看\'"></a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     var content = '';
-                    // console.log($scope, $attrs);
-                    content = '<a class="btn btn-primary btn-rounded btn-sm" ng-click="show_modal();" ng-bind="title"></a>';
-                    $element.find('.show_textarea').html(content);
-                    $compile($element.contents())($scope)
-                    $scope.show_modal = function () {
+                    $scope.open = function () {
                         var modalInstance = $uibModal.open({
                             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                             controller: function ($scope, $uibModalInstance) {

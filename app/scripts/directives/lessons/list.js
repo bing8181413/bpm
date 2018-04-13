@@ -53,7 +53,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<p class="lessons-change-status"></p>',
+                template: '<span class="lessons-change-status"></span>',
                 link: function ($scope, $element, $attrs) {
                     $scope.mission_count = ($scope.data.stat_mission && $scope.data.stat_mission.mission_count || 0);
                     $scope.pubtime_at = $scope.data.pubtime_at;

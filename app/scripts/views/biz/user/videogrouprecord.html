@@ -1,0 +1,19 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title inlineBlock">查询用户观看记录</h3>
+  </div>
+  <div class="panel-body">
+    <form class="form-horizontal" name="FormBody" novalidate>
+      <div class="panel panel-primary">
+        <div class="panel-body">
+          <div form-input text="手机号码" ng-model="param.mobile" required="true"></div>
+          <div form-input text="视频组ID" ng-model="param.video_group_id" required="true"></div>
+          <h3 class="text-danger col-sm-offset-2" ng-bind="'观看了('+(result||0)+')个视频'"></h3>
+        </div>
+      </div>
+      &nbsp;&nbsp;&nbsp;<a class="btn btn-success btn-rounded pull-right" ng-disabled="FormBody.$invalid"
+                           ng-click="submit()">查询</a>
+      <!--&nbsp;&nbsp;&nbsp;<a class="btn btn-warning btn-rounded pull-right" ng-click="cancel()">取消</a>-->
+    </form>
+  </div>
+</div>

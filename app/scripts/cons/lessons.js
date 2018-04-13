@@ -5,14 +5,15 @@ define([], function () {
                 {name: 'ID', field: 'lesson_id', className: 'text-right'},
                 {
                     name: '活动ID/已选择类目', className: 'width200',
-                    fieldDirective: '<ul>' +
+                    fieldDirective:
+                    '<ul>' +
                     '<li ng-repeat="obj in item.products">' +
                     '<span ng-bind="obj.product_id|null2empty"></span>' +
                     '<span ng-if="obj.option" ng-bind="\' ): \'+obj.option.option_name"></span>' +
                     '<span ng-if="obj.option.option_name" ng-bind="\'/￥\' +obj.option.option_price"></span>' +
                     '</li></ul>'
                 },
-                {name: '课程名称', field: 'name'},
+                {name: '课程名称', field: 'name',className:'width100'},
                 {name: '负责教师', field: 'teacher.name', filter: 'null2empty'},
                 {
                     name: '任务发布时间',
@@ -24,7 +25,7 @@ define([], function () {
                     '</p></div>'
                 },
                 {name: '报名人数', field: 'stat_student.user_count'},
-                {name: '备注', field: 'remark|null2empty'},
+                {name: '备注', fieldDirective: '<div modal-textarea content="item.remark" title="备注" ng-show="item.remark" size="sm"></div>'},
                 {
                     name: '已上线任务',
                     fieldDirective: // '<div mission-online data="item"></div>' +
@@ -35,7 +36,7 @@ define([], function () {
                 {
                     name: '状态',
                     fieldDirective: '<span ng-bind="item.status|keyVal:\'1\':\'已上线\':\'2\':\'已下线\':\'3\':\'草稿\'"></span>' +
-                    '<div lessons-change-status data="item" ></div>'
+                    '<span lessons-change-status data="item" ></span>'
                 },
                 {
                     name: '操作',

@@ -7,13 +7,21 @@ define([], function () {
                 {name: '微信昵称', field: 'name', filter: 'null2empty'},
                 {name: '性别', field: 'gender', filter: 'gender'},
                 {name: '手机号', field: 'mobile'},
+                {
+                    name: '获取验证码',
+                    fieldDirective: '<div user-captcha data="item"></div>'
+                },
+                {
+                    name: '视频组观看记录',
+                    fieldDirective: '<div user-video-group-record data="item" class="text-center"></div>'
+                },
                 {name: '关联订单', fieldDirective: '<div user-order data="item"></div>'},
                 {name: '收货地址', fieldDirective: '<div user-address data="item"></div>'},
                 {name: '优惠券', fieldDirective: '<div user-coupon data="item"></div>'},
                 // {name: '优惠券', field: 'coupon.count'},
-                {name: '注册时间', field: 'created_at'},
-                {name: '最近一次使用时间', field: 'authed_at', filter: 'null2empty'},
-                {name: '融云禁言到期', field: 'imblocktime', filter: 'null2empty'},
+                {name: '时间', fieldDirective: '<span ng-bind="\'用户注册:\'+item.created_at" ng-if="item.created_at"></span><br> ' +
+                  ' <span ng-bind="\'最后使用:\'+item.authed_at" ng-if="item.authed_at"></span><br>' +
+                  ' <span ng-bind="\'禁言到期:\'+item.imblocktime" ng-if="item.imblocktime"></span>'},
                 // {name: '直播禁言', fieldDirective: '<div user-block data="item"></div>'},
                 {
                     name: '直播禁言管理',
@@ -22,10 +30,6 @@ define([], function () {
                 {
                     name: '模拟登陆',
                     fieldDirective: '<div user-token data="item"></div>'
-                },
-                {
-                    name: '获取验证码',
-                    fieldDirective: '<div user-captcha data="item"></div>'
                 },
                 {
                     name: '绑定与解绑手机号',
