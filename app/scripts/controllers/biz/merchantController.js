@@ -36,7 +36,7 @@ define([
         }
 
         $scope.submit = function (status) {
-            $scope.param.utm_source = $scope.param.utm_source.replace(/_/g,'');
+            $scope.param.utm_source = $scope.param.utm_source && $scope.param.utm_source.replace(/_/g,'');
             widget.ajaxRequest({
                 url: '/merchant/merchants' + ($stateParams.merchant_id ? ('/' + $stateParams.merchant_id) : ''),
                 method: $stateParams.merchant_id ? 'PUT' : 'POST',
