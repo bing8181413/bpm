@@ -11,10 +11,6 @@ define([], function () {
                     name: '获取验证码',
                     fieldDirective: '<div user-captcha data="item"></div>'
                 },
-                {
-                    name: '视频组观看记录',
-                    fieldDirective: '<div user-video-group-record data="item" class="text-center"></div>'
-                },
                 {name: '关联订单', fieldDirective: '<div user-order data="item"></div>'},
                 {name: '收货地址', fieldDirective: '<div user-address data="item"></div>'},
                 {name: '优惠券', fieldDirective: '<div user-coupon data="item"></div>'},
