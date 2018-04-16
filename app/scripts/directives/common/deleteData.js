@@ -11,9 +11,9 @@ define([
                 scope: false,
                 scope: {
                     param: '=',
-                    config: '='
+                    config: '=',
                 },
-                template: '<a class="btn btn-danger btn-rounded btn-sm" ng-bind="config.text||\'删除\'" ng-click="open();">删除</a>',
+                template: '<a class="btn btn-danger btn-rounded btn-sm" ng-bind="config.text||\'删除\'" ng-click="open();" ng-bind="config.text||\'删除\'">删除</a>',
                 link: function ($scope, $element, $attrs, $ctrl) {
                     var superScope = $scope;
                     $scope.open = function () {

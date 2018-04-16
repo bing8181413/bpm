@@ -8,7 +8,7 @@
                 <div ng-include="getContentUrl()"></div>
             </div>
             <div class="col-sm-12 form-group">
-                <a class="btn btn-danger btn-rounded btn-sm pull-right" ng-click="del()">删除</a>
+                <a class="btn btn-danger btn-rounded btn-sm pull-right" ng-click="del()" ng-bind="config.text"></a>
                 <!--<a class="btn btn-warning btn-rounded btn-sm pull-right" ng-click="cancel()">取消</a>-->
             </div>
         </form>

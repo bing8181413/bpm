@@ -18,6 +18,13 @@ define([], function() {
           name: '观看记录',
           fieldDirective: '<div user-video-group-record data="item" class="text-center"></div>',
         },
+        {name: '添加权限', field: 'user_group_status|keyVal:\'1\':\'--\':\'2\':\'添加失败\':\'3\':\'已添加\''},
+        {name: '取消权限', field: 'hjm_return_status|keyVal:\'1\':\'--\':\'2\':\'取消失败\':\'3\':\'已取消\''},
+        {
+          name: '管理',
+          fieldDirective:
+              '<span delete-data data="" config="{url:$root.common.domain+\'/markets/orders/\'+item.id+\'/cancel\',method:\'PUT\',text:\'取消订单\'}" param="{}"></span> ',
+        },
       ],
       config: {
         title: '云集订单列表',
