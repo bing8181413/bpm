@@ -22,8 +22,7 @@
                   ng-init="title_info = [1,1,1,1,1,1,1,1,1,1,1,1,1,1]"
                   disabled-role="{{param.product_id  || !copy?'admin,op':''}}">
                 <div form-radio text="课程类型" ng-model="param.course_type" default="1"
-                     source="[{text:'公众号课程',value:'1'},{text:'小程序课程',value:'2'}]"
-                     ng-disabled="param.product_id"></div>
+                     source="[{text:'公众号课程',value:'1'},{text:'小程序课程',value:'2'}]"></div>
                 <div class="panel panel-primary">
                     <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
                         <h5 style="margin: 0; padding: 10px 0;">活动信息
@@ -338,8 +337,7 @@
                              {text:'数理工程',value:'数理工程'},{text:'艺术修养',value:'艺术修养'},{text:'多元思维',value:'多元思维'},
                              {text:'协作沟通',value:'协作沟通'},{text:'解决问题',value:'解决问题'}]" source-api=""></div>
                         <div form-radio text="课程QA图文内容" ng-model="param.course_content_type" default="2"
-                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""
-                             ng-disabled="param.course_type==2"></div>
+                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""></div>
                         <div form-image-content text="课程QA图文详情" ng-model="param.course_contents"
                              ng-show="param.course_content_type==1"></div>
                         <div form-rich-content text="课程QA富文本" ng-model="param.course_rich_text"
@@ -362,8 +360,7 @@
                         <div form-input text="视频音频媒体地址" ng-model="param.video_url"
                              placeholder="音频是http开头;视频是https开头"></div>
                         <div form-radio text="详情类型" ng-model="param.content_type" default="2"
-                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""
-                             ng-disabled="param.course_type==2"></div>
+                             source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""></div>
                         <div form-image-content text="图文详情" ng-model="param.contents"
                              ng-show="param.content_type==1"></div>
                         <div form-rich-content text="富文本" ng-model="param.rich_text"
@@ -464,7 +461,7 @@
 
                         <div form-radio text="礼包详情类型" ng-model="param.gift_content_type" default="2"
                              source="[{text:'图文',value:1},{text:'富文本',value:2}]" source-api=""
-                             ng-if="param.gift_buy==1" ng-disabled="param.course_type==2"></div>
+                             ng-if="param.gift_buy==1" ></div>
 
                         <div form-image-content text="图文详情" ng-model="param.gift_contents"
                              ng-show="param.gift_content_type==1" ng-if="param.gift_buy==1"></div>

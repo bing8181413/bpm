@@ -288,9 +288,9 @@ define([
             // 不支持礼包
             $scope.param.gift_buy = 2;// 是否可买礼包 2 否
             // 不支持富文本
-            $scope.param.course_content_type = 1;// QA 图文类型 1 图文
-            $scope.param.content_type = 1;//课程详情 图文类型 1 图文
-            $scope.param.gift_content_type = 1;//礼包详情 图文类型 1 图文
+            // $scope.param.course_content_type = 1;// QA 图文类型 1 图文
+            // $scope.param.content_type = 1;//课程详情 图文类型 1 图文
+            // $scope.param.gift_content_type = 1;//礼包详情 图文类型 1 图文
             //  后来加的限制  毛群
             $scope.param.act_time_type = 1;// 活动时间类型 1 每天连续
             $scope.param.vip_buy = 2;// 是否限制仅会员可购买 2 不限制

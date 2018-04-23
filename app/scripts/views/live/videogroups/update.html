@@ -8,9 +8,8 @@
             <form class="form-horizontal" name="FormBody" novalidate>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-
-                        <div form-input text="名称" ng-model="param.group_title" placeholder="视频组名称"
-                             required="true"></div>
+                        <div form-input text="名称" ng-model="param.group_title"
+                             required="true" placeholder="视频组名称,不超过30个字" minlength="1" maxlength="30"></div>
                         <div form-input text="年龄标签" ng-model="param.age_label" placeholder="最多6个字"
                              maxlength="6"></div>
 
