@@ -32,8 +32,8 @@
                         <div form-radio text="分享设置" ng-model="param.share_type" required="true" default="1"
                              source="[{text:'普通分享',value:'1'},{text:'分享单个视频观看权限',value:'2'}]" source-api=""></div>
 
-                        <div form-input text="单人最多领取视频数量" ng-model="param.receive_num" placeholder=""
-                             ng-show="param.share_type==2"></div>
+                        <div form-input text="单人最多领取视频数量" ng-model="param.receive_num"
+                             ng-show="param.share_type==2" placeholder="0表示视频分享后任何人不可以领取，请谨慎填写。"></div>
 
 
                         <div form-search text="添加房间/视频ID" verify="verify_room(room_id)" btn-text="查询并添加房间/视频ID"
