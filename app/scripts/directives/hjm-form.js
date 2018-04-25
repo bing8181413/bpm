@@ -247,12 +247,10 @@ define([
                         angular.forEach($scope.source, function (val, key) {
                             var value = '';
                             if ($scope.type == 'number' || typeof val.value == 'number') {
-                                var value = ' value = ' + val.value + '  ';
-                            } else {
-                                var value = ' value = "' + val.value + '"';
+                                val.value = Number(val.value);
                             }
                             content += '<label class="radio-inline radio1" ng-class="{\'disabled\':ngDisabled}" ><input ' + type + ' ng-model="ngModel"' +
-                                name + value + disabledRole + '><span></span>' + val.text + '</label>';
+                                name + 'ng-value="source['+key+'].value"' + disabledRole + '><span></span>' + val.text + '</label>';
                         });
                         content += '<input class="hide" ng-model="ngModel" ' + name + required + '>' +
                             '</div>';
