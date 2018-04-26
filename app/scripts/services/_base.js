@@ -131,7 +131,7 @@ define([
                     // $rootScope.selected = angular.copy($rootScope.hjm);
                     // $rootScope.selected.account_id = '';
                     $rootScope.current_city_name = ($rootScope.hjm && $rootScope.hjm.current_city_name == '') ? '' : ($rootScope.hjm && $rootScope.hjm.current_city_name);
-                    $http.defaults.headers.common.Authorization = $rootScope.hjm.Authorization || '';
+                    $http.defaults.headers.common.Authorization = $rootScope.hjm && $rootScope.hjm.Authorization || '';
                 }
                 $rootScope.func = {};//定义公共函数
                 $rootScope.new_version = false;
