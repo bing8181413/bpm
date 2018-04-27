@@ -761,7 +761,7 @@ define([
                         name: 'imageFilter',
                         fn: function (item /*{File|FileLikeObject}*/, options) {
                             var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                            return '|mp3|mp4|pdf|doc|docx|xls|xlsx|ppt|pptx|'.indexOf(type) !== -1;
+                            return '|mp3|mp4|pdf|doc|docx|xls|xlsx|ppt|pptx|rar|zip|'.indexOf(type) !== -1;
                             // return '|mp3|mp4|'.indexOf(type) !== -1;
                         }
                     });
