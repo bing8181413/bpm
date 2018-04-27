@@ -10,10 +10,10 @@ define([
       scope: {
         data: '=',
       },
-      template: '<a class="btn btn-primary btn-rounded btn-sm" ng-click="send()">发送</a>',
+      template: '<a class="btn btn-success btn-rounded btn-sm pull-right" ng-click="send()">推送消息</a>',
       link: function($scope, $element, $attrs) {
         var supScope = $scope;
-        $scope.show = function(status) {
+        $scope.send = function(status) {
           var modalInstance = $uibModal.open({
             template: function() {
               return $templateCache.get('app/' + con.live_path + 'appmessages/send.html');
