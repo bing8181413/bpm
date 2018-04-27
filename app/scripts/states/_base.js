@@ -48,21 +48,11 @@ define([
 
     'states/hjm/market/market',//market 总体的
 
+    'states/hjm/live/live',//live 总体的
 
 
-    'states/hjm/live/marketshares',//领取观看权限
-    'states/hjm/live/videogroups',//视频组
-    'states/hjm/live/notice',//公告
-
-
-
-
-    'states/hjm/live/permissions',//权限
-    'states/hjm/live/questions',//问题
-    'states/hjm/live/answers',//答案
 
     'states/hjm/batchproduct/batchproducts',//批量活动管理
-
 
 
     'states/hjm/dashboard/dashboard',//活动面板  报表

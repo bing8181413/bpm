@@ -10,6 +10,7 @@ define([
     , './notice'
     , './noticeroom'
     , './permission'
+    , './appmessages'
 ], function () {
     return arguments;
 })
