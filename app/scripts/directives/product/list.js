@@ -537,7 +537,7 @@ define([
                         }
                     })
                     if (!$scope.account_name) {
-                        $scope.account_name = $scope.data.account_id || '';
+                        $scope.account_name = '活动负责人ID:'+$scope.data.account_id;
                     }
                 }
             }
