@@ -252,18 +252,6 @@
                         </h5>
                     </div>
                     <div class="panel-body" ng-show="title_info[3]%2==1">
-                        <div form-radio text="是否可选优惠券" ng-model="param.act_coupon" required="true" default="1"
-                             source="[{text:'可选',value:1},{text:'不可选',value:2}]" source-api=""></div>
-                    </div>
-                </div>
-                <div class="panel panel-primary">
-                    <div class="panel-body">
-                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[3] = title_info[3]+1; ">优惠规则
-                            <i class="animate-switch fa pull-right text-primary"
-                               ng-class="{'fa-angle-double-up':title_info[3]%2==1,'fa-angle-double-down':title_info[3]%2==0}"></i>
-                        </h5>
-                    </div>
-                    <div class="panel-body" ng-show="title_info[3]%2==1">
                         <div form-radio text="会员、优惠券是否可同享" ng-model="param.coupon_share" required="true" default="1"
                              source="[{text:'同享',value:'1'},{text:'不可同享',value:'2'}]"
                              ></div>
@@ -279,7 +267,6 @@
                         <div form-radio text="会员购买优惠" ng-model="param.vip_promotion_type" required="true" default="1"
                              source="[{text:'打折',value:'1'},{text:'无优惠',value:'3'}]"
                              ></div>
-
 
                         <div class="form-group"
                              ng-show="param.vip_promotion_type == 1 || param.vip_promotion_type == 2">
@@ -479,17 +466,19 @@
                         </h5>
                     </div>
                     <div class="panel-body" ng-show="title_info[7]%2==1">
-                        <div form-radio text="显示在商城" ng-model="param.visible" required="true" default="1"
+                        <div form-radio text="是否显示在商城" ng-model="param.visible" required="true" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
-                        <div form-radio text="显示在H5首页" ng-model="param.show_in_index" required="true" type="number" default="2"
+                        <div form-radio text="是否显示在H5首页" ng-model="param.show_in_index" required="true" type="number" default="2"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
-                        <div form-radio text="显示在小程序首页" ng-model="param.show_mini_index" required="true" type="number" default="2"
+                        <div form-radio text="是否显示在小程序首页" ng-model="param.show_mini_index" required="true" type="number" default="2"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
-                        <div form-radio text="显示在日历" ng-model="param.show_in_calendar" default="1"
+                        <div form-radio text="是否启用朋友圈海报" ng-model="param.wechat_bill" required="true" type="number" default="2"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+                        <div form-radio text="是否显示在日历" ng-model="param.show_in_calendar" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
-                        <div form-radio text="显示用户购买记录" ng-model="param.show_user_list" default="2"
+                        <div form-radio text="是否显示用户购买记录" ng-model="param.show_user_list" default="2"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
-                        <div form-radio text="绑定手机号" ng-model="param.enable_bind_mobile" default="1"
+                        <div form-radio text="是否绑定手机号" ng-model="param.enable_bind_mobile" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
                         <div form-radio text="是否推荐该活动" ng-model="param.act_recommend" default="2"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
