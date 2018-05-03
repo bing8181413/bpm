@@ -1,36 +1,33 @@
 <div>
-    <div class="row text-muted" ng-if="item.type==1">
-        <div class="col-sm-1" dnd-handle>
-            <span ng-bind="'::: '+item.chapters_index+' 章节'" class="label-info label"></span>
-        </div>
-        <div class="col-sm-11">
-            <div class="input-group">
-                <span class="input-group-addon">名称:</span>
-                <input type="text" class="form-control" ng-model="item.title" required="true">
-            </div>
-        </div>
+  <div class="row text-muted" ng-if="item.type==1">
+    <div class="col-sm-1" dnd-handle>
+      <span ng-bind="'::: '+item.chapters_index+' 章节'" class="label-info label"></span>
     </div>
-    <div class="row text-muted" ng-if="item.type==2">
-        <div class="col-sm-1" dnd-handle>
-            <span class="label-info label">::: </span>
-        </div>
-        <div class="col-sm-10">
-            <!--<span class="label-info label" ng-bind="item.order_by"></span>-->
-            <span class="label label-primary">房间/视频ID : {{item.room_id}}</span>
-            <span class="label "
-                  ng-class="{'label-success':item.room.status==1,'label-danger':item.room.status==2}">
-                房间:{{(item.room.status|keyVal:'1':'开启':'2':'关闭'|null2empty)}}
-            </span>
-            <span class="">{{item.room.title}}</span>
-        </div>
-        <!--<div class="col-sm-1">-->
-        <!--<span class="label pull-right"-->
-        <!--ng-class="{'label-default':item.room.live_status==1,'label-success':item.room.live_status==2,'label-warning':item.room.live_status==3}">-->
-        <!--直播流:{{(item.room.live_status|keyVal:'1':'未开启':'2':'直播中':'3':'直播结束'|null2empty)}}-->
-        <!--</span>-->
-        <!--</div>-->
-        <div class="col-sm-1" ng-show="$last">
-            <a class="btn btn-primary btn-bordered btn-xs" ng-click="ngModel.splice($index, 0, {type: 1, title: ''})">向上新增章节</a>
-        </div>
+    <div class="col-sm-11">
+      <div class="input-group">
+        <span class="input-group-addon">名称:</span>
+        <input type="text" class="form-control" ng-model="item.title" required="true">
+      </div>
     </div>
+  </div>
+  <div class="row text-muted" ng-if="item.type==2">
+    <div class="col-sm-1" dnd-handle>
+      <span class="label-info label">::: </span>
+    </div>
+    <div class="col-sm-10">
+      <span class="label label-primary">ID:{{item.room_id}}</span>
+      <span class="label "
+            ng-class="{'label-success':item.room.status==1,'label-danger':item.room.status==2}">
+                    房间:{{(item.room.status|keyVal:'1':'开启':'2':'关闭'|null2empty)}}
+              </span>
+      <span class="">{{item.room.title}}</span>
+    </div>
+    <div class="col-sm-1" ng-show="$last">
+      <a class="btn btn-primary btn-bordered btn-xs"
+         ng-click="ngModel.splice($index, 0, {type: 1, title: ''})">向上新增章节</a>
+    </div>
+    <div form-radio text="类型" ng-model="item.online_status" default="1" name="online_status"
+         source="[{text:'立即生效',value:'1'},{text:'定时生效',value:'2'}]"></div>
+    <div form-date-time text="设置时间" ng-model="item.online_time" ng-show="item.online_status==2"></div>
+  </div>
 </div>
