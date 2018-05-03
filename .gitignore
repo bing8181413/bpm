@@ -6,3 +6,5 @@ app/scripts/main.min.js
 app/scripts/.DS_Store
 .DS_Store
 .tmp
+dist
+package-lock.json
