@@ -24,7 +24,7 @@ require.config({
         //"app": "./app",
         // "ngSanitize": "../vendor/angular-sanitize/angular-sanitize.min",
         // "ngCsv": "../vendor/ng-csv/build/ng-csv",
-        "perfect-scrollbar": "../vendor/perfect-scrollbar/src/perfect-scrollbar",
+        "perfect-scrollbar": "../vendor/perfect-scrollbar/min/perfect-scrollbar.min",
         // "perfectScrollbarjquery": "../vendor/perfect-scrollbar/js/perfect-scrollbar",
         "perfect_scrollbar": "../vendor/angular-perfect-scrollbar/src/angular-perfect-scrollbar",
         "angular-loading-bar": "../vendor/angular-loading-bar/build/loading-bar.min",
@@ -35,7 +35,7 @@ require.config({
         "angular-aria": "../vendor/angular-aria/angular-aria.min", //
         "dndLists": "../vendor/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min", //
         "app-tpl": "./app-tpl",
-        "ng.simditor": "../vendor/ng.simditor/src/ng-simditor",
+        "ng.simditor": "../vendor/ng.simditor/dist/ng-simditor",
         "simple-module": "../vendor/simple-module/lib/module",
         "hotkeys": "../vendor/simple-hotkeys/lib/hotkeys",
         "simditor": "../vendor/simditor/lib/simditor",
