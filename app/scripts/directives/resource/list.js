@@ -68,6 +68,7 @@ define([
                                     $scope.title = '新增媒体资源库';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate' +
                                         ' disabled-role="\'admin,op\'" >' +
+                                        ' <h4 class="text-center text-danger">支持格式 | mp3 | mp4 | pdf | doc | docx | xls | xlsx | ppt | pptx | x-rar | zip |</h4>'+
                                         '<div form-media text="新增媒体资源库" ng-model="pics" token="resource" max="100" min="1"></div>' +
                                         '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
                                         '</form>';
