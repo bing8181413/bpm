@@ -35,7 +35,6 @@ define([
                     // console.log($scope.data);
                     // console.log(1);
                     if ($scope.data && $scope.data.category == 1) {
-                        ``
                         // $scope.txt = '砍价团';
                         // $scope.txt += '<br/>拼团有效时间:' + $filter('second2hour')($scope.data.group_seconds) + '小时';
                         // $scope.txt += '<br/>起始价:' + $scope.data.high_price;

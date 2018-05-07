@@ -241,15 +241,20 @@ module.exports = function (grunt) {
           baseUrl: "app/scripts",
           mainConfigFile: "app/scripts/main.js",
           name: "bootstrap", // assumes a production build using almond
-          out: ".tmp/scripts/main.min.js"
+          out: ".tmp/scripts/main2.min.js"
+          // out: "../build/bpm/scripts/main.min.js"
         }
       },
       dist: {
         options: {
-          optimize: 'none',  // 这里是一个坑  默认没有使用这个选项时值为uglify  不加这个选项会重置为最优方式 就会找不到很多依赖注入的文件 （但是呢 文件会很小 小有个毛用）
+          optimize: 'uglify',  // 这里是一个坑  默认没有使用这个选项时值为 uglify  不加这个选项会重置为最优方式 就会找不到很多依赖注入的文件 （但是呢 文件会很小 小有个毛用）
+          uglify: {
+            mangle: false// 不混淆变量名 主要针对angualr的依赖注入设置的
+          },
           baseUrl: "app/scripts",
           mainConfigFile: "app/scripts/main.js",
           name: "bootstrap", // assumes a production build using almond
+          // out: ".tmp/scripts/main.min.js"
           out: "../build/bpm/scripts/main.min.js"
         }
       },
@@ -274,8 +279,8 @@ module.exports = function (grunt) {
     'html2js:compileTpl',
     //'compass:dev',
     'copy:hbbdist',
-    'replace:dist',
     'requirejs:dist',
+    'replace:dist',
     // 'connect:dist:keepalive'
   ]);
   grunt.registerTask('initbuild', [
