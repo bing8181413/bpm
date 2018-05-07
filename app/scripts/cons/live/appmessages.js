@@ -8,11 +8,11 @@ define(['.././common'], function(common) {
           name: '文案', className: 'text-center width100',
           fieldDirective: '<div modal-textarea title="查看" content="item.description"></div>',
         },
-        {
-          name: 'body', className: 'text-center width100',
-          fieldDirective: '<div modal-textarea title="查看" content="item.body"></div>',
-        },
-        {name: '跳转', field: 'url'},
+        // {
+        //   name: 'body', className: 'text-center width100',
+        //   fieldDirective: '<div modal-textarea title="查看" content="item.body"></div>',
+        // },
+        {name: '跳转', field: 'url',className:'text-left'},
       ],
       config: {
         title: '推送记录',
