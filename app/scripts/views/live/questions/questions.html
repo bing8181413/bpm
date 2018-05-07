@@ -97,9 +97,9 @@
                   <tbody>
                   <tr ng-repeat="(key,item) in data">
                     <td class="text-center"><span ng-bind="item.id"></span></td>
-                    <td class="text-center"><span ng-bind="item.video_group.name"></span></td>
-                    <td class="text-center"><span ng-bind="item.room.title"></span></td>
                     <td class="text-center"><span ng-bind="item.user.name"></span></td>
+                    <td class="text-center"><span ng-bind="item.videogroup.group_title"></span></td>
+                    <td class="text-center"><span ng-bind="item.room.title"></span></td>
                     <td class="text-center"><span ng-bind="item.user.mobile"></span></td>
                     <td class="text-center">
                       <span ng-bind="item.role_type|live_role_type"></span>
