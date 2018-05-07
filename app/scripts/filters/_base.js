@@ -135,6 +135,9 @@ define([
                     case '6':
                         rtn = '支付宝H5';
                         break;
+                    case '9':
+                        rtn = '小程序支付';
+                        break;
                     default :
                         rtn = '未选择';
                 }
