@@ -237,17 +237,31 @@ module.exports = function (grunt) {
       },
       debug: {
         options: {
-          optimize: 'none',
-          baseUrl: "app/scripts",
-          mainConfigFile: "app/scripts/main.js",
+          // appDir: './',
+          baseUrl: 'app/scripts',
+          // dir: 'app/dist',
+          // modules: [
+          //   {
+          //     name: 'bootstrap',
+          //   },
+          // ],
+          // fileExclusionRegExp: /^(r|build)\.js$/,
+          //重点设置，防止压缩后变量名报错
+          // removeCombined: true,//如果设置为true，在输出目录将会删除掉已经合并了的文件
+          optimize: 'uglify',
+          uglify: {
+            mangle: false  //false 不混淆变量名
+          },
+          findNestedDependencies: false,
+          mainConfigFile: "app/scripts/_build.js",
           name: "bootstrap", // assumes a production build using almond
-          out: ".tmp/scripts/main2.min.js"
+          out: "tmp/scripts/main2.min.js"
           // out: "../build/bpm/scripts/main.min.js"
         }
       },
       dist: {
         options: {
-          optimize: 'uglify',  // 这里是一个坑  默认没有使用这个选项时值为 uglify  不加这个选项会重置为最优方式 就会找不到很多依赖注入的文件 （但是呢 文件会很小 小有个毛用）
+          optimize: 'uglify',
           uglify: {
             mangle: false// 不混淆变量名 主要针对angualr的依赖注入设置的
           },
