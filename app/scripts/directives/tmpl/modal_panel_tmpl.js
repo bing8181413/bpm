@@ -65,7 +65,7 @@ define([
                                     $scope.content = supscope.content;
                                 }, 0);
                                 $scope.tmpl = '<div class="form-horizontal" name="FormBody" novalidate>' +
-                                    '<blockquote><p>{{content}}</p></blockquote>'+
+                                    '<blockquote><p style="word-wrap:break-word;">{{content}}</p></blockquote>'+
                                     // '<div form-textarea text="{{title}}" ng-model="content"> </div > ' +
                                     '</form>';
                                 $scope.cancel = function () {
