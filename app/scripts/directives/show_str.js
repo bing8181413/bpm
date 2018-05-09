@@ -14,7 +14,7 @@ define([
                 //require: '?ngModel',
                 scope: {
                     str: '=',
-                    split: '=',
+                    split: '@',
                     title: '=',
                     size: '=',
                     btn_str: '=btnStr',
@@ -35,6 +35,7 @@ define([
                             controller: function ($scope, $uibModalInstance) {
                                 if (supscope.str) {
                                     $scope.str = supscope.str.split(supscope.split);
+                                    console.log($scope.str);
                                 } else {
                                     $scope.str = angular.isArray(supscope.str) ? supscope.str : [supscope.str];
                                 }
