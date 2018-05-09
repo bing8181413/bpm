@@ -237,14 +237,14 @@ module.exports = function (grunt) {
       },
       debug: {
         options: {
-          // appDir: './',
-          baseUrl: 'app/scripts',
-          // dir: 'app/dist',
-          // modules: [
-          //   {
-          //     name: 'bootstrap',
-          //   },
-          // ],
+          // appDir: '',
+          baseUrl: './app/scripts',
+          dir: 'app/dist',
+          modules: [
+            {
+              name: '_build',
+            },
+          ],
           // fileExclusionRegExp: /^(r|build)\.js$/,
           //重点设置，防止压缩后变量名报错
           // removeCombined: true,//如果设置为true，在输出目录将会删除掉已经合并了的文件
@@ -254,8 +254,8 @@ module.exports = function (grunt) {
           },
           findNestedDependencies: false,
           mainConfigFile: "app/scripts/_build.js",
-          name: "bootstrap", // assumes a production build using almond
-          out: "tmp/scripts/main2.min.js"
+          // name: "_build", // assumes a production build using almond
+          // out: "tmp/scripts/main2.min.js"
           // out: "../build/bpm/scripts/main.min.js"
         }
       },

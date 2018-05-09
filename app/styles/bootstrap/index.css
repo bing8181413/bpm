@@ -10290,7 +10290,12 @@ html, body {
 }
 
 [name=FormBody] textarea.ng-dirty.ng-invalid-required,
-[name=FormBody] td > textarea.ng-invalid-required {
+[name=FormBody] textarea.ng-dirty.ng-invalid-minlength,
+[name=FormBody] textarea.ng-dirty.ng-invalid-maxlength,
+[name=FormBody] td > textarea.ng-invalid-required,
+[name=FormBody] td > textarea.ng-invalid-minlength,
+[name=FormBody] td > textarea.ng-invalid-maxlength
+{
     border: 1px red solid !important;
 }
 

@@ -54,8 +54,11 @@ define([
                     case '2':
                         rtn = '助理';
                         break;
-                    default :
+                    case 3:
+                    case '3':
                         rtn = '学生';
+                    default :
+                        rtn = '未知';
                 }
                 return rtn;
             }
