@@ -27,7 +27,7 @@ define([], function () {
         qiniu_domain = 'https://uat.ahaschool.com';
         wx_domain = 'https://n.ahaschool.com';
     } else if (location.href.indexOf('//test.ahaschool.com/bpm') > 0
-    || location.href.indexOf('//bpm.hjm.com') > 0
+    // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
         env = 'test';
         env_name = '测试系统2';

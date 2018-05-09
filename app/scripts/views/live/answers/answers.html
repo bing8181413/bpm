@@ -81,6 +81,8 @@
                                         <th class="text-center" style="width: 50px;">编号</th>
                                         <th class="text-center" style="width: 50px;">用户</th>
                                         <th class="text-center" style="width: 150px;">手机</th>
+                                        <th class="text-center" style="width: 150px;">视频组名</th>
+                                        <th class="text-center" style="width: 150px;">房间名</th>
                                         <th class="text-center" style="width: 50px;">角色</th>
                                         <th class="text-center" style="width: 50px;">点赞数</th>
                                         <th class="text-center">内容</th>
@@ -95,6 +97,8 @@
                                         <td class="text-center"><span ng-bind="item.id"></span></td>
                                         <td class="text-center"><span ng-bind="item.user.name"></span></td>
                                         <td class="text-center"><span ng-bind="item.user.mobile"></span></td>
+                                        <td class="text-center"><span ng-bind="item.question.videogroup.group_title"></span></td>
+                                        <td class="text-center"><span ng-bind="item.question.room.title"></span></td>
                                         <td class="text-center">
                                             <span ng-bind="item.role_type|live_role_type"></span>
                                         </td>
