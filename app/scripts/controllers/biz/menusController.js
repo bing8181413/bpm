@@ -56,7 +56,7 @@ define([
                         //     '<option value="">--  请选择  --</option>' + menus_options +
                         //     '</select>'
                         // },
-                        {key: 'pid', val: '', name: '父节点ID',type:'select',source:menus_options},
+                        {key: 'pid', val: '', name: '父节点ID',type:'select',source:menus_options}
                         // {key: 'pid', val: '', name: '父节点ID'}
                     );
                 }
