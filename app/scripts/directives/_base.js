@@ -79,6 +79,7 @@ define([
     './common/openUrl',// 打开一个URL  下载一个url 文件
 
     './market/list',//market   skuno ...
+    './sqls/list',// 导出 exports/sqls
 
 ], function (mod,
              simpleCons) {

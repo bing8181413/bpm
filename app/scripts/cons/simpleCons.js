@@ -37,6 +37,9 @@ define([
     './cert',//问答证书列表',
     './cert_user',//证书获取用户列表',
 
+
+    './sqls',//exports/sqls
+
     // './record_user_block',//点播用户禁言',
     // './subject_group',
     './market/_conf',//  组

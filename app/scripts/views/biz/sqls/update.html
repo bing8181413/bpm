@@ -1,8 +1,8 @@
 <div class="dashboard-page ">
   <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title" ng-if="!param.id">新增 >> skuno关联视频组</h3>
-      <h3 class="panel-title" ng-if="param.id">更新 >> skuno关联视频组</h3>
+      <h3 class="panel-title" ng-if="!param.id">新增</h3>
+      <h3 class="panel-title" ng-if="param.id">更新</h3>
     </div>
     <div class="panel-body">
       <form class="form-horizontal" name="FormBody" novalidate>
@@ -10,9 +10,10 @@
           <div class="panel-body">
             <div form-input text="ID" ng-model="param.id" placeholder="id" ng-show="$stateParams.id"
                  ng-disabled="true"></div>
-            <div form-input text="视频组ID" ng-model="param.video_group_id" placeholder="视频组ID"
-                 required="true"></div>
-            <div form-input text="skuno" ng-model="param.skuno" placeholder="skuno" required="true"></div>
+            <div form-input text="名称" ng-model="param.name" placeholder="名称" required="true"></div>
+            <div form-input text="code" ng-model="param.code" placeholder="code" required="true"></div>
+            <div form-textarea text="SQL" ng-model="param.sql" placeholder="sql" required="true"></div>
+            <div form-textarea text="备注" ng-model="param.remark" placeholder="remark" required="true"></div>
           </div>
         </div>
         <div form-error-block></div>

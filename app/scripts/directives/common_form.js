@@ -73,7 +73,7 @@ define([
                                             }
                                         }
                                     });
-                                    //console.log($scope.post_data);
+                                    // console.log($scope.post_data);return false;
                                     if (!keepGoing) return false;
                                     widget.ajaxRequest({
                                         method: $scope.form_method,

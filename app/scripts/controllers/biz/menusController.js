@@ -26,9 +26,10 @@ define([
                     if ($rootScope.common) {
                         $rootScope.common.menus_key_val = [];
                     }
-                    var menus_options = '';
+                    var menus_options = [];
                     $scope.menus.map(function (val) {
-                        menus_options += '<option value=' + val.id + ' >' + val.name + '</option>'
+                        // menus_options += '<option value=' + val.id + ' >' + val.name+'|'+val.id + '</option>'
+                        menus_options.push({text:val.id,value:val.name+'  |  '+val.id});
                         return val;
                     });
                     $scope.param.push(
@@ -54,8 +55,9 @@ define([
                         //     fieldDirective: '<select class="form-control" ng-model="item.pid">' +
                         //     '<option value="">--  请选择  --</option>' + menus_options +
                         //     '</select>'
-                        // }
-                        {key: 'pid', val: '', name: '父节点ID'}
+                        // },
+                        {key: 'pid', val: '', name: '父节点ID',type:'select',source:menus_options},
+                        // {key: 'pid', val: '', name: '父节点ID'}
                     );
                 }
             });
