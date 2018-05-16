@@ -28,7 +28,6 @@ define([
                     }
                     var menus_options = [];
                     $scope.menus.map(function (val) {
-                        // menus_options += '<option value=' + val.id + ' >' + val.name+'|'+val.id + '</option>'
                         menus_options.push({text:val.id,value:val.name+'  |  '+val.id});
                         return val;
                     });

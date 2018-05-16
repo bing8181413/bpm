@@ -2,10 +2,9 @@ define([], function() {
   var rtn = {
     sqlsList: {
       columns: [
-        {name: '名称', field: 'name', className: 'text-center width300'},
+        {name: '名称', field: 'name', className: 'text-center width500'},
         {name: '标识', field: 'code', className: 'text-center width300'},
-        // {name: 'SQL', field: 'desc', className: 'text-center width300'},
-        {name: '备注', field: 'remark|null2empty', className: 'text-center width300'},
+        {name: '备注', field: 'remark|null2empty', className: 'text-left'},
         {name: '操作', fieldDirective: '<div sqls-update data="item" class="text-center"></div>'},
       ],
       config: {

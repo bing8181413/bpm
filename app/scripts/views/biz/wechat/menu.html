@@ -78,8 +78,9 @@
                             <div form-radio text="消息类型" ng-model="edit_obj.reply_info.type" required="true"
                                  ng-if="edit_obj.type == 'click'" default="text"
                                  source="[{text:'文本',value:'text'}]"></div>
+                            <h5 class="text-danger col-sm-offset-2" ng-if="edit_obj.type == 'click'">key 的值要唯一，否则不能更新最新的内容，格式:contact_service_20200606</h5>
                             <div form-input text="key" ng-model="edit_obj.key" required="true"
-                                 ng-if="edit_obj.type == 'click'" placeholder="消息标示,例如:contact_service"></div>
+                                 ng-if="edit_obj.type == 'click'" placeholder="格式:contact_service_20200606"></div>
                             <div form-textarea text="内容" ng-model="edit_obj.reply_info.content" rows="10"
                                  required="true" ng-if="edit_obj.type == 'click'"></div>
                             <a class="btn btn-danger btn-rounded pull-right" ng-click="del_menu()">删除</a>

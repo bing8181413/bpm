@@ -69,7 +69,7 @@ define([
                                                 $rootScope.loading = false;
                                                 keepGoing = false;
                                             } else if (v.val) {
-                                                eval('$scope.post_data.' + v.key + '="' + v.val + '"');
+                                                $scope.post_data[v.key] = v.val;
                                             }
                                         }
                                     });
@@ -81,8 +81,13 @@ define([
                                         scope: $scope,
                                         data: $scope.post_data,
                                         success: function (json) {
-                                            sup_scope.callback()();
-                                            $rootScope.loading = false;
+                                            if(!$scope.post_data.id){
+                                              sup_scope.callback()();
+                                            }else{
+                                                if(confirm('更新了，需要直接刷新页面吗?')){
+                                                  sup_scope.callback()();
+                                                }
+                                            }
                                             $scope.cancel();
                                         }
                                     });
