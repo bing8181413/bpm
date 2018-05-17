@@ -175,7 +175,7 @@ define([
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                                 controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '覆盖所有子活动';
-                                    $scope.desc = '活动详情：即同步图文详情模块;\n基本信息：同步活动标题，简介，分享标题， 时间（上下架，报名，活动), 年龄;\n礼包信息：除类目不同步，其他信息都会同步;\n课程价值：课程价值模块。';
+                                    $scope.desc = '课程详情：即同步图文详情模块;\n基本信息：同步活动标题，简介，分享标题， 时间（上下架，报名，活动), 年龄, 海报图片;\n礼包信息：除类目不同步，其他信息都会同步;\n课程价值：课程价值模块。';
                                     $scope.param = {parent_id: supscope.data.parent_id};
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                                         '<h4 class="col-sm-offset-2 text-danger">请选择以下项目覆盖全部活动</h4>' +
@@ -205,7 +205,7 @@ define([
                                         $uibModalInstance.dismiss('cancel');
                                     };
                                 },
-                                size: 'sm'
+                                size: 'lg'
                             }
                         );
                     }
