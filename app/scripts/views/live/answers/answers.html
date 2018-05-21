@@ -81,11 +81,11 @@
                                         <th class="text-center" style="width: 50px;">编号</th>
                                         <th class="text-center" style="width: 50px;">用户</th>
                                         <th class="text-center" style="width: 150px;">手机</th>
-                                        <th class="text-center" style="width: 150px;">视频组名</th>
-                                        <th class="text-center" style="width: 150px;">房间名</th>
+                                        <th class="text-center">视频组名</th>
+                                        <th class="text-center">房间名</th>
                                         <th class="text-center" style="width: 50px;">角色</th>
                                         <th class="text-center" style="width: 50px;">点赞数</th>
-                                        <th class="text-center">内容</th>
+                                        <th class="text-center" style="width: 50px;">内容</th>
                                         <th class="text-center" style="width: 120px;">图片</th>
                                         <th class="text-center" style="width: 150px;">创建时间</th>
                                         <th class="text-center" style="width: 100px;">状态</th>
@@ -102,8 +102,12 @@
                                         <td class="text-center">
                                             <span ng-bind="item.role_type|live_role_type"></span>
                                         </td>
-                                        <td class="text-center"><span ng-bind="item.thumbup_count"></span></td>
-                                        <td class="text-left"><span ng-bind="item.answer"></span></td>
+                                        <td class="text-center">
+                                            <span ng-bind="item.thumbup_count"></span>
+                                        </td>
+                                        <td class="text-center">
+                                            <div modal-textarea title="查看" content="item.answer"></div>
+                                        </td>
                                         <td class="text-center">
                                             <show_image url="item.pics[0].pic_url" width="100"></show_image>
                                         </td>
