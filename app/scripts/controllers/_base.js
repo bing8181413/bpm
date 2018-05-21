@@ -1,4 +1,4 @@
-define(['controllers/controllers'], function (mod) {
+define(['./controllers'], function (mod) {
     mod.run(['$rootScope', '$state', '$stateParams', '$http',
         function ($rootScope, $state, $stateParams, $http) {
             $rootScope.$state = $state;
