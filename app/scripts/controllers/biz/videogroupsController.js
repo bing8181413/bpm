@@ -203,8 +203,10 @@ define([
     $scope.$watch('param.product_id', function(product_id) {
       if (product_id && product_id != 0) {
         $scope.param.product_url = $rootScope.common.wx_domain + '/product/detail/product_id/' + product_id + '?utm_source=appbuy';
+        $scope.param.miniapp_url = '/pages/product_detail?product_id=' + product_id + '?utm_source=appbuy';
       } else {
         $scope.param.product_url = '';
+        $scope.param.miniapp_url = '';
       }
     });
     $scope.reset_open_time = function(type) {
@@ -267,6 +269,7 @@ define([
         $scope.param.products = [];
         $scope.param.product_id = '';
         $scope.param.product_url = '';
+        $scope.param.miniapp_url = '';
         $scope.param.onoff = 2;
       } else if ($scope.param.pay_type == 2) {
         if ($scope.param.skus.length == 0 && $scope.param.products.length == 0) {
