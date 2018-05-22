@@ -203,7 +203,7 @@ define([
     $scope.$watch('param.product_id', function(product_id) {
       if (product_id && product_id != 0) {
         $scope.param.product_url = $rootScope.common.wx_domain + '/product/detail/product_id/' + product_id + '?utm_source=appbuy';
-        $scope.param.miniapp_url = '/pages/product_detail?product_id=' + product_id + '?utm_source=appbuy';
+        $scope.param.miniapp_url = '/pages/product_detail?product_id=' + product_id + '&utm_source=appbuy';
       } else {
         $scope.param.product_url = '';
         $scope.param.miniapp_url = '';
