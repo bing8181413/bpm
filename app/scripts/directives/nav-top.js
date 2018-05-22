@@ -23,7 +23,6 @@ define([
           });
         });
 
-        console.log($scope.router.search_list);
         $scope.refresh_product = function() {
           $rootScope.reset([
             {
@@ -35,20 +34,6 @@ define([
               'url': simpleCons.domain + '/products/inventories?count=10', data: {},
             }]);
         };
-      },
-    };
-  }).directive('navSearch', function($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache) {
-    return {
-      restrict: 'EA',
-      replace: true,
-      scope: {},
-      template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'nav-top/nav-search.html'),
-      link: function($scope, $element, $attrs) {
-        $scope.router = {};
-
-        $scope.router.selected = {};
-        console.log($rootScope.hjm.menu);
-
       },
     };
   }).directive('navAccount', function($rootScope, $state, $http, $uibModal, $filter, widget, $templateCache) {

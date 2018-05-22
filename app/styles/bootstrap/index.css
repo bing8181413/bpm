@@ -8406,7 +8406,8 @@ pre {
     border: 1px solid #eee;
     border-top: none;
     font-size: 12px;
-    opacity: .7
+    opacity: .7;
+    border-radius: 7px;
 }
 
 .topnav-navbar ul.navbar-nav li ul.dropdown-menu li.dropdown-messages {
