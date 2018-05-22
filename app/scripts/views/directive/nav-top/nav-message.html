@@ -1,52 +1,76 @@
 <ul class="nav navbar-nav">
-    <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)"
-        ng-show="$root.common.expires_product&&$root.common.expires_product.total>0">
-        <a class="dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-            <span class="fa fa-flash"></span>&nbsp;&nbsp;过期商品提醒&nbsp;&nbsp;
-            <span class="badge badge-red"
-                  ng-bind="$root.common.expires_product&&$root.common.expires_product.total"></span>
+  <li class="dropdown" uib-dropdown="">
+    <form class="navbar-form navbar-left text-primary dropdown-toggle" uib-dropdown-toggle=""
+          aria-haspopup="true" aria-expanded="false">
+      <span class="glyphicon glyphicon-search"></span>
+      <div class="form-group">
+        <input type="text" class="form-control underline" placeholder="输入关键字选择功能" ng-model="router.search_keyword">
+      </div>
+    </form>
+    <ul class="dropdown-menu animated fadeIn" ng-show="!!router.search_keyword">
+      <li class="messages-top text-center">
+        搜索结果(限制10个)
+      </li>
+      <li class="dropdown-messages"
+          ng-repeat="router_obj in router.search_list | filter: { name: router.search_keyword||false } | limitTo:10">
+        <a ui-sref="{{cons.state.main+'.'+router_obj.route}}">
+          <div class="message-sender">{{router_obj.name|limitTo:15}}</div>
+          <div class="message-header">
+            <span class="glyphicon text-danger" ng-class="router_obj.super_icon"></span>
+            {{router_obj.super_name|limitTo:15}}
+          </div>
         </a>
-        <ul class="dropdown-menu animated fadeIn" uib-dropdown-menu>
-            <li class="messages-top text-center">
-                有 {{$root.common.expires_product&&$root.common.expires_product.total}} 个商品即将过期.
-            </li>
-            <li class="dropdown-messages" ng-repeat="obj in $root.common.expires_product.data">
-                <a ui-sref="main.act.update({product_id:{{obj.product_id}}})">
-                    <div class="message-sender">ID :{{obj.product_id}}</div>
-                    <div class="message-header">{{obj.title|limitTo:15}}..</div>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)"
-        ng-show="$root.common.inventories_product&&$root.common.inventories_product.total>0">
-        <a class="dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
-            <span class="fa fa-flash"></span>&nbsp;&nbsp;库存不足提醒&nbsp;&nbsp;
-            <span class="badge badge-red"
-                  ng-bind="$root.common.inventories_product&&$root.common.inventories_product.total"></span>
+      </li>
+    </ul>
+  </li>
+  <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)"
+      ng-show="$root.common.expires_product&&$root.common.expires_product.total>0">
+    <a class="dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+      <span class="fa fa-flash"></span>&nbsp;&nbsp;过期商品提醒&nbsp;&nbsp;
+      <span class="badge badge-red"
+            ng-bind="$root.common.expires_product&&$root.common.expires_product.total"></span>
+    </a>
+    <ul class="dropdown-menu animated fadeIn" uib-dropdown-menu>
+      <li class="messages-top text-center">
+        有 {{$root.common.expires_product&&$root.common.expires_product.total}} 个商品即将过期.
+      </li>
+      <li class="dropdown-messages" ng-repeat="obj in $root.common.expires_product.data">
+        <a ui-sref="main.act.update({product_id:{{obj.product_id}}})">
+          <div class="message-sender">ID :{{obj.product_id}}</div>
+          <div class="message-header">{{obj.title|limitTo:15}}..</div>
         </a>
-        <ul class="dropdown-menu animated fadeIn" uib-dropdown-menu>
-            <li class="messages-top text-center">
-                有 {{$root.common.inventories_product&&$root.common.inventories_product.total}} 个商品库存不足.
-            </li>
-            <li class="dropdown-messages" ng-repeat="obj in $root.common.inventories_product.data">
-                <a ui-sref="main.act.update({product_id:{{obj.product_id}}})">
-                    <div class="message-sender">ID : {{obj.product_id}}</div>
-                    <div class="message-header">{{obj.title|limitTo:15}}..</div>
-                </a>
-            </li>
-        </ul>
-    </li>
-    <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-show="$root.new_version">
-        <a class="dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"
-           ng-click="$root.func.get_new_version();">
-            <span class="fa fa-flash"></span>&nbsp;&nbsp;有最新版本,点击刷新&nbsp;&nbsp;
-            <span class="badge badge-red">1</span>
+      </li>
+    </ul>
+  </li>
+  <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)"
+      ng-show="$root.common.inventories_product&&$root.common.inventories_product.total>0">
+    <a class="dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+      <span class="fa fa-flash"></span>&nbsp;&nbsp;库存不足提醒&nbsp;&nbsp;
+      <span class="badge badge-red"
+            ng-bind="$root.common.inventories_product&&$root.common.inventories_product.total"></span>
+    </a>
+    <ul class="dropdown-menu animated fadeIn" uib-dropdown-menu>
+      <li class="messages-top text-center">
+        有 {{$root.common.inventories_product&&$root.common.inventories_product.total}} 个商品库存不足.
+      </li>
+      <li class="dropdown-messages" ng-repeat="obj in $root.common.inventories_product.data">
+        <a ui-sref="main.act.update({product_id:{{obj.product_id}}})">
+          <div class="message-sender">ID : {{obj.product_id}}</div>
+          <div class="message-header">{{obj.title|limitTo:15}}..</div>
         </a>
-    </li>
-    <li class="dropdown" uib-dropdown="">
-        <a class="dropdown-toggle" ng-click="refresh_product();">
-            <span class="fa fa-refresh"></span>
-        </a>
-    </li>
+      </li>
+    </ul>
+  </li>
+  <li class="dropdown" uib-dropdown="" on-toggle="toggled(open)" ng-show="$root.new_version">
+    <a class="dropdown-toggle" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false"
+       ng-click="$root.func.get_new_version();">
+      <span class="fa fa-flash"></span>&nbsp;&nbsp;有最新版本,点击刷新&nbsp;&nbsp;
+      <span class="badge badge-red">1</span>
+    </a>
+  </li>
+  <li class="dropdown" uib-dropdown="">
+    <a class="dropdown-toggle" ng-click="refresh_product();">
+      <span class="fa fa-refresh"></span>
+    </a>
+  </li>
 </ul>

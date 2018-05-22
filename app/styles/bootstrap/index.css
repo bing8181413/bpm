@@ -8493,7 +8493,7 @@ pre {
 }
 
 .topnav-navbar .navbar-form .form-control {
-    width: 40px;
+    width: 100px;
     border-radius: 0;
     padding: 2px 22px;
     border: none;

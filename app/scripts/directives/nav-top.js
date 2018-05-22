@@ -10,6 +10,20 @@ define([
       scope: {},
       template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'nav-top/nav-message.html'),
       link: function($scope, $element, $attrs) {
+        $scope.cons = simpleCons;
+        $scope.router = {};
+        $scope.router.search_keyword = '';
+        $scope.router.search_list = [];
+        $scope.router.search_count = 0;
+        angular.forEach($rootScope.hjm.menus, function(val, key) {
+          angular.forEach(val.childs, function(v, k) {
+            v.super_name = val.name;
+            v.super_icon = val.icon;
+            $scope.router.search_list.push(v);
+          });
+        });
+
+        console.log($scope.router.search_list);
         $scope.refresh_product = function() {
           $rootScope.reset([
             {
