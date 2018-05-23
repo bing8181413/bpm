@@ -3,7 +3,7 @@ define([
     '../../cons/simpleCons'
 ], function (mod, cons) {
     mod
-        .directive('exportRun', function ($templateCache, $uibModal, $timeout, widget) {
+        .directive('exportRun', function ($templateCache, $uibModal, $timeout, widget,$filter) {
             return {
                 restrict: 'AE',
                 replace: false,
@@ -25,7 +25,7 @@ define([
                                     '.modal .checkbox-inline{padding-left: 0;}</style>';
                                 $scope.condition = supscope.data.condition;
                                 $scope.command = supscope.data.command;
-                                console.log($scope.condition);
+                                // console.log($scope.condition);
                                 angular.forEach($scope.condition, function (val, key) {
                                     if (val.type == 'checkbox') {
                                         if (val.defaultValue) {
@@ -41,20 +41,19 @@ define([
                                     } else if (val.type == 'date') {
                                         $scope.tmpl += '<div form-date="" text="' + val.name + '" ng-model="param.' + key + '"  ' + (val.required ? ('required=\"true\"') : '') + '></div>';
                                     } else if (val.type == 'datetime') {
-                                        $scope.tmpl += '<div form-date-time="" text="' + val.name + '" ng-model="param.' + key + '"  ' + (val.required ? ('required=\"true\"') : '') + '></div>';
+                                        $scope.tmpl += '<div form-date-time="" text="' + val.name + '" ng-model="param.' + key + '" required="true" ></div>';
                                     } else if (val.type == 'text') {
                                         $scope.tmpl += '<div form-input text="' + val.name + '" ng-model="param.' + key + '"  ' + (val.required ? ('required=\"true\"') : '') + '></div>';
                                     } else if (val.type == 'textarea') {
                                         $scope.tmpl += '<div form-textarea text="' + val.name + '" ng-model="_param.' + key + '"  ' + (val.required ? ('required=\"true\"') : '') + ' placeholder="多条数据回车换行,否则会出错" rows="10"></div>';
                                     }
                                     if (val.default_val) {
-                                        eval('$scope.param.' + key + ' = ' + val.default_val);
+                                        $scope.param[key] = val.default_val;
                                     }
                                 });
 
-                                console.log($scope.param);
 
-
+                                $scope.tmpl += '<h4 class="col-sm-offset-2 text-danger" ng-show="condition.start_time&&condition.end_time">选择时间区间不能超过60天</h4>  ';
                                 $scope.tmpl += '<a class="btn btn-primary btn-rounded pull-right" ng-disabled="FormBody.$invalid"  ng-click="exec();">执行</a>'
                                 $scope.tmpl += '</form>';
                                 $scope.exec = function () {
@@ -65,6 +64,17 @@ define([
                                         }
                                     });
                                     angular.extend($scope.param, {command: $scope.command});
+
+                                    // 测试时间区间不能超过60天
+                                    if($scope.condition['start_time'] && $scope.condition['start_time']){
+                                      var start = new Date($filter('date')($scope.param.start_time, 'yyyy-MM-dd HH:mm:ss')).getTime();
+                                      var end = new Date($filter('date')($scope.param.end_time, 'yyyy-MM-dd HH:mm:ss')).getTime();
+                                      if((end-start)>60*24*3600000){
+                                          widget.msgToast('选择时间区间不能超过60天！');
+                                          return false;
+                                      }
+                                    }
+
                                     if (confirm('确认将查询结果导出EXCEL吗?')) {
                                         widget.ajaxRequest({
                                             url: '/exports/exec',
