@@ -9,14 +9,17 @@
             /*position: relative;*/
         }
 
+        .dndsimpleSubject ul[dnd-list]  .dndDragging,
         .dndsimpleSubject tbody[dnd-list]  .dndDragging {
             opacity: 0.7;
         }
 
+        .dndsimpleSubject ul[dnd-list] .dndDraggingSource ,
         .dndsimpleSubject tbody[dnd-list] .dndDraggingSource {
             display: none;
         }
 
+        .dndsimpleSubject ul[dnd-list] .dndPlaceholder ,
         .dndsimpleSubject tbody[dnd-list] .dndPlaceholder {
             /*display: block;*/
             /*float: left;*/
@@ -30,12 +33,14 @@
             padding-right: 5px;
         }
 
+        .dndsimpleSubject ul[dnd-list] > tr ,
         .dndsimpleSubject tbody[dnd-list] > tr {
             /*background-color: #fff;*/
             /*display: block;*/
             /*width: 100%;*/
         }
 
+        .dndsimpleSubject ul[dnd-list] > tr.selected ,
         .dndsimpleSubject tbody[dnd-list] > tr.selected {
             background-color: #dff0d8;
             color: #3c763d;
@@ -47,12 +52,13 @@
     </div>
     <div class="panel-body dndsimpleSubject">
         <div class="col-sm-12 form-group">
-            <table class="table table-bordered table-striped">
-                <thead></thead>
-                <tbody dnd-list="ngModel">
-                <tr ng-repeat="(key,item) in ngModel" dnd-draggable="item"
-                    dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="copyMove">
-                    <td dnd-nodrag>
+            <ul dnd-list="ngModel">
+                <li ng-repeat="(key,item) in ngModel"
+                    dnd-draggable="item"
+                    dnd-moved="ngModel.splice(key, 1)"
+                    dnd-effect-allowed="move">
+                    <dnd-nodrag>
+                        <!--<div dnd-handle class="handle">:::</div>-->
                         <div class="row">
                             <div class="col-sm-11" ng-include="getContentUrl()"></div>
                             <div class="col-sm-1" dnd-handle>
@@ -60,23 +66,39 @@
                                    ng-click="del($index)" ng-show="config.del!=false">删除</a>
                             </div>
                         </div>
-                    </td>
-                    <!--<td class="width100">-->
-                    <!--<a class="btn btn-danger btn-sm btn-bordered  pull-right"-->
-                    <!--ng-click="del($index)">删除</a>-->
+                    </dnd-nodrag>
+                </li>
+                <li class="dndPlaceholder">
+                    Drop any here
+                </li>
+            </ul>
+
+            <!--<table class="table table-bordered table-striped">-->
+                <!--<thead></thead>-->
+                <!--<tbody dnd-list="ngModel">-->
+                <!--<tr ng-repeat="(key,item) in ngModel" dnd-draggable="item"-->
+                    <!--dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="move">-->
+                    <!--<td dnd-nodrag>-->
+                        <!--<div class="row">-->
+                            <!--<div class="col-sm-11" ng-include="getContentUrl()"></div>-->
+                            <!--<div class="col-sm-1" dnd-handle>-->
+                                <!--<a class="btn btn-danger btn-xs btn-bordered pull-right"-->
+                                   <!--ng-click="del($index)" ng-show="config.del!=false">删除</a>-->
+                            <!--</div>-->
+                        <!--</div>-->
                     <!--</td>-->
-                </tr>
-                <tr class="dndPlaceholder">
-                    <td class="text-center" colspan="1"><h3 class="red">拖拽到这里</h3></td>
-                </tr>
-                <tr ng-show="config.add!=false">
-                    <td class="text-center" colspan="1">
-                        <a class="btn btn-success btn-rounded btn-xs pull-right"
-                           ng-click="add()">添加</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+                <!--</tr>-->
+                <!--<tr class="dndPlaceholder">-->
+                    <!--<td class="text-center" colspan="1"><h3 class="red">拖拽到这里</h3></td>-->
+                <!--</tr>-->
+                <!--<tr ng-show="config.add!=false">-->
+                    <!--<td class="text-center" colspan="1">-->
+                        <!--<a class="btn btn-success btn-rounded btn-xs pull-right"-->
+                           <!--ng-click="add()">添加</a>-->
+                    <!--</td>-->
+                <!--</tr>-->
+                <!--</tbody>-->
+            <!--</table>-->
         </div>
     </div>
 </div>

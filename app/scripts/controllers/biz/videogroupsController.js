@@ -8,6 +8,7 @@ define([
   updateController.$injector = ['$scope', '$http', '$rootScope', '$uibModal', '$state', '$stateParams', 'widget', 'comfunc', '$filter', '$timeout'];
 
   function updateController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $timeout) {
+    var superScope = $scope;
     $scope.param = {skus: [], products: []};
     $scope._tmp = {skus: [], products: []};
     $scope.chapters = [];
@@ -30,17 +31,32 @@ define([
           // 章节和视频排序 初始化
           angular.forEach($scope.param.chapters, function(val, key) {
             $scope.chapters_length++;
-            var tmp_val = angular.copy(val);
-            delete tmp_val.videos;
-            tmp_val.chapters_index = $scope.chapters_length;
-            tmp_val.type = 1;
-            $scope.chapters.push(tmp_val);
+            // var tmp_val = angular.copy(val);
+            // delete tmp_val.videos;
+            // tmp_val.chapters_index = $scope.chapters_length;
+            // tmp_val.type = 1;
+            // $scope.chapters.push(tmp_val);
+            $scope.chapters.push({
+              type: 1,
+              id: val.id,
+              chapters_index: $scope.chapters_length,
+              order_by: val.order_by || 0,
+              title: val.title,
+              video_group_id: val.video_group_id || undefined,
+            });
             angular.forEach(val.videos, function(v, k) {
-              v.type = 2;
-              $scope.chapters.push(v);
+              $scope.chapters.push({
+                type: 2,
+                chapter_id: v.chapter_id,
+                id: v.id,
+                room_id: v.room_id,
+                room_title: v.room.title,
+                room_status: v.room.status,
+              });
               $scope._tmp.chapters_online_time[v.id] = {online_status: v.online_status, online_time: v.online_time};
             });
           });
+          // console.log($scope.chapters);
         },
       });
     }
@@ -50,7 +66,6 @@ define([
         if (val.type == 2) {
           var current_date_time = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
           var need_change_date_time = new Date(val.online_time).getTime() < new Date().getTime();
-
           if (val.id) { //  是初始化的老数据 且是房间
             var tmp_room = $scope._tmp.chapters_online_time[val.id];
             if (tmp_room.online_status == 1 && val.online_status == 1) { //    1=>1  还原
@@ -68,14 +83,51 @@ define([
           }
         }
       });
-
     };
+    $scope.change_row = function(type, index) {
+      console.log(type, index);
+      var modalInstance = $uibModal.open({
+            template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+            controller: function($scope, $uibModalInstance) {
+              $scope.title = '导入用户';
+              $scope.chapters = [];
+              $scope.rows = [];
+              $scope.index = index;
+              angular.forEach(superScope.chapters, function(val, key) {
+                // if (val.type == 1) {
+                //   $scope.chapters.push({text: '第' + val.chapters_index + '章', value: val.chapters_index});
+                // } else if (val.type == 2) {
+                //   $scope.rows.push({text: '第' + val.order_by + '行', value: val.chapters_index, chapters_index: val.chapters_index});
+                // }
+                $scope.rows.push({text: '第' + key + '行', value: val.chapters_index});
+              });
+              $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
+                  '<h4 ng-bind="\'当前行是第 \'+ index +\'行\'"></h4>' +
+                  // '<div form-select text="章节" ng-model="chapter" required="true" source="chapters"></div>' +
+                  '<div form-select text="行数" ng-model="row" required="true" source="rows"></div>' +
+                  // '<div form-radio text="类型" ng-model="type" required="true" default="1" source="[{text:\'此行之上\',value:1},{text:\'此行之下\'，value:2}]"></div>' +
+                  '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
+                  '</form>';
+              $scope.submit = function(i,j) {
+                var temp = superScope.chapters[i];
+                superScope.chapters[i] = superScope.chapters[j];
+                superScope.chapters[j] = temp;
+                superScope.chapters.splice(row, 1);
+                superScope.chapters.splice(index, 1);
+              };
+              $scope.cancel = function() {
+                $uibModalInstance.dismiss('cancel');
+              };
+            },
+            size: 'sm',
+          },
+      );
+    };
+    var tmp_num = 0;
     $scope.$watch('chapters', function(chapters_val) {
-      var tmp_num = '';
       if (chapters_val && chapters_val.length > 0 && chapters_val[0].type != 1) {
         // 第一行必须是 章节类型 type : 1
         $scope.chapters.unshift({type: 1, title: ''});
-        // tmp_num+='1~~~';
       } else {
         var chapters_index = 0;
         var video_index = 0;
@@ -105,9 +157,9 @@ define([
         });
         // console.log($scope.param.chapters);
         $scope.sync_chapters_online_time();
-        // tmp_num+='2~~~';
+        tmp_num++;
       }
-      console.log(tmp_num);
+      // console.log(tmp_num);
     }, true);
 
     $scope.verify_room = function() {
