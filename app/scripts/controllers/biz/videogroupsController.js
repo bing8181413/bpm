@@ -71,9 +71,11 @@ define([
 
     };
     $scope.$watch('chapters', function(chapters_val) {
+      var tmp_num = '';
       if (chapters_val && chapters_val.length > 0 && chapters_val[0].type != 1) {
         // 第一行必须是 章节类型 type : 1
         $scope.chapters.unshift({type: 1, title: ''});
+        // tmp_num+='1~~~';
       } else {
         var chapters_index = 0;
         var video_index = 0;
@@ -103,7 +105,9 @@ define([
         });
         // console.log($scope.param.chapters);
         $scope.sync_chapters_online_time();
+        // tmp_num+='2~~~';
       }
+      console.log(tmp_num);
     }, true);
 
     $scope.verify_room = function() {
