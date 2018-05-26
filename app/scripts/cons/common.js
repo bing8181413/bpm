@@ -9,7 +9,7 @@ define([], function () {
     var wx_domain = '';
     if (location.href.indexOf('//bpm.ahaschool.com') > 0 // prod
         || location.href.indexOf('//bpm.huijiame.com') > 0 // prod
-    || location.href.indexOf('//bpm.hjm.com') > 0 // prod
+    // || location.href.indexOf('//bpm.hjm.com') > 0 // prod
     ) {
         env = 'prod';
         env_name = '线上系统';
