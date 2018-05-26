@@ -47,7 +47,7 @@
               <div class="col-sm-8">
                 <table class="table table-bordered table-striped">
                   <tbody>
-                  <tr ng-repeat="(key,item) in chapters">
+                  <tr bindonce ng-repeat="(key,item) in chapters">
                     <td style="width: 50px">
                       <span ng-bind="'第 '+ key+' 行'" class="label-success label"></span>
                     </td>

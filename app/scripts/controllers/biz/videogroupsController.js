@@ -85,43 +85,43 @@ define([
       });
     };
     $scope.change_row = function(type, index) {
-      console.log(type, index);
       var modalInstance = $uibModal.open({
-            template: '<div modal-panel title="title" tmpl="tmpl"></div>',
-            controller: function($scope, $uibModalInstance) {
-              $scope.title = '导入用户';
-              $scope.chapters = [];
-              $scope.rows = [];
-              $scope.index = index;
-              angular.forEach(superScope.chapters, function(val, key) {
-                // if (val.type == 1) {
-                //   $scope.chapters.push({text: '第' + val.chapters_index + '章', value: val.chapters_index});
-                // } else if (val.type == 2) {
-                //   $scope.rows.push({text: '第' + val.order_by + '行', value: val.chapters_index, chapters_index: val.chapters_index});
-                // }
-                $scope.rows.push({text: '第' + key + '行', value: val.chapters_index});
-              });
-              $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
-                  '<h4 ng-bind="\'当前行是第 \'+ index +\'行\'"></h4>' +
-                  // '<div form-select text="章节" ng-model="chapter" required="true" source="chapters"></div>' +
-                  '<div form-select text="行数" ng-model="row" required="true" source="rows"></div>' +
-                  // '<div form-radio text="类型" ng-model="type" required="true" default="1" source="[{text:\'此行之上\',value:1},{text:\'此行之下\'，value:2}]"></div>' +
-                  '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
-                  '</form>';
-              $scope.submit = function(i,j) {
-                var temp = superScope.chapters[i];
-                superScope.chapters[i] = superScope.chapters[j];
-                superScope.chapters[j] = temp;
-                superScope.chapters.splice(row, 1);
-                superScope.chapters.splice(index, 1);
-              };
-              $scope.cancel = function() {
-                $uibModalInstance.dismiss('cancel');
-              };
-            },
-            size: 'sm',
-          },
-      );
+        template: '<div modal-panel title="title" tmpl="tmpl"></div>',
+        controller: function($scope, $uibModalInstance) {
+          $scope.title = ' ';
+          $scope.chapters = [];
+          $scope.rows = [];
+          $scope.index = index;
+          $scope.row = index;
+          angular.forEach(superScope.chapters, function(val, key) {
+            $scope.rows.push({text: '第' + key + '行', value: val.chapters_index});
+          });
+          $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
+              '<h4 class="text-primary" ng-bind="\'当前行是第 \'+ index +\'行\',切换到选择的行之上"></h4>' +
+              '<div form-input text="选择行数" type="number" ng-model="row" required="true" min="0" max="' + (superScope.chapters.length - 1) + '"></div>' +
+              '<a class="btn btn-success btn-rounded pull-right" ng-click="submit(index,row)">确定</a>' +
+              '</form>';
+          $scope.submit = function(from_obj_index, to_obj_index) {
+            if (from_obj_index == to_obj_index) {
+              widget.msgToast('位置没变，不能提交');
+              return false;
+            }
+            var tmp_obj = angular.copy(superScope.chapters[from_obj_index]);
+            superScope.chapters[from_obj_index]._del = 1;//加 删除标示
+            superScope.chapters.splice(to_obj_index, 0, tmp_obj);
+            angular.forEach(superScope.chapters, function(val, key) {
+              if (val._del == 1) {
+                superScope.chapters.splice(key, 1);
+              }
+            });
+            $scope.cancel();
+          };
+          $scope.cancel = function() {
+            $uibModalInstance.dismiss('cancel');
+          };
+        },
+        size: 'sm',
+      });
     };
     var tmp_num = 0;
     $scope.$watch('chapters', function(chapters_val) {
@@ -155,11 +155,9 @@ define([
             $scope.param.chapters[(chapters_index - 1)].videos.push(tmp_val);
           }
         });
-        // console.log($scope.param.chapters);
         $scope.sync_chapters_online_time();
         tmp_num++;
       }
-      // console.log(tmp_num);
     }, true);
 
     $scope.verify_room = function() {
@@ -182,11 +180,8 @@ define([
         $scope.chapters.push({
           type: 2,
           room_id: json.data.id,
-          room: {
-            title: json.data.title,
-            status: json.data.status,
-            plans: json.data.plans,
-          },
+          room_title: json.data.title,
+          room_status: json.data.status,
         });
         $scope.room_id = '';
       } else {
