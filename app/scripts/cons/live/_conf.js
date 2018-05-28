@@ -11,6 +11,7 @@ define([
     , './noticeroom'
     , './permission'
     , './appmessages'
+    , './appbuyactions'
 ], function () {
     return arguments;
 })
