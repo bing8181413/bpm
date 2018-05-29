@@ -80,12 +80,12 @@
                   <tr>
                     <th class="text-center" style="width: 50px;">编号</th>
                     <th class="text-center" style="width: 50px;">用户</th>
-                    <th class="text-center" >视频组名</th>
-                    <th class="text-center">房间名</th>
+                    <th class="text-center" style="width: 100px;">视频组名</th>
+                    <th class="text-center" style="width: 100px;">房间名</th>
                     <th class="text-center" style="width: 150px;">手机</th>
                     <th class="text-center" style="width: 100px;">角色</th>
                     <th class="text-center" style="width: 50px;">回答</th>
-                    <th class="text-center" style="width: 50px;">内容</th>
+                    <th class="text-center" >内容</th>
                     <th class="text-center" style="width: 150px;">图片</th>
                     <th class="text-center" style="width: 150px;">创建时间</th>
                     <th class="text-center" style="width: 100px;">置顶</th>
@@ -112,7 +112,8 @@
                          ng-bind="item.answer_num" ng-click="open_answer(item)"></a>
                     </td>
                     <td class="text-center">
-                      <div modal-textarea title="查看" content="item.content"></div>
+                      <div modal-textarea title="查看" content="item.content" ng-if="item.content.length>50"></div>
+                      <p ng-if="item.content.length<=50" ng-bind="item.content"></p>
                     </td>
                     <td class="text-center">
                       <show_image url="item.pics[0].pic_url" width="100"></show_image>
