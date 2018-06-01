@@ -52,6 +52,8 @@ define([
                 room_id: v.room_id,
                 room_title: v.room.title,
                 room_status: v.room.status,
+                online_status: v.online_status,
+                online_time: v.online_time
               });
               $scope._tmp.chapters_online_time[v.id] = {online_status: v.online_status, online_time: v.online_time};
             });
