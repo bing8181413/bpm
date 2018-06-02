@@ -55,6 +55,7 @@ define([
 
   './hjm/merchant/merchant',//供应商管理
 
+  './hjm/support/support',//support
   './hjm/support/sku',//sku
 
   './hjm/sqls',// exports/sqls 导出sql语句

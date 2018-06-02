@@ -1,0 +1,16 @@
+<div class="paymethods">
+  <style>.paymethods .form-group {
+    margin-bottom: 0
+  }</style>
+  <div class="row text-muted">
+    <h3 class="col-sm-12" dnd-handle>
+      <span class="label-info label" ng-bind="'::: 第  '+($index+1)+'  行'"></span>
+      <span class="label" ng-class="{'label-info':item.enable==1,'label-danger':item.enable==0}"
+            ng-bind="item.enable|keyVal:'1':'已开启':'0':'已关闭'"></span>
+      <a class="btn btn-rounded" ng-click="change(item,$index)"
+         ng-class="{'btn-success':item.enable==0,'btn-danger':item.enable==1}"
+         ng-bind="item.enable|keyVal:'1':'关闭':'0':'开启'"></a>
+      <span class="label-success label" ng-bind="item.name"></span>&nbsp;&nbsp;&nbsp;
+    </h3>
+  </div>
+</div>

@@ -133,7 +133,7 @@ define([
                         rtn = '支付宝';
                         break;
                     case '3':
-                        rtn = '微信H5';
+                        rtn = '微信公众号';
                         break;
                     case '6':
                         rtn = '支付宝H5';

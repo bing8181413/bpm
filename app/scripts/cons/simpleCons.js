@@ -76,6 +76,7 @@ define([
         biz: 'biz',
         demo: 'demo',
         live: 'live',
+      support: 'support',
     }
     return {
         'VIEW_PATH': 'scripts/views/',
@@ -83,6 +84,7 @@ define([
         'main_path': 'scripts/views/' + state.main + '/',
         'biz_path': 'scripts/views/' + state.biz + '/',
         'live_path': 'scripts/views/' + state.live + '/',
+        'support_path': 'scripts/views/' + state.support + '/',
         'demo_path': 'scripts/views/' + state.demo + '/',
         'DIRECTIVE_PATH': 'scripts/views/directive/',
         'DIRECTIVE_LIST_PATH': 'scripts/views/directive/list/',
@@ -91,6 +93,7 @@ define([
         'env_name': common.env_name,
         'domain': common.domain,
         'live_domain': common.domain + '/mobile',
+        'support_domain': common.domain + '/supports',
         'web_domain': common.web_domain,
         'qiniu_domain': common.qiniu_domain,
         'wx_domain': common.wx_domain,

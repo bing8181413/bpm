@@ -78,6 +78,10 @@ define([
     './common/deleteData',// 简单的删除组件
     './common/openUrl',// 打开一个URL  下载一个url 文件
 
+
+
+    './support/paymethods',// 支付方式 顺序选择
+
     './market/list',//market   skuno ...
     './sqls/list',// 导出 exports/sqls
 
