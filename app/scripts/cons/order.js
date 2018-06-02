@@ -152,6 +152,8 @@ define([], function () {
                             {value: 2, text: '支付宝'},
                             {value: 3, text: '微信H5'},
                             {value: 6, text: '支付宝H5'},
+                            {value: 9, text: '小程序'},
+                            {value: 10, text: 'aha币'},
                         ]
                     },
                     {   // order_status  0 待支付，1 支付中，2 支付失败，3 支付成功
@@ -227,6 +229,7 @@ define([], function () {
                             {value: 3, text: '微信H5'},
                             {value: 6, text: '支付宝H5'},
                             {value: 9, text: '小程序'},
+                            {value: 10, text: 'aha币'},
                         ]
                     },
                     {   // order_status  0 待支付，1 支付中，2 支付失败，3 支付成功

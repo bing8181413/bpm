@@ -141,6 +141,9 @@ define([
                     case '9':
                         rtn = '小程序支付';
                         break;
+                    case '10':
+                        rtn = 'aha币支付';
+                        break;
                     default :
                         rtn = '未选择';
                 }
