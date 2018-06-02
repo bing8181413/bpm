@@ -49,7 +49,7 @@ define([
             $scope.ngModel = [];
           } else {
             angular.forEach(val, function(v, k) {
-              v.order_by = val.length-k;
+              v.order_by = (k + 1);
             });
           }
         }, true);

@@ -4,7 +4,7 @@
   }</style>
   <div class="row text-muted">
     <h3 class="col-sm-12" dnd-handle>
-      <span class="label-info label" ng-bind="'::: 第  '+($index+1)+'  行'"></span>
+      <span class="label-info label" ng-bind="'::: 第  '+item.order_by+'  行'"></span>
       <span class="label" ng-class="{'label-info':item.enable==1,'label-danger':item.enable==0}"
             ng-bind="item.enable|keyVal:'1':'已开启':'0':'已关闭'"></span>
       <a class="btn btn-rounded" ng-click="change(item,$index)"
