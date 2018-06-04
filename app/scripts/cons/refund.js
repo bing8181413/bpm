@@ -33,11 +33,13 @@ define([], function () {
                     {
                         value: 'refund_channel', text: '支付方式', type: 'btnGroup', default: '', width: '12',
                         enum: [
-                            {value: '', text: '全部'},
-                            {value: '1', text: 'APP微信'},
-                            {value: '2', text: 'APP支付宝'},
-                            {value: '3', text: 'H5微信'},
-                            {value: '6', text: 'H5支付宝'},
+                              {value: '', text: '全部'},
+                              {value: 1, text: '微信'},
+                              {value: 2, text: '支付宝'},
+                              {value: 3, text: '微信H5'},
+                              {value: 6, text: '支付宝H5'},
+                              {value: 9, text: '小程序'},
+                              {value: 10, text: 'aha币'},
                         ]
                     },
                     {
