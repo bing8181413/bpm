@@ -131,6 +131,7 @@ define([
         // 第一行必须是 章节类型 type : 1
         $scope.chapters.unshift({type: 1, title: ''});
       } else {
+        $scope.reset_open_time('watch_chapters!');
         var chapters_index = 0;
         var video_index = 0;
         $scope.param.chapters = [];
