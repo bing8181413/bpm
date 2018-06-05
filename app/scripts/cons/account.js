@@ -63,7 +63,8 @@ define([], function () {
                             {value: '', text: '所有角色'},
                         ]
                     },
-                    // {value: 'mobile', text: '手机号码', placeholder: '手机号码'},
+                    {value: 'mobile', text: '手机号码', placeholder: '手机号码'},
+                    {value: 'username', text: '用户名', placeholder: '用户名'},
                     // {value: 'haha', text: '城市', placeholder: '城市', type: 'datetime'},
                     // {value: 'cityname', text: '城市', placeholder: '城市', type: 'datetime'},
                     // {value: 'haha32132', text: '城市', placeholder: '城市', type: 'date'},
