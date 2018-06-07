@@ -6,9 +6,9 @@
     </style>
     <div class="panel panel-primary">
         <div class="panel-heading">
-            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.product_id">新增活动</h3>
-            <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.product_id">修改活动</h3>
-            <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.product_id">活动详情</h3>
+            <h3 class="panel-title inlineBlock" ng-if="!$stateParams.product_id">新增课程</h3>
+            <h3 class="panel-title inlineBlock" show-role="'admin,op'" ng-if="$stateParams.product_id">修改课程</h3>
+            <h3 class="panel-title inlineBlock" show-role="'!admin,op'" ng-if="$stateParams.product_id">课程详情</h3>
             <div class="pull-right" style="margin-top: -5px;">
                 <a href="javascript:void(0)" class="btn btn-warning btn-rounded"
                    ng-click="title_info = [0,0,0,0,0,0,0,0,0,0,0,0,0,0]">合并模块</a>&nbsp;&nbsp;&nbsp;&nbsp;
@@ -25,7 +25,7 @@
                      <!--source="[{text:'公众号课程',value:'1'},{text:'小程序课程',value:'2'}]"></div>-->
                 <div class="panel panel-primary">
                     <div class="panel-body" ng-click="title_info[0] = title_info[0]+1; ">
-                        <h5 style="margin: 0; padding: 10px 0;">活动信息
+                        <h5 style="margin: 0; padding: 10px 0;">课程信息
                             <i class="animate-switch fa pull-right text-primary"
                                ng-class="{'fa-angle-double-up':title_info[0]%2==1,'fa-angle-double-down':title_info[0]%2==0}"></i>
                         </h5>
@@ -37,11 +37,11 @@
                              source="$root.account_list_bd_op" source-api=""></div>
 
                         <!--<div form-image-content text="图文详情" ng-model="param.contents" ng-show="param.content_type==1"></div>-->
-                        <div form-input text="活动ID" ng-model="param.product_id"
+                        <div form-input text="课程ID" ng-model="param.product_id"
                              ng-show="param.product_id  || !copy"
-                             placeholder="活动ID" ng-disabled="param.product_id  || !copy"></div>
+                             placeholder="课程ID" ng-disabled="param.product_id  || !copy"></div>
 
-                        <div form-input text="活动标题" ng-model="param.title" placeholder="活动标题,不超过30个字" required="true"
+                        <div form-input text="课程标题" ng-model="param.title" placeholder="课程标题,不超过30个字" required="true"
                              minlength="1" maxlength="30"></div>
                         <!--<div class="form-group">-->
                         <!--<div class="col-sm-8 col-sm-offset-2">-->
@@ -59,7 +59,7 @@
                         <!--{text:'游学',value:'游学'},{text:'运动',value:'运动'},{text:'天赋测评',value:'天赋测评'},-->
                         <!--{text:'儿童剧',value:'儿童剧'},{text:'夏令营',value:'夏令营'},{text:'STEM',value:'STEM'},-->
                         <!--{text:'DIY',value:'DIY'},{text:'乐园',value:'乐园'},{text:'其他',value:'其他'}]"-->
-                        <div form-radio text="活动类别" ng-model="param.act_type" required="true" default=""
+                        <div form-radio text="课程类别" ng-model="param.act_type" required="true" default=""
                              source="[{text:'通识',value:'通识'},{text:'科学',value:'科学'},{text:'学习力',value:'学习力'},
                              {text:'文史',value:'文史'},{text:'英语',value:'英语'},{text:'艺术',value:'艺术'},
                              {text:'数学',value:'数学'},{text:'其他',value:'其他'}]"
@@ -82,13 +82,13 @@
                              {text:'厦门市',value:'厦门市'},{text:'北京市',value:'北京市'}]" source-api=""
                              ></div>
 
-                        <div form-input text="活动简介" ng-model="param.brief" placeholder="不超过50个字" minlength="1"
+                        <div form-input text="课程简介" ng-model="param.brief" placeholder="不超过50个字" minlength="1"
                              maxlength="50"></div>
 
                         <div form-textarea text="搜索关键字" ng-model="param.act_tags" placeholder="不超过100个字"
                              minlength="0" maxlength="100"></div>
 
-                        <div form-input text="活动益处" ng-model="param.act_benefit" placeholder="不超过20个字"
+                        <div form-input text="课程益处" ng-model="param.act_benefit" placeholder="不超过20个字"
                              minlength="1" maxlength="14"></div>
                         <div form-input text="分享标题" ng-model="param.share_title" placeholder="不超过40个字" minlength="1"
                              maxlength="40"></div>
@@ -100,7 +100,7 @@
                              ng-model-start="param.start_time" ng-model-end="param.end_time"></div>
 
                         <hr>
-                        <div form-radio text="活动时间类型" type="radio" ng-model="param.act_time_type" required="true"
+                        <div form-radio text="课程时间类型" type="radio" ng-model="param.act_time_type" required="true"
                              default="1" source="[{text:'每天连续',value:'1'},{text:'每周固定天数',value:'2'}]"
                              source-api=""></div>
 
@@ -111,22 +111,22 @@
                             <div class="col-sm-8 col-sm-offset-2">
                                 <div class="col-sm-2">
                                     <a class="btn btn-info btn-rounded" ng-click="toggleShowTime();"
-                                       ng-bind="showTime?'微信上活动详情显示活动时间时分':'微信上活动详情不显示活动时间时分'"></a>
+                                       ng-bind="showTime?'微信上课程详情显示课程时间时分':'微信上课程详情不显示课程时间时分'"></a>
                                 </div>
                             </div>
                         </div>
 
-                        <div form-date text="活动开始时间" ng-model="param.act_start_time" ng-show="showTime"
+                        <div form-date text="课程开始时间" ng-model="param.act_start_time" ng-show="showTime"
                              required="true"></div>
-                        <div form-date text="活动结束时间" ng-model="param.act_end_time" ng-show="showTime"></div>
-                        <div form-date-time text="活动开始时间" ng-model="param.act_start_time" ng-show="!showTime"
+                        <div form-date text="课程结束时间" ng-model="param.act_end_time" ng-show="showTime"></div>
+                        <div form-date-time text="课程开始时间" ng-model="param.act_start_time" ng-show="!showTime"
                              required="true"></div>
-                        <div form-date-time text="活动结束时间" ng-model="param.act_end_time" ng-show="!showTime"></div>
+                        <div form-date-time text="课程结束时间" ng-model="param.act_end_time" ng-show="!showTime"></div>
 
-                        <!--<div form-double-date text-start="活动开始时间" text-end="活动结束时间"-->
+                        <!--<div form-double-date text-start="课程开始时间" text-end="课程结束时间"-->
                         <!--ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"-->
                         <!--ng-show="showTime"></div>-->
-                        <!--<div form-double-date-time text-start="活动开始时间" text-end="活动结束时间" required="true"-->
+                        <!--<div form-double-date-time text-start="课程开始时间" text-end="课程结束时间" required="true"-->
                         <!--ng-model-start="param.act_start_time" ng-model-end="param.act_end_time"-->
                         <!--ng-show="!showTime"></div>-->
 
@@ -143,24 +143,24 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[1] = title_info[1]+1; ">活动地址
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[1] = title_info[1]+1; ">课程地址
                             <i class="animate-switch fa pull-right text-primary"
                                ng-class="{'fa-angle-double-up':title_info[1]%2==1,'fa-angle-double-down':title_info[1]%2==0}"></i>
                         </h5>
                     </div>
                     <div class="panel-body" ng-show="title_info[1]%2==1">
-                        <div form-address text="活动地点" ng-model="param.addresses" max="100"></div>
+                        <div form-address text="课程地点" ng-model="param.addresses" max="100"></div>
                     </div>
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[2] = title_info[2]+1; ">活动规则
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[2] = title_info[2]+1; ">课程规则
                             <i class="animate-switch fa pull-right text-primary"
                                ng-class="{'fa-angle-double-up':title_info[2]%2==1,'fa-angle-double-down':title_info[2]%2==0}"></i>
                         </h5>
                     </div>
                     <div class="panel-body" ng-show="title_info[2]%2==1">
-                        <div form-radio text="活动类型" type="radio" ng-model="param.category" required="true"
+                        <div form-radio text="课程类型" type="radio" ng-model="param.category" required="true"
                              default="2"
                              source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'},{text:'直接买+人数团',value:'4'}]"
                              source-api=""></div>
@@ -169,7 +169,7 @@
                         <div form-radio text="拼团结束类型" type="radio" ng-model="param.groupbuy_end_type" required="true"
                              source="[{text:'人数类型  (注:成团后不能再报名)',value:'1'},{text:'拼团时间  (注:成团后仍可报名，直到拼团时间截止)',value:'2'}]"
                              default="1" ng-if="param.category!=3" source-api=""></div>
-                        <!--<div form-table text="活动类目" ng-model="param.options" max="1"-->
+                        <!--<div form-table text="课程类目" ng-model="param.options" max="1"-->
                         <!--ng-show="param.category!=4" required="true"-->
                         <!--columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},-->
                         <!--{'name': '类目', 'field': 'option_name',required:'true'},-->
@@ -177,7 +177,7 @@
                         <!--{'name': '库存', 'field': 'option_inventory',required:'true'},-->
                         <!--{'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>-->
 
-                        <div form-table text="直接买活动类目" ng-model="param.options"
+                        <div form-table text="直接买课程类目" ng-model="param.options"
                              ng-show="param.category!=2"
                              columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
                              {'name': '类目', 'field': 'option_name',required:'true'},
@@ -186,7 +186,7 @@
                              {'name': '库存', 'field': 'option_inventory',type:'number',required:'true',default:200000},
                              {'name': '排序', 'field': 'order_by',type:'number',min:'0',required:'true'}]"></div>
 
-                        <div form-table text="人数团活动类目" ng-model="param.groupbuy_options"
+                        <div form-table text="人数团课程类目" ng-model="param.groupbuy_options"
                              ng-show="param.category!=3"
                              columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},
                              {'name': '类目', 'field': 'option_name',required:'true'},
@@ -334,7 +334,7 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-body">
-                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[5] = title_info[5]+1; ">活动详情
+                        <h5 style="margin: 0; padding: 10px 0;" ng-click="title_info[5] = title_info[5]+1; ">课程详情
                             <i class="animate-switch fa pull-right text-primary"
                                ng-class="{'fa-angle-double-up':title_info[5]%2==1,'fa-angle-double-down':title_info[5]%2==0}"></i>
                         </h5>
@@ -482,7 +482,7 @@
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
                         <div form-radio text="是否绑定手机号" ng-model="param.enable_bind_mobile" default="1"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
-                        <div form-radio text="是否推荐该活动" ng-model="param.act_recommend" default="2"
+                        <div form-radio text="是否推荐该课程" ng-model="param.act_recommend" default="2"
                              source="[{text:'是',value:'1'},{text:'否',value:'2'}]" required="true"></div>
                         <div form-input text="排序" ng-model="param.order_by" type="number" min="0"></div>
                         <div form-textarea text="管理备注" ng-model="param.admin_remark"></div>
