@@ -93,7 +93,7 @@ define([
                                 "": {
                                     // controller: 'accountController'
                                     templateProvider: function ($templateCache) {
-                                        return '<div hjm-grid modid="productList" config="act_config" columns="act_columns"></div>';
+                                        return '<div hjm-grid modid="productList" config="config" columns="columns"></div>';
                                     }
                                 }
                             }
