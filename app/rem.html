@@ -123,6 +123,12 @@
     </style>
 </head>
 <body>
+<div style="text-align: center">
+    <a class="btn" id="addSession" style="width: 150px; display: inline-block;">添加session</a>
+    <a class="btn" id="clearSession" style="width: 150px; display: inline-block;">清理session</a>
+    <a class="btn" id="showSession" style="width: 150px; display: inline-block;">展示session</a>
+    <textarea id="session"></textarea>
+</div>
 <div class="main">
     <div class="left">
         <h1>source</h1>
@@ -153,7 +159,28 @@
     var error = function (msg) {
         alert(msg);
     }
+    var s = function(){
+      if(sessionStorage['a']){
+        sessionStorage['a']++;
+        // alert('上次的数据是:'+(sessionStorage['a']++));
+      }else{
+        sessionStorage['a'] = 1;
+        // alert('设置sessionStorage:'+sessionStorage['a']);
+      }
+    }
+    var show = function(){
+      $("#session").val(JSON.stringify(sessionStorage));
+    }
     $(function () {
+        $("#showSession").click(function () {
+          show();
+        });
+        $("#addSession").click(function () {
+          s();show();
+        });
+        $("#clearSession").click(function () {
+          sessionStorage.clear();show();
+        });
         $("#oldTo").click(function () {
             location.href = 'https://n.ahaschool.com/calc.html';
         });
