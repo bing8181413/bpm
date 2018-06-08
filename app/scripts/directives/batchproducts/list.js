@@ -112,20 +112,20 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<p><a class="btn btn-rounded btn-success btn-sm" ng-click="show();">添加子活动</a></p>',
+                template: '<p><a class="btn btn-rounded btn-success btn-sm" ng-click="show();">添加子课程</a></p>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show = function () {
                         var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                                 controller: function ($scope, $uibModalInstance) {
-                                    $scope.title = '添加子活动';
+                                    $scope.title = '添加子课程';
                                     $scope.param = {parent_id: supscope.data.parent_id};
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
-                                        '<div form-search text="查询添加活动ID" verify="true" btn-text="添加活动ID" ' +
+                                        '<div form-search text="查询添加课程ID" verify="true" btn-text="添加课程ID" ' +
                                         'ajax-config="{method:\'get\',url:$root.common.domain+\'/products/\'+produce_id}" ' +
                                         'ng-model="produce_id" callback="add_son_id(json)"></div>' +
-                                        '<div form-input text="活动ID" ng-model="param.son_id" required="true" ng-disabled="true" ></div>' +
+                                        '<div form-input text="课程ID" ng-model="param.son_id" required="true" ng-disabled="true" ></div>' +
                                         '<a class="btn btn-success btn-rounded pull-right"  ng-disabled="FormBody.$invalid" ng-click="submit()">确定</a>' +
                                         '</form>';
                                     $scope.add_son_id = function (json) {
@@ -133,7 +133,7 @@ define([
                                             $scope.param.son_id = json.data.product_id;
                                         } else {
                                             $scope.param.son_id = '';
-                                            widget.msgToast('没有对应的活动ID');
+                                            widget.msgToast('没有对应的课程ID');
                                         }
                                     }
                                     $scope.submit = function () {
@@ -143,7 +143,7 @@ define([
                                             scope: $scope,
                                             data: $scope.param,
                                             success: function (json) {
-                                                widget.msgToast('添加子活动成功!');
+                                                widget.msgToast('添加子课程成功!');
                                                 supscope.$parent.searchAction();
                                                 $scope.cancel();
                                             }
@@ -167,18 +167,18 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<p><a class="btn btn-rounded btn-success btn-sm" ng-click="show();">覆盖所有子活动</a></p>',
+                template: '<p><a class="btn btn-rounded btn-success btn-sm" ng-click="show();">覆盖所有子课程</a></p>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show = function () {
                         var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                                 controller: function ($scope, $uibModalInstance) {
-                                    $scope.title = '覆盖所有子活动';
-                                    $scope.desc = '课程详情：即同步图文详情模块;\n基本信息：同步活动标题，简介，分享标题， 时间（上下架，报名，活动), 年龄, 海报图片;\n礼包信息：除类目不同步，其他信息都会同步;\n课程价值：课程价值模块。';
+                                    $scope.title = '覆盖所有子课程';
+                                    $scope.desc = '课程详情：即同步图文详情模块;\n基本信息：同步课程标题，简介，分享标题， 时间（上下架，报名，课程), 年龄, 海报图片;\n礼包信息：除类目不同步，其他信息都会同步;\n课程价值：课程价值模块。';
                                     $scope.param = {parent_id: supscope.data.parent_id};
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
-                                        '<h4 class="col-sm-offset-2 text-danger">请选择以下项目覆盖全部活动</h4>' +
+                                        '<h4 class="col-sm-offset-2 text-danger">请选择以下项目覆盖全部课程</h4>' +
                                         '<div form-checkbox text="覆盖内容" type="radio" ng-model="param.covers" required="true" ' +
                                         'default="1" source="[{text:\'课程详情\',value:\'1\'},{text:\'基本信息\',value:\'2\'},{text:\'礼包信息\',value:\'3\'},{text:\'课程价值\',value:\'4\'}]" ' +
                                         'source-api=""></div>' +'<div form-textarea ng-model="desc" text="描述" ng-disabled="true"></div>'+
@@ -195,7 +195,7 @@ define([
                                             scope: $scope,
                                             data: $scope.param,
                                             success: function (json) {
-                                                widget.msgToast('覆盖所有子活动成功!');
+                                                widget.msgToast('覆盖所有子课程成功!');
                                                 supscope.$parent.searchAction();
                                                 $scope.cancel();
                                             }
@@ -223,14 +223,14 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show = function () {
-                        if (confirm('确定要删除这个母活动及与其相关子活动关系吗?')) {
+                        if (confirm('确定要删除这个母课程及与其相关子课程关系吗?')) {
                             widget.ajaxRequest({
                                 url: '/product/batchproducts/' + $scope.data.parent_id,
                                 method: 'delete',
                                 scope: $scope,
                                 data: {},
                                 success: function (json) {
-                                    widget.msgToast('删除母活动成功!');
+                                    widget.msgToast('删除母课程成功!');
                                     supscope.$parent.searchAction();
                                 }
                             })
@@ -250,7 +250,7 @@ define([
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.show = function () {
-                        if (confirm('确定要取消覆盖这个子活动吗?')) {
+                        if (confirm('确定要取消覆盖这个子课程吗?')) {
                             widget.ajaxRequest({
                                 url: '/product/sons/' + $scope.data.id,
                                 method: 'delete',
@@ -274,7 +274,7 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<p><a class="btn btn-rounded btn-primary btn-sm" ng-click="go();">编辑活动</a></p>',
+                template: '<p><a class="btn btn-rounded btn-primary btn-sm" ng-click="go();">编辑课程</a></p>',
                 link: function ($scope, $element, $attrs) {
                     $scope.go = function () {
                         $scope.$parent.$parent.$parent.cancel();
