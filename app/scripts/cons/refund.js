@@ -4,7 +4,8 @@ define([], function () {
             columns: [
                 {name: '退款编号', field: 'refund_id', className: 'text-right'},
                 {name: '退款类型', field: 'refund_type', filter: 'refund_type'},
-                {name: '母订单号', field: 'order_no'},
+                {name: '订单ID', field: 'order_id'},
+                {name: '订单号 No.', field: 'order_no'},
                 {name: '商品名称', field: 'order.order_title'},
                 {
                     name: '收货地址',
@@ -14,7 +15,8 @@ define([], function () {
                     'uib-tooltip="详细地址:{{item.order.address.address}}" tooltip-placement="bottom"></span>'
                 },
                 {name: '退款金额', field: 'refund_price'},
-                {name: '支付方式', field: 'refund_channel', filter: 'refund_channel'},
+                {name: '支付方式', field: 'order.payment_from', filter: 'payment_from'},
+                {name: '退款渠道', field: 'refund_channel', filter: 'refund_channel'},
                 {name: '申请时间', field: 'created_at', filter: 'date2break'},
                 {name: '退款时间', field: 'verified_at',filter:'null2empty'},
                 {name: '退款原因', field: 'refund_reason'},
@@ -60,7 +62,8 @@ define([], function () {
                     },
                     {value: 'date_min', text: '(申请退款时间)----开始', type: 'datetime'},
                     {value: 'date_max', text: '----结束', type: 'datetime'},
-                    {value: 'order_no', text: '母订单号'},
+                    {value: 'order_id', text: '订单ID'},
+                    {value: 'order_no', text: '订单号No.'},
                     {value: 'contact_name', text: '联系人'},
                     {value: 'contact_mobile', text: '手机号'},
                 ],

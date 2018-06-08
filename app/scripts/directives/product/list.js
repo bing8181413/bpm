@@ -534,7 +534,7 @@ define([
             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
             controller: function($scope, $uibModalInstance) {
               $scope.title = '分销设置';
-              $scope.tmpl = $templateCache.get('app/' + simpleCons.biz_path + 'act/distribution.html');
+              $scope.tmpl = '';
               $scope.init = function() {
                 widget.ajaxRequest({
                   url: '/products/' + (supscope.data.product_id || 0) + '/distribution',
@@ -550,6 +550,7 @@ define([
                     o.groupbuy_elastic_level_two = Number(o.groupbuy_elastic_level_two || 0);
                     o.poster_level_two = Number(o.poster_level_two || 0);
                     $scope.param = o;
+                    $scope.tmpl = $templateCache.get('app/' + simpleCons.biz_path + 'act/distribution.html');
                   },
                 });
               };

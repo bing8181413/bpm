@@ -22,28 +22,17 @@ define([], function () {
                     '<p>结束时间:<br/><span ng-bind="item.product.act_apply_end_time"></span></p></div>'
                 },
                 {
-                    name: '活动时间、地点',
+                    name: '活动时间',
                     fieldDirective: '<div><p>开始时间:<br/> <span ng-bind="item.product.act_start_time"></span></p>' +
                     '<p>结束时间:<br/><span ng-bind="item.product.act_end_time"></span></p>' +
                     '<p>活动时间类型:<br/> <span ng-bind="item.product.act_time_type|act_time_type"></span></p>' +
-                    '<p ng-show="item.product.act_time_type==2"><span ng-bind="item.product.act_week_desc"></span></p>' +
-                    '<span ng-show="item.product.addresses.length>0">地点:</span>' +
-                    '<p ng-repeat=" obj in item.product.addresses " ng-show="item.product.addresses.length>0">' +
-                    '<span ng-bind="($index+1)+\':\'+obj.detail_address"></span>' +
-                    '</p></div>'
+                    '</div>'
                 },
                 {
                     name: '覆盖活动', className: 'text-center',
                     fieldDirective: '<span show-table data="{text:item.count,modid:\'productsonsList\',config:\'config\',columns:\'columns\',extApi:$root.common.domain+\'/product/\'+item.parent_id+\'/sons\'}"></span>'
                 },
-                {
-                    name: '管理备注', field: 'product.admin_remark',
-                    truncateText: true,
-                    truncateTextLength: 7,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'product.admin_remark',
-                    tooltipPlacement: 'bottom',
-                },
+                {name: '管理备注', field: 'product.admin_remark'},
                 {
                     name: '管理',
                     fieldDirective: '<div act-edit data="item.product" ></div>'
@@ -57,8 +46,11 @@ define([], function () {
                 title: '批量活动管理',
                 api: '/product/batchproducts',
                 rowItemName: 'item',
-                searchSupport: false,
-                searchItems: [],
+                searchSupport: true,
+                searchItems: [
+                    {value: 'product_id', text: '课程ID', placeholder: '课程ID', default: ''},
+                    {value: 'keyword', text: '关键字', placeholder: '课程标题,管理备注', default: ''},
+                ],
                 preSelectionSearch: {
                     // status: '0',
                 },
