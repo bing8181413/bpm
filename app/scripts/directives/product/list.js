@@ -475,14 +475,14 @@ define([
       scope: {
         data: '=',
       },
-      template: '<a class="btn btn-rounded btn-link" ng-click="show_weixin_view()" style="padding-left: 0;">微信活动链接</a>',
+      template: '<a class="btn btn-rounded btn-link" ng-click="show_weixin_view()" style="padding-left: 0;">公众号购买链接</a>',
       link: function($scope, $element, $attrs) {
         var supscope = $scope;
         $scope.show_weixin_view = function() {
           var modalInstance = $uibModal.open({
             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
             controller: function($scope, $uibModalInstance) {
-              $scope.title = '微信活动链接';
+              $scope.title = '公众号购买链接';
               $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                   '<div form-textarea text="链接地址" ng-model="link"></div>' +
                   '<a class="btn btn-warning btn-rounded pull-right" ng-click="cancel()">关闭</a>' +
@@ -511,11 +511,11 @@ define([
       link: function($scope, $element, $attrs) {
         angular.forEach($rootScope.account_list, function(val) {
           if (val.account_id == $scope.data.account_id) {
-            $scope.account_name = '活动负责人:' + val.username;
+            $scope.account_name = '负责人:' + val.username;
           }
         });
         if (!$scope.account_name) {
-          $scope.account_name = '活动负责人ID:' + $scope.data.account_id;
+          $scope.account_name = '负责人ID:' + $scope.data.account_id;
         }
       },
     };
@@ -534,7 +534,7 @@ define([
             template: '<div modal-panel title="title" tmpl="tmpl"></div>',
             controller: function($scope, $uibModalInstance) {
               $scope.title = '分销设置';
-              $scope.tmpl = '';
+              $scope.tmpl = $templateCache.get('app/' + simpleCons.biz_path + 'act/distribution.html');
               $scope.init = function() {
                 widget.ajaxRequest({
                   url: '/products/' + (supscope.data.product_id || 0) + '/distribution',
@@ -543,14 +543,15 @@ define([
                   data: {},
                   success: function(json) {
                     var o = json.data;
+                    o.title = supscope.data.title;
                     o.groupbuy_in_level_one = Number(o.groupbuy_in_level_one || 0);
                     o.groupbuy_elastic_level_one = Number(o.groupbuy_elastic_level_one || 0);
                     o.poster_level_one = Number(o.poster_level_one || 0);
                     o.groupbuy_in_level_two = Number(o.groupbuy_in_level_two || 0);
                     o.groupbuy_elastic_level_two = Number(o.groupbuy_elastic_level_two || 0);
                     o.poster_level_two = Number(o.poster_level_two || 0);
+                    o.open_state = o.open_state || '1';
                     $scope.param = o;
-                    $scope.tmpl = $templateCache.get('app/' + simpleCons.biz_path + 'act/distribution.html');
                   },
                 });
               };

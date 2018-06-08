@@ -630,7 +630,23 @@ define([
                         result = "直接买";
                         break;
                     case "4":
-                        result = "礼包";
+                        result = "直接买+人数团";
+                        break;
+                }
+                return result;
+            }
+        }])
+        //  groupbuy_end_type 团结束类型 1:人数类型 2: 拼团时间
+        .filter('groupbuy_end_type', [function () {
+            return function (val) {
+                var result = '其他';
+                val = val + '';
+                switch (val) {
+                    case "1":
+                        result = "人数团";
+                        break;
+                    case "2":
+                        result = "弹性团";
                         break;
                 }
                 return result;
