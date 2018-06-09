@@ -8,10 +8,13 @@
                 <div class="panel-body">
                     <h4>供应商信息</h4>
                     <div form-input text="utm_source" ng-model="utm_source"></div>
+                    <h4 class="col-sm-offset-2 col-sm-10 text-danger">分销比例数值范围是 [0,1); 例如：0.3 即为30% </h4>
+                    <div form-input text="新用户分销比例" ng-model="new_balance_rate" placeholder="分销比例，例如：0.3" required="true" ></div>
+                    <div form-input text="老用户分销比例" ng-model="old_balance_rate" placeholder="分销比例，例如：0.3" required="true" ></div>
                     <div form-search text="查询活动ID" verify="verify_product_id(product_id)" btn-text="查询活动"
                          ajax-config="{method:'get',url:$root.common.domain+'/merchant/products/'+product_id}"
                          ng-model="product_id" callback="add_product_id(json)"></div>
-                    <div form-radio text="类型" type="radio" ng-model="show_contact" required="true" default=""
+                    <div form-radio text="类型" type="radio" ng-model="show_contact" required="true" default="2"
                          type="number" source-api=""
                          source="[{text:'供应商可以看联系人、联系电话信息',value:'1'},{text:'供应商不可以看到联系人、联系电话信息',value:'2'}]"></div>
 
