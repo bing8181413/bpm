@@ -144,7 +144,7 @@ define([
       scope: {
         data: '=',
       },
-      template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show()" ng-bind="data.products_count|null2empty" ng-show="data.stat.product_count"></a>',
+      template: '<a class="btn btn-info btn-rounded btn-sm" ng-click="show()" ng-bind="data.products_count|null2empty" ng-show="data.products_count"></a>',
       link: function($scope, $element, $attrs) {
         var supScope = $scope;
         $scope.show = function(status) {
