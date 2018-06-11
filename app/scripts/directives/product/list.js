@@ -551,6 +551,8 @@ define([
                     o.groupbuy_elastic_level_two = Number(o.groupbuy_elastic_level_two || 0);
                     o.poster_level_two = Number(o.poster_level_two || 0);
                     o.open_state = o.open_state || '1';
+                    o.open_product_poster = o.open_product_poster || '1';
+                    o.open_groupbuy_poster = o.open_groupbuy_poster || '1';
                     $scope.param = o;
                   },
                 });
