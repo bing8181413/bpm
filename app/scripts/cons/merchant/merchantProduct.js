@@ -111,7 +111,7 @@ define([], function() {
         //   fieldDirective: '<span ng-bind="$root.common.wx_domain+\'/product/detail/product_id/\'+item.product_id+\'?utm_source=\'+item.merchant_product.utm_source+\'&utm_medium=&utm_campaign=\'"></span>',
         // },
         {name: '新用户结算比例', field: 'merchant_product.new_balance_rate', className: 'width50'},
-        {name: '老用户结算比例', field: 'merchant_product.new_balance_rate', className: 'width50'},
+        {name: '老用户结算比例', field: 'merchant_product.old_balance_rate', className: 'width50'},
         {name: '活动标题', field: 'title', className: 'width100'},
         {name: '活动标题', field: 'title', className: 'width100'},
         {name: '拼团成<br/>功数量', field: 'order.groupbuy_count'},
