@@ -96,7 +96,7 @@ define([], function() {
               fieldDirective: '<span class="label label-warning" ng-bind="_json.stat.old_order_balance_sum|number:2"></span> &nbsp;&nbsp;&nbsp;',
             },
 
-            {fieldDirective: '<br/><br/><h5 class="text-danger">订单状态说明:“已支付”订单中包括已支付的单人购订单与未成团的团购订单，“已完成”订单指已经成团的团购订单。</h5>'},
+            {fieldDirective: '<br/><br/><h5 class="text-danger">由于数据延迟的原因，当天产生的订单可能无法实时同步到统计数据中。</h5>'},
 
           ],
         },
