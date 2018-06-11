@@ -84,17 +84,17 @@ define([], function() {
 
             {text: '新用户订单', fieldDirective: '<span class="label label-primary" ng-bind="_json.stat.new_order_count"></span>&nbsp;&nbsp;&nbsp; '},
             {text: '新用户订单总金额', fieldDirective: '<span class="label label-primary" ng-bind="_json.stat.new_order_sum"></span> &nbsp;&nbsp;&nbsp;'},
-            // {
-            //   text: '新用户结算金额',
-            //   fieldDirective: '<span class="label label-primary" ng-bind="_json.stat.new_order_balance_sum"></span>&nbsp;&nbsp;&nbsp;<br/><br/> ',
-            // },
+            {
+              text: '新用户结算金额',
+              fieldDirective: '<span class="label label-primary" ng-bind="_json.stat.new_order_balance_sum"></span>&nbsp;&nbsp;&nbsp; ',
+            },
 
             {text: '老用户订单', fieldDirective: '<span class="label label-warning" ng-bind="_json.stat.old_order_count"></span> &nbsp;&nbsp;&nbsp;'},
             {text: '老用户订单总金额', fieldDirective: '<span class="label label-warning" ng-bind="_json.stat.old_order_sum"></span>&nbsp;&nbsp;&nbsp; '},
-            // {
-            //   text: '老用户结算金额',
-            //   fieldDirective: '<span class="label label-warning" ng-bind="_json.stat.old_order_balance_sum"></span> &nbsp;&nbsp;&nbsp;',
-            // },
+            {
+              text: '老用户结算金额',
+              fieldDirective: '<span class="label label-warning" ng-bind="_json.stat.old_order_balance_sum"></span> &nbsp;&nbsp;&nbsp;',
+            },
 
             {fieldDirective: '<br/><br/><h5 class="text-danger">订单状态说明:“已支付”订单中包括已支付的单人购订单与未成团的团购订单，“已完成”订单指已经成团的团购订单。</h5>'},
 
