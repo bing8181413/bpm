@@ -35,7 +35,7 @@ define([
                         var modalInstance = $uibModal.open({
                             template: tmp,
                             controller: function ($scope, $uibModalInstance) {
-                                // $scope.ext = supscope.ext;
+                                $scope.ext = supscope.ext;
                                 $scope.extApi = supscope.extApi;
                                 // console.log(1, $scope.extApi, $scope.ext);
                                 $scope.cancel = function () {
