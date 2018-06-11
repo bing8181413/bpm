@@ -73,17 +73,19 @@ define([
                         var showNum = '';
                         var eventBtn = '';
                         if (config.ext) {
-                            if (config.ext.showNum) {
-                                angular.forEach(config.ext.showNum, function (showNum_val, showNum_key) {
-                                    if (showNum_val.type == 'total') {
-                                        showNum += (showNum_val.text || '总数') + ':  {{ total }}   ';
-                                    } else if (showNum_val.type == 'selected') {
-                                        showNum += (showNum_val.text || '已选') + ':  {{ _selected_num }}';
-                                    } else if (showNum_val.field) {
-                                        showNum += (showNum_val.text || '符合条件的') + ':  {{ _json.' + showNum_val.field + ' }}';
-                                    }
-                                });
-                            }
+                          if (config.ext.showNum) {
+                            angular.forEach(config.ext.showNum, function (showNum_val, showNum_key) {
+                              if (showNum_val.type == 'total') {
+                                showNum += (showNum_val.text || '总数') + ':  {{ total }}  ';
+                              } else if (showNum_val.type == 'selected') {
+                                showNum += (showNum_val.text || '已选') + ':  {{ _selected_num }}  ';
+                              } else if (showNum_val.field) {
+                                showNum += (showNum_val.text || '') + ':  {{ _json.' + showNum_val.field + ' }}  ';
+                              } else if (showNum_val.fieldDirective) {
+                                showNum += (showNum_val.text || '') + (showNum_val.text ? ':  ':'')+ showNum_val.fieldDirective+'  ';
+                              }
+                            });
+                          }
                             if (config.ext.eventBtn) {
                                 angular.forEach(config.ext.eventBtn, function (eventBtn_val, eventBtn_key) {
                                     if (eventBtn_val.event == 'all_select') {
@@ -215,7 +217,6 @@ define([
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     // console.log(angular.isFunction($scope.$parent.$close));
-
                     var columnsDef = '';
                     var configDef = '';
                     $scope.data = [];
