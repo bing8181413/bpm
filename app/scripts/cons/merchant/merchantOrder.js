@@ -41,16 +41,16 @@ define([], function() {
         rowItemName: 'item',
         searchSupport: true,
         searchItems: [
-          {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
-            value: 'flag2', text: '订单状态', type: 'btnGroupArray2',
-            default: 0, width: '6',
-            enum_text: 'order_status',//
-            enum: [
-              {value: [1, 2, 3, 5], text: '全部'},
-              {value: [3], text: '已支付'},
-              {value: [5], text: '已完成'},
-            ],
-          },
+          // {   // order_status 1 待支付,2 支付中,3 已支付,4 支付失败,5 已完成,6 已取消
+          //   value: 'flag2', text: '订单状态', type: 'btnGroupArray2',
+          //   default: 0, width: '6',
+          //   enum_text: 'order_status',//
+          //   enum: [
+          //     {value: [1, 2, 3, 5], text: '全部'},
+          //     {value: [3], text: '已支付'},
+          //     {value: [5], text: '已完成'},
+          //   ],
+          // },
           {
             value: 'times', text: '用户属性', type: 'btnGroup', default: '0', width: '6',
             enum: [
@@ -67,7 +67,7 @@ define([], function() {
           // {value: 'contact_mobile', text: '订单手机号'},
         ],
         preSelectionSearch: {
-          order_status: [1, 2, 3, 5],
+          order_status: [3, 5],
           is_stat: 1,
         },
         paginationSupport: true,
