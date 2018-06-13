@@ -48,7 +48,8 @@ define([
 
 
     './merchant/_conf',//  供应商
-    './support/_conf'//  SKU
+    './support/_conf',//  SKU
+    './distributions/_conf'//  分销 奖学金
 
 ], function (common) {
     // console.log(common);

@@ -5,7 +5,28 @@ define([
     '../cons/simpleCons'
 ], function (mod, simpleCons) {
     mod
-    // subject_groups   >0 上线，=0 下线
+    /* studentships_type
+           tuan_type    1:
+           distribution_type
+     */
+        .filter('studentships_type', [function () {
+            return function (tuan_type,distribution_type) {
+                var result = '未知';
+                tuan_type +='';
+                distribution_type +='';
+                if(tuan_type=='1' && distribution_type == '0'){
+                    result= '团内一级奖学金';
+                }else if(tuan_type=='2' && distribution_type == '0'){
+                    result= '团外一级奖学金';
+                }else if(tuan_type=='0' && distribution_type == '1'){
+                    result= '直接买一级分销';
+                }else if(tuan_type=='0' && distribution_type == '4'){
+                    result= '弹性团一级奖学金';
+                }
+
+                return result;
+            }
+        }])
         .filter('subject_groups', [function () {
             return function (val) {
                 var result = '其他';
