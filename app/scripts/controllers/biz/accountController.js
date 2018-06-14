@@ -101,8 +101,10 @@ define([
         $scope.submit = function (status) {
             // $scope.param.city_list = $scope.param.city_list.join(',');
             $scope.param.city_name = '上海市';
-            $scope.param.userpass = $scope.userpass;
-            $scope.param.password = $scope.userpass;
+            // $scope.param.userpass = $scope.userpass;
+            $scope.param.password = $scope.param.userpass;
+            // console.log($scope.param);
+            // return false;
             widget.ajaxRequest({
                 url: '/accounts' + ($stateParams.account_id ? ('/' + $stateParams.account_id) : ''),
                 method: $stateParams.account_id ? 'PUT' : 'POST',

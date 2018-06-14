@@ -10,7 +10,7 @@ define([], function() {
                 },
                 {
                     name: '分销奖学金 / 订单', className: 'text-center',
-                    fieldDirective: '<span show-table data="{ext:{product_id:item.product_id,user_id:searchParams.user_id,start_time:searchParams.start_time,end_time:searchParams.end_time},text:item.stat_studentship.dist_coin+\' / \'+item.stat_studentship.dist_order,modid:\'productstudentshipsList\',config:\'studentships_config\',columns:\'studentships_columns\'}"></span>',
+                    fieldDirective: '<span show-table data="{ext:{product_id:item.product_id,user_id:searchParams.user_id,date_min:searchParams.date_min,date_max:searchParams.date_max},text:item.stat_studentship.dist_coin+\' / \'+item.stat_studentship.dist_order,modid:\'productstudentshipsList\',config:\'studentships_config\',columns:\'studentships_columns\'}"></span>',
                 },
                 // {name: '退单数量', fieldDirective: '<span ng-bind="searchParams|json"></span>', className: 'text-center'},
                 // {name: '未退单奖学金', field: 'stat_studentship', className: 'text-center'},
@@ -23,8 +23,8 @@ define([], function() {
                 searchItems: [
                     {value: 'product_id', text: '课程ID', placeholder: '课程ID'},
                     {value: 'user_id', text: '用户ID', placeholder: '用户ID'},
-                    {value: 'start_time', text: '开始时间', type: 'datetime'},
-                    {value: 'end_time', text: '结束时间', type: 'datetime'},
+                    {value: 'date_min', text: '开始时间', type: 'datetime'},
+                    {value: 'date_max', text: '结束时间', type: 'datetime'},
                 ],
                 preSelectionSearch: {
                     // status: '0',
@@ -65,8 +65,8 @@ define([], function() {
                 searchItems: [
                     {value: 'product_id', text: '课程ID', placeholder: '课程ID'},
                     {value: 'user_id', text: '用户ID', placeholder: '用户ID'},
-                    {value: 'start_time', text: '开始时间', type: 'datetime'},
-                    {value: 'end_time', text: '结束时间', type: 'datetime'},
+                    {value: 'date_min', text: '开始时间', type: 'datetime'},
+                    {value: 'date_max', text: '结束时间', type: 'datetime'},
                 ],
                 preSelectionSearch: {
                     // status: '0',
@@ -82,7 +82,7 @@ define([], function() {
                 ext: {
                     showNum: [
                         {
-                            fieldDirective: '<span ng-bind="\'课程ID：\'+extSearch.product_id+\'  |  用户ID：\'+extSearch.user_id+\'  |  开始时间：\'+(extSearch.start_time||\'\')+\'  |  结束时间：\'+(extSearch.end_time||\'\')"></span> &nbsp;&nbsp;&nbsp;',
+                            fieldDirective: '<span ng-bind="\'课程ID：\'+extSearch.product_id+\'  |  用户ID：\'+extSearch.user_id+\'  |  开始时间：\'+(extSearch.date_min||\'\')+\'  |  结束时间：\'+(extSearch.date_max||\'\')"></span> &nbsp;&nbsp;&nbsp;',
                         },
                     ],
                 },
