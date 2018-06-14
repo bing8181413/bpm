@@ -5,11 +5,11 @@ define([], function() {
                 {name: '课程ID', field: 'product_id', className: 'text-center'},
                 {name: '课程名称', field: 'title', className: 'text-left'},
                 {
-                    name: '开团奖学金 / 订单', className: 'text-center',
-                    fieldDirective: '<span ng-bind="item.stat_studentship.tuan_coin+\' / \'+item.stat_studentship.tuan_order"></span>',
+                    name: '开团(奖学金 / 订单)', className: 'text-center',
+                    fieldDirective: '<span class="label label-info" ng-bind="item.stat_studentship.tuan_coin"></span> / <span class="label label-info" ng-bind="item.stat_studentship.tuan_order"></span>',
                 },
                 {
-                    name: '分销奖学金 / 订单', className: 'text-center',
+                    name: '分销(奖学金 / 订单)', className: 'text-center',
                     fieldDirective: '<span show-table data="{ext:{product_id:item.product_id,user_id:searchParams.user_id,date_min:searchParams.date_min,date_max:searchParams.date_max},text:item.stat_studentship.dist_coin+\' / \'+item.stat_studentship.dist_order,modid:\'productstudentshipsList\',config:\'studentships_config\',columns:\'studentships_columns\'}"></span>',
                 },
                 // {name: '退单数量', fieldDirective: '<span ng-bind="searchParams|json"></span>', className: 'text-center'},
@@ -53,9 +53,9 @@ define([], function() {
             },
             studentships_columns: [
                 {name: '分销层级', field: 'tuan_type|studentships_type:item.distribution_type', className: 'text-center'},
-                {name: '收益人数', field: 'user_num', className: 'text-center'},
-                {name: '订单', field: 'order_num', className: 'text-center'},
-                {name: '奖学金金额', field: 'coin_total', className: 'text-center'},
+                {name: '收益人数', field: 'user_num|null2empty', className: 'text-center'},
+                {name: '订单', field: 'order_num|null2empty', className: 'text-center'},
+                {name: '奖学金金额', field: 'coin_total|null2empty', className: 'text-center'},
             ],
             studentships_config: {
                 title: '分销奖学金',
