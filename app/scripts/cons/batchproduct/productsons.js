@@ -4,14 +4,7 @@ define([], function () {
             columns: [
                 {name: '活动ID', field: 'son_id', className: 'text-center'},
                 {name: '活动名称', field: 'son_product.title', className: 'text-left'},
-                {
-                    name: '管理备注', field: 'son_product.admin_remark',
-                    truncateText: true,
-                    truncateTextLength: 7,
-                    truncateTextBreakOnWord: false,
-                    tooltip: 'son_product.admin_remark',
-                    tooltipPlacement: 'bottom',
-                },
+                {name: '管理备注', field: 'son_product.admin_remark'},
                 {
                     name: '管理',
                     fieldDirective: '<div product-son-edit data="item.son_product" ></div>' + '<span product-son-del data="item"></span>'
