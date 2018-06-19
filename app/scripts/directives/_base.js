@@ -768,7 +768,16 @@ define([
                         name: 'imageFilter',
                         fn: function (item /*{File|FileLikeObject}*/, options) {
                             var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                            return '|mp3|mp4|pdf|doc|docx|xls|xlsx|ppt|pptx|x-rar|zip|'.indexOf(type) !== -1;
+                            var typeArr = ['mp3','mp4','pdf','x-rar','zip',
+                                'msword',//'doc',
+                                'vnd.ms-excel',//'xls',
+                                'vnd.ms-powerpoint',//'ppt',
+                                'vnd.openxmlformats-officedocument.wordprocessingml.document',//'docx'
+                                'vnd.openxmlformats-officedocument.spreadsheetml.sheet',//'xlsx',
+                                'vnd.openxmlformats-officedocument.presentationml.presentation'//'pptx'
+                            ];
+                            var typeStr = '|'+typeArr.join('|')+'|';
+                            return typeStr.indexOf(type) !== -1;
                             // return '|mp3|mp4|'.indexOf(type) !== -1;
                         }
                     });
