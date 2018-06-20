@@ -777,6 +777,7 @@ define([
                                 'vnd.openxmlformats-officedocument.presentationml.presentation'//'pptx'
                             ];
                             var typeStr = '|'+typeArr.join('|')+'|';
+                            console.log(item.type,item,'\n',typeStr.indexOf(type) !== -1,'\n',typeStr);
                             return typeStr.indexOf(type) !== -1;
                             // return '|mp3|mp4|'.indexOf(type) !== -1;
                         }
