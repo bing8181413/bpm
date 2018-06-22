@@ -15,7 +15,9 @@ define(['./common'], function (common) {
                     name: '证书获取情况', className: 'text-center',
                     fieldDirective: '<span show-table data="{text:\'证书获取用户列表\',modid:\'certUserList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/certs/\'+item.id+\'/users\'}"></span>'
                 },
-                {name: '证书预览', field: 'created_at', className: 'text-center'},
+                {name: '证书预览',className: 'text-center width100', fieldDirective: '<div show-image url="item.selected_thumb_image" width="150"></div>'},
+                {name: '证书背景',className: 'text-center width150', fieldDirective: '<div show-image url="item.bg_image" width="100"></div>'},
+                {name: '创建时间', field: 'created_at', className: 'text-center'},
                 {name: '备注', field: 'remark|null2empty'},
                 {
                     name: '操作',
