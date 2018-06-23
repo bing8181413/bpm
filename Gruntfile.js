@@ -135,6 +135,7 @@ module.exports = function (grunt) {
           'app/scripts/views/live/**/*.html',
           'app/scripts/views/support/**/*.html',
           'app/scripts/views/directive/**/*.html',
+          'app/scripts/views/third/**/*.html',
         ],
         dest: 'app/scripts/app-tpl.js'
       }

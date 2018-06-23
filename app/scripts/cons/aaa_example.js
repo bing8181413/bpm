@@ -94,7 +94,7 @@ define([], function () {
                     maxSize: 2, //最大展示页，默认3
                     // showPageGoto: false //属性为true将显示前往第几页。
                 },
-                route: [{value: 'product.add', text: '新增商品'}],
+                route: [{value: 'main.product.add', text: '新增商品'}],
                 // 额外的bar  在搜索框下面 可以自定义事件
                 ext: {
                     checked: {

@@ -1,0 +1,36 @@
+<div>
+  <div class="row text-muted" ng-if="item.type==1">
+    <div class="col-sm-1" dnd-handle>
+      <span ng-bind="'::: '+item.chapters_index+' 章节'" class="label-info label"></span>
+    </div>
+    <div class="col-sm-11">
+      <div class="input-group">
+        <span class="input-group-addon">名称:</span>
+        <input type="text" class="form-control" ng-model="item.title" required="true">
+      </div>
+    </div>
+  </div>
+  <div class="row text-muted" ng-if="item.type==2">
+    <div class="col-sm-1" dnd-handle>
+      <span class="label-info label">::: </span>
+    </div>
+    <div class="col-sm-10">
+      <span class="label label-primary">ID:{{item.room_id}}</span>
+      <span class="label "
+            ng-class="{'label-success':item.online_status=='1','label-danger':item.online_status=='2'}">
+                    类型:{{(item.online_status|keyVal:'1':'立即生效':'2':'定时生效'|null2empty)}}
+              </span>
+      <a class="btn btn-xs btn-bordered"
+         ng-class="{'btn-warning':show,'btn-primary':!show}"
+         ng-click="show=!show" ng-bind="!show?'显示详情':'隐藏详情'"></a>
+      <span class="">{{item.title}}</span>
+    </div>
+    <div class="col-sm-1" ng-show="$last">
+      <a class="btn btn-primary btn-bordered btn-xs"
+         ng-click="chapters.splice($index, 0, {type: 1, title: ''})">向上加章节</a>
+    </div>
+    <div form-radio text="类型" ng-model="item.online_status" default="1" name="online_status"
+         source="[{text:'立即生效',value:'1'},{text:'定时生效',value:'2'}]" ng-show="show"></div>
+    <div form-date-time text="设置时间" ng-model="item.online_time" ng-show="show"></div>
+  </div>
+</div>

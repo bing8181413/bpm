@@ -37,7 +37,6 @@ define([
     './cert',//问答证书列表',
     './cert_user',//证书获取用户列表',
 
-
     './sqls',//exports/sqls
 
     // './record_user_block',//点播用户禁言',
@@ -46,22 +45,22 @@ define([
     './batchproduct/_conf',//  组
     './live/_conf',//  组
 
-
     './merchant/_conf',//  供应商
     './support/_conf',//  SKU
-    './distributions/_conf'//  分销 奖学金
+    './distributions/_conf',//  分销 奖学金
+    './third/_conf',//  第三方   百度课程和订单
 
-], function (common) {
+], function(common) {
     // console.log(common);
     var confs = {};
     var conf_index = 0;
-    angular.forEach(arguments, function (val, key) {
+    angular.forEach(arguments, function(val, key) {
         conf_index++;
         if (val.length > 0) {
-            angular.forEach(val, function (v, k) {
+            angular.forEach(val, function(v, k) {
                 conf_index++;
                 confs[conf_index] = v;
-            })
+            });
         } else {
             confs[conf_index] = val;
         }
@@ -70,15 +69,16 @@ define([
     var common = common;
     var default_param = {
         page: 1,
-        count: 20
+        count: 20,
     };
     var state = {
         main: 'main',
         biz: 'biz',
         demo: 'demo',
         live: 'live',
-      support: 'support',
-    }
+        support: 'support',
+        third: 'third',
+    };
     return {
         'VIEW_PATH': 'scripts/views/',
         'view_path': 'scripts/views/',
@@ -86,6 +86,7 @@ define([
         'biz_path': 'scripts/views/' + state.biz + '/',
         'live_path': 'scripts/views/' + state.live + '/',
         'support_path': 'scripts/views/' + state.support + '/',
+        'third_path': 'scripts/views/' + state.third + '/',
         'demo_path': 'scripts/views/' + state.demo + '/',
         'DIRECTIVE_PATH': 'scripts/views/directive/',
         'DIRECTIVE_LIST_PATH': 'scripts/views/directive/list/',
@@ -95,6 +96,7 @@ define([
         'domain': common.domain,
         'live_domain': common.domain + '/mobile',
         'support_domain': common.domain + '/supports',
+        'third_domain': common.domain + '/third',
         'web_domain': common.web_domain,
         'qiniu_domain': common.qiniu_domain,
         'wx_domain': common.wx_domain,
@@ -104,6 +106,6 @@ define([
         'state': state,
         'modsconfs': confs,
         'common': common,
-        'last': 'ooo:)'
+        'last': 'ooo:)',
     };
 });

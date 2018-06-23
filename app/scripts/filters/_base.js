@@ -3,12 +3,12 @@ define([
     './common',
     './form_err',
     '../cons/simpleCons'
-], function (mod, simpleCons) {
+], function (mod, simpleCons,comfunc) {
     mod
-    /* studentships_type
+        /* studentships_type
            tuan_type    1:
            distribution_type
-     */
+        */
         .filter('studentships_type', [function () {
             return function (tuan_type,distribution_type) {
                 var result = '未知';

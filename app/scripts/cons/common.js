@@ -69,6 +69,8 @@ define([], function () {
         env_name: env_name,
         domain: domain,
         live_domain: domain + '/mobile',
+        support_domain: domain + '/support',
+        third_domain: domain + '/third',
         web_domain: web_domain,
         qiniu_domain: qiniu_domain,
         wx_domain: wx_domain,
