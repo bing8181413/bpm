@@ -5,6 +5,7 @@ define([
     ,'./exchanges'
     ,'./orders'
     ,'./skuno'
+    ,'./fanlicfgs'
 ], function () {
     return arguments;
 })

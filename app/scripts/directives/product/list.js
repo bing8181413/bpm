@@ -91,7 +91,7 @@ define([
             });
           }
         };
-        var content = '<a class="btn btn-rounded btn-sm"' + class_text + status_text + click_text +
+        var content = '<a class="btn btn-rounded btn-xs"' + class_text + status_text + click_text +
             ' ng-show="show_text" show-role="\'admin,op\'"></a>';
         $element.find('.change-status').html(content);
         $compile($element.contents())($scope);
@@ -113,14 +113,14 @@ define([
         var product_type_title = '';
         if ($scope.data.product_type == 1) {
           product_type_title = '测试';
-          product_type_text = 'ng-bind="\'正式\'"';
-          class_text = 'ng-class={\"btn-primary\":true} ';
+          product_type_text = 'ng-bind="\'改为测试\'"';
+          class_text = 'ng-class={\"btn-warning\":true} ';
           click_text = 'ng-click="change(2);"';
           $scope.show_text = true;
         } else if ($scope.data.product_type == 2) {
           product_type_title = '正式';
-          product_type_text = 'ng-bind="\'测试\'"';
-          class_text = 'ng-class={\"btn-warning\":true} ';
+          product_type_text = 'ng-bind="\'改为正式\'"';
+          class_text = 'ng-class={\"btn-primary\":true} ';
           click_text = 'ng-click="change(1);"';
           $scope.show_text = true;
         }
@@ -138,7 +138,7 @@ define([
             });
           }
         };
-        var content = '<a class="btn btn-rounded btn-sm"' + class_text + product_type_text + click_text +
+        var content = '<a class="btn btn-rounded btn-xs"' + class_text + product_type_text + click_text +
             ' ng-show="show_text" show-role="\'admin,op\'"></a>';
         $element.find('.change-product-type').html(content);
         $compile($element.contents())($scope);
@@ -320,7 +320,7 @@ define([
       scope: {
         data: '=',
       },
-      template: '<p><a class="btn btn-rounded btn-sm btn-warning" ng-click="show_act_change_notice()" >活动开始通知</a></p>',
+      template: '<p><a class="btn btn-rounded btn-xs btn-primary" ng-click="show_act_change_notice()" >活动开始通知</a></p>',
       link: function($scope, $element, $attrs) {
         var supscope = $scope;
         $scope.show_act_change_notice = function() {
@@ -369,7 +369,7 @@ define([
       scope: {
         data: '=',
       },
-      template: '<p><a class="btn btn-rounded btn-sm btn-warning" ng-click="show_act_crowdfunding()"' +
+      template: '<p><a class="btn btn-rounded btn-xs btn-warning" ng-click="show_act_crowdfunding()"' +
       ' ng-show="data.category==3&&is_show">发送众筹结果通知</a></p>',
       link: function($scope, $element, $attrs) {
         var supscope = $scope;
@@ -526,7 +526,7 @@ define([
       scope: {
         data: '=',
       },
-      template: '<p><a class="btn btn-rounded btn-sm btn-primary" ng-click="open()" >分销设置</a></p>',
+      template: '<p><a class="btn btn-rounded btn-xs btn-primary" ng-click="open()" >分销设置</a></p>',
       link: function($scope, $element, $attrs) {
         var supscope = $scope;
         $scope.open = function() {

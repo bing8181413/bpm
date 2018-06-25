@@ -4,7 +4,7 @@
  */
 define([
       '../../states'
-      , '../../../cons/simpleCons',
+      , '../../../cons/simpleCons'
     ],
     function(stateModule, cons) {
       stateModule.config(

@@ -12,7 +12,7 @@ define([
             '$stateProvider', '$urlRouterProvider',
             function($stateProvider, $urlRouterProvider) {
               $stateProvider.state(cons.state.main + '.market.orders', {
-                url: '/market/orders.html',
+                url: '/orders.html',
                 views: {
                   '': {
                     templateProvider: function($templateCache) {

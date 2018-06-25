@@ -16,16 +16,11 @@ define([], function () {
                     fieldDirective: '<p style="width:300px;" ng-bind="item.title"></p>'
                 },
                 {name: '商品状态', field: 'status'},
-                // {name: '操作', field: 'product_id'},
-                // {
-                //     name: '手机',
-                //     field: 'mobile',
-                //     truncateText: true,
-                //     truncateTextLength: 11,
-                //     truncateTextBreakOnWord: false,
-                //      tooltip: 'product.title',
-                //      tooltipPlacement: 'bottom',
-                // },
+                {
+                    name: '管理', className: 'text-center',
+                    fieldDirective: '<a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.market.fanlicfgsUpdate({id:item.id})">编辑</a>' +
+                    '<span delete-data data="" config="{url:$root.common.domain+\'/markets/fanlicfgs/\'+item.id,method:\'DELETE\',text:\'删除\'}" param="{}" callback="updateList()"></span> ',
+                },
             ],
             config: {
                 title: '导出管理',
