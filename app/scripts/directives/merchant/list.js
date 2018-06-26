@@ -22,8 +22,8 @@ define([
             controller: function($scope, $uibModalInstance) {
               $scope.company_name = supScope.data.company_name;
               $scope.utm_source = supScope.data.utm_source;
-              $scope.new_balance_rate = 0;
-              $scope.old_balance_rate = 0;
+              $scope.new_balance_rate = 0.3;
+              $scope.old_balance_rate = 0.3;
               $scope.param = {};
               $scope.verify_product_id = function(product_id) {
                 if (!product_id) {
