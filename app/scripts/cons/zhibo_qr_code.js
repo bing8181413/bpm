@@ -15,7 +15,7 @@ define(['./common'], function (common) {
                 },
             ],
             config: {
-                title: '直播二维码',
+                title: '微信拼课二维码',
                 api: '/cctalk/qrcodes',
                 rowItemName: 'item',
                 searchSupport: false,
@@ -34,7 +34,7 @@ define(['./common'], function (common) {
                 ext: {
                     eventBtn: [
                         {
-                            text: '新增cctalk二维码',
+                            text: '新增微信拼课二维码',
                             fieldFirective: '<div add-zhibo-qr-code data=""></div>',
                         },
                     ]

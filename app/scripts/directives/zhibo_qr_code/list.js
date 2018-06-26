@@ -50,14 +50,14 @@ define([
                 scope: {
                     data: '=',
                 },
-                template: '<a class="btn btn-rounded btn-primary pull-right" ng-click="add_qr_code()" >新增CCtalk二维码</a>',
+                template: '<a class="btn btn-rounded btn-primary pull-right" ng-click="add_qr_code()" >新增微信拼课二维码</a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     $scope.add_qr_code = function () {
                         var modalInstance = $uibModal.open({
                                 template: '<div modal-panel title="title" tmpl="tmpl"></div>',
                                 controller: function ($scope, $uibModalInstance) {
-                                    $scope.title = '新增CCtalk二维码';
+                                    $scope.title = '新增微信拼课二维码';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
                                         '<div form-input text="描述" ng-model="name" required="true"></div>' +
                                         '<div form-image-single text="二维码" ng-model="url" required="true"></div>' +
