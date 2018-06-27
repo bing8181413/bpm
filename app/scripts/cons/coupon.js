@@ -54,8 +54,9 @@ define([], function () {
                 // {name: '发送数量', field: 'send_count'},
                 {
                     name: '有效期',
-                    fieldDirective: '<span ng-bind="item.start_time+\'-\'+item.expire_time"></span>'
+                    fieldDirective: '<span ng-bind="\'开始：\'+item.start_time"></span><br/><span ng-bind="\'结束：\'+item.expire_time"></span>'
                 },
+                {name: '使用时间', field: 'order.created_at'},
                 // {
                 //     name: '手机号码',
                 //     fieldDirective: '<div modal-textarea title="查看" content="item.mobile_list"></div>'

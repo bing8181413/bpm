@@ -63,6 +63,7 @@ define([], function () {
                 },
                 {name: '下单时间', field: 'order_time'},
                 {name: '订单<br/>状态', field: 'order_status', filter: 'order_status'},
+                {name: '订单<br/>取消时间', field: 'refund.created_at'},
                 {name: '马甲<br/>状态', field: 'is_mj', filter: 'keyVal:\'1\':\'马甲\':\'0\':\'\''},
                 {name: 'utm<br/>source', fieldDirective: '<p ng-bind="item.stat.utm_source"></p>'},
                 {name: '备注', fieldDirective: '<p ng-bind="item.remark"></p>'},

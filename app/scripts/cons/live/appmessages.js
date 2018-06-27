@@ -4,6 +4,7 @@ define(['.././common'], function(common) {
       columns: [
         {name: 'ID', field: 'id', className: 'text-center width100'},
         {name: '标题', field: 'title'},
+        {name: '创建时间', field: 'created_at'},
         {
           name: '文案', className: 'text-center width100',
           fieldDirective: '<div modal-textarea title="查看" content="item.description"></div>',
