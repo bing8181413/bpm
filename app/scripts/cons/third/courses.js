@@ -3,6 +3,7 @@ define(['.././common'], function(common) {
         coursesList: {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-center'},
+                {name: '排序', field: 'order_by', className: 'text-center'},
                 {name: '名称', field: 'title|null2empty', className: 'text-left'},
                 {name: '价格', field: 'price|null2empty'},
                 {name: 'image', fieldDirective: '<div show-image url="item.image" width="100"></div>'},
