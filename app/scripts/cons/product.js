@@ -67,15 +67,15 @@ define(['angular', './common'], function(angular, common) {
                     name: '状态修改', className: 'mobile_show width150',
                     fieldDirective:
                     '<div product-change-status data="item" ></div>'
-                    +'<div change-product-type data="item" ></div>'
-                    +'<div act-crowdfunding data="item" ></div>' +
+                    + '<div change-product-type data="item" ></div>'
+                    + '<div act-crowdfunding data="item" ></div>' +
                     '<p delete-data data="" config="{url:$root.common.domain+\'/product/\'+item.product_id+\'/redis\',method:\'DELETE\',text:\'删除缓存\',class:\'btn-danger btn-xs\'}" param="{}" callback="updateList()"></p>',
 
                 },
                 {
                     name: '操作', className: 'mobile_show width150',
                     fieldDirective: '<div act-edit data="item" ></div>'
-                    +'<div act-distribution data="item" ></div>'
+                    + '<div act-distribution data="item" ></div>'
                     + '<div act-change-notice data="item" ></div>',
                 },
             ],
