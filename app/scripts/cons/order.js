@@ -30,10 +30,9 @@ define([], function() {
                 {
                     name: '用户、收货人信息', className: 'width200 mobile_show',
                     fieldDirective: '<div>' +
-                    '<p>用户ID:<span ng-bind="item.user_id"></span></p>' +
-                    '<p>用户手机:<span ng-bind="item.mobile"></span></p>' +
-                    '<p>用户名:<span ng-bind="item.name"></span></p>' +
-                    '<p>用户ID:<span ng-bind="item.user_id"></span></p>' +
+                    '<p>用户ID:<span ng-bind="item.user.user_id"></span></p>' +
+                    '<p>用户手机:<span ng-bind="item.user.mobile"></span></p>' +
+                    '<p>用户名:<span ng-bind="item.user.name"></span></p>' +
                     '<p>收货人:<span ng-bind="item.address.contact_name"></span></p>' +
                     '<p>收货手机:<span ng-bind="item.address.contact_mobile"></span></p>' +
                     // '<p>收货地址:<span ng-bind="item.address.province+item.address.city_name+item.address.address"></span></p>' +
@@ -108,10 +107,9 @@ define([], function() {
                 {
                     name: '用户、收货人信息', className: 'width200 mobile_show',
                     fieldDirective: '<div>' +
-                    '<p>用户ID:<span ng-bind="item.user_id"></span></p>' +
-                    '<p>用户手机:<span ng-bind="item.mobile"></span></p>' +
-                    '<p>用户名:<span ng-bind="item.name"></span></p>' +
-                    '<p>用户ID:<span ng-bind="item.user_id"></span></p>' +
+                    '<p>用户ID:<span ng-bind="item.user.user_id"></span></p>' +
+                    '<p>用户手机:<span ng-bind="item.user.mobile"></span></p>' +
+                    '<p>用户名:<span ng-bind="item.user.name"></span></p>' +
                     '<p>收货人:<span ng-bind="item.address.contact_name"></span></p>' +
                     '<p>收货手机:<span ng-bind="item.address.contact_mobile"></span></p>' +
                     '</div>',
@@ -430,10 +428,9 @@ define([], function() {
                 {
                     name: '用户、收货人信息', className: 'width200 mobile_show',
                     fieldDirective: '<div>' +
-                    '<p>用户ID:<span ng-bind="item.user_id"></span></p>' +
-                    '<p>用户手机:<span ng-bind="item.mobile"></span></p>' +
-                    '<p>用户名:<span ng-bind="item.name"></span></p>' +
-                    '<p>用户ID:<span ng-bind="item.user_id"></span></p>' +
+                    '<p>用户ID:<span ng-bind="item.user.user_id"></span></p>' +
+                    '<p>用户手机:<span ng-bind="item.user.mobile"></span></p>' +
+                    '<p>用户名:<span ng-bind="item.user.name"></span></p>' +
                     '<p>收货人:<span ng-bind="item.address.contact_name"></span></p>' +
                     '<p>收货手机:<span ng-bind="item.address.contact_mobile"></span></p>' +
                     '</div>',
@@ -495,10 +492,9 @@ define([], function() {
                 {
                     name: '用户、收货人信息', className: 'width200 mobile_show',
                     fieldDirective: '<div>' +
-                    '<p>用户ID:<span ng-bind="item.user_id"></span></p>' +
-                    '<p>用户手机:<span ng-bind="item.mobile"></span></p>' +
-                    '<p>用户名:<span ng-bind="item.name"></span></p>' +
-                    '<p>用户ID:<span ng-bind="item.user_id"></span></p>' +
+                    '<p>用户ID:<span ng-bind="item.user.user_id"></span></p>' +
+                    '<p>用户手机:<span ng-bind="item.user.mobile"></span></p>' +
+                    '<p>用户名:<span ng-bind="item.user.name"></span></p>' +
                     '<p>收货人:<span ng-bind="item.address.contact_name"></span></p>' +
                     '<p>收货手机:<span ng-bind="item.address.contact_mobile"></span></p>' +
                     '</div>',
