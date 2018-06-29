@@ -47,7 +47,7 @@ define([], function() {
                     name: '支付信息', className: 'width150 mobile_show',
                     fieldDirective: '<div>' +
                     '<p>支付类型:<span ng-bind="item.payment_from|payment_from"></span></p>' +
-                    '<p>支付状态:<span ng-bind="payment_status|payment_status"></span></p>' +
+                    '<p>支付状态:<span ng-bind="item.payment_status|payment_status"></span></p>' +
                     '<p>份数:<span ng-bind="item.order_count"></span></p>' +
                     '<p>金额:<span ng-bind="item.order_price"></span></p>' +
                     '</div>',
@@ -120,7 +120,7 @@ define([], function() {
                     name: '支付信息', className: 'width150 mobile_show',
                     fieldDirective: '<div>' +
                     '<p>支付类型:<span ng-bind="item.payment_from|payment_from"></span></p>' +
-                    '<p>支付状态:<span ng-bind="payment_status|payment_status"></span></p>' +
+                    '<p>支付状态:<span ng-bind="item.payment_status|payment_status"></span></p>' +
                     '<p>份数:<span ng-bind="item.order_count"></span></p>' +
                     '<p>金额:<span ng-bind="item.order_price"></span></p>' +
                     '</div>',
@@ -442,7 +442,7 @@ define([], function() {
                     name: '支付信息', className: 'width150 mobile_show',
                     fieldDirective: '<div>' +
                     '<p>支付类型:<span ng-bind="item.payment_from|payment_from"></span></p>' +
-                    '<p>支付状态:<span ng-bind="payment_status|payment_status"></span></p>' +
+                    '<p>支付状态:<span ng-bind="item.payment_status|payment_status"></span></p>' +
                     '<p>份数:<span ng-bind="item.order_count"></span></p>' +
                     '<p>金额:<span ng-bind="item.order_price"></span></p>' +
                     '</div>',
@@ -507,7 +507,7 @@ define([], function() {
                     name: '支付信息', className: 'width150 mobile_show',
                     fieldDirective: '<div>' +
                     '<p>支付类型:<span ng-bind="item.payment_from|payment_from"></span></p>' +
-                    '<p>支付状态:<span ng-bind="payment_status|payment_status"></span></p>' +
+                    '<p>支付状态:<span ng-bind="item.payment_status|payment_status"></span></p>' +
                     '<p>份数:<span ng-bind="item.order_count"></span></p>' +
                     '<p>金额:<span ng-bind="item.order_price"></span></p>' +
                     '</div>',
