@@ -59,6 +59,10 @@ define([
                                 controller: function ($scope, $uibModalInstance) {
                                     $scope.title = '导入用户';
                                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate >' +
+                                        '<div class="row">' +
+                                        '<a class="btn btn-link col-sm-2 btn-lg control-label" href="http://resource.bucket.ahaschool.com/5b39bbc338cd9Y1slhQDad0.xlsx">下载国家代号EXCEL</a>' +
+                                        '<h5 class="text-danger col-sm-10">怎么导入国外号码？例如:北美国家代号码是 1 ,手机号码为 22222222 的用户,请录入 "+122222222"（注意包括"+"）。</h5>' +
+                                        '</div>'+
                                         '<div form-textarea text="用户手机号码" ng-model="mobiles" ' +
                                         ' placeholder="用户手机号,用逗号隔开,或者没有逗号直接换行" required="true"></div>' +
                                         '<a class="btn btn-success btn-rounded pull-right" ng-click="submit()">确定</a>' +
