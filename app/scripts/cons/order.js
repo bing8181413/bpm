@@ -148,7 +148,7 @@ define([], function() {
                 },
             ],
             config_by_act_2: {
-                title: '当前活动订单列表',
+                title: '当前课程订单列表',
                 api: '/orders',
                 rowItemName: 'item',
                 searchSupport: true,
@@ -224,7 +224,7 @@ define([], function() {
                 },
             },
             config_by_act: {
-                title: '活动订单列表',
+                title: '课程订单列表',
                 api: '/orders',
                 rowItemName: 'item',
                 searchSupport: true,
