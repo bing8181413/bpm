@@ -1,46 +1,62 @@
-define(['.././common'], function (common) {
+define(['.././common'], function(common) {
     var rtn = {
         videogroupsList: {
             columns: [
-                {name: 'ID', field: 'id', className: 'text-right'},
-                {name: '排序', field: 'order_by'},
-                {name: '是否显示', field: 'visible', filter: 'keyVal:\'1\':\'是\':\'2\':\'--\''},
                 {
-                    name: 'URL地址',
-                    // fieldDirective: '<span ng-bind="$root.common.wx_domain+\'/groupvideolist/video_group_id/\'+item.id"></span>'
-                    fieldDirective: '<div modal-textarea title="查看" content="$root.common.wx_domain+\'/groupvideolist/video_group_id/\'+item.id"></div>',
-                    className: 'text-center'
-                },
-                {name: '发布时间', field: 'created_at', filter: 'null2empty'},
-                {name: '权限发放时间', field: 'open_time', filter: 'null2empty'},
-                {name: '首播时间', field: 'first_time', filter: 'null2empty'},
-                {name: '视频组名称', field: 'group_title', className: 'text-left'},
-                {
-                    name: '视频数量', className: 'text-center',
-                    fieldDirective: '<span show-table data="{text:item.video_count||0,modid:\'videogroupsroomList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/rooms\'}"></span>'
+                    name: 'ID,排序,显示', className: 'width150 mobile_show',
+                    fieldDirective: '<div>' +
+                    '<p><span >ID</span>:<span ng-bind="item.id|null2empty"></span></p>' +
+                    '<p><span >排序</span>:<span ng-bind="item.order_by|null2empty"></span></p>' +
+                    '<p class="label" ' +
+                    'ng-class="{\'label-primary\':item.visible==1,\'label-warning\':item.visible!=1}">' +
+                    '<span ng-bind="item.visible|keyVal:\'1\':\'显示\':\'2\':\'----\'"></span></p>' +
+                    '</div>',
                 },
                 {
-                    name: '关联活动', className: 'text-center',
-                    fieldDirective: '<span ng-show="item.pay_type!=2">免费</span> <span ng-show="item.pay_type==2" show-table data="{text:\'查看\',modid:\'videogroupsoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/options\'}"></span>'
+                    name: '视频组信息', className: 'width200 mobile_show',
+                    fieldDirective: '<div>' +
+                    '<div modal-textarea title="视频组URL" size="sm" content="$root.common.wx_domain+\'/groupvideolist/video_group_id/\'+item.id"></div>' +
+                    '<p><span ng-bind="item.group_title"></span></p>' +
+                    '</div>',
                 },
                 {
-                    name: '关联SKU', className: 'text-center',
-                    fieldDirective: '<span ng-show="item.pay_type!=2">免费</span> <span ng-show="item.pay_type==2" show-table data="{text:\'查看\',modid:\'videogroupsskuoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/skuoptions\'}"></span>'
+                    name: '时间', className: 'width250 mobile_show',
+                    fieldDirective: '<div>' +
+                    '<p><span >发布时间</span>:<span ng-bind="item.created_at|null2empty"></span></p>' +
+                    '<p><span >权限发放</span>:<span ng-bind="item.open_time|null2empty"></span></p>' +
+                    '<p><span >首播时间</span>:<span ng-bind="item.first_time|null2empty"></span></p>' +
+                    '</div>',
                 },
                 {
-                    name: '导入用户/列表', className: 'text-center',
-                    fieldDirective: '<span videogroup-import-user data="item" ></span>' +
-                    '<span show-table data="{text:\'查看\',modid:\'videogroupUserList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/users\'}"></span>'
+                    name: '关联信息', className: 'width150 mobile_show',
+                    fieldDirective: '<div>' +
+                    '<p><span >房间和作业</span>: <span show-table data="{text:item.video_count||0,modid:\'videoGroupsRoomList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/rooms\'}"></span></p>' +
+                    '<p><span >关联活动</span>:<span ng-show="item.pay_type!=2">免费</span> <span ng-show="item.pay_type==2" show-table data="{text:\'查看\',modid:\'videogroupsoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/options\'}"></span></p>' +
+                    '<p><span >关联SKU</span>:<span ng-show="item.pay_type!=2">免费</span> <span ng-show="item.pay_type==2" show-table data="{text:\'查看\',modid:\'videogroupsskuoptionList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/skuoptions\'}"></span></p>' +
+                    '</div>',
                 },
                 {
-                    name: '备注',
-                    fieldDirective: '<div modal-textarea title="查看" content="item.remark|null2empty"></div>',
-                    className: 'text-center'
+                    name: '视频组权限', className: 'width200 mobile_show',
+                    fieldDirective: '<div>' +
+                    '<p><span >用户权限导入</span>: <span videogroup-import-user data="item" title="导入" ></span></p>' +
+                    '<p><span >用户权限列表</span>: <span show-table data="{text:\'查看\',modid:\'videogroupUserList\',config:\'config\',columns:\'columns\',extApi:$root.common.live_domain+\'/live/videogroups/\'+item.id+\'/users\'}"></span></p>' +
+                    '</div>',
+                },
+                {
+                    name: '备注', className: 'width150 mobile_show',
+                    fieldDirective: '<div><p><span ng-bind="item.remark"></span></p>' +
+                    '</div>',
+                },
+                {
+                    name: '任务发布情况', className: 'width200 mobile_show',
+                    fieldDirective: '<p class="label label-primary"><span ng-bind="item.work_tasks.published+\'/\'+item.work_tasks.total"></span></p>',
                 },
                 {
                     name: '管理', className: 'text-center',
-                    fieldDirective: '<a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.videogroups.update({id:item.id})">编辑</a>'
-                }
+                    fieldDirective:
+                    '<p> <a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.videoGroupsRoom.list({id:item.id})">查看详情</a></p>' +
+                    '<a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.videogroups.update({id:item.id})">编辑</a>',
+                },
             ],
             config: {
                 title: '视频组列表',
@@ -54,7 +70,7 @@ define(['.././common'], function (common) {
                             {value: '', text: '全 部'},
                             {value: '1', text: '是'},
                             {value: '2', text: '否'},
-                        ]
+                        ],
                     },
                     {text: '关键字', value: 'keyword', type: 'text'},
                 ],
@@ -75,7 +91,7 @@ define(['.././common'], function (common) {
                     ],
                 },
             },
-        }
-    }
+        },
+    };
     return rtn;
 });

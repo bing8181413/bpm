@@ -48,8 +48,7 @@ define([], function () {
         // domain = 'https://devapi.huijiame.com';
         env = 'dev';
         env_name = '开发系统';
-        // domain = 'https://devmgrapi.ahaschool.com';
-        domain = 'https://dev.ahaschool.com/mgrapi';
+        domain = 'https://mgrapi-dev.d.ahaschool.com';
         web_domain = 'https://devbpm.ahaschool.com';
         web_domain = 'https://dev.ahaschool.com/bpm';
         qiniu_domain = 'https://devbpm.ahaschool.com';

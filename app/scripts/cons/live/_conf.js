@@ -2,7 +2,6 @@ define([
     './marketshare'
     , './marketsharereceive'
     , './videogroup'
-    , './videogrouproom'
     , './videogroupskuoption'
     , './videogroupoption'
     , './videogroupuser'
@@ -12,6 +11,7 @@ define([
     , './permission'
     , './appmessages'
     , './appbuyactions'
+    , './videoGroupsRoom'
 ], function () {
     return arguments;
 })

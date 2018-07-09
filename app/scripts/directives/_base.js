@@ -6,6 +6,7 @@ define([
     './hjm-form',// form
     './hjm-form-audio',// form audio 音频 录音
     './hjm-form-image',// form image single
+    './hjm-form-media',// form media single
     './hjm-form-search',// form search form表单里查询数据
     './hjm-form-date',// form date
     './hjm-form-valid',// form-valid 表单验证
