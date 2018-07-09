@@ -544,6 +544,7 @@ define([
                                     success: function(json) {
                                         var o = json.data || {};
                                         o.title = supscope.data.title;
+                                        o.product_id = supscope.data.product_id;
                                         o.groupbuy_in_level_one = Number(o.groupbuy_in_level_one || 0);
                                         o.groupbuy_elastic_level_one = Number(o.groupbuy_elastic_level_one || 0);
                                         o.poster_level_one = Number(o.poster_level_one || 0);
