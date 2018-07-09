@@ -542,7 +542,7 @@ define([
                                     scope: $scope,
                                     data: {},
                                     success: function(json) {
-                                        var o = json.data;
+                                        var o = json.data || {};
                                         o.title = supscope.data.title;
                                         o.groupbuy_in_level_one = Number(o.groupbuy_in_level_one || 0);
                                         o.groupbuy_elastic_level_one = Number(o.groupbuy_elastic_level_one || 0);
