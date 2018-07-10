@@ -224,7 +224,7 @@ define([
                 template: '<a class="btn btn-rounded btn-sm btn-primary" ng-click="show()" ng-if="handle" ng-bind="title">></a>',
                 link: function($scope, $element, $attrs) {
                     $scope.data = $scope.videoTask;
-                    var supScope = $scope;
+                    var supScope1 = $scope;
                     $scope.show = function() {
                         if (!$scope.taskId) {
                             widget.msgToast('前端code,没有任务ID');
@@ -235,30 +235,30 @@ define([
                                 controller: function($scope, $uibModalInstance) {
                                     $scope.param = {
                                         tasks: {
-                                            video_group_id: supScope.videoTask.video_group_id,
-                                            room_id: supScope.videoTask.room_id,
+                                            video_group_id: supScope1.videoTask.video_group_id,
+                                            room_id: supScope1.videoTask.room_id,
                                         },
                                     };
-                                    $scope.title = supScope.title || false;
-                                    $scope.handle = supScope.handle || false;
+                                    $scope.title = supScope1.title || false;
+                                    $scope.handle = supScope1.handle || false;
 
                                     $scope.init = function() {
                                         widget.ajaxRequest({
-                                            url: '/mobile/live/work/tasks/' + supScope.taskId,
+                                            url: '/mobile/live/work/tasks/' + supScope1.taskId,
                                             method: 'GET',
                                             scope: $scope,
                                             data: {},
                                             success: function(json) {
                                                 $scope.param = json.data;
-                                                $scope.param.video_group_id = supScope.videoTask.video_group_id;
-                                                $scope.param.room_id = supScope.videoTask.room_id;
+                                                $scope.param.video_group_id = supScope1.videoTask.video_group_id;
+                                                $scope.param.room_id = supScope1.videoTask.room_id;
                                             },
                                         });
                                     };
                                     $scope.init();
                                     $scope.submit = function() {
                                         widget.ajaxRequest({
-                                            url: '/mobile/live/work/tasks/' + supScope.taskId,
+                                            url: '/mobile/live/work/tasks/' + supScope1.taskId,
                                             method: 'PUT',
                                             scope: $scope,
                                             data: $scope.param,
@@ -288,12 +288,8 @@ define([
                     handle: '=',//是否可以操作，删除
                 },
                 link: function($scope, $element) {
-                    // $scope.tasks = {
-                    //     'video_group_id': $scope.param.video_group_id,
-                    //     'room_id': $scope.param.room_id,
-                    // };
-                    console.log($scope.param.tasks);
-                    $scope.tasks = $scope.param.tasks;
+
+                    $scope.tasks = angular.copy($scope.param.tasks);
 
                     $scope.del = function(key) {
                         $scope.param && $scope.param.length >= 0 ? ($scope.param.splice(key, 1)) : ('');
@@ -309,6 +305,7 @@ define([
                     videoWork: '=',
                     room: '@',
                     video: '@',
+                    ext: '=',
                     handle: '@',
                     title: '@',
                 },
@@ -316,44 +313,52 @@ define([
                 link: function($scope, $element) {
 
                     $scope.workID = $scope.videoWork;
-
                     $scope.tasks = {
-                        room_id: $scope.room,
-                        video_group_id: $scope.video,
+                        room_id: $scope.room || $scope.ext.room_id,
+                        video_group_id: $scope.video || $scope.ext.video_group_id,
                     };
-
-                    var supScope = $scope;
+                    // console.log($scope.handle, $scope.ext, $scope.videoWork, $scope.tasks);
+                    var supScope2 = $scope;
                     $scope.show = function() {
                         var modalInstance = $uibModal.open({
                                 template: $templateCache.get('app/' + con.live_path + 'videogroups/work.html'),
                                 controller: function($scope, $uibModalInstance) {
                                     $scope.param = {
-                                        tasks: supScope.tasks,
+                                        tasks: supScope2.tasks,
+                                        answer: '',
                                     };
-                                    $scope.title = supScope.title || false;
-                                    $scope.handle = supScope.handle || false;
+                                    $scope.title = supScope2.title || false;
+                                    $scope.handle = supScope2.handle || false;
                                     $scope.init = function() {
                                         widget.ajaxRequest({
-                                            url: '/mobile/live/works/' + supScope.workID,
+                                            url: '/mobile/live/works/' + supScope2.workID,
                                             method: 'GET',
                                             scope: $scope,
                                             data: {},
                                             success: function(json) {
                                                 $scope.param = json.data;
-                                                $scope.param.tasks = supScope.tasks;
-                                                console.log($scope.param);
+                                                $scope.param.tasks = supScope2.tasks;
                                             },
                                         });
                                     };
 
-                                    if ($scope.handle !== 'add') {
+                                    if ($scope.handle != 'add') {
                                         // add
                                         $scope.init();
                                     }
 
+                                    $scope.$watch('param', function(val) {
+                                        if (val) {
+                                            val.answer = '';
+                                            angular.forEach(val.options, function(v, k) {
+                                                val.answer += v.option_no;
+                                            });
+                                        }
+
+                                    }, true);
                                     $scope.submit = function() {
                                         widget.ajaxRequest({
-                                            url: '/mobile/live/works' + ($scope.handle === 'add' ? ('') : ('/' + supScope.workID)),
+                                            url: '/mobile/live/works' + ($scope.handle === 'add' ? ('') : ('/' + supScope2.workID)),
                                             method: ($scope.handle === 'add') ? 'POST' : 'PUT',
                                             scope: $scope,
                                             data: $scope.param,
