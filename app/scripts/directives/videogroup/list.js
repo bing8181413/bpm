@@ -351,7 +351,7 @@ define([
         .directive('videoWorkStems', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
-                replace:'true',
+                replace: 'true',
                 template: $templateCache.get('app/' + con.live_path + 'videogroups/workStems.html'),
                 scope: {
                     ngModel: '=ngModel',
@@ -367,10 +367,16 @@ define([
                     };
 
                     $scope.add = function() {
+                        if (!$scope.ngModel) {
+                            $scope.ngModel = [{category: 1}];
+                        } else if ($scope.ngModel && $scope.ngModel.length < 3) {
+                            $scope.ngModel.push({
+                                category: 1,
+                            });
+                        } else if ($scope.ngModel && $scope.ngModel.length >= 3) {
+                            widget.msgToast('题干只能添加3组内容！');
+                        }
 
-                        $scope.ngModel.push({
-                            category: 1,
-                        });
                     };
                 },
             };

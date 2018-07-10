@@ -41,17 +41,23 @@
     <div class="list-group" dnd-list="ngModel" dnd-allowed-types="allowedType">
         <div class="list-group-item" ng-repeat="(key,item) in ngModel" dnd-draggable="item" dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="move">
             <div class="">
-                <div form-radio text="类型" ng-model="item.body_type" name="{{'item.body_type'+key}}" required="true" source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]" source-api=""></div>
+                <div form-radio text="类型" ng-model="item.body_type" name="{{'item.body_type'+key}}" required="true" source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]"
+                     source-api=""></div>
             </div>
-            <div dnd-nodrag form-textarea ng-model="item.body_value" ng-show="item.body_type==1" text="文字"></div>
-            <div dnd-nodrag form-image-single ng-model="item.body_value" ng-show="item.body_type==2" text="图片"></div>
-            <div dnd-nodrag form-media-single ng-model="item.body_value" ng-show="item.body_type==3" text="语音"></div>
+            <div dnd-nodrag form-textarea ng-model="item.body_value" ng-if="item.body_type==1" text="文字"></div>
+            <div dnd-nodrag form-image-single ng-model="item.body_value" ng-if="item.body_type==2" text="图片"></div>
+            <div dnd-nodrag form-media-single ng-model="item.body_value" ng-if="item.body_type==3" text="语音"></div>
+            <div dnd-nodrag class="col-sm-offset-2">
+                <a class="btn btn-danger btn-sm btn-rounded" ng-click="del(key)" class="pull-right">删除</a>
+            </div>
         </div>
         <div class="dndPlaceholder list-group-item">
             <p class="red">拖拽到这里</p>
         </div>
     </div>
     <div class="row">
-        <a class="btn btn-primary btn-sm btn-rounded" ng-click="add()" class="pull-right">添加</a>
+        <div class="col-sm-offset-2">
+            <a class="btn btn-primary btn-sm btn-rounded" ng-click="add()" class="pull-right">添加</a>
+        </div>
     </div>
 </div>

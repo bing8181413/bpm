@@ -668,6 +668,7 @@ define([
                     media: '=',
                     required: '@',
                     token: '@',
+                    hideBar: '=',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showMediaUpload.html'),
                 controller: function ($scope, $element, $attrs) {
@@ -833,7 +834,7 @@ define([
                                 return false;
                             }
                         }
-                        if (obj.updated_at || obj.pic_id) {
+                        if (obj.updated_at || obj.pic_id || obj.old) {
                             $scope.uploader.queue.splice(key, 1);
                         } else {
                             obj.remove();
