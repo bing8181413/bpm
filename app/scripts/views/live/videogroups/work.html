@@ -5,19 +5,19 @@
         </div>
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate>
-                <div form-radio text="题目类型" ng-model="param.type" required="true" default="1" ng-show="true"
-                     source="[{text:'单选',value:'1'},{text:'多选',value:'2'}]" source-api=""></div>
-
-                <h3 class="col-sm-offset-1 col-sm-11 text-primary">题干</h3>
+                <h4 class="col-sm-offset-1 col-sm-11 text-primary">题干</h4>
 
                 <div video-work-stems="" ng-model="param.stems" handle="handle"></div>
+
+                <div form-radio text="题目类型" ng-model="param.type" required="true" default="1" ng-show="true"
+                     source="[{text:'单选',value:'1'},{text:'多选',value:'2'}]" source-api=""></div>
 
                 <div form-radio text="选项类型" ng-model="param.option_type" required="true" default="1"
                      source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]" source-api=""></div>
 
-                <div video-work-option ng-model="param.options" handle="handle"></div>
+                <div video-work-options ng-model="param.options" option-type="param.option_type" handle="handle"></div>
 
-                <a class="btn btn-success btn-rounded pull-right " ng-disabled="FormBody.$invalid" ng-click="submit()">保存草稿</a>
+                <a class="btn btn-success btn-rounded pull-right " ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
             </form>
         </div>
     </div>

@@ -233,9 +233,15 @@ define([
                         var modalInstance = $uibModal.open({
                                 template: $templateCache.get('app/' + con.live_path + 'videogroups/taskList.html'),
                                 controller: function($scope, $uibModalInstance) {
-                                    $scope.param = {};
+                                    $scope.param = {
+                                        tasks: {
+                                            video_group_id: supScope.videoTask.video_group_id,
+                                            room_id: supScope.videoTask.room_id,
+                                        },
+                                    };
                                     $scope.title = supScope.title || false;
                                     $scope.handle = supScope.handle || false;
+
                                     $scope.init = function() {
                                         widget.ajaxRequest({
                                             url: '/mobile/live/work/tasks/' + supScope.taskId,
@@ -244,11 +250,12 @@ define([
                                             data: {},
                                             success: function(json) {
                                                 $scope.param = json.data;
+                                                $scope.param.video_group_id = supScope.videoTask.video_group_id;
+                                                $scope.param.room_id = supScope.videoTask.room_id;
                                             },
                                         });
                                     };
                                     $scope.init();
-
                                     $scope.submit = function() {
                                         widget.ajaxRequest({
                                             url: '/mobile/live/work/tasks/' + supScope.taskId,
@@ -274,15 +281,22 @@ define([
         .directive('videoTaskView', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
+                replace: false,
                 template: $templateCache.get('app/' + con.live_path + 'videogroups/task.html'),
                 scope: {
-                    ngModel: '=ngModel',
+                    param: '=',
                     handle: '=',//是否可以操作，删除
                 },
                 link: function($scope, $element) {
+                    // $scope.tasks = {
+                    //     'video_group_id': $scope.param.video_group_id,
+                    //     'room_id': $scope.param.room_id,
+                    // };
+                    console.log($scope.param.tasks);
+                    $scope.tasks = $scope.param.tasks;
 
                     $scope.del = function(key) {
-                        $scope.ngModel && $scope.ngModel.length >= 0 ? ($scope.ngModel.splice(key, 1)) : ('');
+                        $scope.param && $scope.param.length >= 0 ? ($scope.param.splice(key, 1)) : ('');
                     };
                 },
             };
@@ -293,19 +307,29 @@ define([
                 replace: false,
                 scope: {
                     videoWork: '=',
+                    room: '@',
+                    video: '@',
                     handle: '@',
                     title: '@',
                 },
-                template: '<a class="btn btn-rounded btn-sm btn-primary" ng-click="show()" ng-bind="title">></a>',
+                template: '<a class="btn btn-rounded btn-sm btn-primary" ng-click="show()" ng-bind="title"></a>',
                 link: function($scope, $element) {
-                    $scope.workID = $scope.videoWork;
-                    var supScope = $scope;
 
+                    $scope.workID = $scope.videoWork;
+
+                    $scope.tasks = {
+                        room_id: $scope.room,
+                        video_group_id: $scope.video,
+                    };
+
+                    var supScope = $scope;
                     $scope.show = function() {
                         var modalInstance = $uibModal.open({
                                 template: $templateCache.get('app/' + con.live_path + 'videogroups/work.html'),
                                 controller: function($scope, $uibModalInstance) {
-                                    $scope.param = {};
+                                    $scope.param = {
+                                        tasks: supScope.tasks,
+                                    };
                                     $scope.title = supScope.title || false;
                                     $scope.handle = supScope.handle || false;
                                     $scope.init = function() {
@@ -316,6 +340,8 @@ define([
                                             data: {},
                                             success: function(json) {
                                                 $scope.param = json.data;
+                                                $scope.param.tasks = supScope.tasks;
+                                                console.log($scope.param);
                                             },
                                         });
                                     };
@@ -332,7 +358,8 @@ define([
                                             scope: $scope,
                                             data: $scope.param,
                                             success: function(json) {
-                                                widget.msgToast('导入成功!');
+                                                widget.msgToast('成功!');
+                                                $scope.cancel();
                                             },
                                         });
                                     };
@@ -359,8 +386,8 @@ define([
                 },
                 link: function($scope, $element) {
 
-                    // $scope.dndAllowType = 'dnd' + Math.ceil(Math.random(10000) * 10000);
-                    // $scope.allowedType = [$scope.dndAllowType];
+                    $scope.dndAllowType = 'dnd' + Math.ceil(Math.random(10000) * 10000);
+                    $scope.allowedType = [$scope.dndAllowType];
 
                     $scope.del = function(key) {
                         $scope.ngModel && $scope.ngModel.length >= 0 ? ($scope.ngModel.splice(key, 1)) : ('');
@@ -376,8 +403,16 @@ define([
                         } else if ($scope.ngModel && $scope.ngModel.length >= 3) {
                             widget.msgToast('题干只能添加3组内容！');
                         }
-
                     };
+                    $scope.$watch('ngModel', function(val) {
+                        if (val && val.length >= 0) {
+                            angular.forEach(val, function(v, k) {
+                                v.option_no = (k + 1) + '';
+                                v.answer = v.answer || 2;
+                            });
+
+                        }
+                    }, true);
                 },
             };
         })
@@ -389,15 +424,31 @@ define([
                 scope: {
                     ngModel: '=ngModel',
                     handle: '=',//是否可以操作，删除
+                    optionType: '=',
                 },
                 link: function($scope, $element) {
-
-                    $scope.dndAllowType = 'dnd' + Math.ceil(Math.random(10000) * 10000);
-                    $scope.allowedType = [$scope.dndAllowType];
 
                     $scope.del = function(key) {
                         $scope.ngModel && $scope.ngModel.length >= 0 ? ($scope.ngModel.splice(key, 1)) : ('');
                     };
+
+                    $scope.add = function() {
+                        if (!$scope.ngModel) {
+                            $scope.ngModel = [{category: 2}];
+                        } else if ($scope.ngModel) {
+                            $scope.ngModel.push({category: 2, body_type: $scope.optionType, answer: 2});
+                        }
+                    };
+                    $scope.$watch('ngModel', function(val) {
+                        if (val && val.length >= 0) {
+                            angular.forEach(val, function(v, k) {
+                                v.option_no = (k + 1) + '';
+                                v.body_type = $scope.optionType;
+                                v.answer = v.answer || 2;
+                            });
+
+                        }
+                    }, true);
                 },
             };
         });

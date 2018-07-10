@@ -1,0 +1,74 @@
+<div class="col-sm-12 form-group">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+
+        .dndsimpleSubject *[dnd-list] > div {
+            /*position: relative;*/
+        }
+
+        .dndsimpleSubject *[dnd-list] .dndDragging {
+            opacity: 0.7;
+        }
+
+        .dndsimpleSubject *[dnd-list] .dndDraggingSource {
+            display: none;
+        }
+
+        .dndsimpleSubject *[dnd-list] .dndPlaceholder {
+            background-color: #ddd;
+            height: 100px;
+            border: 1px solid #ddd;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        .dndsimpleSubject *[dnd-list] > div {
+            /*background-color: #fff;*/
+            /*display: block;*/
+            /*width: 100%;*/
+        }
+
+        .dndsimpleSubject *[dnd-list] > div.selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+            width: 1000px;
+        }
+    </style>
+    <div class="col-sm-offset-2 col-sm-10 dndsimpleSubject">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th class="width100">序号</th>
+                <th class="">选项内容</th>
+                <th class="width50">正确选项</th>
+                <th class="width100"><a class="btn btn-primary btn-sm btn-rounded" ng-click="add()" class="pull-right">添加</a></th>
+            </tr>
+            </thead>
+            <tbody dnd-list="ngModel">
+            <tr class="" ng-repeat="(key,item) in ngModel" dnd-draggable="item" dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="move">
+                <td><span ng-bind="item.option_no"></span></td>
+                <td dnd-nodrag>
+                    <div form-textarea ng-model="item.body_value" no-label="true" ng-if="optionType==1" text="文字"></div>
+                    <div form-image-single ng-model="item.body_value" no-label="true" ng-if="optionType==2" text="图片"></div>
+                    <div form-media-single ng-model="item.body_value" no-label="true" ng-if="optionType==3" text="语音"></div>
+                </td>
+                <td dnd-nodrag>
+                    <label class="checkbox-inline checkbox1">
+                        <input type="checkbox" ng-model="item.answer" name="{{'item.answer'+key}}" ng-true-value="'1'" ng-false-value="'2'">
+                        <span></span>&nbsp;
+                    </label>
+                </td>
+                <td dnd-nodrag>
+                    <a class="btn btn-danger btn-sm btn-rounded" ng-click="del(key)" class="pull-right">删除</a>
+                </td>
+            </tr>
+            <tr class="dndPlaceholder">
+                <td class="text-center" colspan="10"><h3 class="red">拖拽到这里</h3></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

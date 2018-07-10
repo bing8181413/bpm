@@ -1,10 +1,10 @@
 define([
     '../directives/directives',
-    '../cons/simpleCons'
-], function (mod, cons) {
+    '../cons/simpleCons',
+], function(mod, cons) {
 
     mod
-        .directive('formInput', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formInput', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -28,7 +28,7 @@ define([
                     formShowRole: '@',
                     requiredSpanShow: '=', //  用于展示必填符号 不能实际校验是否必填
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     // console.log('formElement', $scope, $attrs, $element, $ctrl);
                     // console.log($scope.ngModelText);
                     var labelWidth = $scope.labelWidth ? ('col-sm-' + $scope.labelWidth) : ('col-sm-2');
@@ -44,7 +44,7 @@ define([
                     var maxlength = $scope.maxlength ? (' maxlength="' + $scope.maxlength + '" ') : '';
                     var minlength = $scope.minlength ? (' minlength="' + $scope.minlength + '" ') : '';
                     var formShowRole = $scope.formShowRole ? (' show-role="' + $scope.formShowRole + '" ') : '';
-                    $scope.init = function () {
+                    $scope.init = function() {
                         var disabledRole = '';
                         if ($scope.ngDisabled) {
                             disabledRole = ' disabled="true" ';
@@ -63,13 +63,13 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     };
-                    $timeout(function () {
+                    $timeout(function() {
                         $scope.init();
                     }, 0);
-                    $scope.$watch('ngDisabled', function () {
+                    $scope.$watch('ngDisabled', function() {
                         $scope.init();
                     });
-                    $scope.$watch('ngModel', function (val) {
+                    $scope.$watch('ngModel', function(val) {
                         if ($scope.type == 'number' && $scope.max) {
                             (val > $scope.max) ? (val = $scope.max) : (angular.noop());
                         }
@@ -93,10 +93,10 @@ define([
                     //         }
                     //     }
                     // });
-                }
-            }
+                },
+            };
         })
-        .directive('formTextarea', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formTextarea', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -114,8 +114,9 @@ define([
                     ngDisabled: '=',
                     rows: '=',
                     requiredSpanShow: '=', //  用于展示必填符号 不能实际校验是否必填
+                    noLabel: '@',// 没有label
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     // console.log('formElement', $scope, $attrs);
                     // console.log($scope.ngModelText);
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
@@ -127,24 +128,32 @@ define([
                     var ngMinlength = $scope.ngMinlength ? (' ng-minlength="' + $scope.ngMinlength + '"') : '';
                     var rows = $scope.rows ? (' rows="' + $scope.rows + '"') : 'rows="5"';
                     var ngDisabled = $scope.ngDisabled && (' ng-disabled="ngDisabled"');
-                    $timeout(function () {
+                    $timeout(function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
-                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                            '<div class="col-sm-8">' +
-                            '<textarea class="form-control" ' + rows + ' ng-model="ngModel"' +
-                            name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + disabledRole + '>' +
-                            '</div>';
+                        var content = '';
+                        if ($scope.noLabel) {
+                            content = '<textarea class="form-control" ' + rows + ' ng-model="ngModel"' +
+                                name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + disabledRole + '>' +
+                                '</div>';
+                        } else {
+                            content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                                '<div class="col-sm-8">' +
+                                '<textarea class="form-control" ' + rows + ' ng-model="ngModel"' +
+                                name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + disabledRole + '>' +
+                                '</div>';
+                        }
+
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-                }
-            }
+                },
+            };
         })
-        .directive('formSelect', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formSelect', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -164,7 +173,7 @@ define([
                     labelWidth: '@',
                     contentWidth: '@',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     // console.log('formElement', $scope, $attrs);
                     var labelWidth = $scope.labelWidth ? ('col-sm-' + $scope.labelWidth) : ('col-sm-2');
                     var contentWidth = $scope.contentWidth ? ('col-sm-' + $scope.contentWidth) :
@@ -178,7 +187,7 @@ define([
                     if (!$scope.needDefaultEmpty || $scope.needDefaultEmpty != false) {
                         optionDefault = '<option value="">--  请选择  --</option>';
                     }
-                    $timeout(function () {
+                    $timeout(function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label class="' + labelWidth + ' control-label">' + $scope.text + required_span + '</label>' +
@@ -195,10 +204,10 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-                }
-            }
+                },
+            };
         })
-        .directive('formRadio', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formRadio', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -218,7 +227,7 @@ define([
                     labelWidth: '@',
                     contentWidth: '@',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     if (!$scope.ngModel) {
                         $scope.ngModel = $scope.default;
                     }
@@ -233,7 +242,7 @@ define([
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="radio"';
 
-                    $scope.init = function () {
+                    $scope.init = function() {
                         var disabledRole = '';
                         if ($scope.ngDisabled) {
                             disabledRole = ' disabled="true" ';
@@ -244,13 +253,13 @@ define([
                         //     (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label  class="' + labelWidth + ' control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="' + contentWidth + '">';
-                        angular.forEach($scope.source, function (val, key) {
+                        angular.forEach($scope.source, function(val, key) {
                             var value = '';
                             if ($scope.type == 'number' || typeof val.value == 'number') {
                                 val.value = Number(val.value);
                             }
                             content += '<label class="radio-inline radio1" ng-class="{\'disabled\':ngDisabled}" ><input ' + type + ' ng-model="ngModel"' +
-                                name + 'ng-value="source['+key+'].value"' + disabledRole + '><span></span>' + val.text + '</label>';
+                                name + 'ng-value="source[' + key + '].value"' + disabledRole + '><span></span>' + val.text + '</label>';
                         });
                         content += '<input class="hide" ng-model="ngModel" ' + name + required + '>' +
                             '</div>';
@@ -259,17 +268,17 @@ define([
                         if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
-                    }
-                    $timeout(function () {
+                    };
+                    $timeout(function() {
                         $scope.init();
                     }, 0);
-                    $scope.$watch('ngDisabled', function () {
+                    $scope.$watch('ngDisabled', function() {
                         $scope.init();
                     });
-                }
-            }
+                },
+            };
         })
-        .directive('formCheckbox', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formCheckbox', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -287,14 +296,14 @@ define([
                     // sourceApi: '=',
                     callback: '&',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     var date = new Date().getTime();
                     var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + date + '"');
                     var nickname = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="checkbox"';
-                    $scope.init = function () {
+                    $scope.init = function() {
                         var disabledRole = '';
                         if ($scope.ngDisabled) {
                             disabledRole = ' disabled="true" ';
@@ -305,11 +314,11 @@ define([
                         //     (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">';
-                        angular.forEach($scope.source, function (val, key) {
+                        angular.forEach($scope.source, function(val, key) {
                             if ($scope.type == 'number') {
                                 var value = val.value;
                             } else {
-                                var value = "\'" + val.value + "\'";
+                                var value = '\'' + val.value + '\'';
                             }
                             content += '<label class="checkbox-inline checkbox1" ng-class="{\'disabled\':ngDisabled}" ><input ' + type + disabledRole + name +
                                 ' ng-checked="isChecked(' + value + ')"' +
@@ -326,19 +335,19 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                             // console.log($scope.$parent.FormBody);
                         }
-                    }
+                    };
                     $scope.tmp_source = [];
-                    $timeout(function () {
+                    $timeout(function() {
                         $scope.init();
                     }, 0);
-                    $scope.$watch('ngDisabled', function () {
+                    $scope.$watch('ngDisabled', function() {
                         $scope.init();
                     });
-                    $scope.$watch('source', function () {
+                    $scope.$watch('source', function() {
                         $scope.init();
                     });
 
-                    $scope.$watch('ngModel', function (val) {
+                    $scope.$watch('ngModel', function(val) {
                         // console.log('ngModel  ===', $scope.ngModel);
                         if (val && val.length > 0) {
                             $scope.tmp_field = true;
@@ -349,7 +358,7 @@ define([
                         }
                         // console.log($scope.$parent.FormBody);
                     }, true);
-                    $scope.isChecked = function (value) {
+                    $scope.isChecked = function(value) {
                         if ($scope.ngModel && $scope.ngModel.length > 0) {
                             return $scope.ngModel && $scope.ngModel.indexOf(value) >= 0;
                         } else {
@@ -357,19 +366,18 @@ define([
                         }
                     };
 
-                    $scope.updateSelection = function ($event, value, key) {
+                    $scope.updateSelection = function($event, value, key) {
                         $scope.ngModel = [];
                         var source_html = $('[' + name + ']');
-                        angular.forEach(source_html, function (val, key) {
+                        angular.forEach(source_html, function(val, key) {
                             if (val.checked) {
                                 $scope.ngModel.push($scope.source[key].value);
                             }
                         });
                     };
 
-
-                }
-            }
+                },
+            };
         })
         // .directive('formCheckbox', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
         //     return {
@@ -474,7 +482,7 @@ define([
         //         }
         //     }
         // })
-        .directive('formImage', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout, formBody) {
+        .directive('formImage', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout, formBody) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -491,7 +499,7 @@ define([
                     token: '@',
                     hideBar: '=',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
 
                     var FormScope = formBody.getScope($scope);
 
@@ -506,22 +514,22 @@ define([
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="activity"');
 
-                    var hasPic = function (modelValue, viewValue) {
+                    var hasPic = function(modelValue, viewValue) {
                         var hasPicFlag = true;
                         var value = modelValue || viewValue;
                         if (!value || value.length == 0) {
                             hasPicFlag = false;
                         } else {
-                            angular.forEach(value, function (v, k) {
+                            angular.forEach(value, function(v, k) {
                                 if (!v || !v.pic_url) {
                                     hasPicFlag = false;
                                 }
-                            })
+                            });
                         }
                         return hasPicFlag;
-                    }
+                    };
                     var times = 0;
-                    var valid_model = function (aaa) {
+                    var valid_model = function(aaa) {
                         // console.log(aaa, 1, FormScope.FormBody, FormScope.FormBody[$scope.ngModelText]);
                         if (($scope.min || $scope.required) && FormScope.FormBody[$scope.ngModelText]) {
                             times++;
@@ -532,13 +540,14 @@ define([
                                 FormScope.FormBody[$scope.ngModelText].$setDirty();
                             }
                         }
-                    }
-                    $scope.init = function () {
+                    };
+                    $scope.init = function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
                             // $scope.token ?
-                            '<show-upload-token images="ngModel" ng-model="ngModel"  hide-bar="hideBar"   ' + name + min + max + required + disabledRole + token + '></show-upload-token>';
+                            '<show-upload-token images="ngModel" ng-model="ngModel"  hide-bar="hideBar"   ' + name + min + max + required + disabledRole + token +
+                            '></show-upload-token>';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8" style="">' + uploadHtml +
                             // '<input class="hide" ng-model="ngModel" ' + min + max + name + disabledRole + ' ng-minlength="' + ($scope.required ? 1 : 0) + '">' +
@@ -556,22 +565,22 @@ define([
                         } else if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
-                    }
-                    $timeout(function () {
+                    };
+                    $timeout(function() {
                         $scope.init();
                     }, 0);
 
-                    $scope.$watch('ngModel', function (val) {
+                    $scope.$watch('ngModel', function(val) {
                         nameText = $scope.name || $scope.ngModelText;
                         // console.log(nameText);
                         // $scope.init();
                         valid_model();
                     }, true);
 
-                }
-            }
+                },
+            };
         })
-        .directive('formSources', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formSources', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -588,7 +597,7 @@ define([
                     type: '@',
                     // hideBar: '=',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
@@ -596,7 +605,7 @@ define([
                     var type = $scope.type ? (' type="' + $scope.type + '"') : '';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="activity"');
                     $scope.hideBar = $scope.type != 1 ? [0, 0, 1, 1] : $scope.hideBar;
-                    $timeout(function () {
+                    $timeout(function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
@@ -614,10 +623,10 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-                }
-            }
+                },
+            };
         })
-        .directive('formMedia', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formMedia', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -630,16 +639,16 @@ define([
                     required: '@',
                     max: '@',
                     callback: '&',
-                    token: '@'
+                    token: '@',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="resource"');
 
-                    $timeout(function () {
+                    $timeout(function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
@@ -656,10 +665,10 @@ define([
                         }
                     }, 0);
 
-                }
-            }
+                },
+            };
         })
-        .directive('formApk', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formApk', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -673,27 +682,29 @@ define([
                     callback: '&',
                     token: '@',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var max = ' max="1" ';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token=""');
                     $scope.tmpNgModel = [];
-                    $scope.$watch('ngModel', function (url) {
+                    $scope.$watch('ngModel', function(url) {
                         if (!!url) {
-                            $scope.tmpNgModel = [{
-                                pic_url: url,
-                                pic_width: 100,
-                                pic_hight: 100,
-                                updated_at: new Date()
-                            }];
+                            $scope.tmpNgModel = [
+                                {
+                                    pic_url: url,
+                                    pic_width: 100,
+                                    pic_hight: 100,
+                                    updated_at: new Date(),
+                                },
+                            ];
                         } else {
                             $scope.tmpNgModel = [];
                         }
                     }, true);
 
-                    $scope.$watch('tmpNgModel', function (arr_pic_val) {
+                    $scope.$watch('tmpNgModel', function(arr_pic_val) {
                         if ($scope.tmpNgModel && $scope.tmpNgModel[0] && $scope.tmpNgModel[0].pic_url) {
                             $scope.ngModel = $scope.tmpNgModel[0].pic_url;
                         } else {
@@ -701,7 +712,7 @@ define([
                         }
 
                     }, true);
-                    $timeout(function () {
+                    $timeout(function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
@@ -718,10 +729,10 @@ define([
                         }
                     }, 0);
 
-                }
-            }
+                },
+            };
         })
-        .directive('formImageContent', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formImageContent', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -735,12 +746,12 @@ define([
                     max: '@',
                     callback: '&',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
-                    $timeout(function () {
+                    $timeout(function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
@@ -757,10 +768,10 @@ define([
                         }
                     }, 0);
 
-                }
-            }
+                },
+            };
         })
-        .directive('formRichText', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout, $sce) {
+        .directive('formRichText', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout, $sce) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -771,11 +782,11 @@ define([
                     text: '@',
                     required: '@',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var required = $scope.required ? (' ng-required="true" ') : '';
-                    $timeout(function () {
+                    $timeout(function() {
                         $scope.simditorConfig = {placeholder: ''};
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">' +
@@ -786,22 +797,22 @@ define([
                         if ($scope.$parent.FormBody && $scope.$parent.FormBody[$scope.ngModelText]) {
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
-                        $scope.$watch('ngModel', function (newVal) {
+                        $scope.$watch('ngModel', function(newVal) {
                             if ($scope.required) {
                                 var text = $element.find('.simditor-body').text();
                                 $scope.$parent.FormBody[$scope.ngModelText].$setViewValue(newVal);
-                                if (text.trim() === "") {
-                                    $scope.$parent.FormBody[$scope.ngModelText].$setValidity("required", false);
+                                if (text.trim() === '') {
+                                    $scope.$parent.FormBody[$scope.ngModelText].$setValidity('required', false);
                                 } else {
-                                    $scope.$parent.FormBody[$scope.ngModelText].$setValidity("required", true);
+                                    $scope.$parent.FormBody[$scope.ngModelText].$setValidity('required', true);
                                 }
                             }
                         }, true);
                     }, 0);
-                }
-            }
+                },
+            };
         })
-        .directive('formRichContent', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout, $sce) {
+        .directive('formRichContent', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout, $sce) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -813,15 +824,15 @@ define([
                     // name: '@',
                     required: '@',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var required = $scope.required ? (' required') : '';
                     $scope.editorConfig = {
                         // focus: true, //自动把光标放到UEditor中。测试config配置。 实际情况要删掉 容易误操作填入文本内容
                         allowDivTransToP: false, //DIV 自动替换 为其他标签
-                    }
-                    $timeout(function () {
+                    };
+                    $timeout(function() {
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="col-sm-8">' +
                             '<ueditor config="editorConfig" ng-model="ngModel">' +
@@ -834,10 +845,10 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     });
-                }
-            }
+                },
+            };
         })
-        .directive('formDateTime', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formDateTime', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -852,13 +863,13 @@ define([
                     ngDisabled: '@',
                     showtip: '@',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     var showtip = $scope.showtip ? (' showtip="' + $scope.showtip + '"') : '';
-                    $timeout(function () {
+                    $timeout(function() {
                         var disabledRole = $scope.ngDisabled ? (' disabled-role="aaaaaaaaa"') :
                             (($scope.$parent && $scope.$parent.disabledRole) ?
                                 (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ');
@@ -874,10 +885,10 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-                }
-            }
+                },
+            };
         })
-        .directive('formDate', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formDate', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -890,13 +901,13 @@ define([
                     required: '@',
                     callback: '&',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
-                    $timeout(function () {
+                    $timeout(function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
@@ -921,10 +932,10 @@ define([
                     //         $scope.$eval($scope.ngModelText + '=' + undefined + '');
                     //     }
                     // });
-                }
-            }
+                },
+            };
         })
-        .directive('formTable', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formTable', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -939,10 +950,10 @@ define([
                     required: '=',
                     max: '@',
                     callBack: '&',
-                    ngDisabled: '='
+                    ngDisabled: '=',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
-                    $timeout(function () {
+                link: function($scope, $element, $attrs, $ctrl) {
+                    $timeout(function() {
                         var columns = $scope.columns ? (' columns="columns" ') : ('');
                         if ($scope.ngDisabled) {
                             // || $scope.$parent && $scope.$parent.disabledRole
@@ -978,17 +989,17 @@ define([
                             $scope.$parent.FormBody[$scope.ngModelText].text = $scope.text || $scope.ngModelText;
                         }
                     }, 0);
-                    $scope.$watch('ngModel', function (val) {
+                    $scope.$watch('ngModel', function(val) {
                         // 简单区分数据是否填写 要是length 为0 就置为undefined 这样require就起作用了
                         if (val && val.length == 0) {
                             $scope.ngModel = [];
                         }
                     }, true);
 
-                }
-            }
+                },
+            };
         })
-        .directive('formErrorBlock', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formErrorBlock', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -996,12 +1007,12 @@ define([
                 // scope: {
                 //     ngModel: '=ngModel'
                 // },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
 
-                }
-            }
+                },
+            };
         })
-        .directive('formAddress', function ($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+        .directive('formAddress', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
             return {
                 restrict: 'EA',
                 replace: true,
@@ -1015,13 +1026,13 @@ define([
                     max: '@',
                     callback: '&',
                 },
-                link: function ($scope, $element, $attrs, $ctrl) {
+                link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
 
-                    $timeout(function () {
+                    $timeout(function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
@@ -1038,8 +1049,8 @@ define([
                         }
                     }, 0);
 
-                }
-            }
-        })
+                },
+            };
+        });
 
-})
+});

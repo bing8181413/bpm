@@ -17,13 +17,12 @@
         }
 
         .dndsimpleSubject *[dnd-list] .dndPlaceholder {
-            background-color: #000;
-            height: 200px;
+            background-color: #ddd;
+            height: 100px;
             border: 1px solid #ddd;
             padding-left: 5px;
             padding-right: 5px;
             text-align: center;
-            color: #E33737;
         }
 
         .dndsimpleSubject *[dnd-list] > div {
@@ -38,26 +37,59 @@
             width: 1000px;
         }
     </style>
-    <div class="list-group" dnd-list="ngModel" dnd-allowed-types="allowedType">
-        <div class="list-group-item" ng-repeat="(key,item) in ngModel" dnd-draggable="item" dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="move">
-            <div class="">
-                <div form-radio text="类型" ng-model="item.body_type" name="{{'item.body_type'+key}}" required="true" source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]"
-                     source-api=""></div>
-            </div>
-            <div dnd-nodrag form-textarea ng-model="item.body_value" ng-if="item.body_type==1" text="文字"></div>
-            <div dnd-nodrag form-image-single ng-model="item.body_value" ng-if="item.body_type==2" text="图片"></div>
-            <div dnd-nodrag form-media-single ng-model="item.body_value" ng-if="item.body_type==3" text="语音"></div>
-            <div dnd-nodrag class="col-sm-offset-2">
-                <a class="btn btn-danger btn-sm btn-rounded" ng-click="del(key)" class="pull-right">删除</a>
-            </div>
-        </div>
-        <div class="dndPlaceholder list-group-item">
-            <p class="red">拖拽到这里</p>
-        </div>
+    <div class="col-sm-offset-2 col-sm-10 dndsimpleSubject">
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th class="width100">序号</th>
+                <th class="">选项内容</th>
+                <th class="width100"><a class="btn btn-primary btn-sm btn-rounded" ng-click="add()" class="pull-right">添加</a></th>
+            </tr>
+            </thead>
+            <tbody dnd-list="ngModel">
+            <tr class="" ng-repeat="(key,item) in ngModel" dnd-draggable="item" dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="move">
+                <td><span ng-bind="item.option_no"></span></td>
+                <td dnd-nodrag>
+                    <div form-radio text="类型" ng-model="item.body_type" name="{{'item.body_type_work_stems'+key}}" required="true"
+                         source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]"
+                         source-api=""></div>
+                    <div form-textarea ng-model="item.body_value" no-label="true" ng-if="item.body_type==1" text="文字"></div>
+                    <div form-image-single ng-model="item.body_value" no-label="true" ng-if="item.body_type==2" text="图片"></div>
+                    <div form-media-single ng-model="item.body_value" no-label="true" ng-if="item.body_type==3" text="语音"></div>
+                </td>
+                <td dnd-nodrag>
+                    <a class="btn btn-danger btn-sm btn-rounded" ng-click="del(key)" class="pull-right">删除</a>
+                </td>
+            </tr>
+            <tr class="dndPlaceholder">
+                <td class="text-center" colspan="10"><h3 class="red">拖拽到这里</h3></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="row">
-        <div class="col-sm-offset-2">
-            <a class="btn btn-primary btn-sm btn-rounded" ng-click="add()" class="pull-right">添加</a>
-        </div>
-    </div>
+
+    <!--<div class="dndsimpleSubject">-->
+    <!--<div class="list-group" dnd-list="ngModel" dnd-allowed-types="allowedType">-->
+    <!--<div class="list-group-item" ng-repeat="(key,item) in ngModel" dnd-draggable="item" dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="move">-->
+    <!--<div class="">-->
+    <!--<div form-radio text="类型" ng-model="item.body_type" name="{{'item.body_type'+key}}" required="true" source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]"-->
+    <!--source-api=""></div>-->
+    <!--</div>-->
+    <!--<div dnd-nodrag form-textarea ng-model="item.body_value" ng-if="item.body_type==1" text="文字"></div>-->
+    <!--<div dnd-nodrag form-image-single ng-model="item.body_value" ng-if="item.body_type==2" text="图片"></div>-->
+    <!--<div dnd-nodrag form-media-single ng-model="item.body_value" ng-if="item.body_type==3" text="语音"></div>-->
+    <!--<div dnd-nodrag class="col-sm-offset-2">-->
+    <!--<a class="btn btn-danger btn-sm btn-rounded" ng-click="del(key)" class="pull-right">删除</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="dndPlaceholder list-group-item">-->
+    <!--<p class="red">拖拽到这里</p>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--<div class="col-sm-offset-2">-->
+    <!--<a class="btn btn-primary btn-sm btn-rounded" ng-click="add()" class="pull-right">添加</a>-->
+    <!--</div>-->
+    <!--</div>-->
+    <!--</div>-->
 </div>

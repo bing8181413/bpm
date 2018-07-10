@@ -17,6 +17,7 @@ define([
                     required: '@',
                     callback: '&',
                     token: '@',
+                    noLabel: '@',// 没有label
                     // hideBar: '=',
                 },
                 link: function($scope, $element, $attrs, $ctrl) {
@@ -48,10 +49,15 @@ define([
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
                             '<show-upload-media-token media="tmpNgModel" hide-bar="hideBar"   ' + name + max + required + disabledRole + token + '></show-upload-media-token>';
-                        var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                            '<div class="col-sm-8" style="">' + uploadHtml +
-                            '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + required + '">' +
-                            '</div>';
+                        var content = '';
+                        if ($scope.noLabel) {
+                            content = uploadHtml + '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + required + '></div>';
+                        } else {
+                            content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
+                                '<div class="col-sm-8" style="">' + uploadHtml +
+                                '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + required + '>' +
+                                '</div>';
+                        }
                         $element.find('.form_element').html(content);
                         $compile($element.contents())($scope);
                         // console.log($scope.$parent.FormBody[$scope.ngModelText]);
