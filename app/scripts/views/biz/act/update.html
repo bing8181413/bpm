@@ -165,10 +165,13 @@
                              source="[{text:'人数团',value:'2'},{text:'直接买',value:'3'},{text:'直接买+人数团',value:'4'}]"
                              source-api=""></div>
 
-
                         <div form-radio text="拼团结束类型" type="radio" ng-model="param.groupbuy_end_type" required="true"
                              source="[{text:'人数类型  (注:成团后不能再报名)',value:'1'},{text:'拼团时间  (注:成团后仍可报名，直到拼团时间截止)',value:'2'}]"
                              default="1" ng-if="param.category!=3" source-api=""></div>
+
+                        <div form-radio text="拼团时间是否延长" type="radio" ng-model="param.groupbuy_delay" required="true"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]"
+                             default="2" source-api=""></div>
                         <!--<div form-table text="课程类目" ng-model="param.options" max="1"-->
                         <!--ng-show="param.category!=4" required="true"-->
                         <!--columns="[{'name': 'ID', 'field': 'option_id',hide:'true'},-->
