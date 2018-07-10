@@ -280,7 +280,6 @@ define([
                     handle: '=',//是否可以操作，删除
                 },
                 link: function($scope, $element) {
-                    console.log($scope.handle);
 
                     $scope.del = function(key) {
                         $scope.ngModel && $scope.ngModel.length >= 0 ? ($scope.ngModel.splice(key, 1)) : ('');
@@ -344,6 +343,54 @@ define([
                                 size: 'lg',
                             }
                         );
+                    };
+                },
+            };
+        })
+        // 题目的 题干
+        .directive('videoWorkStems', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+            return {
+                restrict: 'EA',
+                replace:'true',
+                template: $templateCache.get('app/' + con.live_path + 'videogroups/workStems.html'),
+                scope: {
+                    ngModel: '=ngModel',
+                    handle: '=',//是否可以操作，删除
+                },
+                link: function($scope, $element) {
+
+                    // $scope.dndAllowType = 'dnd' + Math.ceil(Math.random(10000) * 10000);
+                    // $scope.allowedType = [$scope.dndAllowType];
+
+                    $scope.del = function(key) {
+                        $scope.ngModel && $scope.ngModel.length >= 0 ? ($scope.ngModel.splice(key, 1)) : ('');
+                    };
+
+                    $scope.add = function() {
+
+                        $scope.ngModel.push({
+                            category: 1,
+                        });
+                    };
+                },
+            };
+        })
+        // 题目的 选项
+        .directive('videoWorkOptions', function($rootScope, $state, $http, $filter, $templateCache, $compile, widget, $log, $timeout) {
+            return {
+                restrict: 'EA',
+                template: $templateCache.get('app/' + con.live_path + 'videogroups/workOptions.html'),
+                scope: {
+                    ngModel: '=ngModel',
+                    handle: '=',//是否可以操作，删除
+                },
+                link: function($scope, $element) {
+
+                    $scope.dndAllowType = 'dnd' + Math.ceil(Math.random(10000) * 10000);
+                    $scope.allowedType = [$scope.dndAllowType];
+
+                    $scope.del = function(key) {
+                        $scope.ngModel && $scope.ngModel.length >= 0 ? ($scope.ngModel.splice(key, 1)) : ('');
                     };
                 },
             };

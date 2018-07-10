@@ -1,0 +1,57 @@
+<div class="col-sm-12 form-group">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+
+        .dndsimpleSubject *[dnd-list] > div {
+            /*position: relative;*/
+        }
+
+        .dndsimpleSubject *[dnd-list] .dndDragging {
+            opacity: 0.7;
+        }
+
+        .dndsimpleSubject *[dnd-list] .dndDraggingSource {
+            display: none;
+        }
+
+        .dndsimpleSubject *[dnd-list] .dndPlaceholder {
+            background-color: #000;
+            height: 200px;
+            border: 1px solid #ddd;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+            color: #E33737;
+        }
+
+        .dndsimpleSubject *[dnd-list] > div {
+            /*background-color: #fff;*/
+            /*display: block;*/
+            /*width: 100%;*/
+        }
+
+        .dndsimpleSubject *[dnd-list] > div.selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+            width: 1000px;
+        }
+    </style>
+    <div class="list-group" dnd-list="ngModel" dnd-allowed-types="allowedType">
+        <div class="list-group-item" ng-repeat="(key,item) in ngModel" dnd-draggable="item" dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="move">
+            <div class="">
+                <div form-radio text="类型" ng-model="item.body_type" name="{{'item.body_type'+key}}" required="true" source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]" source-api=""></div>
+            </div>
+            <div dnd-nodrag form-textarea ng-model="item.body_value" ng-show="item.body_type==1" text="文字"></div>
+            <div dnd-nodrag form-image-single ng-model="item.body_value" ng-show="item.body_type==2" text="图片"></div>
+            <div dnd-nodrag form-media-single ng-model="item.body_value" ng-show="item.body_type==3" text="语音"></div>
+        </div>
+        <div class="dndPlaceholder list-group-item">
+            <p class="red">拖拽到这里</p>
+        </div>
+    </div>
+    <div class="row">
+        <a class="btn btn-primary btn-sm btn-rounded" ng-click="add()" class="pull-right">添加</a>
+    </div>
+</div>
