@@ -1,4 +1,4 @@
-<div style="border: 1px #ccc solid;">
+<div>
     <style type="text/css">
         .upload-image {
             width: 64px;
@@ -26,11 +26,36 @@
             border-radius: 5px;
         }
     </style>
-    <div class="row" style="margin: 0">
+    <div ng-if="max==1" class="row">
+        <div class="col-sm-5">
+            <div ng-repeat="(k,v) in media">
+                <audio ng-if="mediaType=='audio'" controls id="main_audio" ng-src="{{sce(v.pic_url || uploader.queue[k].qiniu_url)}}" ng-show="true"></audio>
+                <!--<div class="text-center" show-image url="v.pic_url || uploader.queue[k].qiniu_url" width="100" ng-if="v.pic_url || uploader.queue[k].qiniu_url"></div>-->
+                <!--<div ng-show="uploader.isHTML5 && !v.pic_url" ng-thumb="{ file: uploader.queue[k]._file, height: 100 , itemobj : uploader.queue[k]}"></div>-->
+            </div>
+        </div>
+        <div class="col-sm-offset-1 col-sm-1">
+            <input class="form-control upload-image" type="file" nv-file-select uploader="uploader" multiple/>
+        </div>
+        <div class="col-sm-3">
+            <div class="progress">
+                <div class="progress-bar" role="progressbar" style="width:{{uploader.queue[0].progress}}%;"></div>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <button type="button" class="btn btn-danger btn-rounded btn-xs" ng-click="removeAll()" ng-disabled="!uploader.queue.length">
+                <span class="glyphicon glyphicon-trash"></span>移除
+            </button>
+            <button type="button" class="btn btn-success btn-rounded btn-xs" ng-click="uploader.uploadAll()" ng-disabled="!uploader.getNotUploadedItems().length">
+                <span class="glyphicon glyphicon-upload"></span>上传
+            </button>
+        </div>
+    </div>
+    <div class="row" ng-if="max!=1" style="margin: 0;border: 1px #ccc solid;">
         <div class="panel panel-info" style="border: 0">
             <div class="panel-body dndsimpleDemo" ng-show="media&&media.length>0">
                 <!--<pre ng-bind="uploader.queue | json">  这个不能json 这个自定义的对象里面有循环嵌套 </pre>-->
-                <!--<pre ng-bind="images | json"></pre>-->
+                <!--<pre ng-bind="media | json"></pre>-->
                 <ul class="list-group">
                     <li ng-repeat="(k,v) in media"
                         class="list-group-item row"
@@ -80,7 +105,7 @@
             </div>
         </div>
     </div>
-    <div ng-class="{'hide':disabled}" style="padding: 10px;">
+    <div ng-class="{'hide':disabled}" style="padding: 10px;" ng-if="max!=1">
         <div class="form-group" style="margin-bottom: 5px;">
             <!--上传过程:-->
             <div class="col-sm-12">

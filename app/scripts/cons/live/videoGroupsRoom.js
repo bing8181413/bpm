@@ -17,7 +17,7 @@ define(['.././common'], function(common) {
                     fieldDirective: '<p>' +
                     '<span video-task="item" task-id="item.room.work_tasks.id" title="添加任务" ng-if="!item.room.work_tasks || !item.room.work_tasks.status == 2" handle="true"></span> ' +
 
-                    '<span video-task="item" task-id="item.room.work_tasks.id" title="查看任务" ng-if="item.room.work_tasks && item.room.work_tasks.status == 1"></span> ' +
+                    '<span video-task="item" task-id="item.room.work_tasks.id" title="查看任务" ng-if="item.room.work_tasks && item.room.work_tasks.status == 1" handle="false"></span> ' +
 
                     '<span video-task="item" task-id="item.room.work_tasks.id" title="修改任务" ng-if="item.room.work_tasks && item.room.work_tasks.status == 0" handle="true"></span> ' +
 

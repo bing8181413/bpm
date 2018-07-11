@@ -79,24 +79,23 @@ define([
     './common/deleteData',// 简单的删除组件
     './common/openUrl',// 打开一个URL  下载一个url 文件
 
-
-
     './support/paymethods',// 支付方式 顺序选择
 
     './market/list',//market   skuno ...
     './sqls/list',// 导出 exports/sqls
 
-], function (mod,
-             simpleCons) {
+], function(
+    mod,
+    simpleCons) {
     mod
 
-        .directive('showRichContent', function ($state, $rootScope, $timeout, $compile) {
+        .directive('showRichContent', function($state, $rootScope, $timeout, $compile) {
             return {
                 restrict: 'E',
                 replace: true,
                 require: '?ngModel',
                 scope: {
-                    ngModel: '='
+                    ngModel: '=',
                 },
                 template: '<div class="panel panel-default">' +
                 '    <div class="panel-body">' +
@@ -104,8 +103,8 @@ define([
                 '       <p ng-bind="ngModel" class="text-left text-med text-gray" show-role="\'admin\'"></p>' +
                 '    </div>' +
                 '</div>',
-                link: function ($scope, $element, $attrs, ngModel) {
-                }
+                link: function($scope, $element, $attrs, ngModel) {
+                },
             };
         })
         /** 文本编辑器
@@ -120,7 +119,7 @@ define([
     *    'content': ''  文本内容
     * }
          */
-        .directive('showTextarea', function ($state, $rootScope, $timeout, $compile) {
+        .directive('showTextarea', function($state, $rootScope, $timeout, $compile) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -146,29 +145,29 @@ define([
                 '        <textarea class="form-control" rows="5" disabled-role="\'{{disabledRole}}\'" contentEditable=true style="height:auto;" ng-model="Update.content" ng-style="FontStyle" placeholder="{{Attrs.placeholder}}"></textarea>' +
                 '    </div>' +
                 '</div>',
-                link: function ($scope, $element, $attrs, ngModel) {
-                    $timeout(function () {
+                link: function($scope, $element, $attrs, ngModel) {
+                    $timeout(function() {
                         // console.log($scope, $attrs);
                         $scope.disabled = ($attrs.disabled ? true : false);
                         $scope.disabledRole = $attrs.disabledRole || '';
                     }, 0);
                     if (!ngModel) return;
-                    ngModel.$render = function () {
+                    ngModel.$render = function() {
                         $scope.Update = angular.extend({}, ngModel.$viewValue || {
-                                'font_size': '',
-                                'font_align': '',
-                                'font_bold': '',
-                                'font_style': '',
-                                'font_color': '',
-                                'font_ita': '',
-                                'content': ''
-                            });
+                            'font_size': '',
+                            'font_align': '',
+                            'font_bold': '',
+                            'font_style': '',
+                            'font_color': '',
+                            'font_ita': '',
+                            'content': '',
+                        });
                         $scope.selectOpts();
                     };
 
                     // 设置基础输出
                     $scope.Attrs = {
-                        placeholder: $attrs.placeholder || ''
+                        placeholder: $attrs.placeholder || '',
                     };
 
                     // 界面配置
@@ -176,39 +175,39 @@ define([
                         size: [
                             {id: 'large', val: 'large'},
                             {id: 'medium', val: 'medium'},
-                            {id: 'small', val: 'small'}
+                            {id: 'small', val: 'small'},
                         ],
                         align: [
                             {id: '1', val: 'left'},
                             {id: '2', val: 'center'},
-                            {id: '3', val: 'right'}
+                            {id: '3', val: 'right'},
                         ],
                         bold: [
                             {id: '1', val: 'bolder'},
-                            {id: '0', val: 'normal'}
+                            {id: '0', val: 'normal'},
                         ],
                         ita: [
                             {id: '1', val: 'italic'},
-                            {id: '0', val: 'normal'}
-                        ]
+                            {id: '0', val: 'normal'},
+                        ],
                     };
-                    $scope.obj_id2val = function (obj, id) {
+                    $scope.obj_id2val = function(obj, id) {
                         var rtn = '';
-                        angular.forEach(obj, function (v, k) {
+                        angular.forEach(obj, function(v, k) {
                             if (v.id == id) {
                                 rtn = v.val;
                             }
                         });
                         return rtn;
-                    }
+                    };
                     // 数据change
-                    $scope.selectOpts = function () {
+                    $scope.selectOpts = function() {
                         $scope.FontStyle = {
                             'font-size': $scope.obj_id2val($scope.FontOpts.size, $scope.Update.font_size) || '',
                             'text-align': $scope.obj_id2val($scope.FontOpts.align, $scope.Update.font_align) || '',
                             'font-weight': $scope.obj_id2val($scope.FontOpts.bold, $scope.Update.font_bold) || '',
                             'font-style': $scope.obj_id2val($scope.FontOpts.ita, $scope.Update.font_ita) || '',
-                            'color': $scope.Update.font_color || ''
+                            'color': $scope.Update.font_color || '',
                             //'text-align': $scope.Update.font_align || '',
                             //'font-weight': $scope.Update.font_bold || '',
                             //'font-style': $scope.Update.font_style || '',
@@ -217,7 +216,7 @@ define([
 
                         ngModel.$setViewValue($scope.Update);
                     };
-                }
+                },
             };
         })
 
@@ -237,7 +236,7 @@ define([
     *   height:
     * }]
          */
-        .directive('showUpload', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget) {
+        .directive('showUpload', function($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -246,24 +245,24 @@ define([
                     required: '@',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showUpload.html'),
-                controller: function ($scope, $element, $attrs) {
-                    $timeout(function () {
+                controller: function($scope, $element, $attrs) {
+                    $timeout(function() {
                         $scope.disabled = ($attrs.disabled ? true : false);
                         $scope.disabledRole = $attrs.disabledRole || '';
                         // console.log($scope, $attrs.disabledRole);
                         // console.log($scope, $attrs, $scope.disabled);
                     }, 0);
                     $scope.uploader = new FileUploader({
-                        url: simpleCons.qiniu_domain + '/qiniu/controller.php?action=uploadimage'
+                        url: simpleCons.qiniu_domain + '/qiniu/controller.php?action=uploadimage',
                     });
                     var init = false;
-                    $scope.$watch('images', function (imagesVal) {
+                    $scope.$watch('images', function(imagesVal) {
                         $scope.max = $attrs.max || 100;
                         // console.log('images1111', imagesVal, init, $scope.uploader.queue);
-                        if (imagesVal && (imagesVal.length > 0 ) && !init && $scope.uploader.queue.length == 0) {
+                        if (imagesVal && (imagesVal.length > 0) && !init && $scope.uploader.queue.length == 0) {
                             init = true;
                             if ($scope.images && $scope.images.length > 0) {
-                                angular.forEach($scope.images, function (v, k) {
+                                angular.forEach($scope.images, function(v, k) {
                                     $scope.uploader.queue.push({
                                         pic_id: v.pic_id || undefined,
                                         url: v.pic_url || v.url || '',
@@ -281,12 +280,12 @@ define([
                     }, true);
 
                     // 删除历史数据
-                    $scope.removeImage = function (key) {
+                    $scope.removeImage = function(key) {
                         $scope.uploader.queue.splice(key, 1);
                         updateImages();
                     };
                     // 上传成功
-                    $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+                    $scope.uploader.onSuccessItem = function(fileItem, response, status, headers) {
                         // console.log(fileItem, response);
                         if (response) {
                             if (response.code == 1001) {
@@ -325,51 +324,50 @@ define([
                     // FILTERS
                     $scope.uploader.filters.push({
                         name: 'imageFilter',
-                        fn: function (item /*{File|FileLikeObject}*/, options) {
+                        fn: function(item /*{File|FileLikeObject}*/, options) {
                             var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
                             return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-                        }
+                        },
                     });
 
                     $scope.uploader.filters.push({
                         name: 'customFilter',
-                        fn: function (item /*{File|FileLikeObject}*/, options) {
+                        fn: function(item /*{File|FileLikeObject}*/, options) {
                             var len = ($scope.images && $scope.images != 'undefined') ? $scope.images.length : 0;
                             return this.queue.length < $scope.max - len;
-                        }
+                        },
                     });
 
-                    $scope.uploader.onAfterAddingAll = function (fileItems) {
-                        angular.forEach(fileItems, function (v, k) {
+                    $scope.uploader.onAfterAddingAll = function(fileItems) {
+                        angular.forEach(fileItems, function(v, k) {
                             $scope.images.push({});
                         });
-                        $timeout(function () {
+                        $timeout(function() {
                             updateImages();
                         }, 0);
                     };
-                    $scope.log = function () {
+                    $scope.log = function() {
                         updateImages();
-                        widget.msgToast('确认排序成功')
+                        widget.msgToast('确认排序成功');
                         console.log($scope.uploader.queue);
-                    }
+                    };
                     // 全部取消
-                    $scope.removeAll = function () {
+                    $scope.removeAll = function() {
                         // $scope.uploader.clearQueue();
                         if (!confirm('确定全部移除吗?')) {
                             return false;
                         }
                         $scope.images = [];
                         $scope.uploader.queue = [];
-                    }
+                    };
                     // $scope.uploader.clearAll = function () {
                     //     $scope.images = [];
                     //     $scope.uploader.queue = [];
                     //     $scope.uploader.progress = 0;
                     // };
 
-
                     // 移除上传的数据
-                    $scope.delImage = function (key, obj) {
+                    $scope.delImage = function(key, obj) {
                         if (!confirm('确定移除?')) {
                             return false;
                         }
@@ -382,12 +380,11 @@ define([
                         updateImages();
                     };
 
-
                     function updateImages() {
                         // 重新填充 images 对象
                         init = true;
                         $scope.images = [];
-                        angular.forEach($scope.uploader.queue, function (v, k) {
+                        angular.forEach($scope.uploader.queue, function(v, k) {
                             // console.log(v.url);
                             if (v.updated_at) {
                                 $scope.images.push({
@@ -410,7 +407,7 @@ define([
                         });
                     }
 
-                    $scope.getEle = function (eleKey) {
+                    $scope.getEle = function(eleKey) {
                         $scope.eleKey = eleKey;
                         // console.log($scope.eleKey,$scope.posIndex,$scope);
                         if (angular.isNumber($scope.eleKey) && angular.isNumber($scope.posIndex)) {
@@ -425,14 +422,14 @@ define([
                         }
                         updateImages();
 
-                    }
-                    $scope.getPos = function (posIndex) {
+                    };
+                    $scope.getPos = function(posIndex) {
                         $scope.posIndex = posIndex;
-                    }
-                }
+                    };
+                },
             };
         })
-        .directive('showUploadToken', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget, comfunc) {
+        .directive('showUploadToken', function($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget, comfunc) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -443,11 +440,11 @@ define([
                     hideBar: '=',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showUpload.html'),
-                controller: function ($scope, $element, $attrs) {
+                controller: function($scope, $element, $attrs) {
                     $scope.dndAllowType = 'dnd' + Math.ceil(Math.random(10000) * 10000);
                     $scope.allowedType = [$scope.dndAllowType];
 
-                    $timeout(function () {
+                    $timeout(function() {
                         $scope.disabled = ($attrs.disabled ? true : false);
                         $scope.disabledRole = $attrs.disabledRole || '';
                         // console.log($scope, $attrs.disabledRole);
@@ -455,16 +452,16 @@ define([
                     }, 0);
                     $scope.uploader = new FileUploader({
                         // url: simpleCons.qiniu_domain + '/qiniu/controller.php?action=uploadimage'
-                        url: 'https://up.qbox.me/' // 七牛上传文件的地址
+                        url: 'https://up.qbox.me/', // 七牛上传文件的地址
                     });
                     var init = false;
-                    $scope.$watch('images', function (imagesVal) {
+                    $scope.$watch('images', function(imagesVal) {
                         $scope.max = $attrs.max || 100;
                         // console.log('images1111', imagesVal, init, $scope.uploader.queue);
-                        if (imagesVal && (imagesVal.length > 0 ) && !init && $scope.uploader.queue.length == 0) {
+                        if (imagesVal && (imagesVal.length > 0) && !init && $scope.uploader.queue.length == 0) {
                             init = true;
                             if ($scope.images && $scope.images.length > 0) {
-                                angular.forEach($scope.images, function (v, k) {
+                                angular.forEach($scope.images, function(v, k) {
                                     $scope.uploader.queue.push({
                                         pic_id: v.pic_id || v.id || undefined,
                                         url: v.pic_url || v.url || '',
@@ -482,12 +479,12 @@ define([
                     }, true);
 
                     // 删除历史数据
-                    $scope.removeImage = function (key) {
+                    $scope.removeImage = function(key) {
                         $scope.uploader.queue.splice(key, 1);
                         updateImages();
                     };
                     //选择文件之后
-                    $scope.uploader.onAfterAddingFile = function (fileItem) {
+                    $scope.uploader.onAfterAddingFile = function(fileItem) {
                         // $scope.uploader.onBeforeUploadItem = function (fileItem) {
                         // console.log('onAfterAddingFile', fileItem);
                         var fileItemTmpl = {name: fileItem._file.name, type: $scope.token};
@@ -496,15 +493,15 @@ define([
                             method: 'get',
                             scope: $scope,
                             data: fileItemTmpl,
-                            success: function (json) {
+                            success: function(json) {
                                 // console.log(json);
                                 // console.log(form, item.formData);
                                 fileItem.formData.push({key: json.data.key, token: json.data.token});
-                            }
-                        })
-                    }
+                            },
+                        });
+                    };
                     // 上传成功
-                    $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+                    $scope.uploader.onSuccessItem = function(fileItem, response, status, headers) {
                         // console.log(fileItem, response);
                         if (response) {
                             if (response.code == 1001) {
@@ -543,53 +540,52 @@ define([
                     // FILTERS
                     $scope.uploader.filters.push({
                         name: 'imageFilter',
-                        fn: function (item /*{File|FileLikeObject}*/, options) {
+                        fn: function(item /*{File|FileLikeObject}*/, options) {
                             var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
                             return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
-                        }
+                        },
                     });
 
                     $scope.uploader.filters.push({
                         name: 'customFilter',
-                        fn: function (item /*{File|FileLikeObject}*/, options) {
+                        fn: function(item /*{File|FileLikeObject}*/, options) {
                             var len = ($scope.images && $scope.images != 'undefined') ? $scope.images.length : 0;
                             return this.queue.length < $scope.max - len;
-                        }
+                        },
                     });
 
-                    $scope.uploader.onAfterAddingAll = function (fileItems) {
+                    $scope.uploader.onAfterAddingAll = function(fileItems) {
                         $scope.images = $scope.images || [];
-                        angular.forEach(fileItems, function (v, k) {
+                        angular.forEach(fileItems, function(v, k) {
                             $scope.images.push({});
                         });
-                        $timeout(function () {
+                        $timeout(function() {
                             updateImages();
                         }, 0);
                     };
-                    $scope.log = function () {
+                    $scope.log = function() {
                         updateImages();
-                        widget.msgToast('确认排序成功')
+                        widget.msgToast('确认排序成功');
                         console.log($scope.uploader.queue);
-                    }
+                    };
                     // 全部取消
-                    $scope.removeAll = function () {
+                    $scope.removeAll = function() {
                         // $scope.uploader.clearQueue();
                         if (!confirm('确定全部移除吗?')) {
                             return false;
                         }
                         $scope.images = [];
                         $scope.uploader.queue = [];
-                    }
+                    };
                     // $scope.uploader.clearAll = function () {
                     //     $scope.images = [];
                     //     $scope.uploader.queue = [];
                     //     $scope.uploader.progress = 0;
                     // };
 
-
                     // 移除上传的数据
                     $scope.confirm_del_image_notice = true;
-                    $scope.delImage = function (key, obj) {
+                    $scope.delImage = function(key, obj) {
                         if ($scope.confirm_del_image_notice) {
                             if (confirm('确定移除,且本次操作此字段不再有删除提示?')) {
                                 $scope.confirm_del_image_notice = false;
@@ -607,12 +603,11 @@ define([
                         updateImages();
                     };
 
-
                     function updateImages() {
                         // 重新填充 images 对象
                         init = true;
                         $scope.images = [];
-                        angular.forEach($scope.uploader.queue, function (v, k) {
+                        angular.forEach($scope.uploader.queue, function(v, k) {
                             if (v.updated_at || v.old) {
                                 $scope.images.push({
                                     // pic_id: v.pic_id || undefined,
@@ -633,7 +628,7 @@ define([
                         });
                     }
 
-                    $scope.getEle = function (eleKey) {
+                    $scope.getEle = function(eleKey) {
                         $scope.eleKey = eleKey;
                         // console.log($scope.eleKey,$scope.posIndex);
                         if (angular.isNumber($scope.eleKey) && angular.isNumber($scope.posIndex)) {
@@ -653,14 +648,14 @@ define([
                         }
                         updateImages();
 
-                    }
-                    $scope.getPos = function (posIndex) {
+                    };
+                    $scope.getPos = function(posIndex) {
                         $scope.posIndex = posIndex;
-                    }
-                }
+                    };
+                },
             };
         })
-        .directive('showUploadMediaToken', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget) {
+        .directive('showUploadMediaToken', function($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget, $sce) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -669,10 +664,12 @@ define([
                     required: '@',
                     token: '@',
                     hideBar: '=',
+                    mediaType: '=',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showMediaUpload.html'),
-                controller: function ($scope, $element, $attrs) {
-                    $timeout(function () {
+                controller: function($scope, $element, $attrs) {
+                    $scope.sce = $sce.trustAsResourceUrl;
+                    $timeout(function() {
                         $scope.disabled = ($attrs.disabled ? true : false);
                         $scope.disabledRole = $attrs.disabledRole || '';
                         // console.log($scope, $attrs.disabledRole);
@@ -680,16 +677,16 @@ define([
                     }, 0);
                     $scope.uploader = new FileUploader({
                         // url: simpleCons.qiniu_domain + '/qiniu/controller.php?action=uploadimage'
-                        url: 'https://up.qbox.me/'
+                        url: 'https://up.qbox.me/',
                     });
                     var init = false;
-                    $scope.$watch('media', function (mediaVal) {
+                    $scope.$watch('media', function(mediaVal) {
                         $scope.max = $attrs.max || 100;
                         // console.log('images1111', mediaVal, init, $scope.uploader.queue);
-                        if (mediaVal && (mediaVal.length > 0 ) && !init && $scope.uploader.queue.length == 0) {
+                        if (mediaVal && (mediaVal.length > 0) && !init && $scope.uploader.queue.length == 0) {
                             init = true;
                             if ($scope.media && $scope.media.length > 0) {
-                                angular.forEach($scope.media, function (v, k) {
+                                angular.forEach($scope.media, function(v, k) {
                                     $scope.uploader.queue.push({
                                         pic_id: v.pic_id || undefined,
                                         url: v.pic_url || v.url || '',
@@ -707,12 +704,12 @@ define([
                     }, true);
 
                     // 删除历史数据
-                    $scope.removeMedia = function (key) {
+                    $scope.removeMedia = function(key) {
                         $scope.uploader.queue.splice(key, 1);
                         updateMedia();
                     };
                     //选择文件之后
-                    $scope.uploader.onAfterAddingFile = function (fileItem) {
+                    $scope.uploader.onAfterAddingFile = function(fileItem) {
                         // $scope.uploader.onBeforeUploadItem = function (fileItem) {
                         // console.log('onAfterAddingFile', fileItem);
                         var fileItemTmpl = {name: fileItem._file.name, type: $scope.token};
@@ -721,15 +718,15 @@ define([
                             method: 'get',
                             scope: $scope,
                             data: fileItemTmpl,
-                            success: function (json) {
+                            success: function(json) {
                                 // console.log(json);
                                 // console.log(form, item.formData);
                                 fileItem.formData.push({key: json.data.key, token: json.data.token});
-                            }
-                        })
-                    }
+                            },
+                        });
+                    };
                     // 上传成功
-                    $scope.uploader.onSuccessItem = function (fileItem, response, status, headers) {
+                    $scope.uploader.onSuccessItem = function(fileItem, response, status, headers) {
                         // console.log(fileItem, response);
                         if (response) {
                             if (response.code == 1001) {
@@ -768,64 +765,64 @@ define([
                     // FILTERS
                     $scope.uploader.filters.push({
                         name: 'imageFilter',
-                        fn: function (item /*{File|FileLikeObject}*/, options) {
+                        fn: function(item /*{File|FileLikeObject}*/, options) {
                             var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                            var typeArr = ['mp3','mp4','pdf','x-rar','zip',
+                            var typeArr = [
+                                'mp3', 'mp4', 'pdf', 'x-rar', 'zip',
                                 'msword',//'doc',
                                 'vnd.ms-excel',//'xls',
                                 'vnd.ms-powerpoint',//'ppt',
                                 'vnd.openxmlformats-officedocument.wordprocessingml.document',//'docx'
                                 'vnd.openxmlformats-officedocument.spreadsheetml.sheet',//'xlsx',
-                                'vnd.openxmlformats-officedocument.presentationml.presentation'//'pptx'
+                                'vnd.openxmlformats-officedocument.presentationml.presentation',//'pptx'
                             ];
-                            var typeStr = '|'+typeArr.join('|')+'|';
-                            console.log(item.type,item,'\n',typeStr.indexOf(type) !== -1,'\n',typeStr);
+                            var typeStr = '|' + typeArr.join('|') + '|';
+                            console.log(item.type, item, '\n', typeStr.indexOf(type) !== -1, '\n', typeStr);
                             return typeStr.indexOf(type) !== -1;
                             // return '|mp3|mp4|'.indexOf(type) !== -1;
-                        }
+                        },
                     });
 
                     $scope.uploader.filters.push({
                         name: 'customFilter',
-                        fn: function (item /*{File|FileLikeObject}*/, options) {
+                        fn: function(item /*{File|FileLikeObject}*/, options) {
                             var len = ($scope.media && $scope.media != 'undefined') ? $scope.media.length : 0;
                             return this.queue.length < $scope.max - len;
-                        }
+                        },
                     });
 
-                    $scope.uploader.onAfterAddingAll = function (fileItems) {
+                    $scope.uploader.onAfterAddingAll = function(fileItems) {
                         $scope.media = $scope.media || [];
-                        angular.forEach(fileItems, function (v, k) {
+                        angular.forEach(fileItems, function(v, k) {
                             $scope.media.push({});
                         });
-                        $timeout(function () {
+                        $timeout(function() {
                             updateMedia();
                         }, 0);
                     };
-                    $scope.log = function () {
+                    $scope.log = function() {
                         updateMedia();
-                        widget.msgToast('确认排序成功')
+                        widget.msgToast('确认排序成功');
                         console.log($scope.uploader.queue);
-                    }
+                    };
                     // 全部取消
-                    $scope.removeAll = function () {
+                    $scope.removeAll = function() {
                         // $scope.uploader.clearQueue();
                         if (!confirm('确定全部移除吗?')) {
                             return false;
                         }
                         $scope.media = [];
                         $scope.uploader.queue = [];
-                    }
+                    };
                     // $scope.uploader.clearAll = function () {
                     //     $scope.images = [];
                     //     $scope.uploader.queue = [];
                     //     $scope.uploader.progress = 0;
                     // };
 
-
                     // 移除上传的数据
                     $scope.confirm_del_image_notice = true;
-                    $scope.delMedia = function (key, obj) {
+                    $scope.delMedia = function(key, obj) {
                         if ($scope.confirm_del_image_notice) {
                             if (confirm('确定移除,且本次操作此字段不再有删除提示?')) {
                                 $scope.confirm_del_image_notice = false;
@@ -843,12 +840,11 @@ define([
                         updateMedia();
                     };
 
-
                     function updateMedia() {
                         // 重新填充 media 对象
                         init = true;
                         $scope.media = [];
-                        angular.forEach($scope.uploader.queue, function (v, k) {
+                        angular.forEach($scope.uploader.queue, function(v, k) {
                             if (v.updated_at || v.old) {
                                 $scope.media.push({
                                     // pic_id: v.pic_id || undefined,
@@ -867,10 +863,10 @@ define([
                         });
                     }
 
-                }
+                },
             };
         })
-        .directive('showAddresses', function ($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget) {
+        .directive('showAddresses', function($state, $rootScope, $timeout, FileUploader, $templateCache, $parse, widget) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -879,8 +875,8 @@ define([
                     required: '@',
                 },
                 template: $templateCache.get('app/' + simpleCons.DIRECTIVE_PATH + 'upload/showAddresses.html'),
-                controller: function ($scope, $element, $attrs) {
-                    $timeout(function () {
+                controller: function($scope, $element, $attrs) {
+                    $timeout(function() {
                         $scope.disabled = ($attrs.disabled ? true : false);
                         $scope.disabledRole = $attrs.disabledRole || '';
                         // console.log($scope, $attrs.disabledRole);
@@ -888,29 +884,29 @@ define([
                     }, 0);
                     $scope.mapData = {isshowmap: false};
                     $scope.show_tip = [];
-                    $scope.log = function () {
+                    $scope.log = function() {
                         console.log($scope.addresses);
-                    }
+                    };
                     // 删除地址和经纬度的信息
-                    $scope.del_info = function (index) {
+                    $scope.del_info = function(index) {
                         if (!$scope.addresses[index]) return;
                         $scope.addresses[index].longitude = 0;
                         $scope.addresses[index].latitude = 0;
                         $scope.addresses[index].city_name = '';
                         $scope.addresses[index].district = '';
 
-                    }
-                    $scope.$watch('addresses', function (val) {
+                    };
+                    $scope.$watch('addresses', function(val) {
                         $scope.show_tip.length = val && val.length || 0;
-                        angular.forEach(val, function (v, k) {
+                        angular.forEach(val, function(v, k) {
                             $scope.show_tip[k] = 0;
                             if (!v.city_name) {
                                 $scope.show_tip[k] = 1;
                             }
-                        })
+                        });
                     }, true);
                     // 删除一部分 或者 全部删除
-                    $scope.delAddress = function (index) {
+                    $scope.delAddress = function(index) {
                         if (!index && index != 0) {
                             if (confirm('确定全部移除吗?')) {
                                 $scope.addresses = [];
@@ -919,16 +915,16 @@ define([
                         else if (index || index == 0) {
                             $scope.addresses.splice(index, 1);
                         }
-                    }
-                    $scope.addAddress = function () {
+                    };
+                    $scope.addAddress = function() {
                         if ($scope.addresses && $scope.addresses.length > 0) {
                             $scope.addresses.push({});
                         } else {
                             $scope.addresses = [{}];
                         }
-                    }
+                    };
                     //  获取地理位置信息 传入地址
-                    $scope.getlocation = function (index) {
+                    $scope.getlocation = function(index) {
                         $scope.del_info();
                         // if (angular.isUndefined($scope.addresses[index].city_name)) {
                         //     widget.msgToast('没有城市');
@@ -963,8 +959,8 @@ define([
                         //     $scope.mapData.district = '';
                         // }
                         // };
-                    }
-                    $scope.callback = function () {
+                    };
+                    $scope.callback = function() {
                         if ($scope.mapData.index || $scope.mapData.index == 0) {
                             $scope.addresses[$scope.mapData.index].longitude = $scope.mapData.lng;
                             $scope.addresses[$scope.mapData.index].latitude = $scope.mapData.lat;
@@ -981,8 +977,8 @@ define([
                             }
                             // console.log($scope.mapData);
                         }
-                    }
-                }
+                    };
+                },
             };
-        })
+        });
 });

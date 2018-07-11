@@ -60,8 +60,8 @@
                 <th>更新时间</th>
                 <th ng-if="handle">操作</th>
                 </thead>
-                <tbody dnd-list="ngModel">
-                <tr ng-repeat="(key,item) in param.works" dnd-draggable="item" dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="move">
+                <tbody dnd-list="param.works">
+                <tr ng-repeat="(key,item) in param.works" dnd-draggable="item" dnd-moved="param.works.splice(key, 1);" dnd-effect-allowed="move">
                     <td><label class="label label-primary"><span ng-bind="item.id"></span></label></td>
                     <td dnd-nodrag><span ng-bind="item.type|keyVal:'1':'单选':'2':'多选'"></span></td>
                     <td dnd-nodrag><span ng-bind="item.options_count"></span></td>

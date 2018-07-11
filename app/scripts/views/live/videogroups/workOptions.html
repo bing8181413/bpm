@@ -53,7 +53,7 @@
                 <td dnd-nodrag>
                     <div form-textarea ng-model="item.body_value" no-label="true" ng-if="optionType==1" text="文字"></div>
                     <div form-image-single ng-model="item.body_value" no-label="true" ng-if="optionType==2" text="图片"></div>
-                    <div form-media-single ng-model="item.body_value" no-label="true" ng-if="optionType==3" text="语音"></div>
+                    <div form-media-single ng-model="item.body_value" no-label="true" media-type="audio" ng-if="optionType==3" text="语音"></div>
                 </td>
                 <td dnd-nodrag>
                     <label class="checkbox-inline checkbox1">

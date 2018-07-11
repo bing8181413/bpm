@@ -221,17 +221,14 @@ define([
                     handle: '@',
                     title: '@',
                 },
-                template: '<a class="btn btn-rounded btn-sm btn-primary" ng-click="show()" ng-if="handle" ng-bind="title">></a>',
+                template: '<a class="btn btn-rounded btn-sm btn-primary" ng-click="show()" ng-bind="title">></a>',
                 link: function($scope, $element, $attrs) {
                     $scope.data = $scope.videoTask;
                     var supScope1 = $scope;
                     $scope.show = function() {
-                        if (!$scope.taskId) {
-                            widget.msgToast('前端code,没有任务ID');
-                            return false;
-                        }
                         var modalInstance = $uibModal.open({
                                 template: $templateCache.get('app/' + con.live_path + 'videogroups/taskList.html'),
+                                windowClass: 'xx-dialog',
                                 controller: function($scope, $uibModalInstance) {
                                     $scope.param = {
                                         tasks: {
@@ -255,7 +252,15 @@ define([
                                             },
                                         });
                                     };
-                                    $scope.init();
+                                    if (supScope1.taskId) {
+                                        $scope.init();
+                                    }
+
+                                    $scope.$on('getTaskList', function(event, data) {
+                                        console.log(event, data);
+                                        $scope.init();
+                                    });
+
                                     $scope.submit = function() {
                                         widget.ajaxRequest({
                                             url: '/mobile/live/work/tasks/' + supScope1.taskId,
@@ -263,7 +268,8 @@ define([
                                             scope: $scope,
                                             data: $scope.param,
                                             success: function(json) {
-                                                widget.msgToast('成功!');
+                                                widget.msgToast('保存成功!');
+                                                supScope1.taskId = json.data.id;
                                             },
                                         });
                                     };
@@ -292,7 +298,17 @@ define([
                     $scope.tasks = angular.copy($scope.param.tasks);
 
                     $scope.del = function(key) {
-                        $scope.param && $scope.param.length >= 0 ? ($scope.param.splice(key, 1)) : ('');
+                        widget.ajaxRequest({
+                            url: '/mobile/live/works/' + $scope.param.works[key].id,
+                            method: 'DELETE',
+                            scope: $scope,
+                            data: $scope.param,
+                            success: function(json) {
+                                widget.msgToast('删除成功!');
+                                $scope.param.works && $scope.param.works.length >= 0 ? ($scope.param.works.splice(key, 1)) : ('');
+                            },
+                        });
+
                     };
                 },
             };
@@ -300,7 +316,7 @@ define([
         .directive('videoWork', function($rootScope, $templateCache, $filter, $compile, widget, $uibModal, $timeout) {
             return {
                 restrict: 'AE',
-                replace: false,
+                replace: true,
                 scope: {
                     videoWork: '=',
                     room: '@',
@@ -342,28 +358,35 @@ define([
                                         });
                                     };
 
-                                    if ($scope.handle != 'add') {
+                                    if ($scope.handle !== 'add') {
                                         // add
                                         $scope.init();
                                     }
 
                                     $scope.$watch('param', function(val) {
-                                        if (val) {
-                                            val.answer = '';
-                                            angular.forEach(val.options, function(v, k) {
-                                                val.answer += v.option_no;
-                                            });
+                                        if (val && val.options) {
+                                            val.answer = val.options.reduce(function(previousValue, currentVal, currentIndex) {
+                                                if (currentVal.answer == 1) {
+                                                    return previousValue !== '' ? (previousValue + ',' + currentVal.option_no) : currentVal.option_no;
+                                                }
+                                                return previousValue;
+                                            }, '');
                                         }
-
                                     }, true);
+
                                     $scope.submit = function() {
+                                        if ($scope.param.answer === '') {
+                                            widget.msgToast('没有正确答案，不能提交！');
+                                            return false;
+                                        }
                                         widget.ajaxRequest({
                                             url: '/mobile/live/works' + ($scope.handle === 'add' ? ('') : ('/' + supScope2.workID)),
                                             method: ($scope.handle === 'add') ? 'POST' : 'PUT',
                                             scope: $scope,
                                             data: $scope.param,
                                             success: function(json) {
-                                                widget.msgToast('成功!');
+                                                widget.msgToast('作业提交成功!');
+                                                supScope2.$emit('getTaskList', '作业提交后$emit事件');
                                                 $scope.cancel();
                                             },
                                         });

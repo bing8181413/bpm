@@ -51,11 +51,11 @@ define([
                             '<show-upload-token images="tmpNgModel" hide-bar="hideBar"   ' + name + max + required + disabledRole + token + '></show-upload-token>';
                         var content = '';
                         if ($scope.noLabel) {
-                            content = uploadHtml + '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + required + '></div>';
+                            content = uploadHtml + '<input class="hide" ng-model="tmpNgModel" ' + max + name + disabledRole + required + '></div>';
                         } else {
                             content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                                 '<div class="col-sm-8" style="">' + uploadHtml +
-                                '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + required + '>' +
+                                '<input class="hide" ng-model="tmpNgModel" ' + max + name + disabledRole + required + '>' +
                                 '</div>';
                         }
 

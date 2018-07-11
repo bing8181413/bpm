@@ -18,6 +18,7 @@ define([
                     callback: '&',
                     token: '@',
                     noLabel: '@',// 没有label
+                    mediaType: '@',
                     // hideBar: '=',
                 },
                 link: function($scope, $element, $attrs, $ctrl) {
@@ -48,7 +49,8 @@ define([
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
-                            '<show-upload-media-token media="tmpNgModel" hide-bar="hideBar"   ' + name + max + required + disabledRole + token + '></show-upload-media-token>';
+                            '<show-upload-media-token media="tmpNgModel" hide-bar="hideBar" media-type="mediaType"   ' + name + max + required + disabledRole + token +
+                            '></show-upload-media-token>';
                         var content = '';
                         if ($scope.noLabel) {
                             content = uploadHtml + '<input class="hide" ng-model="ngModel" ' + max + name + disabledRole + required + '></div>';
