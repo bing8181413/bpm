@@ -47,9 +47,6 @@
             width: 1000px;
         }
     </style>
-    <!--<div class="panel-heading">-->
-    <!--<h3 class="panel-title inlineBlock">可拖动顺序</h3>-->
-    <!--</div>-->
     <div class="panel-body ">
         <div class="col-sm-12 form-group dndsimpleSubject">
             <table class="table table-bordered table-striped">
@@ -58,7 +55,7 @@
                 <th>题型</th>
                 <th>选项数</th>
                 <th>更新时间</th>
-                <th ng-if="handle">操作</th>
+                <th>操作</th>
                 </thead>
                 <tbody dnd-list="param.works">
                 <tr ng-repeat="(key,item) in param.works" dnd-draggable="item" dnd-moved="param.works.splice(key, 1);" dnd-effect-allowed="move">
@@ -66,9 +63,12 @@
                     <td dnd-nodrag><span ng-bind="item.type|keyVal:'1':'单选':'2':'多选'"></span></td>
                     <td dnd-nodrag><span ng-bind="item.options_count"></span></td>
                     <td dnd-nodrag><span ng-bind="item.updated_at"></span></td>
-                    <td ng-if="handle">
-                        <div video-work="item.id" room="{{param.room_id}}" video="{{param.video_group_id}}" handle="update" title="编辑"></div>
-                        <a class="btn btn-danger btn-sm btn-rounded" ng-click="del(key)" class="pull-right">删除</a>
+                    <td>
+                        <div video-work="item.id" room="{{param.room_id}}" video="{{param.video_group_id}}" handle="read" title="查看题目" ng-if="!handle"></div>
+                        <div video-work="item.id" room="{{param.room_id}}" video="{{param.video_group_id}}" handle="update" title="编辑" ng-if="handle"></div>
+                        <!--<a class="btn btn-danger btn-sm btn-rounded" ng-click="del(key)" class="pull-right" >删除</a>-->
+                        <span delete-data data="" config="{url:$root.common.domain+'/mobile/live/works/'+item.id,method:'DELETE',text:'删除'}" param="{}"
+                              callback="delCallback()" ng-if="handle"></span>
                     </td>
                 </tr>
                 <tr class="dndPlaceholder">

@@ -8,12 +8,11 @@
                 <table style="width: 100%;">
                     <tr>
                         <td>
-                            <!--<div video-work handle="add" title="添加" class="pull-right"></div>-->
-                            <div video-work="param" ext="param.tasks" handle="add" title="添加" class="pull-right"></div>
+                            <div video-work="param" ext="param.tasks" handle="add" ng-if="handle" title="添加" class="pull-right"></div>
                         </td>
                     </tr>
                     <tr>
-                        <td><h5 class="text-primary text-center"> 调整完顺序，需要保存草稿或者发布到正式才能生效</h5></td>
+                        <td><h3 class="text-primary text-center">点击题目ID标记拖拽可调整顺序，需要保存草稿或发布任务才能生效</h3></td>
                     </tr>
                 </table>
                 <div class="panel panel-primary">
@@ -21,7 +20,8 @@
                         <div video-task-view param="param" handle="handle"></div>
                     </div>
                 </div>
-                <a class="btn btn-success btn-rounded pull-right " ng-disabled="FormBody.$invalid" ng-click="submit()">保存草稿</a>
+                <a class="btn btn-primary btn-rounded pull-right " ng-if="handle" ng-disabled="FormBody.$invalid" ng-click="submit()">保存草稿</a>
+                <a class="btn btn-success btn-rounded pull-right " ng-if="handle" ng-disabled="FormBody.$invalid" ng-click="submit(1)">发布任务</a>
             </form>
         </div>
     </div>

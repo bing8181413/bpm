@@ -49,7 +49,7 @@ define(['.././common'], function(common) {
                 },
                 {
                     name: '任务发布情况', className: 'width200 mobile_show',
-                    fieldDirective: '<p class="label label-primary"><span class="text-center" ng-bind="item.work_tasks.published+\'/\'+item.work_tasks.total"></span></p>',
+                    fieldDirective: '<p class="label label-primary"><span class="text-center" ng-bind="item.work_tasks_published_count+\'/\'+item.work_tasks_count"></span></p>',
                 },
                 {
                     name: '管理', className: 'text-center',

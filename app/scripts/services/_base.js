@@ -5,6 +5,7 @@ define([
   , './comfunc'
   , './table2Array'
   , './formBody'// formBody 的 服务
+  , './videoGroup'// videoGroup 的 服务
 ], function(mod, cons, widget, comfunc) {
   mod.factory('bpmHttpInterceptor', [
     '$log', '$rootScope', function($log, $rootScope) {

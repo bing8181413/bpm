@@ -5,7 +5,7 @@
         </div>
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate>
-                <h4 class="col-sm-offset-1 col-sm-11 text-primary">题干</h4>
+                <h4 class="col-sm-offset-2 col-sm-10">题干</h4>
 
                 <div video-work-stems="" ng-model="param.stems" handle="handle"></div>
 
@@ -17,7 +17,7 @@
 
                 <div video-work-options ng-model="param.options" option-type="param.option_type" handle="handle"></div>
 
-                <a class="btn btn-success btn-rounded pull-right " ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                <a class="btn btn-success btn-rounded pull-right " ng-disabled="FormBody.$invalid" ng-click="submit()" ng-if="handle!=='read'">提交</a>
             </form>
         </div>
     </div>

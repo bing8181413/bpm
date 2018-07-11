@@ -15,13 +15,16 @@ define(['.././common'], function(common) {
                 {
                     name: '操作', className: 'text-center',
                     fieldDirective: '<p>' +
-                    '<span video-task="item" task-id="item.room.work_tasks.id" title="添加任务" ng-if="!item.room.work_tasks || !item.room.work_tasks.status == 2" handle="true"></span> ' +
+                    '<span video-task-list="item" task-id="item.room.work_tasks.id" title="添加任务" ng-if="!item.room.work_tasks || item.room.work_tasks.status == 2" handle="true"></span> ' +
 
-                    '<span video-task="item" task-id="item.room.work_tasks.id" title="查看任务" ng-if="item.room.work_tasks && item.room.work_tasks.status == 1" handle="false"></span> ' +
+                    '<span video-task-list="item" task-id="item.room.work_tasks.id" title="查看任务" ng-if="item.room.work_tasks && item.room.work_tasks.status == 1" handle="false"></span> ' +
 
-                    '<span video-task="item" task-id="item.room.work_tasks.id" title="修改任务" ng-if="item.room.work_tasks && item.room.work_tasks.status == 0" handle="true"></span> ' +
+                    '<span video-task-list="item" task-id="item.room.work_tasks.id" title="修改任务" ng-if="item.room.work_tasks && item.room.work_tasks.status == 0" handle="true"></span> ' +
 
-                    '</p><p><a class="btn btn-danger btn-rounded btn-sm" ng-if="item.room.work_tasks && item.room.work_tasks.status == 0">删除任务</a></p> ',
+                    '</p><p>' +
+                    '<span delete-data data="" config="{url:$root.common.domain+\'/mobile/live/work/tasks/\'+item.room.work_tasks.id,method:\'DELETE\',text:\'删除任务\'}" param="{}"' +
+                    ' callback="updateList()" ng-if="item.room.work_tasks && item.room.work_tasks.status == 0"></span>' +
+                    '</p> ',
                 },
             ],
             config: {
