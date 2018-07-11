@@ -260,13 +260,9 @@ define([
                                     }
 
                                     $scope.$on('getTaskList', function(event, data) {
-                                        $scope.init(data.work_task_id);
-
-                                        console.log(supScope1);
-                                        supScope1.$parent.updateList();
-
+                                        $scope.init(data.work_task_id || undefined);
+                                        console.log(data.message);
                                         if (data.work_task_id) {
-                                            console.log(supScope1);
                                             supScope1.$parent.updateList();
                                         }
                                     });
@@ -316,10 +312,10 @@ define([
                     $scope.tasks = angular.copy($scope.param.tasks);
 
                     $scope.delCallback = function() {
-                        $scope.param.works && $scope.param.works.length >= 0 ? ($scope.param.works.splice(key, 1)) : ('');
-                        $scope.$emit('del', {message: '删除了一个题目，初始化 taskList !'});
+                        // $scope.param.works && $scope.param.works.length >= 0 ? ($scope.param.works.splice(key, 1)) : ('');
+                        $scope.$emit('getTaskList', {work_task_id: null, message: '删除了一个题目，初始化 getTaskList !'});
                     };
-                    
+
                 },
             };
         })
@@ -343,7 +339,6 @@ define([
                         room_id: $scope.room || $scope.ext.room_id,
                         video_group_id: $scope.video || $scope.ext.video_group_id,
                     };
-                    // console.log($scope.handle, $scope.ext, $scope.videoWork, $scope.tasks);
                     var supScope2 = $scope;
                     $scope.show = function() {
                         var modalInstance = $uibModal.open({
@@ -406,7 +401,7 @@ define([
                                                         work_task_id: json.data.work_tasks && json.data.work_tasks[0] && json.data.work_tasks[0].work_task_id || 0,
                                                     });
                                                 } else {
-                                                    supScope2.$emit('getTaskList', '作业提交后$emit事件');
+                                                    supScope2.$emit('getTaskList', {message: '作业提交后$emit事件'});
                                                 }
                                                 $scope.cancel();
                                             },
