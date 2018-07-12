@@ -1,0 +1,34 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title" ng-bind="title"></h3>
+    </div>
+    <div class="panel-body">
+        <table style="width: 100%;">
+            <tr>
+                <td class=""><h3 class="text-primary text-center"></h3></td>
+            </tr>
+        </table>
+        <table class="table table-bordered table-striped">
+            <thead>
+            <th>题目ID</th>
+            <th>作业ID</th>
+            <th>题型</th>
+            <th>选项数</th>
+            <th>答题结果</th>
+            <th>操作</th>
+            </thead>
+            <tbody>
+            <tr ng-repeat="(key,item) in param.work_user_answers">
+                <td><span ng-bind="item.work_id"></span></label></td>
+                <td><span ng-bind="item.id"></span></label></td>
+                <td><span ng-bind="item.work.type|keyVal:'1':'单选':'2':'多选'"></span></td>
+                <td><span ng-bind="item.work.options_count"></span></td>
+                <td><span ng-bind="item.is_right|keyVal:'1':'正确':'2':'错误'"></span></td>
+                <td>
+                    <div video-work="item.id" user-work="item.work_id" room="{{param.room_id}}" video="{{param.video_group_id}}" handle="read" title="查看题目"></div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

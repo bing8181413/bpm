@@ -5,17 +5,17 @@
         </div>
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate>
-                <h4 class="col-sm-offset-2 col-sm-10">题干</h4>
+                    <h4 class="col-sm-offset-2 col-sm-10">题干</h4>
 
-                <div video-work-stems="" ng-model="param.stems" handle="handle"></div>
+                    <div video-work-stems="" ng-model="param.stems" handle="handle"></div>
 
-                <div form-radio text="题目类型" ng-model="param.type" required="true" default="1" ng-show="true"
-                     source="[{text:'单选',value:'1'},{text:'多选',value:'2'}]" source-api=""></div>
+                    <div form-radio text="题目类型" ng-model="param.type" required="true" default="1" ng-show="true"
+                         source="[{text:'单选',value:'1'},{text:'多选',value:'2'}]" source-api=""></div>
 
-                <div form-radio text="选项类型" ng-model="param.option_type" required="true" default="1"
-                     source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]" source-api=""></div>
+                    <div form-radio text="选项类型" ng-model="param.option_type" required="true" default="1"
+                         source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]" source-api=""></div>
 
-                <div video-work-options ng-model="param.options" option-type="param.option_type" handle="handle"></div>
+                <div video-work-options ng-model="param.options" answer="answer" option-type="param.option_type" handle="handle"></div>
 
                 <div form-error-block></div>
                 <a class="btn btn-success btn-rounded pull-right " ng-disabled="FormBody.$invalid" ng-click="submit()" ng-if="handle!=='read'">提交</a>

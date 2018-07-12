@@ -26,7 +26,7 @@ define(['.././common'], function(common) {
                 {name: '提交时间', field: 'created_at'},
                 {
                     name: '操作', className: 'text-center',
-                    fieldDirective: '<span video-task-list="item" work-id="item.id" title="查看任务" type="user" handle="false"></span> ',
+                    fieldDirective: '<span video-task-list="item" work-user-id="item.id" title="查看任务" type="user" handle="false"></span> ',
                 },
             ],
             config: {

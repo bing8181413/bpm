@@ -218,6 +218,7 @@ define([
                 scope: {
                     videoTaskList: '=',
                     taskId: '=',
+                    workUserId: '=',
                     handle: '=',
                     title: '@',
                     type: '@',
@@ -232,7 +233,7 @@ define([
                     $scope.show = function() {
                         var modalInstance = $uibModal.open({
                                 template: supScope1.type === 'user' ?
-                                    $templateCache.get('app/' + con.live_path + 'videogroups/taskUserList.html') :
+                                    $templateCache.get('app/' + con.live_path + 'videogroups/userTaskList.html') :
                                     $templateCache.get('app/' + con.live_path + 'videogroups/taskList.html'),
                                 windowClass: 'xx-dialog',
                                 controller: function($scope, $uibModalInstance) {
@@ -248,11 +249,13 @@ define([
                                     $scope.init = function(work_task_id) {
                                         // work_task_id  获取 $on  getTaskList 事件时 重写 taskId 的值
                                         supScope1.taskId = work_task_id || supScope1.taskId;
+
                                         var api = supScope1.type === 'user' ?
-                                            ('/mobile/live/work/tasks/' + supScope1.taskId) :
+                                            ('/mobile/live/work/users/' + supScope1.workUserId) :
                                             ('/mobile/live/work/tasks/' + supScope1.taskId);
+
                                         widget.ajaxRequest({
-                                            url: '/mobile/live/work/tasks/' + supScope1.taskId,
+                                            url: api,
                                             method: 'GET',
                                             scope: $scope,
                                             data: {},
@@ -263,7 +266,7 @@ define([
                                             },
                                         });
                                     };
-                                    if (supScope1.taskId) {
+                                    if (supScope1.taskId || supScope1.workUserId) {
                                         $scope.init();
                                     }
 
@@ -342,16 +345,22 @@ define([
                 replace: true,
                 scope: {
                     videoWork: '=',
+                    userWork: '=',
                     room: '@',
                     video: '@',
                     ext: '=',
                     handle: '@',
                     title: '@',
+                    answer: '@',
                 },
                 template: '<a class="btn btn-rounded btn-sm btn-primary" ng-click="show()" ng-bind="title"></a>',
                 link: function($scope, $element) {
 
+                    $scope.answer = '2,3';
+                    console.log('测试' + $scope.answer);
+
                     $scope.workID = $scope.videoWork;
+                    $scope.userWorkID = $scope.userWork;
                     $scope.tasks = {
                         room_id: $scope.room || $scope.ext.room_id,
                         video_group_id: $scope.video || $scope.ext.video_group_id,
@@ -365,8 +374,15 @@ define([
                         }
 
                         var modalInstance = $uibModal.open({
-                                template: $templateCache.get('app/' + con.live_path + 'videogroups/work.html'),
-                                controller: function($scope, $uibModalInstance, videoGroupVerify) {
+                                template: supScope2.handle === 'read' ?
+                                    ($templateCache.get('app/' + con.live_path + 'videogroups/workRead.html')) :
+                                    ($templateCache.get('app/' + con.live_path + 'videogroups/work.html')),
+                                controller: function($scope, $uibModalInstance, $sce, videoGroupVerify) {
+                                    $scope.sce = $sce.trustAsResourceUrl;
+
+                                    $scope.userWorkID = supScope2.userWorkID;
+                                    $scope.answer = supScope2.answer;
+
                                     $scope.param = {
                                         tasks: supScope2.tasks,
                                         answer: '',

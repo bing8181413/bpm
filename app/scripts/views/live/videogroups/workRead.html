@@ -1,0 +1,57 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-bind="title"></h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-horizontal" name="FormBody" novalidate>
+                <div form-input text="题目ID" ng-model="param.id" ng-disabled="true"></div>
+                <div form-input text="作业ID" ng-model="userWorkID" ng-disabled="true"></div>
+                <div ng-repeat="stem in param.stems">
+                    <p class="col-sm-offset-2 col-sm-10" ng-if="stem.body_type == 1" ng-bind="stem.body_value"></p>
+                    <div class="col-sm-offset-2 col-sm-10" ng-if="stem.body_type == 2" show-image url="stem.body_value" width="150"></div>
+                    <p class="col-sm-offset-2 col-sm-10" ng-if="stem.body_type == 3">
+                        <audio controls ng-src="{{sce(stem.body_value)}}"></audio>
+                    </p>
+                </div>
+                <div class="col-sm-offset-2 col-sm-8">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th class="width100">序号</th>
+                            <th class="">选项内容</th>
+                            <th class="width50">正确选项</th>
+                            <th class="width100" ng-if="answer!==''">用户答案</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr class="" ng-repeat="(key,item) in param.options">
+                            <td><span ng-bind="item.option_no"></span></td>
+                            <td class="width200">
+                                <p ng-if="item.body_type == 1" ng-bind="item.body_value"></p>
+                                <div ng-if="item.body_type == 2" show-image url="item.body_value" width="100"></div>
+                                <p ng-if="item.body_type == 3">
+                                    <audio controls ng-src="{{sce(item.body_value)}}"></audio>
+                                </p>
+                            </td>
+                            <td>
+                                <label class="checkbox-inline checkbox1">
+                                    <input type="checkbox" ng-disabled="true" ng-model="item.answer" name="{{'item.answer'+key}}" ng-true-value="'1'" ng-false-value="'2'">
+                                    <span></span>&nbsp;
+                                </label>
+                            </td>
+                            <td ng-if="answer!==''" ng-init="item.userAnswer = (','+answer+',').indexOf(','+item.option_no+',')!==-1">
+                                <label class="checkbox-inline checkbox1">
+                                    <input type="checkbox" ng-model="item.userAnswer" name="{{'answer'+key}}" ng-true-value="true" ng-false-value="false">
+                                    <span></span>&nbsp;
+                                </label>
+                                <!--<span ng-bind="(','+answer+',').indexOf(','+item.option_no+',')!==-1?'已选择':'&#45;&#45;&#45;&#45;'"></span>-->
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

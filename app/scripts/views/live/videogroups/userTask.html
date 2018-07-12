@@ -1,0 +1,81 @@
+<div class="panel panel-primary">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+
+        .dndsimpleSubject tbody[dnd-list],
+        .dndsimpleSubject tbody[dnd-list] > tr {
+            /*position: relative;*/
+        }
+
+        .dndsimpleSubject ul[dnd-list] .dndDragging,
+        .dndsimpleSubject tbody[dnd-list] .dndDragging {
+            opacity: 0.7;
+        }
+
+        .dndsimpleSubject ul[dnd-list] .dndDraggingSource,
+        .dndsimpleSubject tbody[dnd-list] .dndDraggingSource {
+            display: none;
+        }
+
+        .dndsimpleSubject ul[dnd-list] .dndPlaceholder,
+        .dndsimpleSubject tbody[dnd-list] .dndPlaceholder {
+            /*display: block;*/
+            /*float: left;*/
+            background-color: #ddd;
+            /*display: flex;*/
+            height: 100px;
+            /*width: 100px;*/
+            /*width: 100%;*/
+            border: 1px solid #ddd;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+        .dndsimpleSubject ul[dnd-list] > tr,
+        .dndsimpleSubject tbody[dnd-list] > tr {
+            /*background-color: #fff;*/
+            /*display: block;*/
+            /*width: 100%;*/
+        }
+
+        .dndsimpleSubject ul[dnd-list] > tr.selected,
+        .dndsimpleSubject tbody[dnd-list] > tr.selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+            width: 1000px;
+        }
+    </style>
+    <div class="panel-body ">
+        <div class="col-sm-12 form-group dndsimpleSubject">
+            <table class="table table-bordered table-striped">
+                <thead>
+                <th>题目ID</th>
+                <th>题型</th>
+                <th>选项数</th>
+                <th>更新时间</th>
+                <th>操作</th>
+                </thead>
+                <tbody dnd-list="param.works">
+                <tr ng-repeat="(key,item) in param.works" dnd-draggable="item" dnd-moved="param.works.splice(key, 1);" dnd-effect-allowed="move">
+                    <td><label class="label label-primary"><span ng-bind="item.id"></span></label></td>
+                    <td dnd-nodrag><span ng-bind="item.type|keyVal:'1':'单选':'2':'多选'"></span></td>
+                    <td dnd-nodrag><span ng-bind="item.options_count"></span></td>
+                    <td dnd-nodrag><span ng-bind="item.updated_at"></span></td>
+                    <td>
+                        <div video-work="item.id" room="{{param.room_id}}" video="{{param.video_group_id}}" handle="read" title="查看题目" ng-if="!handle"></div>
+                        <div video-work="item.id" room="{{param.room_id}}" video="{{param.video_group_id}}" handle="update" title="编辑" ng-if="handle"></div>
+                        <!--<a class="btn btn-danger btn-sm btn-rounded" ng-click="del(key)" class="pull-right" >删除</a>-->
+                        <span delete-data data="" config="{url:$root.common.domain+'/mobile/live/works/'+item.id,method:'DELETE',text:'删除'}" param="{}"
+                              callback="delCallback()" ng-if="handle"></span>
+                    </td>
+                </tr>
+                <tr class="dndPlaceholder">
+                    <td class="text-center" colspan="10"><h3 class="red">拖拽到这里</h3></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
