@@ -29,7 +29,7 @@ define([
                     $scope.tmpNgModel = [];
                     $scope.$watch('ngModel', function(url) {
                         if (!!url) {
-                            $scope.tmpNgModel = [{pic_url: url, pic_width: 100, pic_hight: 100}];
+                            $scope.tmpNgModel = [{pic_url: url, pic_width: 0, pic_height: 0}];
                         } else {
                             $scope.tmpNgModel = [];
                         }

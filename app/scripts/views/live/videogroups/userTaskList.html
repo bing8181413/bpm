@@ -5,7 +5,7 @@
     <div class="panel-body">
         <table style="width: 100%;">
             <tr>
-                <td class=""><h3 class="text-primary text-center"></h3></td>
+                <td class=""><h3 class="text-success text-left" ng-bind="'正确率：'+(param.correct_rate|process)"></h3></td>
             </tr>
         </table>
         <table class="table table-bordered table-striped">
@@ -23,7 +23,7 @@
                 <td><span ng-bind="item.id"></span></label></td>
                 <td><span ng-bind="item.work.type|keyVal:'1':'单选':'2':'多选'"></span></td>
                 <td><span ng-bind="item.work.options_count"></span></td>
-                <td><span ng-bind="item.is_right|keyVal:'1':'正确':'2':'错误'"></span></td>
+                <td><span ng-bind="item.is_right|keyVal:'1':'正确':'2':'错误'" ng-class="{'text-success':item.is_right==1,'text-danger':item.is_right==2}"></span></td>
                 <td>
                     <div video-work="item.work_id" answer="item.answer" user-work="item.id" room="{{param.room_id}}" video="{{param.video_group_id}}" handle="read" title="查看题目"></div>
                 </td>

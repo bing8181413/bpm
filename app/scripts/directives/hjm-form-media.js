@@ -12,6 +12,7 @@ define([
                 scope: {
                     ngModel: '=ngModel',
                     ngModelText: '@ngModel',
+                    duration: '=',
                     text: '@',
                     name: '@',
                     required: '@',
@@ -22,16 +23,16 @@ define([
                     // hideBar: '=',
                 },
                 link: function($scope, $element, $attrs, $ctrl) {
-                // <div form-media-single ng-model="item.body_value" no-label="true" media-type="audio" ng-if="optionType==3" text="语音"></div>
+                    // <div form-media-single ng-model="item.body_value" no-label="true" media-type="audio" ng-if="optionType==3" text="语音"></div>
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
                     var max = ' max="1" ';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="activity"');
                     $scope.tmpNgModel = [];
-                    $scope.$watch('ngModel', function(url) {
-                        if (!!url) {
-                            $scope.tmpNgModel = [{pic_url: url, pic_width: 100, pic_hight: 100}];
+                    $scope.$watch('ngModel', function(pic_url) {
+                        if (!!pic_url) {
+                            $scope.tmpNgModel = [{pic_url: pic_url, pic_width: 0, pic_height: 0, duration: $scope.duration}];
                         } else {
                             $scope.tmpNgModel = [];
                         }
@@ -40,6 +41,10 @@ define([
                     $scope.$watch('tmpNgModel', function(arr_pic_val) {
                         if ($scope.tmpNgModel && $scope.tmpNgModel[0] && $scope.tmpNgModel[0].pic_url) {
                             $scope.ngModel = $scope.tmpNgModel[0].pic_url;
+                            console.log($scope.tmpNgModel[0]);
+                            if ($scope.tmpNgModel[0].duration) {
+                                $scope.duration = $scope.tmpNgModel[0].duration;
+                            }
                         } else {
                             $scope.ngModel = null;
                         }
@@ -50,7 +55,8 @@ define([
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
                         var uploadHtml =
-                            '<show-upload-media-token media="tmpNgModel" hide-bar="hideBar" media-type="mediaType"   ' + name + max + required + disabledRole + token +
+                            '<show-upload-media-token media="tmpNgModel" hide-bar="hideBar" media-type="mediaType" duration="duration"  ' + name + max + required + disabledRole +
+                            token +
                             '></show-upload-media-token>';
                         var content = '';
                         if ($scope.noLabel) {

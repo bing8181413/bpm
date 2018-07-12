@@ -60,6 +60,7 @@ define([
 
     './videogroup/list',// 视频组
     './marketshare/list',// 观看权限
+    './live/list',// live 相关的  question answer
 
     './permission/list',// 权限
 
@@ -661,6 +662,7 @@ define([
                 replace: true,
                 scope: {
                     media: '=',
+                    duration: '=',
                     required: '@',
                     token: '@',
                     hideBar: '=',
@@ -693,6 +695,7 @@ define([
                                         width: v.pic_width || v.width || 100,
                                         height: v.pic_height || v.height || 100,
                                         size: v.pic_size || v.size || 1,
+                                        duration: v.duration || 0,
                                         updated_at: v.updated_at || undefined,
                                         old: true,
                                         progress: 100,
@@ -753,6 +756,7 @@ define([
                                 fileItem.qiniu_url = response.url;
                                 fileItem.width = response.width;
                                 fileItem.height = response.height;
+                                fileItem.duration = response.duration;
                                 // fileItem.size = response.size;
                                 //console.log(fileItem);
 
@@ -852,12 +856,14 @@ define([
                                     pic_url: v.url,
                                     pic_width: v.width,
                                     pic_height: v.height,
+                                    duration: v.duration,
                                 });
                             } else {
                                 $scope.media.push({
                                     pic_url: v.qiniu_url,
                                     pic_width: v.width,
                                     pic_height: v.height,
+                                    duration: v.duration,
                                 });
                             }
                         });

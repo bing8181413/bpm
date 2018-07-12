@@ -101,10 +101,10 @@
             </button>
         </div>
     </div>
-    <div class="row" ng-if="max!=1" style="margin: 0;border: 1px #ccc solid;">
+    <div class="row" ng-if="max!=1" style="margin: 0;">
         <div class="panel panel-info" style="border: 0">
             <!--<div class="panel-heading"></div>-->
-            <div class="panel-body dndsimpleDemo" ng-show="images&&images.length>0">
+            <div class="panel-body dndsimpleDemo" ng-show="images&&images.length>0" style="border: 1px #ccc solid;">
                 <!--<pre ng-bind="uploader.queue | json">  这个不能json 这个自定义的对象里面有循环嵌套 </pre>-->
                 <!--<pre ng-bind="images | json"></pre>-->
                 <ul dnd-list="images" ng-init="img_min = true;"
@@ -170,7 +170,7 @@
             </div>
         </div>
     </div>
-    <div ng-class="{'hide':disabled}" style="padding: 10px;" ng-if="max!=1">
+    <div ng-class="{'hide':disabled}" style="padding: 10px;border: 1px #ccc solid;" ng-if="max!=1">
         <div class="form-group" style="margin-bottom: 5px;">
             <!--上传过程:-->
             <div class="col-sm-12">

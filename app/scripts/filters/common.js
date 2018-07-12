@@ -175,13 +175,15 @@ define([
                 return Sum;
             }
         }])
-        // 百分比
-        .filter('process', [function (comfunc) {
+        // 百分比 两个数相除的比值 百分比
+        .filter('process', [function () {
             return function (val, param) {
                 var Sum = 0;
                 var tmp = 1000000000000;//  换算整数
                 if (param > 0) {
                     Sum = (parseFloat(parseInt(val * tmp) * 100) / parseInt(param * tmp)).toFixed(2) + '%';
+                } else if(param == undefined) {
+                    Sum = parseFloat(val * 100).toFixed(2) + '%';
                 } else {
                     Sum = '0%';
                 }

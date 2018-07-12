@@ -475,14 +475,15 @@ define([
                     };
 
                     $scope.add = function() {
+                        var max = 2;
                         if (!$scope.ngModel) {
                             $scope.ngModel = [{category: 1}];
-                        } else if ($scope.ngModel && $scope.ngModel.length < 3) {
+                        } else if ($scope.ngModel && $scope.ngModel.length < max) {
                             $scope.ngModel.push({
                                 category: 1,
                             });
-                        } else if ($scope.ngModel && $scope.ngModel.length >= 3) {
-                            widget.msgToast('题干只能添加3组内容！');
+                        } else if ($scope.ngModel && $scope.ngModel.length >= max) {
+                            widget.msgToast('题干只能添加 ' + max + ' 组内容！');
                         }
                     };
                     $scope.$watch('ngModel', function(val) {
@@ -506,6 +507,7 @@ define([
                     ngModel: '=ngModel',
                     handle: '=',//是否可以操作，删除
                     optionType: '=',
+
                 },
                 link: function($scope, $element) {
 
@@ -526,6 +528,7 @@ define([
                                 v.option_no = (k + 1) + '';
                                 v.body_type = $scope.optionType;
                                 v.answer = v.answer || 2;
+                                v.media_second = v.body_value ? v.media_second : 0;
                             });
 
                         }
