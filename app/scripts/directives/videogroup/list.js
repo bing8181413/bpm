@@ -269,6 +269,10 @@ define([
 
                                     $scope.submit = function(status) {
 
+                                        if (status == 1 && !confirm('发布之后，就不能添加和修改题目，也不能调整顺序了，确认发布吗？')) {
+                                            return false;
+                                        }
+
                                         status ? ($scope.param.status = status) : ($scope.param.status = 0);
 
                                         if (!supScope1.taskId || !$scope.param.works || $scope.param.works && $scope.param.works.length == 0) {
@@ -282,6 +286,11 @@ define([
                                             scope: $scope,
                                             data: $scope.param,
                                             success: function(json) {
+
+                                                $scope.param = json.data;
+                                                $scope.param.video_group_id = supScope1.videoTaskList.video_group_id;
+                                                $scope.param.room_id = supScope1.videoTaskList.room_id;
+
                                                 widget.msgToast('保存成功!');
                                                 supScope1.taskId = json.data.id;
                                             },
@@ -341,6 +350,12 @@ define([
                     };
                     var supScope2 = $scope;
                     $scope.show = function() {
+
+                        if ($scope.handle == 'add' && $scope.videoWork.works && $scope.videoWork.works.length >= 10) {
+                            widget.msgToast('最多添加 10 个题目');
+                            return false;
+                        }
+
                         var modalInstance = $uibModal.open({
                                 template: $templateCache.get('app/' + con.live_path + 'videogroups/work.html'),
                                 controller: function($scope, $uibModalInstance, videoGroupVerify) {

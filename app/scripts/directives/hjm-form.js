@@ -126,22 +126,21 @@ define([
                     var placeholder = $scope.placeholder ? (' placeholder="' + $scope.placeholder + '"') : '';
                     var ngMaxlength = $scope.ngMaxlength ? (' ng-maxlength="' + $scope.ngMaxlength + '"') : '';
                     var ngMinlength = $scope.ngMinlength ? (' ng-minlength="' + $scope.ngMinlength + '"') : '';
-                    var rows = $scope.rows ? (' rows="' + $scope.rows + '"') : 'rows="5"';
+                    var rows = $scope.rows ? (' rows="' + $scope.rows + '"') : 'rows="4"';
+                    var cols = $scope.cols ? (' cols="' + $scope.cols + '"') : 'cols="4"';
                     var ngDisabled = $scope.ngDisabled && (' ng-disabled="ngDisabled"');
                     $timeout(function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '';
+                        var textareaHtml = '<textarea class="form-control" ' + cols + ' ng-model="ngModel" style="resize: none;"' +
+                            name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + disabledRole + '>';
+
                         if ($scope.noLabel) {
-                            content = '<textarea class="form-control" ' + rows + ' ng-model="ngModel"' +
-                                name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + disabledRole + '>' +
-                                '</div>';
+                            content = textareaHtml + '</div>';
                         } else {
                             content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
-                                '<div class="col-sm-8">' +
-                                '<textarea class="form-control" ' + rows + ' ng-model="ngModel"' +
-                                name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + disabledRole + '>' +
-                                '</div>';
+                                '<div class="col-sm-8">' + textareaHtml + '</div>';
                         }
 
                         $element.find('.form_element').html(content);

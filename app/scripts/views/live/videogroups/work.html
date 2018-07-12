@@ -17,6 +17,7 @@
 
                 <div video-work-options ng-model="param.options" option-type="param.option_type" handle="handle"></div>
 
+                <div form-error-block></div>
                 <a class="btn btn-success btn-rounded pull-right " ng-disabled="FormBody.$invalid" ng-click="submit()" ng-if="handle!=='read'">提交</a>
             </form>
         </div>

@@ -53,9 +53,9 @@
                     <div form-radio text="类型" ng-model="item.body_type" name="{{'item.body_type_work_stems'+key}}" required="true"
                          source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]"
                          source-api=""></div>
-                    <div form-textarea ng-model="item.body_value" no-label="true" ng-if="item.body_type==1" text="文字"></div>
+                    <div form-textarea ng-model="item.body_value" max="120" placeholder="最多120个字" no-label="true" ng-if="item.body_type==1" text="文字"></div>
                     <div form-image-single ng-model="item.body_value" no-label="true" ng-if="item.body_type==2" text="图片"></div>
-                    <div form-media-single ng-model="item.body_value" no-label="true" media-type="audio"  ng-if="item.body_type==3" text="语音"></div>
+                    <div form-media-single ng-model="item.body_value" no-label="true" media-type="audio" ng-if="item.body_type==3" text="语音"></div>
                 </td>
                 <td dnd-nodrag>
                     <a class="btn btn-danger btn-sm btn-rounded" ng-click="del(key)" class="pull-right">删除</a>
