@@ -1,7 +1,3 @@
-// This is a file copied by your subgenerator
-/**
- * 默认的产品首页和默认的跳转规则
- */
 define([
         '../../states'
         , '../../../cons/simpleCons',
@@ -12,19 +8,18 @@ define([
                 '$stateProvider', '$urlRouterProvider',
                 function($stateProvider, $urlRouterProvider) {
                     $stateProvider
-                        .state(cons.state.main + '.videoGroupsRoom', {
-                            url: '/videoGroupsRoom',
+                        .state(cons.state.main + '.workuser', {
+                            url: '/workuser',
                             templateProvider: function($templateCache) {
                                 return $templateCache.get('app/' + cons.main_path + 'container.html');
                             },
                         })
-                        .state(cons.state.main + '.videoGroupsRoom.list', {
+                        .state(cons.state.main + '.workuser.list', {
                             url: '/list.html/:id',
                             views: {
                                 '': {
                                     templateProvider: function($templateCache, $stateParams) {
-                                        return '<div hjm-grid modid="videoGroupsRoomList" config="config" columns="columns" ext-api-string="/mobile/live/videogroups/' +
-                                            $stateParams.id + '/rooms"></div>';
+                                        return '<div hjm-grid modid="workUserList" config="config" columns="columns" ></div>';
                                     },
                                 },
                             },

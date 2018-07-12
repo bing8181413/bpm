@@ -220,14 +220,20 @@ define([
                     taskId: '=',
                     handle: '=',
                     title: '@',
+                    type: '@',
                 },
                 template: '<a class="btn btn-rounded btn-sm btn-primary" ng-click="show()" ng-bind="title">></a>',
                 link: function($scope, $element, $attrs) {
                     $scope.data = $scope.videoTaskList;
+                    if ($scope.type === 'user') {
+
+                    }
                     var supScope1 = $scope;
                     $scope.show = function() {
                         var modalInstance = $uibModal.open({
-                                template: $templateCache.get('app/' + con.live_path + 'videogroups/taskList.html'),
+                                template: supScope1.type === 'user' ?
+                                    $templateCache.get('app/' + con.live_path + 'videogroups/taskUserList.html') :
+                                    $templateCache.get('app/' + con.live_path + 'videogroups/taskList.html'),
                                 windowClass: 'xx-dialog',
                                 controller: function($scope, $uibModalInstance) {
                                     $scope.param = {
@@ -242,7 +248,9 @@ define([
                                     $scope.init = function(work_task_id) {
                                         // work_task_id  获取 $on  getTaskList 事件时 重写 taskId 的值
                                         supScope1.taskId = work_task_id || supScope1.taskId;
-
+                                        var api = supScope1.type === 'user' ?
+                                            ('/mobile/live/work/tasks/' + supScope1.taskId) :
+                                            ('/mobile/live/work/tasks/' + supScope1.taskId);
                                         widget.ajaxRequest({
                                             url: '/mobile/live/work/tasks/' + supScope1.taskId,
                                             method: 'GET',
@@ -401,6 +409,7 @@ define([
 
                                         if (error.length > 0) {
                                             widget.msgToast(error[0]);
+                                            console && console.table(error);
                                             return false;
                                         }
 

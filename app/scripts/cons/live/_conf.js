@@ -12,6 +12,7 @@ define([
     , './appmessages'
     , './appbuyactions'
     , './videoGroupsRoom'
+    , './workUser'
 ], function () {
     return arguments;
 })

@@ -22,6 +22,7 @@ define([
                     // hideBar: '=',
                 },
                 link: function($scope, $element, $attrs, $ctrl) {
+                // <div form-media-single ng-model="item.body_value" no-label="true" media-type="audio" ng-if="optionType==3" text="语音"></div>
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
                     var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';

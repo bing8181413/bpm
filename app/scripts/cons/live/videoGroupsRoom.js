@@ -36,7 +36,6 @@ define(['.././common'], function(common) {
                     {value: 'mobile', text: '手机号码', placeholder: '手机号码', default: ''},
                 ],
                 preSelectionSearch: {
-                    status: '1',
                 },
                 paginationSupport: true,
                 pageInfo: {

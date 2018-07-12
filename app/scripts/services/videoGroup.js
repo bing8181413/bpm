@@ -16,7 +16,7 @@ define(['./services', '../cons/simpleCons'], function(mod, cons) {
                 option:
                     for (var i = 0; i < options.length; i++) {
                         if (!options[i].body_value || options[i].body_value == '') {
-                            ERROR.push('第 ' + (i + 1) + '个选项没有值');
+                            ERROR.push('第 ' + (i + 1) + ' 个选项没有值');
                             break option;
                         }
                     }
@@ -41,7 +41,10 @@ define(['./services', '../cons/simpleCons'], function(mod, cons) {
 
                 } else if (work.option_type == 2) { // 图片选项
                     if (work.options.length > 4) {
-                        ERROR.push('图片类型，选项最多为 4 个');
+                        ERROR.push('图片类型选项最多为 4 个');
+                    }
+                    if (work.type != 1) {// 图片类型只支持单选
+                        ERROR.push('图片类型只支持单选');
                     }
 
                 } else if (work.option_type == 3) { // 语音选项

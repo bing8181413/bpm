@@ -51,7 +51,7 @@
             <tr class="" ng-repeat="(key,item) in ngModel" dnd-draggable="item" dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="move">
                 <td><span ng-bind="item.option_no"></span></td>
                 <td dnd-nodrag>
-                    <div form-textarea ng-model="item.body_value" max="120" placeholder="最多120个字" no-label="true" ng-if="optionType==1" text="文字"></div>
+                    <div form-textarea ng-model="item.body_value" max="40" placeholder="最多40个字" no-label="true" ng-if="optionType==1" text="文字"></div>
                     <div form-image-single ng-model="item.body_value" no-label="true" ng-if="optionType==2" text="图片"></div>
                     <div form-media-single ng-model="item.body_value" no-label="true" media-type="audio" ng-if="optionType==3" text="语音"></div>
                 </td>
