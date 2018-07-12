@@ -218,7 +218,7 @@ define([
                 scope: {
                     videoTaskList: '=',
                     taskId: '=',
-                    workUserId: '=',
+                    userWorkId: '=',
                     handle: '=',
                     title: '@',
                     type: '@',
@@ -251,7 +251,7 @@ define([
                                         supScope1.taskId = work_task_id || supScope1.taskId;
 
                                         var api = supScope1.type === 'user' ?
-                                            ('/mobile/live/work/users/' + supScope1.workUserId) :
+                                            ('/mobile/live/work/users/' + supScope1.userWorkId) :
                                             ('/mobile/live/work/tasks/' + supScope1.taskId);
 
                                         widget.ajaxRequest({
@@ -266,7 +266,7 @@ define([
                                             },
                                         });
                                     };
-                                    if (supScope1.taskId || supScope1.workUserId) {
+                                    if (supScope1.taskId || supScope1.userWorkId) {
                                         $scope.init();
                                     }
 
@@ -351,13 +351,10 @@ define([
                     ext: '=',
                     handle: '@',
                     title: '@',
-                    answer: '@',
+                    answer: '=',
                 },
                 template: '<a class="btn btn-rounded btn-sm btn-primary" ng-click="show()" ng-bind="title"></a>',
                 link: function($scope, $element) {
-
-                    $scope.answer = '2,3';
-                    console.log('测试' + $scope.answer);
 
                     $scope.workID = $scope.videoWork;
                     $scope.userWorkID = $scope.userWork;
@@ -381,7 +378,7 @@ define([
                                     $scope.sce = $sce.trustAsResourceUrl;
 
                                     $scope.userWorkID = supScope2.userWorkID;
-                                    $scope.answer = supScope2.answer;
+                                    $scope.answer = supScope2.answer || '';
 
                                     $scope.param = {
                                         tasks: supScope2.tasks,
