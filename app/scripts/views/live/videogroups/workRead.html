@@ -6,7 +6,7 @@
         <div class="panel-body">
             <div class="form-horizontal" name="FormBody" novalidate>
                 <div form-input text="题目ID" ng-model="param.id" ng-disabled="true"></div>
-                <div form-input text="作业ID" ng-model="userWorkID" ng-disabled="true"></div>
+                <div form-input text="作业ID" ng-model="userWorkID" ng-disabled="true" ng-if="answer"></div>
                 <div ng-repeat="stem in param.stems">
                     <div form-textarea text="题目" ng-if="stem.body_type == 1" ng-model="stem.body_value" ng-disabled="true"></div>
 
@@ -15,14 +15,13 @@
                     <p class="col-sm-offset-2 col-sm-10" ng-if="stem.body_type == 3">
                         <audio controls ng-src="{{sce(stem.body_value)}}"></audio>
                     </p>
-
-                    <div form-radio text="题目类型" ng-model="param.type" required="true" default="1" ng-disabled="true"
-                         source="[{text:'单选',value:'1'},{text:'多选',value:'2'}]" source-api=""></div>
-
-                    <div form-radio text="选项类型" ng-model="param.option_type" required="true" default="1" ng-disabled="true"
-                         source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]" source-api=""></div>
-
                 </div>
+                <div form-radio text="题目类型" ng-model="param.type" required="true" default="1" ng-disabled="true"
+                     source="[{text:'单选',value:'1'},{text:'多选',value:'2'}]" source-api=""></div>
+
+                <div form-radio text="选项类型" ng-model="param.option_type" required="true" default="1" ng-disabled="true"
+                     source="[{text:'文字',value:'1'},{text:'图片',value:'2'},{text:'语音',value:'3'}]" source-api=""></div>
+
                 <div class="col-sm-offset-2 col-sm-8">
                     <table class="table table-bordered table-striped table-hover">
                         <thead>
