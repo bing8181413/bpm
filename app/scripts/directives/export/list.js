@@ -81,7 +81,7 @@ define([
                                             method: 'post',
                                             scope: $scope,
                                             data: $scope.param,
-                                            timeout: 1000 * 60 * 6,
+                                            timeout: 1000 * 60 * 60,
                                             success: function (json) {
                                                 window.open(cons.domain + json.data.url);
                                             }
