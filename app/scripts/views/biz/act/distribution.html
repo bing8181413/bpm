@@ -2,7 +2,7 @@
     <div class="panel panel-primary">
         <div class="panel-body">
             <div form-input text="标题" ng-model="param.title" ng-disabled="true"></div>
-            <div form-radio text="是否开启分销" ng-model="param.open_state" required="true" default="1"
+            <div form-radio text="是否开启分销" ng-model="param.open_state" required="true" default="2"
                  source="[{text:'是',value:'2'},{text:'否',value:'1'}]" source-api=""></div>
             <div form-date-time text="开启分销时间" ng-model="param.open_time" required="true"></div>
             <div form-input text="团内一级（成团前）" ng-model="param.groupbuy_in_level_one" required="true" type="number" min="0" max="100"></div>
