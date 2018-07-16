@@ -69,8 +69,8 @@ define([
                                     if($scope.condition['start_time'] && $scope.condition['start_time']){
                                       var start = new Date($filter('date')($scope.param.start_time, 'yyyy-MM-dd HH:mm:ss')).getTime();
                                       var end = new Date($filter('date')($scope.param.end_time, 'yyyy-MM-dd HH:mm:ss')).getTime();
-                                      if((end-start)>60*24*3600000){
-                                          widget.msgToast('选择时间区间不能超过60天！');
+                                      if((end-start)>183*24*3600000){
+                                          widget.msgToast('选择时间区间不能超过183天！');
                                           return false;
                                       }
                                     }
