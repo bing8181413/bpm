@@ -23,7 +23,7 @@ define(['.././common'], function(common) {
 
                     '</p><p>' +
                     '<span delete-data data="" config="{url:$root.common.domain+\'/mobile/live/work/tasks/\'+item.room.work_tasks.id,method:\'DELETE\',text:\'删除任务\'}" param="{}"' +
-                    ' callback="updateList()" ng-if="item.room.work_tasks && item.room.work_tasks.status == 0"></span>' +
+                    ' callback="updateList()" ng-if="item.room.work_tasks && item.room.work_tasks.status == 0 || $root.hjm && $root.hjm.remark === \'admin\'"></span>' +
                     '</p> ',
                 },
             ],

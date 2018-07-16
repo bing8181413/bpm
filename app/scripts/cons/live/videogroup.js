@@ -48,14 +48,14 @@ define(['.././common'], function(common) {
                     '</div>',
                 },
                 {
-                    name: '任务发布情况', className: 'width200 mobile_show',
-                    fieldDirective: '<p class="label label-primary"><span class="text-center" ng-bind="item.work_tasks_published_count+\'/\'+item.work_tasks_count"></span></p>',
+                    name: '任务发布详情', className: 'width150 mobile_show text-center',
+                    fieldDirective: '<p class="label label-info"><span class="text-center" ng-bind="item.work_tasks_published_count+\'/\'+item.work_tasks_count"></span></p>',
                 },
                 {
                     name: '管理', className: 'text-center',
                     fieldDirective:
-                    '<p> <a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.videoGroupsRoom.list({id:item.id})">查看详情</a></p>' +
-                    '<a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.videogroups.update({id:item.id})">编辑</a>',
+                    '<p> <a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.videoGroupsRoom.list({id:item.id})">任务详情</a>' +
+                    '<a class="btn btn-primary btn-rounded btn-sm" ui-sref="main.videogroups.update({id:item.id})">编辑</a></p>',
                 },
             ],
             config: {
