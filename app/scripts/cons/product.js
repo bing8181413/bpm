@@ -68,8 +68,8 @@ define(['angular', './common'], function(angular, common) {
                     fieldDirective:
                     '<div product-change-status data="item" ></div>'
                     + '<div change-product-type data="item" ></div>'
-                    + '<div act-crowdfunding data="item" ></div>' +
-                    '<p delete-data data="" config="{url:$root.common.domain+\'/product/\'+item.product_id+\'/redis\',method:\'DELETE\',text:\'删除缓存\',class:\'btn-danger btn-xs\'}" param="{}" callback="updateList()"></p>',
+                    + '<div act-crowdfunding data="item" ></div>',
+                    // +'<p delete-data data="" config="{url:$root.common.domain+\'/product/\'+item.product_id+\'/redis\',method:\'DELETE\',text:\'删除缓存\',class:\'btn-danger btn-xs\'}" param="{}" callback="updateList()"></p>',
 
                 },
                 {
