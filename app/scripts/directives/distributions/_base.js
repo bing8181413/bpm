@@ -1,4 +1,4 @@
 define([
-    , './batchlogs',
+    './batchlogs',
 ], function(mod, simpleCons) {
 });
