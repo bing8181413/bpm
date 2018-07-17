@@ -545,12 +545,17 @@ define([
                                         var o = json.data || {};
                                         o.title = supscope.data.title;
                                         o.product_id = supscope.data.product_id;
+
+                                        // 一级
                                         o.groupbuy_in_level_one = Number(o.groupbuy_in_level_one || 10);
                                         o.groupbuy_elastic_level_one = Number(o.groupbuy_elastic_level_one || 10);
                                         o.poster_level_one = Number(o.poster_level_one || 10);
+
+                                        // 二级
                                         o.groupbuy_in_level_two = Number(o.groupbuy_in_level_two || 10);
                                         o.groupbuy_elastic_level_two = Number(o.groupbuy_elastic_level_two || 10);
                                         o.poster_level_two = Number(o.poster_level_two || 10);
+
                                         o.open_state = o.open_state || '2';
                                         o.open_product_poster = o.open_product_poster || '1';
                                         o.open_groupbuy_poster = o.open_groupbuy_poster || '1';
