@@ -25,6 +25,7 @@ define([
                     ngDisabled: '=',
                     labelWidth: '@',
                     contentWidth: '@',
+                    inputWidth: '@',
                     formShowRole: '@',
                     requiredSpanShow: '=', //  用于展示必填符号 不能实际校验是否必填
                 },
@@ -34,6 +35,7 @@ define([
                     var labelWidth = $scope.labelWidth ? ('col-sm-' + $scope.labelWidth) : ('col-sm-2');
                     var contentWidth = $scope.contentWidth ? ('col-sm-' + $scope.contentWidth) :
                         ($scope.labelWidth ? ('col-sm-' + (10 - $scope.labelWidth)) : ('col-sm-8'));
+                    var inputWidth = $scope.inputWidth ? ('width' + $scope.inputWidth) : ''; // width400
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '' + '" ');
                     var required = $scope.required ? (' required') : '';
                     var required_span = ($scope.required || $scope.requiredSpanShow) ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
@@ -53,7 +55,7 @@ define([
                         }
                         var content = '<label class="' + labelWidth + ' control-label" ' + formShowRole + '>' + $scope.text + required_span + '</label>' +
                             '<div class="' + contentWidth + ' " ' + formShowRole + '>' +
-                            '<input class="form-control" ng-model="ngModel"' + min + max +
+                            '<input class="form-control ' + inputWidth + '" ng-model="ngModel"' + min + max +
                             type + name + placeholder + maxlength + minlength + required + disabledRole + '>' +
                             '</div>';
                         $element.find('.form_element').html(content);
