@@ -520,7 +520,8 @@ define([
                         angular.forEach(columns, function (col) {
                             if (!col.hide) {
                                 var cellContent = cellRender(col, config);
-                                rowItem += '<td>' + cellContent + '</td>'
+                                var cellClass = col.class?'class = "'+col.class+'"' :'';
+                                rowItem += '<td ' + cellClass + '>' + cellContent + '</td>'
                             }
                         });
                         if (!config.readonly) {

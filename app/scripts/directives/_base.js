@@ -71,7 +71,10 @@ define([
 
     './merchant/list',//  供应商
 
-    './cert/list',//
+    './cert/list',// 证书列表
+
+
+    './distributions/_base', //  distributions 下的功能
 
     // './subject_group/list',//专题组 规则
     './tmpl/modal_panel_tmpl',//

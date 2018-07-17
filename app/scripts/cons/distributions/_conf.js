@@ -1,5 +1,6 @@
 define([
-    './productstudentships',
+    './productstudentships'
+    , './batchlogs',
 ], function() {
     return arguments;
 });

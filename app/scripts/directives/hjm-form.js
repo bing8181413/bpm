@@ -135,7 +135,7 @@ define([
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
                             (' disabled-role="' + $scope.$parent.disabledRole + '"') : ' ';
                         var content = '';
-                        var textareaHtml = '<textarea class="form-control" ' + cols + ' ng-model="ngModel" style="resize: none;"' +
+                        var textareaHtml = '<textarea class="form-control" ' + cols + rows + ' ng-model="ngModel" style="resize: none;"' +
                             name + placeholder + ngMaxlength + ngMinlength + required + ngDisabled + disabledRole + '>';
 
                         if ($scope.noLabel) {
@@ -229,8 +229,12 @@ define([
                     contentWidth: '@',
                 },
                 link: function($scope, $element, $attrs, $ctrl) {
+
+                    if ($scope.type === 'number' || $scope.source[0] && typeof $scope.source[0].value === 'number') {
+                        $scope.type = 'number';
+                    }
                     if (!$scope.ngModel) {
-                        $scope.ngModel = $scope.default;
+                        $scope.ngModel = ($scope.type === 'number') ? Number($scope.default || 0) : $scope.default;
                     }
                     // console.log('formElement', $scope, $attrs);
                     var labelWidth = $scope.labelWidth ? ('col-sm-' + $scope.labelWidth) : ('col-sm-2');
@@ -255,7 +259,7 @@ define([
                         var content = '<label  class="' + labelWidth + ' control-label">' + $scope.text + required_span + '</label>' +
                             '<div class="' + contentWidth + '">';
                         angular.forEach($scope.source, function(val, key) {
-                            var value = '';
+
                             if ($scope.type == 'number' || typeof val.value == 'number') {
                                 val.value = Number(val.value);
                             }
