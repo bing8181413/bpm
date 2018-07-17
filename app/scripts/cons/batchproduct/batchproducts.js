@@ -36,8 +36,8 @@ define([], function() {
                 },
                 {
                     name: '母课程管理',
-                    fieldDirective: '<div act-edit data="item.product" ></div>' +
-                    '<p delete-data data="" config="{url:$root.common.domain+\'/product/\'+item.parent_id+\'/sonsredis\',method:\'DELETE\',text:\'删除缓存\',class:\'btn-danger\'}" param="{}" callback="updateList()"></p>'
+                    fieldDirective: '<div act-edit data="item.product" ></div>'
+                    // +'<p delete-data data="" config="{url:$root.common.domain+\'/product/\'+item.parent_id+\'/sonsredis\',method:\'DELETE\',text:\'删除缓存\',class:\'btn-danger\'}" param="{}" callback="updateList()"></p>'
                     + '<span><div act-copy data="item.product" ext-data="item"></span>',
                 },
             ],
