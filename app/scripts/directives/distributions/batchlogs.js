@@ -40,6 +40,7 @@ define([
 
                                                 if (failureLength === 0) {
                                                     supScope.$parent.searchAction();
+                                                    $scope.cancel();
                                                 }
                                             },
                                         });
