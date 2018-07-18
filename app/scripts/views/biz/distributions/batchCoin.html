@@ -12,9 +12,9 @@
                              source="[{text:'发放',value:1},{text:'扣除',value:2}]"></div>
 
                         <div form-radio text="扣除" ng-model="param.type" default="1" ng-show="param.in_out===2"
-                             source="[{text:'分享奖学金',value:1},{text:'其他',value:2}]"></div>
+                             source="[{text:'总额扣除',value:1}]"></div>
 
-
+                        <div class="row"><span class="col-sm-offset-2 text-primary lead">金额单位：元</span></div>
                         <div form-table text="直接买课程类目" ng-model="param.users" max="100"
                              columns="[
                              {'name': '用户手机号', 'field': 'mobile',required:'true'},
@@ -26,7 +26,7 @@
 
                     </div>
                 </div>
-                <div form-error-block></div>
+                <!--<div form-error-block></div>-->
                 <a class="btn btn-success btn-rounded pull-right" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
             </form>
         </div>

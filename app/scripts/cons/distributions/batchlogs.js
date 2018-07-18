@@ -14,7 +14,7 @@ define([], function() {
                 {name: '操作人', field: 'account.username', className: 'text-center'},
             ],
             config: {
-                title: '奖学金发放列表',
+                title: '奖学金变动列表',
                 api: '/distributions/batchlogs',
                 rowItemName: 'item',
                 searchSupport: true,
