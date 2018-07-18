@@ -214,12 +214,13 @@ define([
                     extApi: '=',
                     extApiString: '@',
                     extDomain: '=',
+                    store: '=', // 直接获取数据了
                 },
                 link: function ($scope, $element, $attrs, $ctrl) {
                     // console.log(angular.isFunction($scope.$parent.$close));
                     var columnsDef = '';
                     var configDef = '';
-                    $scope.data = [];
+                    $scope.data = $scope.store || []; // 直接有数据带过来的话 就不用再查询了
                     $scope.searchParams = {};
                     $scope.filterParams = {};
                     $scope.all_select = function () {
@@ -283,7 +284,10 @@ define([
                         // console.log(configDef.api);
 
                         // console.log(searchParam);
-
+                        // 没有 store 也就是数据的话 就不调用接口
+                        if($scope.store !== undefined){
+                            return false;
+                        }
                         widget.ajaxRequest({
                             method: 'GET',
                             domain: $scope.domain,

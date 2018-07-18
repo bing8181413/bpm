@@ -18,6 +18,7 @@ define([
                     $scope.columns = $scope.data.columns;
                     $scope.ext = $scope.data.ext;
                     $scope.extApi = $scope.data.extApi;
+                    $scope.store = $scope.data.store || undefined;
                     // $scope.ext = {};
                     // $scope.extApi = '/students/' + $scope.data.user_id + '/lessons';
                     if (!$scope.modid) {
@@ -29,7 +30,7 @@ define([
                     if (!$scope.columns) {
                         console.log('没有columns');
                     }
-                    var tmp = '<div hjm-grid modid="' + $scope.modid + '" config="' + $scope.config + '" columns="' + $scope.columns + '" ext-search="ext" ext-api="extApi"></div>'
+                    var tmp = '<div hjm-grid modid="' + $scope.modid + '" config="' + $scope.config + '" columns="' + $scope.columns + '" ext-search="ext" ext-api="extApi" store="store" ></div>'
                     var supscope = $scope;
                     $scope.show = function () {
                         var modalInstance = $uibModal.open({
@@ -37,6 +38,7 @@ define([
                             controller: function ($scope, $uibModalInstance) {
                                 $scope.ext = supscope.ext;
                                 $scope.extApi = supscope.extApi;
+                                $scope.store = supscope.store;
                                 // console.log(1, $scope.extApi, $scope.ext);
                                 $scope.cancel = function () {
                                     $uibModalInstance.dismiss('cancel');
