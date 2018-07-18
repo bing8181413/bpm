@@ -21,10 +21,6 @@ define([
                                     $scope.failureStr = [];// 错误手机号码 用于表示是否成功操作 奖学金
                                     $scope.submit = function() {
 
-                                        // todo
-                                        // console.log($scope.param);
-                                        // return false;
-
                                         if (!$scope.param.users || $scope.param.users.length === 0) {
                                             widget.msgToast('没有输入任何手机号码');
                                             return false;
@@ -42,7 +38,9 @@ define([
 
                                                 $scope.failureStr = json.data.failure || [];
 
-                                                // todo supScope.$parent.searchAction();
+                                                if (failureLength === 0) {
+                                                    supScope.$parent.searchAction();
+                                                }
                                             },
                                         });
                                     };
