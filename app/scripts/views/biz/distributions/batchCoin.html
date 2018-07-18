@@ -19,7 +19,7 @@
                              columns="[
                              {'name': '用户手机号', 'field': 'mobile',required:'true'},
                              {'name': '金额', 'field': 'coin',type:'number',min:'0',required:'true'},
-                             {'name':'是否成功','class':'text-center', fieldDirective:'
+                             {'name':'是否失败','class':'text-center', fieldDirective:'
                              <label class=\'text-danger\' ng-show=\'$parent.$parent.$parent.failureStr.indexOf(item.mobile)>-1\'>失败</label>'}]"></div>
 
                         <div form-textarea text="备注" ng-model="param.remark" required="true" placeholder="标记一下操作原因"></div>
