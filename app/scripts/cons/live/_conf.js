@@ -13,6 +13,8 @@ define([
     , './appbuyactions'
     , './videoGroupsRoom'
     , './workUser'
-], function () {
+    , './specialActivity'
+    , './specialActivityDetail',
+], function() {
     return arguments;
-})
+});

@@ -2,18 +2,18 @@ define([], function() {
     var rtn = {
         lessonsList: {
             columns: [
-                {name: 'ID', field: 'lesson_id', className: 'text-right'},
+                {name: 'ID', field: 'lesson_id', className: 'text-right width100'},
+                {name: '课程名称', field: 'name', className: 'width200'},
                 {
                     name: '已选择类目', className: 'width150 text-center',
                     fieldDirective: '<span show-table size="sm" data="{text:\'类目列表\',modid:\'lessonsList\',config:\'lessonOptionConfig\',columns:\'lessonOptionColumns\',store:item.products}"></span>',
                 },
-                {name: '课程名称', field: 'name', className: 'width100'},
-                {name: '负责教师', field: 'teacher.name', filter: 'null2empty'},
+                {name: '负责教师', field: 'teacher.name', filter: 'null2empty', className: 'text-center width200'},
                 {
                     name: '任务发布时间', className: 'width150 text-center',
                     fieldDirective: '<p><span ng-bind="item.pubtime_at|null2empty"></span></p><span size="sm" show-table data="{text:\'查看详情\',modid:\'lessonsList\',config:\'lessonSchedulesConfig\',columns:\'lessonSchedulesColumns\',store:item.schedules}"></span>',
                 },
-                {name: '报名人数', field: 'stat_student.user_count'},
+                {name: '报名人数', field: 'stat_student.user_count',className: 'width100'},
                 {
                     name: '备注', className: 'width150 text-center',
                     fieldDirective: '<div modal-textarea content="item.remark" title="备注" ng-show="item.remark" size="sm"></div>',

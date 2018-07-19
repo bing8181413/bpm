@@ -1,0 +1,46 @@
+<div>
+    <div class="form-group " ng-repeat="item in list">
+        <div class="col-sm-12" ng-class="{'contents':onlyContent!=1}">
+            <div class="col-sm-12 form-group" style="margin-bottom: 5px;" ng-class="{'hide':  $scope.disabled  }">
+                <div class="col-sm-12 form-group" style="margin-bottom: 0;">
+
+                    <a class="btn btn-info btn-rounded" ng-bind="($index1)"></a>
+
+                    <a class="btn btn-success btn-rounded" ng-show="onlyContent!=1" ng-class="{'btn-success':!item.showContent,'btn-danger':item.showContent}" ng-click="toggleShow(item,showContent)">
+                    <span class="glyphicon" ng-class="{'glyphicon-plus':!item.showContent,'glyphicon-trash':item.showContent}">
+                    </span> {{item.showContentTitle}}
+                    </a>
+
+                    <a class="btn btn-success btn-rounded" ng-show="onlyContent!=1" ng-class="{'btn-success':!item.showImg,'btn-danger':item.showImg}" ng-click="toggleShow(item,showImg)">
+                        <span class="glyphicon" ng-class="{'glyphicon-plus':!item.showImg,'glyphicon-trash':item.showImg}"></span> {{item.showImgTitle}}
+                    </a>
+
+                    <a class="btn btn-danger btn-rounded" ng-show="onlyContent!=1" ng-click="del($index);">
+                        <span class="glyphicon glyphicon-trash"></span> 删除这一条图文
+                    </a>
+
+                    <div class="col-sm-12" ng-show="!!item.showContent" style="margin-top: 5px;">
+                        <show-rich-content ng-model="item.content" placeholder="填写你要说的"></show-rich-content>
+                    </div>
+
+                    <div class="col-sm-12" ng-show="!!item.showImg" style="margin-top: 5px;">
+
+                        <show-upload images="item.pics" hasimages=""></show-upload>
+
+                        <div form-radio name="{'{pic_padding$index}}" text="图片间距" ng-model="item.pic_padding" default="0" style="border-top: 1px solid #ccc;"
+                             source="[{text':无,value':0},{text':有,value':20}]" source-api=""></div>
+
+                        <show-upload-token images="item.pics" hasimages="" token="activity" disabled-role="  $scope.disabledRole  "></show-upload-token>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'hide':disabled}">
+        <a class="btn btn-success btn-rounded" ng-click="add();" ng-if="onlyContent!=1">
+            <span class="glyphicon glyphicon-plus"></span> 新增一条
+        </a>
+        <a class="btn btn-primary btn-rounded" ng-click="conslog()" show-role="admin">打印日志</a>
+    </div>
+</div>

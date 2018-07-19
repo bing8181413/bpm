@@ -1,0 +1,33 @@
+<div class="dashboard-page ">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-bind="title"></h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+
+                <div form-input ng-model="param.name" text="专题组名称" required="true"></div>
+
+                <div form-radio text="类型" ng-model="param.type" default="" source="[{text:'专题组',value:'1'}]"></div>
+
+                <div form-image-single ng-model="param.small_pic_url" text="小图" required="true"></div>
+
+                <div form-image-single ng-model="param.head_pic_url" text="头图" required="true"></div>
+
+
+                <div form-search text="查询专题ID" verify="verify_activity_detail(id)" btn-text="添加"
+                     ajax-config="{method:'get',url:$root.common.live_domain+'/live/special/activity/details/?id='+id}"
+                     ng-model="id" callback="add_activity_detail(json)"></div>
+
+                <div form-table text="专题列表" ng-model="param.details" config="{add:false}"
+                     columns="[{'name': '专题ID', 'field': 'id',disabled:'true'},
+                     {'name': '专题题目', 'field': 'title',disabled:'true'}
+                     ]"></div>
+
+                <div form-radio text="状态" ng-model="param.status" default="" source="[{text:'上线',value:'1'},{text:'下线',value:'2'}]"></div>
+
+                <a class="btn btn-primary btn-rounded pull-right " ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

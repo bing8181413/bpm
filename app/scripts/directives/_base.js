@@ -51,6 +51,11 @@ define([
     './live_rooms/list',// 直播
     './live_notice/list',// 直播 点播 公告
     './live_appmessages/list',// 推送消息
+    './live_special/list',// APP 专题组 专题
+
+
+
+
 
     './record_comments/list',// 点播
     './support/list',// 点播

@@ -15,6 +15,8 @@ define([
         , './videoGroups'//视频组
         , './videoGroupsRoom'//视频组的房间列表 任务列表
         , './workUser'//视频组任务答题  用户列表
+        , './special_activity'// APP 专题组
+        , './special_activity_detail'//  APP 专题列表
     ],
     function(stateModule, cons) {
         stateModule.config(
