@@ -38,7 +38,7 @@ define([
                     var inputWidth = $scope.inputWidth ? ('width' + $scope.inputWidth) : ''; // width400
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '' + '" ');
                     var required = $scope.required ? (' required') : '';
-                    var required_span = ($scope.required || $scope.requiredSpanShow) ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = ($scope.required || $scope.requiredSpanShow) ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var type = $scope.type ? (' type="' + $scope.type + '" ') : '';
                     var min = $scope.min ? (' min="' + $scope.min + '" ') : '';
                     var max = $scope.max ? (' max="' + $scope.max + '" ') : '';
@@ -123,7 +123,7 @@ define([
                     // console.log($scope.ngModelText);
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
-                    var required_span = ($scope.required || $scope.requiredSpanShow) ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = ($scope.required || $scope.requiredSpanShow) ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var type = $scope.type ? (' type="' + $scope.type + '"') : '';
                     var placeholder = $scope.placeholder ? (' placeholder="' + $scope.placeholder + '"') : '';
                     var ngMaxlength = $scope.ngMaxlength ? (' ng-maxlength="' + $scope.ngMaxlength + '"') : '';
@@ -182,7 +182,7 @@ define([
                     var ngDisabled = $scope.ngDisabled ? (' disabled') : '';
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="radio"';
                     var optionDefault = '';
                     if (!$scope.needDefaultEmpty || $scope.needDefaultEmpty != false) {
@@ -244,7 +244,7 @@ define([
                     var date = new Date().getTime();
                     var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="radio"';
 
                     $scope.init = function() {
@@ -306,7 +306,7 @@ define([
                     var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + date + '"');
                     var nickname = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var type = ' type="checkbox"';
                     $scope.init = function() {
                         var disabledRole = '';
@@ -411,7 +411,7 @@ define([
         //             var date = new Date().getTime();
         //             var name = $scope.name ? (' name="' + $scope.name + date + '"') : (' name="' + $scope.ngModelText + date + '"');
         //             var required = $scope.required ? (' required') : '';
-        //             var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+        //             var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
         //             var type = ' type="checkbox"';
         //             $scope.tmp_source = [];
         //             $timeout(function () {
@@ -514,7 +514,7 @@ define([
                     // console.log($scope.ngModelText, nameText);
 
                     var required = $scope.required ? (' required ') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var min = $scope.min ? (' min="' + $scope.min + '"') : '';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="activity"');
@@ -605,7 +605,7 @@ define([
                 link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     var type = $scope.type ? (' type="' + $scope.type + '"') : '';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="activity"');
@@ -649,7 +649,7 @@ define([
                 link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="resource"');
 
@@ -690,7 +690,7 @@ define([
                 link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var max = ' max="1" ';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token=""');
                     $scope.tmpNgModel = [];
@@ -754,7 +754,7 @@ define([
                 link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     $timeout(function() {
                         var disabledRole = ($scope.$parent && $scope.$parent.disabledRole) ?
@@ -789,7 +789,7 @@ define([
                 },
                 link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var required = $scope.required ? (' ng-required="true" ') : '';
                     $timeout(function() {
                         $scope.simditorConfig = {placeholder: ''};
@@ -831,7 +831,7 @@ define([
                 },
                 link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var required = $scope.required ? (' required') : '';
                     $scope.editorConfig = {
                         // focus: true, //自动把光标放到UEditor中。测试config配置。 实际情况要删掉 容易误操作填入文本内容
@@ -871,7 +871,7 @@ define([
                 link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     var showtip = $scope.showtip ? (' showtip="' + $scope.showtip + '"') : '';
                     $timeout(function() {
@@ -909,7 +909,7 @@ define([
                 link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                     $timeout(function() {
@@ -970,7 +970,7 @@ define([
                         var config = $scope.config ? (' config=' + JSON.stringify($scope.config) + '') : ('');
                         var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                         var required = $scope.required ? (' required') : '';
-                        var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                        var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                         var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                         var content = '';
                         if (!$scope.text) {
@@ -1034,7 +1034,7 @@ define([
                 link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
 
                     $timeout(function() {

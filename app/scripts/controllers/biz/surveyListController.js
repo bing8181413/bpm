@@ -53,7 +53,7 @@ define([
                     $scope.tmpl = '<form class="form-horizontal" name="FormBody" novalidate>' +
                         '<div class="form-group">' +
                         '    <label class="col-sm-2 control-label">对应测评ID' +
-                        '    <span class="form_label_dangus">*</span></label>' +
+                        '    <span class="form_label_danger">*</span></label>' +
                         '    <div class="col-sm-2">' +
                         '    <input class="form-control" ng-model="param.plan_id" required>' +
                         '</div>' +

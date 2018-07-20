@@ -8,11 +8,11 @@ define(['.././common'], function(common) {
                 {name: '类型', field: 'type', filter: 'keyVal:\'1\':\'专题组\':\'2\':\'活动\'', className: 'text-center'},
                 {
                     name: '小图', className: 'text-center',
-                    fieldDirective: '<show_image url="item.small_pic_url"></show_image>',
+                    fieldDirective: '<show_image url="item.small_pic_url" width="100"></show_image>',
                 },
                 {
                     name: '头图', className: 'text-center',
-                    fieldDirective: '<show_image url="item.head_pic_url"></show_image>',
+                    fieldDirective: '<show_image url="item.head_pic_url" width="100"></show_image>',
                 },
 
                 {name: '创建时间', field: 'created_at'},
@@ -34,7 +34,7 @@ define(['.././common'], function(common) {
                     {
                         value: 'status', text: '状态', type: 'btnGroup', default: '1', width: '6',
                         enum: [
-                            {value: '' , text: '全部'},
+                            {value: '', text: '全部'},
                             {value: '1', text: '上线'},
                             {value: '2', text: '下线'},
                         ],

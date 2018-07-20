@@ -59,13 +59,11 @@ define([
                                 };
 
                                 $scope.add_activity_detail = function(json) {
-                                    console.log(json);
                                     if (json.code === 0 && json.data && json.data.length === 1) {
-
                                         var data = json.data[0];
                                         var detail = {id: data.id, title: data.title};
                                         $scope.param.details.push(detail);
-
+                                        $scope.id = '';
                                     } else {
                                         widget.msgToast('未查询到专题');
                                     }
@@ -139,8 +137,8 @@ define([
 
                                 $scope.submit = function() {
                                     widget.ajaxRequest({
-                                        url: con.live_domain + '/live/special/activities/' + resolve_data.id,
-                                        method: 'PUT',
+                                        url: con.live_domain + '/live/special/activity/details' + (resolve_data.id && ('/' + resolve_data.id) || ''),
+                                        method: resolve_data.id ? 'PUT' : 'POST',
                                         scope: $scope,
                                         data: $scope.param,
                                         success: function(json) {
@@ -181,7 +179,7 @@ define([
 
                     var init = false;
                     var required = $scope.required ? (' required') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
 
                     var initHtml = function() {
                         var content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
@@ -210,106 +208,24 @@ define([
                 scope: {
                     ngModel: '=',
                 },
-                template: $templateCache.get('app/' + con.DIRECTIVE_PATH + 'special/specialDetailContentList.html'),
+                template: $templateCache.get('app/' + con.live_path + 'special/specialDetailContentList.html'),
                 link: function($scope, $element, $attrs) {
 
-                    var init = false;
-
-                    $scope.$watch('ngModel', function(defVal) {
-                        if (defVal && !init) {
-                            init = true;
-                            // console.log(defVal);
-                            $scope.list = $scope.list || [];
-                            angular.forEach(defVal, function(val, key) {
-                                var obj = {
-                                    pics: val.pics || [],
-                                    pic_padding: val.pic_padding || 0,
-                                    content_id: val.content_id,
-                                    content: $(val.content).text() ? val.content : '',
-                                    category: val.category,
-                                };
-                                $scope.list.push(angular.extend(obj, {
-                                    showContent: $(obj.content).text() != '',
-                                    showImg: obj.pics.length > 0 ? true : false,
-                                    showContentTitle: $(obj.content).text() != '' ? '取消文字' : '文字模式',
-                                    showImgTitle: obj.pics.length > 0 ? '取消图片' : '图片模式',
-                                }));
-                                // console.log($scope.list);
-                            });
-                        }
-
-                    }, true);
-
-                    $scope.$watch('list', function(defVal) {
-                        if (init) {
-                            $scope.ngModel = [];
-                            angular.forEach(defVal, function(val, key) {
-                                var obj = {
-                                    pics: val.pics || [],
-                                    pic_padding: val.pic_padding || 0,
-                                    content_id: val.content_id,
-                                    content: $(val.content).text() ? val.content : '',
-                                    category: val.category,
-
-                                };
-                                $scope.ngModel.push(obj);
-                            });
-                        }
-                        // console.log(defVal && defVal[1] && defVal[1].contentData);
-                    }, true);
-
-                    $scope.add = function(obj) {
-                        init = true;
-                        obj = obj || {};
-                        $scope.list = $scope.list || [];
-                        $scope.list.push(angular.extend({
-                            // contentData: {},
-                            pics: [],
-                            pic_padding: 0,
-                            content: '',
-                            showContent: false,
-                            showImg: false,
-                            showContentTitle: '文字模式',
-                            showImgTitle: '图片模式',
-                        }, obj));
+                    $scope.add = function() {
+                        $scope.ngModel.push({
+                            type: 1,
+                            padding: 0,
+                        });
                     };
+
                     //删除一条 list.new 的记录
                     $scope.del = function(index) {
-                        $scope.list.splice(index, 1);
+                        $scope.ngModel.splice(index, 1);
                     };
+
                     // 切换新增和删除图文
                     $scope.toggleShow = function(item, typeTitle) {
-                        // 这一组判断是只准图片和文字选其一 去掉可以选择多种
-                        if (!item.showContent && item.showImg && typeTitle == 'showContent') {
-                            if (!window.confirm('图片和文字只能选其一,确定切换吗')) {
-                                return false;
-                            }
-                            item.showImg = false;
-                            item.showImgTitle = '图片模式';
-                            item.pics = [];
-                        } else if (!item.showImg && item.showContent && typeTitle == 'showImg') {
-                            if (!window.confirm('图片和文字只能选其一,确定切换吗')) {
-                                return false;
-                            }
-                            item.showContent = false;
-                            item.showContentTitle = '文字模式';
-                            item.content = '';
-                        }
-                        if (typeTitle == 'showContent') {
-                            item.showContent = !item.showContent;
-                            item.showContentTitle = item.showContent ? '取消文字' : '文字模式';
-                            item.content = '';
-                            item.category = '';
-                            item.pic_padding = 0;
-                        }
-                        if (typeTitle == 'showImg') {
-                            item.showImg = !item.showImg;
-                            item.showImgTitle = item.showImg ? '取消图片' : '图片模式';
-                            item.pics = [];
-                        }
-                    };
-                    $scope.conslog = function(index) {
-                        console.log($scope.list);
+
                     };
 
                 },

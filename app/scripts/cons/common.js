@@ -27,12 +27,13 @@ define([], function () {
         qiniu_domain = 'https://uat.ahaschool.com';
         wx_domain = 'https://n.ahaschool.com';
     } else if (location.href.indexOf('//test.ahaschool.com/bpm') > 0
+    || location.href.indexOf('//bpm-test.d.ahaschool.com') > 0
     // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
         env = 'test';
         env_name = '测试系统';
-        domain = 'https://test.ahaschool.com/mgrapi';
-        web_domain = 'https://test.ahaschool.com/bpm';
+        domain = 'https://mgrapi-test.d.ahaschool.com';
+        web_domain = 'https://bpm-test.d.ahaschool.com';
         qiniu_domain = 'https://testbpm.ahaschool.com';
         wx_domain = 'https://testm.ahaschool.com';
     } else if (location.href.indexOf('//testbpm.ahaschool.com') > 0

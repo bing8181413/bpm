@@ -164,7 +164,7 @@ define([
                                         '<style>.angucomplete-dropdown {' +
                                         'overflow-y: auto;max-height: 250px;}' +
                                         '</style>' +
-                                        '<label class="col-sm-2 control-label">小区／办公楼<span class="form_label_dangus">*</span></label>' +
+                                        '<label class="col-sm-2 control-label">小区／办公楼<span class="form_label_danger">*</span></label>' +
                                         '<p class="form-control-static col-sm-4" ng-bind="address.community_name"></p>' +
                                         '<div class="col-sm-4"><angucomplete-alt ' +
                                         'id="ex5"' +

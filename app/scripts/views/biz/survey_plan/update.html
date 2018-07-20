@@ -51,7 +51,7 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">对应商品ID
-                                <span class="form_label_dangus">*</span></label>
+                                <span class="form_label_danger">*</span></label>
                             <div class="col-sm-2">
                                 <input class="form-control" ng-model="param.product_id" placeholder="商品ID"
                                        required="true">
@@ -99,7 +99,7 @@
 
                         <div class="form-group" ng-show="question_source==2">
                             <label class="col-sm-2 control-label">测评题目<span
-                                    class="form_label_dangus">*</span></label>
+                                    class="form_label_danger">*</span></label>
                             <div class="col-sm-8 form-group">
                                 <div class="col-sm-2">
                                     <input class="form-control" ng-model="question_id" placeholder="问题ID">
@@ -166,7 +166,7 @@
                              {'name': '建议内容', 'field': 'result',textarea:'true',required:'true'}]"></div>
                         <div class="form-group" ng-if="param.type == 3">
                             <label class="col-sm-2 control-label">成长建议<span
-                                    class="form_label_dangus">*</span></label>
+                                    class="form_label_danger">*</span></label>
                             <div class="col-sm-8">
                                 <table class="table table-bordered table-striped">
                                     <thead>

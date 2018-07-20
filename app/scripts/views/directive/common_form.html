@@ -15,7 +15,7 @@
                 <form class="form-horizontal">
                     <div class="form-group" ng-repeat="item in form_data">
                         <label class="col-sm-3 control-label">{{item.name}}
-                            <span class="form_label_dangus" ng-bind="(item.allownull|| item.isprimary)?'':'*'"></span>
+                            <span class="form_label_danger" ng-bind="(item.allownull|| item.isprimary)?'':'*'"></span>
                         </label>
                         <div class="col-sm-6">
                             <input class="form-control" ng-model="item.val" ng-disabled="item.isprimary==1" ng-if="!item.type">

@@ -6,8 +6,8 @@ define(['.././common'], function(common) {
                 {name: '专题名称', field: 'title', className: 'text-center'},
 
                 {
-                    name: '专题缩略图', className: 'text-center',
-                    fieldDirective: '<show_image url="item.small_pic_url"></show_image>',
+                    name: '专题头图', className: 'text-center',
+                    fieldDirective: '<show_image url="item.head_pic_url" width="100"></show_image>',
                 },
                 {name: '创建时间', field: 'created_at'},
 

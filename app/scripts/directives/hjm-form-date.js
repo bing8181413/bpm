@@ -25,7 +25,7 @@ define([
                     var nameStart = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelTextStart + '"');
                     var nameEnd = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelTextEnd + '"');
                     var required = $scope.required ? (' required') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                     $timeout(function () {
@@ -72,7 +72,7 @@ define([
                     var nameStart = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelTextStart + '"');
                     var nameEnd = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelTextEnd + '"');
                     var required = $scope.required ? (' required') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var max = $scope.max ? (' max="' + $scope.max + '"') : '';
                     // content += '===={{$parent.form["' + ($scope.name || $scope.ngModelText) + '"]}}===='
                     $timeout(function () {

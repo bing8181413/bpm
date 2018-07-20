@@ -10214,11 +10214,11 @@ html, body {
 
 /*directive show_images*/
 /*表单*/
-.form_dangus {
+.form_dangus, .form_danger {
     border-color: #E21100;
 }
 
-.form_label_dangus {
+.form_label_danger {
     color: #E21100;
     vertical-align: middle;
     font-size: 24px;
@@ -10473,6 +10473,7 @@ html, body {
 .width50 {
     width: 50px;
 }
+
 .width100 {
     width: 100px;
 }

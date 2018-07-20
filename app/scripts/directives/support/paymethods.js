@@ -24,7 +24,7 @@ define([
               (' disabled-role="' + $scope.$parent.disabledRole + '"') : '';
           var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
           var required = $scope.required ? (' required') : '';
-          var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+          var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
           var max = $scope.max ? (' max="' + $scope.max + '"') : '';
           var content = '<h3 class="row text-danger">调整完顺序or修改状态后 一定要提交才能生效</h3>';
           if (!$scope.text) {

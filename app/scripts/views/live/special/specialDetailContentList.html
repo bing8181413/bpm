@@ -1,46 +1,106 @@
 <div>
-    <div class="form-group " ng-repeat="item in list">
-        <div class="col-sm-12" ng-class="{'contents':onlyContent!=1}">
-            <div class="col-sm-12 form-group" style="margin-bottom: 5px;" ng-class="{'hide':  $scope.disabled  }">
-                <div class="col-sm-12 form-group" style="margin-bottom: 0;">
+    <style type="text/css">
+        .dndsimpleSubject .dndDragging {
+            opacity: 0.7;
+        }
 
-                    <a class="btn btn-info btn-rounded" ng-bind="($index1)"></a>
+        .dndsimpleSubject .dndDraggingSource {
+            display: none;
+        }
 
-                    <a class="btn btn-success btn-rounded" ng-show="onlyContent!=1" ng-class="{'btn-success':!item.showContent,'btn-danger':item.showContent}" ng-click="toggleShow(item,showContent)">
-                    <span class="glyphicon" ng-class="{'glyphicon-plus':!item.showContent,'glyphicon-trash':item.showContent}">
-                    </span> {{item.showContentTitle}}
-                    </a>
+        .dndsimpleSubject .dndPlaceholder {
+            background-color: #ddd;
+            height: 70px;
+            border: 1px solid #ddd;
+            padding-left: 5px;
+            padding-right: 5px;
+        }
 
-                    <a class="btn btn-success btn-rounded" ng-show="onlyContent!=1" ng-class="{'btn-success':!item.showImg,'btn-danger':item.showImg}" ng-click="toggleShow(item,showImg)">
-                        <span class="glyphicon" ng-class="{'glyphicon-plus':!item.showImg,'glyphicon-trash':item.showImg}"></span> {{item.showImgTitle}}
-                    </a>
+        .dndsimpleSubject .selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+            width: 100%;
+        }
+    </style>
+    <div class="form-group">
+        <a class="btn btn-rounded btn-xs" ng-class="{'btn-success':read,'btn-warning':!read}"
+           ng-click="read=!read;"><span class="glyphicon fa fa-refresh"></span> 拖拽排序模式 </a>
+    </div>
+    <div class="form-group" ng-show="!read" ng-repeat="item in ngModel" style="margin-bottom: 0;border: 1px solid #ccc;">
+        <br>
+        <div class="col-sm-2">
+            <label class="label label-success" ng-bind="'第 '+($index+1)"></label>
+        </div>
+        <div class="col-sm-10">
+            <a class="btn btn-danger btn-bordered btn-xs" ng-click="item.padding = 0" ng-show="item.padding ==1">
+                <span class="glyphicon glyphicon-trash"></span>取消上边距
+            </a>
+            <a class="btn btn-primary btn-bordered btn-xs" ng-click="item.padding = 1" ng-show="item.padding !=1">
+                <span class="glyphicon glyphicon-plus"></span>添加上边距
+            </a>
+            <label class="label ">
+                <span ng-class="{'text-primary':item.padding == 1,'text-danger':item.padding == 0}"
+                      ng-bind="item.padding == 1 ? '&nbsp;&nbsp;&nbsp;有上边距' : '&nbsp;&nbsp;&nbsp;无上边距' "></span>
+            </label>
+            <a class="btn btn-danger btn-bordered btn-xs pull-right" ng-click="del($index);">
+                <span class="glyphicon glyphicon-trash"></span>删除这条专题内容
+            </a>
+        </div>
 
-                    <a class="btn btn-danger btn-rounded" ng-show="onlyContent!=1" ng-click="del($index);">
-                        <span class="glyphicon glyphicon-trash"></span> 删除这一条图文
-                    </a>
+        <!--1文字,2图片,3视频,4视频组id-->
+        <div form-radio text="类型" name="item.type[{{$index}}]" ng-model="item.type" default="1" required="true"
+             source="[{text:'文字',value:1},{text:'图片',value:2},{text:'视频',value:3},{text:'视频组ID',value:4}]" source-api=""></div>
 
-                    <div class="col-sm-12" ng-show="!!item.showContent" style="margin-top: 5px;">
-                        <show-rich-content ng-model="item.content" placeholder="填写你要说的"></show-rich-content>
-                    </div>
+        <div class="col-sm-12" style="margin-top: 5px;" ng-if="item.type == 1">
+            <show-rich-content ng-model="item.content_value" placeholder="填写你要说的"></show-rich-content>
+        </div>
 
-                    <div class="col-sm-12" ng-show="!!item.showImg" style="margin-top: 5px;">
+        <div class="col-sm-12" style="margin-top: 5px;" ng-if="item.type == 2">
+            <div form-image-single ng-model="item.content_value" text="图片" required="true"></div>
+        </div>
 
-                        <show-upload images="item.pics" hasimages=""></show-upload>
+        <div form-input text="视频URL" ng-model="item.content_value" placeholder="填写视频URL" required="true" ng-if="item.type == 3"></div>
+        <div form-image-single ng-model="item.video_pic_url" text="视频图片" required="true" ng-if="item.type == 3"></div>
 
-                        <div form-radio name="{'{pic_padding$index}}" text="图片间距" ng-model="item.pic_padding" default="0" style="border-top: 1px solid #ccc;"
-                             source="[{text':无,value':0},{text':有,value':20}]" source-api=""></div>
-
-                        <show-upload-token images="item.pics" hasimages="" token="activity" disabled-role="  $scope.disabledRole  "></show-upload-token>
-
-                    </div>
-                </div>
-            </div>
+        <div class="col-sm-12" ng-if="item.type == 4">
+            <div form-input text="视频组ID" ng-model="item.content_value" placeholder="填写视频组ID" required="true"></div>
         </div>
     </div>
-    <div class="form-group" ng-class="{'hide':disabled}">
-        <a class="btn btn-success btn-rounded" ng-click="add();" ng-if="onlyContent!=1">
-            <span class="glyphicon glyphicon-plus"></span> 新增一条
-        </a>
-        <a class="btn btn-primary btn-rounded" ng-click="conslog()" show-role="admin">打印日志</a>
+    <div ng-show="read">
+        <h4 class="text-primary">排序模式</h4>
+
+        <ul class="list-group dndsimpleSubject" dnd-list="ngModel">
+
+            <li class="list-group-item" ng-repeat="(key,item) in ngModel"
+                dnd-draggable="item" dnd-moved="ngModel.splice(key, 1);" dnd-effect-allowed="move">
+                <div class="row">
+                    <div class="col-sm-2">
+                        <label class="label label-success" ng-bind="'第 '+($index+1)"></label>
+                    </div>
+                    <div class="col-sm-10" dnd-nodrag>
+                        <div class="row" ng-if="item.type == 1">
+                            <span> 文本内容 </span>
+                        </div>
+                        <div class="row" ng-if="item.type == 2">
+                            <div show-image url="item.content_value" width="50"></div>
+                        </div>
+                        <div class="row" ng-if="item.type == 3">
+                            <span ng-bind="'视频URL:'+item.content_value"></span>
+                        </div>
+                        <div class="row" ng-if="item.type == 4">
+                            <span ng-bind="'视频组ID:'+item.content_value"></span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <li class="list-group-item dndPlaceholder">
+                <div class="text-center"><h3 class="red">拖拽到这里</h3></div>
+            </li>
+        </ul>
+    </div>
+    <br>
+    <div class="form-group">
+        <a class="btn btn-success btn-rounded btn-xs" ng-click="add();"><span class="glyphicon glyphicon-plus"></span> 新增专题内容</a>
     </div>
 </div>

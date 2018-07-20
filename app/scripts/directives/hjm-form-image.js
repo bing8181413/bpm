@@ -23,7 +23,7 @@ define([
                 link: function($scope, $element, $attrs, $ctrl) {
                     var name = $scope.name ? (' name="' + $scope.name + '"') : (' name="' + $scope.ngModelText + '"');
                     var required = $scope.required ? (' required ') : '';
-                    var required_span = $scope.required ? ('<span class="form_label_dangus">*</span>') : '&nbsp;&nbsp;';
+                    var required_span = $scope.required ? ('<span class="form_label_danger">*</span>') : '&nbsp;&nbsp;';
                     var max = ' max="1" ';
                     var token = $scope.token ? (' token="' + $scope.token + '"') : (' token="activity"');
                     $scope.tmpNgModel = [];
@@ -39,7 +39,7 @@ define([
                         if ($scope.tmpNgModel && $scope.tmpNgModel[0] && $scope.tmpNgModel[0].pic_url) {
                             $scope.ngModel = $scope.tmpNgModel[0].pic_url;
                         } else {
-                            $scope.ngModel = null;
+                            $scope.ngModel = '';
                         }
 
                     }, true);
@@ -56,7 +56,8 @@ define([
                             content = '<label class="col-sm-2 control-label">' + $scope.text + required_span + '</label>' +
                                 '<div class="col-sm-8" style="">' + uploadHtml +
                                 '<input class="hide" ng-model="tmpNgModel" ' + max + name + disabledRole + required + '>' +
-                                '</div>';
+                                '</div>' +
+                                '<div class="col-sm-2"><span class="text-danger" ng-show="required && !ngModel">请上传</span></div>';
                         }
 
                         $element.find('.form_element').html(content);
