@@ -1,173 +1,179 @@
 <div class="dashboard-page ">
-  <div class="panel panel-primary">
-    <div class="panel-heading">
-      <h3 class="panel-title" ng-if="!$stateParams.id">新增视频组</h3>
-      <h3 class="panel-title" ng-if="$stateParams.id">更新视频组</h3>
-    </div>
-    <div class="panel-body">
-      <form class="form-horizontal" name="FormBody" novalidate>
-        <div class="panel panel-primary">
-          <div class="panel-body">
-            <div form-input text="名称" ng-model="param.group_title"
-                 required="true" placeholder="视频组名称,不超过30个字" minlength="1" maxlength="30"></div>
-            <div form-input text="年龄标签" ng-model="param.age_label" placeholder="最多6个字"
-                 maxlength="6"></div>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title" ng-if="!$stateParams.id">新增视频组</h3>
+            <h3 class="panel-title" ng-if="$stateParams.id">更新视频组</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+                <div class="panel panel-primary">
+                    <div class="panel-body">
+                        <div form-input text="名称" ng-model="param.group_title"
+                             required="true" placeholder="视频组名称,不超过30个字" minlength="1" maxlength="30"></div>
+                        <div form-input text="年龄标签" ng-model="param.age_label" placeholder="最多6个字"
+                             maxlength="6"></div>
 
-            <div form-date-time text="首播时间" ng-model="param.first_time"></div>
-            <div form-input text="总集数" ng-model="param.course_num" type="number" placeholder=""
-                 required="true" min="0"></div>
-            <div form-input text="预告片" ng-model="param.pre_video_url"
-                 placeholder="请将视频上传到阿里云，并填写mp4格式。不接受其他格式！"></div>
+                        <div form-checkbox text="学龄标签" ng-model="param.tags" required="true" default=""
+                             source="$root.common.tag_list" source-api=""></div>
 
+                        <div form-radio text="课程分类" ng-model="param.tab_id" required="true" default=""
+                             source="$root.common.tab_list" source-api=""></div>
 
-            <div form-image-single text="图片" ng-model="param.pic_url" required="true"></div>
-            <div class="row">
-              <h4 class="col-sm-offset-2  col-sm-8 text-danger">注意：课堂展示图 比例 5:4 </h4>
-            </div>
-            <div form-image-single text="课堂展示图" ng-model="param.show_pic_url" required="true"></div>
-            <!--<div form-input text="礼物描述" ng-model="param.gift_desc" placeholder=""></div>-->
-            <!--<div form-radio text="类型" ng-model="param.group_type" required="true" default="1"-->
-            <!--source="[{text:'直播',value:'1'},{text:'点播',value:'2'}]" source-api=""></div>-->
-
-            <div form-radio text="分享设置" ng-model="param.share_type" required="true" default="2"
-                 source="[{text:'普通分享',value:'1'},{text:'分享单个视频观看权限',value:'2'}]" source-api=""></div>
-
-            <div form-input text="单人最多领取视频数量" ng-model="param.receive_num"
-                 ng-show="param.share_type==2" placeholder="0表示视频分享后任何人不可以领取，请谨慎填写。"></div>
+                        <div form-date-time text="首播时间" ng-model="param.first_time"></div>
+                        <div form-input text="总集数" ng-model="param.course_num" type="number" placeholder=""
+                             required="true" min="0"></div>
+                        <div form-input text="预告片" ng-model="param.pre_video_url"
+                             placeholder="请将视频上传到阿里云，并填写mp4格式。不接受其他格式！"></div>
 
 
-            <div form-search text="添加房间/视频ID" verify="verify_room(room_id)" btn-text="查询并添加房间/视频ID"
-                 ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/rooms/'+room_id}"
-                 ng-model="room_id" callback="add_room(json)"></div>
+                        <div form-image-single text="图片" ng-model="param.pic_url" required="true"></div>
+                        <div class="row">
+                            <h4 class="col-sm-offset-2  col-sm-8 text-danger">注意：课堂展示图 比例 5:4 </h4>
+                        </div>
+                        <div form-image-single text="课堂展示图" ng-model="param.show_pic_url" required="true"></div>
+                        <!--<div form-input text="礼物描述" ng-model="param.gift_desc" placeholder=""></div>-->
+                        <!--<div form-radio text="类型" ng-model="param.group_type" required="true" default="1"-->
+                        <!--source="[{text:'直播',value:'1'},{text:'点播',value:'2'}]" source-api=""></div>-->
 
-            <!--<div videogroup-room ng-model="chapters" text="章节"></div>-->
+                        <div form-radio text="分享设置" ng-model="param.share_type" required="true" default="2"
+                             source="[{text:'普通分享',value:'1'},{text:'分享单个视频观看权限',value:'2'}]" source-api=""></div>
 
-            <div class="row">
-              <label class="col-sm-2 control-label">章节&nbsp;&nbsp;</label>
-              <div class="col-sm-8">
-                <table class="table table-bordered table-striped">
-                  <tbody>
-                  <tr bindonce ng-repeat="(key,item) in chapters">
-                    <td style="width: 50px">
-                      <span ng-bind="'第 '+ key+' 行'" class="label-success label"></span>
-                    </td>
-                    <td>
-                      <div ng-include="'app/scripts/views/live/videogroups/room.html'"></div>
-                    </td>
-                    <td style="width: 50px">
-                      <a class="btn btn-primary btn-xs btn-bordered pull-right"
-                         ng-click="change_row(item.type,key)">改变行</a>
-                    </td>
-                    <td style="width: 50px">
-                      <a class="btn btn-danger btn-xs btn-bordered pull-right"
-                         ng-click="chapters.splice($index, 1)">删除</a>
-                    </td>
-                  </tr>
-                  </tbody>
-                </table>
-                <!--<json-table ng-model="chapters"-->
-                <!--config="{readonly:true}"-->
-                <!--columns="[{name: ' ', field:'type|keyVal:\'1\':\'章节\':\'2\':\':::\'',readonly:'true'},-->
-                <!--{name: 'title', field:'title|null2empty',readonly:'true'},-->
-                <!--{name: '内容内容', fieldDirective:'<div ng-include=\'getContentUrl();\'></div>'},-->
-                <!--{name: '章节', field:'chapters_index|null2empty',readonly:'true'},-->
-                <!--{name: '房间', field:'room_status|null2empty|keyVal:\'1\':\'开启\':\'2\':\'关闭\'',readonly:'true'},-->
-                <!--{name: '类型', field:'room_status|null2empty|keyVal:\'1\':\'立即生效\':\'2\':\'定时生效\'',readonly:'true'},-->
-                <!--{name: 'room_title', field:'room_title|null2empty',readonly:'true'}]">-->
-                </json-table>
-              </div>
-            </div>
-            <hr>
-            <h4>答疑管理</h4>
-            <div form-radio text="答疑入口" ng-model="param.qa_onoff" required="true" default="1"
-                 source="[{text:'显示',value:'1'},{text:'关闭',value:'2'}]" source-api=""></div>
+                        <div form-input text="单人最多领取视频数量" ng-model="param.receive_num"
+                             ng-show="param.share_type==2" placeholder="0表示视频分享后任何人不可以领取，请谨慎填写。"></div>
 
-            <div videogroup-qas ng-model="param.qas" text="答疑" ng-show="param.qa_onoff==1"></div>
 
-            <!--<div form-table text="房间/视频ID" ng-model="param.rooms" min="1"-->
-            <!--config="{add:false}"-->
-            <!--columns="[{name: '房间/视频ID', field:'room_id',readonly:'true'}-->
-            <!--,{name: '标题', field:'room.title',readonly:'true'}-->
-            <!--,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}-->
-            <!--,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>-->
-            <hr>
-            <div form-radio text="是否付费" ng-model="param.pay_type" required="true" default="1"
-                 source="[{text:'免费',value:'1'},{text:'付费',value:'2'}]" source-api=""></div>
+                        <div form-search text="添加房间/视频ID" verify="verify_room(room_id)" btn-text="查询并添加房间/视频ID"
+                             ajax-config="{method:'get',url:$root.common.domain+'/mobile/live/rooms/'+room_id}"
+                             ng-model="room_id" callback="add_room(json)"></div>
 
-            <div ng-if="param.pay_type==2">
-              <h4>关联活动</h4>
-              <h5 class="col-sm-offset-2 text-danger">选择收费模式时 关联SKU、关联活动类目 必须至少选一个并切填写完成</h5>
-              <div form-table text="关联SKU" ng-model="param.skus"
-                   columns="[{name: '选择SKU',width:'50%',
+                        <!--<div videogroup-room ng-model="chapters" text="章节"></div>-->
+
+                        <div class="row">
+                            <label class="col-sm-2 control-label">章节&nbsp;&nbsp;</label>
+                            <div class="col-sm-8">
+                                <table class="table table-bordered table-striped">
+                                    <tbody>
+                                    <tr bindonce ng-repeat="(key,item) in chapters">
+                                        <td style="width: 50px">
+                                            <span ng-bind="'第 '+ key+' 行'" class="label-success label"></span>
+                                        </td>
+                                        <td>
+                                            <div ng-include="'app/scripts/views/live/videogroups/room.html'"></div>
+                                        </td>
+                                        <td style="width: 50px">
+                                            <a class="btn btn-primary btn-xs btn-bordered pull-right"
+                                               ng-click="change_row(item.type,key)">改变行</a>
+                                        </td>
+                                        <td style="width: 50px">
+                                            <a class="btn btn-danger btn-xs btn-bordered pull-right"
+                                               ng-click="chapters.splice($index, 1)">删除</a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <!--<json-table ng-model="chapters"-->
+                                <!--config="{readonly:true}"-->
+                                <!--columns="[{name: ' ', field:'type|keyVal:\'1\':\'章节\':\'2\':\':::\'',readonly:'true'},-->
+                                <!--{name: 'title', field:'title|null2empty',readonly:'true'},-->
+                                <!--{name: '内容内容', fieldDirective:'<div ng-include=\'getContentUrl();\'></div>'},-->
+                                <!--{name: '章节', field:'chapters_index|null2empty',readonly:'true'},-->
+                                <!--{name: '房间', field:'room_status|null2empty|keyVal:\'1\':\'开启\':\'2\':\'关闭\'',readonly:'true'},-->
+                                <!--{name: '类型', field:'room_status|null2empty|keyVal:\'1\':\'立即生效\':\'2\':\'定时生效\'',readonly:'true'},-->
+                                <!--{name: 'room_title', field:'room_title|null2empty',readonly:'true'}]">-->
+                                </json-table>
+                            </div>
+                        </div>
+                        <hr>
+                        <h4>答疑管理</h4>
+                        <div form-radio text="答疑入口" ng-model="param.qa_onoff" required="true" default="1"
+                             source="[{text:'显示',value:'1'},{text:'关闭',value:'2'}]" source-api=""></div>
+
+                        <div videogroup-qas ng-model="param.qas" text="答疑" ng-show="param.qa_onoff==1"></div>
+
+                        <!--<div form-table text="房间/视频ID" ng-model="param.rooms" min="1"-->
+                        <!--config="{add:false}"-->
+                        <!--columns="[{name: '房间/视频ID', field:'room_id',readonly:'true'}-->
+                        <!--,{name: '标题', field:'room.title',readonly:'true'}-->
+                        <!--,{name: '直播流开关', field:'room.live_status|keyVal:\'1\':\'未开启&nbsp;&nbsp;&nbsp;&nbsp;\':\'2\':\'直播中&nbsp;&nbsp;&nbsp;&nbsp;\':\'3\':\'直播结束\'|null2empty',readonly:'true'}-->
+                        <!--,{name: '直播预告', fieldDirective:'<span ng-bind=\'item.room.plans[0].start_time\'></span>-<span ng-bind=\'item.room.plans[0].end_time\'></span>',readonly:'true'}]"></div>-->
+                        <hr>
+                        <div form-radio text="是否付费" ng-model="param.pay_type" required="true" default="1"
+                             source="[{text:'免费',value:'1'},{text:'付费',value:'2'}]" source-api=""></div>
+
+                        <div ng-if="param.pay_type==2">
+                            <h4>关联活动</h4>
+                            <h5 class="col-sm-offset-2 text-danger">选择收费模式时 关联SKU、关联活动类目 必须至少选一个并切填写完成</h5>
+                            <div form-table text="关联SKU" ng-model="param.skus"
+                                 columns="[{name: '选择SKU',width:'50%',
                               'fieldDirective': '<select class=\'form-control \' ng-model=\'item.sku\'
                                ng-options=\'obj.value as obj.text for obj in $root.common.sku\' ></select>',required:'true'}]"></div>
 
-              <div class="row">
-                <label class="col-sm-2 control-label">关联活动类目&nbsp;&nbsp;</label>
-                <div class="col-sm-8">
-                  <div ng-repeat="product in param.products">
-                    <div class="panel panel-primary">
-                      <div class="panel-body">
-                        <div form-search text="搜索活动ID" btn-text="查询活动类目"
-                             verify="verify_product(product.product_id,$index)"
-                             ajax-config="{method:'get',url:$root.common.domain+'/products/'+product.product_id+'/options?count=1000'}"
-                             ng-model="product.product_id"
-                             callback="add_product(json,$index)"></div>
-                        <div form-checkbox text="选择类目" ng-model="product._tmp_options_selected"
-                             type="number" ng-show="product._tmp_options"
-                             source="product._tmp_options"></div>
+                            <div class="row">
+                                <label class="col-sm-2 control-label">关联活动类目&nbsp;&nbsp;</label>
+                                <div class="col-sm-8">
+                                    <div ng-repeat="product in param.products">
+                                        <div class="panel panel-primary">
+                                            <div class="panel-body">
+                                                <div form-search text="搜索活动ID" btn-text="查询活动类目"
+                                                     verify="verify_product(product.product_id,$index)"
+                                                     ajax-config="{method:'get',url:$root.common.domain+'/products/'+product.product_id+'/options?count=1000'}"
+                                                     ng-model="product.product_id"
+                                                     callback="add_product(json,$index)"></div>
+                                                <div form-checkbox text="选择类目" ng-model="product._tmp_options_selected"
+                                                     type="number" ng-show="product._tmp_options"
+                                                     source="product._tmp_options"></div>
 
-                        <json-table ng-model="product.options"
-                                    config="{readonly:true}"
-                                    columns="[{name: '活动ID', field:'product_id',readonly:'true'},
+                                                <json-table ng-model="product.options"
+                                                            config="{readonly:true}"
+                                                            columns="[{name: '活动ID', field:'product_id',readonly:'true'},
                                                     {name: '拼团类型', field:'option.option_type|product_category',readonly:'true'},
                                                     {name: '类目ID', field:'option_id',readonly:'true'},
                                                     {name: '类目名称', field:'option.option_name',readonly:'true'},
                                                     {name: '状态', field:'option.option_status|product_option_status',readonly:'true'}]">
-                        </json-table>
-                        <div class="row pull-right">
-                          <a class="btn btn-danger btn-rounded"
-                             ng-click="param.products.splice($index,1)">删除</a>
+                                                </json-table>
+                                                <div class="row pull-right">
+                                                    <a class="btn btn-danger btn-rounded"
+                                                       ng-click="param.products.splice($index,1)">删除</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <a class="btn btn-primary btn-rounded"
+                                       ng-click="(param.products=param.products||[])&&param.products.push({});">新增活动并选择类目</a>
+                                </div>
+                            </div>
+                            <hr>
+                            <h4 class="col-sm-offset-2 text-primary">不要填错指定购买活动ID,以免影响购买</h4>
+                            <div form-input text="指定购买活动" ng-model="param.product_id" placeholder="活动ID,不能为空或者0"
+                                 required="true"></div>
+
+                            <div form-input text="指定购买活动链接" ng-model="param.product_url" placeholder="活动购买URL"
+                                 required="true" ng-disabled="true"></div>
+
+                            <div form-input text="指定购买小程序链接" ng-model="param.miniapp_url" placeholder="活动购买小程序"
+                                 required="true" ng-disabled="true"></div>
+
+                            <!--<div form-date-time text="观看权限发放开始时间" ng-model="param.open_time" required="true"></div>-->
+                            <!--<h3 class="col-sm-offset-2 text-primary">只能管理员来操作开启自动处理开关</h3>-->
+                            <!--ng-disabled="$root.hjm.role!=='admin'"-->
+                            <div form-radio text="自动处理开关" ng-model="param.onoff" required="true" default="1"
+                                 source="[{text:'开',value:'1'},{text:'关',value:'2'}]" source-api=""></div>
                         </div>
-                      </div>
+
+                        <div form-input text="排序数字" ng-model="param.order_by" placeholder="不排序就填0"
+                             required="true"></div>
+                        <div form-radio text="是否显示" ng-model="param.visible" required="true" default="1"
+                             source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
+                        <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过15字"></div>
                     </div>
-                  </div>
                 </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                  <a class="btn btn-primary btn-rounded"
-                     ng-click="(param.products=param.products||[])&&param.products.push({});">新增活动并选择类目</a>
-                </div>
-              </div>
-              <hr>
-              <h4 class="col-sm-offset-2 text-primary">不要填错指定购买活动ID,以免影响购买</h4>
-              <div form-input text="指定购买活动" ng-model="param.product_id" placeholder="活动ID,不能为空或者0"
-                   required="true"></div>
-
-              <div form-input text="指定购买活动链接" ng-model="param.product_url" placeholder="活动购买URL"
-                   required="true" ng-disabled="true"></div>
-
-              <div form-input text="指定购买小程序链接" ng-model="param.miniapp_url" placeholder="活动购买小程序"
-                   required="true" ng-disabled="true"></div>
-
-              <!--<div form-date-time text="观看权限发放开始时间" ng-model="param.open_time" required="true"></div>-->
-              <!--<h3 class="col-sm-offset-2 text-primary">只能管理员来操作开启自动处理开关</h3>-->
-              <!--ng-disabled="$root.hjm.role!=='admin'"-->
-              <div form-radio text="自动处理开关" ng-model="param.onoff" required="true" default="1"
-                   source="[{text:'开',value:'1'},{text:'关',value:'2'}]" source-api=""></div>
-            </div>
-
-            <div form-input text="排序数字" ng-model="param.order_by" placeholder="不排序就填0"
-                 required="true"></div>
-            <div form-radio text="是否显示" ng-model="param.visible" required="true" default="1"
-                 source="[{text:'是',value:'1'},{text:'否',value:'2'}]" source-api=""></div>
-            <div form-textarea text="备注" ng-model="param.remark" placeholder="不超过15字"></div>
-          </div>
+                <div form-error-block></div>
+                <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
         </div>
-        <div form-error-block></div>
-        <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
-      </form>
     </div>
-  </div>
 </div>

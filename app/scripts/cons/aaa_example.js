@@ -105,7 +105,7 @@ define([], function () {
                         {text: '取消全选', event: 'cancel_all_select'},
                         {
                             text: '修改子订单状态',
-                            fieldFirective: '<div change-deliveries-status data="list"></div>',
+                            directive: '<div change-deliveries-status data="list"></div>',
                         },
                     ]
                 }

@@ -92,7 +92,7 @@ define([], function () {
                     //     {text: '取消全选', event: 'cancel_all_select'},
                     //     {
                     //         text: '批量退款',
-                    //         fieldFirective: '<div order-refunds data="data"></div>',
+                    //         directive: '<div order-refunds data="data"></div>',
                     //     },
                     // ]
                 // }

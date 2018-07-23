@@ -94,8 +94,8 @@ define([
                                     } else if (eventBtn_val.event == 'cancel_all_select') {
                                         eventBtn += ' <a class="btn btn-info btn-rounded btn-sm" ng-click="cancel_all_select();">' +
                                             eventBtn_val.text + '</a> ';
-                                    } else if (eventBtn_val.fieldFirective) {
-                                        eventBtn += eventBtn_val.fieldFirective;
+                                    } else if (eventBtn_val.directive) {
+                                        eventBtn += eventBtn_val.directive;
                                     }
                                 });
                             }

@@ -1,4 +1,4 @@
-define([], function () {
+define([], function() {
 
     var api = {};
     var env = '';
@@ -27,7 +27,7 @@ define([], function () {
         qiniu_domain = 'https://uat.ahaschool.com';
         wx_domain = 'https://n.ahaschool.com';
     } else if (location.href.indexOf('//test.ahaschool.com/bpm') > 0
-    || location.href.indexOf('//bpm-test.d.ahaschool.com') > 0
+        || location.href.indexOf('//bpm-test.d.ahaschool.com') > 0
     // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
         env = 'test';
@@ -60,8 +60,7 @@ define([], function () {
         'account_check': domain + '/account/check',//登陆获取手机验证码
         'account_login': domain + '/account/login',//登陆
         'account_mans': domain + '/account/mans',
-    }
-
+    };
 
     var rtn = {
         api: api,
@@ -155,8 +154,27 @@ define([], function () {
         district: [
             // {text: '--选择--', value: undefined},
             // {text: '00', value: '0'},
-        ]
-        ,
-    }
+        ],
+        // 课程分类
+        tab_list: [
+            {text: '推荐', value: '1'},
+            {text: '艺术', value: '2'},
+            {text: '科学', value: '3'},
+            {text: '数学', value: '4'},
+            {text: '通识', value: '5'},
+            {text: '文史', value: '6'},
+            {text: '学习力', value: '7'},
+            {text: '英语', value: '8'},
+        ],
+        // 学龄标签
+        tag_list: [
+            {text: '不限', value: '9'},
+            {text: '学龄前', value: '10'},
+            {text: '小学低', value: '11'},
+            {text: '小学高', value: '12'},
+            {text: '初中', value: '13'},
+            {text: '高中', value: '14'},
+        ],
+    };
     return rtn;
 });

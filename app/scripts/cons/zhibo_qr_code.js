@@ -35,7 +35,7 @@ define(['./common'], function (common) {
                     eventBtn: [
                         {
                             text: '新增微信拼课二维码',
-                            fieldFirective: '<div add-zhibo-qr-code data=""></div>',
+                            directive: '<div add-zhibo-qr-code data=""></div>',
                         },
                     ]
                 }

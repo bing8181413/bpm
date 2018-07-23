@@ -43,6 +43,13 @@ define(['.././common'], function(common) {
                     '</div>',
                 },
                 {
+                    name: '类型', className: 'width200 mobile_show',
+                    fieldDirective: '<div>' +
+                    '<p><span >分类</span>: <span ng-bind="item.tab_id|common:\'tab_list\'"></span></p>' +
+                    '<p><span >标签</span>: <span ng-repeat="obj in item.tags" ng-bind="(obj.tab_id|common:\'tag_list\') +\',\'"></span></p>' +
+                    '</div>',
+                },
+                {
                     name: '备注', className: 'width150 mobile_show',
                     fieldDirective: '<div><p><span ng-bind="item.remark"></span></p>' +
                     '</div>',
@@ -73,6 +80,20 @@ define(['.././common'], function(common) {
                         ],
                     },
                     {text: '关键字', value: 'keyword', type: 'text'},
+                    {
+                        text: '课程分类',
+                        paramDirective: '<select class="form-control" ng-model="params.tab_id" ' +
+                        'ng-options="item.value as item.text for item in $root.common.tab_list">' +
+                        '<option value="">--  请选择  --</option>' +
+                        '</select>',
+                    },
+                    {
+                        text: '学龄标签',
+                        paramDirective: '<select class="form-control" ng-model="params.tag_id" ' +
+                        'ng-options="item.value as item.text for item in $root.common.tag_list">' +
+                        '<option value="">--  请选择  --</option>' +
+                        '</select>',
+                    },
                 ],
                 preSelectionSearch: {
                     // status: '0',

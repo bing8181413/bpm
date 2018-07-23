@@ -39,11 +39,11 @@ define([], function () {
                     eventBtn: [
                         {
                             text: '新增图片',
-                            fieldFirective: '<div add-resource-image data=""></div>',
+                            directive: '<div add-resource-image data=""></div>',
                         },
                         {
                             text: '新增音频',
-                            fieldFirective: '<div add-resource-media data=""></div>',
+                            directive: '<div add-resource-media data=""></div>',
                         },
                     ]
                 }
