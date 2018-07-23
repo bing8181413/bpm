@@ -157,7 +157,7 @@ define([], function() {
         ],
         // 课程分类
         tab_list: [
-            {text: '推荐', value: '1'},
+            // {text: '推荐', value: '1'},
             {text: '艺术', value: '2'},
             {text: '科学', value: '3'},
             {text: '数学', value: '4'},
@@ -168,7 +168,7 @@ define([], function() {
         ],
         // 学龄标签
         tag_list: [
-            {text: '不限', value: '9'},
+            // {text: '不限', value: '9'},
             {text: '学龄前', value: '10'},
             {text: '小学低', value: '11'},
             {text: '小学高', value: '12'},
