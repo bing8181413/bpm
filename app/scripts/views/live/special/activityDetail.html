@@ -6,21 +6,22 @@
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate>
 
-                <div form-input ng-model="param.title" text="标题" required="true"></div>
+                <div form-input ng-model="param.title" text="标题" required="true" max="10" placeholder="简介最多10个字"></div>
 
-                <div form-input ng-model="param.briefing" text="简介" required="true"></div>
+                <div form-input ng-model="param.briefing" text="简介" required="true" max="26" placeholder="简介最多26个字"></div>
 
+                <h4 class="text-danger col-sm-offset-2 col-sm-10">头图尺寸 690*318 </h4>
                 <div form-image-single ng-model="param.head_pic_url" text="头图" required="true"></div>
 
-                <div form-radio text="类型" ng-model="param.type" default="1" source="[{text:'配置内容',value:'1'},{text:'活动链接',value:'2'}]"></div>
+                <div form-radio text="类型" ng-model="param.type" default="1" source="[{text:'配置内容',value:'1'},{text:'活动链接',value:'2'}]" required="true"></div>
 
-                <div form-input ng-model="param.activity_url" text="活动链接" required="true" ng-if="param.type == 2"></div>
+                <div form-input ng-model="param.activity_url" text="活动链接" required="true" ng-if="param.type == 2" required="true"></div>
 
                 <div special-detail-contents text="专题内容" ng-model="param.contents" ng-show="param.type == 1"></div>
 
-                <div form-date-time ng-model="param.online_time" text="上线时间"></div>
+                <div form-date-time ng-model="param.online_time" text="上线时间" required="true"></div>
 
-                <div form-radio text="状态" ng-model="param.status" default="" source="[{text:'上线',value:'1'},{text:'下线',value:'2'}]"></div>
+                <div form-radio text="状态" ng-model="param.status" default="1" source="[{text:'上线',value:'1'},{text:'下线',value:'2'}]" required="true"></div>
 
                 <a class="btn btn-primary btn-rounded pull-right " ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
             </form>
