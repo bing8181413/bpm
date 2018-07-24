@@ -19,7 +19,7 @@
 
                 <div special-detail-contents text="专题内容" ng-model="param.contents" ng-show="param.type == 1"></div>
 
-                <div form-date-time ng-model="param.online_time" text="上线时间" required="true" ng-disabled="true"></div>
+                <div form-date-time ng-model="param.online_time" text="上线时间" required="true" ng-show="false"></div>
 
                 <div form-radio text="状态" ng-model="param.status" default="1" source="[{text:'上线',value:'1'},{text:'下线',value:'2'}]" required="true"></div>
 
