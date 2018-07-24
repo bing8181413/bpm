@@ -9,7 +9,7 @@ define(['.././common'], function(common) {
                     name: '专题头图', className: 'text-center',
                     fieldDirective: '<show_image url="item.head_pic_url" width="100"></show_image>',
                 },
-                {name: '创建时间', field: 'created_at'},
+                {name: '上线时间', field: 'online_time'},
 
                 {name: '状态', field: 'status', filter: 'keyVal:\'1\':\'正常\':\'2\':\'删除\''},
 

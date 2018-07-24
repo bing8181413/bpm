@@ -3,6 +3,7 @@ define(['.././common'], function(common) {
         specialActivityList: {
             columns: [
                 {name: 'ID', field: 'id', className: 'text-center'},
+                {name: '排序', field: 'order_by', className: 'text-center'},
                 {name: '专题组名称', field: 'name', className: 'text-center'},
 
                 {name: '类型', field: 'type', filter: 'keyVal:\'1\':\'专题组\':\'2\':\'活动\'', className: 'text-center'},

@@ -29,7 +29,9 @@
         <div class="panel-body">
             <form class="form-horizontal" name="FormBody" novalidate>
 
-                <div form-input ng-model="param.name" text="专题组名称" required="true"></div>
+                <div form-input ng-model="param.name" text="专题组名称" maxlength="5" placeholder="专题组名称最多5个字" required="true"></div>
+
+                <div form-input ng-model="param.order_by" text="排序" required="true" type="number" min="0" max="100000"></div>
 
                 <div form-radio text="类型" ng-model="param.type" default="" source="[{text:'专题组',value:'1'}]"></div>
 
