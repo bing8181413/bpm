@@ -135,6 +135,11 @@ define([
                                     $scope.init();
                                 }
 
+                                $scope.$watch('param.status', function(val, oldVal) {
+                                    if (val != oldVal) {
+                                        $scope.param.online_time = $filter('date')(new Date(), 'yyyy-MM-dd HH:mm:ss');
+                                    }
+                                });
                                 $scope.submit = function() {
                                     widget.ajaxRequest({
                                         url: con.live_domain + '/live/special/activity/details' + (resolve_data.id && ('/' + resolve_data.id) || ''),

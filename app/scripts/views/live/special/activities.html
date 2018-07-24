@@ -31,7 +31,7 @@
 
                 <div form-input ng-model="param.name" text="专题组名称" maxlength="5" placeholder="专题组名称最多5个字" required="true"></div>
 
-                <div form-input ng-model="param.order_by" text="排序" required="true" type="number" min="0" max="100000"></div>
+                <div form-input ng-model="param.order_by" text="排序" required="true"></div>
 
                 <div form-radio text="类型" ng-model="param.type" default="" source="[{text:'专题组',value:'1'}]"></div>
 
@@ -80,6 +80,7 @@
 
                 <div form-radio text="状态" ng-model="param.status" default="" source="[{text:'上线',value:'1'},{text:'下线',value:'2'}]"></div>
 
+                <div form-error-block></div>
                 <a class="btn btn-primary btn-rounded pull-right " ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
             </form>
         </div>
