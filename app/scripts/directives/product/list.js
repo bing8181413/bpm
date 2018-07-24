@@ -552,9 +552,9 @@ define([
                                         o.poster_level_one = Number(o.poster_level_one || 10);
 
                                         // 二级
-                                        o.groupbuy_in_level_two = Number(o.groupbuy_in_level_two || 10);
-                                        o.groupbuy_elastic_level_two = Number(o.groupbuy_elastic_level_two || 10);
-                                        o.poster_level_two = Number(o.poster_level_two || 10);
+                                        o.groupbuy_in_level_two = Number(o.groupbuy_in_level_two || 0);
+                                        o.groupbuy_elastic_level_two = Number(o.groupbuy_elastic_level_two || 0);
+                                        o.poster_level_two = Number(o.poster_level_two || 0);
 
                                         o.open_state = o.open_state || '2';
                                         o.open_product_poster = o.open_product_poster || '1';
