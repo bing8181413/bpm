@@ -52,7 +52,7 @@ define([], function() {
                 },
             },
             studentships_columns: [
-                {name: '分销层级', field: 'tuan_type|studentships_type:item.distribution_type', className: 'text-center'},
+                {name: '分销层级', field: 'tuan_type|studentships_type:item.distribution_type:item.level', className: 'text-center'},
                 {name: '收益人数', field: 'user_num|null2empty', className: 'text-center'},
                 {name: '订单', field: 'order_num|null2empty', className: 'text-center'},
                 {name: '奖学金金额', field: 'coin_total|null2empty', className: 'text-center'},

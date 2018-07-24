@@ -10,18 +10,36 @@ define([
            distribution_type
         */
         .filter('studentships_type', [function () {
-            return function (tuan_type,distribution_type) {
+            return function (tuan_type,distribution_type,level) {
                 var result = '未知';
-                tuan_type +='';
-                distribution_type +='';
-                if(tuan_type=='1' && distribution_type == '0'){
-                    result= '团内一级奖学金';
-                }else if(tuan_type=='2' && distribution_type == '0'){
-                    result= '团外一级奖学金';
-                }else if(tuan_type=='0' && distribution_type == '1'){
-                    result= '直接买一级分销';
-                }else if(tuan_type=='0' && distribution_type == '4'){
-                    result= '弹性团一级奖学金';
+                tuan_type = Number(tuan_type);
+                distribution_type = Number(distribution_type);
+                level = Number(level);
+                var param =  [tuan_type,distribution_type,level].join(',');
+                switch (param){
+                    case '1,0,1':
+                        result = '团内一级奖学金';
+                        break;
+                    case '2,0,1':
+                        result = '团外一级奖学金';
+                        break;
+                    case '0,1,1':
+                        result = '直接买一级分销';
+                        break;
+                    case '0,4,1':
+                        result = '弹性团一级奖学金';
+                        break;
+                    case '1,0,2':
+                        result = '团内二级奖学金';
+                        break;
+                    case '2,0,2':
+                        result = '团内二级奖学金';
+                        break;
+                    case '0,1,2':
+                        result = '直接买二级分销';
+                        break;
+                    default:
+                        result = '未知类型';
                 }
 
                 return result;
