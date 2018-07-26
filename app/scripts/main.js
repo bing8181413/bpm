@@ -35,7 +35,7 @@ require.config({
         "angular-aria": "../vendor/angular-aria/angular-aria.min", //
         "dndLists": "../vendor/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min", //
         "app-tpl": "./app-tpl",
-        "ng.simditor": "../vendor/ng.simditor/dist/ng-simditor",
+        "ng.simditor": "../vendor/ng.simditor/src/ng-simditor", // 自定义了
         "simple-module": "../vendor/simple-module/lib/module",
         "hotkeys": "../vendor/simple-hotkeys/lib/hotkeys",
         "simditor": "../vendor/simditor/lib/simditor",
