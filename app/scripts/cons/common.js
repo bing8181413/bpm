@@ -36,11 +36,20 @@ define([], function() {
         web_domain = 'https://bpm-test.d.ahaschool.com';
         qiniu_domain = 'https://testbpm.ahaschool.com';
         wx_domain = 'https://testm.ahaschool.com';
+    } else if (location.href.indexOf('//bpm-test2.d.ahaschool.com') > 0
+    // || location.href.indexOf('//bpm.hjm.com') > 0
+    ) {
+        env = 'test2';
+        env_name = '测试系统2';
+        domain = 'https://mgrapi-test2.d.ahaschool.com';
+        web_domain = 'https://bpm-test2.d.ahaschool.com';
+        qiniu_domain = 'https://testbpm.ahaschool.com';
+        wx_domain = 'https://testm2.ahaschool.com';
     } else if (location.href.indexOf('//testbpm.ahaschool.com') > 0
     // || location.href.indexOf('//bpm.hjm.com') > 0 || location.href.indexOf('//http://localhost')
     ) {
         env = 'test';
-        env_name = '测试系统2';
+        env_name = '测试系统old';
         domain = 'https://testmgrapi.ahaschool.com';
         web_domain = 'https://testbpm.ahaschool.com';
         qiniu_domain = 'https://testbpm.ahaschool.com';
