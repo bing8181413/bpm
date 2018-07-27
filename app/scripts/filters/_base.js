@@ -33,7 +33,7 @@ define([
                         result = '团内二级奖学金';
                         break;
                     case '2,0,2':
-                        result = '团内二级奖学金';
+                        result = '团外二级奖学金';
                         break;
                     case '0,1,2':
                         result = '直接买二级分销';
