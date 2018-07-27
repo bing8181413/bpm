@@ -51,7 +51,7 @@ define([
                     content: '=',
                 },
                 // scope: false,
-                template: '<a class="btn btn-primary btn-rounded btn-sm" ng-click="open();" ng-bind="title||\'查看\'"></a>',
+                template: '<a class="btn btn-primary btn-rounded btn-xs" ng-click="open();" ng-bind="title||\'查看\'"></a>',
                 link: function ($scope, $element, $attrs) {
                     var supscope = $scope;
                     var content = '';
