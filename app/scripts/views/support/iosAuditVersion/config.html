@@ -1,0 +1,15 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title inlineBlock">IOS 审核版本更新</h3>
+    </div>
+    <div class="panel-body">
+        <form class="form-horizontal" name="FormBody" novalidate>
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                    <div form-input text="审核版本号" ng-model="param.ios_audit_version" input-width="400" placeholder="版本号，例:2.5" required="true"></div>
+                    <a class="btn btn-success btn-rounded" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
