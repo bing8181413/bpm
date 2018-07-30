@@ -3,7 +3,7 @@ define([
     './../controllers'
     , '../../cons/simpleCons',
 ], function(mod, con) {
-    mod.controller('iosAuditVersion.configController', configController);
+    mod.controller('iosauditversion.configController', configController);
 
     configController.$injector = [
         '$scope',

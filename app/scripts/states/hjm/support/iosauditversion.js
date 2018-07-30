@@ -1,7 +1,7 @@
 define([
         '../../states'
         , '../../../cons/simpleCons'
-        , '../../../controllers/support/iosAuditVersionController',
+        , '../../../controllers/support/iosauditversionController',
     ],
     function(stateModule, cons) {
         stateModule.config(
@@ -17,9 +17,9 @@ define([
                         url: '/config.html',
                         views: {
                             '': {
-                                controller: 'iosAuditVersion.configController',
+                                controller: 'iosauditversion.configController',
                                 templateProvider: function($templateCache) {
-                                    return $templateCache.get('app/' + cons.support_path + 'iosAuditVersion/config.html');
+                                    return $templateCache.get('app/' + cons.support_path + 'iosauditversion/config.html');
                                 },
                             },
                         },
