@@ -24,7 +24,7 @@
     </style>
     <div class="form-group">
         <a class="btn btn-rounded btn-xs" ng-class="{'btn-success':read,'btn-warning':!read}"
-           ng-click="read=!read;"><span class="glyphicon fa fa-refresh"></span> 拖拽排序模式 </a>
+           ng-click="read=!read;"><span class="glyphicon fa fa-refresh"></span> <span ng-bind="read?'拖拽排序模式':'编辑模式'"></span> </a>
     </div>
     <div class="form-group" ng-show="!read" ng-repeat="item in ngModel" style="margin-bottom: 0;border: 1px solid #ccc;">
         <br>
@@ -67,8 +67,6 @@
         </div>
     </div>
     <div ng-show="read">
-        <h4 class="text-primary">排序模式</h4>
-
         <ul class="list-group dndsimpleSubject" dnd-list="ngModel">
 
             <li class="list-group-item" ng-repeat="(key,item) in ngModel"
@@ -78,7 +76,8 @@
                         <label class="label label-success" ng-bind="'第 '+($index+1)"></label>
                     </div>
                     <div class="col-sm-1" dnd-nodrag>
-                        <label class="label label-success" ng-bind="item.padding==1?'有上边框':''"></label>
+                        <label class="label" ng-class="{'label-primary':item.padding == 1,'label-danger':item.padding == 0}"
+                               ng-bind="item.padding==1?'有上边距':'无上边距'"></label>
                     </div>
                     <div class="col-sm-9" dnd-nodrag>
                         <div class="row" ng-if="item.type == 1">
