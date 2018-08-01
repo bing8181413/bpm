@@ -14,7 +14,7 @@ define([
                 var result = '未知';
                 tuan_type = Number(tuan_type);
                 distribution_type = Number(distribution_type);
-                level = Number(level);
+                level = Number(level||1);
                 var param =  [tuan_type,distribution_type,level].join(',');
                 switch (param){
                     case '1,0,1':
