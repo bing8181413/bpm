@@ -12,7 +12,7 @@ define([], function() {
                     fieldDirective: '<p>ID:  <span ng-bind="item.product_id"></span>' +
                     '<br/>标题: <span ng-bind="item.product.title"></span></p>',
                 },
-                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item"></div>'},i
+                {name: '拼团规则', fieldDirective: '<div groupbuy-pattern data="item"></div>'},
                 {name: '开团用户', fieldDirective: '<div groupbuy-order data="item"></div>'},
                 {name: '团订单数', fieldDirective: '<div groupbuy-order-copies data="item"></div>'},
                 // {name: '成功购买份数', field: 'order.copies'},
