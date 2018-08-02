@@ -12,7 +12,7 @@
                              source="[{text:'发放',value:1},{text:'扣除',value:2}]"></div>
 
                         <div form-radio text="扣除" ng-model="param.type" default="1" ng-show="param.in_out===2"
-                             source="[{text:'总额扣除',value:1}]"></div>
+                             source="[{text:'提现额度',value:1},{text:'奖学金总额',value:2}]"></div>
 
                         <div class="row"><span class="col-sm-offset-2 text-primary lead">金额单位：元</span></div>
                         <div form-table text="直接买课程类目" ng-model="param.users" max="100"
