@@ -4,7 +4,10 @@ define([], function() {
             columns: [
                 {name: 'ID', field: 'batch_no', className: 'text-center width200'},
                 {name: '类型', field: 'in_out_name', className: 'text-center'},
-                {name: '扣除类型', fieldDirective: '<span ng-bind="item.type|keyVal:1:\'提现额度\':2:\'奖学金总额\'"></span>', className: 'text-center'},
+                {
+                    name: '扣除类型',className: 'text-center',
+                    fieldDirective: '<span ng-bind="item.type|keyVal:[1,\'1\']:\'提现额度\':[2,\'2\']:\'奖学金总额\'" ng-show="item.in_out!=1"></span>',
+                },
                 {name: '奖学金总金额', field: 'coin_sum', className: 'text-center'},
                 {
                     name: '用户', className: 'text-center',

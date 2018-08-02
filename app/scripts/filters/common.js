@@ -25,19 +25,55 @@ define([
         .filter('keyVal', [
             function() {
                 return function(val, key1, val1, key2, val2, key3, val3, key4, val4) {
+                    // 支持数组对象  |keyVal:[1,'1']:'提现额度':[2,'2']:'奖学金总额'
+                    // 支持基础类型  |keyVal:1:'提现额度':'2':'奖学金总额'
                     var rtn = val;
                     val += '';
+                    var getType = function(valType) {
+                        return Object.prototype.toString.call(valType);
+                    };
+                    var key_str, key_number;
+                    var keyMatchObj = [{}, {}, {}, {}];
+                    var keys = [key1, key2, key3, key4];
+
+                    function splitArrStr(key_x) { // 分割数组为基础类型
+                        if (getType(key_x) === '[object Array]') {
+                            key_number = key_x[1];
+                            key_str = key_x[0];
+                        } else {
+                            key_str = key_number = key_x;
+                        }
+                        return [key_str+'', key_number];
+                    }
+
+                    (function getKeyArray() {
+                        var args = keys.filter(function(item, index) {
+                            return getType(item) !== '[object Undefined]';
+                        });
+                        for (var i = 0; i < args.length; i++) {
+                            (function f(i) {
+                                var obj = splitArrStr(args[i]);
+                                keyMatchObj[i] = {num: obj[0], str: obj[1]};
+                            })(i);
+                        }
+                        return keyMatchObj;
+                    })();
+
                     switch (val) {
-                        case key1:
+                        case keyMatchObj[0].str:
+                        case keyMatchObj[0].num:
                             rtn = val1;
                             break;
-                        case key2:
+                        case keyMatchObj[1].str:
+                        case keyMatchObj[1].num:
                             rtn = val2;
                             break;
-                        case key3:
+                        case keyMatchObj[2].str:
+                        case keyMatchObj[2].num:
                             rtn = val3;
                             break;
-                        case key4:
+                        case keyMatchObj[3].str:
+                        case keyMatchObj[3].num:
                             rtn = val4;
                             break;
                         default :
