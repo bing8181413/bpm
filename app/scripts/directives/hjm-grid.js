@@ -553,8 +553,9 @@ define([
                                                     var btnClickHtml = '';
                                                     angular.forEach(enum_val.value, function (enum_val_arr, enum_key_arr) {
                                                         // console.log(val.enum_text, val.enum_text[enum_key_arr],enum_key_arr);
-                                                        btnClickHtml += 'params.' + val.enum_text[enum_key_arr] + ' = \'' +
-                                                            enum_val_arr + '\';';
+                                                        var enum_val_arr = Object.prototype.toString.call(enum_val_arr)=== '[object Undefined]'?
+                                                            (enum_val_arr):('\'' + enum_val_arr + '\'');
+                                                        btnClickHtml += 'params.' + val.enum_text[enum_key_arr] + ' = ' + enum_val_arr + ';';
                                                     });
                                                     btnClickHtml += 'autoSearch=!!!autoSearch;' + val.value + '=\'' +
                                                         enum_key + '\'';

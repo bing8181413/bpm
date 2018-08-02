@@ -36,7 +36,7 @@ define([], function() {
         web_domain = 'https://bpm-test.d.ahaschool.com';
         qiniu_domain = 'https://testbpm.ahaschool.com';
         wx_domain = 'https://testm.ahaschool.com';
-    } else if (location.href.indexOf('//bpm-test2.d.ahaschool.com') > 0
+    } else if (location.href.indexOf('//bpm-test2.d.ahaschool.com') > 0 // 测试 2
     // || location.href.indexOf('//bpm.hjm.com') > 0
     ) {
         env = 'test2';
@@ -177,12 +177,12 @@ define([], function() {
         ],
         // 学龄标签
         tag_list: [
-            // {text: '不限', value: '9'},
-            {text: '学龄前', value: '10'},
-            {text: '小学低', value: '11'},
-            {text: '小学高', value: '12'},
-            {text: '初中', value: '13'},
-            {text: '高中', value: '14'},
+            // {text: '不限', value: 9},
+            {text: '学龄前', value: 10},
+            {text: '小学低', value: 11},
+            {text: '小学高', value: 12},
+            {text: '初中', value: 13},
+            {text: '高中', value: 14},
         ],
     };
     return rtn;

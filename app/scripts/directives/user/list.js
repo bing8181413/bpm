@@ -199,21 +199,28 @@ define([
                                 scope: $scope,
                                 data: {},
                                 success: function(json) {
-                                    supscope.$parent.searchAction();
+                                    supscope.data.mobile = '';
+                                    widget.msgToast('解绑成功');
                                 },
                             });
                         }
                     };
                     $scope.show_bind_mobile = function() {
-                        var mobile = prompt('确定解绑该用户手机号码');
-                        if (mobile && mobile.length == 11) {
+                        var mobile = prompt('确定绑定该用户手机号码');
+                        if (mobile && mobile.length === 11) {
                             widget.ajaxRequest({
                                 url: '/users/' + supscope.data.user_id + '/mobile',
                                 method: 'put',
                                 scope: $scope,
                                 data: {mobile: mobile},
                                 success: function(json) {
-                                    supscope.$parent.searchAction();
+                                    if(json.code === 0){
+                                        supscope.data.mobile = mobile;
+                                        widget.msgToast('绑定成功');
+                                    }else{
+                                        widget.msgToast(json.message||('错误码: '+json.code));
+                                    }
+
                                 },
                             });
                         }

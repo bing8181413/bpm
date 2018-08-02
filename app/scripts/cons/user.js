@@ -6,7 +6,7 @@ define([], function() {
                 {name: '头像', fieldDirective: '<show_image url="item.avatar" width="100"></show_image>'},
                 {name: '微信昵称', field: 'name', filter: 'null2empty'},
                 {name: '性别', field: 'gender', filter: 'gender'},
-                {name: '手机号', field: 'mobile'},
+                {name: '手机号', fieldDirective: ' <span ng-bind="item.mobile"></span>'},
                 {
                     name: '获取验证码',
                     fieldDirective: '<div user-captcha data="item"></div>',
