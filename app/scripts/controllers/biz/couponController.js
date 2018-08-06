@@ -11,6 +11,7 @@ define([
         $scope.aaa = function () {
             console.log('$scope.param', $scope.param);
         }
+        var count = 2000;
         $timeout(function () {
             $scope.is_nofity = 0;
         }, 1000);
@@ -22,8 +23,8 @@ define([
                 return false;
             } else {
                 $scope.param.mobile_list = $scope.param.mobile_list.replace(/\n/g, ',').replace(/，/g, ',');
-                if ($scope.param.mobile_list.split(',').length > 50) {
-                    widget.msgToast('手机号码超过50个不能添加优惠券');
+                if ($scope.param.mobile_list.split(',').length > count) {
+                    widget.msgToast('手机号码超过' +count+'个不能添加优惠券');
                     return false;
                 }
             }
