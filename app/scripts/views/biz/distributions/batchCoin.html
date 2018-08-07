@@ -15,10 +15,10 @@
                              source="[{text:'提现额度',value:1},{text:'奖学金总额',value:2}]"></div>
 
                         <div class="row"><span class="col-sm-offset-2 text-primary lead">金额单位：元</span></div>
-                        <div form-table text="直接买课程类目" ng-model="param.users" max="100"
+                        <div form-table text="添加手机号码" ng-model="param.users" max="100"
                              columns="[
                              {'name': '用户手机号', 'field': 'mobile',required:'true'},
-                             {'name': '金额', 'field': 'coin',type:'number',min:'0',required:'true'},
+                             {'name': '增减金额', 'field': 'coin',type:'number',min:'0',required:'true'},
                              {'name':'是否失败','class':'text-center', fieldDirective:'
                              <label class=\'text-danger\' ng-show=\'$parent.$parent.$parent.failureStr.indexOf(item.mobile)>-1\'>失败</label>'}]"></div>
 
