@@ -1,0 +1,15 @@
+<div class="dashboard-page">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock">新用户引导视频组配置 添加视频组ID</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal" name="FormBody" novalidate>
+
+                <div form-input ng-model="video_group_id" text="视频组ID" placeholder="视频组ID" required="true"></div>
+
+                <a class="btn btn-primary btn-rounded pull-right" ng-disabled="FormBody.$invalid" ng-click="submit()">提交</a>
+            </form>
+        </div>
+    </div>
+</div>

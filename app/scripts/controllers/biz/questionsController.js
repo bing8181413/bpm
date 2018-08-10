@@ -19,7 +19,7 @@ define([
         'is_modal',
     ];
 
-    function questionsController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, comfunc, $filter, $templateCache, $q, resolve_data) {
+    function questionsController($scope, $http, $rootScope, $uibModal, $state, $stateParams, widget, $filter, $templateCache, $q, resolve_data) {
         $scope.is_modal = resolve_data.is_modal;//有2个页面同事使用的controller 需要区分重复  传入resolve对象
         $scope.is_modal_room_id = resolve_data.room_id;
         console.log(resolve_data);

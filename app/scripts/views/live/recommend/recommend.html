@@ -1,0 +1,77 @@
+<div class="dashboard-page">
+    <style type="text/css">
+        .inlineBlock {
+            display: inline-block;
+        }
+
+        .dndDragging {
+            opacity: 0.7;
+        }
+
+        .dndDraggingSource {
+            display: none;
+        }
+
+        .dndPlaceholder {
+            background-color: #ddd;
+            height: 50px;
+            border: 1px solid #ddd;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: center;
+        }
+
+        .dndsimpleSubject *[dnd-list] > .selected {
+            background-color: #dff0d8;
+            color: #3c763d;
+            width: 1000px;
+        }
+    </style>
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title inlineBlock">新用户引导视频组配置</h3>
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="row">
+                    <h4 class="text-primary">本页数据拖动排序或者删除，需要点击提交，APP上才起作用，否则白做</h4>
+                </div>
+                <div class="col-sm-10 form-group" dndsimpleSubject>
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th class="text-center" style="width: 150px;">拖动排序</th>
+                            <th class="text-center" style="width: 150px;">视频组ID</th>
+                            <th class="text-left">视频组名</th>
+                            <th class="text-center" style="width: 150px;">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody dnd-list="data">
+                        <tr ng-repeat="(key,item) in data" dnd-draggable="item" dnd-moved="data.splice(key, 1);" dnd-effect-allowed="move">
+                            <td class="text-center">
+                                <a class="btn btn-info" ng-bind="item.order_by"></a>
+                                <!--<span class="label lead" ng-bind="item.order_by"></span>-->
+                                <!--<span class="label label-primary fa fa-th-list" ng-bind="item.order_by"></span>-->
+                            </td>
+                            <td dnd-nodrag class="text-center"><span ng-bind="item.video_group.id"></span></td>
+                            <td dnd-nodrag class="text-left">
+                                <p>
+                                    <span ng-bind="item.video_group.group_title"></span>
+                                </p>
+                            </td>
+                            <td dnd-nodrag class="text-center">
+                                <a class="btn btn-danger btn-sm btn-rounded" ng-click="data.splice(key,1);">删除</a>
+                            </td>
+                        </tr>
+                        <tr class="dndPlaceholder">
+                            <td class="text-center" colspan="10"><h3 class="red">拖拽到这里</h3></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <a class="btn btn-primary btn-lg btn-rounded" ng-click="update();">提交</a>
+                    <a class="btn btn-warning btn-lg btn-rounded pull-right" ng-click="add();">添加视频组ID</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

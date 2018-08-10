@@ -17,6 +17,7 @@ define([
         , './workUser'//视频组任务答题  用户列表
         , './special_activity'// APP 专题组
         , './special_activity_detail'//  APP 专题列表
+        , './recommend'//  新用户引导视频组 配置
     ],
     function(stateModule, cons) {
         stateModule.config(
