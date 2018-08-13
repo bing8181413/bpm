@@ -6,7 +6,7 @@ define([
     // console.log('bootstrap.js');
     angular.element(document).ready(function () {
         // console.log('bootstrap start ');
-        angular.bootstrap(document, ['huijiaApp']);
+        angular.bootstrap(document, ['ahaApp']);
         //console.log('bootstrap  end ');
     });
 });

@@ -33,6 +33,7 @@ require.config({
         "angular-truncate": "../vendor/angular-truncate/src/truncate",
         "angucomplete-alt": "../vendor/angucomplete-alt/dist/angucomplete-alt.min", // 订单的修改收货地址  使用
         "angular-aria": "../vendor/angular-aria/angular-aria.min", //
+        "angular-mocks": "../vendor/angular-mocks/angular-mocks", // mocks 数据 为令军需要的功能
         "dndLists": "../vendor/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min", //
         "app-tpl": "./app-tpl",
         "ng.simditor": "../vendor/ng.simditor/src/ng-simditor", // 自定义了
@@ -53,6 +54,7 @@ require.config({
         "angular-animate": {deps: ["angular"]},
         "angucomplete-alt": {deps: ["angular"]},
         "angular-aria": {deps: ["angular"]},
+        "angular-mocks": {deps: ["angular"]}, // angular-mocks
         "angular-truncate": {deps: ["angular"]},
         "ui.bootstrap": {deps: ["angular"]},
         "app-tpl": {deps: ["angular"]},

@@ -131,7 +131,7 @@ define(['./services', '../cons/simpleCons'], function(mod, cons) {
                                     // get请求才能够刷新页面
                                     var default_version = '2018-10-01 00:00:00';
                                     var current_page_version_number = $filter('date')(version == 'timestamp' ? default_version : version, 'yyyy-MM-dd HH:mm:ss');
-                                    var new_version_number = $filter('date')(res.data.versions.version, 'yyyy-MM-dd HH:mm:ss');
+                                    var new_version_number = $filter('date')(res.data.versions && res.data.versions.version, 'yyyy-MM-dd HH:mm:ss');
                                     if (new_version_number > current_page_version_number) {
                                         var obj_version = [
                                             {

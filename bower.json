@@ -10,6 +10,7 @@
     "angular-cookies": "1.2.2",
     "angular-file-upload": "~1.1.5",
     "angular-loading-bar": "^0.9.0",
+    "angular-mocks": "^1.2.19",
     "angular-resource": "1.2.2",
     "angular-route": "1.2.2",
     "angular-sanitize": "1.2.2",

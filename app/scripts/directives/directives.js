@@ -1,3 +1,3 @@
 define(['angular'], function (angular) {
-  return angular.module('huijiaDirectives', []);
+  return angular.module('ahaDirectives', []);
 });

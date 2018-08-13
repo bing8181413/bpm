@@ -1,6 +1,7 @@
 define([
     // 'jquery',
     // 'angular',
+    'angular-mocks',
     'ui.router',
     'angular-animate',
     'dndLists',
@@ -34,11 +35,13 @@ define([
     'directives/_base',
     'filters/_base',
     'services/_base',
+    'mock/_base',
     'app-tpl'
 ], function () {
     //console.log('app.js');
 
-    return angular.module('huijiaApp', [
+    return angular.module('ahaApp', [
+        'ngMockE2E', // ngMock 是 angular-mocks 里面的 一个model
         'ui.router',
         'ngAnimate',
         'dndLists',
@@ -61,11 +64,12 @@ define([
         'progressButton',
         // 'ZeroClipboard',
         // 'asyncLoader',
-        'huijiaControllers',
-        'huijiaStates',
-        'huijiaDirectives',
-        'huijiaFilters',
-        'huijiaServices',
+        'ahaControllers',
+        'ahaStates',
+        'ahaDirectives',
+        'ahaFilters',
+        'ahaServices',
+        'ahaMock',
         'app-tpl',
     ]);
 });
