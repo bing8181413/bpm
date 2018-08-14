@@ -1,6 +1,6 @@
 define([
         'angular',
-        './getCommonMock',//  不需要的 mock 数据文件 注释就可以
+        './getCommonMock',//  不需要的 mock 数据文件 =====注释掉=====
         './productMock',
         './lessonsMock',
     ],
