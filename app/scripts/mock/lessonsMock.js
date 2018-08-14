@@ -1,6 +1,6 @@
 define([
-    'mock',
-],function(mock) {
+    // 'mock',
+],function() {
     var lessons = [
         {
             name: 'missed lesson option ', //无用
